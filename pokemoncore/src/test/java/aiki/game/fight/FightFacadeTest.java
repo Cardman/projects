@@ -37,6 +37,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.ObjectMap;
@@ -1359,7 +1360,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = fighterMoves(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.fighterMoves(fight_, POKEMON_PLAYER_FIGHTER_ZERO, _data_);
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -1417,7 +1418,7 @@ public class FightFacadeTest extends InitializationDataBase {
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = fighterMoves(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.fighterMoves(fight_, POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(0, moves_.size());
     }
@@ -1450,7 +1451,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fighterMoves(partnersMoves_, foesMoves_, player_, diff_);
         TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.fighterMoves(fight_, f_, _data_);
         ChosenMoveInfos infos_;
         assertEq(1, moves_.size());
@@ -1541,7 +1542,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = frontFighterMoves(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.frontFighterMoves(fight_, (byte) 0, _data_);
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -1599,7 +1600,7 @@ public class FightFacadeTest extends InitializationDataBase {
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = frontFighterMoves(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.frontFighterMoves(fight_, (byte) 1, _data_);
         assertEq(0, moves_.size());
     }
@@ -1628,7 +1629,7 @@ public class FightFacadeTest extends InitializationDataBase {
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = frontFighterMoves(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.frontFighterMoves(fight_, (byte) 2, _data_);
         assertEq(0, moves_.size());
     }
@@ -1715,7 +1716,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = backFighterMoves(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).usePowerPointsByMove(diff_, ECUME, (short) 25);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.backFighterMoves(fight_, (byte) 0, _data_);
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -1777,7 +1778,7 @@ public class FightFacadeTest extends InitializationDataBase {
         StringList foeMoves_ = new StringList(DETECTION,CHARGE);
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = backFighterMoves(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = FightFacade.backFighterMoves(fight_, (byte) 1, _data_);
         assertEq(0, moves_.size());
     }
@@ -2304,7 +2305,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.MOVE, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -2454,7 +2455,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.MOVE, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -2561,7 +2562,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.MOVE, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -2669,7 +2670,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.MOVE, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(1, moves_.size());
@@ -2752,7 +2753,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.SWITCH, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -2828,7 +2829,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.HEALING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -2902,7 +2903,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(2));
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(3));
         assertEq(ActionType.HEALING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -3000,7 +3001,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -3068,7 +3069,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -3136,7 +3137,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -3205,7 +3206,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -3275,7 +3276,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -4427,7 +4428,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(0));
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(1));
         assertEq(ActionType.HEALING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(EAU_FRAICHE, fight_.getChosenHealingMove());
@@ -4499,7 +4500,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(ActionType.NOTHING, fight_.getPossibleActionsCurFighter().get(0));
         assertEq(ActionType.HEALING, fight_.getPossibleActionsCurFighter().get(1));
         assertEq(ActionType.HEALING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -4963,7 +4964,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
         assertEq(ActionType.NOTHING, fight_.getSelectedActionCurFighter());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
@@ -6037,7 +6038,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(EAU_FRAICHE,fighter_.getChosenHealingItem());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -6092,7 +6093,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(EAU_FRAICHE,fighter_.getChosenHealingItem());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -6151,7 +6152,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(NULL_REF,fighter_.getChosenHealingItem());
         assertEq(HUILE, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -6234,7 +6235,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(NULL_REF,fighter_.getChosenHealingItem());
         assertEq(HUILE, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -6884,7 +6885,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(HUILE,fighter_.getChosenHealingItem());
         assertEq(HUILE, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         ChosenMoveInfos infos_;
         assertEq(4, moves_.size());
@@ -6971,7 +6972,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(NULL_REF,fighter_.getChosenHealingItem());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -7031,7 +7032,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fighter_.getSubstistute());
         assertEq(NULL_REF,fighter_.getChosenHealingItem());
         assertEq(NULL_REF, fight_.getChosenHealingMove());
-        NatTreeMap<String, ChosenMoveInfos> moves_;
+        NatStringTreeMap< ChosenMoveInfos> moves_;
         moves_ = fight_.getCurrentFighterMoves();
         assertEq(0, moves_.size());
         assertEq(0, fight_.getChosableFoeTargets().size());
@@ -8321,7 +8322,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
-        NatTreeMap<String,Boolean> map_ = FightFacade.getMoves(fight_, (byte) 0, TARINORME);
+        NatStringTreeMap<Boolean> map_ = FightFacade.getMoves(fight_, (byte) 0, TARINORME);
         assertEq(12, map_.size());
         assertTrue(map_.getVal(DETECTION));
         assertTrue(map_.getVal(ULTRASON));
@@ -12518,7 +12519,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = calculateCatchingRates(player_, PIKACHU, (short) 1, diff_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        NatTreeMap<String,BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, _data_);
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, _data_);
         assertEq(0, rates_.size());
     }
 
@@ -12543,7 +12544,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = calculateCatchingRates(player_, PIKACHU, (short) 1, diff_);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.wildPokemon().setRemainedHp(Rate.one());
-        NatTreeMap<String,BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, _data_);
+        NatStringTreeMap<BallNumberRate> rates_ = FightFacade.calculateCatchingRates(fight_, diff_, player_, _data_);
         assertEq(1, rates_.size());
         assertEq(LgInt.one(), rates_.getVal(HYPER_BALL).getNumber());
         assertEq(Rate.one(), rates_.getVal(HYPER_BALL).getRate());
@@ -12589,7 +12590,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getItem(HYPER_BALL);
         Fight fight_ = sortedFightersBeginRoundWildFight(player_, PTITARD, (short) 1, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
-        NatTreeMap<String,EqList<TeamPosition>> map_;
+        NatStringTreeMap<EqList<TeamPosition>> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, _data_);
         assertEq(1, map_.size());
         assertEq(2, map_.getVal(TOURNIQUET).size());
@@ -12617,7 +12618,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getItem(HYPER_BALL);
         Fight fight_ = sortedFightersBeginRoundWildFight(player_, PTITARD, (short) 10, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(ECUME);
-        NatTreeMap<String,EqList<TeamPosition>> map_;
+        NatStringTreeMap<EqList<TeamPosition>> map_;
         map_ = FightFacade.sortedFightersBeginRoundWildFight(fight_, _data_);
         assertEq(3, map_.size());
         assertEq(2, map_.getVal(TOURNIQUET).size());

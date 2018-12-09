@@ -36,7 +36,7 @@ import code.util.StringMap;
 import code.util.comparators.ComparatorListSizeElement;
 
 public final class FrameGeneralHelp extends ChildFrame {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.FrameGeneralHelp";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
 
 //    private static final String TRUMP_SUIT = "trumpSuit";
 //

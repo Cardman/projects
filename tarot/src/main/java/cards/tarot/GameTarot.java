@@ -37,14 +37,14 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
-import code.util.annot.RwXml;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 import code.util.consts.Constants;
 
 /** */
-@RwXml
+
 public final class GameTarot {
 
     public static final int NO_OUDLER_PTS = 56;
@@ -54,7 +54,7 @@ public final class GameTarot {
 
     public static final int PTS_BASE = 25;
 
-    private static final String GAME_TAROT = "cards.tarot.GameTarot";
+    private static final String GAME_TAROT = "cards.tarot.gametarot";
 
     private static final String FOLDER = "resources_cards/classes";
 
@@ -2909,7 +2909,7 @@ public final class GameTarot {
         }
         return false;
     }
-    private boolean estUnJeuDeChelem(EnumMap<Suit,HandTarot> _couleurs,
+    private static boolean estUnJeuDeChelem(EnumMap<Suit,HandTarot> _couleurs,
             EnumMap<Suit,HandTarot> _cartesJouees,
             RulesTarot _infos, HandTarot _cartesAppeler,byte _joueurs) {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
@@ -14416,12 +14416,12 @@ public final class GameTarot {
         return -1;
     }
 
-    public CustList<NatTreeMap<Miseres,Short>> getMiseresPointsForTaker() {
+    public CustList<TreeMap<Miseres,Short>> getMiseresPointsForTaker() {
 
-        CustList<NatTreeMap<Miseres,Short>> scores1_ = new CustList<NatTreeMap<Miseres,Short>>();
+        CustList<TreeMap<Miseres,Short>> scores1_ = new CustList<TreeMap<Miseres,Short>>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new NatTreeMap<Miseres,Short>());
+            scores1_.add(new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>()));
             if (joueur_ == taker) {
                 for (Miseres m : declaresMiseres.get(joueur_)) {
                     scores1_.last().put(m,
@@ -14442,12 +14442,12 @@ public final class GameTarot {
         return scores1_;
 
     }
-    public CustList<NatTreeMap<Handfuls,Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
+    public CustList<TreeMap<Handfuls,Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
 
-        CustList<NatTreeMap<Handfuls,Short>> scores1_ = new CustList<NatTreeMap<Handfuls,Short>>();
+        CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new NatTreeMap<Handfuls,Short>());
+            scores1_.add(new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>()));
             for (Handfuls poignee_ : declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
                     scores1_.last().put(poignee_,
@@ -14461,12 +14461,12 @@ public final class GameTarot {
         return scores1_;
 
     }
-    public CustList<NatTreeMap<Handfuls,Short>> getHandfulsPointsForPlayers(short _pointsTakerWithoutDeclaring) {
+    public CustList<TreeMap<Handfuls,Short>> getHandfulsPointsForPlayers(short _pointsTakerWithoutDeclaring) {
 
-        CustList<NatTreeMap<Handfuls,Short>> scores1_ = new CustList<NatTreeMap<Handfuls,Short>>();
+        CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new NatTreeMap<Handfuls,Short>());
+            scores1_.add(new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>()));
             for (Handfuls poignee_ : declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
                     scores1_.last().put(poignee_,
@@ -14577,16 +14577,16 @@ public final class GameTarot {
     }
 
     public short temporarySum(short _scorePreneurSansAnnonces,
-            CustList<NatTreeMap<Miseres,Short>> _miseres,
-            CustList<NatTreeMap<Handfuls,Short>> _handfuls, short _primesSupplementairesAttack,
+            CustList<TreeMap<Miseres,Short>> _miseres,
+            CustList<TreeMap<Handfuls,Short>> _handfuls, short _primesSupplementairesAttack,
             short _primesSupplementairesDefense) {
         short sommeTemporaire_ = 0;
-        for (NatTreeMap<Miseres,Short> m: _miseres) {
+        for (TreeMap<Miseres,Short> m: _miseres) {
             for (short p: m.values()) {
                 sommeTemporaire_+=p;
             }
         }
-        for (NatTreeMap<Handfuls,Short> h: _handfuls) {
+        for (TreeMap<Handfuls,Short> h: _handfuls) {
             for (short p: h.values()) {
                 sommeTemporaire_+=p;
             }

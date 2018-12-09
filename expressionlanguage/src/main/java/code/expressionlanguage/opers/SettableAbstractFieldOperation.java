@@ -3,20 +3,19 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.methods.util.UndefinedFieldError;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -29,10 +28,10 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -104,7 +103,7 @@ public abstract class SettableAbstractFieldOperation extends
                 und_.setClassName(base_);
                 und_.setId(fieldName_);
                 und_.setFileName(_conf.getCurrentFileName());
-                und_.setRc(_conf.getCurrentLocation());
+                und_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(und_);
             }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -119,7 +118,7 @@ public abstract class SettableAbstractFieldOperation extends
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             getPreviousResultClass().setCheckOnlyNullPe(true);
@@ -293,15 +292,15 @@ public abstract class SettableAbstractFieldOperation extends
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
-            Object obj_ = arg_.getObject();
-            if (obj_ instanceof Boolean) {
+            if (arg_.getStruct() instanceof BooleanStruct) {
+            	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
                 //boolean constant assignment
                 for (StringMap<AssignmentBefore> s: assB_) {
                     StringMap<Assignment> sm_ = new StringMap<Assignment>();
                     for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                         AssignmentBefore bf_ = e.getValue();
                         BooleanAssignment b_ = new BooleanAssignment();
-                        if ((Boolean)obj_) {
+                        if (value_) {
                             b_.setAssignedAfterWhenFalse(true);
                             b_.setUnassignedAfterWhenFalse(true);
                             b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -321,7 +320,7 @@ public abstract class SettableAbstractFieldOperation extends
                     for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                         AssignmentBefore bf_ = e.getValue();
                         BooleanAssignment b_ = new BooleanAssignment();
-                        if ((Boolean)obj_) {
+                        if (value_) {
                             b_.setAssignedAfterWhenFalse(true);
                             b_.setUnassignedAfterWhenFalse(true);
                             b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -339,7 +338,7 @@ public abstract class SettableAbstractFieldOperation extends
                 for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if ((Boolean)obj_) {
+                    if (value_) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -439,7 +438,7 @@ public abstract class SettableAbstractFieldOperation extends
                             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }
@@ -623,9 +622,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return res_;
             }
-            if (res_.getStruct() instanceof NumberStruct) {
-                res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-            }
             if (classes_.isCustomType(className_)) {
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
@@ -638,7 +634,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -653,9 +649,6 @@ public abstract class SettableAbstractFieldOperation extends
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-        }
         if (previous_.getStruct() instanceof FieldableStruct) {
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
                 _conf.getContextEl().failInitEnums();
@@ -668,7 +661,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -694,9 +687,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return res_;
             }
-            if (res_.getStruct() instanceof NumberStruct) {
-                res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-            }
             if (classes_.isCustomType(className_)) {
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
@@ -712,7 +702,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -730,9 +720,6 @@ public abstract class SettableAbstractFieldOperation extends
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-        }
         if (previous_.getStruct() instanceof FieldableStruct) {
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
                 _conf.getContextEl().failInitEnums();
@@ -748,7 +735,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -794,7 +781,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
@@ -828,7 +815,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
         Argument a_ = _right;
@@ -861,7 +848,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
@@ -891,7 +878,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
         Argument a_ = _right;

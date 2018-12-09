@@ -1,6 +1,5 @@
 package aiki.game;
 import aiki.util.Coords;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -73,7 +72,7 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         return true;
     }
 
-    @FromAndToString
+    
     public static NbFightCoords newNbFightCoords(String _string) {
         return new NbFightCoords(_string);
     }
@@ -104,7 +103,7 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         return nbFight;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(coords.display());

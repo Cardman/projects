@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.beans.facade.solution.dto.WildPokemonDto;
+import code.util.ints.Comparing;
 
 public final class ComparatorWildPokemonDto implements Comparing<WildPokemonDto> {
 

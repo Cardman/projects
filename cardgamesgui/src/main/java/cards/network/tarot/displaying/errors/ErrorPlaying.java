@@ -1,8 +1,7 @@
 package cards.network.tarot.displaying.errors;
 import cards.tarot.enumerations.CardTarot;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ErrorPlaying {
 
     private CardTarot card;

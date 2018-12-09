@@ -5,7 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.methods.util.EmptyPartError;
+import code.expressionlanguage.errors.custom.EmptyPartError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.EqList;
@@ -30,7 +30,7 @@ public final class ErrorPartOperation extends AbstractFieldOperation {
         String argClName_;
         EmptyPartError emptyPart_ = new EmptyPartError();
         emptyPart_.setFileName(_conf.getCurrentFileName());
-        emptyPart_.setRc(_conf.getCurrentLocation());
+        emptyPart_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    

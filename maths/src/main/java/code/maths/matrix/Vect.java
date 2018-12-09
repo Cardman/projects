@@ -1,6 +1,5 @@
 package code.maths.matrix;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -19,7 +18,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
         affect(_v);
     }
 
-    @FromAndToString
+    
     public static Vect newVect(String _arg) {
         Vect v_ = new Vect();
         for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
@@ -101,7 +100,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
         return numbers.eq(_o.numbers);
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         if (numbers.isEmpty()) {

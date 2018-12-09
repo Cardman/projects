@@ -2,17 +2,11 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -88,108 +82,85 @@ public abstract class ProcessMethodCommon {
         return new ConstructorId(_name, cl_, _vararg);
     }
     protected static ContextEl contextEl(int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
-            ct_ = new ContextEl();
+            ct_ = InitializationLgNames.buildStdOne(opt_);
         } else {
-            ct_ = new ContextEl(_m[0]);
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
-        ct_.getOptions().setEndLineSemiColumn(false);
-        ct_.getOptions().setSpecialEnumsMethods(false);
-        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
         return ct_;
     }
     protected static ContextEl contextElIntern() {
-        ContextEl ct_ = new ContextEl();
-        ct_.getOptions().setSingleInnerParts(true);
-        ct_.getOptions().setEndLineSemiColumn(false);
-        ct_.getOptions().setSpecialEnumsMethods(false);
-        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSingleInnerParts(true);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         return ct_;
     }
     protected static ContextEl contextEnElDefault() {
-        KeyWordsMap map_ = new KeyWordsMap();
-        KeyWords k_ = map_.getKeyWords("en");
-        LgNames lgNames_ = new CustLgNames();
-        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), new Options(), k_);
-        lgNames_.setContext(ct_);
-        map_.initEnStds(lgNames_);
-        lgNames_.build();
-        ct_.setStandards(lgNames_);
-        lgNames_.setupOverrides(ct_);
-        ct_.initError();
+        Options opt_ = new Options();
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
     protected static ContextEl contextEnElDefaultInternType() {
-        KeyWordsMap map_ = new KeyWordsMap();
-        KeyWords k_ = map_.getKeyWords("en");
-        LgNames lgNames_ = new CustLgNames();
         Options opt_ = new Options();
         opt_.setSingleInnerParts(true);
-        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), opt_, k_);
-        lgNames_.setContext(ct_);
-        map_.initEnStds(lgNames_);
-        lgNames_.build();
-        ct_.setStandards(lgNames_);
-        lgNames_.setupOverrides(ct_);
-        ct_.initError();
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
     protected static ContextEl contextElDefault(int... _m) {
+        Options opt_ = new Options();
         ContextEl ct_;
         if (_m.length == 0) {
-            ct_ = new ContextEl();
+            ct_ = InitializationLgNames.buildStdOne(opt_);
         } else {
-            ct_ = new ContextEl(_m[0]);
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
         return ct_;
     }
     protected static ContextEl contextEl(boolean _multAff, boolean _eqPlus,int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
-            ct_ = new ContextEl();
+            ct_ = InitializationLgNames.buildStdOne(opt_);
         } else {
-            ct_ = new ContextEl(_m[0]);
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
-        ct_.getOptions().setEndLineSemiColumn(false);
-        ct_.getOptions().setSpecialEnumsMethods(false);
-        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
         return ct_;
     }
     protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {
-            ct_ = new ContextEl();
+            ct_ = InitializationLgNames.buildStdOne(opt_);
         } else {
-            ct_ = new ContextEl(_m[0]);
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
-        ct_.getOptions().setEndLineSemiColumn(false);
-        ct_.getOptions().setSpecialEnumsMethods(false);
-        ct_.getOptions().setSuffixVar(_suf);
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
         return ct_;
     }
     protected static ContextEl contextEl(VariableSuffix _suf,boolean _multAff, boolean _eqPlus,int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {
-            ct_ = new ContextEl();
+            ct_ = InitializationLgNames.buildStdOne(opt_);
         } else {
-            ct_ = new ContextEl(_m[0]);
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
         }
-        ct_.getOptions().setEndLineSemiColumn(false);
-        ct_.getOptions().setSpecialEnumsMethods(false);
-        ct_.getOptions().setSuffixVar(_suf);
-        InitializationLgNames.initAdvStandards(ct_);
-        ct_.initError();
         return ct_;
     }
 }

@@ -16,22 +16,25 @@ import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.util.BadClassName;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.BadMethodName;
-import code.expressionlanguage.methods.util.BadParamName;
+import code.expressionlanguage.errors.custom.BadClassName;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.BadMethodName;
+import code.expressionlanguage.errors.custom.BadParamName;
+import code.expressionlanguage.errors.custom.DuplicateGenericSuperTypes;
+import code.expressionlanguage.errors.custom.DuplicateMethod;
+import code.expressionlanguage.errors.custom.DuplicateParamName;
+import code.expressionlanguage.errors.custom.DuplicateType;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.ErrorList;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.errors.custom.UnassignedFinalField;
+import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.WarningList;
+import code.expressionlanguage.errors.stds.StdErrorList;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.methods.util.ClassEdge;
-import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
-import code.expressionlanguage.methods.util.DuplicateMethod;
-import code.expressionlanguage.methods.util.DuplicateParamName;
-import code.expressionlanguage.methods.util.DuplicateType;
-import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.ErrorList;
-import code.expressionlanguage.methods.util.FoundErrorInterpret;
-import code.expressionlanguage.methods.util.FoundWarningInterpret;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnknownClassName;
-import code.expressionlanguage.methods.util.WarningList;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -42,7 +45,6 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -56,7 +58,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ParserType;
 import code.expressionlanguage.variables.LocalVariable;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -82,6 +83,7 @@ public final class Classes {
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
+    private final StdErrorList stdErrorDet;
     private DefaultLockingClass locks;
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -109,12 +111,16 @@ public final class Classes {
         warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
+        stdErrorDet = new StdErrorList();
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
     public StringList getPackagesFound() {
         return packagesFound;
+    }
+    public FileBlock getFileBody(String _string) {
+        return filesBodies.getVal(_string);
     }
     public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
@@ -126,80 +132,97 @@ public final class Classes {
             DuplicateType d_ = new DuplicateType();
             d_.setId(fullName_);
             d_.setFileName(_root.getFile().getFileName());
-            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            d_.setIndexFile(_root.getIdRowCol());
             addError(d_);
         }
         String packageName_;
         packageName_ = _root.getPackageName();
         LgNames lgNames_ = _context.getStandards();
-        if (!_predefined) {
-            if (packageName_.trim().isEmpty()) {
+        if (packageName_.trim().isEmpty()) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setIndexFile(_root.getIdRowCol());
+            addError(badCl_);
+        }
+        StringList elements_ = StringList.splitChars(packageName_, DOT);
+        for (String e: elements_) {
+            String tr_ = e.trim();
+            if (_context.getKeyWords().isKeyWord(tr_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullName_);
                 badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                badCl_.setIndexFile(_root.getIdRowCol());
                 addError(badCl_);
             }
-            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            if (PrimitiveTypeUtil.isPrimitive(tr_, _context)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setIndexFile(_root.getIdRowCol());
+                addError(badCl_);
+            }
+            if (StringList.quickEq(tr_, _context.getStandards().getAliasVoid())) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setIndexFile(_root.getIdRowCol());
+                addError(badCl_);
+            }
+            if (!StringList.isDollarWord(tr_)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setIndexFile(_root.getIdRowCol());
+                addError(badCl_);
+            }
+        }
+        String className_;
+        className_ = _root.getName().trim();
+        if (_context.getKeyWords().isKeyWord(className_)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setIndexFile(_root.getIdRowCol());
+            addError(badCl_);
+        }
+        if (StringList.quickEq(className_, _context.getStandards().getAliasVoid())) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setIndexFile(_root.getIdRowCol());
+            addError(badCl_);
+        }
+        if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setIndexFile(_root.getIdRowCol());
+            addError(badCl_);
+        }
+        if (!StringList.isDollarWord(className_)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setIndexFile(_root.getIdRowCol());
+            addError(badCl_);
+        }
+        if (!_predefined) {
             for (String e: elements_) {
                 String tr_ = e.trim();
-                if (_context.getKeyWords().isKeyWord(tr_)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(tr_, _context)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
-                if (StringList.quickEq(tr_, _context.getStandards().getAliasVoid())) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
                 if (!StringList.isWord(tr_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullName_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
-            }
-            String className_;
-            className_ = _root.getName().trim();
-            if (_context.getKeyWords().isKeyWord(className_)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
-            }
-            if (StringList.quickEq(className_, _context.getStandards().getAliasVoid())) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
-            }
-            if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
             }
             if (!StringList.isWord(className_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullName_);
                 badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                badCl_.setIndexFile(_root.getIdRowCol());
                 addError(badCl_);
             }
         }
@@ -227,7 +250,7 @@ public final class Classes {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                     continue;
                 }
@@ -245,42 +268,42 @@ public final class Classes {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 if (StringList.quickEq(id_, _context.getStandards().getAliasVoid())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullName_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(id_, _context)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullName_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 if (_context.getKeyWords().isKeyWord(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 if (varTypes_.containsStr(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 if (namesFromParent_.containsStr(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    badCl_.setIndexFile(_root.getIdRowCol());
                     addError(badCl_);
                 }
                 varTypes_.add(id_);
@@ -300,7 +323,7 @@ public final class Classes {
             BadClassName badCl_ = new BadClassName();
             badCl_.setClassName(fullDef_);
             badCl_.setFileName(_root.getFile().getFileName());
-            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            badCl_.setIndexFile(_root.getIdRowCol());
             addError(badCl_);
         }
         if (_root instanceof EnumBlock) {
@@ -323,14 +346,14 @@ public final class Classes {
             DuplicateType d_ = new DuplicateType();
             d_.setId(fullName_);
             d_.setFileName(_root.getFile().getFileName());
-            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            d_.setIndexFile(_root.getIdRowCol());
             addError(d_);
         }
         if (PrimitiveTypeUtil.isPrimitive(fullName_, _context)) {
             DuplicateType d_ = new DuplicateType();
             d_.setId(fullName_);
             d_.setFileName(_root.getFile().getFileName());
-            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            d_.setIndexFile(_root.getIdRowCol());
             addError(d_);
         }
         classesBodies.put(fullName_, _root);
@@ -340,13 +363,22 @@ public final class Classes {
         return errorsDet.isEmpty();
     }
     public String displayErrors() {
-        return errorsDet.display();
+        return errorsDet.display(this);
     }
     public void addError(FoundErrorInterpret _error) {
         errorsDet.add(_error);
     }
     public ErrorList getErrorsDet() {
         return errorsDet;
+    }
+    public boolean isEmptyStdError() {
+        return stdErrorDet.isEmpty();
+    }
+    public void addStdError(StdWordError _std) {
+        stdErrorDet.add(_std);
+    }
+    public StdErrorList getStdErrorDet() {
+        return stdErrorDet;
     }
     public boolean isEmptyWarnings() {
         return warningsDet.isEmpty();
@@ -355,66 +387,56 @@ public final class Classes {
         warningsDet.add(_warning);
     }
     public String displayWarnings() {
-        return warningsDet.display();
+        return warningsDet.display(this);
     }
     public WarningList getWarningsDet() {
         return warningsDet;
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
+        if (!classes_.isEmptyStdError()) {
+            //all standards errors are logged here
+            return;
+        }
         Classes.buildPredefinedBracesBodies(_context);
+        tryValidateCustom(_files, _context);
+        if (!classes_.isEmptyErrors()) {
+            //all errors are logged here
+            return;
+        }
+        _context.setAnalyzing(null);
+        tryInitStaticlyTypes(_context);
+    }
+    private static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
+        Classes classes_ = _context.getClasses();
         Classes.tryBuildBracedClassesBodies(_files, _context);
         classes_.validateInheritingClasses(_context, false);
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
         classes_.validateEl(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
-        if (!classes_.isEmptyErrors()) {
-            //all errors are logged here
-            return;
-        }
-        _context.setAnalyzing(null);
+    }
+    private static void tryInitStaticlyTypes(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         StringList success_ = new StringList();
         DefaultLockingClass dl_ = cl_.getLocks();
-        dl_.init(_context,success_);
-        StringList all_ = new StringList();
-        for (String s: classes_.classesBodies.getKeys()) {
-            if (classes_.isSuccessfulInitialized(s)) {
-                continue;
-            }
-            all_.add(s);
-        }
+        dl_.init(_context);
+        StringList all_ = cl_.classesBodies.getKeys();
         _context.setInitEnums(true);
         while (true) {
             StringList new_ = new StringList();
             for (String c: all_) {
                 _context.resetInitEnums();
-                StringMap<StringMap<Struct>> bk_ = new StringMap<StringMap<Struct>>();
-                for (EntryCust<String, StringMap<Struct>> e: classes_.staticFields.entryList()) {
-                    StringMap<Struct> b_ = new StringMap<Struct>();
-                    for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                        b_.addEntry(f.getKey(), f.getValue());
-                    }
-                    bk_.addEntry(e.getKey(), b_);
-                }
+                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
-                    StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
-                    for (EntryCust<String, StringMap<Struct>> e: bk_.entryList()) {
-                        StringMap<Struct> b_ = new StringMap<Struct>();
-                        for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                            b_.addEntry(f.getKey(), f.getValue());
-                        }
-                        bkSt_.addEntry(e.getKey(), b_);
-                    }
-                    classes_.staticFields = bkSt_;
+                    cl_.staticFields = buildFieldValues(bk_);
                 } else {
                     success_.add(c);
                     new_.add(c);
                 }
             }
-            dl_.init(_context,success_);
+            dl_.appendSuccess(new_);
             all_.removeAllElements(new_);
             if (new_.isEmpty()) {
                 break;
@@ -422,6 +444,18 @@ public final class Classes {
         }
         _context.resetInitEnums();
         _context.setInitEnums(false);
+        dl_.initAlwaysSuccess();
+    }
+    private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
+        StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
+        for (EntryCust<String, StringMap<Struct>> e: _infos.entryList()) {
+            StringMap<Struct> b_ = new StringMap<Struct>();
+            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                b_.addEntry(f.getKey(), f.getValue());
+            }
+            bkSt_.addEntry(e.getKey(), b_);
+        }
+        return bkSt_;
     }
     
     public static void buildPredefinedBracesBodies(ContextEl _context) {
@@ -436,10 +470,10 @@ public final class Classes {
         cl_.getPackagesFound().addAllElts(cl_.getPackages());
         cl_.validateInheritingClasses(_context, true);
         for (RootBlock t: cl_.classesBodies.values()) {
-            TypeUtil.buildOverrides(t, _context);
+            t.validateIds(_context);
         }
         for (RootBlock t: cl_.classesBodies.values()) {
-            t.validateIds(_context);
+            TypeUtil.buildOverrides(t, _context);
         }
         _context.getStandards().buildIterable(_context);
     }
@@ -470,7 +504,7 @@ public final class Classes {
                     DuplicateType d_ = new DuplicateType();
                     d_.setId(fullName_);
                     d_.setFileName(r.getFile().getFileName());
-                    d_.setRc(r.getRowCol(0, r.getIdRowCol()));
+                    d_.setIndexFile(r.getIdRowCol());
                     cl_.addError(d_);
                 }
             }
@@ -647,7 +681,7 @@ public final class Classes {
                         enum_ = new BadInheritedClass();
                         enum_.setClassName(s);
                         enum_.setFileName(c.getFullName());
-                        enum_.setRc(new RowCol());
+                        enum_.setIndexFile(0);
                         classes_.addError(enum_);
                     }
                 }
@@ -713,13 +747,12 @@ public final class Classes {
                     s = ContextEl.removeDottedSpaces(s);
                     String idSuper_ = Templates.getIdFromAllTypes(s);
                     int offset_ = e.getKey();
-                    RowCol rc_ = r_.getRowCol(0, offset_);
                     if (StringList.quickEq(idSuper_, objectClassName_)) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(idSuper_);
                         undef_.setFileName(r_.getFile().getFileName());
-                        undef_.setRc(rc_);
+                        undef_.setIndexFile(offset_);
                         addError(undef_);
                         index_++;
                         continue;
@@ -730,13 +763,13 @@ public final class Classes {
                             readyTypes_.add(f.getKey());
                         }
                     }
-                    String foundType_ = _context.resolveBaseType(idSuper_, c, r_, index_, rc_, readyTypes_);
+                    String foundType_ = _context.resolveBaseInherits(idSuper_, r_, index_, readyTypes_, true);
                     if (foundType_ == null) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(idSuper_);
                         undef_.setFileName(r_.getFile().getFileName());
-                        undef_.setRc(rc_);
+                        undef_.setIndexFile(offset_);
                         addError(undef_);
                         index_++;
                         continue;
@@ -760,7 +793,7 @@ public final class Classes {
                     undef_ = new UnknownClassName();
                     undef_.setClassName(r_.getFullName());
                     undef_.setFileName(r_.getFile().getFileName());
-                    undef_.setRc(r_.getRowCol(0, 0));
+                    undef_.setIndexFile(0);
                     addError(undef_);
                     continue;
                 }
@@ -770,13 +803,12 @@ public final class Classes {
                     indexType_++;
                     RootBlock s_ = getClassBody(f);
                     int offset_ = r_.getRowColDirectSuperTypes().getKey(indexType_);
-                    RowCol rc_ = r_.getRowCol(0, offset_);
                     if (s_ == null) {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
                         enum_.setClassName(f);
                         enum_.setFileName(r_.getFile().getFileName());
-                        enum_.setRc(rc_);
+                        enum_.setIndexFile(offset_);
                         addError(enum_);
                         continue;
                     }
@@ -789,7 +821,7 @@ public final class Classes {
                             enum_ = new BadInheritedClass();
                             enum_.setClassName(f);
                             enum_.setFileName(r_.getFile().getFileName());
-                            enum_.setRc(rc_);
+                            enum_.setIndexFile(offset_);
                             addError(enum_);
                             continue;
                         }
@@ -798,7 +830,7 @@ public final class Classes {
                         enum_ = new BadInheritedClass();
                         enum_.setClassName(f);
                         enum_.setFileName(r_.getFile().getFileName());
-                        enum_.setRc(rc_);
+                        enum_.setIndexFile(offset_);
                         addError(enum_);
                         continue;
                     }
@@ -809,7 +841,7 @@ public final class Classes {
                             undef_ = new UnknownClassName();
                             undef_.setClassName(f);
                             undef_.setFileName(r_.getFile().getFileName());
-                            undef_.setRc(rc_);
+                            undef_.setIndexFile(offset_);
                             addError(undef_);
                         } else {
                             r_.getImportedDirectBaseSuperTypes().add(f);
@@ -823,7 +855,7 @@ public final class Classes {
                             undef_ = new UnknownClassName();
                             undef_.setClassName(f);
                             undef_.setFileName(r_.getFile().getFileName());
-                            undef_.setRc(rc_);
+                            undef_.setIndexFile(offset_);
                             addError(undef_);
                         } else {
                             r_.getImportedDirectBaseSuperTypes().add(f);
@@ -837,7 +869,7 @@ public final class Classes {
                     enum_ = new BadInheritedClass();
                     enum_.setClassName(EMPTY_STRING);
                     enum_.setFileName(r_.getFile().getFileName());
-                    enum_.setRc(r_.getRowCol(0, r_.getIdRowCol()));
+                    enum_.setIndexFile(r_.getIdRowCol());
                     addError(enum_);
                 }
                 r_.getAllSuperTypes().addAllElts(foundNames_);
@@ -898,7 +930,7 @@ public final class Classes {
                     undef_ = new UnknownClassName();
                     undef_.setClassName(c);
                     undef_.setFileName(r_.getFile().getFileName());
-                    undef_.setRc(r_.getRowCol(0, 0));
+                    undef_.setIndexFile(0);
                     addError(undef_);
                 }
                 break;
@@ -951,7 +983,6 @@ public final class Classes {
                     v_ = ContextEl.removeDottedSpaces(v_);
                     String base_ = Templates.getIdFromAllTypes(v_);
                     int offset_ = bl_.getRowColDirectSuperTypes().getKey(index_);
-                    RowCol rc_ = bl_.getRowCol(0, offset_);
                     if (StringList.quickEq(base_, enumParamClassName_)) {
                         Boolean exp_ = bl_.getExplicitDirectSuperTypes().getVal(offset_);
                         if (exp_) {
@@ -959,7 +990,7 @@ public final class Classes {
                             undef_ = new UnknownClassName();
                             undef_.setClassName(base_);
                             undef_.setFileName(bl_.getFile().getFileName());
-                            undef_.setRc(rc_);
+                            undef_.setIndexFile(offset_);
                             addError(undef_);
                         } else {
                             names_.add(base_);
@@ -973,7 +1004,7 @@ public final class Classes {
                             undef_ = new UnknownClassName();
                             undef_.setClassName(base_);
                             undef_.setFileName(bl_.getFile().getFileName());
-                            undef_.setRc(rc_);
+                            undef_.setIndexFile(offset_);
                             addError(undef_);
                         } else {
                             names_.add(base_);
@@ -985,19 +1016,19 @@ public final class Classes {
                         undef_ = new UnknownClassName();
                         undef_.setClassName(base_);
                         undef_.setFileName(bl_.getFile().getFileName());
-                        undef_.setRc(rc_);
+                        undef_.setIndexFile(offset_);
                         addError(undef_);
                         index_++;
                         continue;
                     }
                     String type_ = base_;
-                    base_ = _context.resolveBaseTypeInherits(base_, index_, bl_, rc_, possibleQualifiers_);
-                    if (base_.isEmpty()) {
+                    base_ = _context.resolveBaseInherits(base_, bl_, index_, possibleQualifiers_, false);
+                    if (base_ == null || base_.isEmpty()) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(type_);
                         undef_.setFileName(bl_.getFile().getFileName());
-                        undef_.setRc(rc_);
+                        undef_.setIndexFile(offset_);
                         addError(undef_);
                     } else {
                         RootBlock super_ = classesBodies.getVal(base_);
@@ -1011,7 +1042,7 @@ public final class Classes {
                                 String n_ = base_;
                                 enum_.setClassName(n_);
                                 enum_.setFileName(bl_.getFile().getFileName());
-                                enum_.setRc(rc_);
+                                enum_.setIndexFile(offset_);
                                 addError(enum_);
                             } else {
                                 names_.add(base_);
@@ -1022,7 +1053,7 @@ public final class Classes {
                             String n_ = base_;
                             enum_.setClassName(n_);
                             enum_.setFileName(bl_.getFile().getFileName());
-                            enum_.setRc(rc_);
+                            enum_.setIndexFile(offset_);
                             addError(enum_);
                         } else {
                             names_.add(base_);
@@ -1047,7 +1078,7 @@ public final class Classes {
                     undef_ = new UnknownClassName();
                     undef_.setClassName(bl_.getFullName());
                     undef_.setFileName(bl_.getFile().getFileName());
-                    undef_.setRc(bl_.getRowCol(0, 0));
+                    undef_.setIndexFile(0);
                     addError(undef_);
                     continue;
                 }
@@ -1057,7 +1088,7 @@ public final class Classes {
                     enum_ = new BadInheritedClass();
                     enum_.setClassName(EMPTY_STRING);
                     enum_.setFileName(bl_.getFile().getFileName());
-                    enum_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
+                    enum_.setIndexFile(bl_.getIdRowCol());
                     addError(enum_);
                 }
             }
@@ -1070,7 +1101,7 @@ public final class Classes {
                     RootBlock type_ = classesBodies.getVal(n_);
                     b_.setClassName(n_);
                     b_.setFileName(n_);
-                    b_.setRc(type_.getRowCol(0, type_.getIdRowCol()));
+                    b_.setIndexFile(type_.getIdRowCol());
                     addError(b_);
                 }
             }
@@ -1162,7 +1193,7 @@ public final class Classes {
                 b_ = new BadInheritedClass();
                 b_.setClassName(c);
                 b_.setFileName(c);
-                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                b_.setIndexFile(dBl_.getIdRowCol());
                 addError(b_);
                 continue;
             }
@@ -1176,7 +1207,7 @@ public final class Classes {
                 //TODO better message
                 b_.setClassName(c);
                 b_.setFileName(c);
-                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                b_.setIndexFile(dBl_.getIdRowCol());
                 addError(b_);
                 continue;
             }
@@ -1190,7 +1221,7 @@ public final class Classes {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(c);
                         un_.setFileName(c);
-                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        un_.setIndexFile(dBl_.getIdRowCol());
                         addError(un_);
                     }
                     String baseParams_ = Templates.getIdFromAllTypes(b);
@@ -1208,7 +1239,7 @@ public final class Classes {
                     //TODO all conflicting classes
                     un_.setClassName(c);
                     un_.setFileName(c);
-                    un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                    un_.setIndexFile(dBl_.getIdRowCol());
                     addError(un_);
                     okLoc_ = false;
                     ok_ = false;
@@ -1219,7 +1250,7 @@ public final class Classes {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
                         duplicate_.setFileName(c);
-                        duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        duplicate_.setIndexFile(dBl_.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
                     }
@@ -1247,7 +1278,7 @@ public final class Classes {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
                         duplicate_.setFileName(c);
-                        duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        duplicate_.setIndexFile(dBl_.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
                     }
@@ -1296,7 +1327,7 @@ public final class Classes {
                         BadInheritedClass inh_;
                         inh_ = new BadInheritedClass();
                         inh_.setFileName(c);
-                        inh_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        inh_.setIndexFile(dBl_.getIdRowCol());
                         inh_.setClassName(c);
                         addError(inh_);
                         ok_ = false;
@@ -1317,7 +1348,7 @@ public final class Classes {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(c);
-                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        un_.setIndexFile(dBl_.getIdRowCol());
                         addError(un_);
                     }
                 }
@@ -1327,7 +1358,7 @@ public final class Classes {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(t);
                     un_.setFileName(c);
-                    un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                    un_.setIndexFile(dBl_.getIdRowCol());
                     addError(un_);
                 }
             }
@@ -1349,7 +1380,7 @@ public final class Classes {
                     DuplicateGenericSuperTypes duplicate_;
                     duplicate_ = new DuplicateGenericSuperTypes();
                     duplicate_.setFileName(i.getKey());
-                    duplicate_.setRc(r_.getRowCol(0, r_.getIdRowCol()));
+                    duplicate_.setIndexFile(r_.getIdRowCol());
                     duplicate_.setGenericSuperTypes(e.getValue());
                     addError(duplicate_);
                 }
@@ -1383,20 +1414,18 @@ public final class Classes {
             String name_ = o.getName();
             o.buildImportedTypes(_context);
             if (!isOper(name_)) {
-                RowCol r_ = o.getRowCol(0, o.getNameOffset());
                 BadMethodName badMeth_ = new BadMethodName();
                 badMeth_.setFileName(_context.getCurrentFileName());
-                badMeth_.setRc(r_);
+                badMeth_.setIndexFile(o.getNameOffset());
                 badMeth_.setName(name_);
                 _context.getClasses().addError(badMeth_);
             }
             MethodId id_ = o.getId();
             for (MethodId m: idMethods_) {
                 if (m.eq(id_)) {
-                    RowCol r_ = o.getRowCol(0, o.getOffset().getOffsetTrim());
                     DuplicateMethod duplicate_;
                     duplicate_ = new DuplicateMethod();
-                    duplicate_.setRc(r_);
+                    duplicate_.setIndexFile(o.getOffset().getOffsetTrim());
                     duplicate_.setFileName(_context.getCurrentFileName());
                     duplicate_.setId(id_);
                     _context.getClasses().addError(duplicate_);
@@ -1410,14 +1439,14 @@ public final class Classes {
                     BadParamName b_;
                     b_ = new BadParamName();
                     b_.setFileName(_context.getCurrentFileName());
-                    b_.setRc(o.getRowCol(0, o.getOffset().getOffsetTrim()));
+                    b_.setIndexFile(o.getOffset().getOffsetTrim());
                     b_.setParamName(v);
                     _context.getClasses().addError(b_);
                 } else if (seen_.containsStr(v)){
                     DuplicateParamName b_;
                     b_ = new DuplicateParamName();
                     b_.setFileName(_context.getCurrentFileName());
-                    b_.setRc(o.getRowCol(0, o.getOffset().getOffsetTrim()));
+                    b_.setIndexFile(o.getOffset().getOffsetTrim());
                     b_.setParamName(v);
                     _context.getClasses().addError(b_);
                 } else {
@@ -1688,7 +1717,7 @@ public final class Classes {
                             ClassField id_ = new ClassField(clDecl_, f);
                             UnassignedFinalField un_ = new UnassignedFinalField(id_);
                             un_.setFileName(c.getValue().getFile().getFileName());
-                            un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
+                            un_.setIndexFile(c.getValue().getOffset().getOffsetTrim());
                             _context.getClasses().addError(un_);
                         }
                     }
@@ -1727,7 +1756,7 @@ public final class Classes {
                         page_.setOffset(0);
                         EmptyTagName un_ = new EmptyTagName();
                         un_.setFileName(b.getFile().getFileName());
-                        un_.setRc(b.getRowCol(0, b.getOffset().getOffsetTrim()));
+                        un_.setIndexFile(b.getOffset().getOffsetTrim());
                         addError(un_);
                     }
                     method_.buildFctInstructions(_context);
@@ -1749,7 +1778,7 @@ public final class Classes {
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(id_);
                     un_.setFileName(c.getValue().getFile().getFileName());
-                    un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
+                    un_.setIndexFile(c.getValue().getOffset().getOffsetTrim());
                     _context.getClasses().addError(un_);
                 }
             }
@@ -1809,7 +1838,7 @@ public final class Classes {
                         page_.setOffset(0);
                         EmptyTagName un_ = new EmptyTagName();
                         un_.setFileName(b.getFile().getFileName());
-                        un_.setRc(b.getRowCol(0, b.getOffset().getOffsetTrim()));
+                        un_.setIndexFile(b.getOffset().getOffsetTrim());
                         addError(un_);
                     }
                     method_.buildFctInstructions(_context);
@@ -1840,7 +1869,7 @@ public final class Classes {
                                 if (((InfoBlock)b).getFieldName().containsStr(fieldName_)) {
                                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                                     un_.setFileName(c.getValue().getFile().getFileName());
-                                    un_.setRc(b.getRowCol(0, ((InfoBlock) b).getFieldNameOffset()));
+                                    un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
                                     _context.getClasses().addError(un_);
                                     break;
                                 }
@@ -1894,7 +1923,7 @@ public final class Classes {
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(block_.getFullName());
                 undef_.setFileName(block_.getFile().getFileName());
-                undef_.setRc(block_.getRowCol(0, 0));
+                undef_.setIndexFile(0);
                 _context.getClasses().addError(undef_);
             }
             for (Block b: bl_) {
@@ -2135,7 +2164,13 @@ public final class Classes {
     public StringList getPackages() {
         StringList pkgs_ = new StringList();
         for (RootBlock r: classesBodies.values()) {
-            pkgs_.add(r.getPackageName());
+            String pkg_ = r.getPackageName();
+            StringBuilder id_ = new StringBuilder();
+            for (String p: StringList.splitChars(pkg_, '.')) {
+                id_.append(p);
+                pkgs_.add(id_.toString());
+                id_.append('.');
+            }
         }
         pkgs_.removeDuplicates();
         return pkgs_;
@@ -2417,7 +2452,7 @@ public final class Classes {
         }
         return null;
     }
-    public ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
+    public static ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
         ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
         infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;

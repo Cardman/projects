@@ -3,20 +3,19 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.CustomReflectMethod;
-import code.expressionlanguage.methods.NotInitializedClass;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomReflectMethod;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.errors.custom.AbstractMethod;
+import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -114,7 +113,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             AbstractMethod abs_ = new AbstractMethod();
             abs_.setClassName(clMeth_.getRealClass());
             abs_.setSgn(clMeth_.getRealId().getSignature());
-            abs_.setRc(_conf.getCurrentLocation());
+            abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -135,7 +134,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
         }
@@ -228,7 +227,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
                 if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -241,7 +240,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

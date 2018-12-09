@@ -2,19 +2,18 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.InstancingStep;
+import code.expressionlanguage.errors.custom.BadConstructorCall;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
-import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.util.BadConstructorCall;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
@@ -34,11 +33,11 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String clCurName_ = _conf.getGlobalClass();
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = _conf.resolveIdType(cl_);
+        cl_ = _conf.resolveAccessibleIdType(cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
             return null;
         }
@@ -46,7 +45,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (superClass_ == null) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
             return null;
         }
@@ -61,8 +60,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (br_.getParent() instanceof InterfaceBlock) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(curLine_.getFile().getFileName());
-            call_.setRc(curLine_.getRowCol(0, curLine_.getExpressionOffset()));
-            call_.setLocalOffset(curLine_.getRowCol(getFullIndexInEl(), curLine_.getExpressionOffset()));
+            call_.setIndexFile(curLine_.getExpressionOffset());
+            call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
             _conf.getClasses().addError(call_);
         }
         Block f_ = br_.getFirstChild();
@@ -89,8 +88,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         //error
                         BadConstructorCall call_ = new BadConstructorCall();
                         call_.setFileName(curLine_.getFile().getFileName());
-                        call_.setRc(curLine_.getRowCol(0, curLine_.getExpressionOffset()));
-                        call_.setLocalOffset(curLine_.getRowCol(getFullIndexInEl(), curLine_.getExpressionOffset()));
+                        call_.setIndexFile(curLine_.getExpressionOffset());
+                        call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         _conf.getClasses().addError(call_);
                     } else {
                         if (!((Line)f_).getExp().isEmpty()) {
@@ -100,8 +99,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                                 //error
                                 BadConstructorCall call_ = new BadConstructorCall();
                                 call_.setFileName(curLine_.getFile().getFileName());
-                                call_.setRc(curLine_.getRowCol(0, curLine_.getExpressionOffset()));
-                                call_.setLocalOffset(curLine_.getRowCol(getFullIndexInEl(), curLine_.getExpressionOffset()));
+                                call_.setIndexFile(curLine_.getExpressionOffset());
+                                call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
                                 _conf.getClasses().addError(call_);
                             }
                         }
@@ -124,7 +123,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                                         undef_ = new BadInheritedClass();
                                         undef_.setClassName(cl_);
                                         undef_.setFileName(n_.getFile().getFileName());
-                                        undef_.setRc(n_.getRowCol(0, 0));
+                                        undef_.setIndexFile(0);
                                         _conf.getClasses().addError(undef_);
                                     }
                                 }
@@ -146,7 +145,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         undef_ = new BadInheritedClass();
                         undef_.setClassName(cl_);
                         undef_.setFileName(curBlock_.getFile().getFileName());
-                        undef_.setRc(curBlock_.getRowCol(0, 0));
+                        undef_.setIndexFile(0);
                         _conf.getClasses().addError(undef_);
                     }
                 }
@@ -187,7 +186,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String classFormat_ = calledCtor_;
         classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
         if (classFormat_ == null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+            _conf.setException(new ErrorStruct(_conf,cast_));
             Argument a_ = new Argument();
             return a_;
         }

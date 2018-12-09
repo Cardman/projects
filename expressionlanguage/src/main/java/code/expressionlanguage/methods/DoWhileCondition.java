@@ -7,7 +7,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -79,9 +80,9 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             proc_ = false;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             proc_ = false;
-        } else if (!(Boolean)arg_.getObject()) {
+        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
             proc_ = false;
         }
         if (!proc_) {
@@ -108,7 +109,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             }
         }
         if (abr_) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }
@@ -117,7 +117,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         if (getFirstChild() != null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
         IdMap<Block, AssignedVariables> id_;

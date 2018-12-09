@@ -3,8 +3,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.map.levels.BlockBounds;
-
 @SuppressWarnings("static-method")
 public class BlockBoundsTest {
 

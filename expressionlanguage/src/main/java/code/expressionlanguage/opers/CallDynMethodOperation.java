@@ -8,14 +8,14 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.CustomReflectMethod;
-import code.expressionlanguage.methods.NotInitializedClass;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomReflectMethod;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadNumberArgMethod;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadNumberArgMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -86,7 +86,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.setNbTypes(param_.size());
             undefined_.setId(fct_);
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -112,7 +112,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(m_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {

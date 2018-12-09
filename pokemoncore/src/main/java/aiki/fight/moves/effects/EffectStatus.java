@@ -5,9 +5,8 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectStatus extends Effect {
 
     private MonteCarloString lawStatus;

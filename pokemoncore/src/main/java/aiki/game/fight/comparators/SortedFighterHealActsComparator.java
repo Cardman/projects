@@ -1,6 +1,4 @@
 package aiki.game.fight.comparators;
-import code.util.ints.Comparing;
-
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
@@ -8,6 +6,7 @@ import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionHeal;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 /** Comparator without case eq*/
 public final class SortedFighterHealActsComparator implements

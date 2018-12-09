@@ -10,9 +10,8 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class League extends Place {
 
     private String name;

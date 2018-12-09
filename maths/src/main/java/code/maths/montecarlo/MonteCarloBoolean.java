@@ -5,10 +5,8 @@ import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.BooleanMap;
 import code.util.CollCapacity;
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
 
     private BooleanMap<LgInt> law;
@@ -28,7 +26,7 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
         }
     }
 
-    @CapacityInit
+    
     public MonteCarloBoolean(CollCapacity _capacity) {
         law = new BooleanMap<LgInt>(_capacity);
     }

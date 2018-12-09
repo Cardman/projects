@@ -1,9 +1,8 @@
 package aiki.fight.moves.effects;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectOrder extends Effect {
 
     private boolean targetAttacksLast;

@@ -5,12 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
 import aiki.DataBase;
-import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.map.DataMap;
@@ -38,6 +33,10 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class GameUnlockPlacesTest extends InitializationDataBase {

@@ -4,9 +4,8 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TricksHandsPresident {
 
     private boolean reversed;

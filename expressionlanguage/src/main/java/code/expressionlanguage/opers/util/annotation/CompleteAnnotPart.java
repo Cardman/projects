@@ -4,7 +4,7 @@ import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 
@@ -12,7 +12,7 @@ final class CompleteAnnotPart extends ParentAnnotPart {
 
     private String className;
 
-    private NatTreeMap<String,Struct> fields;
+    private NatStringTreeMap<Struct> fields;
     private AnnotationStruct annotation;
     @Override
     String getBegin() {
@@ -44,11 +44,11 @@ final class CompleteAnnotPart extends ParentAnnotPart {
         annotation = _annotation;
     }
 
-    public NatTreeMap<String,Struct> getFields() {
+    public NatStringTreeMap<Struct> getFields() {
         return fields;
     }
 
-    public void setFields(NatTreeMap<String,Struct> _fields) {
+    public void setFields(NatStringTreeMap<Struct> _fields) {
         fields = _fields;
     }
 

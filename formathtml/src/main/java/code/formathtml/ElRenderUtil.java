@@ -3,7 +3,6 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
@@ -28,8 +27,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -42,8 +41,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -55,8 +54,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -83,8 +82,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -95,8 +94,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -105,8 +104,8 @@ public final class ElRenderUtil {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            context_.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }

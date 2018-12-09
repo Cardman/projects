@@ -6,13 +6,12 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.methods.util.BadAccessMethod;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.BadReturnTypeInherit;
+import code.expressionlanguage.errors.custom.BadAccessMethod;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -72,7 +71,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             inherit_ = new BadInheritedClass();
             inherit_.setClassName(fullName_);
             inherit_.setFileName(fullName_);
-            inherit_.setRc(getRowCol(0, getIdRowCol()));
+            inherit_.setIndexFile(getIdRowCol());
             classesRef_.addError(inherit_);
         }
         useSuperTypesOverrides(_context);
@@ -106,7 +105,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFullName());
-                        err_.setRc(((MethodBlock)m).getRowCol(0, ((MethodBlock)m).getAccessOffset()));
+                        err_.setIndexFile(((MethodBlock)m).getAccessOffset());
                         err_.setId(m.getId());
                         classesRef_.addError(err_);
                     }
@@ -119,7 +118,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(getFullName());
-                            err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
+                            err_.setIndexFile(mBase_.getReturnTypeOffset());
                             err_.setReturnType(retDerive_);
                             err_.setMethod(mBase_.getId());
                             err_.setParentClass(c);
@@ -129,7 +128,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFullName());
-                        err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
+                        err_.setIndexFile(mBase_.getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
                         err_.setMethod(mBase_.getId());
                         err_.setParentClass(c);
@@ -228,8 +227,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            RowCol rc_ = getRowCol(0,index_);
-            String s_ = _classes.resolveTypeInherits(s, this,rc_,i_);
+            String s_ = _classes.resolveTypeInherits(s, this,index_,i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);

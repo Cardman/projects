@@ -6,15 +6,16 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -53,7 +54,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(clMatch_);
@@ -105,27 +106,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         if (arg_.isNull()) {
             return;
         }
-        LgNames stds_ = _conf.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
-        if (res_.matchClass(int_)) {
-            int left_ = arg_.getInt();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toInt(bits_));
-        } else {
-            long left_ = arg_.getLong();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toLong(bits_));
-        }
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
+        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)arg_.getStruct(), _conf, res_));
         setSimpleArgumentAna(out_, _conf);
     }
     @Override
@@ -156,27 +138,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             Argument _in) {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
-        if (res_.matchClass(int_)) {
-            int left_ = _in.getInt();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toInt(bits_));
-        } else {
-            long left_ = _in.getLong();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toLong(bits_));
-        }
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
+        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)_in.getStruct(), _conf, res_));
         return out_;
     }
     @Override

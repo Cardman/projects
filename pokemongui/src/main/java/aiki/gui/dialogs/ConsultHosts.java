@@ -23,7 +23,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class ConsultHosts extends Dialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.ConsultHosts";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
 
     private static final ConsultHosts DIALOG = new ConsultHosts();
 

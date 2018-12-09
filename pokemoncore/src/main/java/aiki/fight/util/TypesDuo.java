@@ -1,5 +1,4 @@
 package aiki.fight.util;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -26,7 +25,7 @@ public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
         pokemonType = _pokemonType;
     }
 
-    @FromAndToString
+    
     public static TypesDuo newTypesDuo(String _string) {
         return new TypesDuo(_string);
     }
@@ -58,7 +57,7 @@ public final class TypesDuo implements Equallable<TypesDuo>, Displayable {
         pokemonType = _pokemonType;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(damageType);

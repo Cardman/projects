@@ -3,9 +3,8 @@ package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.fight.items.EvolvingItem;
 import aiki.fight.pokemon.PokemonData;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EvolutionItem extends Evolution {
 
     private String item;

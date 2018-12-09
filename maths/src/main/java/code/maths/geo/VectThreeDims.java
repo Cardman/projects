@@ -2,7 +2,6 @@ package code.maths.geo;
 import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -28,7 +27,7 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
         deltaz = _two.getZcoords() - _one.getZcoords();
     }
 
-    @FromAndToString
+    
     public static VectThreeDims newCustPoint(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         int x_ = Integer.parseInt(elts_.first());
@@ -114,7 +113,7 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

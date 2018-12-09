@@ -2,9 +2,8 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.util.Point;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DualFight implements Fightable {
 
     private Ally ally;

@@ -6,11 +6,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -134,7 +134,7 @@ public final class StaticInitOperation extends LeafOperation {
             if (!Classes.canAccessClass(curClassBase_, _base, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(_base);
-                badAccess_.setRc(_conf.getCurrentLocation());
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(badAccess_);
             }

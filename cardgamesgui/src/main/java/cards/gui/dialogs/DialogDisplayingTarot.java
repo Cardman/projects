@@ -25,7 +25,7 @@ import code.util.ints.Listable;
 
 public final class DialogDisplayingTarot extends DialogCards implements DialogDisplaying {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogDisplayingTarot";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingtarot";
 
     private static final DialogDisplayingTarot DIALOG = new DialogDisplayingTarot();
     private static final String ADD_SUIT = "addSuit";

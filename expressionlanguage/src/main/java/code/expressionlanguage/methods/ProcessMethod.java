@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
 import code.expressionlanguage.calls.MethodPageEl;
-import code.expressionlanguage.methods.util.CallConstructor;
+import code.expressionlanguage.calls.util.CallConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
@@ -24,9 +24,6 @@ public final class ProcessMethod {
         _cont.getInit().loopCalling(_cont);
     }
     public static void initializeClassPre(String _class, ContextEl _cont) {
-        if (_cont.getClasses().isSuccessfulInitialized(_class)) {
-            return;
-        }
         _cont.getClasses().getLocks().initClass(_class);
         _cont.getClasses().preInitializeStaticFields(_class, _cont);
         _cont.addPage(_cont.createInstancingClass(_class));

@@ -8,9 +8,8 @@ import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.NumberMap;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectTeamWhileSendFoe extends Effect {
 
     private String failSending;

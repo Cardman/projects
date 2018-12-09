@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class SelectItem extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectItem";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
 
     private static final SelectItem DIALOG = new SelectItem();
 

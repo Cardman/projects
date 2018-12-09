@@ -18,18 +18,17 @@ import code.util.ObjectMap;
 import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 import code.util.comparators.ComparatorPairNumber;
 import code.util.ints.Listable;
 
-@RwXml
+
 public final class Team {
 
     public static final String EQUIPE_NB_UTILISATION = "EQUIPE_NB_UTILISATION";
     public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
     public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
 
-    public static final String TEAM = "aiki.game.fight.Team";
+    public static final String TEAM = "aiki.game.fight.team";
 
     private static final String CANCEL_USE_ITEM = "cancelUseItem";
 

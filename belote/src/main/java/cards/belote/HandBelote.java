@@ -17,11 +17,10 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 /**
  */
-@RwXml
+
 public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote> {
     private static final String SEPARATOR = " - ";
     private Order order;

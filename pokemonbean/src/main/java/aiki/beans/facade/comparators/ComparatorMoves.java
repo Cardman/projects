@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.beans.facade.simulation.dto.SelectLineMove;
+import code.util.ints.Comparing;
 
 public final class ComparatorMoves implements Comparing<SelectLineMove> {
 

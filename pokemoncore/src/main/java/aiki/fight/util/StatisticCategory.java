@@ -1,6 +1,5 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -27,7 +26,7 @@ public final class StatisticCategory implements Equallable<StatisticCategory>, D
         category = _category;
     }
 
-    @FromAndToString
+    
     public static StatisticCategory newStatisticCategory(String _string) {
         return new StatisticCategory(_string);
     }
@@ -59,7 +58,7 @@ public final class StatisticCategory implements Equallable<StatisticCategory>, D
         category = _category;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

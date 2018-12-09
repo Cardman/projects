@@ -46,6 +46,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -815,7 +816,7 @@ public final class FightFacade {
             }
             if (substitute_ == Fighter.BACK) {
                 _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
-                _fight.setCurrentFighterMoves(new NatTreeMap<String,ChosenMoveInfos>());
+                _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
                 _fight.setChosableFoeTargets(new BooleanList());
                 _fight.setChosablePlayerTargets(new BooleanList());
@@ -862,7 +863,7 @@ public final class FightFacade {
         Numbers<Byte> fighters_ = playerTeam_.fightersAtCurrentPlaceIndex(_place, true);
         if (fighters_.isEmpty()) {
             _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
-            _fight.setCurrentFighterMoves(new NatTreeMap<String,ChosenMoveInfos>());
+            _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
             _fight.setSelectedActionCurFighter(ActionType.NOTHING);
             _fight.setChosenIndexFront(Fighter.BACK);
             _fight.setChosenSubstitute(Fighter.BACK);
@@ -949,7 +950,7 @@ public final class FightFacade {
                 i_++;
             }
             if (Numbers.eq(substitute_, Fighter.BACK)) {
-                _fight.setCurrentFighterMoves(new NatTreeMap<String,ChosenMoveInfos>());
+                _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
                 _fight.setChosableFoeTargets(new BooleanList());
                 _fight.setChosablePlayerTargets(new BooleanList());
@@ -995,7 +996,7 @@ public final class FightFacade {
         Team playerTeam_ = _fight.getUserTeam();
         byte sub_ = playerTeam_.substituteAtIndex(_place);
         if (sub_ == Fighter.BACK) {
-            _fight.setCurrentFighterMoves(new NatTreeMap<String,ChosenMoveInfos>());
+            _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
             _fight.setSelectedActionCurFighter(ActionType.NOTHING);
             _fight.setChosableFoeTargets(new BooleanList());
             _fight.setChosablePlayerTargets(new BooleanList());
@@ -1062,37 +1063,37 @@ public final class FightFacade {
         _fight.getCurrentFighterMoves().clear();
     }
 
-    static NatTreeMap<String,ChosenMoveInfos> frontFighterMoves(Fight _fight, byte _place, DataBase _import) {
+    static NatStringTreeMap<ChosenMoveInfos> frontFighterMoves(Fight _fight, byte _place, DataBase _import) {
         Team playerTeam_ = _fight.getUserTeam();
 //        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
         Numbers<Byte> fighters_ = playerTeam_.fightersAtCurrentPlaceIndex(_place, true);
         if (fighters_.isEmpty()) {
-            return new NatTreeMap<String,ChosenMoveInfos>();
+            return new NatStringTreeMap<ChosenMoveInfos>();
         }
         TeamPosition f_ = Fight.toUserFighter(fighters_.first());
         return fighterMoves(_fight, f_, _import);
     }
 
-    static NatTreeMap<String,ChosenMoveInfos> backFighterMoves(Fight _fight, byte _place, DataBase _import) {
+    static NatStringTreeMap<ChosenMoveInfos> backFighterMoves(Fight _fight, byte _place, DataBase _import) {
         Team playerTeam_ = _fight.getUserTeam();
         byte substitute_ = playerTeam_.substituteAtIndex(_place);
         if (Numbers.eq(substitute_, Fighter.BACK)) {
-            return new NatTreeMap<String,ChosenMoveInfos>();
+            return new NatStringTreeMap<ChosenMoveInfos>();
         }
         TeamPosition f_ = Fight.toUserFighter(substitute_);
         return fighterMoves(_fight, f_, _import);
     }
 
-    static NatTreeMap<String,ChosenMoveInfos> fighterMoves(Fight _fight, TeamPosition _f, DataBase _import) {
+    static NatStringTreeMap<ChosenMoveInfos> fighterMoves(Fight _fight, TeamPosition _f, DataBase _import) {
         Fighter fighter_ = _fight.getFighter(_f);
         if (!fighter_.isBelongingToPlayer()) {
-            return new NatTreeMap<String,ChosenMoveInfos>();
+            return new NatStringTreeMap<ChosenMoveInfos>();
         }
         StringList attaquesAutorisees_ = FightRules.allowedMoves(_fight,_f,_import);
         if (attaquesAutorisees_.isEmpty()) {
-            NatTreeMap<String,ChosenMoveInfos> map_;
+            NatStringTreeMap<ChosenMoveInfos> map_;
             String move_ = _import.getDefaultMove();
-            map_ = new NatTreeMap<String,ChosenMoveInfos>();
+            map_ = new NatStringTreeMap<ChosenMoveInfos>();
             ChosenMoveInfos chosen_;
             chosen_ = new ChosenMoveInfos();
             chosen_.setName(move_);
@@ -1108,8 +1109,8 @@ public final class FightFacade {
         StringList allMoves_ = fighter_.attaquesUtilisables();
         allMoves_.addAllElts(attaquesAutorisees_);
         allMoves_.removeDuplicates();
-        NatTreeMap<String,ChosenMoveInfos> map_;
-        map_ = new NatTreeMap<String,ChosenMoveInfos>();
+        NatStringTreeMap<ChosenMoveInfos> map_;
+        map_ = new NatStringTreeMap<ChosenMoveInfos>();
         for (String m: allMoves_) {
             ChosenMoveInfos chosen_;
             chosen_ = new ChosenMoveInfos();
@@ -1395,8 +1396,8 @@ public final class FightFacade {
 //        return places_;
 //    }
 
-    public static NatTreeMap<String,BallNumberRate> calculateCatchingRates(Fight _fight,Difficulty _diff,Player _player,DataBase _import) {
-        NatTreeMap<String,BallNumberRate> tree_ = new NatTreeMap<String,BallNumberRate>();
+    public static NatStringTreeMap<BallNumberRate> calculateCatchingRates(Fight _fight,Difficulty _diff,Player _player,DataBase _import) {
+        NatStringTreeMap<BallNumberRate> tree_ = new NatStringTreeMap<BallNumberRate>();
         boolean present_ = _player.estAttrape(_fight.wildPokemon().getName());
         for (String o: _import.getItems().getKeys()) {
             Item obj_ = _import.getItem(o);
@@ -1741,7 +1742,7 @@ public final class FightFacade {
         _fight.setChosenIndex(_key);
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         if (Numbers.eq(key_, Fighter.BACK)) {
-            _fight.setMoves(new NatTreeMap<String,Boolean>());
+            _fight.setMoves(new NatStringTreeMap<Boolean>());
             _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
@@ -1758,7 +1759,7 @@ public final class FightFacade {
             _fight.getEvolutions().put(name_, true);
             _fight.setAbilities(getAbilities(_fight, _key, name_));
             _fight.setAbility(_fight.getChoices().getVal(key_).getAbility());
-            NatTreeMap<String,Boolean> tree_ = getMoves(_fight, _key, name_);
+            NatStringTreeMap<Boolean> tree_ = getMoves(_fight, _key, name_);
             for (String m : tree_.getKeys()) {
                 tree_.put(m, false);
             }
@@ -1768,17 +1769,17 @@ public final class FightFacade {
             _fight.setMoves(tree_);
         } else {
             _fight.setChosenIndex(CustList.INDEX_NOT_FOUND_ELT);
-            _fight.setMoves(new NatTreeMap<String,Boolean>());
+            _fight.setMoves(new NatStringTreeMap<Boolean>());
             _fight.setEvolutions(new TreeMap<String, Boolean>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
         }
     }
 
-    static NatTreeMap<String,Boolean> getMoves(Fight _fight, byte _key,String _evo) {
+    static NatStringTreeMap<Boolean> getMoves(Fight _fight, byte _key,String _evo) {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
-        NatTreeMap<String,Boolean> map_ = new NatTreeMap<String,Boolean>();
+        NatStringTreeMap<Boolean> map_ = new NatStringTreeMap<Boolean>();
         map_.putAllTreeMap(fighter_.getMoves(_evo));
         return map_;
     }
@@ -1817,7 +1818,7 @@ public final class FightFacade {
             }
             ChoiceOfEvolutionAndMoves defaultChoice_ = new ChoiceOfEvolutionAndMoves();
             StringList keptMoves_ = new StringList();
-            NatTreeMap<String, Boolean> map_ = fighter_.getMoves(DataBase.EMPTY_STRING);
+            NatStringTreeMap< Boolean> map_ = fighter_.getMoves(DataBase.EMPTY_STRING);
             for (String m: map_.getKeys()) {
                 if (!map_.getVal(m)) {
                     continue;
@@ -1871,7 +1872,7 @@ public final class FightFacade {
         _fight.setAbilities(abilities_);
         _fight.setAbility(abilities_.first());
         choice_.setAbility(abilities_.first());
-        NatTreeMap<String,Boolean> moves_ = getMoves(_fight, index_, _evo);
+        NatStringTreeMap<Boolean> moves_ = getMoves(_fight, index_, _evo);
         _fight.setMoves(moves_);
         StringList movesList_ = new StringList();
         for (String m: moves_.getKeys()) {
@@ -2017,9 +2018,9 @@ public final class FightFacade {
         return map_;
     }
 
-    public static NatTreeMap<String,EqList<TeamPosition>> sortedFightersBeginRoundWildFight(Fight _fight, DataBase _data) {
-        NatTreeMap<String,EqList<TeamPosition>> tree_;
-        tree_ = new NatTreeMap<String,EqList<TeamPosition>>();
+    public static NatStringTreeMap<EqList<TeamPosition>> sortedFightersBeginRoundWildFight(Fight _fight, DataBase _data) {
+        NatStringTreeMap<EqList<TeamPosition>> tree_;
+        tree_ = new NatStringTreeMap<EqList<TeamPosition>>();
         StringList moves_ = allowedMovesNotEmpty(_fight, Fight.toFoeFighter((byte) 0), _data);
         for (String m: moves_) {
             Fighter wildPk_ = _fight.wildPokemon();
@@ -2647,12 +2648,12 @@ public final class FightFacade {
         _fight.setChosenIndexFront(Fighter.BACK);
         _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
         _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-        _fight.setCurrentFighterMoves(new NatTreeMap<String,ChosenMoveInfos>());
+        _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
         _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
         _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
         _fight.setChosenSubstitute(Fighter.BACK);
         _fight.setChosenIndex(Fighter.BACK);
-        _fight.setMoves(new NatTreeMap<String,Boolean>());
+        _fight.setMoves(new NatStringTreeMap<Boolean>());
         _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
         _fight.setAbilities(new StringList());
         _fight.setAbility(DataBase.EMPTY_STRING);

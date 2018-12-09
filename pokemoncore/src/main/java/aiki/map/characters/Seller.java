@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.map.characters.enums.SellType;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Seller extends Person {
 
     private SellType sell;

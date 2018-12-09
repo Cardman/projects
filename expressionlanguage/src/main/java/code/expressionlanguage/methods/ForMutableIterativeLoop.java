@@ -12,9 +12,9 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -27,6 +27,7 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -280,7 +281,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
@@ -328,7 +329,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             if (!elCondition_.getResultClass().isBoolType(_cont)) {
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, expressionOffset));
+                un_.setIndexFile(expressionOffset);
                 un_.setType(opExp.last().getResultClass());
                 _cont.getClasses().addError(un_);
             }
@@ -490,7 +491,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
@@ -845,7 +846,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             return null;
         }
         last_.clearCurrentEls();
-        return (Boolean) arg_.getObject();
+        return ((BooleanStruct)arg_.getStruct()).getInstance();
     }
     @Override
     public void exitStack(ContextEl _context) {
@@ -924,9 +925,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         Argument arg_ = op_.getArgument();
         if (op_.getArgument() == null) {
             accessible_ = true;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             accessible_ = true;
-        } else if ((Boolean)arg_.getObject()) {
+        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
             accessible_ = true;
         }
         return accessible_;
@@ -940,9 +941,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             Argument arg_ = op_.getArgument();
             if (op_.getArgument() == null) {
                 proc_ = false;
-            } else if (!(arg_.getObject() instanceof Boolean)) {
+            } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
                 proc_ = false;
-            } else if (!(Boolean)arg_.getObject()) {
+            } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
                 proc_ = false;
             }
         }
@@ -960,7 +961,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
         }
         if (abr_) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

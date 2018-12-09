@@ -113,6 +113,11 @@ public final class ImportingPage {
     public RowCol getRowCol() {
         return processingHtml.getRowCol(processingAttribute, offset, tabWidth);
     }
+
+    public int getSum() {
+        return processingHtml.getSum(processingAttribute, offset);
+    }
+
     public PageEl getPageEl() {
         return pageEl;
     }

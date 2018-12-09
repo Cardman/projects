@@ -8,9 +8,8 @@ import code.maths.montecarlo.MonteCarloEnum;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectStatistic extends Effect {
 
     private EnumMap<Statistic, Byte> statisVarRank;

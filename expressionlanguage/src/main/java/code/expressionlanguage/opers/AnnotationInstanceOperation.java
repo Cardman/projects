@@ -7,23 +7,24 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.errors.custom.BadConstructorCall;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadConstructorCall;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.IllegalCallCtorByType;
-import code.expressionlanguage.methods.util.UndefinedFieldError;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -91,7 +92,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             } else if (mOp_ instanceof AnnotationInstanceOperation) {
                 if (((AnnotationInstanceOperation)mOp_).isArray()) {
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     un_.setFileName(_conf.getCurrentFileName());
                     _conf.getClasses().addError(un_);
                     className = _conf.getStandards().getAliasObject();
@@ -111,7 +112,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     }
                     if (blsAnn_.size() != 1) {
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setRc(_conf.getCurrentLocation());
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
                         un_.setFileName(_conf.getCurrentFileName());
                         _conf.getClasses().addError(un_);
                         className = _conf.getStandards().getAliasObject();
@@ -131,7 +132,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(className));
@@ -141,7 +142,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
@@ -177,7 +178,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
@@ -259,7 +260,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 fieldNames.put(fieldsTypes_.getKey(0),EMPTY_STRING);
@@ -272,9 +273,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (nb_ != suppliedFields_.size()) {
             //ERROR
             BadConstructorCall cast_ = new BadConstructorCall();
-            cast_.setLocalOffset(_conf.getCurrentLocation());
+            cast_.setLocalOffset(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
         }
         for (String f: suppliedFields_) {
@@ -284,7 +285,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setId(f);
                 cast_.setClassName(className);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
             fieldNames.put(f,EMPTY_STRING);
@@ -296,9 +297,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (!suppliedFields_.containsStr(e.getKey())) {
                 //ERROR
                 BadConstructorCall cast_ = new BadConstructorCall();
-                cast_.setLocalOffset(_conf.getCurrentLocation());
+                cast_.setLocalOffset(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
         }
@@ -327,7 +328,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
             }
@@ -430,7 +431,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
             for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                 Argument chArg_ = _arguments.get(i);
-                ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
+                IntStruct i_ = new IntStruct(i);
+                ArrOperation.setCheckedElement(str_, i_, chArg_, _conf);
                 if (_conf.getContextEl().hasExceptionOrFailInit()) {
                     return a_;
                 }

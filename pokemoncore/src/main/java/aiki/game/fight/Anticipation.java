@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -31,7 +30,7 @@ public final class Anticipation implements Displayable{
         incrementing = !Numbers.eq(targetPosition.getPosition(), Fighter.BACK);
     }
 
-    @FromAndToString
+    
     public static Anticipation newAnticipation(String _string) {
         return new Anticipation(_string);
     }
@@ -90,7 +89,7 @@ public final class Anticipation implements Displayable{
         incrementing = _incrementing;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(damage.toNumberString());

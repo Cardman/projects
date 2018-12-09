@@ -1,6 +1,5 @@
 package code.maths.matrix;
 import code.maths.LgInt;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -32,7 +31,7 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         denominateur = new Polynom(_autre.denominateur);
     }
 
-    @FromAndToString
+    
     public static FractPol newFract(String _arg) {
         StringList args_ = StringList.splitStrings(_arg, SEP_NUM_DEN);
         return new FractPol(Polynom.newPolynom(args_.first()), Polynom.newPolynom(args_.last()));
@@ -220,7 +219,7 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         if (isInteger()) {

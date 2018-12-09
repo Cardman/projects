@@ -1,8 +1,7 @@
 package aiki.game.fight.util;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class MovesAbilities {
 
     private StringList moves;

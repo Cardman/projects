@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.fight.util.TypesDuo;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectUnprotectFromTypes extends Effect {
 
     private EqList<TypesDuo> types;

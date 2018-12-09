@@ -5,9 +5,8 @@ import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class AreaApparition {
 
     static final byte ALWAYS_APPARITION = 1;

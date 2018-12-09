@@ -1,6 +1,5 @@
 package code.maths.geo;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -28,7 +27,7 @@ public final class RatePoint implements Equallable<RatePoint>, Displayable {
         yCoords = new Rate(_y);
     }
 
-    @FromAndToString
+    
     public static RatePoint newCustRatePoint(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         Rate x_ = new Rate(elts_.first());
@@ -71,7 +70,7 @@ public final class RatePoint implements Equallable<RatePoint>, Displayable {
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

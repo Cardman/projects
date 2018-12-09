@@ -5,7 +5,6 @@ import code.expressionlanguage.VariableSuffix;
 public final class Options {
 
     private boolean initializeStaticClassFirst = true;
-    private boolean quickCompare = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
     private boolean upperLong;
@@ -32,14 +31,6 @@ public final class Options {
 
     public void setInitializeStaticClassFirst(boolean _initializeStaticClassFirst) {
         initializeStaticClassFirst = _initializeStaticClassFirst;
-    }
-
-    public boolean isQuickCompare() {
-        return quickCompare;
-    }
-
-    public void setQuickCompare(boolean _quickCompare) {
-        quickCompare = _quickCompare;
     }
 
     public VariableSuffix getSuffixVar() {

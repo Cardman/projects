@@ -1,8 +1,7 @@
 package cards.network.tarot.unlock;
 import cards.tarot.HandTarot;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class CallableCardsDiscard {
 
     private HandTarot callableCards;

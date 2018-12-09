@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -18,7 +17,7 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
         putAllMap(_arg0);
     }
 
-    @CapacityInit
+    
     public BooleanMap(CollCapacity _capacity) {
         super(_capacity);
     }

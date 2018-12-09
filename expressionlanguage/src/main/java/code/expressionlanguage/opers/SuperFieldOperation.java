@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -27,7 +27,7 @@ public final class SuperFieldOperation extends
         if (cl_ == null) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;

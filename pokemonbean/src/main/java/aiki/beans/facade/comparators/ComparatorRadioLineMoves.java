@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.beans.facade.simulation.dto.RadioLineMove;
+import code.util.ints.Comparing;
 
 public final class ComparatorRadioLineMoves implements Comparing<RadioLineMove> {
 

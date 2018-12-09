@@ -16,16 +16,15 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.MethodPageEl;
 import code.expressionlanguage.classes.Composite;
+import code.expressionlanguage.classes.StdStruct;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.classes.CustLgNames;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.classes.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -240,6 +239,13 @@ public class ExpressionLanguageTest {
     }
 
     @Test
+    public void processEl30Test() {
+        Argument arg_ = directCalculate("(($long)-1i)");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
     public void processEl31Test() {
         Argument arg_ = directCalculate("$static($math).abs(-8i)");
         Object res_ = arg_.getObject();
@@ -282,6 +288,22 @@ public class ExpressionLanguageTest {
         assertEq(8L, (Number)res_);
     }
     @Test
+    public void processEl37Test() {
+        Argument arg_ = directCalculate("\"\\nnew line\"");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\nnew line", (String)res_);
+    }
+
+    @Test
+    public void processEl38Test() {
+        Argument arg_ = directCalculate("\"\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("", (String)res_);
+    }
+
+    @Test
     public void processEl39Test() {
         Argument arg_ = directCalculate("$null $instanceof java.lang.Object");
         Object res_ = arg_.getObject();
@@ -289,6 +311,56 @@ public class ExpressionLanguageTest {
         assertEq(false, (Boolean)res_);
     }
 
+    @Test
+    public void processEl40Test() {
+        Argument arg_ = directCalculate("\"abc\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl41Test() {
+        Argument arg_ = directCalculate("\" abc\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl42Test() {
+        Argument arg_ = directCalculate("\"abc \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl43Test() {
+        Argument arg_ = directCalculate("\" abc \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl44Test() {
+        Argument arg_ = directCalculate("\" \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("", (String)res_);
+    }
+    @Test
+    public void processEl45Test() {
+        Argument arg_ = directCalculate("\"hello word\".splitStrings(\"e\",\"o\")");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Struct[]);
+        assertEq(4, ((Struct[])res_).length);
+        assertEq("h", (String)((Struct[])res_)[0].getInstance());
+        assertEq("ll", (String)((Struct[])res_)[1].getInstance());
+        assertEq(" w", (String)((Struct[])res_)[2].getInstance());
+        assertEq("rd", (String)((Struct[])res_)[3].getInstance());
+    }
     public void processEl62Test() {
         ContextEl context_ = contextEl();
         Composite compos_ = new Composite();
@@ -1358,25 +1430,25 @@ public class ExpressionLanguageTest {
         assertTrue(res_ instanceof Integer);
         assertEq(-671088641, (Number)res_);
     }
-    private Argument directCalculate(String _el) {
+    private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
         return calculatePrepareStaticResult(c_,false);
     }
-    private Struct directCalculateExc(String _el) {
+    private static Struct directCalculateExc(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
         calculatePrepareStaticResult(c_,true);
         return c_.getException();
     }
 
-    private ContextEl analyze(String _el) {
+    private static ContextEl analyze(String _el) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         files_.put("pkg/ExTwo", addonFileStaticResult(_el));
-        return contextEl(files_,true,false);
+        return contextEl(files_);
     }
-    private Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
+    private static Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
@@ -1401,7 +1473,7 @@ public class ExpressionLanguageTest {
         return el_.calculateMember(cont_);
         
     }
-    private Argument calculateIndirectLoopVars(String _el, String _var, String _className) {
+    private static Argument calculateIndirectLoopVars(String _el, String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
@@ -1426,7 +1498,7 @@ public class ExpressionLanguageTest {
         return el_.calculateMember(cont_);
         
     }
-    private Argument calculateIndirect(String _el, String _className) {
+    private static Argument calculateIndirect(String _el, String _className) {
         String var_ = "temp";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
@@ -1452,7 +1524,7 @@ public class ExpressionLanguageTest {
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
         return el_.calculateMember(cont_);
     }
-    private Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
+    private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
         RootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
@@ -1465,7 +1537,7 @@ public class ExpressionLanguageTest {
         }
         return arg_;
     }
-    private String addonFileStaticResult(String _el) {
+    private static String addonFileStaticResult(String _el) {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.Apply {\n");
         str_.append(" $public $static $final java.lang.Object result = ");
@@ -1474,7 +1546,7 @@ public class ExpressionLanguageTest {
         str_.append("}");
         return str_.toString();
     }
-    private String file() {
+    private static String file() {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.InheritedComposite : Composite {\n");
         str_.append("\n");
@@ -1679,10 +1751,10 @@ public class ExpressionLanguageTest {
         str_.append("}\n");
         return str_.toString();
     }
-    private Argument simpleCaculateEl(String _el, ContextEl _context) {
+    private static Argument simpleCaculateEl(String _el, ContextEl _context) {
         return caculateEl(_el, _context, true);
     }
-    private Argument caculateEl(String _el, ContextEl _context, boolean _static) {
+    private static Argument caculateEl(String _el, ContextEl _context, boolean _static) {
         _context.setAnalyzing(new AnalyzedPageEl());
         if (!_context.isEmptyPages()) {
             _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
@@ -1696,7 +1768,7 @@ public class ExpressionLanguageTest {
         }
         return caculateCustEl(_el, _context, _static);
     }
-    private Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
+    private static Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
         Calculation calc_ = Calculation.staticCalculation(_static);
         CustList<OperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
         _context.setAnalyzing(null);
@@ -1711,53 +1783,28 @@ public class ExpressionLanguageTest {
         _conf.setGlobalClass(_beanClass);
     }
 
-    private ContextEl contextEl() {
-        return contextEl(false);
-    }
-
-    private ContextEl contextEl(boolean _multiple) {
-        return contextEl(_multiple, true);
-    }
-    private ContextEl contextEl(boolean _multiple, boolean _eqPlus) {
+    private static ContextEl contextEl() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        cont_.initError();
         return cont_;
     }
-    private ContextEl contextEl(StringMap<String> _files) {
-        return contextEl(_files, false);
-    }
-
-    private ContextEl contextEl(StringMap<String> _files, boolean _multiple) {
-        return contextEl(_files, _multiple, true);
-    }
-    private ContextEl contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        initAdvStandards(cont_);
+    private static ContextEl contextEl(StringMap<String> _files) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        cont_.initError();
         return cont_;
-    }
-    public static LgNames initAdvStandards(ContextEl _context) {
-        LgNames lgNames_ = new CustLgNames();
-        lgNames_.setContext(_context);
-        InitializationLgNames.basicStandards(lgNames_);
-        lgNames_.build();
-        _context.setStandards(lgNames_);
-        lgNames_.setupOverrides(_context);
-        return lgNames_;
     }
 }

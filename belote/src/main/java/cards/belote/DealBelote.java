@@ -10,9 +10,8 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DealBelote implements Iterable<HandBelote> {
 
     public static final byte NUMERO_UTILISATEUR = 0;

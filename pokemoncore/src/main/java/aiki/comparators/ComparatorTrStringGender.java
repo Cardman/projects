@@ -1,9 +1,8 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.EnumMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorTrStringGender implements Comparing<Gender> {
 

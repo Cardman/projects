@@ -20,7 +20,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -41,11 +41,11 @@ public class FighterBean extends CommonFightBean {
     private String expItem;
     private String ability;
     private String currentAbility;
-    private NatTreeMap<String,Short> status;
+    private NatStringTreeMap<Short> status;
     private TreeMap<MoveTeamPosition,Short> statusRelat;
     private StringList types;
-    private NatTreeMap<String,UsesOfMove> moves;
-    private NatTreeMap<String,UsesOfMove> currentMoves;
+    private NatStringTreeMap<UsesOfMove> moves;
+    private NatStringTreeMap<UsesOfMove> currentMoves;
     private CustList<StatisticInfo> statistics;
     private Rate remainingHp;
     private String remainingHpStr;
@@ -53,22 +53,22 @@ public class FighterBean extends CommonFightBean {
     private Rate clone;
     private String cloneStr;
     private StringList protectedAgainstMoveTypes;
-    private NatTreeMap<String,ActivityOfMove> enabledMoves;
-    private NatTreeMap<String,Boolean> enabledMovesForAlly;
-    private NatTreeMap<String,MultPowerMoves> damageRateByType;
+    private NatStringTreeMap<ActivityOfMove> enabledMoves;
+    private NatStringTreeMap<Boolean> enabledMovesForAlly;
+    private NatStringTreeMap<MultPowerMoves> damageRateByType;
     private byte groundPlace;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
     private short level;
     private short happiness;
     private TreeMap<MoveTeamPosition,Boolean> incrUserAccuracy;
-    private NatTreeMap<String,Integer> nbUsesMoves;
+    private NatStringTreeMap<Integer> nbUsesMoves;
     private short nbPrepaRound;
     private boolean needingToRecharge;
     private TreeMap<MoveTeamPosition,AffectedMove> trackingMoves;
     private TreeMap<MoveTeamPosition,ActivityOfMove> trappingMoves;
-    private NatTreeMap<String,SufferedDamageCategory> damageSufferedCateg;
-    private NatTreeMap<String,CopiedMove> copiedMoves;
+    private NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg;
+    private NatStringTreeMap<CopiedMove> copiedMoves;
     private LgInt nbRepeatingSuccessfulMoves;
     private TreeMap<MoveTeamPosition,String> privateMoves;
     private boolean belongingToPlayer;
@@ -195,8 +195,8 @@ public class FighterBean extends CommonFightBean {
         }
         statistics_.sortElts(new ComparatorStatisticInfo());
         statistics = statistics_;
-        NatTreeMap<String,ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatTreeMap<String,ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMove> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
         for (String m: fighter_.getEnabledMoves().getKeys()) {
             enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMoves().getVal(m));
         }
@@ -219,26 +219,26 @@ public class FighterBean extends CommonFightBean {
             enabledMoves_.put(translationsMoves_.getVal(m), fighter_.getEnabledMovesUnprot().getVal(m));
         }
         enabledMoves = enabledMoves_;
-        NatTreeMap<String,UsesOfMove> moves_;
-        moves_ = new NatTreeMap<String,UsesOfMove>();
+        NatStringTreeMap<UsesOfMove> moves_;
+        moves_ = new NatStringTreeMap<UsesOfMove>();
         for (String m: fighter_.getMovesSet()) {
             moves_.put(translationsMoves_.getVal(m), fighter_.getMove(m));
         }
         moves = moves_;
-        NatTreeMap<String,UsesOfMove> currentMoves_;
-        currentMoves_ = new NatTreeMap<String,UsesOfMove>();
+        NatStringTreeMap<UsesOfMove> currentMoves_;
+        currentMoves_ = new NatStringTreeMap<UsesOfMove>();
         for (String m: fighter_.getCurrentMovesSet()) {
             currentMoves_.put(translationsMoves_.getVal(m), fighter_.getCurrentMove(m));
         }
         currentMoves = currentMoves_;
-        NatTreeMap<String,Integer> nbUsesMoves_;
-        nbUsesMoves_ = new NatTreeMap<String,Integer>();
+        NatStringTreeMap<Integer> nbUsesMoves_;
+        nbUsesMoves_ = new NatStringTreeMap<Integer>();
         for (String m: fighter_.getNbUsesMoves().getKeys()) {
             nbUsesMoves_.put(translationsMoves_.getVal(m), fighter_.getNbUsesMoves().getVal(m));
         }
         nbUsesMoves = nbUsesMoves_;
-        NatTreeMap<String,Short> status_;
-        status_ = new NatTreeMap<String,Short>();
+        NatStringTreeMap<Short> status_;
+        status_ = new NatStringTreeMap<Short>();
         for (String m: fighter_.getStatusSet()) {
             status_.put(translationsStatus_.getVal(m), fighter_.getStatusNbRound(m));
         }
@@ -266,8 +266,8 @@ public class FighterBean extends CommonFightBean {
         }
         statusRelat = statusRelat_;
         nbRepeatingSuccessfulMoves = fighter_.getNbRepeatingSuccessfulMoves();
-        NatTreeMap<String,CopiedMove> copiedMoves_;
-        copiedMoves_ = new NatTreeMap<String,CopiedMove>();
+        NatStringTreeMap<CopiedMove> copiedMoves_;
+        copiedMoves_ = new NatStringTreeMap<CopiedMove>();
         for (String c: fighter_.getCopiedMoves().getKeys()) {
             CopiedMove copied_;
             copied_ = new CopiedMove();
@@ -318,8 +318,8 @@ public class FighterBean extends CommonFightBean {
         alreadyInvokedMovesRound = alreadyInvokedMovesRound_;
         usingItem = fighter_.isUsingItem();
         changed = fighter_.isChanged();
-        NatTreeMap<String,MultPowerMoves> damageRateByType_;
-        damageRateByType_ = new NatTreeMap<String,MultPowerMoves>();
+        NatStringTreeMap<MultPowerMoves> damageRateByType_;
+        damageRateByType_ = new NatStringTreeMap<MultPowerMoves>();
         for (String c: data_.getTypes()) {
             MultPowerMoves mult_ = new MultPowerMoves();
             mult_.setMultInflicted(fighter_.getDamageRateInflictedByType().getVal(c));
@@ -327,8 +327,8 @@ public class FighterBean extends CommonFightBean {
             damageRateByType_.put(translationsTypes_.getVal(c), mult_);
         }
         damageRateByType = damageRateByType_;
-        NatTreeMap<String,SufferedDamageCategory> damageSufferedCateg_;
-        damageSufferedCateg_ = new NatTreeMap<String,SufferedDamageCategory>();
+        NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg_;
+        damageSufferedCateg_ = new NatStringTreeMap<SufferedDamageCategory>();
         for (String c: data_.getCategories()) {
             SufferedDamageCategory suff_;
             suff_ = new SufferedDamageCategory();
@@ -337,8 +337,8 @@ public class FighterBean extends CommonFightBean {
             damageSufferedCateg_.put(translationsCategories_.getVal(c), suff_);
         }
         damageSufferedCateg = damageSufferedCateg_;
-        NatTreeMap<String,Boolean> enabledMovesForAlly_;
-        enabledMovesForAlly_ = new NatTreeMap<String,Boolean>();
+        NatStringTreeMap<Boolean> enabledMovesForAlly_;
+        enabledMovesForAlly_ = new NatStringTreeMap<Boolean>();
         for (String c: fighter_.getEnabledMovesForAlly().getKeys()) {
             enabledMovesForAlly_.put(translationsMoves_.getVal(c), fighter_.getEnabledMovesForAlly().getVal(c));
         }
@@ -651,11 +651,11 @@ public class FighterBean extends CommonFightBean {
         return types;
     }
 
-    public NatTreeMap<String,UsesOfMove> getMoves() {
+    public NatStringTreeMap<UsesOfMove> getMoves() {
         return moves;
     }
 
-    public NatTreeMap<String,UsesOfMove> getCurrentMoves() {
+    public NatStringTreeMap<UsesOfMove> getCurrentMoves() {
         return currentMoves;
     }
 
@@ -663,7 +663,7 @@ public class FighterBean extends CommonFightBean {
         return nbRounds;
     }
 
-    public NatTreeMap<String,CopiedMove> getCopiedMoves() {
+    public NatStringTreeMap<CopiedMove> getCopiedMoves() {
         return copiedMoves;
     }
 
@@ -671,7 +671,7 @@ public class FighterBean extends CommonFightBean {
         return statistics;
     }
 
-    public NatTreeMap<String,MultPowerMoves> getDamageRateByType() {
+    public NatStringTreeMap<MultPowerMoves> getDamageRateByType() {
         return damageRateByType;
     }
 
@@ -679,19 +679,19 @@ public class FighterBean extends CommonFightBean {
         return protectedAgainstMoveTypes;
     }
 
-    public NatTreeMap<String,SufferedDamageCategory> getDamageSufferedCateg() {
+    public NatStringTreeMap<SufferedDamageCategory> getDamageSufferedCateg() {
         return damageSufferedCateg;
     }
 
-    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
         return enabledMoves;
     }
 
-    public NatTreeMap<String,Boolean> getEnabledMovesForAlly() {
+    public NatStringTreeMap<Boolean> getEnabledMovesForAlly() {
         return enabledMovesForAlly;
     }
 
-    public NatTreeMap<String,Integer> getNbUsesMoves() {
+    public NatStringTreeMap<Integer> getNbUsesMoves() {
         return nbUsesMoves;
     }
 
@@ -739,7 +739,7 @@ public class FighterBean extends CommonFightBean {
         return needingToRecharge;
     }
 
-    public NatTreeMap<String,Short> getStatus() {
+    public NatStringTreeMap<Short> getStatus() {
         return status;
     }
 

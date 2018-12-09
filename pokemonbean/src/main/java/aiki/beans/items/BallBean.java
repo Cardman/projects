@@ -1,11 +1,11 @@
 package aiki.beans.items;
 import aiki.DataBase;
 import aiki.fight.items.Ball;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 
 public class BallBean extends ItemBean {
     private String catchingRate;
-    private NatTreeMap<String,String> mapVars;
+    private NatStringTreeMap<String> mapVars;
 
     @Override
     public void beforeDisplaying() {
@@ -26,7 +26,7 @@ public class BallBean extends ItemBean {
         return catchingRate;
     }
 
-    public NatTreeMap<String,String> getMapVars() {
+    public NatStringTreeMap<String> getMapVars() {
         return mapVars;
     }
 }

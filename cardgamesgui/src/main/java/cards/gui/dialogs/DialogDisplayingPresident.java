@@ -28,7 +28,7 @@ import code.util.ints.Listable;
 
 public final class DialogDisplayingPresident extends DialogCards implements DialogDisplaying {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogDisplayingPresident";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingpresident";
     private static final DialogDisplayingPresident DIALOG = new DialogDisplayingPresident();
     private static final String ADD_SUIT = "addSuit";
     private static final String CLOCK_WISE = "clockWise";

@@ -11,6 +11,7 @@ import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import code.maths.LgInt;
 import code.util.CustList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -19,11 +20,11 @@ import code.util.TreeMap;
 
 public class TeamBean extends CommonFightBean {
     private TreeMap<StringList,ActivityOfMove> enabledMovesByGroup;
-    private NatTreeMap<String,ActivityOfMove> enabledMoves;
-    private NatTreeMap<String,LgInt> enabledMovesWhileSendingFoeUses;
-    private NatTreeMap<String,Integer> nbUsesMoves;
-    private NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>> healAfter;
-    private NatTreeMap<String,NatTreeMap<Byte,Anticipation>> movesAnticipation;
+    private NatStringTreeMap<ActivityOfMove> enabledMoves;
+    private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
+    private NatStringTreeMap<Integer> nbUsesMoves;
+    private NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> healAfter;
+    private NatStringTreeMap<NatTreeMap<Byte,Anticipation>> movesAnticipation;
     private NatTreeMap<Byte,Numbers<Byte> > playerFightersAgainstFoe;
     private boolean foeTeam;
 
@@ -36,20 +37,20 @@ public class TeamBean extends CommonFightBean {
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue());
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        NatTreeMap<String,ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatTreeMap<String,ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMove> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
         for (String m: team_.getEnabledMoves().getKeys()) {
             enabledMoves_.put(translationsMoves_.getVal(m), team_.getEnabledMoves().getVal(m));
         }
         enabledMoves = enabledMoves_;
-        NatTreeMap<String,LgInt> enabledMovesWhileSendingFoeUses_;
-        enabledMovesWhileSendingFoeUses_ = new NatTreeMap<String,LgInt>();
+        NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses_;
+        enabledMovesWhileSendingFoeUses_ = new NatStringTreeMap<LgInt>();
         for (String m: team_.getEnabledMovesWhileSendingFoeUses().getKeys()) {
             enabledMovesWhileSendingFoeUses_.put(translationsMoves_.getVal(m), team_.getEnabledMovesWhileSendingFoeUses().getVal(m));
         }
         enabledMovesWhileSendingFoeUses = enabledMovesWhileSendingFoeUses_;
-        NatTreeMap<String,Integer> nbUsesMoves_;
-        nbUsesMoves_ = new NatTreeMap<String,Integer>();
+        NatStringTreeMap<Integer> nbUsesMoves_;
+        nbUsesMoves_ = new NatStringTreeMap<Integer>();
         for (String m: team_.getNbUsesMoves().getKeys()) {
             nbUsesMoves_.put(translationsMoves_.getVal(m), team_.getNbUsesMoves().getVal(m));
         }
@@ -83,8 +84,8 @@ public class TeamBean extends CommonFightBean {
             enabledMovesByGroup_.put(key_, new ActivityOfMove(team_.getEnabledMovesByGroup().getVal(s)));
         }
         enabledMovesByGroup = enabledMovesByGroup_;
-        NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>> healAfter_;
-        healAfter_ = new NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>>();
+        NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> healAfter_;
+        healAfter_ = new NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>>();
         for (String m: team_.getHealAfterSet()) {
             NatTreeMap<Byte,StacksOfUses> h_;
             h_ = new NatTreeMap<Byte,StacksOfUses>();
@@ -100,8 +101,8 @@ public class TeamBean extends CommonFightBean {
             healAfter_.put(translationsMoves_.getVal(m), h_);
         }
         healAfter = healAfter_;
-        NatTreeMap<String,NatTreeMap<Byte,Anticipation>> movesAnticipation_;
-        movesAnticipation_ = new NatTreeMap<String,NatTreeMap<Byte,Anticipation>>();
+        NatStringTreeMap<NatTreeMap<Byte,Anticipation>> movesAnticipation_;
+        movesAnticipation_ = new NatStringTreeMap<NatTreeMap<Byte,Anticipation>>();
         for (String m: team_.getMovesAnticipationSet()) {
             NatTreeMap<Byte,Anticipation> a_;
             a_ = new NatTreeMap<Byte,Anticipation>();
@@ -225,7 +226,7 @@ public class TeamBean extends CommonFightBean {
         return foeTeam;
     }
 
-    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
         return enabledMoves;
     }
 
@@ -233,19 +234,19 @@ public class TeamBean extends CommonFightBean {
         return enabledMovesByGroup;
     }
 
-    public NatTreeMap<String,LgInt> getEnabledMovesWhileSendingFoeUses() {
+    public NatStringTreeMap<LgInt> getEnabledMovesWhileSendingFoeUses() {
         return enabledMovesWhileSendingFoeUses;
     }
 
-    public NatTreeMap<String,Integer> getNbUsesMoves() {
+    public NatStringTreeMap<Integer> getNbUsesMoves() {
         return nbUsesMoves;
     }
 
-    public NatTreeMap<String,NatTreeMap<Byte,StacksOfUses>> getHealAfter() {
+    public NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> getHealAfter() {
         return healAfter;
     }
 
-    public NatTreeMap<String,NatTreeMap<Byte,Anticipation>> getMovesAnticipation() {
+    public NatStringTreeMap<NatTreeMap<Byte,Anticipation>> getMovesAnticipation() {
         return movesAnticipation;
     }
 

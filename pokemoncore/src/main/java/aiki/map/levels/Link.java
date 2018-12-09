@@ -3,7 +3,6 @@ package aiki.map.levels;
 import aiki.DataBase;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -37,7 +36,7 @@ public final class Link implements Displayable {
         setCoords(_coords);
     }
 
-    @FromAndToString
+    
     public static Link newLink(String _string) {
         return new Link(_string);
     }
@@ -82,7 +81,7 @@ public final class Link implements Displayable {
         dir = _dir;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

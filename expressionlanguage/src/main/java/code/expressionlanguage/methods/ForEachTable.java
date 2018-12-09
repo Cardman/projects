@@ -13,11 +13,11 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadVariableName;
-import code.expressionlanguage.methods.util.DuplicateVariable;
-import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadVariableName;
+import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -30,6 +30,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -193,7 +194,7 @@ public class ForEachTable extends BracedStack implements Loop {
         if (Argument.isNullValue(arg_)) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_cont.getCurrentFileName());
-            static_.setRc(_cont.getCurrentLocation());
+            static_.setIndexFile(_cont.getCurrentLocationIndex());
             _cont.getClasses().addError(static_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
@@ -224,48 +225,48 @@ public class ForEachTable extends BracedStack implements Loop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffsetFirst));
+            d_.setIndexFile(variableNameOffsetFirst);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffsetFirst));
+            d_.setIndexFile(variableNameOffsetFirst);
             _cont.getClasses().addError(d_);
         }
         if (!StringList.isWord(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
         if (PrimitiveTypeUtil.isPrimitive(variableNameFirst, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
         if (StringList.quickEq(variableNameFirst, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
@@ -274,7 +275,7 @@ public class ForEachTable extends BracedStack implements Loop {
             if (!variableNameFirst.isEmpty() && ContextEl.isDigit(variableNameFirst.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffsetFirst));
+                b_.setIndexFile(variableNameOffsetFirst);
                 b_.setVarName(variableNameFirst);
                 _cont.getClasses().addError(b_);
             }
@@ -284,21 +285,21 @@ public class ForEachTable extends BracedStack implements Loop {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetFirst));
+                d_.setIndexFile(variableNameOffsetFirst);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getAnalyzing().containsLocalVar(variableNameFirst)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetFirst));
+                d_.setIndexFile(variableNameOffsetFirst);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getParameters().contains(variableNameFirst)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetFirst));
+                d_.setIndexFile(variableNameOffsetFirst);
                 _cont.getClasses().addError(d_);
             }
         }
@@ -306,41 +307,41 @@ public class ForEachTable extends BracedStack implements Loop {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
         if (!StringList.isWord(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
         }
         if (PrimitiveTypeUtil.isPrimitive(variableNameSecond, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
         }
         if (StringList.quickEq(variableNameSecond, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
         }
@@ -348,7 +349,7 @@ public class ForEachTable extends BracedStack implements Loop {
             if (!variableNameSecond.isEmpty() && ContextEl.isDigit(variableNameSecond.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffsetSecond));
+                b_.setIndexFile(variableNameOffsetSecond);
                 b_.setVarName(variableNameSecond);
                 _cont.getClasses().addError(b_);
             }
@@ -358,21 +359,21 @@ public class ForEachTable extends BracedStack implements Loop {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameSecond);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                d_.setIndexFile(variableNameOffsetSecond);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getAnalyzing().containsLocalVar(variableNameSecond)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameSecond);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                d_.setIndexFile(variableNameOffsetSecond);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getParameters().contains(variableNameSecond)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableNameSecond);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                d_.setIndexFile(variableNameOffsetSecond);
                 _cont.getClasses().addError(d_);
             }
         }
@@ -439,7 +440,7 @@ public class ForEachTable extends BracedStack implements Loop {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
-                    cast_.setRc(getRowCol(0, expressionOffset));
+                    cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
             }
@@ -470,7 +471,7 @@ public class ForEachTable extends BracedStack implements Loop {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
-                    cast_.setRc(getRowCol(0, expressionOffset));
+                    cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
             }
@@ -482,7 +483,7 @@ public class ForEachTable extends BracedStack implements Loop {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
+                cast_.setIndexFile(expressionOffset);
                 _cont.getClasses().addError(cast_);
             }
             String iterable_ = _cont.getStandards().getAliasIterableTable();
@@ -493,7 +494,7 @@ public class ForEachTable extends BracedStack implements Loop {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
+                cast_.setIndexFile(expressionOffset);
                 _cont.getClasses().addError(cast_);
             }
         }
@@ -503,7 +504,7 @@ public class ForEachTable extends BracedStack implements Loop {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
         LoopVariable lv_ = new LoopVariable();
@@ -547,7 +548,7 @@ public class ForEachTable extends BracedStack implements Loop {
             super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             StringMap<SimpleAssignment> fieldsAfter_;
             fieldsAfter_ = buildAssListFieldAfterLoop(_an, _anEl);
@@ -730,7 +731,6 @@ public class ForEachTable extends BracedStack implements Loop {
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }
@@ -909,16 +909,19 @@ public class ForEachTable extends BracedStack implements Loop {
             locVar_.setStruct(value_);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
-        ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 4);
+        ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
         Argument arg_ = firstEl_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (!Templates.checkObject(classNameFirst_, arg_, _conf)) {
             return;
         }
-        LoopVariable lv_ = _vars.getVal(variableNameFirst);
-        lv_.setStruct(arg_.getStruct());
-        lv_.setIndex(lv_.getIndex() + 1);
         String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
         if (call_.sizeEl() < 4) {
+            LoopVariable lv_ = _vars.getVal(variableNameFirst);
+            lv_.setStruct(arg_.getStruct());
+            lv_.setIndex(lv_.getIndex() + 1);
             String locName_ = cls_.getSecondVarCust();
             LocalVariable locVar_ = new LocalVariable();
             Struct value_ = call_.getValue(1).getStruct();
@@ -926,12 +929,15 @@ public class ForEachTable extends BracedStack implements Loop {
             locVar_.setStruct(value_);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
-        ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 5);
+        ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
         arg_ = secondEl_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (!Templates.checkObject(classNameSecond_, arg_, _conf)) {
             return;
         }
-        lv_ = _vars.getVal(variableNameSecond);
+        LoopVariable lv_ = _vars.getVal(variableNameSecond);
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         call_.clearCurrentEls();
@@ -952,7 +958,7 @@ public class ForEachTable extends BracedStack implements Loop {
         if (_conf.callsOrException()) {
             return null;
         }
-        boolean hasNext_ = (Boolean) arg_.getObject();
+        boolean hasNext_ = ((BooleanStruct) arg_.getStruct()).getInstance();
         return hasNext_;
     }
     @Override

@@ -9,26 +9,13 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.RowCol;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EntryCust;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnalyzedPageEl {
-
-    private static final String READ_URL = "readUrl";
-
-    private static final String LINE_COL = "line col";
-
-    private static final String PARAMATERS = "parameters";
-    private static final String CATCH_VARIABLES = "catch variables";
-    private static final String LOCAL_VARIABLES = "local variables";
-
-    private static final String SEP_INFO = "\n";
-
-    private static final String SEP_KEY_VAL = ":";
 
     /**Only used while throwing exception*/
     private Block currentBlock;
@@ -84,6 +71,7 @@ public final class AnalyzedPageEl {
     private String lookLocalClass = "";
     private SortedClassField currentInitizedField;
     private boolean okNumOp;
+    private Numbers<Integer> currentBadIndexes = new Numbers<Integer>();
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -92,56 +80,8 @@ public final class AnalyzedPageEl {
         globalOffset = _globalOffset;
     }
 
-    public String getInfos(ContextEl _context) {
-        StringBuilder str_ = new StringBuilder(getCommonInfosAndRc(getTrace(), _context));
-        str_.insert(0, SEP_INFO);
-        str_.insert(0, readUrl);
-        str_.insert(0, SEP_KEY_VAL);
-        str_.insert(0, READ_URL);
-        return str_.toString();
-    }
-
-    public String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
-        StringBuilder str_ = new StringBuilder(getCommonInfos(_context));
-        str_.append(_rc.display());
-        return str_.toString();
-    }
-
-    public RowCol getTrace() {
-        RowCol rc_ = new RowCol();
-        if (currentBlock != null){
-            int sum_ = globalOffset + offset + translatedOffset;
-            rc_ = currentBlock.getRowCol(sum_);
-        }
-        return rc_;
-    }
-
-    private String getCommonInfos(ContextEl _context) {
-        StringList list_ = new StringList();
-        list_.add(globalClass);
-        for (StringMap<LoopVariable> e: vars) {
-            for (EntryCust<String,LoopVariable> f: e.entryList()) {
-                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos(_context)));
-            }
-        }
-        list_.add(LOCAL_VARIABLES);
-        for (StringMap<LocalVariable> e: localVars) {
-            for (EntryCust<String,LocalVariable> f: e.entryList()) {
-                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
-            }
-        }
-        list_.add(CATCH_VARIABLES);
-        for (StringMap<LocalVariable> e: catchVars) {
-            for (EntryCust<String,LocalVariable> f: e.entryList()) {
-                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
-            }
-        }
-        list_.add(PARAMATERS);
-        for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
-        }
-        StringBuilder keyMessage_ = new StringBuilder(SEP_INFO);
-        return keyMessage_.append(list_.join(SEP_INFO)).append(SEP_INFO).append(LINE_COL).append(SEP_KEY_VAL).toString();
+    public int getTraceIndex() {
+        return globalOffset + offset + translatedOffset;
     }
 
     public void addToOffset(int _offset) {
@@ -597,4 +537,7 @@ public final class AnalyzedPageEl {
         okNumOp = _okNumOp;
     }
 
+    public Numbers<Integer> getCurrentBadIndexes() {
+        return currentBadIndexes;
+    }
 }

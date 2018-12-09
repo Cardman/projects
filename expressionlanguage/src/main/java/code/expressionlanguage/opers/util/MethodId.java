@@ -42,12 +42,17 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
             classNames.add(s);
         }
     }
+    @Override
     public String getSignature() {
+        String pref_ = EMPTY;
+        if (staticMethod) {
+            pref_ = "static ";
+        }
         String suf_ = EMPTY;
         if (vararg) {
             suf_ = VARARG;
         }
-        return StringList.concat(name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
+        return StringList.concat(pref_,name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
     }
 
     @Override

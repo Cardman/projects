@@ -4,9 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -18,11 +15,13 @@ import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Place;
-import aiki.map.tree.BuildingArea;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class BuildingAreaTest {

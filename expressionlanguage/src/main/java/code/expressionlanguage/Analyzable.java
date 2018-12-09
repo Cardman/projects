@@ -22,8 +22,8 @@ import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.RowCol;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -38,7 +38,7 @@ public interface Analyzable {
     void setGlobalClass(String _globalClass);
     Classes getClasses();
     String getCurrentFileName();
-    RowCol getCurrentLocation();
+    int getCurrentLocationIndex();
 
     String getCurrentVarSetting();
     void setCurrentVarSetting(String _currentVarSetting);
@@ -97,16 +97,17 @@ public interface Analyzable {
     Options getOptions();
     AssignedVariablesBlock getAssignedVariables();
     AnalyzedPageEl getAnalyzing();
+    Numbers<Integer> getCurrentBadIndexes();
     Block getCurrentBlock();
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
 
     String resolveCorrectType(String _in);
-    String resolveIdType(String _in);
     String resolveAccessibleIdType(String _in);
     String resolveCorrectAccessibleType(String _in, String _fromType);
     String resolveCorrectType(String _in, boolean _exact);
+    StringMap<StringList> getCurrentConstraints();
     String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);

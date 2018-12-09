@@ -8,12 +8,11 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Nicknames {
 
-    private static final String NICKNAMES = "cards.facade.Nicknames";
+    private static final String NICKNAMES = "cards.facade.nicknames";
     private static final String RESSOURCES_CLASSES = "resources_cards/classes";
     private static final String NICKNAME = "nickname";
     private static final String USER = "user";

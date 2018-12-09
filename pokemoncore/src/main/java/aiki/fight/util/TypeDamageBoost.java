@@ -1,6 +1,5 @@
 package aiki.fight.util;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -23,7 +22,7 @@ public final class TypeDamageBoost implements Displayable {
         boost = _boost;
     }
 
-    @FromAndToString
+    
     public static TypeDamageBoost newTypeDamageBoost(String _string) {
         return new TypeDamageBoost(_string);
     }
@@ -36,7 +35,7 @@ public final class TypeDamageBoost implements Displayable {
         return boost;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(type);

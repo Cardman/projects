@@ -1,9 +1,8 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
-import code.util.CustList;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
+import code.util.CustList;
+import code.util.ints.Comparing;
 
 /**
  Applied if sets are distinct*/

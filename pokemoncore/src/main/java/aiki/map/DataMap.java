@@ -72,10 +72,9 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 import code.util.ints.Listable;
 
-@RwXml
+
 public final class DataMap {
 
     private static final String SPACE = " ";

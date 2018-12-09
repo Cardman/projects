@@ -1,7 +1,6 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorNatNumber<T extends Number> implements Comparing<T> {
 

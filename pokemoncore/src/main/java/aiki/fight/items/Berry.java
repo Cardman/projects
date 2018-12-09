@@ -9,9 +9,8 @@ import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Berry extends Item {
 
     public static final String ITEM = "aiki.fight.items.Berry";

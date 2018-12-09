@@ -34,13 +34,12 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 import code.util.consts.Constants;
 /**
  */
-@RwXml
+
 public final class GameBelote {
-    private static final String GAME_BELOTE = "cards.belote.GameBelote";
+    private static final String GAME_BELOTE = "cards.belote.gamebelote";
     private static final String FOLDER = "resources_cards/classes";
 
     private static final String OVER_TRUMP_FOE = "overTrumpFoe";
@@ -1400,7 +1399,7 @@ public final class GameBelote {
         }
         return faireCouperAdv(couleursNonVides_,repartition_,repartitionCartesJouees_);
     }
-    private CardBelote jeuMainMaitresseCouleurDominante(
+    private static CardBelote jeuMainMaitresseCouleurDominante(
             EnumMap<Suit,EqList<HandBelote>> _suites,
             EnumMap<Suit,HandBelote> _repartition,
             EnumList<Suit> _couleursMaitres,
@@ -1413,7 +1412,7 @@ public final class GameBelote {
 //        reason.append(format(GET_CARDS_BY_SUIT_CARDS));
         return main(_repartition,couleurs_.first()).premiereCarte();
     }
-    private CardBelote jeuMainMaitresseCouleursEgales(
+    private static CardBelote jeuMainMaitresseCouleursEgales(
             EnumMap<Suit,HandBelote> _repartition,
             EnumList<Suit> _couleursMaitres) {
         EnumList<Suit> couleurs_ = couleursNonAtoutNonVides(_repartition, _couleursMaitres);

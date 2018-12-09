@@ -1,8 +1,7 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.map.util.MiniMapCoords;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorMiniMapCoords implements Comparing<MiniMapCoords> {
 

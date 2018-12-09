@@ -1,8 +1,7 @@
 package cards.network.common.before;
 import code.network.AddingPlayer;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class NewPlayer extends PlayerActionBeforeGame implements AddingPlayer {
 
     private String pseudo;

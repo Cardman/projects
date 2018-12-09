@@ -8,7 +8,7 @@ import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -20,23 +20,23 @@ public class EffectWhileSendingBean extends CommonBean {
     private boolean plate;
     private boolean statistic;
     private Rate multWeight;
-    private NatTreeMap<String, Byte> statisVarRank;
+    private NatStringTreeMap< Byte> statisVarRank;
 
-    private NatTreeMap<String, String> localFailStatis;
+    private NatStringTreeMap< String> localFailStatis;
     private Rate evtRate;
     private String evtRatePerCent;
     private StringList copyBoost;
     private StringList swapBoostStatis;
 
-    private NatTreeMap<String, String> localFailSwapBoostStatis;
+    private NatStringTreeMap< String> localFailSwapBoostStatis;
 
-    private NatTreeMap<String, Rate> lawBoost;
+    private NatStringTreeMap< Rate> lawBoost;
     private StringList cancelLowStat;
     private StringList cancelChgtStat;
     private int defaultBoost;
-    private NatTreeMap<String,String> mapVarsStatistics;
+    private NatStringTreeMap<String> mapVarsStatistics;
     private StringList reasons;
-    private NatTreeMap<String,String> mapVarsFail;
+    private NatStringTreeMap<String> mapVarsFail;
 
     @Override
     public void beforeDisplaying() {
@@ -53,8 +53,8 @@ public class EffectWhileSendingBean extends CommonBean {
             EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
             evtRate = effect_.getEvtRate();
             evtRatePerCent = Rate.multiply(evtRate, new Rate(CENT)).evaluate(2);
-            NatTreeMap<String, Byte> statisVarRank_;
-            statisVarRank_ = new NatTreeMap<String, Byte>();
+            NatStringTreeMap< Byte> statisVarRank_;
+            statisVarRank_ = new NatStringTreeMap< Byte>();
             for (Statistic s: effect_.getStatisVarRank().getKeys()) {
                 statisVarRank_.put(translatedStatistics_.getVal(s), effect_.getStatisVarRank().getVal(s));
             }
@@ -65,8 +65,8 @@ public class EffectWhileSendingBean extends CommonBean {
                 swapBoostStatis_.add(translatedStatistics_.getVal(s));
             }
             swapBoostStatis = swapBoostStatis_;
-            NatTreeMap<String, Rate> lawBoost_;
-            lawBoost_ = new NatTreeMap<String, Rate>();
+            NatStringTreeMap< Rate> lawBoost_;
+            lawBoost_ = new NatStringTreeMap< Rate>();
             for (Statistic s: effect_.getLawBoost().events()) {
                 lawBoost_.put(translatedStatistics_.getVal(s), effect_.getLawBoost().normalizedRate(s));
             }
@@ -74,10 +74,10 @@ public class EffectWhileSendingBean extends CommonBean {
 //            Map<String,String> loc_ = new Map<>();
 //            loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-            NatTreeMap<String,String> mapVarsStatistics_;
-            mapVarsStatistics_ = new NatTreeMap<String,String>();
-            NatTreeMap<String, String> localFailStatis_;
-            localFailStatis_ = new NatTreeMap<String,String>();
+            NatStringTreeMap<String> mapVarsStatistics_;
+            mapVarsStatistics_ = new NatStringTreeMap<String>();
+            NatStringTreeMap< String> localFailStatis_;
+            localFailStatis_ = new NatStringTreeMap<String>();
             for (Statistic s: effect_.getLocalFailStatis().getKeys()) {
                 String formula_ = data_.getFormula(effect_.getLocalFailStatis().getVal(s), getLanguage());
 //                formula_ = StringList.replace(formula_, loc_);
@@ -87,8 +87,8 @@ public class EffectWhileSendingBean extends CommonBean {
                 mapVarsStatistics_.putAllTreeMap(data_.getDescriptions(effect_.getLocalFailStatis().getVal(s), getLanguage()));
             }
             localFailStatis = localFailStatis_;
-            NatTreeMap<String, String> localFailSwapBoostStatis_;
-            localFailSwapBoostStatis_ = new NatTreeMap<String,String>();
+            NatStringTreeMap< String> localFailSwapBoostStatis_;
+            localFailSwapBoostStatis_ = new NatStringTreeMap<String>();
             for (Statistic s: effect_.getLocalFailSwapBoostStatis().getKeys()) {
                 String formula_ = data_.getFormula(effect_.getLocalFailSwapBoostStatis().getVal(s), getLanguage());
 //                formula_ = StringList.replace(formula_, loc_);
@@ -126,12 +126,12 @@ public class EffectWhileSendingBean extends CommonBean {
             mapVarsFail = getMapVarsFail(data_, effect_.getFail(), getLanguage());
         } else {
             statistic = false;
-            statisVarRank = new NatTreeMap<String,Byte>();
-            localFailStatis = new NatTreeMap<String,String>();
-            localFailSwapBoostStatis = new NatTreeMap<String,String>();
-            mapVarsStatistics = new NatTreeMap<String,String>();
-            mapVarsFail = new NatTreeMap<String,String>();
-            lawBoost = new NatTreeMap<String,Rate>();
+            statisVarRank = new NatStringTreeMap<Byte>();
+            localFailStatis = new NatStringTreeMap<String>();
+            localFailSwapBoostStatis = new NatStringTreeMap<String>();
+            mapVarsStatistics = new NatStringTreeMap<String>();
+            mapVarsFail = new NatStringTreeMap<String>();
+            lawBoost = new NatStringTreeMap<Rate>();
             evtRate = Rate.zero();
             defaultBoost = CustList.SIZE_EMPTY;
             evtRatePerCent = DataBase.EMPTY_STRING;
@@ -210,7 +210,7 @@ public class EffectWhileSendingBean extends CommonBean {
         return reasons;
     }
 
-    public NatTreeMap<String,String> getMapVarsFail() {
+    public NatStringTreeMap<String> getMapVarsFail() {
         return mapVarsFail;
     }
 
@@ -222,11 +222,11 @@ public class EffectWhileSendingBean extends CommonBean {
         return evtRatePerCent;
     }
 
-    public NatTreeMap<String,Byte> getStatisVarRank() {
+    public NatStringTreeMap<Byte> getStatisVarRank() {
         return statisVarRank;
     }
 
-    public NatTreeMap<String,String> getMapVarsStatistics() {
+    public NatStringTreeMap<String> getMapVarsStatistics() {
         return mapVarsStatistics;
     }
 

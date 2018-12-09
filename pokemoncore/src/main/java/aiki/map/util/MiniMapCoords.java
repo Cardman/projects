@@ -1,5 +1,4 @@
 package aiki.map.util;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -24,7 +23,7 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
         yCoords = _y;
     }
 
-    @FromAndToString
+    
     public static MiniMapCoords newMiniMapCoords(String _string) {
         return new MiniMapCoords(_string);
     }
@@ -48,7 +47,7 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
         return yCoords;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

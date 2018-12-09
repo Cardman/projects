@@ -1,5 +1,4 @@
 package aiki.fight.util;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -27,7 +26,7 @@ public final class LevelMove implements Equallable<LevelMove>, Displayable {
         move = _move;
     }
 
-    @FromAndToString
+    
     public static LevelMove newLevelMove(String _string) {
         return new LevelMove(_string);
     }
@@ -59,7 +58,7 @@ public final class LevelMove implements Equallable<LevelMove>, Displayable {
         move = _move;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

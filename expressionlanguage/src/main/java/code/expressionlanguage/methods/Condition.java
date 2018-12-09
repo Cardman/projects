@@ -6,12 +6,13 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -54,7 +55,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, conditionOffset));
+            un_.setIndexFile(conditionOffset);
             un_.setType(opCondition.last().getResultClass());
             _cont.getClasses().addError(un_);
         }
@@ -86,7 +87,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
             return null;
         }
         last_.clearCurrentEls();
-        return (Boolean) arg_.getObject();
+        return ((BooleanStruct) arg_.getStruct()).getInstance();
     }
 
     @Override

@@ -5,13 +5,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.errors.custom.BadFieldName;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadFieldName;
-import code.expressionlanguage.methods.util.UndefinedFieldError;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.IdMap;
@@ -40,7 +40,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         if (!StringList.isWord(fieldName.trim())) {
             BadFieldName err_ = new BadFieldName();
             err_.setName(fieldName.trim());
-            err_.setRc(_conf.getCurrentLocation());
+            err_.setIndexFile(_conf.getCurrentLocationIndex());
             err_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(err_);
         }
@@ -48,14 +48,14 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         MethodOperation mOp_ = getParent();
         if (!(mOp_ instanceof AnnotationInstanceOperation)) {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(un_);
         } else {
             AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
             if (par_.isArray()) {
                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setRc(_conf.getCurrentLocation());
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(un_);
             } else {
@@ -78,7 +78,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                         cast_.setId(fieldName);
                         cast_.setClassName(annotationClass_);
                         cast_.setFileName(_conf.getCurrentFileName());
-                        cast_.setRc(_conf.getCurrentLocation());
+                        cast_.setIndexFile(_conf.getCurrentLocationIndex());
                         _conf.getClasses().addError(cast_);
                     }
                 }

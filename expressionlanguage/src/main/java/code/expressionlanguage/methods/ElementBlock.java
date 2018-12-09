@@ -8,7 +8,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -128,14 +128,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         if (prev_ != null && !(prev_ instanceof ElementBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(prev_.getFile().getFileName());
-            un_.setRc(prev_.getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(prev_.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
         if (!(getParent() instanceof EnumBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }

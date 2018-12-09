@@ -6,16 +6,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.errors.custom.BadAccessClass;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessClass;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -56,12 +56,12 @@ public final class EnumValueOfOperation extends MethodOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveIdType(className);
+        clName_ = _conf.resolveAccessibleIdType(className);
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(clName_);
             _conf.getClasses().addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
@@ -75,7 +75,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         if (!Classes.canAccessClass(curClassBase_, clName_, _conf)) {
             BadAccessClass badAccess_ = new BadAccessClass();
             badAccess_.setId(clName_);
-            badAccess_.setRc(_conf.getCurrentLocation());
+            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(badAccess_);
         }
@@ -84,7 +84,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         if (!argCl_.matchClass(stringType_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(argCl_);
             _conf.getClasses().addError(un_);
         }

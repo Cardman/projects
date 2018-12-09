@@ -1,9 +1,11 @@
 package code.expressionlanguage.classes;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 
 @SuppressWarnings("static-method")
 public class BeanOne {
@@ -11,15 +13,15 @@ public class BeanOne {
 
     private Composite composite = new Composite();
 
-    private NatTreeMap<EnumNumber, String> translations = new NatTreeMap<EnumNumber, String>();
+    private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
 
 
-    private NatTreeMap<String,Numbers<Integer>> numbers = new NatTreeMap<String,Numbers<Integer>>();
+    private NatStringTreeMap<Numbers<Integer>> numbers = new NatStringTreeMap<Numbers<Integer>>();
 
 
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
-    private NatTreeMap<String, Integer> tree = new NatTreeMap<String, Integer>();
+    private NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
 
 
     private StringMap<Integer> map = new StringMap<Integer>();
@@ -96,7 +98,7 @@ public class BeanOne {
         return "returned value";
     }
 
-    public NatTreeMap<String, Integer> getTree() {
+    public NatStringTreeMap< Integer> getTree() {
         return tree;
     }
 

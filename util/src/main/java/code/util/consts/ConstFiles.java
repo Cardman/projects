@@ -140,10 +140,6 @@ public final class ConstFiles {
         return init_;
     }
 
-    public static boolean filesAreCaseSensitive() {
-        return INIT_FOLDER.startsWith(SEPARATEUR);
-    }
-
     public static String getInitFolder() {
         return INIT_FOLDER;
     }

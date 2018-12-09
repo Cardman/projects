@@ -5,9 +5,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.NumberStruct;
 
 public final class BitShiftLeftOperation extends NumericOperation {
 
@@ -32,7 +33,7 @@ public final class BitShiftLeftOperation extends NumericOperation {
         _cont.setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-        un_.setRc(_cont.getCurrentLocation());
+        un_.setIndexFile(_cont.getCurrentLocationIndex());
         un_.setFileName(_cont.getCurrentFileName());
         un_.setExpectedResult(exp_);
         un_.setOperands(_a,_b);
@@ -45,7 +46,7 @@ public final class BitShiftLeftOperation extends NumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
             ExecutableCode _cont) {
-        return calculateBitShiftLeft(_a, _b, _cont, getResultClass());
+        return new Argument(NumberStruct.calculateBitShiftLeft((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
     }
 
     @Override
@@ -54,8 +55,8 @@ public final class BitShiftLeftOperation extends NumericOperation {
         if (_a.isNull() || _b.isNull()) {
             return Argument.createVoid();
         }
-        return calculateBitShiftLeft(_a, _b, _an, getResultClass());
-    }
+        return new Argument(NumberStruct.calculateBitShiftLeft((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
+     }
 
     @Override
     void setCatenize(ResultOperand _res) {

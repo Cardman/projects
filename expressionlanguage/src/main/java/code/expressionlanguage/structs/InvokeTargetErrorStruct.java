@@ -1,6 +1,5 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
@@ -8,7 +7,7 @@ import code.util.ObjectMap;
 public final class InvokeTargetErrorStruct implements Struct {
 
     private final Struct cause;
-    private final CustomError error;
+    private final String message;
 
     public InvokeTargetErrorStruct() {
         this("");
@@ -22,17 +21,24 @@ public final class InvokeTargetErrorStruct implements Struct {
         this(_message, NullStruct.NULL_VALUE);
     }
 
-    public InvokeTargetErrorStruct(String _message,Struct _cause) {
-        error = new CustomError(_message);
+    public InvokeTargetErrorStruct(String _message, Struct _cause) {
+        message = _message;
         cause = _cause;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
+
     public Struct getCause() {
         return cause;
     }
+
     @Override
     public boolean isNull() {
         return false;
@@ -55,7 +61,7 @@ public final class InvokeTargetErrorStruct implements Struct {
 
     @Override
     public Object getInstance() {
-        return error;
+        return this;
     }
 
     @Override

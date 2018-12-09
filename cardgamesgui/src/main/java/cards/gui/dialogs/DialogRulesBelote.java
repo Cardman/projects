@@ -9,7 +9,7 @@ import code.gui.Panel;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesBelote";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulesbelote";
     private static final DialogRulesBelote DIALOG = new DialogRulesBelote();
     private static final String VALIDATE = "validate";
     private boolean validated;

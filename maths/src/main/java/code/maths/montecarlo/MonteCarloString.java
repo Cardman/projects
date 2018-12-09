@@ -5,10 +5,8 @@ import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class MonteCarloString extends AbMonteCarlo<String> {
 
     private StringMap<LgInt> law;
@@ -28,7 +26,7 @@ public final class MonteCarloString extends AbMonteCarlo<String> {
         }
     }
 
-    @CapacityInit
+    
     public MonteCarloString(CollCapacity _capacity) {
         law = new StringMap<LgInt>(_capacity);
     }

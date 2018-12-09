@@ -1,7 +1,6 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.AbEqList;
+import code.util.ints.Comparing;
 
 public final class ComparatorIndexes<T> implements Comparing<T> {
 

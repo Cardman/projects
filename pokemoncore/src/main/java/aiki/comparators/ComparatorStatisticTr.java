@@ -1,9 +1,8 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.EnumMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorStatisticTr implements Comparing<Statistic> {
 

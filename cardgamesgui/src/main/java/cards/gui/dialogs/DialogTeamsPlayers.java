@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class DialogTeamsPlayers extends DialogCards {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogTeamsPlayers";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogteamsplayers";
 
     private static final DialogTeamsPlayers DIALOG = new DialogTeamsPlayers();
     private static final String TEAM = "team";

@@ -1,25 +1,39 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.CustomError;
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.util.CollCapacity;
 import code.util.ObjectMap;
+import code.util.StringList;
 
-public class ErrorStruct implements Struct {
+public final class ErrorStruct implements DisplayableStruct {
 
-    private final Object instance;
+    private final ArrayStruct stack;
 
     private final String className;
 
-    public ErrorStruct(CustomError _instance, String _className) {
-        instance = _instance;
+    private final String message;
+
+    public ErrorStruct(ExecutableCode _context, String _className) {
+        this(_context, "", _className);
+    }
+
+    public ErrorStruct(ExecutableCode _context, String _message, String _className) {
+        ContextEl cont_ = _context.getContextEl();
+        stack = StackTraceElementStruct.newStackTraceElementArray(cont_);
         className = _className;
+        message = _message;
     }
     @Override
     public boolean isNull() {
         return false;
     }
 
+    public ArrayStruct getStack() {
+        return stack;
+    }
     @Override
     public boolean isArray() {
         return false;
@@ -42,7 +56,7 @@ public class ErrorStruct implements Struct {
 
     @Override
     public Object getInstance() {
-        return instance;
+        return this;
     }
 
     @Override
@@ -51,5 +65,24 @@ public class ErrorStruct implements Struct {
     }
     public String getClassName() {
         return className;
+    }
+
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(getStringRep());
+    }
+
+    String getStringRep() {
+        Struct[] calls_ = stack.getInstance();
+        StringList str_ = new StringList(new CollCapacity(calls_.length+2));
+        str_.add(className);
+        str_.add(message);
+        for (Struct s: calls_) {
+            str_.add(((StackTraceElementStruct)s).getStringRep());
+        }
+        return str_.join("\n");
+    }
+    public Struct getMessage() {
+        return new StringStruct(message);
     }
 }

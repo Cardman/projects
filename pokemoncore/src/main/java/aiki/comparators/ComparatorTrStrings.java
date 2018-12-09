@@ -1,8 +1,7 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import code.util.StringMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorTrStrings implements Comparing<String> {
 

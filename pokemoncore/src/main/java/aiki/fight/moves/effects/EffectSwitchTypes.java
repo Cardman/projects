@@ -8,9 +8,8 @@ import aiki.map.levels.enums.EnvironmentType;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectSwitchTypes extends Effect {
 
     private EnumMap<EnvironmentType, String> chgtTypeByEnv;

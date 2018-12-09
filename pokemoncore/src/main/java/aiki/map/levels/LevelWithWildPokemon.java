@@ -15,9 +15,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class LevelWithWildPokemon extends Level {
 
     private CustList<AreaApparition> wildPokemonAreas;

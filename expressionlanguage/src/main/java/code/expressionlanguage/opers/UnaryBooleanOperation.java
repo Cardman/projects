@@ -4,15 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -38,7 +39,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         if (!clMatch_.isBoolType(_conf)) {
             ClassArgumentMatching cl_ = child_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -52,9 +53,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
-        Object o_ = arg_.getObject();
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);
@@ -66,8 +67,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Object o_ = arg_.getObject();
-        Boolean b_ = (Boolean) o_;
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);
@@ -77,9 +78,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Object o_ = arg_.getObject();
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);

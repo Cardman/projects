@@ -23,7 +23,7 @@ import code.util.StringMap;
 
 public final class DialogSoft extends DialogCards {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogSoft";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogsoft";
 
     private static final DialogSoft DIALOG = new DialogSoft();
     private static final String WAITING_SENTENCE = "waitingSentence";

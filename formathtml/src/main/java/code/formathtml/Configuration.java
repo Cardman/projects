@@ -11,6 +11,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeOwnersDepends;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -18,7 +19,6 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -41,9 +41,9 @@ import code.formathtml.util.TranslatorStruct;
 import code.formathtml.util.ValidatorStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -159,7 +159,7 @@ public class Configuration implements ExecutableCode {
         }
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
-            if (e.getKey().equalsIgnoreCase(conf_)) {
+            if (StringList.quickEq(e.getKey(),conf_)) {
                 content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
                 break;
             }
@@ -462,7 +462,7 @@ public class Configuration implements ExecutableCode {
         document = _document;
     }
 
-    @Override
+
     public final String joinPages() {
         StringList l_ = new StringList();
         for (ImportingPage p: importing) {
@@ -624,11 +624,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public String getCurrentFileName() {
         return getLastPage().getReadUrl();
-    }
-
-    @Override
-    public RowCol getCurrentLocation() {
-        return getLastPage().getRowCol();
     }
 
     @Override
@@ -850,10 +845,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveIdType(String _in) {
-        return resolveDynamicType(_in, null);
-    }
-    @Override
     public String resolveAccessibleIdType(String _in) {
         return resolveDynamicType(_in, null);
     }
@@ -872,7 +863,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
-        return PartTypeUtil.processExec(_in, context);
+        return resolveDynamicType(_in, null);
     }
 
     @Override
@@ -893,9 +884,16 @@ public class Configuration implements ExecutableCode {
     public String resolveDynamicType(String _in, RootBlock _file) {
         String res_ = PartTypeUtil.processExec(_in, context);
         if (res_.isEmpty()) {
+            String defPkg_ = standards.getDefaultPkg();
+            String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_in));
+            if (standards.getStandards().contains(type_)) {
+                return type_;
+            }
+        }
+        if (res_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName("");
-            un_.setRc(new RowCol());
+            un_.setIndexFile(0);
             un_.setType(_in);
             context.getClasses().addError(un_);
             res_ = standards.getAliasObject();
@@ -1083,5 +1081,20 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setKeyWords(KeyWords _keyWords) {
         context.setKeyWords(_keyWords);
+    }
+
+    @Override
+    public StringMap<StringList> getCurrentConstraints() {
+        return context.getCurrentConstraints();
+    }
+
+    @Override
+    public Numbers<Integer> getCurrentBadIndexes() {
+        return context.getCurrentBadIndexes();
+    }
+
+    @Override
+    public int getCurrentLocationIndex() {
+        return getLastPage().getSum();
     }
 }

@@ -4,15 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.images.Image;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.DataBase;
-import aiki.map.levels.Block;
-import aiki.map.levels.BlockBounds;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;
+import code.images.Image;
+import code.util.Numbers;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class BlockTest {

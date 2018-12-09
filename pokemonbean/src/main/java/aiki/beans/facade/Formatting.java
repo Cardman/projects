@@ -1,7 +1,7 @@
 package aiki.beans.facade;
 import aiki.DataBase;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -46,9 +46,9 @@ final class Formatting {
         return reasons_;
     }
 
-    public static NatTreeMap<String,String> getMapVarsFail(DataBase _data, String _fail, String _language) {
-        NatTreeMap<String,String> mapVars_ = _data.getDescriptions(_fail, _language);
-        NatTreeMap<String,String> mapVarsFail_ = new NatTreeMap<String,String>();
+    public static NatStringTreeMap<String> getMapVarsFail(DataBase _data, String _fail, String _language) {
+        NatStringTreeMap<String> mapVars_ = _data.getDescriptions(_fail, _language);
+        NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         for (String k: desc_) {
             mapVarsFail_.put(k, mapVars_.getVal(k));

@@ -1,5 +1,4 @@
 package code.images;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
@@ -40,7 +39,7 @@ public final class Image implements Displayable {
         }
     }
 
-    @FromAndToString
+    
     public static Image newImage(String _string) {
         return new Image(_string);
     }
@@ -301,7 +300,7 @@ public final class Image implements Displayable {
         pixels = _pixels;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder return_ = new StringBuilder(String.valueOf(width));

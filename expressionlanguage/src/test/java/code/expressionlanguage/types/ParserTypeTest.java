@@ -6,14 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.util.Numbers;
 import code.util.StringMap;
 
@@ -554,6 +549,27 @@ public class ParserTypeTest {
         assertEq(22, indexes_.get(4).intValue());
         assertEq(34, indexes_.last().intValue());
     }
+    @Test
+    public void getIndexes38Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T,U> {\n");
+        xml_.append(" public class Inner<V> {}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {}\n");
+        xml_.append("public class pkg.ExThree {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner<String>", cont_);
+        assertEq(6, indexes_.size());
+        assertEq(2, indexes_.first().intValue());
+        assertEq(9, indexes_.get(1).intValue());
+        assertEq(15, indexes_.get(2).intValue());
+        assertEq(16, indexes_.get(3).intValue());
+        assertEq(22, indexes_.get(4).intValue());
+        assertEq(29, indexes_.last().intValue());
+    }
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
         Classes classes_ = cont_.getClasses();
@@ -566,18 +582,9 @@ public class ParserTypeTest {
         return cont_;
     }
     private static ContextEl contextEnElDefault() {
-        KeyWordsMap map_ = new KeyWordsMap();
-        KeyWords k_ = map_.getKeyWords("en");
-        LgNames lgNames_ = new CustLgNames();
         Options opt_ = new Options();
         opt_.setSingleInnerParts(true);
-        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), opt_, k_);
-        lgNames_.setContext(ct_);
-        map_.initEnStds(lgNames_);
-        lgNames_.build();
-        ct_.setStandards(lgNames_);
-        lgNames_.setupOverrides(ct_);
-        ct_.initError();
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
 }

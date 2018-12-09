@@ -1,7 +1,6 @@
 package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.PairEq;
@@ -29,7 +28,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
     }
 
-    @FromAndToString
+    
     public static Matrix newMatrix(String _arg) {
         Matrix v_ = new Matrix();
         for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
@@ -640,7 +639,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     @Override
-    @FromAndToString
+    
     public String display() {
         if (lines.isEmpty()) {
             return "";

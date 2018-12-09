@@ -37,7 +37,7 @@ import code.util.StringList;
 import code.util.consts.ConstFiles;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorTarot";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editortarot";
 
     private static final EditorTarot DIALOG = new EditorTarot();
     private static final String BACK = "back";

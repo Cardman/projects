@@ -3,9 +3,8 @@ package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PkTrainer extends Pokemon {
 
     /***/

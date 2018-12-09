@@ -1,13 +1,48 @@
 package code.formathtml;
 
+import org.junit.Assert;
+
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultInitializer;
+import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.CustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.util.CustList;
 
 public final class InitializationLgNames {
 
     private InitializationLgNames(){
+    }
+
+    public static ContextEl buildStdOne(Options _opt) {
+        BeanLgNames lgNames_ = new CustBeanLgNames();
+        basicStandards(lgNames_);
+        lgNames_.setSelectedBoolean("java.lang.sb");
+        lgNames_.setAliasRate("java.lang.Long");
+        lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
+        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
+        Assert.assertTrue(context_.getClasses().isEmptyStdError());
+        return context_;
+    }
+    public static ContextEl buildStdTwo(Options _opt) {
+        BeanLgNames lgNames_ = new CustLgNames();
+        basicStandards(lgNames_);
+        lgNames_.setAliasMath("java.lang.$math");
+        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
+        Assert.assertTrue(context_.getClasses().isEmptyStdError());
+        return context_;
+    }
+    public static ContextEl build(int _stack,LgNames _lgNames, Options _opt) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames);
+        return out_;
     }
     public static BeanLgNames initStandards(ContextEl _cont) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
@@ -22,6 +57,7 @@ public final class InitializationLgNames {
         return lgNames_;
     }
     private static void basicStandards(BeanLgNames _lgNames) {
+        _lgNames.setDefaultPkg("java.lang");
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
@@ -34,25 +70,26 @@ public final class InitializationLgNames {
         _lgNames.setAliasValueOf("valueOf");
         _lgNames.setAliasMaxValueField("MAX_VALUE");
         _lgNames.setAliasMinValueField("MIN_VALUE");
-        _lgNames.setAliasIteratorType("$iterator");
+        _lgNames.setAliasIteratorType("java.lang.$iterator");
         _lgNames.setAliasIterator("iterator");
-        _lgNames.setAliasIterable("$iterable");
-        _lgNames.setAliasEnumParam("$Enum");
-        _lgNames.setAliasEnum("$en");
-        _lgNames.setAliasEnums("$enums");
+        _lgNames.setAliasIterable("java.lang.$iterable");
+        _lgNames.setAliasEnumParam("java.lang.$Enum");
+        _lgNames.setAliasEnum("java.lang.$en");
+        _lgNames.setAliasEnums("java.lang.$enums");
         _lgNames.setAliasReplacement("code.util.Replacement");
 //        _lgNames.setAliasStore("$badStore");
         _lgNames.setAliasStore("code.expressionlanguage.exceptions.DynamicArrayStoreException");
 //        _lgNames.setAliasNullPe("$npe");
         _lgNames.setAliasNullPe("code.util.exceptions.NullObjectException");
-        _lgNames.setAliasBadEncode("$enc");
+        _lgNames.setAliasBadEncode("java.lang.$enc");
 //        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
 //        _lgNames.setAliasBadSize("$badSize");
         _lgNames.setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
-        _lgNames.setAliasCustomError("$customError");
+        _lgNames.setAliasGetMessage("getMessage");
+        _lgNames.setAliasCustomError("java.lang.$customError");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
@@ -63,8 +100,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasMod("mod");
         _lgNames.setAliasQuot("quot");
         _lgNames.setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");
-        _lgNames.setAliasNbFormat("badFormat");
-        _lgNames.setAliasBadEncode("badEncode");
+        _lgNames.setAliasNbFormat("java.lang.badFormat");
         _lgNames.setAliasPrimBoolean("$boolean");
         _lgNames.setAliasPrimByte("$byte");
         _lgNames.setAliasPrimShort("$short");
@@ -151,19 +187,21 @@ public final class InitializationLgNames {
         _lgNames.setAliasGet("get");
         _lgNames.setAliasSize("size");
         _lgNames.setAliasSimpleIterator("iterator");
-        _lgNames.setAliasErrorInitClass("$defErrorClass");
+        _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasValues("values");
-        _lgNames.setAliasInvokeTarget("$invokeTaget");
-        _lgNames.setAliasClassNotFoundError("$classNotFound");
+        _lgNames.setAliasInvokeTarget("java.lang.$invokeTaget");
+        _lgNames.setAliasClassNotFoundError("java.lang.$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
-        _lgNames.setAliasClass("$Class");
-        _lgNames.setAliasFct("$Fct");
+        _lgNames.setAliasClass("java.lang.$Class");
+        _lgNames.setAliasStackTraceElement("java.lang.$stack");
+        _lgNames.setAliasCurrentStack("current");
+        _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
-        _lgNames.setAliasAnnotation("$Annotation");
-        _lgNames.setAliasAnnotated("$Annotated");
+        _lgNames.setAliasAnnotation("java.lang.$Annotation");
+        _lgNames.setAliasAnnotated("java.lang.$Annotated");
         _lgNames.setAliasGetAnnotations("getAnnotations");
         _lgNames.setAliasGetDefaultValue("getDefaultValue");
         _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
@@ -173,9 +211,9 @@ public final class InitializationLgNames {
         _lgNames.setAliasMakeGeneric("makeGeneric");
         _lgNames.setAliasGetAllClasses("getAllClasses");
         _lgNames.setAliasGetOperators("getOperators");
-        _lgNames.setAliasConstructor("$Constructor");
-        _lgNames.setAliasField("$Field");
-        _lgNames.setAliasMethod("$Method");
+        _lgNames.setAliasConstructor("java.lang.$Constructor");
+        _lgNames.setAliasField("java.lang.$Field");
+        _lgNames.setAliasMethod("java.lang.$Method");
         _lgNames.setAliasInvoke("invoke");
         _lgNames.setAliasNewInstance("newInstance");
         _lgNames.setAliasIsPolymorph("isPolymorph");
@@ -189,17 +227,17 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetEnclosingType("getEnclosingType");
         _lgNames.setAliasGetDeclaredClasses("getDeclaredClasses");
         _lgNames.setAliasForName("forName");
-        _lgNames.setAliasObjectsUtil("$ObjectsUtil");
+        _lgNames.setAliasObjectsUtil("java.lang.$ObjectsUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
-        _lgNames.setAliasIterableTable("$iterableTable");
+        _lgNames.setAliasIterableTable("java.lang.$iterableTable");
         _lgNames.setAliasIteratorTable("iteratorTable");
-        _lgNames.setAliasIteratorTableType("$iteratorTable");
+        _lgNames.setAliasIteratorTableType("java.lang.$iteratorTable");
         _lgNames.setAliasHasNextPair("hasNextPair");
         _lgNames.setAliasNextPair("nextPair");
-        _lgNames.setAliasPairType("$pair");
+        _lgNames.setAliasPairType("java.lang.$pair");
         _lgNames.setAliasGetFirst("getFirst");
         _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
@@ -263,6 +301,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasOr("or");
         _lgNames.setAliasXor("xor");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("lt");
         _lgNames.setAliasGt("gt");
         _lgNames.setAliasLe("le");

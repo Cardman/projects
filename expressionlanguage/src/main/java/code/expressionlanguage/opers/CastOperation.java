@@ -3,14 +3,13 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -55,7 +54,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
         }
@@ -105,7 +104,7 @@ public final class CastOperation extends AbstractUnaryOperation {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     return;
                 }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
+                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     return;
@@ -160,7 +159,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
             if (!Templates.isCorrectExecute(argClassName_, paramName_ , _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE),cast_));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -169,15 +168,15 @@ public final class CastOperation extends AbstractUnaryOperation {
             if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf,StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
+                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

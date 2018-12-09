@@ -5,10 +5,8 @@ import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
 
     private EnumMap<E,LgInt> law;
@@ -28,7 +26,7 @@ public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
         }
     }
 
-    @CapacityInit
+    
     public MonteCarloEnum(CollCapacity _capacity) {
         law = new EnumMap<E,LgInt>(_capacity);
     }

@@ -4,9 +4,8 @@ import java.util.Iterator;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TrickPresident implements Iterable<HandPresident> {
     /**Entameur du pli*/
     private byte starter;

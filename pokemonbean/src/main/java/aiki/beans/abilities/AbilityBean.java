@@ -24,7 +24,7 @@ import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -118,9 +118,9 @@ public class AbilityBean extends CommonBean {
     private boolean endRound;
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
     private boolean sending;
-    private NatTreeMap<String,String> mapVars;
+    private NatStringTreeMap<String> mapVars;
     private Rate defEff = Rate.one();
     private StringList pokemon = new StringList();
 
@@ -148,7 +148,7 @@ public class AbilityBean extends CommonBean {
             endRound = false;
             endRoundRank = 0;
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
         if (!ability_.getEffectSending().isEmpty()) {
             sending = true;
@@ -233,8 +233,8 @@ public class AbilityBean extends CommonBean {
         recoilDamageFoeByKoOwner = ability_.getRecoilDamageFoeByKoOwner();
         decreaseNecStepsHatch = ability_.getDecreaseNecStepsHatch();
         nbUsedPp = ability_.getNbUsedPp();
-        NatTreeMap<String,String> mapVars_;
-        mapVars_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_;
+        mapVars_ = new NatStringTreeMap<String>();
         multPower = data_.getFormula(ability_.getMultPower(), getLanguage());
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
@@ -1133,7 +1133,7 @@ public class AbilityBean extends CommonBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 
@@ -1473,7 +1473,7 @@ public class AbilityBean extends CommonBean {
         return failStatus;
     }
 
-    public NatTreeMap<String,String> getMapVars() {
+    public NatStringTreeMap<String> getMapVars() {
         return mapVars;
     }
 

@@ -33,7 +33,7 @@ import code.util.StringMap;
 
 public class PanelTricksHandsPresident extends Panel implements ViewablePanelTricksHands {
 
-    private static final String ACCESS = "cards.gui.panels.PanelTricksHandsPresident";
+    private static final String ACCESS = "cards.gui.panels.paneltrickshandspresident";
     private static final String CURRENT_TRICK = "";
     private static final String EMPTY =CURRENT_TRICK;
     private static final String SPACE ="space";

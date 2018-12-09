@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
@@ -12,7 +11,7 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V
         putAllMap(_arg0);
     }
 
-    @CapacityInit
+    
     public ObjectMap(CollCapacity _capacity) {
         super(_capacity);
     }

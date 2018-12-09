@@ -11,12 +11,12 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.errors.custom.BadVariableName;
+import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.errors.custom.UndefinedVariableError;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadVariableName;
-import code.expressionlanguage.methods.util.DuplicateVariable;
-import code.expressionlanguage.methods.util.UndefinedVariableError;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -66,7 +65,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(str_);
                 d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                d_.setRc(page_.getTrace());
+                d_.setIndexFile(page_.getTraceIndex());
                 _conf.getClasses().addError(d_);
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
@@ -74,28 +73,28 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             if (!StringList.isWord(str_)) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setRc(page_.getTrace());
+                b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
             if (_conf.getKeyWords().isKeyWordNotVar(str_)) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setRc(page_.getTrace());
+                b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
             if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setRc(page_.getTrace());
+                b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
             if (StringList.quickEq(str_, _conf.getStandards().getAliasVoid())) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setRc(page_.getTrace());
+                b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
@@ -104,7 +103,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 if (!str_.isEmpty() && ContextEl.isDigit(str_.charAt(0))) {
                     BadVariableName b_ = new BadVariableName();
                     b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setRc(page_.getTrace());
+                    b_.setIndexFile(page_.getTraceIndex());
                     b_.setVarName(str_);
                     _conf.getClasses().addError(b_);
                 }
@@ -113,7 +112,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 if (_conf.getAnalyzing().containsCatchVar(str_)) {
                     BadVariableName b_ = new BadVariableName();
                     b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setRc(page_.getTrace());
+                    b_.setIndexFile(page_.getTraceIndex());
                     b_.setVarName(str_);
                     _conf.getClasses().addError(b_);
                     setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
@@ -122,7 +121,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 if (_conf.getAnalyzing().containsLocalVar(str_)) {
                     BadVariableName b_ = new BadVariableName();
                     b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setRc(page_.getTrace());
+                    b_.setIndexFile(page_.getTraceIndex());
                     b_.setVarName(str_);
                     _conf.getClasses().addError(b_);
                     setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
@@ -131,7 +130,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 if (_conf.getParameters().contains(str_)) {
                     BadVariableName b_ = new BadVariableName();
                     b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setRc(page_.getTrace());
+                    b_.setIndexFile(page_.getTraceIndex());
                     b_.setVarName(str_);
                     _conf.getClasses().addError(b_);
                     setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
@@ -145,7 +144,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 if (!(getParent() instanceof AffectationOperation)) {
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setFileName(_conf.getCurrentFileName());
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(un_);
                 }
                 _conf.putMutableLoopVar(str_);
@@ -175,7 +174,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         UndefinedVariableError und_ = new UndefinedVariableError();
         und_.setId(variableName);
         und_.setFileName(_conf.getCurrentFileName());
-        und_.setRc(_conf.getCurrentLocation());
+        und_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
@@ -242,7 +241,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
-                        un_.setRc(_conf.getCurrentLocation());
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
                         _conf.getClasses().addError(un_);
                     }
                 }
@@ -472,9 +471,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-        }
         locVar_.setStruct(res_.getStruct());
         return res_;
     }
@@ -494,9 +490,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
-        }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());
         if (_post) {

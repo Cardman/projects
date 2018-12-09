@@ -1,8 +1,7 @@
 package code.maths;
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.SortableCustList;
+import code.util.ints.Comparing;
 
 public final class ComparatorEvents implements Comparing<SortableCustList<LgInt>> {
 

@@ -1,8 +1,7 @@
 package cards.network.president.displaying.errors;
 import cards.president.enumerations.CardPresident;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ErrorPlayingPresident {
 
     private CardPresident card;

@@ -18,7 +18,7 @@ import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.FileSaveDialog";
+    private static final String DIALOG_ACCESS = "gui.filesavedialog";
 
     private static final FileSaveDialog DIALOG = new FileSaveDialog();
 

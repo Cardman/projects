@@ -1,5 +1,4 @@
 package code.images;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -26,7 +25,7 @@ public final class Animation implements Displayable {
         imagesDelays.add(new ImageDelay(_image,0L));
     }
 
-    @FromAndToString
+    
     public static Animation newAnimation(String _string) {
         return new Animation(_string);
     }
@@ -47,7 +46,7 @@ public final class Animation implements Displayable {
         imagesDelays = _imagesDelays;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringList lines_ = new StringList();

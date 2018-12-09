@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
@@ -7,8 +9,6 @@ import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadElError;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
@@ -68,7 +68,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(d_.getBadOffset());
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
@@ -89,7 +89,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(d_.getBadOffset());
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
         }
         String fieldName_ = _calcul.getFieldName();
@@ -160,7 +160,7 @@ public final class ElUtil {
                         BadOperandsNumber badNb_ = new BadOperandsNumber();
                         badNb_.setFileName(_context.getCurrentFileName());
                         badNb_.setOperandsNumber(0);
-                        badNb_.setRc(_context.getCurrentLocation());
+                        badNb_.setIndexFile(_context.getCurrentLocationIndex());
                         _context.getClasses().addError(badNb_);
                     } else {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
@@ -238,7 +238,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setRc(_context.getCurrentLocation());
+            badEl_.setIndexFile(_context.getCurrentLocationIndex());
             _context.getClasses().addError(badEl_);
         }
         return op_;
@@ -271,7 +271,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setRc(_context.getCurrentLocation());
+            badEl_.setIndexFile(_context.getCurrentLocationIndex());
             _context.getClasses().addError(badEl_);
         }
         return op_;

@@ -39,7 +39,7 @@ import code.util.StringList;
 import code.util.consts.ConstFiles;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorPresident";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorpresident";
 
     private static final EditorPresident DIALOG = new EditorPresident();
     private static final String BACK = "back";

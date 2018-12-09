@@ -4,7 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectBean extends CommonBean {
@@ -14,7 +14,7 @@ public class EffectBean extends CommonBean {
     private String move;
     private int index;
     private StringList reasons;
-    private NatTreeMap<String,String> mapVarsFail;
+    private NatStringTreeMap<String> mapVarsFail;
     private boolean needSuccessFirstEffect;
 
     @Override
@@ -159,7 +159,7 @@ public class EffectBean extends CommonBean {
         return reasons;
     }
 
-    public NatTreeMap<String,String> getMapVarsFail() {
+    public NatStringTreeMap<String> getMapVarsFail() {
         return mapVarsFail;
     }
 

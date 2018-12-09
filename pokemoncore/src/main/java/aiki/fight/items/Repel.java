@@ -1,9 +1,8 @@
 package aiki.fight.items;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Repel extends Item {
 
     private static final String ITEM = "aiki.fight.items.Repel";

@@ -27,7 +27,7 @@ public final class ArrayStruct implements Struct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        return getInstance() == _other.getInstance();
+        return this == _other;
     }
 
     @Override

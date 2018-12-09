@@ -13,9 +13,8 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RulesTarot {
 
     private MixCardsChoice mixedCards=MixCardsChoice.EACH_LAUNCHING;

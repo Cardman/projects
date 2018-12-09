@@ -1,10 +1,4 @@
 package aiki.game.fight;
-import code.images.Image;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.ImageHeroKey;
 import aiki.fight.pokemon.NameLevel;
@@ -54,6 +48,12 @@ import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.Image;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
 
 final class InitializationMap {
 

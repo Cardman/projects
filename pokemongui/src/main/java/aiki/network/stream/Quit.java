@@ -1,7 +1,6 @@
 package aiki.network.stream;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Quit extends PlayerActionGame {
 
     private boolean closing;

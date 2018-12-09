@@ -3,9 +3,8 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class AllowPlayingTarot {
 
     private boolean firstRoundPlaying;

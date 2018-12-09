@@ -3,8 +3,6 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.UnknownClassName;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -42,13 +40,9 @@ final class WildCardPartType extends ParentPartType {
     @Override
     public void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
-            RootBlock _rooted, boolean _exact, RowCol _location) {
+            RootBlock _rooted, boolean _exact) {
         if (!(getParent() instanceof TemplatePartType)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName("");
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
+            _an.getCurrentBadIndexes().add(getIndexInType());
             stopDepends();
             return;
         }
@@ -56,11 +50,7 @@ final class WildCardPartType extends ParentPartType {
         if (prev_ instanceof NamePartType) {
             String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName("");
-                un_.setFileName(_rooted.getFile().getFileName());
-                un_.setRc(_location);
-                _an.getClasses().addError(un_);
+                _an.getCurrentBadIndexes().add(getIndexInType());
                 stopDepends();
                 return;
             }
@@ -75,15 +65,17 @@ final class WildCardPartType extends ParentPartType {
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
-            boolean _protected, RowCol _location) {
+            boolean _protected) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
+            _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
         PartType prev_ = getParent().getFirstChild();
         if (prev_ instanceof NamePartType) {
             String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                _an.getCurrentBadIndexes().add(getIndexInType());
                 return;
             }
         }
@@ -92,15 +84,17 @@ final class WildCardPartType extends ParentPartType {
     }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, boolean _protected, RowCol _location) {
+            boolean _exact) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
+            _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
         PartType prev_ = getParent().getFirstChild();
         if (prev_ instanceof NamePartType) {
             String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                _an.getCurrentBadIndexes().add(getIndexInType());
                 return;
             }
         }
@@ -108,23 +102,6 @@ final class WildCardPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
 
-    @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            return;
-        }
-        PartType prev_ = getParent().getFirstChild();
-        if (prev_ instanceof NamePartType) {
-            String base_ = ((NamePartType)prev_).getTypeName();
-            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
-                return;
-            }
-        }
-        String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
-        setAnalyzedType(ch_);
-    }
     @Override
     public void analyzeAccessibleId(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,

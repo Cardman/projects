@@ -6,15 +6,19 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -51,13 +55,13 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         if (child_ instanceof ConstantOperation) {
             Argument arg_ = ((ConstantOperation) child_).getArgument();
-            Object instance_ = arg_.getObject();
-            if (instance_ instanceof Byte) {
+            Struct instance_ = arg_.getStruct();
+            if (instance_ instanceof ByteStruct) {
                 clMatch_.setUnwrapObject(cl_);
                 setResultClass(cl_);
                 return;
             }
-            if (instance_ instanceof Short) {
+            if (instance_ instanceof ShortStruct) {
                 clMatch_.setUnwrapObject(cl_);
                 setResultClass(cl_);
                 return;
@@ -68,7 +72,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
             _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(clMatch_);
@@ -119,21 +123,13 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         if (arg_.isNull()) {
             return;
         }
+        ClassArgumentMatching to_ = getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(arg_.getStruct());
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) arg_.getStruct(), _conf, to_));
         } else {
-            Number b_ = arg_.getNumber();
-            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
-            String longPrim_ = _conf.getStandards().getAliasPrimLong();
-            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
-                out_.setObject(-b_.longValue());
-            } else {
-                out_.setObject(-b_.doubleValue());
-            }
+            out_.setStruct(NumberStruct.opposite((NumberStruct) arg_.getStruct(), _conf, to_));
         }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
         setSimpleArgumentAna(out_, _conf);
     }
     @Override
@@ -165,20 +161,12 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String oper_ = getOperations().getOperators().firstValue();
+        ClassArgumentMatching to_ = getResultClass();
         if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(_in.getStruct());
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, to_));
         } else {
-            Number b_ = _in.getNumber();
-            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
-            String longPrim_ = _conf.getStandards().getAliasPrimLong();
-            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
-                out_.setObject(-b_.longValue());
-            } else {
-                out_.setObject(-b_.doubleValue());
-            }
+            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, to_));
         }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
         return out_;
     }
     @Override

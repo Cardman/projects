@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.beans.facade.map.dto.PlaceIndex;
+import code.util.ints.Comparing;
 
 public final class ComparatorPlaceIndex implements Comparing<PlaceIndex> {
 

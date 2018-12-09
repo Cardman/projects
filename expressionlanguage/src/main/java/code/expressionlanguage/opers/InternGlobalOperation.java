@@ -5,8 +5,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -40,7 +40,7 @@ public final class InternGlobalOperation extends LeafOperation {
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
         }
         setResultClass(new ClassArgumentMatching(arg_));

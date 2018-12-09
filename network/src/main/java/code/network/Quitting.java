@@ -11,7 +11,7 @@ import code.util.StringMap;
 /**Thread safe class*/
 public final class Quitting extends Thread {
 
-    private static final String QUITTING = "network.Quitting";
+    private static final String QUITTING = "network.quitting";
 
     private static final String FOLDER = "resources_network/messages";
 

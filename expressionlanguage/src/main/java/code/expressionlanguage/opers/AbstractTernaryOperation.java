@@ -8,6 +8,9 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ResultTernary;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.DeadCodeTernary;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FunctionBlock;
@@ -15,10 +18,7 @@ import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
-import code.expressionlanguage.methods.util.DeadCodeTernary;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -71,7 +72,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (arguments_.first().isNull()) {
             return;
         }
-        Boolean obj_ = (Boolean) arguments_.first().getObject();
+        Boolean obj_ = ((BooleanStruct) arguments_.first().getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);
@@ -105,7 +106,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setRc(_conf.getCurrentLocation());
+            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -116,7 +117,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
             ClassArgumentMatching cl_ = chidren_.first().getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -148,7 +149,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opTwo_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -158,7 +159,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opThree_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -224,7 +225,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setResultClass(new ClassArgumentMatching(type_));
             if (opOne_.getArgument() != null) {
                 DeadCodeTernary d_ = new DeadCodeTernary();
-                d_.setRc(_conf.getCurrentLocation());
+                d_.setIndexFile(_conf.getCurrentLocationIndex());
                 d_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addWarning(d_);
             }
@@ -240,7 +241,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
         if (opOne_.getArgument() != null) {
             DeadCodeTernary d_ = new DeadCodeTernary();
-            d_.setRc(_conf.getCurrentLocation());
+            d_.setIndexFile(_conf.getCurrentLocationIndex());
             d_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addWarning(d_);
         }
@@ -326,7 +327,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     }
     final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        Boolean obj_ = (Boolean) _arguments.first().getObject();
+        Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = _arguments.get(CustList.SECOND_INDEX);

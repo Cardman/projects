@@ -1,10 +1,11 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
 
-public final class NullStruct implements Struct {
+public final class NullStruct implements DisplayableStruct, ExportableStringStruct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
@@ -19,6 +20,15 @@ public final class NullStruct implements Struct {
         return true;
     }
 
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(_an.getStandards().getNullString());
+    }
+
+    @Override
+    public StringStruct exportValue() {
+        return new StringStruct(";");
+    }
     @Override
     public Object getInstance() {
         return null;

@@ -15,7 +15,7 @@ import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class ConfirmDialog extends Dialog {
-    private static final String DIALOG_ACCESS = "gui.ConfirmDialog";
+    private static final String DIALOG_ACCESS = "gui.confirmdialog";
 
     private static final ConfirmDialog DIALOG = new ConfirmDialog();
     private static final String OK = "ok";

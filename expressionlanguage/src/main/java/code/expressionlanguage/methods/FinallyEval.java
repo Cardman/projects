@@ -4,9 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.LocalThrowing;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -46,7 +46,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         if (ch_ == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
@@ -55,7 +55,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             if (!(pBlock_ instanceof TryEval)) {
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                un_.setIndexFile(getOffset().getOffsetTrim());
                 _an.getClasses().addError(un_);
             }
         }
@@ -180,7 +180,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             for (Block b: group_) {
                 _anEl.completeAbruptGroup(b);
             }
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
             return;
         }
@@ -209,7 +208,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             for (Block b: group_) {
                 _anEl.completeAbruptGroup(b);
             }
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

@@ -12,9 +12,9 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.ForwardPageEl;
 import code.expressionlanguage.calls.ReturnablePageEl;
-import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -92,7 +92,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         if (f_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
             return;
         }
@@ -116,7 +116,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, expressionOffset));
+            cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
             return;
         }
@@ -124,7 +124,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, expressionOffset));
+            cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {

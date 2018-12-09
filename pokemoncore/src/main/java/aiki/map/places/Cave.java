@@ -22,9 +22,8 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Cave extends Campaign {
 
     private String name;

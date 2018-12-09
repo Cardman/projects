@@ -1,8 +1,7 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
-import code.util.Numbers;
 import cards.tarot.enumerations.CardTarot;
+import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class CharactersTarotGreaterPointsComparator implements Comparing<CardTarot> {
 

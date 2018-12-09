@@ -1,7 +1,6 @@
 package aiki.game.params;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class LoadingGame {
 
 //    public static final String DEFAULT_SAVE_GAME = "last_save"+Resources.GAME_EXT;

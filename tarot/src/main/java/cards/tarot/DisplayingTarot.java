@@ -1,9 +1,8 @@
 package cards.tarot;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DisplayingTarot {
 
     private boolean clockwise;

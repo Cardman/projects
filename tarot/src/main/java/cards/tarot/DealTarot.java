@@ -2,6 +2,11 @@ package cards.tarot;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import cards.consts.MixCardsChoice;
+import cards.consts.Suit;
+import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.ChoiceTarot;
+import cards.tarot.enumerations.DealingTarot;
 import code.maths.LgInt;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
@@ -9,14 +14,8 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
-import code.util.annot.RwXml;
-import cards.consts.MixCardsChoice;
-import cards.consts.Suit;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.ChoiceTarot;
-import cards.tarot.enumerations.DealingTarot;
 
-@RwXml
+
 public final class DealTarot implements Iterable<HandTarot> {
 
     public static final byte NUMERO_UTILISATEUR = 0;

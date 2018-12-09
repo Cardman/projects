@@ -1,8 +1,6 @@
 package code.util;
-import code.util.ints.Comparing;
-
-import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorEnum;
+import code.util.ints.Comparing;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -20,7 +18,7 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         super(_elements);
     }
 
-    @CapacityInit
+    
     public EnumList(CollCapacity _capacity) {
         super(_capacity);
     }

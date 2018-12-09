@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.effects.EffectStatus;
 import code.maths.Rate;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -12,10 +12,10 @@ public class EffectStatusBean extends EffectBean {
     private TreeMap<String, Rate> lawStatus;
     private StringList deletedStatus;
 
-    private NatTreeMap<String, String> localFailStatus;
+    private NatStringTreeMap< String> localFailStatus;
     private boolean koUserHealSubst;
     private boolean statusFromUser;
-    private NatTreeMap<String,String> mapVarsStatus;
+    private NatStringTreeMap<String> mapVarsStatus;
 
     @Override
     public void beforeDisplaying() {
@@ -32,10 +32,10 @@ public class EffectStatusBean extends EffectBean {
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatTreeMap<String, String> localFailStatus_;
-        localFailStatus_ = new NatTreeMap<String,String>();
-        NatTreeMap<String,String> mapVarsStatus_;
-        mapVarsStatus_ = new NatTreeMap<String,String>();
+        NatStringTreeMap< String> localFailStatus_;
+        localFailStatus_ = new NatStringTreeMap<String>();
+        NatStringTreeMap<String> mapVarsStatus_;
+        mapVarsStatus_ = new NatStringTreeMap<String>();
         for (String s: effect_.getLocalFailStatus().getKeys()) {
             String formula_ = data_.getFormula(effect_.getLocalFailStatus().getVal(s), getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
@@ -120,7 +120,7 @@ public class EffectStatusBean extends EffectBean {
         return lawStatus;
     }
 
-    public NatTreeMap<String,String> getMapVarsStatus() {
+    public NatStringTreeMap<String> getMapVarsStatus() {
         return mapVarsStatus;
     }
 

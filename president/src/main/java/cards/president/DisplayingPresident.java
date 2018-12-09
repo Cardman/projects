@@ -1,9 +1,8 @@
 package cards.president;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DisplayingPresident {
 
     private boolean clockwise;

@@ -1,8 +1,7 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.game.fight.MoveTeamPosition;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorMoveTeamPosition implements Comparing<MoveTeamPosition> {
 

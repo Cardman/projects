@@ -1,9 +1,8 @@
 package aiki.game.fight.actions;
 import aiki.game.fight.TargetCoords;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ActionMove extends AbstractAction implements ChosenMove,ChosenReplacing{
 
     /***/

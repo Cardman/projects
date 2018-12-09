@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -42,7 +41,7 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
         valid = true;
     }
 
-    @FromAndToString
+    
     public static TeamPosition newTeamPosition(String _string) {
         return new TeamPosition(_string);
     }
@@ -74,7 +73,7 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
         }
         return true;
     }
-    @FromAndToString
+    
     @Override
     public String display() {
         if (!isValid()) {

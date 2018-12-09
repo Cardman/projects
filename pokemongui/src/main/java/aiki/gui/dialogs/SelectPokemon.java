@@ -18,7 +18,7 @@ import code.gui.events.ClosingDialogEvent;
 import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectPokemon";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectpokemon";
 
     private static final SelectPokemon DIALOG = new SelectPokemon();
 

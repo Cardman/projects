@@ -3,9 +3,8 @@ package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EvolutionTeam extends Evolution {
 
     private String pokemon;

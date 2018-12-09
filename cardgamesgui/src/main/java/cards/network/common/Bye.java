@@ -1,8 +1,7 @@
 package cards.network.common;
 import code.network.Exiting;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Bye extends Exiting {
 
     private boolean forced;

@@ -1,9 +1,8 @@
 package aiki.game.fight;
 import aiki.DataBase;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ChoiceOfEvolutionAndMoves {
 
     private String name = DataBase.EMPTY_STRING;

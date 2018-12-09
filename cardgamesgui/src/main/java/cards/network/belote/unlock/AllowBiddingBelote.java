@@ -1,9 +1,8 @@
 package cards.network.belote.unlock;
 import cards.belote.BidBeloteSuit;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class AllowBiddingBelote {
 
     private EqList<BidBeloteSuit> bids;

@@ -4,11 +4,11 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.UnassignedFinalField;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -74,7 +74,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }
@@ -96,7 +96,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }

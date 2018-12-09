@@ -2,13 +2,12 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
@@ -56,7 +55,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
         String classFormat_ = calledCtor_;
         classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
         if (classFormat_ == null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+            _conf.setException(new ErrorStruct(_conf,cast_));
             Argument a_ = new Argument();
             return a_;
         }

@@ -2,9 +2,8 @@ package aiki.fight.pokemon.evolution;
 
 import aiki.DataBase;
 import aiki.fight.pokemon.PokemonData;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class EvolutionLevel extends Evolution {
 
     private short level;

@@ -3,9 +3,8 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.map.pokemon.PkTrainer;
 import code.util.CustList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class TrainerOneFight extends Trainer {
 
     private short reward;

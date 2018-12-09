@@ -1,7 +1,5 @@
 package code.expressionlanguage;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -962,12 +960,6 @@ public final class ElResolver {
                 continue;
             }
             if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
-                int index_ = processPredefinedMethod(_string, i_, keyWordIntern_, len_);
-                if (index_ >= 0) {
-                    d_.getCallings().add(index_);
-                    i_ = index_;
-                    continue;
-                }
                 if (_conf.isInternGlobal()) {
                     int afterSuper_ = i_ + keyWordIntern_.length();
                     String trim_ = _string.substring(afterSuper_).trim();
@@ -1329,6 +1321,7 @@ public final class ElResolver {
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
+                        info_.setName(word_);
                         String dot_ = String.valueOf(DOT_VAR);
                         String look_ = _conf.getLookLocalClass();
                         int prChar_ = beginWord_ - 1;
@@ -1356,10 +1349,8 @@ public final class ElResolver {
                             }
                         }
                         if (!d_.getVariables().isEmpty() && d_.getVariables().last().getLastChar() == prIndex_) {
-                            info_.setName(word_);
                             d_.getVariables().add(info_);
                         } else if (!look_.isEmpty()) {
-                            info_.setName(word_);
                             d_.getVariables().add(info_);
                         } else {
                             //if the field exist then look for an imported type (without templates) then a complete type
@@ -1409,13 +1400,11 @@ public final class ElResolver {
                                     d_.getDelKeyWordStaticExtract().add(typeRes_);
                                     i_ = next_;
                                 } else {
-                                    info_.setName(word_);
                                     d_.getVariables().add(info_);
                                 }
                             } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
-                                i_ = processFieldsStaticAccess(_conf, ctorCall_, _string, beginWord_, d_, aff_);
+                                i_ = processFieldsStaticAccess(_conf, ctorCall_, _string, beginWord_, word_, i_, d_, aff_);
                             } else {
-                                info_.setName(word_);
                                 d_.getVariables().add(info_);
                             }
                         }
@@ -1829,10 +1818,22 @@ public final class ElResolver {
         d_.setBadOffset(i_);
         return d_;
     }
-    static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor,String _string, int _from, Delimiters _d, boolean _aff) {
+    static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor,String _string, int _from, String _word, int _to,Delimiters _d, boolean _aff) {
         Delimiters d_ = _d;
         int i_ = _from;
         int len_ = _string.length();
+        String glClass_ = _conf.getGlobalClass();
+        boolean field_ = isField(_conf, glClass_, _ctor, _word);
+        if (field_ || _conf.isEnabledInternVars()) {
+            ConstType type_ = ConstType.WORD;
+            VariableInfo infoLoc_ = new VariableInfo();
+            infoLoc_.setKind(type_);
+            infoLoc_.setFirstChar(_from);
+            infoLoc_.setLastChar(_to);
+            infoLoc_.setName(_word);
+            d_.getVariables().add(infoLoc_);
+            return _to;
+        }
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         StringList parts_ = new StringList();
         StringList partsFields_ = new StringList();
@@ -1846,7 +1847,6 @@ public final class ElResolver {
         boolean addLast_ = true;
         int j_ = i_;
         int k_ = i_;
-        boolean aff_ = false;
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordNew_ = keyWords_.getKeyWordNew();
@@ -1934,11 +1934,6 @@ public final class ElResolver {
                 j_++;
                 continue;
             }
-            if (locChar_ == EQ_CHAR) {
-                if (j_ + 1 < len_ && _string.charAt(j_ + 1) != EQ_CHAR) {
-                    aff_ = true;
-                }
-            }
             break;
         }
         if (addLast_ && !begins_.containsObj(-1) && fChar_ > -1) {
@@ -1947,35 +1942,67 @@ public final class ElResolver {
             begins_.add(fChar_);
             ends_.add(lChar_);
         }
-        String glClass_ = _conf.getGlobalClass();
-        boolean field_ = false;
-        if (glClass_ != null && !foundThis_ && !partsFields_.isEmpty()) {
-            field_ = true;
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(glClass_);
-            String word_ = partsFields_.first().trim();
-            boolean realAff_ = aff_ && partsFields_.size() == 1;
-            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext() || _ctor, clArg_, true, true, word_, _conf.getCurrentBlock() != null, realAff_);
-            if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
-                field_ = false;
+        Options opt_ = _conf.getOptions();
+        if (opt_.isSingleInnerParts()) {
+            int ik_ = 0;
+            int lenk_ = partsFields_.size();
+            StringBuilder idType_ = new StringBuilder();
+            int nb_ = 0;
+            boolean found_ = false;
+            StringList allPkg_ = _conf.getClasses().getPackagesFound();
+            while (ik_ < lenk_) {
+                String p_ = partsFields_.get(ik_);
+                idType_.append(p_.trim());
+                if (!allPkg_.containsStr(idType_.toString())) {
+                    break;
+                }
+                found_ = true;
+                if (ik_ + 1 < lenk_) {
+                    idType_.append('.');
+                }
+                nb_++;
+                ik_++;
             }
-        } else {
-            field_ = false;
-        }
-        if (field_ || _conf.isEnabledInternVars()) {
-            ConstType type_ = ConstType.WORD;
-
-
-            int lenFields_ = partsFields_.size();
-            for (int i = 0; i < lenFields_; i++) {
-                VariableInfo infoLoc_ = new VariableInfo();
-                infoLoc_.setKind(type_);
-                infoLoc_.setFirstChar(begins_.get(i));
-                infoLoc_.setLastChar(ends_.get(i)+1);
-                infoLoc_.setName(partsFields_.get(i).trim());
-                d_.getVariables().add(infoLoc_);
+            String start_;
+            if (found_) {
+                start_ = idType_.toString();
+                ik_++;
+            } else {
+                start_ = _conf.resolveCorrectTypeWithoutErrors(partsFields_.first(), false);
+                ik_ = 1;
+                nb_ = 0;
             }
-            d_.getAllowedOperatorsIndexes().addAllElts(indexes_);
-            return k_;
+            while (ik_ < lenk_) {
+                String p_ = partsFields_.get(ik_).trim();
+                if (StringList.quickEq(p_, keyWordThis_)) {
+                    break;
+                }
+                boolean fieldLoc_ = isField(_conf, start_,_ctor, _word);
+                if (fieldLoc_) {
+                    break;
+                }
+                StringList res_ = TypeUtil.getInners(true, glClass_, start_, p_, false, _conf);
+                if (res_.size() == 1) {
+                    start_ = res_.first();
+                    nb_++;
+                    ik_++;
+                    continue;
+                }
+                break;
+            }
+            int n_;
+            if (indexes_.isValidIndex(nb_)) {
+                n_ = indexes_.get(nb_);
+            } else {
+                n_ = k_;
+            }
+            if (_conf.getClassBody(start_) == null) {
+                return n_;
+            }
+            d_.getDelKeyWordStatic().add(i_);
+            d_.getDelKeyWordStatic().add(n_);
+            d_.getDelKeyWordStaticExtract().add(start_);
+            return n_;
         }
         StringBuilder allparts_ = new StringBuilder();
         int partLen_ = partsFields_.size();
@@ -1991,7 +2018,6 @@ public final class ElResolver {
         String id_ = allparts_.toString();
         String dot_ = String.valueOf(DOT_VAR);
         StringList candidates_ = new StringList();
-        Options opt_ = _conf.getOptions();
         if (!opt_.isSingleInnerParts() && id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
             int idLen_ = id_.length();
             for (int i = 0; i < idLen_; i++) {
@@ -2018,40 +2044,6 @@ public final class ElResolver {
             if (found_) {
                 return i_;
             }
-        }
-        if (opt_.isSingleInnerParts() && !foundThis_) {
-            StringList inners_ = Templates.getAllInnerTypesSingleDotted(id_, _conf);
-            String start_ = inners_.first();
-            int nb_=0;
-            for (char c: start_.toCharArray()) {
-                if (c == '.') {
-                    nb_++;
-                }
-            }
-            Block bl_ = _conf.getCurrentBlock();
-            AccessingImportingBlock r_ = bl_.getImporting();
-            String imp_ = _conf.lookupSingleImportType(start_, r_);
-            if (!imp_.isEmpty()) {
-                start_ = imp_;
-            }
-            for (String i: inners_.mid(1)) {
-                String innerName_ = i.trim();
-                StringList res_ = TypeUtil.getInners(true, glClass_, start_, innerName_, false, _conf);
-                if (res_.size() == 1) {
-                    start_ = res_.first();
-                    nb_++;
-                    continue;
-                }
-                int n_ = indexes_.get(nb_);
-                d_.getDelKeyWordStatic().add(i_);
-                d_.getDelKeyWordStatic().add(n_);
-                d_.getDelKeyWordStaticExtract().add(start_);
-                return n_;
-            }
-            d_.getDelKeyWordStatic().add(i_);
-            d_.getDelKeyWordStatic().add(k_);
-            d_.getDelKeyWordStaticExtract().add(start_);
-            return k_;
         }
         String tr_ = ContextEl.removeDottedSpaces(id_);
         if (_conf.getClassBody(tr_) != null) {
@@ -2224,46 +2216,6 @@ public final class ElResolver {
             infos_.setIndex(i_);
             return infos_;
         }
-//        if (curChar_ == IND_LINE) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_FORM) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_BOUND) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_LINE_FEED) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_TAB) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
         if (curChar_ == ESCAPE_META_CHAR) {
             infos_.getStringInfo().getChars().add(ESCAPE_META_CHAR);
             nbChars_++;
@@ -3601,7 +3553,12 @@ public final class ElResolver {
                 }
                 if (locCar_ == DOT_VAR) {
                     indexes_.add(j_);
-                    partsFields_.add(part_.toString());
+                    String strPart_ = part_.toString();
+                    if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+                       cast_ = false;
+                        break;
+                    }
+                    partsFields_.add(strPart_);
                     begins_.add(fChar_);
                     ends_.add(lChar_);
                     part_.delete(0, part_.length());
@@ -3642,37 +3599,12 @@ public final class ElResolver {
             }
         }
         if (cast_) {
-            partsFields_.add(part_.toString());
-            begins_.add(fChar_);
-            ends_.add(lChar_);
-            boolean field_ = true;
-            String glClass_ = _conf.getGlobalClass();
-            if (glClass_ != null) {
-                ClassArgumentMatching clArg_ = new ClassArgumentMatching(glClass_);
-                String word_ = partsFields_.first();
-                FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext() || _ctor, clArg_, true, true, word_, _conf.getCurrentBlock() != null, false);
-                if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
-                    field_ = false;
-                }
-            } else {
-                field_ = false;
+           String strPart_ = part_.toString();
+           if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+               cast_ = false;
             }
-            if (field_) {
-                ConstType w_ = ConstType.WORD;
-                int lenFields_ = partsFields_.size();
-                for (int i = 0; i < lenFields_; i++) {
-                    VariableInfo infoLoc_ = new VariableInfo();
-                    infoLoc_.setKind(w_);
-                    infoLoc_.setFirstChar(begins_.get(i));
-                    infoLoc_.setLastChar(ends_.get(i)+1);
-                    infoLoc_.setName(partsFields_.get(i).trim());
-                    d_.getVariables().add(infoLoc_);
-                }
-                d_.getAllowedOperatorsIndexes().add(i_);
-                d_.getAllowedOperatorsIndexes().addAllElts(indexes_);
-                d_.getAllowedOperatorsIndexes().add(indexParRight_);
-                return indexParRight_+1;
-            }
+        }
+        if (cast_) {
             String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
             if (!typeRes_.isEmpty()) {
                 d_.getDelCast().add(i_);
@@ -3682,5 +3614,47 @@ public final class ElResolver {
             }
         }
         return i_;
+    }
+    static boolean isFieldOrVariable(Analyzable _conf, boolean _ctor, StringList _parts, String _partToAdd) {
+       if (!_parts.isEmpty()) {
+          return false;
+       }
+       String word_ = _partToAdd.trim();
+       if (_conf.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+          String gl_ = _conf.getGlobalClass();
+          return isField(_conf, gl_, _ctor, word_);
+       }
+       if (_conf.getParameters().contains(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsCatchVar(word_)) {
+          return true;
+       }
+       if (_conf.containsMutableLoopVar(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsVar(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsLocalVar(word_)) {
+          return true;
+       }
+       String gl_ = _conf.getGlobalClass();
+      return isField(_conf, gl_, _ctor, word_);
+    }
+    static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
+        boolean field_ = false;
+        boolean stCtx_ = _conf.isStaticContext() || _ctor;
+        if (_fromClass != null) {
+            field_ = true;
+            ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
+            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getCurrentBlock() != null, false);
+            if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
+                field_ = false;
+            }
+        } else {
+            field_ = false;
+        }
+        return field_;
     }
 }

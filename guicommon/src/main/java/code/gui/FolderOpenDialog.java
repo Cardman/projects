@@ -8,7 +8,7 @@ import code.util.StringMap;
 /**
  */
 public final class FolderOpenDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.FolderOpenDialog";
+    private static final String DIALOG_ACCESS = "gui.folderopendialog";
 
     private static final FolderOpenDialog DIALOG = new FolderOpenDialog();
 

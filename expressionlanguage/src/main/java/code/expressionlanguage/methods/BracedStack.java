@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -159,7 +159,7 @@ public abstract class BracedStack extends BracedBlock {
             if (!meta_.isFinalField()) {
                 continue;
             }
-            processFinalMutableLoop(this, false, _an, _root, key_);
+            processFinalFields(this, false, _an, _root, key_);
             for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
@@ -188,7 +188,7 @@ public abstract class BracedStack extends BracedBlock {
                 if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
-                processFinalMutableLoop(this, false, _an, _root, key_);
+                processFinalVars(this, false, _an, _root, key_);
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
@@ -232,7 +232,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         
     }
-    protected void processFinalVars(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalVars(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -255,11 +255,11 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getMutableLoopBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -279,11 +279,11 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode, StringMap<AssignmentBefore>> f: _vars.getFieldsBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -302,7 +302,7 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
+            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
@@ -483,7 +483,7 @@ public abstract class BracedStack extends BracedBlock {
                 CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 CustList<StringMap<AssignmentBefore>> listBr_;
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getVariablesRoot();
                     if (map_.isValidIndex(i)) {
@@ -544,7 +544,7 @@ public abstract class BracedStack extends BracedBlock {
                 CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 CustList<StringMap<AssignmentBefore>> listBr_;
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getMutableLoopRoot();
                     if (map_.isValidIndex(i)) {
@@ -595,7 +595,7 @@ public abstract class BracedStack extends BracedBlock {
             CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
             CustList<StringMap<AssignmentBefore>> listBr_;
             listBr_ = new CustList<StringMap<AssignmentBefore>>();
-            if (_anEl.canCompleteStrictNormally(c)) {
+            if (_anEl.canCompleteNormally(c)) {
                 listBl_.add(id_.getVal(c).getFieldsRoot());
             } else {
                 listBl_.add(new StringMap<SimpleAssignment>());
@@ -927,7 +927,7 @@ public abstract class BracedStack extends BracedBlock {
             listBr_ = new CustList<StringMap<AssignmentBefore>>();
             CustList<StringMap<AssignmentBefore>> listBrFin_;
             listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
-            if (_anEl.canCompleteStrictNormally(this)) {
+            if (_anEl.canCompleteNormally(this)) {
                 CustList<StringMap<SimpleAssignment>> map_;
                 map_ = id_.getVal(this).getVariablesRoot();
                 if (map_.isValidIndex(i)) {
@@ -954,7 +954,7 @@ public abstract class BracedStack extends BracedBlock {
             for (Block c: _blocks) {
                 breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getVariablesRoot();
                     if (map_.isValidIndex(i)) {
@@ -1016,7 +1016,7 @@ public abstract class BracedStack extends BracedBlock {
             listBr_ = new CustList<StringMap<AssignmentBefore>>();
             CustList<StringMap<AssignmentBefore>> listBrFin_;
             listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
-            if (_anEl.canCompleteStrictNormally(this)) {
+            if (_anEl.canCompleteNormally(this)) {
                 CustList<StringMap<SimpleAssignment>> map_;
                 map_ = id_.getVal(this).getMutableLoopRoot();
                 if (map_.isValidIndex(i)) {
@@ -1043,7 +1043,7 @@ public abstract class BracedStack extends BracedBlock {
             for (Block c: _blocks) {
                 breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getMutableLoopRoot();
                     if (map_.isValidIndex(i)) {
@@ -1099,7 +1099,7 @@ public abstract class BracedStack extends BracedBlock {
         listBr_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> listBrFin_;
         listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
-        if (_anEl.canCompleteStrictNormally(this)) {
+        if (_anEl.canCompleteNormally(this)) {
             listBlFin_.add(id_.getVal(this).getFieldsRoot());
         } else {
             listBlFin_.add(new StringMap<SimpleAssignment>());
@@ -1112,7 +1112,7 @@ public abstract class BracedStack extends BracedBlock {
         for (Block c: _blocks) {
             breaks_ = ((BracedStack)c).getBreakables(_anEl);
             listBr_ = new CustList<StringMap<AssignmentBefore>>();
-            if (_anEl.canCompleteStrictNormally(c)) {
+            if (_anEl.canCompleteNormally(c)) {
                 listBl_.add(id_.getVal(c).getFieldsRoot());
             } else {
                 listBl_.add(new StringMap<SimpleAssignment>());
@@ -1155,7 +1155,7 @@ public abstract class BracedStack extends BracedBlock {
                 CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 CustList<StringMap<AssignmentBefore>> listBr_;
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getVariablesRoot();
                     if (map_.isValidIndex(i)) {
@@ -1199,7 +1199,7 @@ public abstract class BracedStack extends BracedBlock {
                 CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
                 CustList<StringMap<AssignmentBefore>> listBr_;
                 listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (_anEl.canCompleteStrictNormally(c)) {
+                if (_anEl.canCompleteNormally(c)) {
                     CustList<StringMap<SimpleAssignment>> map_;
                     map_ = id_.getVal(c).getMutableLoopRoot();
                     if (map_.isValidIndex(i)) {
@@ -1239,7 +1239,7 @@ public abstract class BracedStack extends BracedBlock {
             CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
             CustList<StringMap<AssignmentBefore>> listBr_;
             listBr_ = new CustList<StringMap<AssignmentBefore>>();
-            if (_anEl.canCompleteStrictNormally(c)) {
+            if (_anEl.canCompleteNormally(c)) {
                 listBl_.add(id_.getVal(c).getFieldsRoot());
             } else {
                 listBl_.add(new StringMap<SimpleAssignment>());
@@ -1293,7 +1293,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
@@ -1343,7 +1343,7 @@ public abstract class BracedStack extends BracedBlock {
         StringMap<AssignmentBefore> tryBefore_ = id_.getVal(_try).getFieldsRootBefore();
         return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_, catchs_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
@@ -1427,7 +1427,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();

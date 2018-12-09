@@ -1,5 +1,4 @@
 package aiki.game;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -31,7 +30,7 @@ public final class UsesOfMove implements Displayable{
         max = _max;
     }
 
-    @FromAndToString
+    
     public static UsesOfMove newUsesOfMove(String _string) {
         return new UsesOfMove(_string);
     }
@@ -75,7 +74,7 @@ public final class UsesOfMove implements Displayable{
         max = _max;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

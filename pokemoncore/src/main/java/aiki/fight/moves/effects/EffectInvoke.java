@@ -7,9 +7,8 @@ import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectInvoke extends Effect {
 
     private EnumMap<EnvironmentType, String> moveFctEnv;

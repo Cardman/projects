@@ -40,7 +40,7 @@ import code.util.consts.Constants;
 import code.util.opers.BaseSixtyFourUtil;
 
 public class MainWindow extends GroupFrame {
-    private static final String ACCESS = "player.gui.MainWindow";
+    private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String START = "start";
     private static final String CLOSE = "close";
@@ -391,10 +391,11 @@ public class MainWindow extends GroupFrame {
     }
 
     public void updateClip(LineEvent _event) {
-        if (_event.getType().toString().equalsIgnoreCase(START)) {
+        String ev_ = toLowerCase(_event.getType().toString());
+        if (StringList.quickEq(ev_, START)) {
             //LineEvent.Type.START
             play.setTextAndSize(PAUSE);
-        } else if (_event.getType().toString().equalsIgnoreCase(STOP_EVT)) {
+        } else if (StringList.quickEq(ev_, STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
             play.setTextAndSize(PLAY);
@@ -409,7 +410,7 @@ public class MainWindow extends GroupFrame {
                 }
                 next = false;
             }
-        } else if (_event.getType().toString().equalsIgnoreCase(CLOSE)) {
+        } else if (StringList.quickEq(ev_, CLOSE)) {
             //LineEvent.Type.CLOSE
             play.setTextAndSize(PLAY);
             clipStream = null;
@@ -421,7 +422,20 @@ public class MainWindow extends GroupFrame {
             playSong = false;
         }
     }
-
+    public static String toLowerCase(String _string) {
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder(len_);
+        for (int i = 0; i < len_; i++) {
+            char curr_ = _string.charAt(i);
+            if (curr_ >= 'A' && curr_ <= 'Z') {
+                int char_ = curr_ - 'A' + 'a';
+                str_.append((char)char_);
+                continue;
+            }
+            str_.append(curr_);
+        }
+        return str_.toString();
+    }
     public void setElapsedTime() {
         if (clipStream == null) {
             return;

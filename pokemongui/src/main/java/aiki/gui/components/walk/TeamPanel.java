@@ -26,7 +26,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class TeamPanel extends Panel {
-    public static final String TEAM_PANEL = "aiki.gui.components.walk.TeamPanel";
+    public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
 
     private static final String SPACE = " ";
 

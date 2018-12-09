@@ -65,6 +65,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -137,7 +138,7 @@ public class MoveBean extends CommonBean {
     private StringList requiredStatus;
     private StringList abilities;
     private StringList items;
-    private NatTreeMap<String,String> mapVarsAccuracy;
+    private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
     private StringList affectedByMoves;
     private NatTreeMap<Short,StringList> movesLevelLearntByPokemon;
@@ -243,8 +244,8 @@ public class MoveBean extends CommonBean {
 //        accuracy = StringList.replace(accuracy, loc_);
 //        accuracy = accuracy.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        accuracy = accuracy.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(moveData_.getAccuracy(),getLanguage());
-        NatTreeMap<String,String> mapVarsAccuracy_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(moveData_.getAccuracy(),getLanguage());
+        NatStringTreeMap<String> mapVarsAccuracy_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -1060,7 +1061,7 @@ public class MoveBean extends CommonBean {
         return accuracy;
     }
 
-    public NatTreeMap<String,String> getMapVarsAccuracy() {
+    public NatStringTreeMap<String> getMapVarsAccuracy() {
         return mapVarsAccuracy;
     }
 

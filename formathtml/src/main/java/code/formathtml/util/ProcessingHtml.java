@@ -33,6 +33,19 @@ public final class ProcessingHtml {
         }
         return DocumentBuilder.getRowColOfNodeOrAttribute(html, processingNode, _offset+delta_, _attribute, _tabWidth, lookForAttrValue);
     }
+    public int getSum(String _attribute, int _offset) {
+        int delta_ = 0;
+        if (encodedChars != null && _attribute != null){
+            NatTreeMap<Integer, Integer> esc_ = getEscapedChars(_attribute);
+            if (esc_ != null) {
+                int nbIndexes_ = getIndexesCount(esc_, _offset);
+                for (int i = 0; i < nbIndexes_; i++) {
+                    delta_ += esc_.getValue(i);
+                }
+            }
+        }
+        return _offset+delta_;
+    }
 
     private static int getIndexesCount(NatTreeMap<Integer, Integer> _t, int _offset) {
         int delta_ = 0;

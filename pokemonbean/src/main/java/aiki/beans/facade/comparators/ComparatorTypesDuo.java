@@ -1,10 +1,9 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.util.TypesDuo;
 import code.util.StringMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
 

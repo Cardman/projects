@@ -9,14 +9,14 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -64,7 +65,7 @@ public final class AffectationOperation extends MethodOperation {
             root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -132,7 +133,7 @@ public final class AffectationOperation extends MethodOperation {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return;
         }
@@ -162,8 +163,8 @@ public final class AffectationOperation extends MethodOperation {
             String char_ = stds_.getAliasCharacter();
             String byte_ = stds_.getAliasByte();
             Argument rightArg_ = right_.getArgument();
-            if (rightArg_ != null && rightArg_.getObject() instanceof Number) {
-                Number value_ = (Number) rightArg_.getObject();
+            if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
+                Number value_ = ((NumberStruct) rightArg_.getStruct()).getInstance();
                 StringList first_ = clMatchLeft_.getNames();
                 long valueUnwrapped_ = value_.longValue();
                 if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
@@ -212,7 +213,7 @@ public final class AffectationOperation extends MethodOperation {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
@@ -263,7 +264,7 @@ public final class AffectationOperation extends MethodOperation {
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }
@@ -299,7 +300,7 @@ public final class AffectationOperation extends MethodOperation {
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }
@@ -339,7 +340,7 @@ public final class AffectationOperation extends MethodOperation {
 //                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
 //                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
 //                        un_.setFileName(_conf.getCurrentFileName());
-//                        un_.setRc(_conf.getCurrentLocation());
+//                        un_.setIndexFile(_conf.getCurrentLocationIndex());
 //                        _conf.getClasses().addError(un_);
 //                    }
 //                }
@@ -354,7 +355,7 @@ public final class AffectationOperation extends MethodOperation {
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setFileName(_conf.getCurrentFileName());
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(un_);
                 }
             }
@@ -416,7 +417,9 @@ public final class AffectationOperation extends MethodOperation {
         SortedClassField sort_ = _conf.getCurrentInitizedField();
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
-        str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _conf);
+        LgNames stds_ = _conf.getStandards();
+        String to_ = fm_.getType();
+        str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         if (sort_ != null) {
             sort_.setStruct(str_);
         }

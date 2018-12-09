@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
@@ -29,7 +30,6 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FinallyEval;
-import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.ForIterativeLoop;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.IfCondition;
@@ -46,8 +46,6 @@ import code.expressionlanguage.methods.SwitchBlock;
 import code.expressionlanguage.methods.Throwing;
 import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.methods.WhileCondition;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -611,7 +609,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -1152,7 +1150,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1453,7 +1451,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1598,7 +1596,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1767,7 +1765,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1934,7 +1932,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -2071,7 +2069,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -2208,7 +2206,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -2344,7 +2342,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(((FieldBlock) child_).isStaticField());
@@ -2462,7 +2460,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2497,7 +2495,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2543,7 +2541,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2595,7 +2593,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2658,7 +2656,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2724,7 +2722,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2782,7 +2780,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2849,7 +2847,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3066,7 +3064,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -3209,7 +3207,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -3348,7 +3346,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3411,7 +3409,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3475,7 +3473,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3534,7 +3532,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3587,7 +3585,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3659,7 +3657,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3942,7 +3940,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -4000,7 +3998,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -4067,7 +4065,7 @@ public final class FileResolverTest {
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -4328,7 +4326,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -4635,9 +4633,9 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         assertEq(3, r_.getRowColDirectSuperTypes().size());
-        assertEq("$Enum<pkgtwo.Toto>", r_.getRowColDirectSuperTypes().getVal(-1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", r_.getRowColDirectSuperTypes().getVal(-1));
         assertEq(" hello.word<Ex> ", r_.getRowColDirectSuperTypes().getVal(70));
         assertEq(" every.body ", r_.getRowColDirectSuperTypes().getVal(87));
         Block child_ = cl_.getFirstChild();
@@ -4981,7 +4979,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -5112,7 +5110,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -6202,7 +6200,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -6344,7 +6342,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
         assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -8936,7 +8934,7 @@ public final class FileResolverTest {
         assertEq(3,r_.getDirectSuperTypes().size());
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -9017,10 +9015,8 @@ public final class FileResolverTest {
     }
     private static ContextEl simpleContextDefault() {
         //key words in some language
-        KeyWords keyWords_ = new KeyWordsMap().getKeyWords("en");
-        ContextEl cont_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), new Options(), keyWords_);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
         LgNames stds_ = cont_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
@@ -9030,12 +9026,11 @@ public final class FileResolverTest {
         return cont_;
     }
     private static ContextEl simpleContext() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
@@ -9045,12 +9040,11 @@ public final class FileResolverTest {
         return cont_;
     }
     private static ContextEl simpleContext(VariableSuffix  _suf, boolean _endLineSemiColumn) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setSuffixVar(_suf);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setEndLineSemiColumn(_endLineSemiColumn);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(_endLineSemiColumn);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(_suf);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();

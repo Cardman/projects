@@ -1,9 +1,8 @@
 package aiki.map.characters;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TempTrainer extends TrainerOneFight {
 
     private String imageMiniSecondTrainerFileName;

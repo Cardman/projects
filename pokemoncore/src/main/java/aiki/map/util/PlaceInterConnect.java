@@ -1,7 +1,6 @@
 package aiki.map.util;
 import aiki.map.enums.Direction;
 import aiki.util.Point;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -30,7 +29,7 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
         dir = Direction.getDirectionByName(elements_.last());
     }
 
-    @FromAndToString
+    
     public static PlaceInterConnect newPlaceInterConnect(String _string) {
         return new PlaceInterConnect(_string);
     }
@@ -54,7 +53,7 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect>, D
         return dir;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(source.display());

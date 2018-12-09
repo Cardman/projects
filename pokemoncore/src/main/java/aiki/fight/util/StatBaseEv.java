@@ -1,5 +1,4 @@
 package aiki.fight.util;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -22,7 +21,7 @@ public final class StatBaseEv implements Displayable{
         ev = _ev;
     }
 
-    @FromAndToString
+    
     public static StatBaseEv newStatBaseEv(String _string) {
         return new StatBaseEv(_string);
     }
@@ -35,7 +34,7 @@ public final class StatBaseEv implements Displayable{
         return ev;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

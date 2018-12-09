@@ -2,9 +2,8 @@ package aiki.map.pokemon;
 
 import aiki.DataBase;
 import code.util.CustList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PokemonTeam {
 
     private CustList<PkTrainer> team;

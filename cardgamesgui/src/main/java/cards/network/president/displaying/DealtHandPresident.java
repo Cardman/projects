@@ -2,9 +2,8 @@ package cards.network.president.displaying;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DealtHandPresident {
 
     private HandPresident cards;

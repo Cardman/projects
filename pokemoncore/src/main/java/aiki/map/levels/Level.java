@@ -26,10 +26,9 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 import code.util.comparators.ComparatorBoolean;
 
-@RwXml
+
 public abstract class Level {
 
     /**

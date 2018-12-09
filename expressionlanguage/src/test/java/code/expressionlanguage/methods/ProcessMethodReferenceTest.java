@@ -650,7 +650,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("$Fct<java.lang.Number,$int>", (String)ret_.getObject());
+        assertEq("java.lang.$Fct<java.lang.Number,$int>", (String)ret_.getObject());
     }
     @Test
     public void calculateArgument19Test() {
@@ -1733,7 +1733,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $Fct<$void> f = $static().$lambda(Ex,exmethtwo):\n");
+        xml_.append("  java.lang.$Fct<$void> f = $static().$lambda(Ex,exmethtwo):\n");
         xml_.append("  $if (f;.call() == $null){\n");
         xml_.append("   $return 14i:\n");
         xml_.append("  }\n");

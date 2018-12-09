@@ -17,9 +17,8 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class StatusMoveData extends MoveData {
     public static final String MOVE = "aiki.fight.moves.StatusMoveData";
 

@@ -4,9 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;
 
 
@@ -23,22 +24,19 @@ public final class MultOperation extends NumericOperation {
         if (_a.isNull() || _b.isNull()) {
             return Argument.createVoid();
         }
-        if (_a.getObject() instanceof String || _b.getObject() instanceof String) {
-            return Argument.createVoid();
-        }
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMult(_a, _b, _an, getResultClass());
+            return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
-            return calculateDiv(_a, _b, _an, getResultClass());
+            return new Argument(NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
         }
-        return calculateMod(_a, _b, _an, getResultClass());
+        return new Argument(NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
     }
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMult(_a, _b, _cont, getResultClass());
+            return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
             return calculateDivEx(_a, _cont, _b, getResultClass());
@@ -54,7 +52,7 @@ public final class MultOperation extends NumericOperation {
         if (oa_ <= 0 || ob_ <= 0) {
             String exp_ = _cont.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_cont.getCurrentLocation());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_a,_b);

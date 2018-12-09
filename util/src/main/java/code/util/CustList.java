@@ -2,7 +2,6 @@ package code.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import code.util.annot.CapacityInit;
 import code.util.ints.Comparing;
 import code.util.ints.Equaller;
 import code.util.ints.Listable;
@@ -47,7 +46,7 @@ public class CustList<T> implements Listable<T> {
         }
     }
 
-    @CapacityInit
+    
     public CustList(CollCapacity _capacity) {
         list = new ArrayList<T>(_capacity.getCapacity());
     }

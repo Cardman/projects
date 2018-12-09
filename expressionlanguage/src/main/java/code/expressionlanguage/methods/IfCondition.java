@@ -6,13 +6,14 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -80,7 +81,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (ch_ == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
@@ -116,9 +117,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             abr_ = false;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             abr_ = false;
-        } else if (!(Boolean)arg_.getObject()) {
+        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
             abr_ = false;
         }
         if (!abr_) {
@@ -135,9 +136,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             accessible_ = true;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             accessible_ = true;
-        } else if ((Boolean)arg_.getObject()) {
+        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
             accessible_ = true;
         }
         return accessible_;
@@ -149,9 +150,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             accessible_ = true;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             accessible_ = true;
-        } else if (!(Boolean)arg_.getObject()) {
+        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
             accessible_ = true;
         }
         return accessible_;

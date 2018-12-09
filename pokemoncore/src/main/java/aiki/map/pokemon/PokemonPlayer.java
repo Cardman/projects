@@ -36,14 +36,13 @@ import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public static final String SEPARATOR = "/";
 
-    public static final String POKEMON_PLAYER = "aiki.map.pokemon.PokemonPlayer";
+    public static final String POKEMON_PLAYER = "aiki.map.pokemon.pokemonplayer";
 
 //    private static final String CENT = Byte.toString(Fighter.RATE_CENT);
 

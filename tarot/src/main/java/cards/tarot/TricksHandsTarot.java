@@ -6,9 +6,8 @@ import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TricksHandsTarot {
 
     private DealTarot distribution;

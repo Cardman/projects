@@ -3,7 +3,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetBooleanInfo;
@@ -13,9 +12,9 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadVariableName;
-import code.expressionlanguage.methods.util.DuplicateVariable;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadVariableName;
+import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -29,6 +28,8 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -192,7 +193,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
@@ -206,7 +207,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classNameOffset));
+            cast_.setIndexFile(classNameOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(variableNameOffset);
@@ -215,41 +216,41 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (!StringList.isWord(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
@@ -258,7 +259,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffset));
+                b_.setIndexFile(variableNameOffset);
                 b_.setVarName(variableName);
                 _cont.getClasses().addError(b_);
             }
@@ -268,21 +269,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getAnalyzing().containsCatchVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
         }
@@ -300,7 +301,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, initOffset));
+            cast_.setIndexFile(initOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(expressionOffset);
@@ -317,7 +318,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, expressionOffset));
+            cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(stepOffset);
@@ -334,7 +335,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, stepOffset));
+            cast_.setIndexFile(stepOffset);
             _cont.getClasses().addError(cast_);
         }
         if (getFirstChild() != null) {
@@ -710,7 +711,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         long nbMaxIterations_ = 0;
         long stepValue_ = 0;
         long fromValue_ = 0;
-        Object realFromValue_ = 0;
 
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
@@ -721,7 +721,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         ip_.setGlobalOffset(expressionOffset);
@@ -732,7 +732,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         ip_.setGlobalOffset(stepOffset);
@@ -743,15 +743,15 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
-        realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);
         ip_.clearCurrentEls();
-        fromValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), realFromValue_, _conf).getInstance();
-        long toValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), argTo_.getObject(), _conf).getInstance();
-        stepValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), argStep_.getObject(), _conf).getInstance();
+        String prLong_ = stds_.getAliasPrimLong();
+        fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).getInstance().longValue();
+        long toValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).getInstance().longValue();
+        stepValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).getInstance().longValue();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -803,7 +803,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         if (finished_) {
             return;
         }
-        Object int_ = realFromValue_;
         String indexClassName_;
         indexClassName_ = getClassIndexName();
         String className_;
@@ -811,7 +810,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         className_ = getClassName();
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
-        lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf).getInstance());
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className_, new LongStruct(fromValue_), stds_));
         lv_.setStep(stepValue_);
         varsLoop_.put(var_, lv_);
     }
@@ -851,10 +850,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Number element_ = (Number) lv_.getStruct().getInstance();
+        Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
         Number o_ = element_.longValue()+lv_.getStep();
-        o_ = (Number) PrimitiveTypeUtil.convert(className, o_, _conf).getInstance();
-        lv_.setElement(o_);
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className, new LongStruct(o_.longValue()), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 
@@ -873,7 +871,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

@@ -1,10 +1,9 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
-import code.util.CustList;
-import code.util.Numbers;
 import cards.consts.Suit;
 import cards.tarot.TrickTarot;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class GameTarotLeastDemandedSuitComparator implements Comparing<Suit> {
 

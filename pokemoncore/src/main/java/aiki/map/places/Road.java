@@ -18,9 +18,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NumberMap;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Road extends Campaign implements InitializedPlace {
 
     private String name;

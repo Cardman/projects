@@ -3,7 +3,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
@@ -16,17 +15,17 @@ import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.StaticAccessFieldError;
+import code.expressionlanguage.errors.custom.UndefinedConstructorError;
+import code.expressionlanguage.errors.custom.UndefinedMethodError;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.StaticAccessFieldError;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UndefinedConstructorError;
-import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -51,7 +50,9 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -203,16 +204,6 @@ public abstract class OperationNode {
         String keyWordThis_ = keyWords_.getKeyWordThis();
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
-        if (!_op.getOperators().isEmpty()) {
-            if (!_op.getValues().isEmpty()) {
-                String originalStr_ = _op.getFctName();
-                String str_ = originalStr_.trim();
-                if (StringList.quickEq(str_, keyWordIntern_)) {
-                    //qualified this
-                    return new QualifiedThisOperation(_index, _indexChild, _m, _op);
-                }
-            }
-        }
         ConstType ct_ = _op.getConstType();
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
@@ -440,9 +431,6 @@ public abstract class OperationNode {
             if (_op.isInstanceTest()) {
                 return new InstanceOfOperation(_index, _indexChild, _m, _op);
             }
-            if (_an.getOptions().isQuickCompare()) {
-                return new QuickCmpOperation(_index, _indexChild, _m, _op);
-            }
             return new CmpOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
@@ -515,7 +503,7 @@ public abstract class OperationNode {
         access_.setClassName(_class.getNames().join(""));
         access_.setId(_name);
         access_.setFileName(_cont.getCurrentFileName());
-        access_.setRc(_cont.getCurrentLocation());
+        access_.setIndexFile(_cont.getCurrentLocationIndex());
         _cont.getClasses().addError(access_);
         FieldResult res_ = new FieldResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
@@ -777,7 +765,7 @@ public abstract class OperationNode {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
         }
@@ -832,7 +820,7 @@ public abstract class OperationNode {
             undefined_.setClassName(clCurName_);
             undefined_.setId(new ConstructorId(clCurName_, classesNames_,false));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
@@ -859,7 +847,7 @@ public abstract class OperationNode {
             undefined_.setClassName(clCurName_);
             undefined_.setId(new ConstructorId(clCurName_, classesNames_, false));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
@@ -905,7 +893,7 @@ public abstract class OperationNode {
             undefined_.setClassName(_classes);
             undefined_.setId(new MethodId(mod_, _name, classesNames_));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
             return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
@@ -930,7 +918,7 @@ public abstract class OperationNode {
         undefined_.setClassName(_classes);
         undefined_.setId(new MethodId(mod_, _name, classesNames_));
         undefined_.setFileName(_conf.getCurrentFileName());
-        undefined_.setRc(_conf.getCurrentLocation());
+        undefined_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(undefined_);
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
         return_.setRealId(new MethodId(mod_, _name, classesNames_));
@@ -2197,7 +2185,7 @@ public abstract class OperationNode {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new ErrorStruct(_cont,null_));
                 return;
             }
         }
@@ -2209,8 +2197,8 @@ public abstract class OperationNode {
             return;
         }
         MethodOperation par_ = getParent();
-        Object o_ = _arg.getObject();
-        Boolean b_ = (Boolean) o_;
+        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
+        Boolean b_ = o_.getInstance();
         if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
@@ -2241,7 +2229,7 @@ public abstract class OperationNode {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new ErrorStruct(_cont,null_));
                 return;
             }
         }
@@ -2252,9 +2240,9 @@ public abstract class OperationNode {
         if (res_ <= 0) {
             return;
         }
-        Object o_ = _arg.getObject();
+        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
         MethodOperation par_ = getParent();
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
@@ -2275,9 +2263,9 @@ public abstract class OperationNode {
     }
 
     final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
-        Object o_ = _arg.getObject();
+        Struct o_ = _arg.getStruct();
         MethodOperation par_ = getParent();
-        if (!(o_ instanceof Boolean)) {
+        if (!(o_ instanceof BooleanStruct)) {
             return 0;
         }
         if (!(par_ instanceof QuickOperation)) {
@@ -2288,7 +2276,7 @@ public abstract class OperationNode {
             if (!ternaryParent_) {
                 return 0;
             }
-            Boolean b_ = (Boolean) o_;
+            Boolean b_ = ((BooleanStruct) o_).getInstance();
             if (b_) {
                 return 2;
             }

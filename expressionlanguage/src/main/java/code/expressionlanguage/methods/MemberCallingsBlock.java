@@ -6,9 +6,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.DeadCodeMethod;
+import code.expressionlanguage.errors.custom.DeadCodeMethod;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.util.CustList;
 import code.util.StringList;
@@ -29,7 +29,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         }
         page_.setGlobalOffset(getOffset().getOffsetTrim());
@@ -69,7 +69,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 //error
                 DeadCodeMethod deadCode_ = new DeadCodeMethod();
                 deadCode_.setFileName(getFile().getFileName());
-                deadCode_.setRc(en_.getRowCol(0, en_.getOffset().getOffsetTrim()));
+                deadCode_.setIndexFile(en_.getOffset().getOffsetTrim());
                 if (this instanceof Returnable) {
                     deadCode_.setId(((Returnable)this).getSignature());
                 } else {

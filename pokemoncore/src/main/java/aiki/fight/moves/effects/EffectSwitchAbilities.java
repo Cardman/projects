@@ -3,9 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectSwitchAbilities extends Effect {
 
     private ExchangeType exchangeAbility;

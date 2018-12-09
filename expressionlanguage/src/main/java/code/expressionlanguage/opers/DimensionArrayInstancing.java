@@ -2,17 +2,18 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -45,7 +46,7 @@ public final class DimensionArrayInstancing extends
             BadOperandsNumber badCall_ = new BadOperandsNumber();
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
-            badCall_.setRc(_conf.getCurrentLocation());
+            badCall_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badCall_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -56,7 +57,7 @@ public final class DimensionArrayInstancing extends
             if (!o.getResultClass().isNumericInt(_conf)) {
                 ClassArgumentMatching cl_ = o.getResultClass();
                 UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                 un_.setOperands(cl_);
@@ -86,11 +87,11 @@ public final class DimensionArrayInstancing extends
 
         args_ = new int[chidren_.size()];
         for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-            Number n_ = (Number)arguments_.get(i).getObject();
-            if (n_ == null) {
+            Struct n_ = arguments_.get(i).getStruct();
+            if (!(n_ instanceof NumberStruct)) {
                 return;
             }
-            int dim_ = n_.intValue();
+            int dim_ = ((NumberStruct)n_).getInstance().intValue();
             if (dim_ < 0) {
                 return;
             }
@@ -130,11 +131,11 @@ public final class DimensionArrayInstancing extends
         args_ = new int[chidren_.size()];
         int i_ = CustList.FIRST_INDEX;
         for (OperationNode o: chidren_) {
-            Number n_ = (Number)_arguments.get(i_).getObject();
+            NumberStruct n_ = (NumberStruct)_arguments.get(i_).getStruct();
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-            int dim_ = n_.intValue();
+            int dim_ = n_.getInstance().intValue();
             if (dim_ < 0) {
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));
+                _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
                 Argument a_ = new Argument();
                 return a_;
             }

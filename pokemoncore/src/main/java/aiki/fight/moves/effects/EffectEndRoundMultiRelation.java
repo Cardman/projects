@@ -6,9 +6,8 @@ import aiki.fight.status.StatusType;
 import code.maths.Rate;
 import code.util.EntryCust;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectEndRoundMultiRelation extends EffectEndRound {
 
     private StringMap<Rate> damageByStatus;

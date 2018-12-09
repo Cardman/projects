@@ -16,7 +16,7 @@ import code.util.StringMap;
 /**
  */
 public class SuitsScrollableList extends ScrollableList {
-    private static final String ACCESS = "cards.gui.panels.SuitsScrollableList";
+    private static final String ACCESS = "cards.gui.panels.suitsscrollablelist";
     private static final String SUITS = "suits";
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;

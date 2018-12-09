@@ -3,10 +3,9 @@ import java.util.Iterator;
 
 import code.util.CustList;
 import code.util.EqList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 
-@RwXml
+
 public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable {
     private static final String SEPARATOR = ";";
 

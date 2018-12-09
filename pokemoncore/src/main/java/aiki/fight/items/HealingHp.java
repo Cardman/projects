@@ -2,9 +2,8 @@ package aiki.fight.items;
 
 import aiki.DataBase;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class HealingHp extends HealingItem {
 
     public static final String ITEM = "aiki.fight.items.HealingHp";

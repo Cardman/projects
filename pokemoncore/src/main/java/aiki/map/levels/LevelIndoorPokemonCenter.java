@@ -9,9 +9,8 @@ import aiki.util.Point;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class LevelIndoorPokemonCenter extends Level {
 
     private ObjectMap<Point, Person> gerants;

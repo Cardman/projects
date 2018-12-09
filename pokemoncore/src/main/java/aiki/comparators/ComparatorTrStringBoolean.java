@@ -1,8 +1,7 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import code.util.EnumMap;
+import code.util.ints.Comparing;
 import code.util.pagination.SelectedBoolean;
 
 public final class ComparatorTrStringBoolean implements Comparing<SelectedBoolean> {

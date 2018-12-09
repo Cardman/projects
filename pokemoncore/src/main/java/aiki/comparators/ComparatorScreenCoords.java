@@ -1,8 +1,7 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.map.util.ScreenCoords;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class ComparatorScreenCoords implements Comparing<ScreenCoords> {
 

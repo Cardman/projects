@@ -1,8 +1,7 @@
 package cards.network.tarot;
 import cards.tarot.HandTarot;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Dog {
 
     private HandTarot dog;

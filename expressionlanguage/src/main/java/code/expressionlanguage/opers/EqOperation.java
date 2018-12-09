@@ -5,15 +5,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -29,10 +30,8 @@ public final class EqOperation extends PrimitiveBoolOperation {
         oper = _op.getOperators().values().first();
     }
 
-    static Argument calculateEq(Argument _a, Argument _b) {
-        Argument a_ = new Argument();
-        a_.setObject(_a.getStruct().sameReference(_b.getStruct()));
-        return a_;
+    private static boolean calculateEq(Argument _a, Argument _b) {
+        return _a.getStruct().sameReference(_b.getStruct());
     }
 
     @Override
@@ -41,7 +40,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
             _conf.setOkNumOp(false);
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
         }
         String custOp_ = oper.trim();
@@ -100,12 +99,11 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        boolean b_ = calculateEq(first_, second_);
         if (complement_) {
-            Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
-            arg_.setObject(b_);
         }
+        Argument arg_ = new Argument(new BooleanStruct(b_));
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -123,12 +121,11 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        boolean b_ = calculateEq(first_, second_);
         if (complement_) {
-            Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
-            arg_.setObject(b_);
         }
+        Argument arg_ = new Argument(new BooleanStruct(b_));
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override
@@ -154,12 +151,11 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        boolean b_ = calculateEq(first_, second_);
         if (complement_) {
-            Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
-            arg_.setObject(b_);
         }
+        Argument arg_ = new Argument(new BooleanStruct(b_));
         setSimpleArgument(arg_, _conf);
     }
     @Override

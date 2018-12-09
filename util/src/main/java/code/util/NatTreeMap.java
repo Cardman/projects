@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
@@ -7,7 +6,7 @@ import code.util.ints.SortableMap;
 /**
     @author Cardman
 */
-public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> implements SortableMap<K, V> {
+public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
     public NatTreeMap() {
     }
@@ -18,7 +17,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public NatTreeMap(NatTreeMap<K,V> _map) {
         putAllTreeMap(_map);
     }
-    @CapacityInit
+    
     public NatTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }
@@ -60,7 +59,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         CustList<V> c_;
         c_ = new CustList<V>();
         for (EntryCust<K, V> e: getList()) {
-            int res_ = _key.compareTo(e.getKey());
+            int res_ = Numbers.compare(_key,e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 c_.add(e.getValue());
             }
@@ -96,7 +95,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
                 return;
             }
             EntryCust<K, V> c_ = getList().get(index_);
-            int res_ = _key.compareTo(c_.getKey());
+            int res_ = Numbers.compare(_key,c_.getKey());
             if (res_ < 0) {
                 getList().add(index_, new EntryCust<K, V>(_key, _value));
                 return;
@@ -113,8 +112,8 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
-            Comparable<K> c_ = _key;
-            int res_ = c_.compareTo(e.getKey());
+            Number c_ = _key;
+            int res_ = Numbers.compare(c_,e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 return index_;
             }
@@ -157,7 +156,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         CustList<EntryCust<K,V>> l_;
         l_ = new CustList<EntryCust<K,V>>();
         for (EntryCust<K, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
+            int res_ = Numbers.compare(e.getKey(),_key);
             if (res_ >= 0) {
                 continue;
             }
@@ -179,7 +178,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         CustList<EntryCust<K,V>> l_;
         l_ = new CustList<EntryCust<K,V>>();
         for (EntryCust<K, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
+            int res_ = Numbers.compare(e.getKey(),_key);
             if (res_ > 0) {
                 continue;
             }
@@ -199,7 +198,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     @Override
     public EntryCust<K, V> ceilingEntry(K _key) {
         for (EntryCust<K, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
+            int res_ = Numbers.compare(e.getKey(),_key);
             if (res_ >= 0) {
                 return e;
             }
@@ -215,7 +214,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     @Override
     public EntryCust<K, V> higherEntry(K _key) {
         for (EntryCust<K, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
+            int res_ = Numbers.compare(e.getKey(),_key);
             if (res_ > 0) {
                 return e;
             }
@@ -241,8 +240,8 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {
-                Comparable<K> c_ = getList().get(i).getKey();
-                int res_ = c_.compareTo(getList().get(j).getKey());
+                Number c_ = getList().get(i).getKey();
+                int res_ = Numbers.compare(c_,getList().get(j).getKey());
                 if (res_ > CustList.EQ_CMP) {
                     getList().swapIndexes(i, j);
                 }

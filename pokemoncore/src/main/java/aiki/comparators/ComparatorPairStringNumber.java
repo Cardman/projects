@@ -1,8 +1,7 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.fight.pokemon.TrainerPlaceNames;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class ComparatorPairStringNumber implements Comparing<TrainerPlaceNames> {
 

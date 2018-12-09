@@ -80,7 +80,7 @@ public abstract class MethodOperation extends OperationNode {
         analyzeAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous);
-    public void analyzeTrueAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
+    public static void analyzeTrueAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;
@@ -119,7 +119,7 @@ public abstract class MethodOperation extends OperationNode {
         }
         vars_.getMutableLoopBefore().put(_nextSibling, mutableBefore_);
     }
-    public void analyzeFalseAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
+    public static void analyzeFalseAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;
@@ -158,7 +158,7 @@ public abstract class MethodOperation extends OperationNode {
         }
         vars_.getMutableLoopBefore().put(_nextSibling, mutableBefore_);
     }
-    public void analyzeStdAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
+    public static void analyzeStdAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;

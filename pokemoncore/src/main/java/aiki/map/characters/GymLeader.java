@@ -1,9 +1,8 @@
 package aiki.map.characters;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class GymLeader extends TrainerOneFight implements Fightable {
 
     /** Technical move given to the user after the fight */

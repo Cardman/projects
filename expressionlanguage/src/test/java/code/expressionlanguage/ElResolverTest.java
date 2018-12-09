@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -950,7 +951,7 @@ public class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence54Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "- -1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -1107,7 +1108,7 @@ public class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence63Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "b==a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2570,7 +2571,7 @@ public class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence146Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "- - a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2602,7 +2603,7 @@ public class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence148Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = " - -a";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3132,7 +3133,7 @@ public class ElResolverTest extends ProcessMethodCommon{
     }
     @Test
     public void getOperationsSequence182Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>==$true";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3196,7 +3197,7 @@ public class ElResolverTest extends ProcessMethodCommon{
     }
     @Test
     public void getOperationsSequence186Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "$true==1 $instanceof pkg.List<two.Tmp<three.Sec>>";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3313,7 +3314,7 @@ public class ElResolverTest extends ProcessMethodCommon{
     }
     @Test
     public void getOperationsSequence193Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>==$true";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3479,7 +3480,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("$Class", d_.getDelKeyWordStaticExtract().first());
+        assertEq("java.lang.$Class", d_.getDelKeyWordStaticExtract().first());
     }
     @Test
     public void getOperationsSequence198Test() {
@@ -4090,7 +4091,7 @@ public class ElResolverTest extends ProcessMethodCommon{
     }
     @Test
     public void checkSyntax1Test() {
-        ContextEl conf_ = contextEl(true,false);
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "1==0";
@@ -4980,21 +4981,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         _conf.setGlobalClass(_bean);
     }
     private ContextEl contextEl() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
-        return cont_;
-    }
-    private ContextEl contextEl(boolean _aff, boolean _catChar) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
-        return cont_;
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        return InitializationLgNames.buildStdOne(opt_);
     }
 }

@@ -111,7 +111,7 @@ public final class ExtractFromResources {
     static String getContentFile(Configuration _conf, StringMap<String> _files, String _fileName, String... _resourcesFolder) {
         String content_ = null;
         for (EntryCust<String, String> e: _files.entryList()) {
-            if (e.getKey().equalsIgnoreCase(_fileName)) {
+            if (StringList.quickEq(e.getKey(),_fileName)) {
                 content_ = e.getValue();
                 break;
             }

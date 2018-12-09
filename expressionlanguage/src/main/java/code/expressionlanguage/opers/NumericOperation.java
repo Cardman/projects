@@ -2,16 +2,15 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -19,16 +18,14 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.Numbers;
 import code.util.StringList;
 
 public abstract class NumericOperation extends MethodOperation {
@@ -40,594 +37,48 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
-        Argument o_;
-        boolean convert_ = true;
-        if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _right, _catString, _conf, _arg);
-            convert_ = !_catString;
-        } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
-            o_ = NumericOperation.calculateDiff(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.MULT_EQ)) {
-            o_ = NumericOperation.calculateMult(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.DIV_EQ)) {
-            o_ = NumericOperation.calculateDivEx(_left, _conf, _right, _arg);
-        } else if (StringList.quickEq(_op, Block.MOD_EQ)) {
-            o_ = NumericOperation.calculateModEx(_left, _conf, _right, _arg);
-        } else if (StringList.quickEq(_op, Block.INCR)) {
-            o_ = AddOperation.addOne(_left, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.DECR)) {
-            o_ = AddOperation.removeOne(_left, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.SHIFT_LEFT_EQ)) {
-            o_ = calculateShiftLeft(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.SHIFT_RIGHT_EQ)) {
-            o_ = calculateShiftRight(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.SHIFT_LOG_LEFT_EQ)) {
-            o_ = calculateBitShiftLeft(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.SHIFT_LOG_RIGHT_EQ)) {
-            o_ = calculateBitShiftRight(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.ROTATE_LEFT_EQ)) {
-            o_ = calculateRotateLeft(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.ROTATE_RIGHT_EQ)) {
-            o_ = calculateRotateRight(_left, _right, _conf, _arg);
-        } else if (StringList.quickEq(_op, Block.AND_EQ)) {
-            o_ = calculateAnd(_left, _right, _conf, _arg);
-            LgNames stds_ = _conf.getStandards();
-            String bool_ = stds_.getAliasPrimBoolean();
-            convert_ = !_arg.matchClass(bool_);
-        } else if (StringList.quickEq(_op, Block.OR_EQ)) {
-            o_ = calculateOr(_left, _right, _conf, _arg);
-            LgNames stds_ = _conf.getStandards();
-            String bool_ = stds_.getAliasPrimBoolean();
-            convert_ = !_arg.matchClass(bool_);
-        } else if (StringList.quickEq(_op, Block.XOR_EQ)) {
-            o_ = calculateXor(_left, _right, _conf, _arg);
-            LgNames stds_ = _conf.getStandards();
-            String bool_ = stds_.getAliasPrimBoolean();
-            convert_ = !_arg.matchClass(bool_);
-        } else {
-            o_ = _right;
-            convert_ = false;
-        }
-        if (convert_) {
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return o_;
-            }
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf.getContextEl()));
-            Argument converted_ = new Argument();
-            converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct(), _conf));
-            o_ = converted_;
-        }
-        return o_;
+        ResultErrorStd res_= new ResultErrorStd();
+        NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        return new Argument(res_.getResult());
     }
     static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
         Argument o_;
         if (StringList.quickEq(_op, Block.INCR)) {
-            o_ = AddOperation.addOne(_left, _conf, _arg);
+            o_ = new Argument(AddOperation.addOne((NumberStruct) _left.getStruct(), _conf, _arg));
         } else {
-            o_ = AddOperation.removeOne(_left, _conf, _arg);
+            o_ = new Argument(AddOperation.removeOne((NumberStruct) _left.getStruct(), _conf, _arg));
         }
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf.getContextEl()));
-        Argument converted_ = new Argument();
-        converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct(), _conf));
-        o_ = converted_;
         return o_;
     }
 
-    public static Argument calculateSum(Argument _a, Argument _b, boolean _catString, Analyzable _an,ClassArgumentMatching _order) {
-        if (_catString) {
-            StringBuilder str_ = new StringBuilder();
-            str_.append(_a.getString(_an));
-            str_.append(_b.getString(_an));
-            Argument a_ = new Argument();
-            a_.setObject(str_.toString());
-            return a_;
-        }
-        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
-        String longPrim_ = _an.getStandards().getAliasPrimLong();
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
-        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        Argument a_ = new Argument();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            long left_ = _a.getLong();
-            long right_ = _b.getLong();
-            nb_ = left_ + right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                a_.setStruct(new IntStruct(nb_.intValue()));
-            } else {
-                a_.setStruct(new LongStruct(nb_.longValue()));
-            }
-        } else {
-            double left_ = _a.getDouble();
-            double right_ = _b.getDouble();
-            nb_ = left_ + right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-                a_.setStruct(new FloatStruct(nb_.floatValue()));
-            } else {
-                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
-            }
-        }
-        return a_;
-    }
-
-    public static Argument calculateDiff(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
-        String longPrim_ = _an.getStandards().getAliasPrimLong();
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
-        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        Argument a_ = new Argument();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            long left_ = _a.getLong();
-            long right_ = _b.getLong();
-            nb_ = left_ - right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                a_.setStruct(new IntStruct(nb_.intValue()));
-            } else {
-                a_.setStruct(new LongStruct(nb_.longValue()));
-            }
-        } else {
-            double left_ = _a.getDouble();
-            double right_ = _b.getDouble();
-            nb_ = left_ - right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-                a_.setStruct(new FloatStruct(nb_.floatValue()));
-            } else {
-                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
-            }
-        }
-        return a_;
-    }
-    public static Argument calculateMult(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
-        String longPrim_ = _an.getStandards().getAliasPrimLong();
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
-        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        Argument a_ = new Argument();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            long left_ = _a.getLong();
-            long right_ = _b.getLong();
-            nb_ = left_ * right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                a_.setStruct(new IntStruct(nb_.intValue()));
-            } else {
-                a_.setStruct(new LongStruct(nb_.longValue()));
-            }
-        } else {
-            double left_ = _a.getDouble();
-            double right_ = _b.getDouble();
-            nb_ = left_ * right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-                a_.setStruct(new FloatStruct(nb_.floatValue()));
-            } else {
-                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
-            }
-        }
-        return a_;
-    }
     static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Argument res_ = calculateDiv(_a, _b, _cont, _order);
-        if (res_.isNull()) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
+        Struct res_ = NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            _cont.setException(new ErrorStruct(_cont,div_));
         }
-        return res_;
-    }
-    public static Argument calculateDiv(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
-        String longPrim_ = _an.getStandards().getAliasPrimLong();
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
-        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        Argument a_ = new Argument();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            long left_ = _a.getLong();
-            long right_ = _b.getLong();
-            if (right_ == 0) {
-                return a_;
-            }
-            nb_ = left_ / right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                a_.setStruct(new IntStruct(nb_.intValue()));
-            } else {
-                a_.setStruct(new LongStruct(nb_.longValue()));
-            }
-        } else {
-            double left_ = _a.getDouble();
-            double right_ = _b.getDouble();
-            nb_ = left_ / right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-                a_.setStruct(new FloatStruct(nb_.floatValue()));
-            } else {
-                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
-            }
-        }
-        return a_;
+        return new Argument(res_);
     }
     static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Argument res_ = calculateMod(_a, _b, _cont, _order);
-        if (res_.isNull()) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
+        Struct res_ = NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            _cont.setException(new ErrorStruct(_cont,div_));
         }
-        return res_;
-    }
-    public static Argument calculateMod(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
-        String longPrim_ = _an.getStandards().getAliasPrimLong();
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
-        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        Argument a_ = new Argument();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            long left_ = _a.getLong();
-            long right_ = _b.getLong();
-            if (right_ == 0) {
-                return a_;
-            }
-            nb_ = left_ % right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                a_.setStruct(new IntStruct(nb_.intValue()));
-            } else {
-                a_.setStruct(new LongStruct(nb_.longValue()));
-            }
-        } else {
-            double left_ = _a.getDouble();
-            double right_ = _b.getDouble();
-            nb_ = left_ % right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-                a_.setStruct(new FloatStruct(nb_.floatValue()));
-            } else {
-                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
-            }
-        }
-        return a_;
+        return new Argument(res_);
     }
 
-    public static Argument calculateAnd(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String bool_ = stds_.getAliasPrimBoolean();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(bool_)) {
-            Argument o_ = new Argument();
-            Boolean left_ = (Boolean) _a.getObject();
-            Boolean right_ = (Boolean) _b.getObject();
-            o_.setStruct(new BooleanStruct(left_ && right_));
-            return o_;
-        }
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int len_ = bitsLeft_.length;
-            boolean[] bits_ = new boolean[len_];
-            for (int i = 0; i < len_; i++) {
-                bits_[i] = bitsLeft_[i] && bitsRight_[i];
-            }
-            int value_ = LgNames.toInt(bits_);
-            o_.setStruct(new IntStruct(value_));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        int len_ = bitsLeft_.length;
-        boolean[] bits_ = new boolean[len_];
-        for (int i = 0; i < len_; i++) {
-            bits_[i] = bitsLeft_[i] && bitsRight_[i];
-        }
-        long value_ = LgNames.toLong(bits_);
-        o_.setStruct(new LongStruct(value_));
-        return o_;
-    }
-
-    public static Argument calculateOr(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String bool_ = stds_.getAliasPrimBoolean();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(bool_)) {
-            Argument o_ = new Argument();
-            Boolean left_ = (Boolean) _a.getObject();
-            Boolean right_ = (Boolean) _b.getObject();
-            o_.setStruct(new BooleanStruct(left_ || right_));
-            return o_;
-        }
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int len_ = bitsLeft_.length;
-            boolean[] bits_ = new boolean[len_];
-            for (int i = 0; i < len_; i++) {
-                bits_[i] = bitsLeft_[i] || bitsRight_[i];
-            }
-            int value_ = LgNames.toInt(bits_);
-            o_.setStruct(new IntStruct(value_));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        int len_ = bitsLeft_.length;
-        boolean[] bits_ = new boolean[len_];
-        for (int i = 0; i < len_; i++) {
-            bits_[i] = bitsLeft_[i] || bitsRight_[i];
-        }
-        long value_ = LgNames.toLong(bits_);
-        o_.setStruct(new LongStruct(value_));
-        return o_;
-    }
-
-    public static Argument calculateXor(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String bool_ = stds_.getAliasPrimBoolean();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(bool_)) {
-            Argument o_ = new Argument();
-            Boolean left_ = (Boolean) _a.getObject();
-            Boolean right_ = (Boolean) _b.getObject();
-            o_.setStruct(new BooleanStruct(left_ != right_));
-            return o_;
-        }
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int len_ = bitsLeft_.length;
-            boolean[] bits_ = new boolean[len_];
-            for (int i = 0; i < len_; i++) {
-                bits_[i] = bitsLeft_[i] != bitsRight_[i];
-            }
-            int value_ = LgNames.toInt(bits_);
-            o_.setStruct(new IntStruct(value_));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        int len_ = bitsLeft_.length;
-        boolean[] bits_ = new boolean[len_];
-        for (int i = 0; i < len_; i++) {
-            bits_[i] = bitsLeft_[i] != bitsRight_[i];
-        }
-        long value_ = LgNames.toLong(bits_);
-        o_.setStruct(new LongStruct(value_));
-        return o_;
-    }
-    public static Argument calculateShiftLeft(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            int power_ = 1;
-            for (int i = 0; i< value_; i++) {
-                power_ *= 2;
-            }
-            o_.setStruct(new IntStruct(left_*power_));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        long power_ = 1;
-        for (int i = 0; i< value_; i++) {
-            power_ *= 2;
-        }
-        o_.setStruct(new LongStruct(left_*power_));
-        return o_;
-    }
-    public static Argument calculateShiftRight(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            int power_ = 1;
-            for (int i = 0; i< value_; i++) {
-                power_ *= 2;
-            }
-            o_.setStruct(new IntStruct(Numbers.quot(left_, power_)));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        long power_ = 1;
-        for (int i = 0; i< value_; i++) {
-            power_ *= 2;
-        }
-        o_.setStruct(new LongStruct(Numbers.quot(left_, power_)));
-        return o_;
-    }
-    public static Argument calculateBitShiftLeft(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            int diff_ = 32 - value_;
-            for (int i = 1; i < diff_; i++) {
-                bitsLeft_[i] = bitsLeft_[i + value_];
-            }
-            for (int i = diff_; i < 32; i++) {
-                bitsLeft_[i] = false;
-            }
-            o_.setStruct(new IntStruct(LgNames.toInt(bitsLeft_)));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        int diff_ = 64 - (int)value_;
-        for (int i = 1; i < diff_; i++) {
-            bitsLeft_[i] = bitsLeft_[i + (int)value_];
-        }
-        for (int i = diff_; i < 64; i++) {
-            bitsLeft_[i] = false;
-        }
-        o_.setStruct(new LongStruct(LgNames.toLong(bitsLeft_)));
-        return o_;
-    }
-    public static Argument calculateBitShiftRight(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            int diff_ = 32 - value_;
-            for (int i = 0; i < diff_; i++) {
-                int index_ = 31 - i;
-                bitsLeft_[index_] = bitsLeft_[index_ - value_];
-            }
-            for (int i = diff_; i < 32; i++) {
-                int index_ = 31 - i;
-                bitsLeft_[index_] = false;
-            }
-            o_.setStruct(new IntStruct(LgNames.toInt(bitsLeft_)));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        int diff_ = 64 - (int)value_;
-        for (int i = 0; i < diff_; i++) {
-            int index_ = 63 - i;
-            bitsLeft_[index_] = bitsLeft_[index_ - (int)value_];
-        }
-        for (int i = diff_; i < 64; i++) {
-            int index_ = 63 - i;
-            bitsLeft_[index_] = false;
-        }
-        o_.setStruct(new LongStruct(LgNames.toLong(bitsLeft_)));
-        return o_;
-    }
-    public static Argument calculateRotateLeft(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            int max_ = bitsLeft_.length - 1;
-            for (int i = 0; i < value_; i++) {
-                boolean firstBit_ = bitsLeft_[0];
-                for (int j = 0; j < max_; j++) {
-                    bitsLeft_[j] = bitsLeft_[j + 1];
-                }
-                bitsLeft_[max_] = firstBit_;
-            }
-            o_.setStruct(new IntStruct(LgNames.toInt(bitsLeft_)));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        int max_ = bitsLeft_.length - 1;
-        for (int i = 0; i < value_; i++) {
-            boolean firstBit_ = bitsLeft_[0];
-            for (int j = 0; j < max_; j++) {
-                bitsLeft_[j] = bitsLeft_[j + 1];
-            }
-            bitsLeft_[max_] = firstBit_;
-        }
-        o_.setStruct(new LongStruct(LgNames.toLong(bitsLeft_)));
-        return o_;
-    }
-    public static Argument calculateRotateRight(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
-        if (_order.matchClass(int_)) {
-            Argument o_ = new Argument();
-            int left_ = _a.getInt();
-            int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            int max_ = bitsLeft_.length - 1;
-            for (int i = 0; i < value_; i++) {
-                boolean firstBit_ = bitsLeft_[max_];
-                for (int j = 0; j < max_; j++) {
-                    int index_ = max_ - j;
-                    bitsLeft_[index_] = bitsLeft_[index_ - 1];
-                }
-                bitsLeft_[0] = firstBit_;
-            }
-            o_.setStruct(new IntStruct(LgNames.toInt(bitsLeft_)));
-            return o_;
-        }
-        Argument o_ = new Argument();
-        long left_ = _a.getLong();
-        long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        int max_ = bitsLeft_.length - 1;
-        for (int i = 0; i < value_; i++) {
-            boolean firstBit_ = bitsLeft_[max_];
-            for (int j = 0; j < max_; j++) {
-                int index_ = max_ - j;
-                bitsLeft_[index_] = bitsLeft_[index_ - 1];
-            }
-            bitsLeft_[0] = firstBit_;
-        }
-        o_.setStruct(new LongStruct(LgNames.toLong(bitsLeft_)));
-        return o_;
-    }
     static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, Analyzable _cont, ClassArgumentMatching _b) {
         int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
         String exp_ = _cont.getStandards().getAliasNumber();
         boolean ok_ = true;
         if (oa_ == 0) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_cont.getCurrentLocation());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_a);
@@ -638,7 +89,7 @@ public abstract class NumericOperation extends MethodOperation {
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
         if (ob_ == 0) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_cont.getCurrentLocation());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_b);

@@ -1,8 +1,7 @@
 package aiki.network.stream;
 import code.network.Exiting;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Bye extends Exiting {
 
     private boolean forced;

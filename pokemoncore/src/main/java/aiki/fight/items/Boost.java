@@ -6,9 +6,8 @@ import code.maths.Rate;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Boost extends Item {
 
     private static final String ITEM = "aiki.fight.items.Boost";

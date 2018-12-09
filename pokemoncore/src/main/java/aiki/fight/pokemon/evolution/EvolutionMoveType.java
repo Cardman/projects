@@ -3,9 +3,8 @@ package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EvolutionMoveType extends Evolution {
 
     private String type;

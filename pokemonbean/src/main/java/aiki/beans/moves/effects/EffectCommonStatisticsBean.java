@@ -4,12 +4,12 @@ import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCommonStatistics;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.TreeMap;
 
 public class EffectCommonStatisticsBean extends EffectBean {
     private TreeMap<Statistic, String> commonValue;
-    private NatTreeMap<String, String> mapVarsCommonStatistics;
+    private NatStringTreeMap< String> mapVarsCommonStatistics;
 
     @Override
     public void beforeDisplaying() {
@@ -17,8 +17,8 @@ public class EffectCommonStatisticsBean extends EffectBean {
         EffectCommonStatistics effect_ = (EffectCommonStatistics) getEffect();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        NatTreeMap<String, String> mapVarsCommonStatistics_;
-        mapVarsCommonStatistics_ = new NatTreeMap<String, String>();
+        NatStringTreeMap< String> mapVarsCommonStatistics_;
+        mapVarsCommonStatistics_ = new NatStringTreeMap< String>();
         TreeMap<Statistic, String> commonValue_;
         commonValue_ = new TreeMap<Statistic, String>(new ComparatorTrStringStatistic(translatedStatistics_));
 //        Map<String,String> loc_ = new Map<>();
@@ -31,7 +31,7 @@ public class EffectCommonStatisticsBean extends EffectBean {
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
             commonValue_.put(s, formula_);
-            NatTreeMap<String,String> mapVars_ = data_.getDescriptions(str_,getLanguage());
+            NatStringTreeMap<String> mapVars_ = data_.getDescriptions(str_,getLanguage());
             mapVarsCommonStatistics_.putAllTreeMap(mapVars_);
         }
         commonValue = commonValue_;
@@ -48,7 +48,7 @@ public class EffectCommonStatisticsBean extends EffectBean {
         return commonValue;
     }
 
-    public NatTreeMap<String,String> getMapVarsCommonStatistics() {
+    public NatStringTreeMap<String> getMapVarsCommonStatistics() {
         return mapVarsCommonStatistics;
     }
 }

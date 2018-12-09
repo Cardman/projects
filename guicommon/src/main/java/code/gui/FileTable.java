@@ -20,7 +20,7 @@ public class FileTable extends CustComponent {
     static final int SIZE_INDEX = 2;
 
     static final int PATH_INDEX = 3;
-    private static final String ACCESS = "gui.FileTable";
+    private static final String ACCESS = "gui.filetable";
 
     private static final String END_NUM = " 98";
 

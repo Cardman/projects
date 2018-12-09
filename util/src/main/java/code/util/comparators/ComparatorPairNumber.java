@@ -1,9 +1,8 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
+import code.util.ints.Comparing;
 
 public final class ComparatorPairNumber<U extends Number, V extends Number> implements Comparing<PairNumber<U, V>> {
 

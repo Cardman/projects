@@ -29,7 +29,7 @@ import code.util.StringMap;
 import code.util.consts.ConstFiles;
 
 public abstract class FileDialog extends Dialog {
-    private static final String DIALOG_ACCESS = "gui.FileDialog";
+    private static final String DIALOG_ACCESS = "gui.filedialog";
 
     private static final String FILES_PARAM = "filesParam";
     private static final String SPACE = " ";

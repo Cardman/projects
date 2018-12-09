@@ -3,9 +3,8 @@ package aiki.fight.status;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
 
     private Rate power;

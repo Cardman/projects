@@ -6,9 +6,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.ParsedArgument;
+import code.expressionlanguage.errors.custom.BadFormatNumber;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadFormatNumber;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -86,7 +87,7 @@ public final class ConstantOperation extends LeafOperation {
                 BadFormatNumber badFormat_ = new BadFormatNumber();
                 badFormat_.setNumber(str_);
                 badFormat_.setFileName(_conf.getCurrentFileName());
-                badFormat_.setRc(_conf.getCurrentLocation());
+                badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(badFormat_);
             }
             setSimpleArgument(a_);
@@ -99,7 +100,7 @@ public final class ConstantOperation extends LeafOperation {
             BadFormatNumber badFormat_ = new BadFormatNumber();
             badFormat_.setNumber(str_);
             badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
+            badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }
@@ -121,15 +122,15 @@ public final class ConstantOperation extends LeafOperation {
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
-        Object obj_ = arg_.getObject();
-        if (obj_ instanceof Boolean) {
+        if (arg_.getStruct() instanceof BooleanStruct) {
+        	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
             //boolean constant assignment
             for (StringMap<AssignmentBefore> s: assB_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if ((Boolean)obj_) {
+                    if (value_) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -149,7 +150,7 @@ public final class ConstantOperation extends LeafOperation {
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if ((Boolean)obj_) {
+                    if (value_) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -167,7 +168,7 @@ public final class ConstantOperation extends LeafOperation {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
                 BooleanAssignment b_ = new BooleanAssignment();
-                if ((Boolean)obj_) {
+                if (value_) {
                     b_.setAssignedAfterWhenFalse(true);
                     b_.setUnassignedAfterWhenFalse(true);
                     b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());

@@ -3,12 +3,11 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.methods.util.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
@@ -43,7 +42,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             cl_.setCheckOnlyNullPe(true);
@@ -54,7 +53,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setClassName(cl_.getNames().join(""));
         und_.setFileName(str_);
         und_.setFileName(_conf.getCurrentFileName());
-        und_.setRc(_conf.getCurrentLocation());
+        und_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
@@ -83,7 +82,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE,_conf.joinPages())),cast_));
+        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),cast_));
         a_ = new Argument();
         return a_;
     }

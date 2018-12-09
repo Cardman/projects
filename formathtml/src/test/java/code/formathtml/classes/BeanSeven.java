@@ -2,10 +2,12 @@ package code.formathtml.classes;
 import code.bean.Bean;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 
 @SuppressWarnings("static-method")
 public class BeanSeven extends Bean {
@@ -14,9 +16,9 @@ public class BeanSeven extends Bean {
 
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
-    private NatTreeMap<EnumNumber, String> translations = new NatTreeMap<EnumNumber, String>();
+    private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
 
-    private NatTreeMap<String,Numbers<Integer>> numbers = new NatTreeMap<String,Numbers<Integer>>();
+    private NatStringTreeMap<Numbers<Integer>> numbers = new NatStringTreeMap<Numbers<Integer>>();
 
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
@@ -207,19 +209,19 @@ public class BeanSeven extends Bean {
         combobox = _combobox;
     }
 
-    public NatTreeMap<EnumNumber, String> getTranslations() {
+    public TreeMap<EnumNumber, String> getTranslations() {
         return translations;
     }
 
-    public void setTranslations(NatTreeMap<EnumNumber, String> _translations) {
+    public void setTranslations(TreeMap<EnumNumber, String> _translations) {
         translations = _translations;
     }
 
-    public NatTreeMap<String, Numbers<Integer>> getNumbers() {
+    public NatStringTreeMap< Numbers<Integer>> getNumbers() {
         return numbers;
     }
 
-    public void setNumbers(NatTreeMap<String, Numbers<Integer>> _numbers) {
+    public void setNumbers(NatStringTreeMap< Numbers<Integer>> _numbers) {
         numbers = _numbers;
     }
 

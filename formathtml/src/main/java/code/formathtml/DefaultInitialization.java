@@ -30,13 +30,14 @@ public final class DefaultInitialization {
         _lgNames.setAliasStore("code.expressionlanguage.exceptions.DynamicArrayStoreException");
 //        _lgNames.setAliasNullPe("$npe");
         _lgNames.setAliasNullPe("code.util.exceptions.NullObjectException");
-        _lgNames.setAliasBadEncode("$enc");
+        _lgNames.setAliasBadEncode("java.lang.$enc");
 //        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
 //        _lgNames.setAliasBadSize("$badSize");
         _lgNames.setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
+        _lgNames.setAliasGetMessage("getMessage");
         _lgNames.setAliasCustomError("$customError");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
@@ -50,7 +51,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasQuot("quot");
         _lgNames.setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");
         _lgNames.setAliasNbFormat("badFormat");
-        _lgNames.setAliasBadEncode("badEncode");
         _lgNames.setAliasPrimBoolean("$boolean");
         _lgNames.setAliasPrimByte("$byte");
         _lgNames.setAliasPrimShort("$short");
@@ -146,6 +146,8 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
         _lgNames.setAliasClass("$Class");
+        _lgNames.setAliasStackTraceElement("$stack");
+        _lgNames.setAliasCurrentStack("current");
         _lgNames.setAliasFct("$Fct");
         _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("$Annotation");
@@ -249,6 +251,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasOr("or");
         _lgNames.setAliasXor("xor");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("lt");
         _lgNames.setAliasGt("gt");
         _lgNames.setAliasLe("le");

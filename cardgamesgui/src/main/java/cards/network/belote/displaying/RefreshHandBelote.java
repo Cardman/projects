@@ -1,9 +1,8 @@
 package cards.network.belote.displaying;
 import cards.belote.HandBelote;
 import cards.network.common.PlayerActionGame;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RefreshHandBelote extends PlayerActionGame {
 
     private HandBelote refreshedHand;

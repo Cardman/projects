@@ -20,7 +20,7 @@ import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends ChildFrame {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.FrameHtmlData";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
 
     private static final String TEXT = "0";
 

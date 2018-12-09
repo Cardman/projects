@@ -2,9 +2,8 @@ package aiki.fight.moves.effects;
 
 import aiki.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class EffectEndRound extends Effect {
 
     private String failEndRound;

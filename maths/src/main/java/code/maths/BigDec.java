@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.GenericNumbers;
 import code.util.ints.Cmp;
@@ -35,7 +34,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         number = new BigDecimal(_arg, MathContext.UNLIMITED);
     }
 
-    @FromAndToString
+    
     public static BigDec newBigDec(String _arg) {
         return new BigDec(_arg);
     }
@@ -272,7 +271,7 @@ public final class BigDec implements Cmp<BigDec>, Displayable {
         return new BigDec(number.max(_val.number));
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         return number.toString();

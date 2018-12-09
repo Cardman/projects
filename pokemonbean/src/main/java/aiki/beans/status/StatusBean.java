@@ -15,7 +15,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -34,11 +34,11 @@ public class StatusBean extends CommonBean {
     private boolean incrementingEndRound;
     private TreeMap<Statistic, Rate> multStat;
     private StringList reasons;
-    private NatTreeMap<String,String> mapVarsFail;
+    private NatStringTreeMap<String> mapVarsFail;
     private boolean endRound;
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
     private Rate rateForUsingAMove;
     private boolean notAttack;
     private NatCmpTreeMap<LgInt,Rate> lawForUsingAMoveNbRound;
@@ -76,7 +76,7 @@ public class StatusBean extends CommonBean {
             endRound = false;
             endRoundRank = 0;
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
         statusType = status_.getStatusType();
         catchingRate = status_.getCatchingRate();
@@ -192,7 +192,7 @@ public class StatusBean extends CommonBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 
@@ -228,7 +228,7 @@ public class StatusBean extends CommonBean {
         return reasons;
     }
 
-    public NatTreeMap<String,String> getMapVarsFail() {
+    public NatStringTreeMap<String> getMapVarsFail() {
         return mapVarsFail;
     }
 

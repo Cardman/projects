@@ -34,18 +34,17 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Listable;
 
-@RwXml
+
 public final class Fight {
 
     public static final byte PLAYER = 0;
@@ -53,7 +52,7 @@ public final class Fight {
     /***/
     public static final byte FOE = 1;
 
-    public static final String FIGHT = "aiki.game.fight.Fight";
+    public static final String FIGHT = "aiki.game.fight.fight";
 
     public static final String LANCEUR_PV_RESTANTS = "LANCEUR_PV_RESTANTS";
     public static final String CIBLE_PV_RESTANTS = "CIBLE_PV_RESTANTS";
@@ -513,7 +512,7 @@ public final class Fight {
     private ActionType selectedActionCurFighter = ActionType.NOTHING;
 
     /***/
-    private NatTreeMap<String,ChosenMoveInfos> currentFighterMoves = new NatTreeMap<String,ChosenMoveInfos>();
+    private NatStringTreeMap<ChosenMoveInfos> currentFighterMoves = new NatStringTreeMap<ChosenMoveInfos>();
 
     /***/
     private String chosenMoveFront = DataBase.EMPTY_STRING;
@@ -528,7 +527,7 @@ public final class Fight {
     private byte chosenIndex = Fighter.BACK;
 
     /***/
-    private NatTreeMap<String,Boolean> moves = new NatTreeMap<String,Boolean>();
+    private NatStringTreeMap<Boolean> moves = new NatStringTreeMap<Boolean>();
 
     /***/
     private TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator());
@@ -1115,11 +1114,11 @@ public final class Fight {
         selectedActionCurFighter = _selectedActionCurFighter;
     }
 
-    public NatTreeMap<String, ChosenMoveInfos> getCurrentFighterMoves() {
+    public NatStringTreeMap< ChosenMoveInfos> getCurrentFighterMoves() {
         return currentFighterMoves;
     }
 
-    void setCurrentFighterMoves(NatTreeMap<String, ChosenMoveInfos> _currentFighterMoves) {
+    void setCurrentFighterMoves(NatStringTreeMap< ChosenMoveInfos> _currentFighterMoves) {
         currentFighterMoves = _currentFighterMoves;
     }
 
@@ -1155,11 +1154,11 @@ public final class Fight {
         chosenIndex = _chosenIndex;
     }
 
-    public NatTreeMap<String, Boolean> getMoves() {
+    public NatStringTreeMap< Boolean> getMoves() {
         return moves;
     }
 
-    void setMoves(NatTreeMap<String, Boolean> _moves) {
+    void setMoves(NatStringTreeMap< Boolean> _moves) {
         moves = _moves;
     }
 

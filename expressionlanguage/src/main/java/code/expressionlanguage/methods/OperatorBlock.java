@@ -6,7 +6,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.methods.util.MissingReturnMethod;
+import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -150,7 +150,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
                 MissingReturnMethod miss_ = new MissingReturnMethod();
-                miss_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 miss_.setId(getSignature());
                 miss_.setReturning(getImportedReturnType());

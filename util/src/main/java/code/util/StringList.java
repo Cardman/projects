@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -61,14 +60,32 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_strings);
     }
 
-    @CapacityInit
+    
     public StringList(CollCapacity _capacity) {
         super(_capacity);
     }
 
-    public static byte[] encode(String _input) {
+    public static byte[] encode(CharSequence _input) {
+        int len_ = _input.length();
+        char[] chs_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            chs_[i] = _input.charAt(i);
+        }
+        return encode(chs_);
+    }
+    public static byte[] encode(char[] _input) {
+        Numbers<Byte> expBytes_ = encodeList(_input);
+        int length_ = expBytes_.size();
+        byte[] bytes_ = new byte[length_];
+        for (int i = 0; i < length_; i++) {
+            byte b_ = expBytes_.get(i);
+            bytes_[i] = b_;
+        }
+        return bytes_;
+    }
+    public static Numbers<Byte> encodeList(char[] _input) {
         Numbers<Byte> expBytes_ = new Numbers<Byte>();
-        for (char c: _input.toCharArray()) {
+        for (char c: _input) {
             if (c < 128) {
                 expBytes_.add((byte)c);
                 continue;
@@ -96,13 +113,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             byte t_ = (byte) (c%64+128);
             expBytes_.add(t_);
         }
-        int length_ = expBytes_.size();
-        byte[] bytes_ = new byte[length_];
-        for (int i = 0; i < length_; i++) {
-            byte b_ = expBytes_.get(i);
-            bytes_[i] = b_;
-        }
-        return bytes_;
+        return expBytes_;
     }
     public static String decode(byte[] _bytes) {
         return decode(_bytes, 0, _bytes.length);
@@ -1444,18 +1455,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             list_.swapIndexes(i_, j_);
             i_++;
             j_--;
-        }
-        return list_;
-    }
-    public StringList stringsEqualsIgnoreCase(String _string) {
-        StringList list_ = new StringList();
-        for (String s: this) {
-            if (s == null) {
-                continue;
-            }
-            if (s.equalsIgnoreCase(_string)) {
-                list_.add(s);
-            }
         }
         return list_;
     }

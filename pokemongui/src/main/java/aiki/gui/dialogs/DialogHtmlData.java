@@ -18,7 +18,7 @@ import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
 public final class DialogHtmlData extends Dialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogHtmlData";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialoghtmldata";
 
     private static final String TEXT = "0";
 

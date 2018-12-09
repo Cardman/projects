@@ -15,7 +15,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public final class DialogHelpPresident extends Dialog {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogHelpPresident";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialoghelppresident";
 
     private static final DialogHelpPresident DIALOG = new DialogHelpPresident();
     private static final String LEVEL = "level";

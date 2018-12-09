@@ -6,9 +6,8 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ExchangedData {
 
     private StringList abilities;

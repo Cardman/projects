@@ -7,6 +7,7 @@ import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -15,8 +16,8 @@ import code.util.TreeMap;
 public class EffectDamageBean extends EffectBean {
     private byte chRate;
     private boolean constDamage;
-    private NatTreeMap<String, Rate> damageLaw;
-    private NatTreeMap<String, Rate> multDamageAgainst;
+    private NatStringTreeMap< Rate> damageLaw;
+    private NatStringTreeMap< Rate> multDamageAgainst;
     private NatCmpTreeMap<Rate, Rate> chLaw;
     private NatTreeMap<Long, Rate> hitsLaw;
     private long nbHits;
@@ -30,7 +31,7 @@ public class EffectDamageBean extends EffectBean {
     private boolean targetDefense;
     private String statisDef;
     private TreeMap<Statistic, Byte> boostStatisOnceKoFoe;
-    private NatTreeMap<String,String> mapVarsDamage;
+    private NatStringTreeMap<String> mapVarsDamage;
 
     @Override
     public void beforeDisplaying() {
@@ -46,27 +47,27 @@ public class EffectDamageBean extends EffectBean {
 //        power = StringList.replace(power, loc_);
 //        power = power.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        power = power.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getPower(),getLanguage());
-        NatTreeMap<String,String> mapVarsAccuracy_ = new NatTreeMap<String, String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getPower(),getLanguage());
+        NatStringTreeMap<String> mapVarsAccuracy_ = new NatStringTreeMap< String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
             mapVarsAccuracy_.put(k, mapVars_.getVal(k));
         }
-        NatTreeMap<String, Rate> multDamageAgainst_;
-        multDamageAgainst_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> multDamageAgainst_;
+        multDamageAgainst_ = new NatStringTreeMap< Rate>();
         for (String c: effect_.getMultDamageAgainst().getKeys()) {
             multDamageAgainst_.put(translatedCategories_.getVal(c), effect_.getMultDamageAgainst().getVal(c));
         }
         multDamageAgainst = multDamageAgainst_;
-        NatTreeMap<String, Rate> damageLaw_;
-        damageLaw_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> damageLaw_;
+        damageLaw_ = new NatStringTreeMap< Rate>();
         for (String e: effect_.getDamageLaw().events()) {
             String formula_ = data_.getFormula(e, getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-            NatTreeMap<String,String> mapVarsLoc_ = data_.getDescriptions(e,getLanguage());
+            NatStringTreeMap<String> mapVarsLoc_ = data_.getDescriptions(e,getLanguage());
             desc_ = new StringList(mapVarsLoc_.getKeys());
             desc_.sort();
             for (String k: desc_) {
@@ -191,15 +192,15 @@ public class EffectDamageBean extends EffectBean {
         return power;
     }
 
-    public NatTreeMap<String,Rate> getDamageLaw() {
+    public NatStringTreeMap<Rate> getDamageLaw() {
         return damageLaw;
     }
 
-    public NatTreeMap<String,String> getMapVarsDamage() {
+    public NatStringTreeMap<String> getMapVarsDamage() {
         return mapVarsDamage;
     }
 
-    public NatTreeMap<String,Rate> getMultDamageAgainst() {
+    public NatStringTreeMap<Rate> getMultDamageAgainst() {
         return multDamageAgainst;
     }
 

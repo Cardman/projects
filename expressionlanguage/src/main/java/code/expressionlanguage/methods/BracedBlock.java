@@ -42,7 +42,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         Block ch_ = getFirstChild();
         if (ch_ == null) {
             if (!_anEl.isReachable(this)) {
-                _anEl.completeAbrupt(this);
                 _anEl.completeAbruptGroup(this);
             }
             return;

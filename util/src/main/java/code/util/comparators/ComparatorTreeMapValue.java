@@ -1,8 +1,7 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.Numbers;
 import code.util.TreeMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorTreeMapValue<T, U extends Number> implements Comparing<T> {
 

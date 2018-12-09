@@ -1,5 +1,4 @@
 package code.maths;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -105,7 +104,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return r_;
     }
 
-    @FromAndToString
+    
     public static Rate newRate(String _string) {
         return new Rate(_string);
     }
@@ -494,7 +493,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return toNumberString();
     }
 
-    @FromAndToString
+    
     public String toNumberString() {
         if (isInteger()) {
             return numerateur.toNumberString();

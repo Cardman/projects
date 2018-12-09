@@ -22,7 +22,7 @@ import code.util.StringMap;
 
 public final class DialogNicknames extends DialogCards {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogNicknames";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialognicknames";
 
     private static final DialogNicknames DIALOG = new DialogNicknames();
     private static final String TAB = "\t";

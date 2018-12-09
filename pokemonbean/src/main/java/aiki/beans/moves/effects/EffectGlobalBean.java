@@ -13,7 +13,7 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -35,13 +35,13 @@ public class EffectGlobalBean extends EffectBean {
     private StringList disableImmuAgainstTypes;
     private StringList cancelProtectingAbilities;
     private StringList unusableMoves;
-    private NatTreeMap<String, Rate> multDamagePrepaRound;
+    private NatStringTreeMap< Rate> multDamagePrepaRound;
     private StringList movesUsedByTargetedFighters;
     private Rate multEffectLovingAlly;
     private TreeMap<String, Rate> multPowerMoves;
     private TreeMap<StatisticType, Rate> multStatIfContainsType;
     private StringList cancelEffects;
-    private NatTreeMap<String, Rate> multDamageTypesMoves;
+    private NatStringTreeMap< Rate> multDamageTypesMoves;
     private StringList cancelChgtStat;
     private String invokedMoveTerrain;
     private StringList invokingMoves;
@@ -136,8 +136,8 @@ public class EffectGlobalBean extends EffectBean {
             multPowerMoves_.put(m, effect_.getMultPowerMoves().getVal(m));
         }
         multPowerMoves = multPowerMoves_;
-        NatTreeMap<String, Rate> multDamageTypesMoves_;
-        multDamageTypesMoves_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> multDamageTypesMoves_;
+        multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
         for (String m: effect_.getMultDamageTypesMoves().getKeys()) {
             multDamageTypesMoves_.put(translatedTypes_.getVal(m), effect_.getMultDamageTypesMoves().getVal(m));
         }
@@ -208,8 +208,8 @@ public class EffectGlobalBean extends EffectBean {
             multStatIfContainsType_.put(s, effect_.getMultStatIfContainsType().getVal(s));
         }
         multStatIfContainsType = multStatIfContainsType_;
-        NatTreeMap<String, Rate> multDamagePrepaRound_;
-        multDamagePrepaRound_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> multDamagePrepaRound_;
+        multDamagePrepaRound_ = new NatStringTreeMap< Rate>();
         for (String m: effect_.getMultDamagePrepaRound().getKeys()) {
             multDamagePrepaRound_.put(translatedTypes_.getVal(m), effect_.getMultDamagePrepaRound().getVal(m));
         }
@@ -412,7 +412,7 @@ public class EffectGlobalBean extends EffectBean {
         return multPowerMoves;
     }
 
-    public NatTreeMap<String,Rate> getMultDamageTypesMoves() {
+    public NatStringTreeMap<Rate> getMultDamageTypesMoves() {
         return multDamageTypesMoves;
     }
 
@@ -440,7 +440,7 @@ public class EffectGlobalBean extends EffectBean {
         return multStatIfContainsType;
     }
 
-    public NatTreeMap<String,Rate> getMultDamagePrepaRound() {
+    public NatStringTreeMap<Rate> getMultDamagePrepaRound() {
         return multDamagePrepaRound;
     }
 

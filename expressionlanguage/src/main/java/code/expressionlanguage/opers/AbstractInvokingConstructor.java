@@ -7,17 +7,17 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.errors.custom.BadAccessConstructor;
+import code.expressionlanguage.errors.custom.BadConstructorCall;
+import code.expressionlanguage.errors.custom.UndefinedConstructorError;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.BadConstructorCall;
-import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -94,7 +94,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             UndefinedConstructorError und_ = new UndefinedConstructorError();
             und_.setId(constId_);
             und_.setClassName(clArg_.getNames().join(""));
-            und_.setRc(_conf.getCurrentLocation());
+            und_.setIndexFile(_conf.getCurrentLocationIndex());
             und_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
@@ -107,7 +107,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             BadAccessConstructor badAccess_ = new BadAccessConstructor();
             badAccess_.setId(ctor_.getId());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            badAccess_.setRc(_conf.getCurrentLocation());
+            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badAccess_);
         }
         checkPositionBasis(_conf);
@@ -211,23 +211,23 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             //error
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(curBlock_.getFile().getFileName());
-            call_.setRc(curBlock_.getRowCol(0, 0));
-            call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+            call_.setIndexFile(0);
+            call_.setLocalOffset(getFullIndexInEl());
             _conf.getClasses().addError(call_);
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
                 BadConstructorCall call_ = new BadConstructorCall();
                 call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setRc(curBlock_.getRowCol(0, 0));
-                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+                call_.setIndexFile(0);
+                call_.setLocalOffset(getFullIndexInEl());
                 _conf.getClasses().addError(call_);
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 BadConstructorCall call_ = new BadConstructorCall();
                 call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setRc(curBlock_.getRowCol(0, 0));
-                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+                call_.setIndexFile(0);
+                call_.setLocalOffset(getFullIndexInEl());
                 _conf.getClasses().addError(call_);
             } else {
                 checkPosition(_conf);
@@ -239,12 +239,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(curBlock_.getFile().getFileName());
-            call_.setRc(curBlock_.getRowCol(0, 0));
-            call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+            call_.setIndexFile(0);
+            call_.setLocalOffset(getFullIndexInEl());
             _conf.getClasses().addError(call_);
         }
     }
-    protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
+    protected static void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _args) {
             if (i_ < _params.size()) {

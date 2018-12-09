@@ -2,9 +2,8 @@ package aiki.fight.effects;
 
 import aiki.DataBase;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public class EffectWhileSending {
 
     private boolean disableWeather;

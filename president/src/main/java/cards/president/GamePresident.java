@@ -14,12 +14,11 @@ import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class GamePresident {
 
-    private static final String GAME_PRESIDENT = "cards.president.GamePresident";
+    private static final String GAME_PRESIDENT = "cards.president.gamepresident";
     private static final String FOLDER = "resources_cards/classes";
 
     private static final String EMPTY = "";

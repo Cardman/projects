@@ -4,25 +4,25 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectStatisticBean extends EffectBean {
-    private NatTreeMap<String, Byte> statisVarRank;
+    private NatStringTreeMap< Byte> statisVarRank;
 
-    private NatTreeMap<String, String> localFailStatis;
+    private NatStringTreeMap< String> localFailStatis;
     private Rate evtRate;
     private String evtRatePerCent;
     private StringList copyBoost;
     private StringList swapBoostStatis;
 
-    private NatTreeMap<String, String> localFailSwapBoostStatis;
+    private NatStringTreeMap< String> localFailSwapBoostStatis;
 
-    private NatTreeMap<String, Rate> lawBoost;
+    private NatStringTreeMap< Rate> lawBoost;
     private StringList cancelLowStat;
     private StringList cancelChgtStat;
     private int defaultBoost;
-    private NatTreeMap<String,String> mapVarsStatistics;
+    private NatStringTreeMap<String> mapVarsStatistics;
 
     @Override
     public void beforeDisplaying() {
@@ -32,8 +32,8 @@ public class EffectStatisticBean extends EffectBean {
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         evtRate = effect_.getEvtRate();
         evtRatePerCent = Rate.multiply(evtRate, new Rate(CENT)).evaluate(2);
-        NatTreeMap<String, Byte> statisVarRank_;
-        statisVarRank_ = new NatTreeMap<String, Byte>();
+        NatStringTreeMap< Byte> statisVarRank_;
+        statisVarRank_ = new NatStringTreeMap< Byte>();
         for (Statistic s: effect_.getStatisVarRank().getKeys()) {
             statisVarRank_.put(translatedStatistics_.getVal(s), effect_.getStatisVarRank().getVal(s));
         }
@@ -44,8 +44,8 @@ public class EffectStatisticBean extends EffectBean {
             swapBoostStatis_.add(translatedStatistics_.getVal(s));
         }
         swapBoostStatis = swapBoostStatis_;
-        NatTreeMap<String, Rate> lawBoost_;
-        lawBoost_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> lawBoost_;
+        lawBoost_ = new NatStringTreeMap< Rate>();
         for (Statistic s: effect_.getLawBoost().events()) {
             lawBoost_.put(translatedStatistics_.getVal(s), effect_.getLawBoost().normalizedRate(s));
         }
@@ -53,10 +53,10 @@ public class EffectStatisticBean extends EffectBean {
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatTreeMap<String,String> mapVarsStatistics_;
-        mapVarsStatistics_ = new NatTreeMap<String,String>();
-        NatTreeMap<String, String> localFailStatis_;
-        localFailStatis_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVarsStatistics_;
+        mapVarsStatistics_ = new NatStringTreeMap<String>();
+        NatStringTreeMap< String> localFailStatis_;
+        localFailStatis_ = new NatStringTreeMap<String>();
         for (Statistic s: effect_.getLocalFailStatis().getKeys()) {
             String formula_ = data_.getFormula(effect_.getLocalFailStatis().getVal(s), getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
@@ -66,8 +66,8 @@ public class EffectStatisticBean extends EffectBean {
             mapVarsStatistics_.putAllTreeMap(data_.getDescriptions(effect_.getLocalFailStatis().getVal(s), getLanguage()));
         }
         localFailStatis = localFailStatis_;
-        NatTreeMap<String, String> localFailSwapBoostStatis_;
-        localFailSwapBoostStatis_ = new NatTreeMap<String,String>();
+        NatStringTreeMap< String> localFailSwapBoostStatis_;
+        localFailSwapBoostStatis_ = new NatStringTreeMap<String>();
         for (Statistic s: effect_.getLocalFailSwapBoostStatis().getKeys()) {
             String formula_ = data_.getFormula(effect_.getLocalFailSwapBoostStatis().getVal(s), getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
@@ -133,11 +133,11 @@ public class EffectStatisticBean extends EffectBean {
         return evtRatePerCent;
     }
 
-    public NatTreeMap<String,Byte> getStatisVarRank() {
+    public NatStringTreeMap<Byte> getStatisVarRank() {
         return statisVarRank;
     }
 
-    public NatTreeMap<String,String> getMapVarsStatistics() {
+    public NatStringTreeMap<String> getMapVarsStatistics() {
         return mapVarsStatistics;
     }
 

@@ -4,8 +4,6 @@ import static aiki.EquallablePkUtil.assertEq;
 import org.junit.Test;
 
 import code.util.StringList;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
 
 @SuppressWarnings("static-method")
 public class LevelPointTest {

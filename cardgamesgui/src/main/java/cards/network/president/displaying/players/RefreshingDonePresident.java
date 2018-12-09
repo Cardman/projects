@@ -4,9 +4,8 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RefreshingDonePresident extends PlayerActionGame {
 
     private CardPresident playedCard;

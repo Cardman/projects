@@ -4,9 +4,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.util.StringList;
 
 
@@ -20,27 +24,19 @@ public final class AddOperation extends NumericOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument addOne(Argument _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
-        byte b_ = 1;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        return calculateSum(_arg, a_, false, _cont, _cl);
+    static NumberStruct addOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
+        return NumberStruct.calculateSum(_arg, new IntStruct(1), _cont, _cl);
     }
 
-    static Argument removeOne(Argument _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
-        byte b_ = 1;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        return calculateDiff(_arg, a_, _cont, _cl);
+    static NumberStruct removeOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
+        return NumberStruct.calculateDiff(_arg, new IntStruct(1), _cont, _cl);
     }
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
-        if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catString, _cont, getResultClass());
-        }
-        return calculateDiff(_a, _b, _cont, getResultClass());
+        return localSumDiff(_a, _op, _b, _cont);
     }
+
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
@@ -49,12 +45,22 @@ public final class AddOperation extends NumericOperation {
                 return Argument.createVoid();
             }
         }
-        if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catString, _cont, getResultClass());
-        }
-        return calculateDiff(_a, _b, _cont, getResultClass());
+        return localSumDiff(_a, _op, _b, _cont.getContextEl());
     }
 
+    private Argument localSumDiff(Argument _a, String _op, Argument _b,
+            ExecutableCode _cont) {
+        if (StringList.quickEq(_op.trim(), PLUS)) {
+            if (catString) {
+                StringBuilder str_ = new StringBuilder();
+                str_.append(((DisplayableStruct)_a.getStruct()).getDisplayedString(_cont).getInstance());
+                str_.append(((DisplayableStruct)_b.getStruct()).getDisplayedString(_cont).getInstance());
+                return new Argument(new StringStruct(str_.toString()));
+            }
+            return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+        }
+        return new Argument(NumberStruct.calculateDiff((NumberStruct) _a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+    }
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont) {
         ResultOperand res_ = new ResultOperand();
@@ -99,7 +105,7 @@ public final class AddOperation extends NumericOperation {
             _cont.setOkNumOp(false);
             String exp_ = _cont.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_cont.getCurrentLocation());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_a,_b);

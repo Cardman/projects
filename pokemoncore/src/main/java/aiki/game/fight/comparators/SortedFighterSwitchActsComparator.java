@@ -1,12 +1,11 @@
 package aiki.game.fight.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class SortedFighterSwitchActsComparator implements
         Comparing<TeamPosition> {

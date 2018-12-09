@@ -1,8 +1,7 @@
 package code.util.classestest;
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 import code.util.pagination.EnumFieldComparator;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;

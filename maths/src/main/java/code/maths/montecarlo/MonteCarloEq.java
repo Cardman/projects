@@ -5,11 +5,9 @@ import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.EqList;
 import code.util.ObjectNotNullMap;
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
-@RwXml
+
 public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E> {
 
     private ObjectNotNullMap<E,LgInt> law;
@@ -29,7 +27,7 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
         }
     }
 
-    @CapacityInit
+    
     public MonteCarloEq(CollCapacity _capacity) {
         law = new ObjectNotNullMap<E,LgInt>(_capacity);
     }

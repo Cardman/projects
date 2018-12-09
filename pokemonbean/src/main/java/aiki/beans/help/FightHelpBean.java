@@ -48,6 +48,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatCmpTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -83,7 +84,7 @@ public class FightHelpBean extends CommonBean {
     private StringList immuStatusAbility;
     private StringList autoDamage;
     private String damgeFormula;
-    private NatTreeMap<String,String> mapAutoDamage;
+    private NatStringTreeMap<String> mapAutoDamage;
     private StringList prepaRoundMoves;
     private StringList disappearingRoundMoves;
     private StringList speedPreparingItems;
@@ -137,7 +138,7 @@ public class FightHelpBean extends CommonBean {
     private StringList movesUserPower;
     private StringList movesTargetPower;
     private StringList abilitiesUserPower;
-    private NatTreeMap<String,String> mapVar;
+    private NatStringTreeMap<String> mapVar;
     private StringList abilitiesTargetDamage;
     private StringList movesTargetTeamDamage;
     private StringList abilitiesGlobal;
@@ -209,13 +210,13 @@ public class FightHelpBean extends CommonBean {
     private int defaultBoostValue;
     private String defaultMove;
     private String catchingFormula;
-    private NatTreeMap<String,String> varCatchingFormula;
+    private NatStringTreeMap<String> varCatchingFormula;
     private String fleeingFormula;
-    private NatTreeMap<String,String> varFleeingFormula;
+    private NatStringTreeMap<String> varFleeingFormula;
     private int happinessPoints;
     private Rate strongMove;
     private TreeMap<DifficultyWinPointsFight, String> rates;
-    private NatTreeMap<String, String> varRates;
+    private NatStringTreeMap< String> varRates;
     private TreeMap<DifficultyModelLaw,NatCmpTreeMap<Rate,Rate>> lawsRates;
     private EnumList<Statistic> statisticAnim;
 
@@ -1764,9 +1765,9 @@ public class FightHelpBean extends CommonBean {
         }
         autoDamage.sortElts(new ComparatorTrStrings(translatedStatus_));
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
-        mapVar = new NatTreeMap<String,String>();
+        mapVar = new NatStringTreeMap<String>();
         mapVar.putAllTreeMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
-        NatTreeMap<String,String> mapAutoDamage_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapAutoDamage_ = new NatStringTreeMap<String>();
         int len_;
         len_ = autoDamage.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2021,16 +2022,16 @@ public class FightHelpBean extends CommonBean {
         }
         catchingFormulaCopy_ = str_.toString();
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
-        varCatchingFormula = new NatTreeMap<String,String>();
+        varCatchingFormula = new NatStringTreeMap<String>();
         varCatchingFormula.putAllMap(data_.getDescriptions(catchingFormulaCopy_, getLanguage()));
         fleeingFormula = data_.getFormula(data_.getFleeingFormula(), getLanguage());
-        varFleeingFormula = new NatTreeMap<String,String>();
+        varFleeingFormula = new NatStringTreeMap<String>();
         varFleeingFormula.putAllMap(data_.getDescriptions(data_.getFleeingFormula(), getLanguage()));
         rates = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             rates.put(d, data_.getFormula(data_.getRates().getVal(d), getLanguage()));
         }
-        varRates = new NatTreeMap<String,String>();
+        varRates = new NatStringTreeMap<String>();
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             varRates.putAllTreeMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
         }
@@ -4676,7 +4677,7 @@ public class FightHelpBean extends CommonBean {
         return autoDamage;
     }
 
-    public NatTreeMap<String,String> getMapAutoDamage() {
+    public NatStringTreeMap<String> getMapAutoDamage() {
         return mapAutoDamage;
     }
 
@@ -4888,7 +4889,7 @@ public class FightHelpBean extends CommonBean {
         return rates;
     }
 
-    public NatTreeMap<String,String> getVarRates() {
+    public NatStringTreeMap<String> getVarRates() {
         return varRates;
     }
 
@@ -4904,7 +4905,7 @@ public class FightHelpBean extends CommonBean {
         return damgeFormula;
     }
 
-    public NatTreeMap<String,String> getMapVar() {
+    public NatStringTreeMap<String> getMapVar() {
         return mapVar;
     }
 
@@ -5192,7 +5193,7 @@ public class FightHelpBean extends CommonBean {
         return catchingFormula;
     }
 
-    public NatTreeMap<String,String> getVarCatchingFormula() {
+    public NatStringTreeMap<String> getVarCatchingFormula() {
         return varCatchingFormula;
     }
 
@@ -5200,7 +5201,7 @@ public class FightHelpBean extends CommonBean {
         return fleeingFormula;
     }
 
-    public NatTreeMap<String,String> getVarFleeingFormula() {
+    public NatStringTreeMap<String> getVarFleeingFormula() {
         return varFleeingFormula;
     }
 

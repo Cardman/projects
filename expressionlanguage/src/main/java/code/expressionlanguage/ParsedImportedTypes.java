@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import code.sml.RowCol;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -14,21 +13,21 @@ public final class ParsedImportedTypes {
     private int nextIndex;
     private boolean ok;
     private boolean foundBrace;
-    public ParsedImportedTypes(int _nextIndex, String _fullFile, int _tabWidth, RowCol _current, EnablingSpaces _enabledSpaces) {
+    public ParsedImportedTypes(int _nextIndex, String _fullFile, int _tabWidth, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
         if (_fullFile.charAt(_nextIndex) != BEGIN_BLOCK) {
             ok = true;
             return;
         }
         foundBrace = true;
-        nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _current, _enabledSpaces);
+        nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
         int indexImport_ = 0;
         int len_ = _fullFile.length();
         StringBuilder str_ = new StringBuilder();
         while (nextIndex < len_) {
             char currentChar_ = _fullFile.charAt(nextIndex);
             if (currentChar_ == END_BLOCK) {
-                nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _current, _enabledSpaces);
+                nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
                 break;
             }
             if (currentChar_ == END_IMPORTS) {
@@ -43,14 +42,17 @@ public final class ParsedImportedTypes {
                 }
                 str_.append(currentChar_);
             }
-            nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _current, _enabledSpaces);
+            nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
         }
-        nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _tabWidth, _current, _enabledSpaces);
+        int bk_ = nextIndex;
+        nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
         if (nextIndex < 0) {
+            _badIndexes.add(bk_);
             //ERROR
             return;
         }
         if (nextIndex > len_) {
+            _badIndexes.add(len_-1);
             //ERROR
             return;
         }

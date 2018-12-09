@@ -1,6 +1,5 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -27,12 +26,12 @@ public final class Egg implements UsablePokemon, Displayable {
         }
     }
 
-    @FromAndToString
+    
     public static Egg newEgg(String _string) {
         return new Egg(_string);
     }
 
-//    @FromAndToString
+//    
 //    public static Egg newEgg(String _string) {
 //        StringList list_ = new StringList(_string.split(SEPARATOR));
 //        Egg egg_ = new Egg();
@@ -41,7 +40,7 @@ public final class Egg implements UsablePokemon, Displayable {
 //        return egg_;
 //    }
 
-//    @FromAndToString
+//    
 //    public String write() {
 //        return name+SEPARATOR+steps;
 //    }
@@ -69,7 +68,7 @@ public final class Egg implements UsablePokemon, Displayable {
         return steps;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(name);

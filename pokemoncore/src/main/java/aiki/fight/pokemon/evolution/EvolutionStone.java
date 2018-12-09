@@ -3,9 +3,8 @@ package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.fight.items.EvolvingStone;
 import aiki.fight.pokemon.PokemonData;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class EvolutionStone extends Evolution {
 
     private String stone;

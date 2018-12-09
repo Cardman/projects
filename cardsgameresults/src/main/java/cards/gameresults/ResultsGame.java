@@ -5,14 +5,13 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class ResultsGame {
 
-    protected static final String RESULTS_BELOTE = "cards.belote.ResultsBelote";
-    protected static final String RESULTS_PRESIDENT = "cards.president.ResultsPresident";
-    protected static final String RESULTS_TAROT = "cards.tarot.ResultsTarot";
+    protected static final String RESULTS_BELOTE = "cards.belote.resultsbelote";
+    protected static final String RESULTS_PRESIDENT = "cards.president.resultspresident";
+    protected static final String RESULTS_TAROT = "cards.tarot.resultstarot";
     protected static final String RESULTS_PAGE = "resultsPage";
     protected static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
     protected static final String RESOURCES_CLASS_PATH = "resources_cards/classes";

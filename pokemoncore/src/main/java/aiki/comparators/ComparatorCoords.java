@@ -1,11 +1,10 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.map.places.Place;
 import aiki.util.Coords;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorCoords implements Comparing<Coords> {
 

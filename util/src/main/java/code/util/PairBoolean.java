@@ -1,10 +1,9 @@
 package code.util;
-import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
 
 /** Not compared in tests, not use in res html, not instrospected*/
-@RwXml
+
 public final class PairBoolean implements Equallable<PairBoolean> {
 
     private boolean first;

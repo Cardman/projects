@@ -1,9 +1,8 @@
 package cards.network.tarot.actions;
 import cards.network.common.PlayerActionGame;
 import cards.tarot.enumerations.CardTarot;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DiscardedCard extends PlayerActionGame {
 
     private CardTarot card;

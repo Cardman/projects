@@ -10,11 +10,10 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.consts.Constants;
 import code.util.ints.Equallable;
 
-@RwXml
+
 public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident> {
 
     private static final String SEPARATOR = " - ";

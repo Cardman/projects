@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.map.levels.Level;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class Building {
 
     private String imageFileName;

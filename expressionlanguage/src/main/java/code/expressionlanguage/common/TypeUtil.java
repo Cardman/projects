@@ -4,6 +4,12 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.BadAccessMethod;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
+import code.expressionlanguage.errors.custom.DuplicateParamMethod;
+import code.expressionlanguage.errors.custom.FinalMethod;
+import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -12,13 +18,7 @@ import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
-import code.expressionlanguage.methods.util.BadAccessMethod;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.BadReturnTypeInherit;
-import code.expressionlanguage.methods.util.DuplicateParamMethod;
-import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -70,14 +70,14 @@ public final class TypeUtil {
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setOffset(offset_);
-                base_ = _context.resolveIdType(base_);
+                base_ = _context.resolveAccessibleIdType(base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (r_ == null) {
                     UnknownClassName undef_;
                     undef_ = new UnknownClassName();
                     undef_.setClassName(base_);
                     undef_.setFileName(d_);
-                    undef_.setRc(_context.getAnalyzing().getTrace());
+                    undef_.setIndexFile(_context.getCurrentLocationIndex());
                     classes_.addError(undef_);
                     continue;
                 }
@@ -87,7 +87,7 @@ public final class TypeUtil {
                     String n_ = base_;
                     enum_.setClassName(n_);
                     enum_.setFileName(d_);
-                    enum_.setRc(_context.getAnalyzing().getTrace());
+                    enum_.setIndexFile(_context.getCurrentLocationIndex());
                     classes_.addError(enum_);
                 } else {
                     bl_.getStaticInitImportedInterfaces().add(base_);
@@ -99,7 +99,7 @@ public final class TypeUtil {
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                 _context.getAnalyzing().setOffset(offsetSup_);
-                sup_ = _context.resolveIdType(sup_);
+                sup_ = _context.resolveAccessibleIdType(sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -110,7 +110,7 @@ public final class TypeUtil {
                     _context.getAnalyzing().setCurrentBlock(bl_);
                     _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                     _context.getAnalyzing().setOffset(offsetSub_);
-                    sub_ = _context.resolveIdType(sub_);
+                    sub_ = _context.resolveAccessibleIdType(sub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;
@@ -121,7 +121,7 @@ public final class TypeUtil {
                         undef_.setClassName(sub_);
                         undef_.setFileName(d_);
                         int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
-                        undef_.setRc(bl_.getRowCol(0, offset_));
+                        undef_.setIndexFile(offset_);
                         classes_.addError(undef_);
                     }
                 }
@@ -187,7 +187,7 @@ public final class TypeUtil {
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(c);
                 undef_.setFileName(c);
-                undef_.setRc(block_.getRowCol(0, 0));
+                undef_.setIndexFile(0);
                 classes_.addError(undef_);
             }
         }
@@ -267,7 +267,7 @@ public final class TypeUtil {
             err_.setFileName(_type.getFullName());
             GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
             if (sub_ instanceof MethodBlock) {
-                err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
+                err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
             }
             err_.setReturnType(sub_.getImportedReturnType());
             err_.setMethod(c.getConstraints());
@@ -414,7 +414,7 @@ public final class TypeUtil {
                         err_ = new FinalMethod();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getNameOffset()));
+                            err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
                         }
                         err_.setClassName(subId_.getClassName());
                         err_.setId(sub_.getId());
@@ -426,7 +426,7 @@ public final class TypeUtil {
                         err_ = new BadAccessMethod();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getAccessOffset()));
+                            err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
                         }
                         err_.setId(sub_.getId());
                         classesRef_.addError(err_);
@@ -438,7 +438,7 @@ public final class TypeUtil {
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(_type.getFullName());
                             if (sub_ instanceof MethodBlock) {
-                                err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
+                                err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                             }
                             err_.setReturnType(retDerive_);
                             err_.setMethod(sub_.getId());
@@ -451,7 +451,7 @@ public final class TypeUtil {
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(_type.getFullName());
                         if (sub_ instanceof MethodBlock) {
-                            err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
+                            err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                         }
                         err_.setReturnType(retDerive_);
                         err_.setMethod(sub_.getId());
@@ -488,7 +488,7 @@ public final class TypeUtil {
                             DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                             duplicate_.setFileName(_type.getFullName());
                             if (m instanceof MethodBlock) {
-                                duplicate_.setRc(((MethodBlock)m).getRowCol(0, ((MethodBlock) m).getNameOffset()));
+                                duplicate_.setIndexFile(((MethodBlock) m).getNameOffset());
                             }
                             duplicate_.setCommonSignature(mId_.getSignature());
                             duplicate_.setOtherType(d);

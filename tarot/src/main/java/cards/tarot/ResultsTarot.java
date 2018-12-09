@@ -10,13 +10,12 @@ import code.maths.Rate;
 import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
+import code.util.TreeMap;
 
-@RwXml
+
 public final class ResultsTarot extends ResultsGame {
 
     private static final int FACTOR = 3;
@@ -48,8 +47,8 @@ public final class ResultsTarot extends ResultsGame {
         short maxDoubledDifference_=0;
         byte nombreJoueurs_=game.getNombreDeJoueurs();
         BidTarot contrat_=game.getContrat();
-        CustList<NatTreeMap<Miseres,Short>> miseresTaker_ = new CustList<NatTreeMap<Miseres,Short>>();
-        CustList<NatTreeMap<Handfuls,Short>> handfulsTaker_ = new CustList<NatTreeMap<Handfuls,Short>>();
+        CustList<TreeMap<Miseres,Short>> miseresTaker_ = new CustList<TreeMap<Miseres,Short>>();
+        CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = new CustList<TreeMap<Handfuls,Short>>();
         Numbers<Short> positions_ = new Numbers<Short>();
         Numbers<Short> positions1_ = new Numbers<Short>();
         Numbers<Short> positions2_ = new Numbers<Short>();
@@ -149,7 +148,7 @@ public final class ResultsTarot extends ResultsGame {
     public void setMessages(String _loc) {
         loc = _loc;
         StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }

@@ -24,7 +24,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -6666,7 +6666,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, _data_, new StringList());
-        NatTreeMap<String,Boolean> map_ = fighter_.getMoves(NULL_REF);
+        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
         assertEq(4, map_.size());
         assertTrue(map_.getVal(DETECTION));
         assertTrue(map_.getVal(ULTRASON));
@@ -6699,7 +6699,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, _data_, new StringList());
-        NatTreeMap<String,Boolean> map_ = fighter_.getMoves(TARINORME);
+        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(TARINORME);
         assertEq(12, map_.size());
         assertTrue(map_.getVal(DETECTION));
         assertTrue(map_.getVal(ULTRASON));
@@ -6740,7 +6740,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
         fighter_.calculateNewLevel(diff_, _data_, new StringList());
-        NatTreeMap<String,Boolean> map_ = fighter_.getMoves(NULL_REF);
+        NatStringTreeMap<Boolean> map_ = fighter_.getMoves(NULL_REF);
         assertEq(5, map_.size());
         assertTrue(map_.getVal(DETECTION));
         assertTrue(map_.getVal(ULTRASON));

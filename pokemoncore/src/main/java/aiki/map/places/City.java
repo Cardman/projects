@@ -23,9 +23,8 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class City extends Place implements InitializedPlace {
 
     /** key access to building, which is shown as a block */

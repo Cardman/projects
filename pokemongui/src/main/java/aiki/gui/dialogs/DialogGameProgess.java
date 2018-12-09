@@ -18,7 +18,7 @@ import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
 public final class DialogGameProgess extends Dialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogGameProgess";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialoggameprogess";
 
     private static final String TEXT = "0";
 

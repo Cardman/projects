@@ -1,8 +1,7 @@
 package aiki.network.stream;
 import aiki.map.pokemon.PokemonPlayer;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class SentPokemon {
 
     private byte index;

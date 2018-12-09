@@ -2,13 +2,13 @@ package aiki.beans.moves.effects;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.moves.effects.EffectEndRound;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectEndRoundMoveBean extends EffectBean {
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
 
     @Override
     public void beforeDisplaying() {
@@ -35,8 +35,8 @@ public class EffectEndRoundMoveBean extends EffectBean {
 //            reasons_.add(formula_);
 //        }
         reasonsEndRound = reasons_;
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
-        NatTreeMap<String,String> mapVarsFail_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
+        NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -58,7 +58,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 }
