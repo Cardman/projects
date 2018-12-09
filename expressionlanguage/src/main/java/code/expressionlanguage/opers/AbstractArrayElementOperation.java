@@ -7,6 +7,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Numbers;
@@ -82,7 +83,8 @@ public abstract class AbstractArrayElementOperation extends
         Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
         for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
             Argument chArg_ = _arguments.get(i);
-            ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
+            IntStruct i_ = new IntStruct(i);
+            ArrOperation.setCheckedElement(str_, i_, chArg_, _conf);
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return a_;
             }

@@ -1368,8 +1368,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                int index_ = ((NumberStruct)args_[1]).getInstance().intValue();
-                Struct out_ = InvokingOperation.getElement(inst_, index_, _cont);
+                Struct out_ = InvokingOperation.getElement(inst_, (NumberStruct)args_[1], _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }
@@ -1378,9 +1377,8 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
-                int index_ = ((NumberStruct)args_[1]).getInstance().intValue();
                 Struct value_ = args_[2];
-                InvokingOperation.setElement(inst_, index_, value_, _cont, false);
+                InvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont, false);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }

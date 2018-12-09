@@ -9,6 +9,8 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.IdMap;
@@ -31,19 +33,19 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         if (f_ == null) {
             return;
         }
-        Object v_ = f_.getObject();
-        if (!(v_ instanceof Boolean)) {
+        Struct v_ = f_.getStruct();
+        if (!(v_ instanceof BooleanStruct)) {
             return;
         }
-        if (((Boolean)v_).booleanValue() == absorbingValue()) {
+        if (((BooleanStruct)v_).getInstance() == absorbingValue()) {
             setSimpleArgumentAna(f_, _conf);
         } else {
             Argument s_ = children_.last().getArgument();
             if (s_ == null) {
                 return;
             }
-            v_ = s_.getObject();
-            if (!(v_ instanceof Boolean)) {
+            v_ = s_.getStruct();
+            if (!(v_ instanceof BooleanStruct)) {
                 return;
             }
             setSimpleArgumentAna(s_, _conf);
@@ -59,19 +61,19 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         if (f_ == null) {
             return;
         }
-        Object v_ = f_.getObject();
-        if (!(v_ instanceof Boolean)) {
+        Struct v_ = f_.getStruct();
+        if (!(v_ instanceof BooleanStruct)) {
             return;
         }
-        if (((Boolean)v_).booleanValue() == absorbingValue()) {
+        if (((BooleanStruct)v_).getInstance() == absorbingValue()) {
             setSimpleArgumentAna(f_, _conf);
         } else {
             Argument s_ = children_.last().getArgument();
             if (s_ == null) {
                 return;
             }
-            v_ = s_.getObject();
-            if (!(v_ instanceof Boolean)) {
+            v_ = s_.getStruct();
+            if (!(v_ instanceof BooleanStruct)) {
                 return;
             }
             setSimpleArgumentAna(s_, _conf);

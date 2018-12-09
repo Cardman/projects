@@ -28,6 +28,8 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -709,7 +711,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         long nbMaxIterations_ = 0;
         long stepValue_ = 0;
         long fromValue_ = 0;
-        Object realFromValue_ = 0;
 
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
@@ -745,12 +746,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
-        realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);
         ip_.clearCurrentEls();
-        fromValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), realFromValue_, _conf).getInstance();
-        long toValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), argTo_.getObject(), _conf).getInstance();
-        stepValue_ = (Long)PrimitiveTypeUtil.convert(stds_.getAliasPrimLong(), argStep_.getObject(), _conf).getInstance();
+        String prLong_ = stds_.getAliasPrimLong();
+        fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).getInstance().longValue();
+        long toValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).getInstance().longValue();
+        stepValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).getInstance().longValue();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -802,7 +803,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         if (finished_) {
             return;
         }
-        Object int_ = realFromValue_;
         String indexClassName_;
         indexClassName_ = getClassIndexName();
         String className_;
@@ -810,7 +810,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         className_ = getClassName();
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
-        lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf).getInstance());
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className_, new LongStruct(fromValue_), stds_));
         lv_.setStep(stepValue_);
         varsLoop_.put(var_, lv_);
     }
@@ -850,10 +850,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Number element_ = (Number) lv_.getStruct().getInstance();
+        Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
         Number o_ = element_.longValue()+lv_.getStep();
-        o_ = (Number) PrimitiveTypeUtil.convert(className, o_, _conf).getInstance();
-        lv_.setElement(o_);
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className, new LongStruct(o_.longValue()), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 

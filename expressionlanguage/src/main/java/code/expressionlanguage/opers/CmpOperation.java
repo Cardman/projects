@@ -5,6 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -15,7 +17,6 @@ public final class CmpOperation extends AbstractCmpOperation {
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
-
 
     @Override
     public Argument calculateCmp(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
@@ -60,17 +61,16 @@ public final class CmpOperation extends AbstractCmpOperation {
             complement_ = true;
             useOp_ = LOWER;
         }
-        Argument arg_;
+        BooleanStruct arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(_one, isStringCompare(), _two);
+            arg_ = NumberStruct.quickCalculateLower(_one.getStruct(), isStringCompare(), _two.getStruct());
         } else {
-            arg_ = calculateGreater(_one, isStringCompare(), _two);
+            arg_ = NumberStruct.quickCalculateGreater(_one.getStruct(), isStringCompare(), _two.getStruct());
         }
-        Boolean b_ = (Boolean) arg_.getObject();
+        Boolean b_ = arg_.getInstance();
         if (complement_) {
             b_ = !b_;
-            arg_.setObject(b_);
         }
-        return arg_;
+        return new Argument(new BooleanStruct(b_));
     }
 }

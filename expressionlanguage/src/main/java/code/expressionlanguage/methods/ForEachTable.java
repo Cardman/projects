@@ -30,6 +30,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -957,7 +958,7 @@ public class ForEachTable extends BracedStack implements Loop {
         if (_conf.callsOrException()) {
             return null;
         }
-        boolean hasNext_ = (Boolean) arg_.getObject();
+        boolean hasNext_ = ((BooleanStruct) arg_.getStruct()).getInstance();
         return hasNext_;
     }
     @Override

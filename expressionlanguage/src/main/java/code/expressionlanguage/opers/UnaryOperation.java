@@ -15,7 +15,10 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -52,13 +55,13 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         if (child_ instanceof ConstantOperation) {
             Argument arg_ = ((ConstantOperation) child_).getArgument();
-            Object instance_ = arg_.getObject();
-            if (instance_ instanceof Byte) {
+            Struct instance_ = arg_.getStruct();
+            if (instance_ instanceof ByteStruct) {
                 clMatch_.setUnwrapObject(cl_);
                 setResultClass(cl_);
                 return;
             }
-            if (instance_ instanceof Short) {
+            if (instance_ instanceof ShortStruct) {
                 clMatch_.setUnwrapObject(cl_);
                 setResultClass(cl_);
                 return;

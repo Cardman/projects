@@ -33,11 +33,13 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
@@ -175,7 +177,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Struct str_ = new ArrayStruct(array_,clArr_);
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
-                ArrOperation.setCheckedElement(str_, i, chArg_, _context);
+                IntStruct ind_ = new IntStruct(i);
+                ArrOperation.setCheckedElement(str_, ind_, chArg_, _context);
                 if (_context.getContextEl().hasExceptionOrFailInit()) {
                     return firstArgs_;
                 }
@@ -207,7 +210,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Struct str_ = new ArrayStruct(array_,clArr_);
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
-                ArrOperation.setCheckedElement(str_, i, chArg_, _context);
+                IntStruct ind_ = new IntStruct(i);
+                ArrOperation.setCheckedElement(str_, ind_, chArg_, _context);
                 if (_context.getContextEl().hasExceptionOrFailInit()) {
                     return firstArgs_;
                 }
@@ -391,7 +395,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return void_;
     }
-    static void unwrapArgsFct(CustList<OperationNode> _ch, MethodId _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, Analyzable _conf) {
+    static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, Analyzable _conf) {
         if (!_ch.isEmpty() && _ch.first() instanceof VarargOperation) {
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: _ch) {
@@ -841,13 +845,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     Argument a_ = new Argument();
                     return a_;
                 }
-                String clDyn_ = (String) clArg_.getObject();
+                String clDyn_ = ((StringStruct) clArg_.getStruct()).getInstance();
                 if (StringList.quickEq(clDyn_.trim(), _conf.getStandards().getAliasVoid())) {
                     Argument a_ = new Argument();
                     a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                     return a_;
                 }
-                Boolean init_ = (Boolean) _firstArgs.last().getObject();
+                Boolean init_ = ((BooleanStruct) _firstArgs.last().getStruct()).getInstance();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
@@ -1253,7 +1257,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         Argument a_ = new Argument();
         return a_;
     }
-    public static Struct getElement(Struct _struct, Object _index, ExecutableCode _conf) {
+    public static Struct getElement(Struct _struct, NumberStruct _index, ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String badIndex_;
@@ -1266,7 +1270,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         ArrayStruct a_ = (ArrayStruct) _struct;
         Struct[] array_ = a_.getInstance();
         int len_ = array_.length;
-        int index_ = ((Number)_index).intValue();
+        int index_ = _index.getInstance().intValue();
         if (index_ < 0 || index_ >= len_) {
             _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
             return NullStruct.NULL_VALUE;
@@ -1275,7 +1279,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         _conf.getContextEl().addSensibleField(_struct, elt_);
         return elt_;
     }
-    public static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf, boolean _convert) {
+    public static void setElement(Struct _struct, NumberStruct _index, Struct _value, ExecutableCode _conf, boolean _convert) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String badIndex_;
@@ -1289,7 +1293,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         ArrayStruct a_ = (ArrayStruct) _struct;
         Struct[] arr_ = a_.getInstance();
         int len_ = arr_.length;
-        int index_ = ((Number)_index).intValue();
+        int index_ = _index.getInstance().intValue();
         if (index_ < 0 || index_ >= len_) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
             return;
@@ -1351,7 +1355,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             ElementBlock b_ = (ElementBlock)b;
             String fieldName_ = b_.getUniqueFieldName();
-            if (StringList.quickEq(fieldName_, (String) _name.getObject())) {
+            if (StringList.quickEq(fieldName_, ((StringStruct) _name.getStruct()).getInstance())) {
                 Argument argres_ = new Argument();
                 Struct str_ = classes_.getStaticField(new ClassField(_class, fieldName_),c_);
                 _conf.getContextEl().addSensibleField(_class, str_);

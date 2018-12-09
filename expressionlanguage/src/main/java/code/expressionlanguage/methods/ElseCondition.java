@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -70,9 +71,9 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             accessible_ = true;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             accessible_ = true;
-        } else if (!(Boolean)arg_.getObject()) {
+        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
             accessible_ = true;
         }
         return accessible_;

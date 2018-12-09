@@ -54,30 +54,6 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
     }
 
-//    if (list_.isEmpty()) {
-//        result_.setResult(new StringBuilderStruct(new StringBuilder()));
-//    } else if (StringList.quickEq(list_.first(), intPrimType_)) {
-//        Integer two_ = (Integer) argsObj_[0];
-//        if (two_ < 0) {
-//            result_.setError(lgNames_.getAliasBadIndex());
-//        } else {
-//            result_.setResult(new StringBuilderStruct(new StringBuilder(two_)));
-//        }
-//    } else if (StringList.quickEq(list_.first(), stringType_)) {
-//        String two_ = (String) argsObj_[0];
-//        if (two_ == null) {
-//            result_.setError(lgNames_.getAliasNullPe());
-//        } else {
-//            result_.setResult(new StringBuilderStruct(new StringBuilder(two_)));
-//        }
-//    } else {
-//        CharSequence two_ = (CharSequence) argsObj_[0];
-//        if (two_ == null) {
-//            result_.setError(lgNames_.getAliasNullPe());
-//        } else {
-//            result_.setResult(new StringBuilderStruct(new StringBuilder(two_)));
-//        }
-//    }
     public static void calculate(ExecutableCode _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();

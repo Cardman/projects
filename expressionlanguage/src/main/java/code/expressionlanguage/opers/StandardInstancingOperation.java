@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -15,7 +14,6 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
@@ -94,7 +92,8 @@ public final class StandardInstancingOperation extends
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
-            analyzeCtor(_conf, realClassName_, true, firstArgs_);
+            realClassName_ = _conf.resolveCorrectType(realClassName_);
+            analyzeCtor(_conf, realClassName_, firstArgs_);
             return;
         }
         if (realClassName_.startsWith("..")) {
@@ -193,9 +192,9 @@ public final class StandardInstancingOperation extends
                 realClassName_ = _conf.getStandards().getAliasObject();
             }
         }
-        analyzeCtor(_conf, realClassName_, false, firstArgs_);
+        analyzeCtor(_conf, realClassName_, firstArgs_);
     }
-    void analyzeCtor(Analyzable _conf, String _realClassName, boolean _resolve,CustList<ClassArgumentMatching> _firstArgs) {
+    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -206,25 +205,9 @@ public final class StandardInstancingOperation extends
             filter_.add(o);
         }
         LgNames stds_ = _conf.getStandards();
-        if (StringList.quickEq(realClassName_.trim(), stds_.getAliasVoid())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(realClassName_);
-            mapping_.setParam(stds_.getAliasObject());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(cast_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
-
-        if (_resolve) {
-            realClassName_ = _conf.resolveCorrectType(realClassName_);
-        }
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
@@ -312,50 +295,7 @@ public final class StandardInstancingOperation extends
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        if (!filter_.isEmpty() && filter_.first() instanceof VarargOperation) {
-            int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: filter_) {
-                if (o instanceof VarargOperation) {
-                    i_++;
-                    continue;
-                }
-                if (o instanceof FirstOptOperation) {
-                    break;
-                }
-                String param_ = constId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
-                i_++;
-            }
-        } else if (naturalVararg > -1) {
-            int lenCh_ = _firstArgs.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _firstArgs.get(i);
-                if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
-                } else {
-                    String param_ = constId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
-                }
-            }
-        } else {
-            int lenCh_ = _firstArgs.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _firstArgs.get(i);
-                String param_ = constId.getParametersTypes().get(i);
-                if (i + 1 == lenCh_ && constId.isVararg()) {
-                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
-            }
-        }
+        unwrapArgsFct(filter_, constId, naturalVararg, lastType, _firstArgs, _conf);
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
         String curClassBase_ = null;

@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -323,9 +324,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             accessible_ = true;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             accessible_ = true;
-        } else if ((Boolean)arg_.getObject()) {
+        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
             accessible_ = true;
         }
         return accessible_;
@@ -338,9 +339,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             proc_ = false;
-        } else if (!(arg_.getObject() instanceof Boolean)) {
+        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
             proc_ = false;
-        } else if (!(Boolean)arg_.getObject()) {
+        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
             proc_ = false;
         }
         if (_anEl.isReachable(this)) {

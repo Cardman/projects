@@ -94,8 +94,8 @@ public final class PrimitiveTypeUtil {
                     return new ResultTernary(new StringList(primShort_), _first.containsStr(short_), _second.containsStr(byte_));
                 }
             }
-            if (_secondArg != null && _secondArg.getObject() instanceof Integer) {
-                int value_ = (Integer) _secondArg.getObject();
+            if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
+                int value_ = _secondArg.getInt();
                 if (_first.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), false, true);
                 }
@@ -115,8 +115,8 @@ public final class PrimitiveTypeUtil {
                     return new ResultTernary(new StringList(primShort_), true, true);
                 }
             }
-            if (_firstArg != null && _firstArg.getObject() instanceof Integer) {
-                int value_ = (Integer) _firstArg.getObject();
+            if (_firstArg != null && _firstArg.getStruct() instanceof IntStruct) {
+                int value_ = _firstArg.getInt();
                 if (_second.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), true, false);
                 }

@@ -15,6 +15,8 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -4475,7 +4477,8 @@ public final class FormatHtml {
             if (iterator_ != null) {
                 lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
-                lv_.setStruct(InvokingOperation.getElement(lv_.getContainer(), _l.getIndex(), _conf));
+            	LongStruct l_ = new LongStruct(_l.getIndex());
+                lv_.setStruct(InvokingOperation.getElement(lv_.getContainer(),l_, _conf));
             }
             if (_conf.getContext().getException() != null) {
                 return;
@@ -4851,7 +4854,8 @@ public final class FormatHtml {
         if (iterationNb_) {
             int_ = realFromValue_;
         } else if (container_.isArray()) {
-            elt_ = InvokingOperation.getElement(container_, CustList.FIRST_INDEX, _conf);
+        	IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
+            elt_ = InvokingOperation.getElement(container_, i_, _conf);
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }

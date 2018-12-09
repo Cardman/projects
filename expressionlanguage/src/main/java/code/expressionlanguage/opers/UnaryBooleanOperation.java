@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -52,9 +53,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
-        Object o_ = arg_.getObject();
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);
@@ -66,8 +67,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Object o_ = arg_.getObject();
-        Boolean b_ = (Boolean) o_;
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);
@@ -77,9 +78,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Object o_ = arg_.getObject();
+        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);

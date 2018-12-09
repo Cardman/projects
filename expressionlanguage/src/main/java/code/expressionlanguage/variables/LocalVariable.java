@@ -22,10 +22,6 @@ public final class LocalVariable {
         return new StringBuilder(className).append(SEP_INFO).toString();
     }
 
-    public Object getElement() {
-        return element.getInstance();
-    }
-
     public void setElement(Integer _element) {
         element = new IntStruct(_element);
     }

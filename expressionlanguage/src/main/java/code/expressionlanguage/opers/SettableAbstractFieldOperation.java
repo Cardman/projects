@@ -28,6 +28,7 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -291,15 +292,15 @@ public abstract class SettableAbstractFieldOperation extends
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
-            Object obj_ = arg_.getObject();
-            if (obj_ instanceof Boolean) {
+            if (arg_.getStruct() instanceof BooleanStruct) {
+            	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
                 //boolean constant assignment
                 for (StringMap<AssignmentBefore> s: assB_) {
                     StringMap<Assignment> sm_ = new StringMap<Assignment>();
                     for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                         AssignmentBefore bf_ = e.getValue();
                         BooleanAssignment b_ = new BooleanAssignment();
-                        if ((Boolean)obj_) {
+                        if (value_) {
                             b_.setAssignedAfterWhenFalse(true);
                             b_.setUnassignedAfterWhenFalse(true);
                             b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -319,7 +320,7 @@ public abstract class SettableAbstractFieldOperation extends
                     for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                         AssignmentBefore bf_ = e.getValue();
                         BooleanAssignment b_ = new BooleanAssignment();
-                        if ((Boolean)obj_) {
+                        if (value_) {
                             b_.setAssignedAfterWhenFalse(true);
                             b_.setUnassignedAfterWhenFalse(true);
                             b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
@@ -337,7 +338,7 @@ public abstract class SettableAbstractFieldOperation extends
                 for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
-                    if ((Boolean)obj_) {
+                    if (value_) {
                         b_.setAssignedAfterWhenFalse(true);
                         b_.setUnassignedAfterWhenFalse(true);
                         b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());

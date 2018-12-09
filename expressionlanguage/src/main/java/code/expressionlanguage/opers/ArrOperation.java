@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -59,8 +60,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         String primInt_ = stds_.getAliasPrimInteger();
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
-        if (rightArg_ != null && rightArg_.getObject() instanceof Number) {
-            Number value_ = (Number) rightArg_.getObject();
+        if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
+            Number value_ = ((NumberStruct)rightArg_.getStruct()).getInstance();
             long valueUnwrapped_ = value_.longValue();
             if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                 right_.getResultClass().setUnwrapObject(primInt_);
@@ -119,11 +120,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (!(array_ instanceof ArrayStruct)) {
             return;
         }
-        Object o_ = chidren_.last().getArgument().getObject();
-        if (!(o_ instanceof Number)) {
+        Struct o_ = chidren_.last().getArgument().getStruct();
+        if (!(o_ instanceof NumberStruct)) {
             return;
         }
-        int index_ = ((Number)o_).intValue();
+        int index_ = ((NumberStruct)o_).getInstance().intValue();
         if (index_ < 0) {
             return;
         }
@@ -162,7 +163,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
-            Object o_ = _nodes.getVal(op_).getArgument().getObject();
+            NumberStruct o_ = (NumberStruct) _nodes.getVal(op_).getArgument().getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = InvokingOperation.getElement(array_, o_, _conf);
@@ -196,7 +197,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         array_ = getPreviousArgument().getStruct();
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
-            Object o_ = chidren_.get(i).getArgument().getObject();
+            NumberStruct o_ = (NumberStruct)chidren_.get(i).getArgument().getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = InvokingOperation.getElement(array_, o_, _conf);
@@ -207,7 +208,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         a_.setStruct(array_);
         return a_;
     }
-    static void setCheckedElement(Struct _array,Object _index, Argument _element, ExecutableCode _conf) {
+    static void setCheckedElement(Struct _array,NumberStruct _index, Argument _element, ExecutableCode _conf) {
         InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf, false);
     }
     
@@ -378,7 +379,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf, boolean _convert) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        Object o_ = _index.getObject();
+        NumberStruct o_ = (NumberStruct)_index.getStruct();
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _right.getStruct();
         }
@@ -388,7 +389,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        Object o_ = _index.getObject();
+        NumberStruct o_ = (NumberStruct)_index.getStruct();
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
@@ -405,7 +406,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        Object o_ = _index.getObject();
+        NumberStruct o_ = (NumberStruct)_index.getStruct();
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
@@ -443,7 +444,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Argument index_ = _nodes.getVal(lastElement_).getArgument();
-        InvokingOperation.setElement(array_, index_.getObject(), _right.getStruct(), _conf, false);
+        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf, false);
         if (_conf.hasExceptionOrFailInit()) {
             return a_;
         }
@@ -464,7 +465,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Argument index_ = lastElement_.getArgument();
-        InvokingOperation.setElement(array_, index_.getObject(), _right.getStruct(), _conf, false);
+        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf, false);
         if (_conf.getContextEl().hasException()) {
             return a_;
         }

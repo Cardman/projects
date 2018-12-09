@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -162,8 +163,8 @@ public final class AffectationOperation extends MethodOperation {
             String char_ = stds_.getAliasCharacter();
             String byte_ = stds_.getAliasByte();
             Argument rightArg_ = right_.getArgument();
-            if (rightArg_ != null && rightArg_.getObject() instanceof Number) {
-                Number value_ = (Number) rightArg_.getObject();
+            if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
+                Number value_ = ((NumberStruct) rightArg_.getStruct()).getInstance();
                 StringList first_ = clMatchLeft_.getNames();
                 long valueUnwrapped_ = value_.longValue();
                 if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {

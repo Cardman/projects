@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -71,7 +72,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (arguments_.first().isNull()) {
             return;
         }
-        Boolean obj_ = (Boolean) arguments_.first().getObject();
+        Boolean obj_ = ((BooleanStruct) arguments_.first().getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);
@@ -326,7 +327,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     }
     final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        Boolean obj_ = (Boolean) _arguments.first().getObject();
+        Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = _arguments.get(CustList.SECOND_INDEX);

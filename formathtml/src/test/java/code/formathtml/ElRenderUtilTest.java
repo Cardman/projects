@@ -2627,7 +2627,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(4, (Number)lv_.getElement());
+        assertEq(4, (Number)lv_.getStruct().getInstance());
     }
     @Test
     public void processEl180Test() {
@@ -2656,7 +2656,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(false, (Boolean)lv_.getElement());
+        assertEq(false, (Boolean)lv_.getStruct().getInstance());
     }
     @Test
     public void processEl181Test() {
@@ -2685,7 +2685,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(true, (Boolean)lv_.getElement());
+        assertEq(true, (Boolean)lv_.getStruct().getInstance());
     }
     @Test
     public void processEl182Test() {
@@ -2863,7 +2863,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(4, (Number)lv_.getElement());
+        assertEq(4, (Number)lv_.getStruct().getInstance());
         assertEq(3, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -2893,7 +2893,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(4, (Number)lv_.getElement());
+        assertEq(4, (Number)lv_.getStruct().getInstance());
         assertEq(4, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -2987,7 +2987,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(5, (Number)lv_.getElement());
+        assertEq(5, (Number)lv_.getStruct().getInstance());
         assertEq(5, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -3053,8 +3053,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(12, (Number)lv2_.getElement());
-        assertEq(4, (Number)lv_.getElement());
+        assertEq(12, (Number)lv2_.getStruct().getInstance());
+        assertEq(4, (Number)lv_.getStruct().getInstance());
         assertEq(15, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -3088,8 +3088,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(12, (Number)lv2_.getElement());
-        assertEq(2, (Number)lv_.getElement());
+        assertEq(12, (Number)lv2_.getStruct().getInstance());
+        assertEq(2, (Number)lv_.getStruct().getInstance());
         assertEq(-9, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -3123,8 +3123,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(13, (Number)lv2_.getElement());
-        assertEq(13, (Number)lv_.getElement());
+        assertEq(13, (Number)lv2_.getStruct().getInstance());
+        assertEq(13, (Number)lv_.getStruct().getInstance());
         assertEq(13, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -3158,8 +3158,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(13, (Number)lv2_.getElement());
-        assertEq(13, (Number)lv_.getElement());
+        assertEq(13, (Number)lv2_.getStruct().getInstance());
+        assertEq(13, (Number)lv_.getStruct().getInstance());
         assertEq(13, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -6483,8 +6483,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertEq(4, (Number)lv2_.getElement());
-        assertEq(4, (Number)lv_.getElement());
+        assertEq(4, (Number)lv2_.getStruct().getInstance());
+        assertEq(4, (Number)lv_.getStruct().getInstance());
         assertEq(4, (Number)op_.getArgument().getObject());
     }
     @Test
@@ -6694,7 +6694,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
-        assertEq(1, (Number)lv_.getElement());
+        assertEq(1, (Number)lv_.getStruct().getInstance());
     }
 
     @Test
@@ -6762,7 +6762,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.+=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
-        assertEq(2, (Number)lv_.getElement());
+        assertEq(2, (Number)lv_.getStruct().getInstance());
     }
 
     @Test
@@ -6980,7 +6980,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.+=1i", 0, context_);
         assertEq(context_.getStandards().getAliasString(), lv_.getClassName());
-        assertEq("add 1", (String)lv_.getElement());
+        assertEq("add 1", (String)lv_.getStruct().getInstance());
     }
 
 
@@ -7035,7 +7035,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.&=$false", 0, context_);
         assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
-        assertEq(false, (Boolean)lv_.getElement());
+        assertEq(false, (Boolean)lv_.getStruct().getInstance());
     }
     @Test
     public void processAffect27Test() {
@@ -7049,7 +7049,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.|=$true", 0, context_);
         assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
-        assertEq(true, (Boolean)lv_.getElement());
+        assertEq(true, (Boolean)lv_.getStruct().getInstance());
     }
 
     @Test

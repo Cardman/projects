@@ -50,7 +50,9 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -428,9 +430,6 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
                 return new InstanceOfOperation(_index, _indexChild, _m, _op);
-            }
-            if (_an.getOptions().isQuickCompare()) {
-                return new QuickCmpOperation(_index, _indexChild, _m, _op);
             }
             return new CmpOperation(_index, _indexChild, _m, _op);
         }
@@ -2198,8 +2197,8 @@ public abstract class OperationNode {
             return;
         }
         MethodOperation par_ = getParent();
-        Object o_ = _arg.getObject();
-        Boolean b_ = (Boolean) o_;
+        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
+        Boolean b_ = o_.getInstance();
         if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
@@ -2241,9 +2240,9 @@ public abstract class OperationNode {
         if (res_ <= 0) {
             return;
         }
-        Object o_ = _arg.getObject();
+        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
         MethodOperation par_ = getParent();
-        Boolean b_ = (Boolean) o_;
+        Boolean b_ = o_.getInstance();
         if (res_ != QUICK_OP) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
             OperationNode opElt_ = l_.get(res_);
@@ -2264,9 +2263,9 @@ public abstract class OperationNode {
     }
 
     final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
-        Object o_ = _arg.getObject();
+        Struct o_ = _arg.getStruct();
         MethodOperation par_ = getParent();
-        if (!(o_ instanceof Boolean)) {
+        if (!(o_ instanceof BooleanStruct)) {
             return 0;
         }
         if (!(par_ instanceof QuickOperation)) {
@@ -2277,7 +2276,7 @@ public abstract class OperationNode {
             if (!ternaryParent_) {
                 return 0;
             }
-            Boolean b_ = (Boolean) o_;
+            Boolean b_ = ((BooleanStruct) o_).getInstance();
             if (b_) {
                 return 2;
             }

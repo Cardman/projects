@@ -3,7 +3,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -62,9 +61,6 @@ public final class Argument {
         return object == NullStruct.NULL_VALUE;
     }
 
-    public String getString(Analyzable _cont) {
-        return ((DisplayableStruct)object).getDisplayedString(_cont).getInstance();
-    }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();
     }

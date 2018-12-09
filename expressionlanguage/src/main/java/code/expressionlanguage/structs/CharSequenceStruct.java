@@ -216,6 +216,10 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             format(_args[0], lgNames_, _res);
             return;
         }
+        if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
+        	_res.setResult(getDisplayedString(_cont));
+        	return;
+        }
     }
     private void length(ResultErrorStd _res) {
         _res.setResult(new IntStruct(getInstance().length()));

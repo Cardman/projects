@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -86,7 +87,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
             return null;
         }
         last_.clearCurrentEls();
-        return (Boolean) arg_.getObject();
+        return ((BooleanStruct) arg_.getStruct()).getInstance();
     }
 
     @Override
