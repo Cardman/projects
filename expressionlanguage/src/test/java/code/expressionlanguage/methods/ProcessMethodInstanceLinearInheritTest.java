@@ -496,7 +496,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
 
     }
 
-    @Test//
+    @Test
     public void instanceArgument25Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
@@ -550,7 +550,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, (Number)field_.getInstance());
     }
 
-    @Test//
+    @Test
     public void instanceArgument26Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
@@ -946,7 +946,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
     }
-    @Test//
+    @Test
     public void instanceArgument34Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

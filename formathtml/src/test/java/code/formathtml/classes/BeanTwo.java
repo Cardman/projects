@@ -25,7 +25,7 @@ public class BeanTwo extends Bean {
 
     private String field;
 
-    private String choose;//1_2;
+    private String choose;
 
     public BeanTwo() {
         setClassName("code.formathtml.classes.BeanTwo");
