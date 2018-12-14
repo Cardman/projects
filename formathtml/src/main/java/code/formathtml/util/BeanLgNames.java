@@ -328,7 +328,8 @@ public abstract class BeanLgNames extends LgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), _args);
+        BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
+        Object[] argsObj_ = adaptedArgs(list_, b_, _args);
         return getOtherResult(_cont, _method, argsObj_);
     }
 
@@ -341,9 +342,9 @@ public abstract class BeanLgNames extends LgNames {
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), _args);
+        BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
+        Object[] argsObj_ = adaptedArgs(list_, b_, _args);
         if (_instance.getInstance() instanceof Displayable) {
-            BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, b_.getAliasDisplay()) || StringList.quickEq(name_, b_.getAliasToString())) {
                 res_.setResult(new StringStruct(((Displayable)_instance.getInstance()).display()));
@@ -492,7 +493,7 @@ public abstract class BeanLgNames extends LgNames {
         result_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
         return result_;
     }
-    @Override
+
     public String getOtherStructClassName(Object _struct, ContextEl _context) {
         String cl_ = getOtherBeanStructClassName(_struct, _context);
         if (!StringList.quickEq(cl_, getAliasObject())) {
@@ -529,6 +530,43 @@ public abstract class BeanLgNames extends LgNames {
             return aliasSimpleIteratorType;
         }
         return cl_;
+    }
+    public String getStructClassName(Object _struct, ContextEl _context) {
+        String cl_ = getSimpleStructClassName(_struct);
+        if (!StringList.quickEq(cl_, getAliasObject())) {
+            return cl_;
+        }
+        return getOtherStructClassName(_struct, _context);
+    }
+    public final String getSimpleStructClassName(Object _struct) {
+        if (_struct instanceof Double) {
+            return getAliasDouble();
+        }
+        if (_struct instanceof Float) {
+            return getAliasFloat();
+        }
+        if (_struct instanceof Long) {
+            return getAliasLong();
+        }
+        if (_struct instanceof Integer) {
+            return getAliasInteger();
+        }
+        if (_struct instanceof Character) {
+            return getAliasCharacter();
+        }
+        if (_struct instanceof Short) {
+            return getAliasShort();
+        }
+        if (_struct instanceof Byte) {
+            return getAliasByte();
+        }
+        if (_struct instanceof String) {
+            return getAliasString();
+        }
+        if (_struct instanceof StringBuilder) {
+            return getAliasStringBuilder();
+        }
+        return getAliasObject();
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -704,7 +742,7 @@ public abstract class BeanLgNames extends LgNames {
             ClassMethodId _method, Object... _args) {
         return new ResultErrorStd();
     }
-    static Object[] adaptedArgs(StringList _params,LgNames _stds,Struct... _args) {
+    static Object[] adaptedArgs(StringList _params,BeanLgNames _stds,Struct... _args) {
         int len_ = _params.size();
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
@@ -840,6 +878,10 @@ public abstract class BeanLgNames extends LgNames {
             }
         }
         return args_;
+    }
+
+    public Object getOtherArguments(Struct[] _str, String _base) {
+        return null;
     }
     public String getAliasRate() {
         return aliasRate;

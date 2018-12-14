@@ -13,6 +13,7 @@ import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
@@ -62,7 +63,7 @@ public final class TypeUtil {
             RootBlock bl_ = c;
             _context.getAnalyzing().setCurrentBlock(bl_);
             _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
-            String d_ = c.getFullName();
+            String d_ = c.getFile().getFileName();
             StringList ints_ = bl_.getStaticInitInterfaces();
             int len_ = ints_.size();
             for (int i = 0; i < len_; i++) {
@@ -186,7 +187,7 @@ public final class TypeUtil {
                 BadInheritedClass undef_;
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(c);
-                undef_.setFileName(c);
+                undef_.setFileName(block_.getFile().getFileName());
                 undef_.setIndexFile(0);
                 classes_.addError(undef_);
             }
@@ -261,10 +262,14 @@ public final class TypeUtil {
     public static void buildOverrides(GeneType _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
+        String fileName_ = "";
+        if (_type instanceof RootBlock) {
+            fileName_ = ((RootBlock)_type).getFile().getFileName();
+        }
         for (ClassMethodId c: getAllDuplicates(_type, _context)) {
             BadReturnTypeInherit err_;
             err_ = new BadReturnTypeInherit();
-            err_.setFileName(_type.getFullName());
+            err_.setFileName(fileName_);
             GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
             if (sub_ instanceof MethodBlock) {
                 err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
@@ -412,7 +417,7 @@ public final class TypeUtil {
                     if (sup_.isFinalMethod()) {
                         FinalMethod err_;
                         err_ = new FinalMethod();
-                        err_.setFileName(_type.getFullName());
+                        err_.setFileName(fileName_);
                         if (sub_ instanceof MethodBlock) {
                             err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
                         }
@@ -424,7 +429,7 @@ public final class TypeUtil {
                     if (sub_.getAccess().ordinal() > sup_.getAccess().ordinal()) {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
-                        err_.setFileName(_type.getFullName());
+                        err_.setFileName(fileName_);
                         if (sub_ instanceof MethodBlock) {
                             err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
                         }
@@ -436,7 +441,7 @@ public final class TypeUtil {
                         if (!StringList.quickEq(retDerive_, voidType_)) {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
-                            err_.setFileName(_type.getFullName());
+                            err_.setFileName(fileName_);
                             if (sub_ instanceof MethodBlock) {
                                 err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                             }
@@ -449,7 +454,7 @@ public final class TypeUtil {
                     } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
-                        err_.setFileName(_type.getFullName());
+                        err_.setFileName(fileName_);
                         if (sub_ instanceof MethodBlock) {
                             err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                         }
@@ -486,7 +491,7 @@ public final class TypeUtil {
                         }
                         if (mBasesSuper_.size() > 1) {
                             DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                            duplicate_.setFileName(_type.getFullName());
+                            duplicate_.setFileName(fileName_);
                             if (m instanceof MethodBlock) {
                                 duplicate_.setIndexFile(((MethodBlock) m).getNameOffset());
                             }
@@ -644,6 +649,13 @@ public final class TypeUtil {
             }
             if (!c.mustImplement()) {
                 continue;
+            }
+            if (c instanceof EnumBlock) {
+                String en_ = _conf.getStandards().getAliasEnum();
+                if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
+                    eq_.put(name_, new ClassMethodId(en_, _realId));
+                    continue;
+                }
             }
             //c is a concrete sub type of type input
             GeneClass subClassBlock_ = (GeneClass) c;

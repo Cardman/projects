@@ -142,7 +142,6 @@ public class Configuration implements ExecutableCode {
         if (lateTranslators == null) {
             lateTranslators = new StringMap<String>();
         }
-        standards.setContext(context);
         standards.build();
         standards.setupOverrides(context);
     }

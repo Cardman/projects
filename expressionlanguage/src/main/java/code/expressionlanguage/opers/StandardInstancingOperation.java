@@ -330,17 +330,6 @@ public final class StandardInstancingOperation extends
         if (_conf.getClasses().isCustomType(cl_)) {
             return;
         }
-        boolean proc_ = false;
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(cl_, _conf)) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasString())) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasMath())) {
-            proc_ = true;
-        }
-        if (!proc_) {
-            return;
-        }
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         CustList<OperationNode> filter_ = new CustList<OperationNode>();

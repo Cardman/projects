@@ -194,7 +194,7 @@ public final class SuperFctOperation extends InvokingOperation {
         } else if (method_ != null) {
             res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
         } else if (ref_ != null) {
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect());
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
         } else {
             res_ = argres_;
         }

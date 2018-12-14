@@ -286,17 +286,6 @@ public final class FctOperation extends InvokingOperation {
         if (_conf.getClasses().isCustomType(cl_)) {
             return;
         }
-        boolean proc_ = false;
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(cl_, _conf)) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasString())) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasMath())) {
-            proc_ = true;
-        }
-        if (!proc_) {
-            return;
-        }
         if (lastType == null) {
             return;
         }
@@ -345,7 +334,7 @@ public final class FctOperation extends InvokingOperation {
         } else if (method_ != null) {
             res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
         } else if (ref_ != null) {
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect());
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
         } else {
             res_ = argres_;
         }

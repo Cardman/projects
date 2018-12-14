@@ -123,7 +123,7 @@ public final class ConstantOperation extends LeafOperation {
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
         if (arg_.getStruct() instanceof BooleanStruct) {
-        	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
+            Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
             //boolean constant assignment
             for (StringMap<AssignmentBefore> s: assB_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();

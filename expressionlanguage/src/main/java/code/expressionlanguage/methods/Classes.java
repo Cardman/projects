@@ -680,7 +680,7 @@ public final class Classes {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
                         enum_.setClassName(s);
-                        enum_.setFileName(c.getFullName());
+                        enum_.setFileName(c.getFile().getFileName());
                         enum_.setIndexFile(0);
                         classes_.addError(enum_);
                     }
@@ -1100,7 +1100,7 @@ public final class Classes {
                     String n_ = c.getId();
                     RootBlock type_ = classesBodies.getVal(n_);
                     b_.setClassName(n_);
-                    b_.setFileName(n_);
+                    b_.setFileName(type_.getFile().getFileName());
                     b_.setIndexFile(type_.getIdRowCol());
                     addError(b_);
                 }
@@ -1192,7 +1192,7 @@ public final class Classes {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
                 b_.setClassName(c);
-                b_.setFileName(c);
+                b_.setFileName(dBl_.getFile().getFileName());
                 b_.setIndexFile(dBl_.getIdRowCol());
                 addError(b_);
                 continue;
@@ -1206,7 +1206,7 @@ public final class Classes {
                 b_ = new BadInheritedClass();
                 //TODO better message
                 b_.setClassName(c);
-                b_.setFileName(c);
+                b_.setFileName(dBl_.getFile().getFileName());
                 b_.setIndexFile(dBl_.getIdRowCol());
                 addError(b_);
                 continue;
@@ -1220,7 +1220,7 @@ public final class Classes {
                     if (b.startsWith("[")) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(c);
-                        un_.setFileName(c);
+                        un_.setFileName(dBl_.getFile().getFileName());
                         un_.setIndexFile(dBl_.getIdRowCol());
                         addError(un_);
                     }
@@ -1238,7 +1238,7 @@ public final class Classes {
                     UnknownClassName un_ = new UnknownClassName();
                     //TODO all conflicting classes
                     un_.setClassName(c);
-                    un_.setFileName(c);
+                    un_.setFileName(dBl_.getFile().getFileName());
                     un_.setIndexFile(dBl_.getIdRowCol());
                     addError(un_);
                     okLoc_ = false;
@@ -1249,7 +1249,7 @@ public final class Classes {
                     if (e.getValue().size() > 1) {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
-                        duplicate_.setFileName(c);
+                        duplicate_.setFileName(dBl_.getFile().getFileName());
                         duplicate_.setIndexFile(dBl_.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
@@ -1277,7 +1277,7 @@ public final class Classes {
                     if (e.getValue().size() > 1) {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
-                        duplicate_.setFileName(c);
+                        duplicate_.setFileName(dBl_.getFile().getFileName());
                         duplicate_.setIndexFile(dBl_.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
@@ -1326,7 +1326,7 @@ public final class Classes {
                         //error
                         BadInheritedClass inh_;
                         inh_ = new BadInheritedClass();
-                        inh_.setFileName(c);
+                        inh_.setFileName(dBl_.getFile().getFileName());
                         inh_.setIndexFile(dBl_.getIdRowCol());
                         inh_.setClassName(c);
                         addError(inh_);
@@ -1347,7 +1347,7 @@ public final class Classes {
                     if (!Templates.isCorrectTemplateAll(b, map_, _context, true)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
-                        un_.setFileName(c);
+                        un_.setFileName(dBl_.getFile().getFileName());
                         un_.setIndexFile(dBl_.getIdRowCol());
                         addError(un_);
                     }
@@ -1357,7 +1357,7 @@ public final class Classes {
                 if (!Templates.isCorrectTemplateAll(t, map_, _context, true)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(t);
-                    un_.setFileName(c);
+                    un_.setFileName(dBl_.getFile().getFileName());
                     un_.setIndexFile(dBl_.getIdRowCol());
                     addError(un_);
                 }
@@ -1379,7 +1379,7 @@ public final class Classes {
                 if (e.getValue().size() > 1) {
                     DuplicateGenericSuperTypes duplicate_;
                     duplicate_ = new DuplicateGenericSuperTypes();
-                    duplicate_.setFileName(i.getKey());
+                    duplicate_.setFileName(r_.getFile().getFileName());
                     duplicate_.setIndexFile(r_.getIdRowCol());
                     duplicate_.setGenericSuperTypes(e.getValue());
                     addError(duplicate_);

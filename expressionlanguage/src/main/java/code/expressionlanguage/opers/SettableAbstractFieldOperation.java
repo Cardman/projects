@@ -293,7 +293,7 @@ public abstract class SettableAbstractFieldOperation extends
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
             if (arg_.getStruct() instanceof BooleanStruct) {
-            	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
+                Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
                 //boolean constant assignment
                 for (StringMap<AssignmentBefore> s: assB_) {
                     StringMap<Assignment> sm_ = new StringMap<Assignment>();

@@ -12,11 +12,14 @@ public class CustomReflectMethod {
 
     private final CustList<Argument> arguments;
 
+    private final boolean lambda;
+
     public CustomReflectMethod(ReflectingType _reflect, Argument _gl,
-            CustList<Argument> _arguments) {
+            CustList<Argument> _arguments, boolean _lambda) {
         reflect = _reflect;
         gl = _gl;
         arguments = _arguments;
+        lambda = _lambda;
     }
 
     public ReflectingType getReflect() {
@@ -29,5 +32,8 @@ public class CustomReflectMethod {
 
     public CustList<Argument> getArguments() {
         return arguments;
+    }
+    public boolean isLambda() {
+        return lambda;
     }
 }

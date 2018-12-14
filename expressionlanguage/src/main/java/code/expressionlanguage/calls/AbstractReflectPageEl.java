@@ -14,6 +14,8 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     private boolean wrapException;
 
+    private boolean lambda;
+
     @Override
     public Argument getReturnedArgument() {
         return returnedArgument;
@@ -80,7 +82,21 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     }
 
     public void setWrapException(boolean _wrapException) {
+        if (_wrapException) {
+            if (lambda) {
+                wrapException = false;
+                return;
+            }
+        }
         wrapException = _wrapException;
+    }
+
+    public boolean isLambda() {
+        return lambda;
+    }
+
+    public void setLambda(boolean _lambda) {
+        lambda = _lambda;
     }
 
 }

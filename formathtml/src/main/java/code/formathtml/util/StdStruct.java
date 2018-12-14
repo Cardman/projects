@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -118,7 +117,7 @@ public final class StdStruct implements Struct {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        LgNames lgNames_ = _context.getStandards();
+        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
         return StdStruct.newInstance(_element, lgNames_.getStructClassName(_element, _context));
     }
 
@@ -156,7 +155,7 @@ public final class StdStruct implements Struct {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        LgNames lgNames_ = _context.getStandards();
+        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
         String className_ = lgNames_.getStructClassName(_element, _context);
         if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
             return StdStruct.newInstance(_element, _alias);

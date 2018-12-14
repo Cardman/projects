@@ -792,12 +792,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(false, aliasAnnotated_, _classNameFound, _conf)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
             if (StringList.quickEq(aliasGetAnnotationsParam_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -960,12 +960,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String aliasNewInstance_ = stds_.getAliasNewInstance();
         if (StringList.quickEq(aliasMethod_, _classNameFound)) {
             if (StringList.quickEq(aliasGetDefaultValue_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
             if (StringList.quickEq(aliasInvoke_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -990,19 +990,19 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
         }
         if (StringList.quickEq(aliasField_, _classNameFound)) {
             if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
             if (StringList.quickEq(aliasSetField_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -1119,7 +1119,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 CustList<Argument> nList_ = new CustList<Argument>();
                 nList_.add(new Argument(arr_));
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -1132,7 +1132,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
             Argument a_ = new Argument();
             return a_;
         }
@@ -1179,7 +1179,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (aff_) {
                 nList_.add(_values.last());
             }
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_, true));
             Argument a_ = new Argument();
             return a_;
         }
@@ -1220,7 +1220,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             nList_.add(instance_);
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
             Argument a_ = new Argument();
             return a_;
         }
@@ -1234,7 +1234,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
             Argument a_ = new Argument();
             return a_;
         }
@@ -1253,7 +1253,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         nList_.add(firstValue_);
         nList_.add(new Argument(arr_));
-        _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+        _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
         Argument a_ = new Argument();
         return a_;
     }

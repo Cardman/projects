@@ -27,7 +27,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -48,7 +47,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -76,224 +74,54 @@ public abstract class LgNames {
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     private static final byte MAX_DIGITS_DOUBLE = 18;
 
-    private ContextEl context;
-    private String aliasObject;
-    private String aliasVoid;
-
-    private String aliasEnumParam;
-    private String aliasEnum;
-    private String aliasEnums;
-    private String aliasError;
-    private String aliasGetMessage;
-    private String aliasCustomError;
-    private String aliasBadSize;
-    private String aliasDivisionZero;
-    private String aliasCast;
-    private String aliasStore;
-    private String aliasNullPe;
-    private String aliasNbFormat;
-    private String aliasBadEncode;
-    private String aliasBadIndex;
-    private String aliasSof;
-
-    private String aliasPrimBoolean;
-    private String aliasPrimByte;
-    private String aliasPrimShort;
-    private String aliasPrimChar;
-    private String aliasPrimInteger;
-    private String aliasPrimLong;
-    private String aliasPrimFloat;
-    private String aliasPrimDouble;
-
-    private String aliasName;
-    private String aliasOrdinal;
-    private String aliasErrorInitClass;
-    private String aliasClone;
-    private String aliasValues;
-
     private StringMap<StandardType> standards = new StringMap<StandardType>();
 
     private StringList predefinedClasses = new StringList();
     private StringList predefinedInterfacesInitOrder = new StringList();
 
-    private String aliasObjectsUtil;
-    private String aliasSameRef;
-    private String aliasGetParent;
+    private AliasCore coreNames = new AliasCore();
+
     private AliasCharSequence charSeq = new AliasCharSequence();
     private AliasReflection reflect = new AliasReflection();
     private AliasStackTraceElement stackElt = new AliasStackTraceElement();
     private AliasNumber nbAlias = new AliasNumber();
     private AliasMath mathRef = new AliasMath();
+    private PrimitiveTypes primTypes = new PrimitiveTypes();
     private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
-    private StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
     private String trueString;
     private String falseString;
     private String nullString;
     private String defaultPkg = "";
     /**Called after setters*/
     public void build() {
-        StringMap<StandardField> fields_;
-        StringList params_;
-        StandardMethod method_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        StandardType std_;
-        StandardClass stdcl_;
-        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasObject, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasError, fields_, constructors_, methods_, aliasObject, MethodModifier.NORMAL);
-        String stackElt_ = stackElt.getAliasStackTraceElement();
-        stackElt_ = PrimitiveTypeUtil.getPrettyArrayType(stackElt_);
-        params_ = new StringList();
-        method_ = new StandardMethod(stackElt.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(nbAlias.getAliasToString(), params_, charSeq.getAliasString(), false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMessage, params_, charSeq.getAliasString(), false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
-        std_ = stdcl_;
-        standards.put(aliasError, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasNullPe, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasNullPe, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasDivisionZero, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasDivisionZero, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasCast, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasCast, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasStore, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasStore, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasBadSize, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasBadSize, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasNbFormat, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasNbFormat, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasBadIndex, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasBadIndex, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasSof, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasSof, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasErrorInitClass, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasBadEncode, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasBadEncode, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasCustomError, fields_, constructors_, methods_, aliasObject, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasCustomError, std_);
+        coreNames.build(this);
         nbAlias.build(this);
         charSeq.build(this);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
-        params_ = new StringList(aliasEnum);
-        method_ = new StandardMethod(aliasName, params_, charSeq.getAliasString(), false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasEnum);
-        method_ = new StandardMethod(aliasOrdinal, params_, aliasPrimInteger, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasEnums, stdcl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasSameRef, params_, aliasPrimBoolean, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasObjectsUtil, stdcl_);
         reflect.build(this);
         mathRef.build(this);
         stackElt.build(this);
+        primTypes.buildPrimitiveTypes(this);
         buildOther();
-        buildPrimitiveTypes();
     }
-    private void buildPrimitiveTypes() {
-        primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, nbAlias.getAliasBoolean(), EMPTY_STRING,false));
-        primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, nbAlias.getAliasCharacter(), aliasPrimInteger,true));
-        primitiveTypes.put(aliasPrimByte, new PrimitiveType(aliasPrimByte, nbAlias.getAliasByte(), aliasPrimShort,true));
-        primitiveTypes.put(aliasPrimShort, new PrimitiveType(aliasPrimShort, nbAlias.getAliasShort(), aliasPrimInteger,true));
-        primitiveTypes.put(aliasPrimInteger, new PrimitiveType(aliasPrimInteger, nbAlias.getAliasInteger(), aliasPrimLong,true));
-        primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, nbAlias.getAliasLong(), aliasPrimFloat,true));
-        primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, nbAlias.getAliasFloat(), aliasPrimDouble,true));
-        primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, nbAlias.getAliasDouble(), EMPTY_STRING,true));
-    }
+
     public String toWrapper(String _type) {
-        if (primitiveTypes.contains(_type)) {
-            return primitiveTypes.getVal(_type).getWrapper();
-        }
-        return _type;
+        return primTypes.toWrapper(_type);
     }
     public String toPrimitive(String _type) {
-        for (EntryCust<String, PrimitiveType> e: primitiveTypes.entryList()) {
-            if (StringList.quickEq(e.getValue().getWrapper(), _type)) {
-                return e.getKey();
-            }
-        }
-        return _type;
+        return primTypes.toPrimitive(_type);
     }
 
     public StringList allPrimitives() {
         StringList list_ = new StringList();
-        list_.add(aliasPrimBoolean);
-        list_.add(aliasPrimByte);
-        list_.add(aliasPrimShort);
-        list_.add(aliasPrimChar);
-        list_.add(aliasPrimInteger);
-        list_.add(aliasPrimLong);
-        list_.add(aliasPrimFloat);
-        list_.add(aliasPrimDouble);
-        list_.add(aliasVoid);
+        list_.add(primTypes.getAliasPrimBoolean());
+        list_.add(primTypes.getAliasPrimByte());
+        list_.add(primTypes.getAliasPrimShort());
+        list_.add(primTypes.getAliasPrimChar());
+        list_.add(primTypes.getAliasPrimInteger());
+        list_.add(primTypes.getAliasPrimLong());
+        list_.add(primTypes.getAliasPrimFloat());
+        list_.add(primTypes.getAliasPrimDouble());
+        list_.add(coreNames.getAliasVoid());
         return list_;
     }
     public void validatePrimitiveContents(ContextEl _cont, StringList _list) {
@@ -348,33 +176,33 @@ public abstract class LgNames {
         list_.add(reflect.getAliasFct());
         list_.add(reflect.getAliasField());
         list_.add(reflect.getAliasMethod());
-        list_.add(aliasObjectsUtil);
+        list_.add(coreNames.getAliasObjectsUtil());
         list_.add(reflect.getAliasClassNotFoundError());
-        list_.add(aliasCustomError);
-        list_.add(aliasErrorInitClass);
+        list_.add(coreNames.getAliasCustomError());
+        list_.add(coreNames.getAliasErrorInitClass());
         list_.add(reflect.getAliasInvokeTarget());
         list_.add(mathRef.getAliasMath());
         list_.add(stackElt.getAliasStackTraceElement());
-        list_.add(aliasBadEncode);
-        list_.add(aliasBadIndex);
-        list_.add(aliasDivisionZero);
-        list_.add(aliasStore);
-        list_.add(aliasCast);
-        list_.add(aliasBadSize);
-        list_.add(aliasSof);
+        list_.add(coreNames.getAliasBadEncode());
+        list_.add(coreNames.getAliasBadIndex());
+        list_.add(coreNames.getAliasDivisionZero());
+        list_.add(coreNames.getAliasStore());
+        list_.add(coreNames.getAliasCast());
+        list_.add(coreNames.getAliasBadSize());
+        list_.add(coreNames.getAliasSof());
         list_.add(charSeq.getAliasReplacement());
-        list_.add(aliasNullPe);
+        list_.add(coreNames.getAliasNullPe());
         list_.add(nbAlias.getAliasBoolean());
         list_.add(nbAlias.getAliasByte());
         list_.add(charSeq.getAliasCharSequence());
         list_.add(nbAlias.getAliasCharacter());
         list_.add(nbAlias.getAliasDouble());
-        list_.add(aliasError);
+        list_.add(coreNames.getAliasError());
         list_.add(nbAlias.getAliasFloat());
         list_.add(nbAlias.getAliasInteger());
         list_.add(nbAlias.getAliasLong());
         list_.add(nbAlias.getAliasNumber());
-        list_.add(aliasObject);
+        list_.add(coreNames.getAliasObject());
         list_.add(nbAlias.getAliasShort());
         list_.add(charSeq.getAliasString());
         list_.add(charSeq.getAliasStringBuilder());
@@ -470,10 +298,10 @@ public abstract class LgNames {
     }
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(aliasError, new StringList(
+        map_.put(coreNames.getAliasError(), new StringList(
                 stackElt.getAliasCurrentStack(),
                 nbAlias.getAliasToString(),
-                aliasGetMessage));
+                coreNames.getAliasGetMessage()));
         map_.put(reflect.getAliasAnnotated(), new StringList(
                 reflect.getAliasGetAnnotations(),
                 reflect.getAliasGetAnnotationsParameters()));
@@ -578,15 +406,15 @@ public abstract class LgNames {
                 reflect.getAliasIsStatic(),
                 reflect.getAliasIsVarargs(),
                 reflect.getAliasSetPolymorph()));
-        map_.put(aliasObjectsUtil, new StringList(
-                aliasSameRef,
-                aliasGetParent));
-        map_.put(aliasEnum, new StringList(
-                aliasName,
-                aliasOrdinal));
-        map_.put(aliasEnums, new StringList(
-                aliasName,
-                aliasOrdinal));
+        map_.put(coreNames.getAliasObjectsUtil(), new StringList(
+                coreNames.getAliasSameRef(),
+                coreNames.getAliasGetParent()));
+        map_.put(coreNames.getAliasEnum(), new StringList(
+                coreNames.getAliasName(),
+                coreNames.getAliasOrdinal()));
+        map_.put(coreNames.getAliasEnums(), new StringList(
+                coreNames.getAliasName(),
+                coreNames.getAliasOrdinal()));
         map_.put(predefTypes.getAliasIterable(), new StringList(
                 predefTypes.getAliasIterator()));
         map_.put(predefTypes.getAliasIteratorType(), new StringList(
@@ -2206,17 +2034,12 @@ public abstract class LgNames {
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String objectType_ = lgNames_.getAliasObject();
-        String replType_ = lgNames_.getAliasReplacement();
         result_ = newInstanceStd(_cont, _method, _args);
         if (result_.getResult() != null) {
             return result_;
         }
         if (result_.getError() != null) {
             _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            return result_;
-        }
-        if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.instantiate(result_);
             return result_;
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
@@ -2249,6 +2072,11 @@ public abstract class LgNames {
         String longType_ = lgNames_.getAliasLong();
         String floatType_ = lgNames_.getAliasFloat();
         String doubleType_ = lgNames_.getAliasDouble();
+        String replType_ = lgNames_.getAliasReplacement();
+        if (StringList.quickEq(type_, replType_)) {
+            ReplacementStruct.instantiate(result_, _method, args_);
+            return result_;
+        }
         if (StringList.quickEq(type_, stringType_)) {
             StringStruct.instantiate(_cont, result_, _method, args_);
             return result_;
@@ -2439,7 +2267,8 @@ public abstract class LgNames {
     public AbstractForEachLoop newForeachLoop(ContextEl _importingPage,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
-            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+            OffsetStringInfo _expression, OffsetStringInfo _classIndex,
+            OffsetStringInfo _label, OffsetsBlock _offset) {
         return new ForEachLoop(_importingPage, _m, _className, _variable, _expression, _classIndex, _label, _offset);
     }
 
@@ -2485,77 +2314,29 @@ public abstract class LgNames {
         return files_;
     }
 
-    public Object getOtherArguments(Struct[] _str, String _base) {
-        return null;
-    }
     public String getStructClassName(Struct _struct, ContextEl _context) {
         String w_ = _struct.getClassName(_context);
         w_ = _context.getStandards().toWrapper(w_);
         return w_;
     }
-    public String getStructClassName(Object _struct, ContextEl _context) {
-        String cl_ = getSimpleStructClassName(_struct);
-        if (!StringList.quickEq(cl_, getAliasObject())) {
-            return cl_;
-        }
-        return getOtherStructClassName(_struct, _context);
-    }
-    public String getOtherStructClassName(Object _struct, ContextEl _context) {
-        return getAliasObject();
-    }
-    public final String getSimpleStructClassName(Object _struct) {
-        if (_struct instanceof Double) {
-            return getAliasDouble();
-        }
-        if (_struct instanceof Float) {
-            return getAliasFloat();
-        }
-        if (_struct instanceof Long) {
-            return getAliasLong();
-        }
-        if (_struct instanceof Integer) {
-            return getAliasInteger();
-        }
-        if (_struct instanceof Character) {
-            return getAliasCharacter();
-        }
-        if (_struct instanceof Short) {
-            return getAliasShort();
-        }
-        if (_struct instanceof Byte) {
-            return getAliasByte();
-        }
-        if (_struct instanceof String) {
-            return getAliasString();
-        }
-        if (_struct instanceof StringBuilder) {
-            return getAliasStringBuilder();
-        }
-        return getAliasObject();
-    }
+    
     public StringMap<StandardType> getStandards() {
         return standards;
     }
     public StringMap<PrimitiveType> getPrimitiveTypes() {
-        return primitiveTypes;
-    }
-    public ContextEl getContext() {
-        return context;
-    }
-    public void setContext(ContextEl _context) {
-        context = _context;
+        return primTypes.getPrimitiveTypes();
     }
     public String getAliasObject() {
-        return aliasObject;
+        return coreNames.getAliasObject();
     }
     public void setAliasObject(String _aliasObject) {
-        aliasObject = _aliasObject;
+        coreNames.setAliasObject(_aliasObject);
     }
     public String getAliasVoid() {
-        return aliasVoid;
+        return coreNames.getAliasVoid();
     }
     public void setAliasVoid(String _aliasVoid) {
-        aliasVoid = _aliasVoid;
+        coreNames.setAliasVoid(_aliasVoid);
     }
     public String getAliasCharSequence() {
         return charSeq.getAliasCharSequence();
@@ -2583,100 +2364,100 @@ public abstract class LgNames {
         predefTypes.setAliasIterable(_aliasIterable);
     }
     public String getAliasEnumParam() {
-        return aliasEnumParam;
+        return coreNames.getAliasEnumParam();
     }
     public void setAliasEnumParam(String _aliasEnumParam) {
-        aliasEnumParam = _aliasEnumParam;
+        coreNames.setAliasEnumParam(_aliasEnumParam);
     }
     public String getAliasEnum() {
-        return aliasEnum;
+        return coreNames.getAliasEnum();
     }
     public void setAliasEnum(String _aliasEnum) {
-        aliasEnum = _aliasEnum;
+        coreNames.setAliasEnum(_aliasEnum);
     }
     public String getAliasEnums() {
-        return aliasEnums;
+        return coreNames.getAliasEnums();
     }
     public void setAliasEnums(String _aliasEnums) {
-        aliasEnums = _aliasEnums;
+        coreNames.setAliasEnums(_aliasEnums);
     }
     public String getAliasError() {
-        return aliasError;
+        return coreNames.getAliasError();
     }
     public void setAliasError(String _aliasError) {
-        aliasError = _aliasError;
+        coreNames.setAliasError(_aliasError);
     }
     public String getAliasGetMessage() {
-        return aliasGetMessage;
+        return coreNames.getAliasGetMessage();
     }
     public void setAliasGetMessage(String _aliasGetMessage) {
-        aliasGetMessage = _aliasGetMessage;
+        coreNames.setAliasGetMessage(_aliasGetMessage);
     }
     public String getAliasCustomError() {
-        return aliasCustomError;
+        return coreNames.getAliasCustomError();
     }
     public void setAliasCustomError(String _aliasCustomError) {
-        aliasCustomError = _aliasCustomError;
+        coreNames.setAliasCustomError(_aliasCustomError);
     }
     public String getAliasBadSize() {
-        return aliasBadSize;
+        return coreNames.getAliasBadSize();
     }
     public void setAliasBadSize(String _aliasBadSize) {
-        aliasBadSize = _aliasBadSize;
+        coreNames.setAliasBadSize(_aliasBadSize);
     }
     public String getAliasDivisionZero() {
-        return aliasDivisionZero;
+        return coreNames.getAliasDivisionZero();
     }
     public void setAliasDivisionZero(String _aliasDivisionZero) {
-        aliasDivisionZero = _aliasDivisionZero;
+        coreNames.setAliasDivisionZero(_aliasDivisionZero);
     }
     public String getAliasCast() {
-        return aliasCast;
+        return coreNames.getAliasCast();
     }
     public void setAliasCast(String _aliasCast) {
-        aliasCast = _aliasCast;
+        coreNames.setAliasCast(_aliasCast);
     }
     public String getAliasStore() {
-        return aliasStore;
+        return coreNames.getAliasStore();
     }
     public void setAliasStore(String _aliasStore) {
-        aliasStore = _aliasStore;
+        coreNames.setAliasStore(_aliasStore);
     }
     public String getAliasNullPe() {
-        return aliasNullPe;
+        return coreNames.getAliasNullPe();
     }
     public void setAliasNullPe(String _aliasNullPe) {
-        aliasNullPe = _aliasNullPe;
+        coreNames.setAliasNullPe(_aliasNullPe);
     }
     public String getAliasNbFormat() {
-        return aliasNbFormat;
+        return coreNames.getAliasNbFormat();
     }
     public void setAliasNbFormat(String _aliasNbFormat) {
-        aliasNbFormat = _aliasNbFormat;
+        coreNames.setAliasNbFormat(_aliasNbFormat);
     }
     public String getAliasBadEncode() {
-        return aliasBadEncode;
+        return coreNames.getAliasBadEncode();
     }
     public void setAliasBadEncode(String _aliasBadEncode) {
-        aliasBadEncode = _aliasBadEncode;
+        coreNames.setAliasBadEncode(_aliasBadEncode);
     }
     public String getAliasBadIndex() {
-        return aliasBadIndex;
+        return coreNames.getAliasBadIndex();
     }
     public void setAliasBadIndex(String _aliasBadIndex) {
-        aliasBadIndex = _aliasBadIndex;
+        coreNames.setAliasBadIndex(_aliasBadIndex);
     }
     public String getAliasSof() {
-        return aliasSof;
+        return coreNames.getAliasSof();
     }
     public void setAliasSof(String _aliasSof) {
-        aliasSof = _aliasSof;
+        coreNames.setAliasSof(_aliasSof);
     }
     public String getAliasPrimBoolean() {
-        return aliasPrimBoolean;
+        return primTypes.getAliasPrimBoolean();
     }
     public void setAliasPrimBoolean(String _aliasPrimBoolean) {
-        aliasPrimBoolean = _aliasPrimBoolean;
+        primTypes.setAliasPrimBoolean(_aliasPrimBoolean);
     }
     public String getAliasMath() {
         return mathRef.getAliasMath();
@@ -2685,46 +2466,46 @@ public abstract class LgNames {
         mathRef.setAliasMath(_aliasMath);
     }
     public String getAliasPrimByte() {
-        return aliasPrimByte;
+        return primTypes.getAliasPrimByte();
     }
     public void setAliasPrimByte(String _aliasPrimByte) {
-        aliasPrimByte = _aliasPrimByte;
+        primTypes.setAliasPrimByte(_aliasPrimByte);
     }
     public String getAliasPrimShort() {
-        return aliasPrimShort;
+        return primTypes.getAliasPrimShort();
     }
     public void setAliasPrimShort(String _aliasPrimShort) {
-        aliasPrimShort = _aliasPrimShort;
+        primTypes.setAliasPrimShort(_aliasPrimShort);
     }
     public String getAliasPrimChar() {
-        return aliasPrimChar;
+        return primTypes.getAliasPrimChar();
     }
     public void setAliasPrimChar(String _aliasPrimChar) {
-        aliasPrimChar = _aliasPrimChar;
+        primTypes.setAliasPrimChar(_aliasPrimChar);
     }
     public String getAliasPrimInteger() {
-        return aliasPrimInteger;
+        return primTypes.getAliasPrimInteger();
     }
     public void setAliasPrimInteger(String _aliasPrimInteger) {
-        aliasPrimInteger = _aliasPrimInteger;
+        primTypes.setAliasPrimInteger(_aliasPrimInteger);
     }
     public String getAliasPrimLong() {
-        return aliasPrimLong;
+        return primTypes.getAliasPrimLong();
     }
     public void setAliasPrimLong(String _aliasPrimLong) {
-        aliasPrimLong = _aliasPrimLong;
+        primTypes.setAliasPrimLong(_aliasPrimLong);
     }
     public String getAliasPrimFloat() {
-        return aliasPrimFloat;
+        return primTypes.getAliasPrimFloat();
     }
     public void setAliasPrimFloat(String _aliasPrimFloat) {
-        aliasPrimFloat = _aliasPrimFloat;
+        primTypes.setAliasPrimFloat(_aliasPrimFloat);
     }
     public String getAliasPrimDouble() {
-        return aliasPrimDouble;
+        return primTypes.getAliasPrimDouble();
     }
     public void setAliasPrimDouble(String _aliasPrimDouble) {
-        aliasPrimDouble = _aliasPrimDouble;
+        primTypes.setAliasPrimDouble(_aliasPrimDouble);
     }
    
     public String getAliasCompareTo() {
@@ -3282,16 +3063,16 @@ public abstract class LgNames {
         predefTypes.setAliasGetSecond(_aliasGetSecond);
     }
     public String getAliasName() {
-        return aliasName;
+        return coreNames.getAliasName();
     }
     public void setAliasName(String _aliasName) {
-        aliasName = _aliasName;
+        coreNames.setAliasName(_aliasName);
     }
     public String getAliasOrdinal() {
-        return aliasOrdinal;
+        return coreNames.getAliasOrdinal();
     }
     public void setAliasOrdinal(String _aliasOrdinal) {
-        aliasOrdinal = _aliasOrdinal;
+        coreNames.setAliasOrdinal(_aliasOrdinal);
     }
     public String getAliasReplacement() {
         return charSeq.getAliasReplacement();
@@ -3342,22 +3123,22 @@ public abstract class LgNames {
         mathRef.setAliasMod(_aliasMod);
     }
     public String getAliasErrorInitClass() {
-        return aliasErrorInitClass;
+        return coreNames.getAliasErrorInitClass();
     }
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
-        aliasErrorInitClass = _aliasErrorInitClass;
+        coreNames.setAliasErrorInitClass(_aliasErrorInitClass);
     }
     public String getAliasClone() {
-        return aliasClone;
+        return coreNames.getAliasClone();
     }
     public void setAliasClone(String _aliasClone) {
-        aliasClone = _aliasClone;
+        coreNames.setAliasClone(_aliasClone);
     }
     public String getAliasValues() {
-        return aliasValues;
+        return coreNames.getAliasValues();
     }
     public void setAliasValues(String _aliasValues) {
-        aliasValues = _aliasValues;
+        coreNames.setAliasValues(_aliasValues);
     }
     public String getAliasInvokeTarget() {
         return reflect.getAliasInvokeTarget();
@@ -3577,22 +3358,22 @@ public abstract class LgNames {
         reflect.setAliasForName(_aliasForName);
     }
     public String getAliasObjectsUtil() {
-        return aliasObjectsUtil;
+        return coreNames.getAliasObjectsUtil();
     }
     public void setAliasObjectsUtil(String _aliasObjectsUtil) {
-        aliasObjectsUtil = _aliasObjectsUtil;
+        coreNames.setAliasObjectsUtil(_aliasObjectsUtil);
     }
     public String getAliasSameRef() {
-        return aliasSameRef;
+        return coreNames.getAliasSameRef();
     }
     public void setAliasSameRef(String _aliasSameRef) {
-        aliasSameRef = _aliasSameRef;
+        coreNames.setAliasSameRef(_aliasSameRef);
     }
     public String getAliasGetParent() {
-        return aliasGetParent;
+        return coreNames.getAliasGetParent();
     }
     public void setAliasGetParent(String _aliasGetParent) {
-        aliasGetParent = _aliasGetParent;
+        coreNames.setAliasGetParent(_aliasGetParent);
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;

@@ -640,9 +640,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ReflectingType r_ = _e.getReflect();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        return createReflectMethod(gl_, args_, r_);
+        boolean l_ = _e.isLambda();
+        return createReflectMethod(gl_, args_, r_, l_);
     }
-    public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect) {
+    public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect, boolean _lambda) {
         setReflectMethod(null);
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
@@ -659,6 +660,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             pageLoc_ = new ReflectAnnotationPageEl();
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
         }
+        pageLoc_.setLambda(_lambda);
         pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setArguments(_args);

@@ -4477,7 +4477,7 @@ public final class FormatHtml {
             if (iterator_ != null) {
                 lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
-            	LongStruct l_ = new LongStruct(_l.getIndex());
+                LongStruct l_ = new LongStruct(_l.getIndex());
                 lv_.setStruct(InvokingOperation.getElement(lv_.getContainer(),l_, _conf));
             }
             if (_conf.getContext().getException() != null) {
@@ -4854,7 +4854,7 @@ public final class FormatHtml {
         if (iterationNb_) {
             int_ = realFromValue_;
         } else if (container_.isArray()) {
-        	IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
+            IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
             elt_ = InvokingOperation.getElement(container_, i_, _conf);
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);

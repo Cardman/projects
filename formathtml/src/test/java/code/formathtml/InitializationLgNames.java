@@ -46,7 +46,6 @@ public final class InitializationLgNames {
     }
     public static BeanLgNames initStandards(ContextEl _cont) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
-        lgNames_.setContext(_cont);
         _cont.setStandards(lgNames_);
         lgNames_.setSelectedBoolean("sb");
         lgNames_.setAliasRate("java.lang.Long");
@@ -318,7 +317,6 @@ public final class InitializationLgNames {
     }
     public static void initAdvStandards(ContextEl _cont) {
         CustLgNames lgNames_ = new CustLgNames();
-        lgNames_.setContext(_cont);
         basicStandards(lgNames_);
         lgNames_.setAliasMath("$math");
         lgNames_.build();

@@ -51,7 +51,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         }
         UndefinedFieldError und_ = new UndefinedFieldError();
         und_.setClassName(cl_.getNames().join(""));
-        und_.setFileName(str_);
         und_.setFileName(_conf.getCurrentFileName());
         und_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(und_);

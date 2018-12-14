@@ -77,7 +77,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             BadInheritedClass inherit_;
             inherit_ = new BadInheritedClass();
             inherit_.setClassName(fullName_);
-            inherit_.setFileName(fullName_);
+            inherit_.setFileName(getFile().getFileName());
             inherit_.setIndexFile(getIdRowCol());
             classesRef_.addError(inherit_);
         }
@@ -112,7 +112,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     if (m.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
-                        err_.setFileName(getFullName());
+                        err_.setFileName(getFile().getFileName());
                         err_.setIndexFile(mBase_.getAccessOffset());
                         err_.setId(m.getId());
                         classesRef_.addError(err_);
@@ -125,7 +125,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         if (!StringList.quickEq(retDerive_, void_)) {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
-                            err_.setFileName(getFullName());
+                            err_.setFileName(getFile().getFileName());
                             err_.setIndexFile(mBase_.getReturnTypeOffset());
                             err_.setReturnType(retDerive_);
                             err_.setMethod(mBase_.getId());
@@ -135,7 +135,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
-                        err_.setFileName(getFullName());
+                        err_.setFileName(getFile().getFileName());
                         err_.setIndexFile(mBase_.getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
                         err_.setMethod(mBase_.getId());
