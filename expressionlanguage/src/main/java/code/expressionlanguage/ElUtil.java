@@ -37,7 +37,6 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -453,20 +452,28 @@ public final class ElUtil {
     static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
-        for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
-            OperationNode o = e.getKey();
-            if (!o.isCalculated(_nodes)) {
-                o.calculate(_nodes, _context);
-                if (_context.hasExceptionOrFailInit()) {
-                    pageEl_.setTranslatedOffset(0);
-                    pageEl_.clearCurrentEls();
-                    return;
-                }
-                if (_context.calls()) {
-                    _el.setCurrentOper(o);
-                    return;
-                }
+        int fr_ = _el.getIndex();
+        int len_ = _nodes.size();
+        while (fr_ < len_) {
+            OperationNode o = _nodes.getKey(fr_);
+            ArgumentsPair pair_ = _nodes.getValue(fr_);
+            if (pair_.getArgument() != null) {
+                fr_++;
+                continue;
             }
+            o.calculate(_nodes, _context);
+            if (_context.hasExceptionOrFailInit()) {
+                pageEl_.setTranslatedOffset(0);
+                pageEl_.clearCurrentEls();
+                return;
+            }
+            if (_context.calls()) {
+                _el.setCurrentOper(o);
+                return;
+            }
+            Argument res_ = pair_.getArgument();
+            Struct st_ = res_.getStruct();
+            fr_ = ElUtil.getNextIndex(o, st_);
         }
         _context.getLastPage().setTranslatedOffset(0);
     }
@@ -552,7 +559,7 @@ public final class ElUtil {
             QuickOperation q_ = (QuickOperation) par_;
             BooleanStruct bs_ = q_.absorbingStruct();
             if (bs_.sameReference(_value)) {
-                return par_.getOrder() + 1;
+                return par_.getOrder();
             }
         }
         if (par_ instanceof AbstractTernaryOperation) {

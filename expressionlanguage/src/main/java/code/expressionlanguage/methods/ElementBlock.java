@@ -203,6 +203,18 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         }
     }
     @Override
+    public void reduce(ContextEl _context) {
+        CustList<CustList<OperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<OperationNode>>();
+        for (CustList<OperationNode> a: annotationsOps) {
+            OperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+        OperationNode r_ = opValue.last();
+        opValue = ElUtil.getReducedNodes(r_);
+    }
+    @Override
     public StringList getAnnotations() {
         return annotations;
     }

@@ -334,6 +334,13 @@ public final class Classes {
         StringList success_ = new StringList();
         DefaultLockingClass dl_ = cl_.getLocks();
         dl_.init(_context);
+        for (RootBlock c: cl_.getClassBodies()) {
+            for (Block b:getSortedDescNodes(c)) {
+                if (b instanceof ReducableOperations) {
+                    ((ReducableOperations)b).reduce(_context);
+                }
+            }
+        }
         StringList all_ = cl_.classesBodies.getKeys();
         _context.setInitEnums(true);
         while (true) {
@@ -702,15 +709,6 @@ public final class Classes {
                     indexType_++;
                     RootBlock s_ = getClassBody(f);
                     int offset_ = r_.getRowColDirectSuperTypes().getKey(indexType_);
-                    if (s_ == null) {
-                        BadInheritedClass enum_;
-                        enum_ = new BadInheritedClass();
-                        enum_.setClassName(f);
-                        enum_.setFileName(r_.getFile().getFileName());
-                        enum_.setIndexFile(offset_);
-                        addError(enum_);
-                        continue;
-                    }
                     if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
                     }
@@ -748,17 +746,12 @@ public final class Classes {
                         continue;
                     }
                     if (StringList.quickEq(f, enumClassName_) && !StringList.quickEq(c, enumParamClassName_)) {
-                        Boolean exp_ = r_.getExplicitDirectSuperTypes().getVal(offset_);
-                        if (exp_) {
-                            UnknownClassName undef_;
-                            undef_ = new UnknownClassName();
-                            undef_.setClassName(f);
-                            undef_.setFileName(r_.getFile().getFileName());
-                            undef_.setIndexFile(offset_);
-                            addError(undef_);
-                        } else {
-                            r_.getImportedDirectBaseSuperTypes().add(f);
-                        }
+                        UnknownClassName undef_;
+                        undef_ = new UnknownClassName();
+                        undef_.setClassName(f);
+                        undef_.setFileName(r_.getFile().getFileName());
+                        undef_.setIndexFile(offset_);
+                        addError(undef_);
                         continue;
                     }
                     r_.getImportedDirectBaseSuperTypes().add(f);
@@ -775,9 +768,6 @@ public final class Classes {
                 String dirSuper_ = objectClassName_;
                 for (String f: foundNames_) {
                     RootBlock s_ = getClassBody(f);
-                    if (s_ == null) {
-                        continue;
-                    }
                     if (s_ instanceof UniqueRootedBlock) {
                         dirSuper_ = f;
                     }
@@ -893,20 +883,6 @@ public final class Classes {
                         }
                         continue;
                     }
-                    if (StringList.quickEq(base_, enumClassName_) && !StringList.quickEq(d_, enumParamClassName_)) {
-                        Boolean exp_ = bl_.getExplicitDirectSuperTypes().getVal(offset_);
-                        if (exp_) {
-                            UnknownClassName undef_;
-                            undef_ = new UnknownClassName();
-                            undef_.setClassName(base_);
-                            undef_.setFileName(bl_.getFile().getFileName());
-                            undef_.setIndexFile(offset_);
-                            addError(undef_);
-                        } else {
-                            names_.add(base_);
-                        }
-                        continue;
-                    }
                     if (StringList.quickEq(base_, objectClassName_)) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
@@ -1008,9 +984,6 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(foundNames_);
                 for (String f: foundNames_) {
                     RootBlock s_ = getClassBody(f);
-                    if (s_ == null) {
-                        continue;
-                    }
                     r_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
                 r_.getAllSuperTypes().add(objectClassName_);
@@ -1018,9 +991,6 @@ public final class Classes {
                 int nbDirectSuperClass_ = 0;
                 for (String f: foundNames_) {
                     RootBlock s_ = getClassBody(f);
-                    if (s_ == null) {
-                        continue;
-                    }
                     if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
                         dirSuper_ = f;

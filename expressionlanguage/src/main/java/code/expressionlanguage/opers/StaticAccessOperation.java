@@ -22,10 +22,6 @@ public final class StaticAccessOperation extends LeafOperation {
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
 
     @Override
     public void analyze(Analyzable _conf) {

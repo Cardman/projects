@@ -233,18 +233,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
     }

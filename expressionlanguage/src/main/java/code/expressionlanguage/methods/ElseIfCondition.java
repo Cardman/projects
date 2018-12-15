@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
@@ -36,12 +35,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         }
         return ((IfCondition)p_).getLabel();
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
 
-    @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
@@ -100,14 +94,6 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {

@@ -91,9 +91,4 @@ public final class VarargOperation extends LeafOperation {
         return null;
     }
 
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
 }

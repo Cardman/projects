@@ -3,14 +3,12 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
@@ -24,17 +22,6 @@ public abstract class MethodOperation extends OperationNode {
         super(_index, _indexChild, _m, _op);
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
-    }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
     }
 
     public final void tryAnalyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {

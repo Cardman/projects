@@ -108,16 +108,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return false;
     }

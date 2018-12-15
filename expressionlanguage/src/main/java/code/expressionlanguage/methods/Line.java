@@ -63,6 +63,12 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     }
 
     @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opExp.last();
+        opExp = ElUtil.getReducedNodes(r_);
+    }
+
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
@@ -83,9 +89,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
 
     public String getCalledInterface() {
         OperationNode last_ = opExp.last();
-        if (!(last_ instanceof InterfaceInvokingConstructor)) {
-            return "";
-        }
         InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
         String cl_ = int_.getConstId().getName();
         cl_ = Templates.getIdFromAllTypes(cl_);

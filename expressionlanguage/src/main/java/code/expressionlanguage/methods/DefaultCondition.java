@@ -30,50 +30,19 @@ public final class DefaultCondition extends SwitchPartBlock {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return true;
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
         sw_.setCurentVisitedBlock(this);
         if (sw_.isEntered()) {
-            if (!hasChildNodes()) {
-                if (sw_.getLastVisitedBlock() == this) {
-                    sw_.setFinished(true);
-                    rw_.setBlock(sw_.getBlock());
-                    return;
-                }
-                rw_.setBlock(getNextSibling());
-                return;
-            }
             rw_.setBlock(getFirstChild());
             return;
         }
         ip_.setGlobalOffset(getOffset().getOffsetTrim());
         ip_.setOffset(0);
-        if (hasChildNodes()) {
-            sw_.setEntered(true);
-        } else {
-            if (sw_.getLastVisitedBlock() != this) {
-                sw_.setEntered(true);
-                rw_.setBlock(getNextSibling());
-                return;
-            }
-            sw_.setFinished(true);
-            rw_.setBlock(sw_.getBlock());
-            return;
-        }
+        sw_.setEntered(true);
         rw_.setBlock(getFirstChild());
-        return;
     }
 
     @Override

@@ -26,17 +26,6 @@ public final class StaticInitOperation extends LeafOperation {
         super(_indexInEl, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
     }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = getParent();
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
 
     @Override
     public void analyze(Analyzable _conf) {

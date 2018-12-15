@@ -79,6 +79,13 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode first_ = chidren_.first();
+        Argument f_ = _nodes.getVal(first_).getArgument();
+        Struct abs_ = f_.getStruct();
+        if (absorbingStruct().sameReference(abs_)) {
+            _nodes.getVal(this).setArgument(f_);
+            return f_;
+        }
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = _nodes.getVal(last_).getArgument();

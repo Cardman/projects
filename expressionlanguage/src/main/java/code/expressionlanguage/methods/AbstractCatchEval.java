@@ -137,12 +137,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
     }
 
-    @Override
-    final boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
     final boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;

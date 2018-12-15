@@ -82,16 +82,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return importsOffset;
     }
 
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
     public String getFileName() {
         return fileName;
     }

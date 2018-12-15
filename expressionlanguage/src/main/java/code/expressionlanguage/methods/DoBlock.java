@@ -5,15 +5,10 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.StringMap;
 
 public final class DoBlock extends BracedStack implements Loop {
 
@@ -42,13 +37,6 @@ public final class DoBlock extends BracedStack implements Loop {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block last_ = getFirstChild();
-        if (last_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-        }
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
@@ -66,41 +54,9 @@ public final class DoBlock extends BracedStack implements Loop {
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        Block last_ = getFirstChild();
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        if (last_ == null) {
-            AssignedVariables parAss_ = id_.getVal(this);
-            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                ab_.setAssignedBefore(true);
-                ab_.setUnassignedBefore(true);
-                assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-            }
-            for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    ab_.setAssignedBefore(true);
-                    ab_.setUnassignedBefore(true);
-                    sm_.put(e.getKey(), ab_);
-                }
-                assBl_.getVariablesRootBefore().add(sm_);
-            }
-            for (StringMap<SimpleAssignment> s: parAss_.getMutableLoopRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    AssignmentBefore ab_ = new AssignmentBefore();
-                    ab_.setAssignedBefore(true);
-                    ab_.setUnassignedBefore(true);
-                    sm_.put(e.getKey(), ab_);
-                }
-                assBl_.getMutableLoopRootBefore().add(sm_);
-            }
-            id_.put(nextSibling_, assBl_);
-            return;
-        }
         assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _anEl));
         assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _anEl));
         assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _anEl));
@@ -111,16 +67,6 @@ public final class DoBlock extends BracedStack implements Loop {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         buildEmptyEl(_cont);
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return true;
     }
 
     @Override

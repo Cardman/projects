@@ -69,6 +69,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
         while (true) {
             _cont.getAnalyzing().setCurrentBlock(en_);
+            if (en_ instanceof BracedBlock && en_.getFirstChild() == null) {
+                if (!(en_ instanceof SwitchBlock) && !(en_ instanceof DoWhileCondition)) {
+                    OffsetsBlock off_ = en_.getOffset();
+                    EmptyInstruction empty_ = new EmptyInstruction(_cont, (BracedBlock) en_, off_);
+                    ((BracedBlock)en_).appendChild(empty_);
+                }
+            }
             en_.setAssignmentBefore(_cont, anEl_);
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
@@ -183,6 +190,16 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
     @Override
+    public void reduce(ContextEl _context) {
+        CustList<CustList<OperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<OperationNode>>();
+        for (CustList<OperationNode> a: annotationsOps) {
+            OperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+    }
+    @Override
     public StringList getAnnotations() {
         return annotations;
     }
@@ -196,16 +213,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
-        Block prev_ = getPreviousSibling();
-        BracedBlock br_ = getParent();
-        if (prev_ == null || _anEl.getRoot() == this) {
-            if (_anEl.getRoot() == this || _anEl.isReachable(br_)) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else {
-            super.reach(_an, _anEl);
-        }
+        _anEl.reach(this);
     }
 }

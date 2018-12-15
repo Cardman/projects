@@ -113,16 +113,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return true;
     }

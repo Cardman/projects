@@ -194,6 +194,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
     @Override
+    public void reduce(ContextEl _context) {
+        CustList<CustList<OperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<OperationNode>>();
+        for (CustList<OperationNode> a: annotationsOps) {
+            OperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+    }
+    @Override
     public StringList getAnnotations() {
         return annotations;
     }

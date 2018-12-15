@@ -33,9 +33,6 @@ public final class NullCatchEval extends AbstractCatchEval {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        if (getFirstChild() == null) {
-            buildEmptyEl(_cont);
-        }
     }
 
     @Override

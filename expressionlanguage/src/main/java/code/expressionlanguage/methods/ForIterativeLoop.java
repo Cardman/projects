@@ -178,6 +178,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     @Override
+    public void reduce(ContextEl _context) {
+        if (opInit != null && !opInit.isEmpty()) {
+            OperationNode i_ = opInit.last();
+            opInit = ElUtil.getReducedNodes(i_);
+        }
+        if (opExp != null && !opExp.isEmpty()) {
+            OperationNode e_ = opExp.last();
+            opExp = ElUtil.getReducedNodes(e_);
+        }
+        if (opStep != null && !opStep.isEmpty()) {
+            OperationNode s_ = opStep.last();
+            opStep = ElUtil.getReducedNodes(s_);
+        }
+    }
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -233,9 +248,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opInit.isEmpty()) {
-            return;
-        }
         OperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -250,9 +262,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opExp.isEmpty()) {
-            return;
-        }
         OperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -267,9 +276,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opStep.isEmpty()) {
-            return;
-        }
         OperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -281,12 +287,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setIndexFile(stepOffset);
             _cont.getClasses().addError(cast_);
         }
-        if (getFirstChild() != null) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setClassName(cl_);
-            lv_.setIndexClassName(classIndexName);
-            _cont.getAnalyzing().putVar(variableName, lv_);
-        }
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setClassName(cl_);
+        lv_.setIndexClassName(classIndexName);
+        _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
     @Override
@@ -425,11 +429,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            return;
-        }
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -603,15 +602,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         return out_;
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -727,9 +717,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         boolean finished_ = false;
         length_ = nbMaxIterations_;
         if (length_ == CustList.SIZE_EMPTY) {
-            finished_ = true;
-        }
-        if (getFirstChild() == null) {
             finished_ = true;
         }
         LoopBlockStack l_ = new LoopBlockStack();

@@ -29,16 +29,6 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public void exitStack(ContextEl _context) {
     }
 

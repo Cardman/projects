@@ -171,16 +171,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public RootBlock belong() {
         return this;
     }

@@ -28,10 +28,6 @@ public final class ConstantOperation extends LeafOperation {
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
 
     @Override
     public void analyze(Analyzable _conf) {

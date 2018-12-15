@@ -15,7 +15,6 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
@@ -142,6 +141,12 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
 
     @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opList.last();
+        opList = ElUtil.getReducedNodes(r_);
+    }
+
+    @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
@@ -220,9 +225,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opList.isEmpty()) {
-            return;
-        }
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
@@ -369,7 +371,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -382,25 +383,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
-        }
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            StringMap<SimpleAssignment> fieldsAfter_;
-            fieldsAfter_ = buildAssListFieldAfterLoop(_an, _anEl);
-            varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
-            CustList<StringMap<SimpleAssignment>> varsAfter_;
-            varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
-            varsWhile_.getVariablesRoot().clear();
-            varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-            CustList<StringMap<SimpleAssignment>> mutableAfter_;
-            mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
-            varsWhile_.getMutableLoopRoot().clear();
-            varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
-            return;
         }
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
@@ -566,15 +548,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     protected AssignedBooleanVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
 
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
@@ -678,7 +651,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         l_.setEvaluatingKeepLoop(false);
         ip_.getReadWrite().setBlock(getFirstChild());
-        return;
     }
 
     Struct processLoop(ContextEl _conf) {

@@ -235,15 +235,8 @@ public abstract class Block {
         return new AssignedVariables();
     }
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
-        BracedBlock br_ = getParent();
         Block prev_ = getPreviousSibling();
-        if (prev_ == null || this == _anEl.getRoot()) {
-            if (this == _anEl.getRoot() || _anEl.isReachable(br_) && br_.accessibleCondition()) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else if (_anEl.canCompleteNormallyGroup(prev_)) {
+        if (_anEl.canCompleteNormallyGroup(prev_)) {
             _anEl.reach(this);
         } else {
             _anEl.unreach(this);
@@ -385,9 +378,6 @@ public abstract class Block {
         return null;
     }
 
-    abstract boolean canBeIncrementedNextGroup();
-    abstract boolean canBeIncrementedCurGroup();
-
     public final Block getPreviousSibling() {
         return previousSibling;
     }
@@ -405,9 +395,5 @@ public abstract class Block {
 
     public final BracedBlock getParent() {
         return parent;
-    }
-
-    public final boolean hasChildNodes() {
-        return getFirstChild() != null;
     }
 }

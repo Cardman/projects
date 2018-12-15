@@ -5,7 +5,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -56,14 +55,6 @@ public final class TryEval extends BracedStack implements Eval {
     @Override
     public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
@@ -74,12 +65,7 @@ public final class TryEval extends BracedStack implements Eval {
             }
         }
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
 
-    @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;

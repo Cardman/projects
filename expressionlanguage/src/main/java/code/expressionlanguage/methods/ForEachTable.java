@@ -201,6 +201,12 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         putVariable(_cont);
     }
+
+    @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opList.last();
+        opList = ElUtil.getReducedNodes(r_);
+    }
     private StringList getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
         LgNames stds_ = _context.getStandards();
@@ -288,9 +294,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opList.isEmpty()) {
-            return;
-        }
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
@@ -871,16 +874,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             return new ExpressionLanguage(cls_.getExpsFirstCust());
         }
         return new ExpressionLanguage(cls_.getExpsSecondCust());
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
     }
 
 }

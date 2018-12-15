@@ -36,6 +36,12 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
         return expression;
     }
 
+    @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opThrow.last();
+        opThrow = ElUtil.getReducedNodes(r_);
+    }
+
     public ExpressionLanguage getEl() {
         return new ExpressionLanguage(opThrow);
     }

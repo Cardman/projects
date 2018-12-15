@@ -48,7 +48,9 @@ public final class DeclaringOperation extends MethodOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        return _nodes.getVal(this).getArgument();
+        Argument a_ = new Argument();
+        _nodes.getVal(this).setArgument(a_);
+        return a_;
     }
 
     @Override

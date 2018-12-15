@@ -81,6 +81,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     }
 
     @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opValue.last();
+        opValue = ElUtil.getReducedNodes(r_);
+    }
+    @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
@@ -117,9 +122,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opValue.isEmpty()) {
-            return;
-        }
         if (opValue.last().isVoidArg(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
@@ -169,17 +171,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
+            first_ = first_.getNextSibling();
         }
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
     }
 
     @Override
@@ -303,18 +296,17 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         if (ch_ instanceof DefaultCondition) {
             def_ = true;
         }
-        boolean emptyEndCases_ = ch_.getFirstChild() == null;
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
-        after_ =buildAssFieldsAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
+        after_ =buildAssFieldsAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
+        afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
+        mutableVars_ = buildAssMutableLoopAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }

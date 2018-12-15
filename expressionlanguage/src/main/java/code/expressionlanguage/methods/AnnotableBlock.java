@@ -6,7 +6,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public interface AnnotableBlock {
+public interface AnnotableBlock extends ReducableOperations {
     StringList getAnnotations();
     CustList<CustList<OperationNode>> getAnnotationsOps();
     Numbers<Integer> getAnnotationsIndexes();

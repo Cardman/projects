@@ -16,8 +16,6 @@ import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -159,52 +157,22 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
         gl_ = Templates.getIdFromAllTypes(gl_);
-        String base_ = gl_;
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         CustList<Argument> firstArgs_;
-        String calledCtor_ = base_;
         String cl_ = getConstId().getName();
         cl_ = Templates.getIdFromAllTypes(cl_);
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
-        String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
-        calledCtor_ = superClassBase_;
         String calledCtorTemp_ = superClass_;
-        StringList params_ = new StringList();
-        String classFormat_ = calledCtor_;
-        classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
-        if (classFormat_ == null) {
-            _conf.setException(new ErrorStruct(_conf,cast_));
-            Argument a_ = new Argument();
-            return a_;
-        }
-        int j_ = 0;
-        for (String c: ctorId_.getParametersTypes()) {
-            String c_ = c;
-            c_ = Templates.quickFormat(classFormat_, c_, _conf);
-            if (j_ + 1 == ctorId_.getParametersTypes().size() && ctorId_.isVararg()) {
-                c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-            }
-            params_.add(c_);
-            j_++;
-        }
-        processArgs(_conf, firstArgs_, params_);
-        if (_conf.getContextEl().hasException()) {
-            Argument a_ = new Argument();
-            return a_;
-        }
         _conf.getContextEl().setCallCtor(new CustomFoundConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER));
         return Argument.createVoid();
     }

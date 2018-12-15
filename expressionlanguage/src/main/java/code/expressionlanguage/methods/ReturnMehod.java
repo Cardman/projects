@@ -97,9 +97,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             return;
         }
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opRet.isEmpty()) {
-            return;
-        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
@@ -130,6 +127,15 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
             opRet.last().getResultClass().setUnwrapObject(retType_);
         }
+    }
+
+    @Override
+    public void reduce(ContextEl _context) {
+        if (opRet == null) {
+            return;
+        }
+        OperationNode r_ = opRet.last();
+        opRet = ElUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -192,22 +198,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
                 return;
             }
             ip_.clearCurrentEls();
-            LgNames stds_ = _cont.getStandards();
-            String retType_ = stds_.getAliasVoid();
-            BracedBlock par_ = getParent();
-            while (par_ != null) {
-                if (par_ instanceof Returnable) {
-                    Returnable meth_ = null;
-                    meth_ = (Returnable) par_;
-                    retType_ = meth_.getImportedReturnType();
-                    break;
-                }
-                par_ = par_.getParent();
-            }
-            retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
-            if (!Templates.checkObject(retType_, arg_, _cont)) {
-                return;
-            }
             ((ForwardPageEl)_cont.getLastPage()).setReturnedArgument(arg_);
         } else {
             ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument();

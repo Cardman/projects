@@ -56,16 +56,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public RootBlock belong() {
         return this;
     }

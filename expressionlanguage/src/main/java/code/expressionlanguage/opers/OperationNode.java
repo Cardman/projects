@@ -477,8 +477,6 @@ public abstract class OperationNode {
         return getIndexChild() == CustList.FIRST_INDEX;
     }
 
-    public abstract boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes);
-
     public abstract ConstructorId getConstId();
 
     public abstract OperationNode getFirstChild();
@@ -2240,30 +2238,6 @@ public abstract class OperationNode {
         }
         if (!un_.isEmpty()) {
             _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-        }
-        int res_ = processBooleanValues(_arg, _cont);
-        if (res_ <= 0) {
-            return;
-        }
-        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
-        MethodOperation par_ = getParent();
-        Boolean b_ = o_.getInstance();
-        if (res_ != QUICK_OP) {
-            CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-            OperationNode opElt_ = l_.get(res_);
-            _nodes.getVal(opElt_).setArgument(_arg);
-            return;
-        }
-        QuickOperation q_ = (QuickOperation) par_;
-        if (b_ == q_.absorbingValue()) {
-            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                _nodes.getVal(opers_.get(i)).setArgument(_arg);
-            }
         }
     }
 

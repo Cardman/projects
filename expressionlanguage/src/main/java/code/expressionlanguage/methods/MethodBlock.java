@@ -162,16 +162,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return staticMethod;
     }

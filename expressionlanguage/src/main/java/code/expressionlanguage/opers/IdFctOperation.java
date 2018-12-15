@@ -136,12 +136,9 @@ public final class IdFctOperation extends LeafOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        return Argument.createVoid();
-    }
-
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
+        Argument a_ = new Argument();
+        _nodes.getVal(this).setArgument(a_);
+        return a_;
     }
 
     @Override

@@ -662,7 +662,7 @@ public abstract class BracedStack extends BracedBlock {
         return out_;
     }
     protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterSwitch(
-            boolean _default, boolean _emptyEndCase,
+            boolean _default,
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
@@ -698,12 +698,12 @@ public abstract class BracedStack extends BracedBlock {
                     listBr_.add(new StringMap<AssignmentBefore>());
                 }
             }
-            out_.add(buildAssAfterSwitch(_default, _emptyEndCase, switch_, last_, listBr_));
+            out_.add(buildAssAfterSwitch(_default, switch_, last_, listBr_));
         }
         return out_;
     }
     protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterSwitch(
-            boolean _default, boolean _emptyEndCase,
+            boolean _default,
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
@@ -739,12 +739,12 @@ public abstract class BracedStack extends BracedBlock {
                     listBr_.add(new StringMap<AssignmentBefore>());
                 }
             }
-            out_.add(buildAssAfterSwitch(_default, _emptyEndCase, switch_, last_, listBr_));
+            out_.add(buildAssAfterSwitch(_default, switch_, last_, listBr_));
         }
         return out_;
     }
     protected StringMap<SimpleAssignment> buildAssFieldsAfterSwitch(
-            boolean _default, boolean _emptyEndCase,
+            boolean _default,
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
@@ -763,9 +763,9 @@ public abstract class BracedStack extends BracedBlock {
         for (BreakBlock b: breaks_) {
             listBr_.add(id_.getVal(b).getFieldsRootBefore());
         }
-        return buildAssAfterSwitch(_default, _emptyEndCase,list_, last_, listBr_);
+        return buildAssAfterSwitch(_default,list_, last_, listBr_);
     }
-    protected static StringMap<SimpleAssignment> buildAssAfterSwitch(boolean _default, boolean _emptyEndCase,
+    protected static StringMap<SimpleAssignment> buildAssAfterSwitch(boolean _default,
             StringMap<Assignment> _tryAfter,
             StringMap<SimpleAssignment> _last,
             CustList<StringMap<AssignmentBefore>> _breaks) {
@@ -778,12 +778,6 @@ public abstract class BracedStack extends BracedBlock {
                 assAfter_ = false;
             }
             if (!(_default || e.getValue().isUnassignedAfter())){
-                unassAfter_ = false;
-            }
-            if (!(!_emptyEndCase || e.getValue().isAssignedAfter())){
-                assAfter_ = false;
-            }
-            if (!(!_emptyEndCase || e.getValue().isUnassignedAfter())){
                 unassAfter_ = false;
             }
             for (EntryCust<String, SimpleAssignment> f: _last.entryList()) {

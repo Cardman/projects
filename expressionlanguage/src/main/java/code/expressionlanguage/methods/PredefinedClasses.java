@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -11,11 +10,6 @@ public final class PredefinedClasses {
     private static final String SPACE = " ";
     private PredefinedClasses() {
     }
-    public static boolean isPredefined(String _type, Analyzable _context) {
-        LgNames stds_ = _context.getStandards();
-        return stds_.getPredefinedClasses().containsStr(_type);
-    }
-
     public static String getBracedIterableType(ContextEl _context) {
         char endLine_ = _context.getOptions().getEndLine();
         KeyWords keyWords_ = _context.getKeyWords();

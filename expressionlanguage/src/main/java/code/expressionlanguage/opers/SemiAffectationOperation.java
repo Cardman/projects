@@ -312,11 +312,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
             IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument stored_ = _nodes.getVal((OperationNode) settable).getArgument();
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
-//        if (_conf.hasExceptionOrFailInit()) {
-//            return arg_;
-//        }
         setSimpleArgument(arg_, _conf, _nodes);
-//        _nodes.getVal(this).setArgument(arg_);
         return arg_;
     }
 

@@ -5,8 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
@@ -120,50 +118,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
-            int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: _children) {
-                if (o instanceof VarargOperation) {
-                    i_++;
-                    continue;
-                }
-                if (o instanceof FirstOptOperation) {
-                    break;
-                }
-                String param_ = constId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
-                i_++;
-            }
-        } else if (naturalVararg > -1) {
-            int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
-                if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
-                } else {
-                    String param_ = constId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
-                }
-            }
-        } else {
-            int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
-                String param_ = constId.getParametersTypes().get(i);
-                if (i + 1 == lenCh_ && constId.isVararg()) {
-                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
-            }
-        }
+        unwrapArgsFct(_children, constId, naturalVararg, lastType, _args, _conf);
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
     }
@@ -239,18 +194,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setIndexFile(0);
             call_.setLocalOffset(getFullIndexInEl());
             _conf.getClasses().addError(call_);
-        }
-    }
-    protected static void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: _args) {
-            if (i_ < _params.size()) {
-                String param_ = _params.get(i_);
-                if (!Templates.checkObject(param_, a, _ex)) {
-                    return;
-                }
-            }
-            i_++;
         }
     }
     abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);

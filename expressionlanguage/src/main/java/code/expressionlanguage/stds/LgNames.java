@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -46,7 +45,6 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -3856,34 +3854,6 @@ public abstract class LgNames {
     }
     public void setNullString(String _nullString) {
         nullString = _nullString;
-    }
-    public String getPrettyString() {
-        StringBuilder str_ = new StringBuilder();
-        for (StandardType s: standards.values()) {
-            str_.append(s.getPrettyString());
-            str_.append("\n");
-        }
-        return str_.toString();
-    }
-    public String getOvPrettyString() {
-        StringBuilder str_ = new StringBuilder();
-        for (StandardType s: standards.values()) {
-            str_.append(s.getFullName());
-            str_.append("\n");
-            for (EntryCust<MethodId, EqList<ClassMethodId>> e:s.getAllOverridingMethods().entryList()){
-                str_.append(e.getKey().getSignature());
-                str_.append(":");
-                for (ClassMethodId v: e.getValue()) {
-                    str_.append(v.getClassName());
-                    str_.append(".");
-                    str_.append(v.getConstraints().getSignature());
-                    str_.append(",");
-                }
-                str_.append("\n");
-            }
-            str_.append("\n");
-        }
-        return str_.toString();
     }
     public String getDefaultPkg() {
         return defaultPkg;

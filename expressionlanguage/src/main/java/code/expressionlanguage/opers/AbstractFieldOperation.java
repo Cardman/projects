@@ -108,17 +108,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         return arg_;
     }
     abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
 
     @Override
     public final ConstructorId getConstId() {

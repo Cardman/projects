@@ -14,6 +14,7 @@ public final class ExpressionLanguage {
     private final IdMap<OperationNode,ArgumentsPair> arguments;
     private OperationNode currentOper;
     private Argument argument;
+    private int index;
 
     public ExpressionLanguage(CustList<OperationNode> _operations) {
         operations = _operations;
@@ -48,10 +49,11 @@ public final class ExpressionLanguage {
     public void setArgument(Argument _arg, ContextEl _cont) {
         if (currentOper instanceof CallSimpleOperation) {
             ((CallSimpleOperation)currentOper).endCalculate(_cont, arguments, _arg);
+            index = ElUtil.getNextIndex(currentOper, _arg.getStruct());
             return;
         }
-//        arguments.getVal(currentOper).setArgument(_arg);
         currentOper.setSimpleArgument(_arg, _cont, arguments);
+        index = ElUtil.getNextIndex(currentOper, _arg.getStruct());
     }
 
     public boolean isFinished() {
@@ -82,5 +84,9 @@ public final class ExpressionLanguage {
 
     public void setCurrentOper(OperationNode _currentOper) {
         currentOper = _currentOper;
+        index = _currentOper.getOrder();
+    }
+    public int getIndex() {
+        return index;
     }
 }

@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -41,14 +40,6 @@ public final class FinallyEval extends BracedStack implements Eval {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
@@ -99,15 +90,6 @@ public final class FinallyEval extends BracedStack implements Eval {
         mutableVars_ = buildAssMutableLoopAfterFinally(prev_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
-    }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
     }
 
     @Override

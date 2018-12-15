@@ -16,15 +16,6 @@ public abstract class Leaf extends Block implements WithEl {
     }
 
     @Override
-    final boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    final boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-    @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         BracedBlock br_ = getParent();

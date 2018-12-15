@@ -10,16 +10,6 @@ public final class InstanceBlock extends InitBlock {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return false;
     }

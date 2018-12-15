@@ -1290,18 +1290,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return null;
     }
 
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
     public final void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;
     }

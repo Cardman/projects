@@ -13,7 +13,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -184,6 +183,22 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     public ExpressionLanguage getStepEl() {
         return new ExpressionLanguage(opStep);
+    }
+
+    @Override
+    public void reduce(ContextEl _context) {
+        if (!opInit.isEmpty()) {
+            OperationNode i_ = opInit.last();
+            opInit = ElUtil.getReducedNodes(i_);
+        }
+        if (!opExp.isEmpty()) {
+            OperationNode e_ = opExp.last();
+            opExp = ElUtil.getReducedNodes(e_);
+        }
+        if (!opStep.isEmpty()) {
+            OperationNode s_ = opStep.last();
+            opStep = ElUtil.getReducedNodes(s_);
+        }
     }
     @Override
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
@@ -472,7 +487,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         _an.setMerged(false);
-        Block firstChild_ = getFirstChild();
         FunctionBlock f_ = getFunction();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
@@ -486,14 +500,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
-        }
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
         }
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
@@ -853,15 +859,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         processLastElementLoop(_context);
     }
 
-    public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-            StringMap<LoopVariable> _vars) {
-        _l.setIndex(_l.getIndex() + 1);
-        for (String v: variableNames) {
-            LoopVariable lv_ = _vars.getVal(v);
-            lv_.setIndex(lv_.getIndex() + 1);
-        }
-    }
-
     @Override
     public void processLastElementLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
@@ -899,16 +896,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             return getExpressionEl();
         }
         return getStepEl();
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
     }
 
     @Override

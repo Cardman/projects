@@ -121,17 +121,6 @@ public final class ValuesOperation extends LeafOperation {
     Argument getCommonArgument(ExecutableCode _conf) {
         return InvokingOperation.getEnumValues(className, _conf);
     }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
 
     @Override
     public ConstructorId getConstId() {

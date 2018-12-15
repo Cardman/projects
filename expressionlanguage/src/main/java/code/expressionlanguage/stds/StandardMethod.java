@@ -54,9 +54,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     public String getDeclaringType() {
         return getOwner().getFullName();
     }
-    public String getPrettyString() {
-        return StringList.concat(getDeclaringType(),".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
-    }
 
     @Override
     public String getSignature() {

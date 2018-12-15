@@ -47,9 +47,6 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opCondition.isEmpty()) {
-            return;
-        }
         OperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
@@ -61,6 +58,12 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         buildConditions(_cont);
+    }
+
+    @Override
+    public void reduce(ContextEl _context) {
+        OperationNode r_ = opCondition.last();
+        opCondition = ElUtil.getReducedNodes(r_);
     }
 
     public final ExpressionLanguage getElCondition() {

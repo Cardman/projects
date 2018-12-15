@@ -103,6 +103,22 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             annotationsOpsParams.add(annotation_);
         }
     }
+    @Override
+    public void reduce(ContextEl _context) {
+        super.reduce(_context);
+        CustList<CustList<CustList<OperationNode>>> annotationsOpsParams_;
+        annotationsOpsParams_ = new CustList<CustList<CustList<OperationNode>>>();
+        for (CustList<CustList<OperationNode>> l: annotationsOpsParams) {
+            CustList<CustList<OperationNode>> l_;
+            l_ = new CustList<CustList<OperationNode>>();
+            for (CustList<OperationNode> k: l) {
+                OperationNode o_ = k.last();
+                l_.add(ElUtil.getReducedNodes(o_));
+            }
+            annotationsOpsParams_.add(l_);
+        }
+        annotationsOpsParams = annotationsOpsParams_;
+    }
     public CustList<CustList<CustList<OperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }

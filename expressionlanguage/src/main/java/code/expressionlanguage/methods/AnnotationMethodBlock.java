@@ -174,16 +174,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
@@ -193,9 +183,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
-        if (opValue.isEmpty()) {
-            return;
-        }
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
@@ -215,6 +202,15 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
     }
 
+    @Override
+    public void reduce(ContextEl _context) {
+        super.reduce(_context);
+        if (opValue.isEmpty()) {
+            return;
+        }
+        OperationNode r_ = opValue.last();
+        opValue = ElUtil.getReducedNodes(r_);
+    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

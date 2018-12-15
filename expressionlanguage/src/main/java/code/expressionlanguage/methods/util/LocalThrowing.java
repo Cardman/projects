@@ -80,24 +80,20 @@ public final class LocalThrowing implements CallingFinally {
                     n_ = n_.getNextSibling();
                 }
                 if (catchElt_ != null) {
-                    Block catchElement_ = catchElt_;
+                    AbstractCatchEval catchElement_ = catchElt_;
                     try_.setCalling(null);
                     _conf.setException(null);
                     bkIp_.clearCurrentEls();
                     Block childCatch_ = catchElement_.getFirstChild();
-                    if (childCatch_ != null) {
-                        if (catchElement_ instanceof CatchEval) {
-                            CatchEval c_ = (CatchEval) catchElement_;
-                            String var_ = c_.getVariableName();
-                            LocalVariable lv_ = new LocalVariable();
-                            lv_.setStruct(custCause_);
-                            lv_.setClassName(c_.getImportedClassName());
-                            bkIp_.getCatchVars().put(var_, lv_);
-                        }
-                        bkIp_.getReadWrite().setBlock(childCatch_);
-                        return;
+                    if (catchElement_ instanceof CatchEval) {
+                        CatchEval c_ = (CatchEval) catchElement_;
+                        String var_ = c_.getVariableName();
+                        LocalVariable lv_ = new LocalVariable();
+                        lv_.setStruct(custCause_);
+                        lv_.setClassName(c_.getImportedClassName());
+                        bkIp_.getCatchVars().put(var_, lv_);
                     }
-                    bkIp_.getReadWrite().setBlock(catchElement_);
+                    bkIp_.getReadWrite().setBlock(childCatch_);
                     return;
                 }
                 if (addFinallyClause_) {

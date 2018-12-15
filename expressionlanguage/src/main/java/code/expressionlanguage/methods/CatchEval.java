@@ -56,9 +56,6 @@ public final class CatchEval extends AbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (getFirstChild() == null) {
-            buildEmptyEl(_cont);
-        }
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
@@ -73,9 +70,6 @@ public final class CatchEval extends AbstractCatchEval {
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
-        }
-        if (getFirstChild() == null) {
-            return;
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);

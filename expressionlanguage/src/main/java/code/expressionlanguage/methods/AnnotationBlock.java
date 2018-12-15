@@ -89,16 +89,6 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
     public StringList getImportedDirectSuperTypes() {
         return allSuperTypes;
     }
