@@ -7,7 +7,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.BreakableBlockStack;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -42,9 +41,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();
         while (b_ != null) {
-            if (b_ instanceof CaseCondition) {
-                ((CaseCondition)b_).setPossibleSkipNexts(true);
-            }
             if (b_ instanceof BreakableBlock) {
                 if (label.isEmpty()) {
                     if (b_ instanceof Loop || b_ instanceof SwitchBlock) {
@@ -110,10 +106,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         breakablesAncestors_.put(this, id_);
         breakables_.put(this, (BreakableBlock) a_);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -152,12 +144,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         Block forLoopLoc_ = stack_.getLastBlock();
         rw_.setBlock(forLoopLoc_);
         ((BreakableBlockStack)stack_).setFinished(true);
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
 }

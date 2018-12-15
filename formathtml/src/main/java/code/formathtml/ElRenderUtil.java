@@ -114,15 +114,24 @@ public final class ElRenderUtil {
         Argument arg_  = op_.getArgument();
         return arg_;
     }
-    static void calculate(CustList<OperationNode> _nodes, Configuration _context) {
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                e.calculate(_context);
-                if (_context.getException() != null) {
-                    return;
-                }
+    static void calculate(CustList<OperationNode> _nodes, Configuration _context) {     
+        int ind_ = 0;
+        int len_ = _nodes.size();
+        while (ind_ < len_) {
+            OperationNode curr_ = _nodes.get(ind_);
+            Argument a_ = curr_.getArgument();
+            if (a_ != null) {
+                ind_++;
+                continue;
             }
+            curr_.calculate(_context);
+            a_ = curr_.getArgument();
+            if (_context.getException() != null) {
+                return;
+            }
+            ind_ = ElUtil.getNextIndex(curr_, a_.getStruct());
         }
+        
     }
 
 }

@@ -118,11 +118,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return false;
     }

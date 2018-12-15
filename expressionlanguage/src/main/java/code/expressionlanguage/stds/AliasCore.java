@@ -14,11 +14,7 @@ public final class AliasCore {
 
     private String aliasVoid;
 
-    private String aliasEnumParam;
-    private String aliasEnum;
-
     private String aliasClone;
-    private String aliasValues;
 
     private String aliasEnums;
     private String aliasError;
@@ -52,7 +48,6 @@ public final class AliasCore {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        String aliasString = _lgNames.getAliasString();
         StandardType std_;
         StandardClass stdcl_;
         stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL);
@@ -68,10 +63,10 @@ public final class AliasCore {
         method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, aliasString, false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMessage, params_, aliasString, false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasError, std_);
@@ -146,7 +141,7 @@ public final class AliasCore {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(_lgNames.getAliasEnum());
-        method_ = new StandardMethod(aliasName, params_, aliasString, false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasName, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_lgNames.getAliasEnum());
         method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
@@ -333,36 +328,12 @@ public final class AliasCore {
         aliasVoid = _aliasVoid;
     }
 
-    public String getAliasEnumParam() {
-        return aliasEnumParam;
-    }
-
-    public void setAliasEnumParam(String _aliasEnumParam) {
-        aliasEnumParam = _aliasEnumParam;
-    }
-
-    public String getAliasEnum() {
-        return aliasEnum;
-    }
-
-    public void setAliasEnum(String _aliasEnum) {
-        aliasEnum = _aliasEnum;
-    }
-
     public String getAliasClone() {
         return aliasClone;
     }
 
     public void setAliasClone(String _aliasClone) {
         aliasClone = _aliasClone;
-    }
-
-    public String getAliasValues() {
-        return aliasValues;
-    }
-
-    public void setAliasValues(String _aliasValues) {
-        aliasValues = _aliasValues;
     }
 
 }

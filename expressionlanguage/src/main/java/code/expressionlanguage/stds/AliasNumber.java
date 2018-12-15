@@ -55,7 +55,6 @@ public final class AliasNumber {
     private String aliasGetType;
     public void build(LgNames _lgNames) {
         StringMap<StandardField> fields_;
-        StringList noTypes_ = new StringList();
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
@@ -196,14 +195,6 @@ public final class AliasNumber {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
-        params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(_lgNames.getAliasCharAt(), params_, aliasPrimChar_, false, MethodModifier.NORMAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(_lgNames.getAliasLength(), noTypes_, aliasPrimInteger_, false, MethodModifier.NORMAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(_lgNames.getAliasSubSequence(), params_, aliasCharacter, false, MethodModifier.NORMAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar_, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);

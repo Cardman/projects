@@ -2,39 +2,22 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.AbstractInstancingOperation;
-import code.expressionlanguage.opers.AbstractUnaryOperation;
-import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.ArrOperation;
-import code.expressionlanguage.opers.ArrayFieldOperation;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ChoiceFctOperation;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DeclaringOperation;
-import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.IdOperation;
 import code.expressionlanguage.opers.MethodOperation;
-import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.PrimitiveBoolOperation;
-import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.StaticAccessOperation;
-import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -43,6 +26,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
@@ -72,6 +56,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private int accessOffset;
 
     private CustList<OperationNode> opValue;
+    private StringList annotations = new StringList();
+    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public FieldBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetAccessInfo _access,
@@ -228,189 +215,81 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
+        if (_cont.isGearConst()) {
+            opValue = ElUtil.getReducedNodes(opValue.last());
+        }
     }
-
+    @Override
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<OperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
-    public boolean isSimpleStaticConstant(String _name) {
-        if (!isStaticField()) {
-            return false;
-        }
-        if (!isFinalField()) {
-            return false;
-        }
-        OperationNode last_ = opValue.last();
-        if (!(last_ instanceof DeclaringOperation)) {
-            if (last_ instanceof AffectationOperation) {
-                for (OperationNode o: opValue) {
-                    if (o == last_) {
-                        continue;
-                    }
-                    if (isCstOperation(o)) {
-                        continue;
-                    }
-                    return false;
-                }
-                return true;
-            }
-            for (OperationNode o: opValue) {
-                if (isCstOperation(o)) {
-                    continue;
-                }
-                return false;
-            }
-            return true;
-        }
-        MethodOperation m_ = (MethodOperation)last_;
-        int index_ = fieldName.indexOfObj(_name);
-        CustList<OperationNode> ch_ = m_.getChildrenNodes();
-        OperationNode lastOp_ = ch_.get(index_);
-        int from_;
-        int to_ = lastOp_.getOrder()-1;
-        if (index_ == 0) {
-            from_ = 0;
-        } else {
-            from_ = ch_.get(index_-1).getOrder() + 1;
-        }
-        for (OperationNode o: opValue.sub(from_, to_)) {
-            if (isCstOperation(o)) {
-                continue;
-            }
-            return false;
-        }
-        return true;
-    }
-    private static boolean isCstOperation(OperationNode _op) {
-        OperationsSequence op_ = _op.getOperations();
-        if (op_ == null) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.NUMBER) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.STRING) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.CHARACTER) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.TRUE_CST) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.FALSE_CST) {
-            return true;
-        }
-        if (op_.getConstType() == ConstType.NULL_CST) {
-            return true;
-        }
-        if (_op instanceof StaticAccessOperation) {
-            return true;
-        }
-        if (_op instanceof ConstantOperation) {
-            return true;
-        }
-        if (_op instanceof ArrayFieldOperation) {
-            return true;
-        }
-        if (_op instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) _op;
-            if (cst_.getFieldMetaInfo().isEnumField()) {
-                return false;
-            }
-            if (cst_.getFieldMetaInfo().isFinalField()) {
-                return true;
-            }
-        }
-        if (_op instanceof NumericOperation) {
-            return true;
-        }
-        if (_op instanceof DotOperation) {
-            return true;
-        }
-        if (_op instanceof IdOperation) {
-            return true;
-        }
-        if (_op instanceof PrimitiveBoolOperation) {
-            return true;
-        }
-        if (_op instanceof AbstractUnaryOperation) {
-            if (!(_op instanceof SemiAffectationOperation)) {
-                return true;
-            }
-            return false;
-        }
-        if (_op instanceof TernaryOperation) {
-            return true;
-        }
-        if (_op instanceof ChoiceFctOperation) {
-            return true;
-        }
-        if (_op instanceof FctOperation) {
-            return true;
-        }
-        if (_op instanceof ArrOperation) {
-            return true;
-        }
-        if (_op instanceof AbstractInstancingOperation) {
-            return true;
-        }
-        return false;
-    }
     public EqList<ClassField> getStaticConstantDependencies(Analyzable _an, String _name) {
         OperationNode last_ = opValue.last();
         if (!(last_ instanceof DeclaringOperation)) {
-            EqList<ClassField> eq_ = new EqList<ClassField>();
-            for (OperationNode o: opValue.mid(1)) {
-                if (!(o instanceof SettableAbstractFieldOperation)) {
-                    continue;
-                }
-                SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
-                ClassField key_ = cst_.getFieldId();
-                if (key_ == null) {
-                    continue;
-                }
-                if (!_an.getClasses().isCustomType(key_.getClassName())) {
-                    continue;
-                }
-                eq_.add(key_);
-            }
+            EqList<ClassField> eq_;
+            eq_ = getDeps(_an, opValue.mid(1));
             return eq_;
         }
-        EqList<ClassField> eq_ = new EqList<ClassField>();
+        EqList<ClassField> eq_;
         MethodOperation m_ = (MethodOperation)last_;
         int index_ = fieldName.indexOfObj(_name);
         CustList<OperationNode> ch_ = m_.getChildrenNodes();
         int from_;
         int to_ = ch_.get(index_).getOrder();
         if (index_ == 0) {
-            from_ = 1;
+            from_ = 0;
         } else {
-            from_ = ch_.get(index_-1).getOrder() + 2;
+            from_ = ch_.get(index_-1).getOrder() + 1;
         }
-        for (OperationNode o: opValue.sub(from_, to_)) {
-            if (!(o instanceof SettableAbstractFieldOperation)) {
-                continue;
-            }
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
-            ClassField key_ = cst_.getFieldId();
+        eq_ = getDeps(_an, opValue.sub(from_, to_));
+        return eq_;
+    }
+
+    private static EqList<ClassField> getDeps(Analyzable _an, CustList<OperationNode> _op) {
+        EqList<ClassField> eq_ = new EqList<ClassField>();
+        for (OperationNode o: _op) {
+            ClassField key_ = getDep(_an, o);
             if (key_ == null) {
-                continue;
-            }
-            if (!_an.getClasses().isCustomType(key_.getClassName())) {
                 continue;
             }
             eq_.add(key_);
         }
         return eq_;
     }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
+    private static ClassField getDep(Analyzable _an, OperationNode _op) {
+        if (!(_op instanceof SettableAbstractFieldOperation)) {
+            return null;
+        }
+        SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) _op;
+        ClassField key_ = cst_.getFieldId();
+        if (key_ == null) {
+            return null;
+        }
+        if (!_an.getClasses().isCustomType(key_.getClassName())) {
+            return null;
+        }
+        return key_;
     }
-
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

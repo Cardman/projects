@@ -7,7 +7,6 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.LocalThrowing;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -16,7 +15,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class FinallyEval extends BracedStack implements Eval, IncrNextGroup {
+public final class FinallyEval extends BracedStack implements Eval {
 
     public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
         super(_importingPage, _m, _offset);
@@ -112,11 +111,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
@@ -140,19 +134,11 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             ip_.removeLastBlock();
             if (call_ instanceof LocalThrowing) {
                 _context.setException(tryStack_.getException());
-            } else {
-                ip_.setCurrentBlock((Block) call_);
             }
             call_.removeBlockFinally(_context);
             return;
         }
         rw_.setBlock(this);
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
     @Override

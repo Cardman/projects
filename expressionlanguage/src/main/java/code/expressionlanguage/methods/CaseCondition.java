@@ -27,11 +27,10 @@ import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class CaseCondition extends SwitchPartBlock implements IncrCurrentGroup, IncrNextGroup {
+public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
     private CustList<OperationNode> opValue;
-    private boolean possibleSkipNexts;
 
     private int valueOffset;
 
@@ -52,19 +51,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
 
     public ExpressionLanguage getValueEl() {
         return new ExpressionLanguage(opValue);
-    }
-
-    @Override
-    boolean isAlwaysExitable() {
-        return getFirstChild() == null || !isPossibleSkipNexts();
-    }
-
-    boolean isPossibleSkipNexts() {
-        return possibleSkipNexts;
-    }
-
-    void setPossibleSkipNexts(boolean _possibleSkipNexts) {
-        possibleSkipNexts = _possibleSkipNexts;
     }
 
     @Override
@@ -182,11 +168,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
@@ -234,11 +215,5 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
         } else {
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getValueEl();
     }
 }

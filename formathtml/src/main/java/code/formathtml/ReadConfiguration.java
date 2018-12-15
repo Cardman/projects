@@ -96,7 +96,6 @@ public final class ReadConfiguration {
         if (!found_) {
             ContextEl context_ = new ContextEl();
             context_.getOptions().setEndLineSemiColumn(false);
-            context_.getOptions().setSpecialEnumsMethods(false);
             context_.getOptions().setUpperLong(true);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);

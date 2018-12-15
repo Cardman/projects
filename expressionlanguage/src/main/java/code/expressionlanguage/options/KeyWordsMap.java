@@ -292,7 +292,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasErrorInitClass("$core.DefErrorClass");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("values");
+        _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$core.InvokeTarget");
         _lgNames.setAliasClassNotFoundError("$core.ClassNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
@@ -345,6 +345,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("name");
+        _lgNames.setAliasEnumOrdinal("ordinal");
+        _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasSetOldString("setOldString");
@@ -540,7 +543,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasTrimToSize("trimmerTaille");
         _lgNames.setAliasErrorInitClass("$coeur.ErrorDefClasse");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("valeurs");
+        _lgNames.setAliasEnumValues("valeurs");
         _lgNames.setAliasInvokeTarget("$coeur.InvoqueCible");
         _lgNames.setAliasClassNotFoundError("$coeur.ClasseNonTrouve");
         _lgNames.setAliasGetVariableOwner("valVariablePoss");
@@ -593,6 +596,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetSecond("valDeuxieme");
         _lgNames.setAliasName("nom");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("nom");
+        _lgNames.setAliasEnumOrdinal("ordinal");
+        _lgNames.setAliasEnumPredValueOf("valeurDe");
         _lgNames.setAliasGetOldString("valChaineAvant");
         _lgNames.setAliasGetNewString("valChaineApres");
         _lgNames.setAliasSetOldString("majChaineAvant");

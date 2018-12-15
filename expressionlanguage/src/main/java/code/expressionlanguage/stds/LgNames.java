@@ -169,43 +169,43 @@ public abstract class LgNames {
     }
     public StringList allRefTypes() {
         StringList list_ = new StringList();
-        list_.add(reflect.getAliasAnnotated());
-        list_.add(reflect.getAliasAnnotation());
-        list_.add(reflect.getAliasClass());
-        list_.add(reflect.getAliasConstructor());
-        list_.add(reflect.getAliasFct());
-        list_.add(reflect.getAliasField());
-        list_.add(reflect.getAliasMethod());
-        list_.add(coreNames.getAliasObjectsUtil());
-        list_.add(reflect.getAliasClassNotFoundError());
-        list_.add(coreNames.getAliasCustomError());
-        list_.add(coreNames.getAliasErrorInitClass());
-        list_.add(reflect.getAliasInvokeTarget());
-        list_.add(mathRef.getAliasMath());
-        list_.add(stackElt.getAliasStackTraceElement());
-        list_.add(coreNames.getAliasBadEncode());
-        list_.add(coreNames.getAliasBadIndex());
-        list_.add(coreNames.getAliasDivisionZero());
-        list_.add(coreNames.getAliasStore());
-        list_.add(coreNames.getAliasCast());
-        list_.add(coreNames.getAliasBadSize());
-        list_.add(coreNames.getAliasSof());
-        list_.add(charSeq.getAliasReplacement());
-        list_.add(coreNames.getAliasNullPe());
-        list_.add(nbAlias.getAliasBoolean());
-        list_.add(nbAlias.getAliasByte());
-        list_.add(charSeq.getAliasCharSequence());
-        list_.add(nbAlias.getAliasCharacter());
-        list_.add(nbAlias.getAliasDouble());
-        list_.add(coreNames.getAliasError());
-        list_.add(nbAlias.getAliasFloat());
-        list_.add(nbAlias.getAliasInteger());
-        list_.add(nbAlias.getAliasLong());
-        list_.add(nbAlias.getAliasNumber());
-        list_.add(coreNames.getAliasObject());
-        list_.add(nbAlias.getAliasShort());
-        list_.add(charSeq.getAliasString());
-        list_.add(charSeq.getAliasStringBuilder());
+        list_.add(getAliasAnnotated());
+        list_.add(getAliasAnnotation());
+        list_.add(getAliasClass());
+        list_.add(getAliasConstructor());
+        list_.add(getAliasFct());
+        list_.add(getAliasField());
+        list_.add(getAliasMethod());
+        list_.add(getAliasObjectsUtil());
+        list_.add(getAliasClassNotFoundError());
+        list_.add(getAliasCustomError());
+        list_.add(getAliasErrorInitClass());
+        list_.add(getAliasInvokeTarget());
+        list_.add(getAliasMath());
+        list_.add(getAliasStackTraceElement());
+        list_.add(getAliasBadEncode());
+        list_.add(getAliasBadIndex());
+        list_.add(getAliasDivisionZero());
+        list_.add(getAliasStore());
+        list_.add(getAliasCast());
+        list_.add(getAliasBadSize());
+        list_.add(getAliasSof());
+        list_.add(getAliasReplacement());
+        list_.add(getAliasNullPe());
+        list_.add(getAliasBoolean());
+        list_.add(getAliasByte());
+        list_.add(getAliasCharSequence());
+        list_.add(getAliasCharacter());
+        list_.add(getAliasDouble());
+        list_.add(getAliasError());
+        list_.add(getAliasFloat());
+        list_.add(getAliasInteger());
+        list_.add(getAliasLong());
+        list_.add(getAliasNumber());
+        list_.add(getAliasObject());
+        list_.add(getAliasShort());
+        list_.add(getAliasString());
+        list_.add(getAliasStringBuilder());
         return list_;
     }
     public void validateRefTypeContents(ContextEl _cont, StringList _list, StringList _prims) {
@@ -298,359 +298,361 @@ public abstract class LgNames {
     }
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(coreNames.getAliasError(), new StringList(
-                stackElt.getAliasCurrentStack(),
-                nbAlias.getAliasToString(),
-                coreNames.getAliasGetMessage()));
-        map_.put(reflect.getAliasAnnotated(), new StringList(
-                reflect.getAliasGetAnnotations(),
-                reflect.getAliasGetAnnotationsParameters()));
-        map_.put(reflect.getAliasAnnotation(), new StringList(reflect.getAliasGetString()));
-        map_.put(reflect.getAliasClass(), new StringList(
-                reflect.getAliasDefaultInstance(),
-                reflect.getAliasEnumValueOf(),
-                reflect.getAliasForName(),
-                reflect.getAliasArrayGet(),
-                reflect.getAliasGetActualTypeArguments(),
-                reflect.getAliasGetAllClasses(),
-                reflect.getAliasGetBounds(),
-                reflect.getAliasGetClass(),
-                reflect.getAliasGetComponentType(),
-                reflect.getAliasGetDeclaredClasses(),
-                reflect.getAliasGetDeclaredConstructors(),
-                reflect.getAliasGetDeclaredFields(),
-                reflect.getAliasGetDeclaredMethods(),
-                reflect.getAliasGetEnclosingType(),
-                reflect.getAliasGetEnumConstants(),
-                reflect.getAliasGetGenericBounds(),
-                reflect.getAliasGetGenericInterfaces(),
-                reflect.getAliasGetGenericSuperClass(),
-                reflect.getAliasGetGenericTypeArguments(),
-                reflect.getAliasGetGenericVariableOwner(),
-                reflect.getAliasGetInterfaces(),
-                reflect.getAliasArrayGetLength(),
-                reflect.getAliasGetLowerBounds(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetOperators(),
-                reflect.getAliasGetPrettyName(),
-                reflect.getAliasGetSuperClass(),
-                reflect.getAliasGetTypeParameters(),
-                reflect.getAliasGetUpperBounds(),
-                reflect.getAliasGetVariableOwner(),
-                reflect.getAliasInit(),
-                reflect.getAliasIsAbstract(),
-                reflect.getAliasIsAnnotation(),
-                reflect.getAliasIsArray(),
-                reflect.getAliasIsAssignableFrom(),
-                reflect.getAliasIsClass(),
-                reflect.getAliasIsEnum(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsInstance(),
-                reflect.getAliasIsInterface(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrimitive(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasIsWildCard(),
-                reflect.getAliasMakeArray(),
-                reflect.getAliasMakeGeneric(),
-                reflect.getAliasMakeWildCard(),
-                reflect.getAliasArrayNewInstance(),
-                reflect.getAliasArraySet()));
-        map_.put(reflect.getAliasConstructor(), new StringList(
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetGenericReturnType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetParameterNames(),
-                reflect.getAliasGetParameterTypes(),
-                reflect.getAliasGetReturnType(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsVarargs(),
-                reflect.getAliasNewInstance()));
-        map_.put(reflect.getAliasFct(), new StringList(reflect.getAliasCall()));
-        map_.put(reflect.getAliasField(), new StringList(
-                reflect.getAliasArrayGet(),
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetGenericType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetType(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasSetField()));
-        map_.put(reflect.getAliasMethod(), new StringList(
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetDefaultValue(),
-                reflect.getAliasGetGenericReturnType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetParameterNames(),
-                reflect.getAliasGetParameterTypes(),
-                reflect.getAliasGetReturnType(),
-                reflect.getAliasInvoke(),
-                reflect.getAliasIsAbstract(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsNormal(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPolymorph(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasIsVarargs(),
-                reflect.getAliasSetPolymorph()));
-        map_.put(coreNames.getAliasObjectsUtil(), new StringList(
-                coreNames.getAliasSameRef(),
-                coreNames.getAliasGetParent()));
-        map_.put(coreNames.getAliasEnum(), new StringList(
-                coreNames.getAliasName(),
-                coreNames.getAliasOrdinal()));
-        map_.put(coreNames.getAliasEnums(), new StringList(
-                coreNames.getAliasName(),
-                coreNames.getAliasOrdinal()));
-        map_.put(predefTypes.getAliasIterable(), new StringList(
-                predefTypes.getAliasIterator()));
-        map_.put(predefTypes.getAliasIteratorType(), new StringList(
-                predefTypes.getAliasHasNext(),
-                predefTypes.getAliasNext()));
-        map_.put(stackElt.getAliasStackTraceElement(), new StringList(
-                stackElt.getAliasCurrentStack(),
-                nbAlias.getAliasToString()));
-        map_.put(mathRef.getAliasMath(), new StringList(
-                mathRef.getAliasAbs(),
-                mathRef.getAliasMod(),
-                mathRef.getAliasQuot(),
-                mathRef.getAliasBinMod(),
-                mathRef.getAliasBinQuot(),
-                mathRef.getAliasPlus(),
-                mathRef.getAliasMinus(),
-                mathRef.getAliasMult(),
-                mathRef.getAliasNegBin(),
-                mathRef.getAliasNeg(),
-                mathRef.getAliasAnd(),
-                mathRef.getAliasOr(),
-                mathRef.getAliasXor(),
-                mathRef.getAliasLe(),
-                mathRef.getAliasGe(),
-                mathRef.getAliasLt(),
-                mathRef.getAliasGt(),
-                mathRef.getAliasShiftLeft(),
-                mathRef.getAliasShiftRight(),
-                mathRef.getAliasBitShiftLeft(),
-                mathRef.getAliasBitShiftRight(),
-                mathRef.getAliasRotateLeft(),
-                mathRef.getAliasRotateRight()));
-        map_.put(charSeq.getAliasReplacement(), new StringList(
-                charSeq.getAliasGetNewString(),
-                charSeq.getAliasGetOldString(),
-                charSeq.getAliasSetNewString(),
-                charSeq.getAliasSetOldString()));
-        map_.put(nbAlias.getAliasBoolean(), new StringList(
-                nbAlias.getAliasBooleanValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasParseBoolean(),
-                nbAlias.getAliasToString(),
-                nbAlias.getAliasValueOf()));
-        map_.put(nbAlias.getAliasByte(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseByte(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(charSeq.getAliasCharSequence(), new StringList(
-                charSeq.getAliasCharAt(),
-                charSeq.getAliasContains(),
-                charSeq.getAliasEndsWith(),
-                charSeq.getAliasFormat(),
-                charSeq.getAliasGetBytes(),
-                charSeq.getAliasIndexOf(),
-                charSeq.getAliasIsEmpty(),
-                charSeq.getAliasLastIndexOf(),
-                charSeq.getAliasLength(),
-                charSeq.getAliasRegionMatches(),
-                charSeq.getAliasReplace(),
-                charSeq.getAliasSplit(),
-                charSeq.getAliasSplitChars(),
-                charSeq.getAliasSplitStrings(),
-                charSeq.getAliasStartsWith(),
-                charSeq.getAliasSubSequence(),
-                charSeq.getAliasSubstring(),
-                charSeq.getAliasToCharArray(),
-                nbAlias.getAliasToString(),
-                charSeq.getAliasTrim()));
-        map_.put(nbAlias.getAliasCharacter(), new StringList(
-                charSeq.getAliasCharAt(),
-                nbAlias.getAliasCharValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDigit(),
-                nbAlias.getAliasForDigit(),
-                nbAlias.getAliasGetType(),
-                nbAlias.getAliasIsDigit(),
-                nbAlias.getAliasGetDirectionality(),
-                nbAlias.getAliasIsLetter(),
-                nbAlias.getAliasIsLetterOrDigit(),
-                nbAlias.getAliasIsLowerCase(),
-                nbAlias.getAliasIsSpace(),
-                nbAlias.getAliasIsUpperCase(),
-                nbAlias.getAliasIsWhitespace(),
-                nbAlias.getAliasIsWordChar(),
-                charSeq.getAliasLength(),
-                charSeq.getAliasSubSequence(),
-                charSeq.getAliasToLowerCase(),
-                nbAlias.getAliasToString(),
-                charSeq.getAliasToUpperCase()));
-        map_.put(nbAlias.getAliasDouble(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasIsInfinite(),
-                nbAlias.getAliasIsNan(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseDouble(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(nbAlias.getAliasFloat(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasIsInfinite(),
-                nbAlias.getAliasIsNan(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseFloat(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(nbAlias.getAliasInteger(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseInt(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(nbAlias.getAliasLong(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseLong(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(nbAlias.getAliasNumber(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(nbAlias.getAliasShort(), new StringList(
-                nbAlias.getAliasByteValue(),
-                nbAlias.getAliasCompare(),
-                nbAlias.getAliasCompareTo(),
-                nbAlias.getAliasDoubleValue(),
-                nbAlias.getAliasEquals(),
-                nbAlias.getAliasFloatValue(),
-                nbAlias.getAliasIntValue(),
-                nbAlias.getAliasLongValue(),
-                nbAlias.getAliasParseShort(),
-                nbAlias.getAliasShortValue(),
-                nbAlias.getAliasToString()));
-        map_.put(charSeq.getAliasString(), new StringList(
-                charSeq.getAliasCharAt(),
-                nbAlias.getAliasCompareTo(),
-                charSeq.getAliasCompareToIgnoreCase(),
-                charSeq.getAliasContains(),
-                charSeq.getAliasEndsWith(),
-                charSeq.getAliasEqualsIgnoreCase(),
-                charSeq.getAliasFormat(),
-                charSeq.getAliasGetBytes(),
-                charSeq.getAliasIndexOf(),
-                charSeq.getAliasIsEmpty(),
-                charSeq.getAliasLastIndexOf(),
-                charSeq.getAliasLength(),
-                charSeq.getAliasRegionMatches(),
-                charSeq.getAliasReplace(),
-                charSeq.getAliasReplaceMultiple(),
-                charSeq.getAliasSplit(),
-                charSeq.getAliasSplitChars(),
-                charSeq.getAliasSplitStrings(),
-                charSeq.getAliasStartsWith(),
-                charSeq.getAliasSubSequence(),
-                charSeq.getAliasSubstring(),
-                charSeq.getAliasToCharArray(),
-                charSeq.getAliasToLowerCase(),
-                charSeq.getAliasToUpperCase(),
-                nbAlias.getAliasToString(),
-                charSeq.getAliasTrim(),
-                nbAlias.getAliasValueOf()));
-        map_.put(charSeq.getAliasStringBuilder(), new StringList(
+        map_.put(getAliasError(), new StringList(
+                getAliasCurrentStack(),
+                getAliasToString(),
+                getAliasGetMessage()));
+        map_.put(getAliasAnnotated(), new StringList(
+                getAliasGetAnnotations(),
+                getAliasGetAnnotationsParameters()));
+        map_.put(getAliasAnnotation(), new StringList(getAliasGetString()));
+        map_.put(getAliasClass(), new StringList(
+                getAliasDefaultInstance(),
+                getAliasEnumValueOf(),
+                getAliasForName(),
+                getAliasArrayGet(),
+                getAliasGetActualTypeArguments(),
+                getAliasGetAllClasses(),
+                getAliasGetBounds(),
+                getAliasGetClass(),
+                getAliasGetComponentType(),
+                getAliasGetDeclaredClasses(),
+                getAliasGetDeclaredConstructors(),
+                getAliasGetDeclaredFields(),
+                getAliasGetDeclaredMethods(),
+                getAliasGetEnclosingType(),
+                getAliasGetEnumConstants(),
+                getAliasGetGenericBounds(),
+                getAliasGetGenericInterfaces(),
+                getAliasGetGenericSuperClass(),
+                getAliasGetGenericTypeArguments(),
+                getAliasGetGenericVariableOwner(),
+                getAliasGetInterfaces(),
+                getAliasArrayGetLength(),
+                getAliasGetLowerBounds(),
+                getAliasGetName(),
+                getAliasGetOperators(),
+                getAliasGetPrettyName(),
+                getAliasGetSuperClass(),
+                getAliasGetTypeParameters(),
+                getAliasGetUpperBounds(),
+                getAliasGetVariableOwner(),
+                getAliasInit(),
+                getAliasIsAbstract(),
+                getAliasIsAnnotation(),
+                getAliasIsArray(),
+                getAliasIsAssignableFrom(),
+                getAliasIsClass(),
+                getAliasIsEnum(),
+                getAliasIsFinal(),
+                getAliasIsInstance(),
+                getAliasIsInterface(),
+                getAliasIsPackage(),
+                getAliasIsPrimitive(),
+                getAliasIsPrivate(),
+                getAliasIsProtected(),
+                getAliasIsPublic(),
+                getAliasIsStatic(),
+                getAliasIsWildCard(),
+                getAliasMakeArray(),
+                getAliasMakeGeneric(),
+                getAliasMakeWildCard(),
+                getAliasArrayNewInstance(),
+                getAliasArraySet()));
+        map_.put(getAliasConstructor(), new StringList(
+                getAliasGetDeclaringClass(),
+                getAliasGetGenericReturnType(),
+                getAliasGetName(),
+                getAliasGetParameterNames(),
+                getAliasGetParameterTypes(),
+                getAliasGetReturnType(),
+                getAliasIsPackage(),
+                getAliasIsPrivate(),
+                getAliasIsProtected(),
+                getAliasIsPublic(),
+                getAliasIsVarargs(),
+                getAliasNewInstance()));
+        map_.put(getAliasFct(), new StringList(getAliasCall()));
+        map_.put(getAliasField(), new StringList(
+                getAliasArrayGet(),
+                getAliasGetDeclaringClass(),
+                getAliasGetGenericType(),
+                getAliasGetName(),
+                getAliasGetType(),
+                getAliasIsFinal(),
+                getAliasIsPackage(),
+                getAliasIsPrivate(),
+                getAliasIsProtected(),
+                getAliasIsPublic(),
+                getAliasIsStatic(),
+                getAliasSetField()));
+        map_.put(getAliasMethod(), new StringList(
+                getAliasGetDeclaringClass(),
+                getAliasGetDefaultValue(),
+                getAliasGetGenericReturnType(),
+                getAliasGetName(),
+                getAliasGetParameterNames(),
+                getAliasGetParameterTypes(),
+                getAliasGetReturnType(),
+                getAliasInvoke(),
+                getAliasIsAbstract(),
+                getAliasIsFinal(),
+                getAliasIsNormal(),
+                getAliasIsPackage(),
+                getAliasIsPolymorph(),
+                getAliasIsPrivate(),
+                getAliasIsProtected(),
+                getAliasIsPublic(),
+                getAliasIsStatic(),
+                getAliasIsVarargs(),
+                getAliasSetPolymorph()));
+        map_.put(getAliasObjectsUtil(), new StringList(
+                getAliasSameRef(),
+                getAliasGetParent()));
+        map_.put(getAliasEnum(), new StringList(
+                getAliasEnumName(),
+                getAliasEnumOrdinal(),
+                getAliasEnumPredValueOf(),
+                getAliasEnumValues()));
+        map_.put(getAliasEnums(), new StringList(
+                getAliasName(),
+                getAliasOrdinal()));
+        map_.put(getAliasIterable(), new StringList(
+                getAliasIterator()));
+        map_.put(getAliasIteratorType(), new StringList(
+                getAliasHasNext(),
+                getAliasNext()));
+        map_.put(getAliasStackTraceElement(), new StringList(
+                getAliasCurrentStack(),
+                getAliasToString()));
+        map_.put(getAliasMath(), new StringList(
+                getAliasAbs(),
+                getAliasMod(),
+                getAliasQuot(),
+                getAliasBinMod(),
+                getAliasBinQuot(),
+                getAliasPlus(),
+                getAliasMinus(),
+                getAliasMult(),
+                getAliasNegBin(),
+                getAliasNeg(),
+                getAliasAnd(),
+                getAliasOr(),
+                getAliasXor(),
+                getAliasLe(),
+                getAliasGe(),
+                getAliasLt(),
+                getAliasGt(),
+                getAliasShiftLeft(),
+                getAliasShiftRight(),
+                getAliasBitShiftLeft(),
+                getAliasBitShiftRight(),
+                getAliasRotateLeft(),
+                getAliasRotateRight()));
+        map_.put(getAliasReplacement(), new StringList(
+                getAliasGetNewString(),
+                getAliasGetOldString(),
+                getAliasSetNewString(),
+                getAliasSetOldString()));
+        map_.put(getAliasBoolean(), new StringList(
+                getAliasBooleanValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasEquals(),
+                getAliasParseBoolean(),
+                getAliasToString(),
+                getAliasValueOf()));
+        map_.put(getAliasByte(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasParseByte(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasCharSequence(), new StringList(
+                getAliasCharAt(),
+                getAliasContains(),
+                getAliasEndsWith(),
+                getAliasFormat(),
+                getAliasGetBytes(),
+                getAliasIndexOf(),
+                getAliasIsEmpty(),
+                getAliasLastIndexOf(),
+                getAliasLength(),
+                getAliasRegionMatches(),
+                getAliasReplace(),
+                getAliasSplit(),
+                getAliasSplitChars(),
+                getAliasSplitStrings(),
+                getAliasStartsWith(),
+                getAliasSubSequence(),
+                getAliasSubstring(),
+                getAliasToCharArray(),
+                getAliasToString(),
+                getAliasTrim()));
+        map_.put(getAliasCharacter(), new StringList(
+                getAliasCharAt(),
+                getAliasCharValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDigit(),
+                getAliasForDigit(),
+                getAliasGetType(),
+                getAliasIsDigit(),
+                getAliasGetDirectionality(),
+                getAliasIsLetter(),
+                getAliasIsLetterOrDigit(),
+                getAliasIsLowerCase(),
+                getAliasIsSpace(),
+                getAliasIsUpperCase(),
+                getAliasIsWhitespace(),
+                getAliasIsWordChar(),
+                getAliasLength(),
+                getAliasSubSequence(),
+                getAliasToLowerCase(),
+                getAliasToString(),
+                getAliasToUpperCase()));
+        map_.put(getAliasDouble(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasIsInfinite(),
+                getAliasIsNan(),
+                getAliasLongValue(),
+                getAliasParseDouble(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasFloat(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasIsInfinite(),
+                getAliasIsNan(),
+                getAliasLongValue(),
+                getAliasParseFloat(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasInteger(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasParseInt(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasLong(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasParseLong(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasNumber(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasShort(), new StringList(
+                getAliasByteValue(),
+                getAliasCompare(),
+                getAliasCompareTo(),
+                getAliasDoubleValue(),
+                getAliasEquals(),
+                getAliasFloatValue(),
+                getAliasIntValue(),
+                getAliasLongValue(),
+                getAliasParseShort(),
+                getAliasShortValue(),
+                getAliasToString()));
+        map_.put(getAliasString(), new StringList(
+                getAliasCharAt(),
+                getAliasCompareTo(),
+                getAliasCompareToIgnoreCase(),
+                getAliasContains(),
+                getAliasEndsWith(),
+                getAliasEqualsIgnoreCase(),
+                getAliasFormat(),
+                getAliasGetBytes(),
+                getAliasIndexOf(),
+                getAliasIsEmpty(),
+                getAliasLastIndexOf(),
+                getAliasLength(),
+                getAliasRegionMatches(),
+                getAliasReplace(),
+                getAliasReplaceMultiple(),
+                getAliasSplit(),
+                getAliasSplitChars(),
+                getAliasSplitStrings(),
+                getAliasStartsWith(),
+                getAliasSubSequence(),
+                getAliasSubstring(),
+                getAliasToCharArray(),
+                getAliasToLowerCase(),
+                getAliasToUpperCase(),
+                getAliasToString(),
+                getAliasTrim(),
+                getAliasValueOf()));
+        map_.put(getAliasStringBuilder(), new StringList(
 
-                charSeq.getAliasCharAt(),
-                charSeq.getAliasContains(),
-                charSeq.getAliasEndsWith(),
-                charSeq.getAliasFormat(),
-                charSeq.getAliasGetBytes(),
-                charSeq.getAliasIndexOf(),
-                charSeq.getAliasIsEmpty(),
-                charSeq.getAliasLastIndexOf(),
-                charSeq.getAliasLength(),
-                charSeq.getAliasRegionMatches(),
-                charSeq.getAliasReplace(),
-                charSeq.getAliasSplit(),
-                charSeq.getAliasSplitChars(),
-                charSeq.getAliasSplitStrings(),
-                charSeq.getAliasStartsWith(),
-                charSeq.getAliasSubSequence(),
-                charSeq.getAliasSubstring(),
-                charSeq.getAliasToCharArray(),
-                nbAlias.getAliasToString(),
-                charSeq.getAliasTrim(),
-                charSeq.getAliasAppend(),
-                charSeq.getAliasCapacity(),
-                charSeq.getAliasClear(),
-                charSeq.getAliasDelete(),
-                charSeq.getAliasDeleteCharAt(),
-                charSeq.getAliasEnsureCapacity(),
-                charSeq.getAliasInsert(),
-                charSeq.getAliasReverse(),
-                charSeq.getAliasSetCharAt(),
-                charSeq.getAliasSetLength(),
-                charSeq.getAliasTrimToSize()));
+                getAliasCharAt(),
+                getAliasContains(),
+                getAliasEndsWith(),
+                getAliasFormat(),
+                getAliasGetBytes(),
+                getAliasIndexOf(),
+                getAliasIsEmpty(),
+                getAliasLastIndexOf(),
+                getAliasLength(),
+                getAliasRegionMatches(),
+                getAliasReplace(),
+                getAliasSplit(),
+                getAliasSplitChars(),
+                getAliasSplitStrings(),
+                getAliasStartsWith(),
+                getAliasSubSequence(),
+                getAliasSubstring(),
+                getAliasToCharArray(),
+                getAliasToString(),
+                getAliasTrim(),
+                getAliasAppend(),
+                getAliasCapacity(),
+                getAliasClear(),
+                getAliasDelete(),
+                getAliasDeleteCharAt(),
+                getAliasEnsureCapacity(),
+                getAliasInsert(),
+                getAliasReverse(),
+                getAliasSetCharAt(),
+                getAliasSetLength(),
+                getAliasTrimToSize()));
         return map_;
     }
     public void validateMethodsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
@@ -2364,16 +2366,16 @@ public abstract class LgNames {
         predefTypes.setAliasIterable(_aliasIterable);
     }
     public String getAliasEnumParam() {
-        return coreNames.getAliasEnumParam();
+        return predefTypes.getAliasEnumParam();
     }
     public void setAliasEnumParam(String _aliasEnumParam) {
-        coreNames.setAliasEnumParam(_aliasEnumParam);
+        predefTypes.setAliasEnumParam(_aliasEnumParam);
     }
     public String getAliasEnum() {
-        return coreNames.getAliasEnum();
+        return predefTypes.getAliasEnum();
     }
     public void setAliasEnum(String _aliasEnum) {
-        coreNames.setAliasEnum(_aliasEnum);
+        predefTypes.setAliasEnum(_aliasEnum);
     }
     public String getAliasEnums() {
         return coreNames.getAliasEnums();
@@ -3134,11 +3136,17 @@ public abstract class LgNames {
     public void setAliasClone(String _aliasClone) {
         coreNames.setAliasClone(_aliasClone);
     }
-    public String getAliasValues() {
-        return coreNames.getAliasValues();
+    public String getAliasEnumValues() {
+        return predefTypes.getAliasEnumValues();
     }
-    public void setAliasValues(String _aliasValues) {
-        coreNames.setAliasValues(_aliasValues);
+    public void setAliasEnumValues(String _aliasValues) {
+        predefTypes.setAliasEnumValues(_aliasValues);
+    }
+    public String getAliasEnumPredValueOf() {
+        return predefTypes.getAliasEnumPredValueOf();
+    }
+    public void setAliasEnumPredValueOf(String _aliasValues) {
+        predefTypes.setAliasEnumPredValueOf(_aliasValues);
     }
     public String getAliasInvokeTarget() {
         return reflect.getAliasInvokeTarget();
@@ -3374,9 +3382,6 @@ public abstract class LgNames {
     }
     public void setAliasGetParent(String _aliasGetParent) {
         coreNames.setAliasGetParent(_aliasGetParent);
-    }
-    public void setStandards(StringMap<StandardType> _standards) {
-        standards = _standards;
     }
 
     public String getAliasGetSuperClass() {
@@ -3800,6 +3805,23 @@ public abstract class LgNames {
     public void setAliasCurrentStack(String _aliasCurrentStack) {
         stackElt.setAliasCurrentStack(_aliasCurrentStack);
     }
+
+    public String getAliasEnumName() {
+        return predefTypes.getAliasEnumName();
+    }
+
+    public void setAliasEnumName(String _aliasEnumName) {
+        predefTypes.setAliasEnumName(_aliasEnumName);
+    }
+
+    public String getAliasEnumOrdinal() {
+        return predefTypes.getAliasEnumOrdinal();
+    }
+
+    public void setAliasEnumOrdinal(String _aliasEnumOrdinal) {
+        predefTypes.setAliasEnumOrdinal(_aliasEnumOrdinal);
+    }
+
     public AliasStackTraceElement getStackElt() {
         return stackElt;
     }

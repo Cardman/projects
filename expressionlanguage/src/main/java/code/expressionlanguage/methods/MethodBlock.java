@@ -136,21 +136,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-
-    @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        if (staticMethod) {
-            return false;
-        }
-        if (finalMethod) {
-            return false;
-        }
-        if (abstractMethod) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
@@ -183,11 +168,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return false;
     }
 

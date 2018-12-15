@@ -11,7 +11,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
@@ -27,7 +26,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -41,7 +39,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class ForEachTable extends BracedStack implements Loop {
+public final class ForEachTable extends BracedStack implements Loop, WithNotEmptyEl {
 
     private String label;
     private int labelOffset;
@@ -242,66 +240,12 @@ public class ForEachTable extends BracedStack implements Loop {
             d_.setIndexFile(variableNameOffsetFirst);
             _cont.getClasses().addError(d_);
         }
-        if (!StringList.isWord(variableNameFirst)) {
+        if (!_cont.isValidSingleToken(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
-        }
-        if (_cont.getKeyWords().isKeyWordNotVar(variableNameFirst)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetFirst);
-            b_.setVarName(variableNameFirst);
-            _cont.getClasses().addError(b_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(variableNameFirst, _cont)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetFirst);
-            b_.setVarName(variableNameFirst);
-            _cont.getClasses().addError(b_);
-        }
-        if (StringList.quickEq(variableNameFirst, _cont.getStandards().getAliasVoid())) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetFirst);
-            b_.setVarName(variableNameFirst);
-            _cont.getClasses().addError(b_);
-        }
-        Options opt_ = _cont.getOptions();
-        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableNameFirst.isEmpty() && ContextEl.isDigit(variableNameFirst.charAt(0))) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(getFile().getFileName());
-                b_.setIndexFile(variableNameOffsetFirst);
-                b_.setVarName(variableNameFirst);
-                _cont.getClasses().addError(b_);
-            }
-        }
-        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (_cont.getAnalyzing().containsCatchVar(variableNameFirst)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameFirst);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetFirst);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getAnalyzing().containsLocalVar(variableNameFirst)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameFirst);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetFirst);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getParameters().contains(variableNameFirst)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameFirst);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetFirst);
-                _cont.getClasses().addError(d_);
-            }
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
@@ -317,65 +261,12 @@ public class ForEachTable extends BracedStack implements Loop {
             d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
-        if (!StringList.isWord(variableNameSecond)) {
+        if (!_cont.isValidSingleToken(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
-        }
-        if (_cont.getKeyWords().isKeyWordNotVar(variableNameSecond)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetSecond);
-            b_.setVarName(variableNameSecond);
-            _cont.getClasses().addError(b_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(variableNameSecond, _cont)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetSecond);
-            b_.setVarName(variableNameSecond);
-            _cont.getClasses().addError(b_);
-        }
-        if (StringList.quickEq(variableNameSecond, _cont.getStandards().getAliasVoid())) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffsetSecond);
-            b_.setVarName(variableNameSecond);
-            _cont.getClasses().addError(b_);
-        }
-        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableNameSecond.isEmpty() && ContextEl.isDigit(variableNameSecond.charAt(0))) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(getFile().getFileName());
-                b_.setIndexFile(variableNameOffsetSecond);
-                b_.setVarName(variableNameSecond);
-                _cont.getClasses().addError(b_);
-            }
-        }
-        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (_cont.getAnalyzing().containsCatchVar(variableNameSecond)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameSecond);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetSecond);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getAnalyzing().containsLocalVar(variableNameSecond)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameSecond);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetSecond);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getParameters().contains(variableNameSecond)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableNameSecond);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffsetSecond);
-                _cont.getClasses().addError(d_);
-            }
         }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -989,11 +880,6 @@ public class ForEachTable extends BracedStack implements Loop {
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return false;
     }
 

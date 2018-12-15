@@ -184,9 +184,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         Argument r_;
         r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
-        if (_conf.hasExceptionOrFailInit()) {
-            return r_;
-        }
         a_ = r_;
         setSimpleArgument(a_, _conf, _nodes);
         return a_;

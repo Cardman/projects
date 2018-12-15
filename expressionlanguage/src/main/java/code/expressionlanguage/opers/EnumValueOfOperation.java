@@ -135,13 +135,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         OperationNode first_ = getFirstChild();
         Argument a_ = _nodes.getVal(first_).getArgument();
         Argument arg_ = getCommonArgument(a_, _conf);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {

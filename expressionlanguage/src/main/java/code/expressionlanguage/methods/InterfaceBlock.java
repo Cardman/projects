@@ -66,11 +66,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public RootBlock belong() {
         return this;
     }

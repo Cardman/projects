@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -15,8 +14,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public abstract class AbstractCatchEval extends BracedStack implements Eval,
-        IncrCurrentGroup, IncrNextGroup {
+public abstract class AbstractCatchEval extends BracedStack implements Eval {
 
     public AbstractCatchEval(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -151,11 +149,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
     }
 
     @Override
-    final boolean canBeLastOfBlockGroup() {
-        return true;
-    }
-
-    @Override
     public final void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
@@ -168,12 +161,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
             ts_.setCurrentBlock(this);
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public final ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
     @Override

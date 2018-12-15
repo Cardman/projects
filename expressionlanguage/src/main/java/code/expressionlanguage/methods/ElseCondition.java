@@ -7,7 +7,6 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -17,7 +16,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class ElseCondition extends BracedStack implements BlockCondition, IncrNextGroup {
+public final class ElseCondition extends BracedStack implements BlockCondition {
 
     public ElseCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -55,10 +54,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         return false;
     }
 
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
-    }
     @Override
     public boolean accessibleCondition() {
         Block prev_ = getPreviousSibling();
@@ -148,11 +143,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         rw_.setBlock(this);
     }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
-    }
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();

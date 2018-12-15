@@ -13,7 +13,6 @@ import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
-import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -23,7 +22,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
@@ -387,44 +385,26 @@ public final class AffectationOperation extends MethodOperation {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        Block block_ = _conf.getCurrentBlock();
-        if (!(block_ instanceof FieldBlock)) {
-            return;
-        }
-        FieldBlock fieldBlock_ = (FieldBlock) block_;
-        if (!fieldBlock_.isStaticField()) {
-            return;
-        }
-        if (!fieldBlock_.isFinalField()) {
-            return;
-        }
-        if (!(settable instanceof StandardFieldOperation)) {
+        if (!ElUtil.isDeclaringField(settable, _conf)) {
             return;
         }
         StandardFieldOperation fieldRef_ = (StandardFieldOperation) settable;
-        if (!ElUtil.isDeclaringField(fieldRef_, _conf)) {
-            return;
-        }
         OperationNode lastChild_ = getFirstChild().getNextSibling();
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
         if (id_ == null) {
             return;
         }
-        SortedClassField sort_ = _conf.getCurrentInitizedField();
+        if (!_conf.isGearConst()) {
+            return;
+        }
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
-        if (sort_ != null) {
-            sort_.setStruct(str_);
-        }
         _conf.getClasses().initializeStaticField(id_, str_);
-        setArguments(value_);
+        setSimpleArgument(value_);
     }
     @Override
     public void calculate(ExecutableCode _conf) {
@@ -441,9 +421,6 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = _nodes.getVal(right_).getArgument();
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_, convertNumber);
-        if (_conf.calls()) {
-            return arg_;
-        }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }

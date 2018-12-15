@@ -126,22 +126,20 @@ public final class PredefinedClasses {
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(stds_.getAliasEnum()).append("{\n");
-        if (_context.getOptions().isSpecialEnumsMethods()) {
-            char endLine_ = _context.getOptions().getEndLine();
-            String abstract_ = keyWords_.getKeyWordAbstract();
-            String string_ = stds_.getAliasString();
-            String name_ = stds_.getAliasName();
-            iterable_.append(public_).append(SPACE);
-            iterable_.append(abstract_).append(SPACE);
-            iterable_.append(string_).append(SPACE);
-            iterable_.append(name_).append("()").append(endLine_).append("\n");
-            String int_ = stds_.getAliasPrimInteger();
-            String ordinal_ = stds_.getAliasOrdinal();
-            iterable_.append(public_).append(SPACE);
-            iterable_.append(abstract_).append(SPACE);
-            iterable_.append(int_).append(SPACE);
-            iterable_.append(ordinal_).append("()").append(endLine_).append("\n");
-        }
+        char endLine_ = _context.getOptions().getEndLine();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String string_ = stds_.getAliasString();
+        String name_ = stds_.getAliasEnumName();
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(string_).append(SPACE);
+        iterable_.append(name_).append("()").append(endLine_).append("\n");
+        String int_ = stds_.getAliasPrimInteger();
+        String ordinal_ = stds_.getAliasEnumOrdinal();
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(int_).append(SPACE);
+        iterable_.append(ordinal_).append("()").append(endLine_).append("\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }

@@ -3799,7 +3799,7 @@ public class TemplatesTest {
         ContextEl cont_ = contextEnElDefault();
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
@@ -3814,12 +3814,11 @@ public class TemplatesTest {
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
@@ -3830,7 +3829,6 @@ public class TemplatesTest {
     private static ContextEl simpleContextEl() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         return cont_;

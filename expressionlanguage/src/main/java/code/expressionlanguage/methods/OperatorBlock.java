@@ -87,12 +87,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-
-    @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        return true;
-    }
-
     @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
@@ -125,11 +119,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return false;
     }
 
@@ -170,10 +159,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public boolean canAccessClass(String _type, Analyzable _analyzable) {
         return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
     }
-    @Override
-    public boolean isAccessibleType(String _type, Analyzable _analyzable, boolean _excludeProtected) {
-        return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
-    }
+
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();

@@ -21,7 +21,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class DoWhileCondition extends Condition implements IncrNextGroup {
+public final class DoWhileCondition extends Condition {
 
     public DoWhileCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -36,11 +36,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     @Override
     boolean canBeIncrementedCurGroup() {
         return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
     }
 
     @Override

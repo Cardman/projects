@@ -357,11 +357,11 @@ public final class CompoundAffectationOperation extends MethodOperation implemen
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
-        if (_conf.hasExceptionOrFailInit()) {
-            return arg_;
-        }
+//        if (_conf.hasExceptionOrFailInit()) {
+//            return arg_;
+//        }
         setSimpleArgument(arg_, _conf, _nodes);
-        _nodes.getVal(this).setArgument(arg_);
+//        _nodes.getVal(this).setArgument(arg_);
         return arg_;
     }
     @Override

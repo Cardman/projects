@@ -54,6 +54,7 @@ import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
@@ -461,7 +462,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         pageLoc_.setGlobalClass(_class);
         MethodId id_ = _method;
         NamedFunctionBlock methodLoc_;
-        if (!StringList.isWord(id_.getName())) {
+        if (!StringList.isDollarWord(id_.getName())) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, id_).first();
         } else {
             methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
@@ -721,6 +722,41 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public boolean sameReference(Struct _other) {
         return this == _other;
+    }
+    public CustList<OperatorBlock> getAllOperators(boolean _pred) {
+        CustList<AccessingImportingBlock> b_ = getAllBlocks();
+        b_ = filter(b_, _pred);
+        return getOperators(b_);
+    }
+    private CustList<AccessingImportingBlock> getAllBlocks() {
+        CustList<AccessingImportingBlock> list_;
+        list_ = new CustList<AccessingImportingBlock>();
+        for (RootBlock r: classes.getClassBodies()) {
+            list_.add(r);
+        }
+        for (OperatorBlock r: classes.getOperators()) {
+            list_.add(r);
+        }
+        return list_;
+    }
+    private static CustList<AccessingImportingBlock> filter(CustList<AccessingImportingBlock> _list, boolean _predefined) {
+        CustList<AccessingImportingBlock> f_ = new CustList<AccessingImportingBlock>();
+        for (AccessingImportingBlock a: _list) {
+            if (a.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            f_.add(a);
+        }
+        return f_;
+    }
+    public static CustList<OperatorBlock> getOperators(CustList<AccessingImportingBlock> _list) {
+        CustList<OperatorBlock> f_ = new CustList<OperatorBlock>();
+        for (AccessingImportingBlock a: _list) {
+            if (a instanceof OperatorBlock) {
+                f_.add((OperatorBlock) a);
+            }
+        }
+        return f_;
     }
     public void initError() {
         memoryError = new ErrorStruct(this, standards.getAliasError());
@@ -1588,10 +1624,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         SortedGraph<ClassInheritsDeps> gr_;
         gr_ = new SortedGraph<ClassInheritsDeps>();
         EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
-        for (RootBlock b: classes.getClassBodies()) {
-            if (b.getFile().isPredefined() != _predefined) {
-                continue;
-            }
+        for (RootBlock b: classes.getClassBodies(_predefined)) {
             StringList deps_ = b.getDepends(this);
             if (deps_ == null) {
                 return null;
@@ -2443,7 +2476,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
         ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
-        if (!StringList.isWord(_method.trim())) {
+        if (!StringList.isDollarWord(_method.trim())) {
             return methods_;
         }
         AccessingImportingBlock type_ = _rooted.getImporting();
@@ -2635,7 +2668,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _method, Block _rooted) {
         ObjectMap<ClassField,Integer> methods_ = new ObjectMap<ClassField,Integer>();
-        if (!StringList.isWord(_method.trim())) {
+        if (!StringList.isDollarWord(_method.trim())) {
             return methods_;
         }
         int import_ = 1;
@@ -3080,5 +3113,63 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setKeyWords(KeyWords _keyWords) {
         keyWords = _keyWords;
+    }
+
+    @Override
+    public boolean isValidSingleToken(String _id) {
+        if (!isValidToken(_id)) {
+            return false;
+        }
+        if (options.getSuffixVar() != VariableSuffix.DISTINCT) {
+            if (containsLocalVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsCatchVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsMutableLoopVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsVar(_id)) {
+                return false;
+            }
+            if (getParameters().contains(_id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public boolean isValidToken(String _id) {
+        Block b_ = getCurrentBlock();
+        if (b_ != null) {
+            boolean pred_ = b_.getFile().isPredefined();
+            if (pred_) {
+                if (!StringList.isDollarWord(_id)) {
+                    return false;
+                }
+            } else {
+                if (!StringList.isWord(_id)) {
+                    return false;
+                }
+            }
+        } else if (!StringList.isWord(_id)) {
+            return false;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(_id, this)) {
+            return false;
+        }
+        if (keyWords.isKeyWordNotVar(_id)) {
+            return false;
+        }
+        if (StringList.quickEq(_id, standards.getAliasVoid())) {
+            return false;
+        }
+        if (options.getSuffixVar() == VariableSuffix.NONE) {
+            if (isDigit(_id.charAt(0))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

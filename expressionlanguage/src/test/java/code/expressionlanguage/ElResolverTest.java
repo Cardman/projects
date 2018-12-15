@@ -3365,10 +3365,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -3411,10 +3411,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -3457,10 +3457,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -3505,10 +3505,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -3561,10 +3561,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -3609,10 +3609,10 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
-        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateIds(conf_);
-        classes_.validateOverridingInherit(conf_);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_, false);
         conf_.setGlobalClass("pkg.ExTwo");
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
@@ -4983,7 +4983,6 @@ public class ElResolverTest extends ProcessMethodCommon{
     private ContextEl contextEl() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         return InitializationLgNames.buildStdOne(opt_);
     }

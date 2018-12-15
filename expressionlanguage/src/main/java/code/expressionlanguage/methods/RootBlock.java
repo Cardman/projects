@@ -2,17 +2,16 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.custom.AbstractMethod;
-import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.BadIndexInParser;
 import code.expressionlanguage.errors.custom.BadMethodName;
 import code.expressionlanguage.errors.custom.BadParamName;
@@ -26,12 +25,12 @@ import code.expressionlanguage.errors.custom.UndefinedSuperConstructor;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -47,7 +46,7 @@ import code.util.StringMap;
 import code.util.comparators.ComparatorIndexes;
 import code.util.graphs.Graph;
 
-public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock {
+public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock, AnnotableBlock {
 
     private final String name;
 
@@ -87,6 +86,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringList staticInitImportedInterfaces = new StringList();
     private Numbers<Integer> staticInitInterfacesOffset = new Numbers<Integer>();
     private Numbers<Integer> ancestorsIndexes = new Numbers<Integer>();
+
+    private StringList annotations = new StringList();
+    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     RootBlock(ContextEl _importingPage,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
@@ -182,7 +185,26 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public Numbers<Integer> getStaticInitInterfacesOffset() {
         return staticInitInterfacesOffset;
     }
-
+    @Override
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<OperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
     @Override
     public StringList getImports() {
         return imports;
@@ -492,31 +514,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (method_ instanceof MethodBlock) {
                     MethodBlock m_ = (MethodBlock) method_;
                     m_.buildImportedTypes(_context);
-                    if (!StringList.isWord(name_) || m_.isConcreteInstanceDerivableMethod() != m_.isNormalMethod()) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (_context.getKeyWords().isKeyWordNotVar(name_)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (PrimitiveTypeUtil.isPrimitive(name_, _context)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (StringList.quickEq(name_, _context.getStandards().getAliasVoid())) {
+                    if (!_context.isValidToken(name_)) {
                         int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(getFile().getFileName());
@@ -528,31 +526,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (method_ instanceof AnnotationMethodBlock) {
                     AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
                     m_.buildImportedTypes(_context);
-                    if (!StringList.isWord(name_)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (_context.getKeyWords().isKeyWordNotVar(name_)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (PrimitiveTypeUtil.isPrimitive(name_, _context)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    if (StringList.quickEq(name_, _context.getStandards().getAliasVoid())) {
+                    if (!_context.isValidToken(name_)) {
                         int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(getFile().getFileName());
@@ -566,11 +540,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 if (method_ instanceof MethodBlock) {
                     MethodId id_ = ((MethodBlock) method_).getId();
-                    if (this instanceof EnumBlock && _context.getOptions().isSpecialEnumsMethods()) {
-                        String aliasName_ = _context.getStandards().getAliasName();
-                        String ordinal_ = _context.getStandards().getAliasOrdinal();
-                        String valueOf_ = _context.getStandards().getAliasValueOf();
-                        String values_ = _context.getStandards().getAliasValues();
+                    if (this instanceof EnumBlock) {
+                        String aliasName_ = _context.getStandards().getAliasEnumName();
+                        String ordinal_ = _context.getStandards().getAliasEnumOrdinal();
+                        String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
+                        String values_ = _context.getStandards().getAliasEnumValues();
                         String string_ = _context.getStandards().getAliasString();
                         if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
                             int r_ = method_.getOffset().getOffsetTrim();
@@ -656,7 +630,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 StringList l_ = method_.getParametersNames();
                 StringList seen_ = new StringList();
                 for (String v: l_) {
-                    if (_context.getKeyWords().isKeyWordNotVar(v)) {
+                    if (!_context.isValidToken(v)) {
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(getFile().getFileName());
@@ -664,41 +638,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     }
-                    if (PrimitiveTypeUtil.isPrimitive(v, _context)) {
-                        BadParamName b_;
-                        b_ = new BadParamName();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        b_.setParamName(v);
-                        _context.getClasses().addError(b_);
-                    }
-                    if (StringList.quickEq(v, _context.getStandards().getAliasVoid())) {
-                        BadParamName b_;
-                        b_ = new BadParamName();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        b_.setParamName(v);
-                        _context.getClasses().addError(b_);
-                    }
-                    Options opt_ = _context.getOptions();
-                    if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                        if (!v.trim().isEmpty() && ContextEl.isDigit(v.trim().charAt(0))) {
-                            BadParamName b_;
-                            b_ = new BadParamName();
-                            b_.setFileName(getFile().getFileName());
-                            b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                            b_.setParamName(v);
-                            _context.getClasses().addError(b_);
-                        }
-                    }
-                    if (!StringList.isWord(v)) {
-                        BadParamName b_;
-                        b_ = new BadParamName();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        b_.setParamName(v);
-                        _context.getClasses().addError(b_);
-                    } else if (seen_.containsStr(v)){
+                    if (seen_.containsStr(v)){
                         DuplicateParamName b_;
                         b_ = new DuplicateParamName();
                         b_.setFileName(getFile().getFileName());
@@ -713,51 +653,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 InfoBlock method_ = (InfoBlock) b;
                 method_.buildImportedType(_context);
                 StringList name_ = method_.getFieldName();
-                InfoBlock m_ = (InfoBlock) b;
                 for (String n: name_) {
                     String trName_ = n.trim();
-                    if (_context.getKeyWords().isKeyWordNotVar(trName_)) {
+                    if (!_context.isValidToken(trName_)) {
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(getFile().getFileName());
                         b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(n);
                         _context.getClasses().addError(b_);
-                    }
-                    if (PrimitiveTypeUtil.isPrimitive(trName_, _context)) {
-                        BadParamName b_;
-                        b_ = new BadParamName();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        b_.setParamName(trName_);
-                        _context.getClasses().addError(b_);
-                    }
-                    if (StringList.quickEq(trName_, _context.getStandards().getAliasVoid())) {
-                        BadParamName b_;
-                        b_ = new BadParamName();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        b_.setParamName(trName_);
-                        _context.getClasses().addError(b_);
-                    }
-                    if (!StringList.isWord(trName_)) {
-                        int r_ = m_.getFieldNameOffset();
-                        BadFieldName badMeth_ = new BadFieldName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(n);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                    Options opt_ = _context.getOptions();
-                    if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                        if (!trName_.isEmpty() && ContextEl.isDigit(trName_.charAt(0))) {
-                            int r_ = m_.getFieldNameOffset();
-                            BadFieldName badMeth_ = new BadFieldName();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            badMeth_.setName(n);
-                            _context.getClasses().addError(badMeth_);
-                        }
                     }
                     for (String m: idsField_) {
                         if (StringList.quickEq(m, trName_)) {
@@ -1510,27 +1414,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
-    @Override
-    public boolean isAccessibleType(String _type, Analyzable _cont, boolean _excludeProtected) {
-        RootBlock r_ = _cont.getClasses().getClassBody(_type);
-        if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
-            if (_excludeProtected) {
-                if (r_.getAccess().ordinal() == AccessEnum.PROTECTED.ordinal()) {
-                    if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            return true;
-        }
-        if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-            if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                return true;
-            }
-        }
-        return StringList.quickEq(getOuter().getFullName(), r_.getOuter().getFullName());
-    }
     private boolean optionalCallConstr(ContextEl _cont) {
         if (!(this instanceof UniqueRootedBlock)) {
             return true;
@@ -1559,11 +1442,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
         return false;
-    }
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
     public String getRealName() {

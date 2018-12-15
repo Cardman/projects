@@ -533,7 +533,6 @@ public class ExtractConditionTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);

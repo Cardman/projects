@@ -5,6 +5,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -82,4 +83,8 @@ public final class OrOperation extends QuickOperation {
         return true;
     }
 
+    @Override
+    public BooleanStruct absorbingStruct() {
+        return new BooleanStruct(true);
+    }
 }

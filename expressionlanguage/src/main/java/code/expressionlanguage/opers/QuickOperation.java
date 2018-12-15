@@ -7,12 +7,10 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdMap;
 
 
@@ -23,34 +21,6 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        if (!_conf.isOkNumOp()) {
-            return;
-        }
-        CustList<OperationNode> children_ = getChildrenNodes();
-        Argument f_ = children_.first().getArgument();
-        if (f_ == null) {
-            return;
-        }
-        Struct v_ = f_.getStruct();
-        if (!(v_ instanceof BooleanStruct)) {
-            return;
-        }
-        if (((BooleanStruct)v_).getInstance() == absorbingValue()) {
-            setSimpleArgumentAna(f_, _conf);
-        } else {
-            Argument s_ = children_.last().getArgument();
-            if (s_ == null) {
-                return;
-            }
-            v_ = s_.getStruct();
-            if (!(v_ instanceof BooleanStruct)) {
-                return;
-            }
-            setSimpleArgumentAna(s_, _conf);
-        }
-    }
     @Override
     public void tryCalculateNode(Analyzable _conf) {
         if (!_conf.isOkNumOp()) {
@@ -135,4 +105,5 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     abstract boolean absorbingValue();
+    public abstract BooleanStruct absorbingStruct();
 }

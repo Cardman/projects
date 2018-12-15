@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class ElseIfCondition extends Condition implements BlockCondition, IncrCurrentGroup, IncrNextGroup {
+public final class ElseIfCondition extends Condition implements BlockCondition {
 
     public ElseIfCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -148,11 +148,6 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
     @Override
     public boolean accessibleCondition() {
         OperationNode op_ = getRoot();

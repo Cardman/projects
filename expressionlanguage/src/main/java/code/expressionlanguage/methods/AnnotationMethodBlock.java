@@ -32,7 +32,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneMethod, WithEl {
+        GeneMethod, WithNotEmptyEl {
 
     private String defaultValue;
     private int defaultValueOffset;
@@ -149,11 +149,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        return false;
-    }
-
-    @Override
     public boolean isConcreteMethod() {
         return false;
     }
@@ -185,11 +180,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return false;
     }
 

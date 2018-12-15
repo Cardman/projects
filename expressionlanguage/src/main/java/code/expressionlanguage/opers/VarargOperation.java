@@ -9,9 +9,7 @@ import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
-import code.util.EqList;
 import code.util.IdMap;
 
 public final class VarargOperation extends LeafOperation {
@@ -75,11 +73,6 @@ public final class VarargOperation extends LeafOperation {
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
 
@@ -100,11 +93,6 @@ public final class VarargOperation extends LeafOperation {
 
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
-    @Override
-    public boolean isCalculated() {
         return true;
     }
 

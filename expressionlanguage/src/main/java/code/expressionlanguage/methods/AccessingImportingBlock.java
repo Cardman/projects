@@ -7,7 +7,7 @@ import code.util.CustList;
 public interface AccessingImportingBlock extends ImportingBlock {
     boolean canAccessClass(String _class, Analyzable _analyzable);
     FileBlock getFile();
-    boolean isAccessibleType(String _type, Analyzable _an, boolean _excludeProtected);
+
     CustList<TypeVar> getParamTypesMapValues();
 
 }

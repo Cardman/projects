@@ -20,7 +20,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class Line extends Leaf implements StackableBlock {
+public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
 
     private final String expression;
 
@@ -44,17 +44,6 @@ public final class Line extends Leaf implements StackableBlock {
 
     public ExpressionLanguage getRightEl() {
         return new ExpressionLanguage(opExp);
-    }
-
-    @Override
-    boolean canCallSuperThis() {
-        if (!(getParent() instanceof ConstructorBlock)) {
-            return false;
-        }
-        if (getParent().getFirstChild() != this) {
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -83,11 +72,6 @@ public final class Line extends Leaf implements StackableBlock {
 
     public ConstructorId getConstId() {
         return opExp.last().getConstId();
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     public boolean isCallSuper() {

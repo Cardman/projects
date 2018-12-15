@@ -7,7 +7,6 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -16,7 +15,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup {
+public final class DoBlock extends BracedStack implements Loop {
 
     private String label;
     private int labelOffset;
@@ -125,11 +124,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
@@ -161,12 +155,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(getNextSibling());
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
 }

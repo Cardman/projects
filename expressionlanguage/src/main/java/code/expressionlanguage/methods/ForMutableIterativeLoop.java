@@ -912,10 +912,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-    @Override
     public boolean accessibleCondition() {
         if (opExp.isEmpty()) {
             return true;

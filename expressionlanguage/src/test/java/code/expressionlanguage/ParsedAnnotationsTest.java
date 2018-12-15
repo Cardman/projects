@@ -305,4 +305,140 @@ public final class ParsedAnnotationsTest {
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(47, p_.getIndex());
     }
+    @Test
+    public void parse19Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@pkg.MyAnnot\n");
+        file_.append("$public $class pkg.MyClass{}");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("$public $class pkg.MyClass{}",p_.getAfter());
+        assertEq(32, p_.getIndex());
+    }
+    @Test
+    public void parse20Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@MyAnnot(@MySec())\n");
+        file_.append("$public $class pkg.MyClass{}");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@MyAnnot(@MySec())",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("$public $class pkg.MyClass{}",p_.getAfter());
+        assertEq(38, p_.getIndex());
+    }
+    @Test
+    public void parse21Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@MyAnnot(f=`first`)\n");
+        file_.append("$public $class pkg.MyClass{}");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@MyAnnot(f=`first`)",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("$public $class pkg.MyClass{}",p_.getAfter());
+        assertEq(39, p_.getIndex());
+    }
+    @Test
+    public void parse22Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@MyAnnot(f=`first``second`)\n");
+        file_.append("$public $class pkg.MyClass{}");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@MyAnnot(f=`first``second`)",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("$public $class pkg.MyClass{}",p_.getAfter());
+        assertEq(47, p_.getIndex());
+    }
+    @Test
+    public void parse23Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@pkg.MyAnnot\n");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("",p_.getAfter());
+        assertEq(32, p_.getIndex());
+    }
+    @Test
+    public void parse24Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@pkg.MyAnnot");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("",p_.getAfter());
+        assertEq(31, p_.getIndex());
+    }
+    @Test
+    public void parse25Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@pkg.MyAnnot()\n");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("",p_.getAfter());
+        assertEq(34, p_.getIndex());
+    }
+    @Test
+    public void parse26Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@pkg.MyAnnot()");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("",p_.getAfter());
+        assertEq(33, p_.getIndex());
+    }
+    @Test
+    public void parse27Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        int index_ = "pkgtwo.MyClassTwo;\n".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse();
+        assertEq(0,p_.getAnnotations().size());
+        assertEq(0,p_.getAnnotationsIndexes().size());
+        assertEq("",p_.getAfter());
+        assertEq(0, p_.getIndex());
+    }
 }

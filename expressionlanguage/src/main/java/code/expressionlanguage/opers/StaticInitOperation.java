@@ -13,8 +13,6 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -41,26 +39,12 @@ public final class StaticInitOperation extends LeafOperation {
     }
 
     @Override
-    public final boolean isCalculated() {
-        OperationNode op_ = getParent();
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
     public void analyze(Analyzable _conf) {
         Argument a_ = new Argument();
-        setArguments(a_);
+        setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
-    @Override
-    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-    }
+
     @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
@@ -92,9 +76,6 @@ public final class StaticInitOperation extends LeafOperation {
             ContextEl _conf) {
         Argument current_ = _nodes.getVal(this).getArgument();
         Argument arg_ = getCommonArgument(current_, _conf);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -118,7 +99,7 @@ public final class StaticInitOperation extends LeafOperation {
             possibleInitClass = false;
             Argument a_ = new Argument();
             String argClName_ = _conf.getStandards().getAliasObject();
-            setArguments(a_);
+            setSimpleArgument(a_);
             setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
@@ -141,7 +122,7 @@ public final class StaticInitOperation extends LeafOperation {
             possibleInitClass = true;
         }
         Argument a_ = new Argument();
-        setArguments(a_);
+        setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(_base));
     }
 

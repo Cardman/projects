@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -19,9 +20,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     private ReadWrite readWrite;
     private Block blockRoot;
-
-    /**Only used while throwing exception*/
-    private Block currentBlock;
 
     private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
 
@@ -73,13 +71,12 @@ public abstract class AbstractPageEl extends PageEl {
 
     public abstract boolean checkCondition(ContextEl _context);
 
-    public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, int _indexProcess) {
+    public ExpressionLanguage getCurrentEl(ContextEl _context, WithNotEmptyEl _block, int _index, int _indexProcess) {
         ExpressionLanguage el_;
         if (_index < currentEls.size()) {
             el_ = currentEls.get(_index);
         } else {
             el_ = _block.getEl(_context, _indexProcess);
-            setCurrentBlock(_block);
             currentEls.add(el_);
         }
         return el_;
@@ -127,13 +124,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void setFinallyToProcess(boolean _finallyToProcess) {
         finallyToProcess = _finallyToProcess;
-    }
-    public Block getCurrentBlock() {
-        return currentBlock;
-    }
-
-    public void setCurrentBlock(Block _currentBlock) {
-        currentBlock = _currentBlock;
     }
 
     public int getTabWidth() {

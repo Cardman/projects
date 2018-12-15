@@ -181,11 +181,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public RootBlock belong() {
         return this;
     }

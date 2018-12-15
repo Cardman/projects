@@ -924,9 +924,9 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
                 Classes classesInfo_ = _cont.getClasses();
-                for (EntryCust<String, RootBlock> c: classesInfo_.getClassesBodies().entryList()) {
-                    String k_ = c.getKey();
-                    RootBlock clblock_ = c.getValue();
+                for (RootBlock c: classesInfo_.getClassBodies()) {
+                    RootBlock clblock_ = c;
+                    String k_ = c.getFullName();
                     String forName_ = Templates.getGenericString(k_, _cont);
                     classes_.add(Classes.getClassMetaInfo(clblock_, forName_, _cont));
                 }

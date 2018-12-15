@@ -31,6 +31,7 @@ public final class ParsedAnnotations {
         boolean quoted_ = false;
         boolean quotedChar_ = false;
         boolean quotedText_ = false;
+        boolean endLoop_ = true;
         while (j_ < lenInst_) {
             char cur_ = instruction.charAt(j_);
             if (quotedChar_) {
@@ -62,13 +63,15 @@ public final class ParsedAnnotations {
                 continue;
             }
             if (quotedText_) {
+                annotation_.append(cur_);
                 if (cur_ == DEL_TEXT) {
-                    if (j_ + 1 < lenInst_ || instruction.charAt(j_ + 1) != DEL_TEXT) {
+                    if (instruction.charAt(j_ + 1) != DEL_TEXT) {
                         quotedText_ = false;
                         j_++;
                         continue;
                     }
                     j_++;
+                    annotation_.append(instruction.charAt(j_));
                 }
                 j_++;
                 continue;
@@ -97,7 +100,7 @@ public final class ParsedAnnotations {
             if (cur_ == BEGIN_CALLING) {
                 nbPars_++;
             }
-            if (StringList.isWordChar(cur_) && nbPars_ == 0) {
+            if (StringList.isDollarWordChar(cur_) && nbPars_ == 0) {
                 String after_ = instruction.substring(j_+1);
                 if (after_.isEmpty() || !isPart(after_.charAt(0))) {
                     String afterTrim_ = after_.trim();
@@ -114,6 +117,7 @@ public final class ParsedAnnotations {
                             index++;
                             j_++;
                         }
+                        endLoop_ = false;
                         after = instruction.substring(j_);
                         break;
                     }
@@ -134,6 +138,7 @@ public final class ParsedAnnotations {
                         index++;
                         j_++;
                     }
+                    endLoop_ = false;
                     after = instruction.substring(j_);
                     break;
                 }
@@ -145,11 +150,14 @@ public final class ParsedAnnotations {
                 }
                 annotation_.delete(0, annotation_.length());
             }
-            if (cur_ == ANNOT) {
+            if (nbPars_ == 0 && cur_ == ANNOT) {
                 annotationsIndexes.add(beforeAnnot + j_ + instructionLocation);
             }
             annotation_.append(cur_);
             j_++;
+        }
+        if (endLoop_) {
+            index = lenInst_;
         }
     }
     private static boolean isPart(char _char) {

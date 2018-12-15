@@ -738,14 +738,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
-        if (!StringList.isWord(_methodId.getName())) {
+        if (!StringList.isDollarWord(_methodId.getName())) {
             _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
         String aliasClass_ = stds_.getAliasClass();
         String aliasForName_ = stds_.getAliasForName();
-        String aliasValueOf_ = stds_.getAliasEnumValueOf();
+        String aliasValueOf_ = stds_.getAliasEnumPredValueOf();
         String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
         String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
         String aliasInit_ = stds_.getAliasInit();
@@ -1022,7 +1022,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         CustList<MethodBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
-            String values_ = context_.getStandards().getAliasValues();
+            String values_ = context_.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
                 EnumBlock e_ = (EnumBlock) classes_.getClassBody(_classNameFound);
                 StringList allElements_ = new StringList();
@@ -1046,7 +1046,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         String enum_ = context_.getStandards().getAliasEnum();
         if (StringList.quickEq(enum_, _classNameFound)) {
-            String name_ = context_.getStandards().getAliasName();
+            String name_ = context_.getStandards().getAliasEnumName();
             EnumerableStruct en_ = (EnumerableStruct) _previous.getStruct();
             if (StringList.quickEq(_methodId.getName(), name_)) {
                 return new Argument(new StringStruct(en_.getName()));
@@ -1224,7 +1224,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument a_ = new Argument();
             return a_;
         }
-        if (!StringList.isWord(fid_.getName())) {
+        if (!StringList.isDollarWord(fid_.getName())) {
             ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
             int i_ = 1;
             arr_.getInstance()[0] = instance_.getStruct();

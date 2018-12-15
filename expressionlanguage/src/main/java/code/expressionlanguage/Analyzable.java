@@ -144,4 +144,7 @@ public interface Analyzable {
     void setOkNumOp(boolean _okNumOp);
     KeyWords getKeyWords();
     void setKeyWords(KeyWords _keyWords);
+    boolean isValidSingleToken(String _id);
+    boolean isValidToken(String _id);
+
 }

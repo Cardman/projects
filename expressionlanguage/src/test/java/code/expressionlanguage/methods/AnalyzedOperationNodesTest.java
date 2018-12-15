@@ -1290,7 +1290,6 @@ public class AnalyzedOperationNodesTest {
     private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);

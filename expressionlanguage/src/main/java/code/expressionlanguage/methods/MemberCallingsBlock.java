@@ -3,18 +3,24 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.DeadCodeMethod;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
+public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock, AnnotableBlock {
+    private StringList annotations = new StringList();
+    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     MemberCallingsBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -169,9 +175,24 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<OperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
     }
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {

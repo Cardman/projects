@@ -12,9 +12,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -128,11 +126,6 @@ public final class IdFctOperation extends LeafOperation {
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
 
@@ -148,11 +141,6 @@ public final class IdFctOperation extends LeafOperation {
 
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
-    @Override
-    public boolean isCalculated() {
         return true;
     }
 

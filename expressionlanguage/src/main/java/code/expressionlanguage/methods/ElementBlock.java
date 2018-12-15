@@ -22,6 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -44,6 +45,9 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     private int valueOffest;
 
     private int trOffset;
+    private StringList annotations = new StringList();
+    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public ElementBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _fieldName,
@@ -191,6 +195,26 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         page_.setTranslatedOffset(0);
     }
     @Override
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<OperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
@@ -199,10 +223,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
         as_.put(fieldName, Assignment.assignClassic(true, false));
-    }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

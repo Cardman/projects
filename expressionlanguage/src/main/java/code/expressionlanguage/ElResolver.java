@@ -2256,7 +2256,7 @@ public final class ElResolver {
         int k_ = _start;
         boolean var_ = false;
         while (k_ < _max) {
-            if (!StringList.isWordChar(_string.charAt(k_))) {
+            if (!StringList.isDollarWordChar(_string.charAt(k_))) {
                 if (_opt.getSuffixVar() != VariableSuffix.NONE && _string.charAt(k_) == _opt.getSuffix()) {
                     var_ = true;
                 }
@@ -2348,7 +2348,7 @@ public final class ElResolver {
         int iExp_ = j_;
         while (j_ < len_) {
             char current_ = _string.charAt(j_);
-            if (!StringList.isWordChar(current_)) {
+            if (!StringList.isDollarWordChar(current_)) {
                 if (current_ == DOT_VAR) {
                     if (_seenDot) {
                         output_.setNextIndex(-j_);
@@ -2790,7 +2790,7 @@ public final class ElResolver {
         begin_ = _d.getDelLoopVars().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelLoopVars().indexOfObj(_offset + lastPrintChar_);
         if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-            String name_ = StringList.getWordsSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
+            String name_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
             op_.setOperators(new NatTreeMap<Integer, String>());

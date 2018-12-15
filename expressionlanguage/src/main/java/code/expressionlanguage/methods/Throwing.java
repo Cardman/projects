@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class Throwing extends AbruptBlock implements StackableBlock {
+public final class Throwing extends AbruptBlock implements StackableBlock, WithNotEmptyEl {
 
     private final String expression;
 
@@ -48,11 +48,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

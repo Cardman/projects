@@ -2,21 +2,18 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 
 public final class ArrayFieldOperation extends AbstractFieldOperation {
@@ -87,26 +84,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-        if (!isIntermediateDottedOperation()) {
-            return;
-        }
-        Argument arg_ = getPreviousArgument();
-        Argument a_ = new Argument();
-        if (!(arg_.getStruct() instanceof ArrayStruct)) {
-            return;
-        }
-        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
-        a_.setStruct(new IntStruct(arr_.getInstance().length));
-        setSimpleArgumentAna(a_,_conf);
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
-        if (isCalculated()) {
-            return;
-        }
         Argument arg_ = getPreviousArgument();
         Argument a_ = new Argument();
         if (arg_ == null ||!(arg_.getStruct() instanceof ArrayStruct)) {

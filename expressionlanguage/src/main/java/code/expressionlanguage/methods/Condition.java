@@ -15,7 +15,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
-public abstract class Condition extends BracedStack implements StackableBlockGroup {
+public abstract class Condition extends BracedStack implements StackableBlockGroup, WithNotEmptyEl {
 
     private String condition;
 

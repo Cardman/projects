@@ -23,13 +23,11 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -48,13 +46,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     public final void setOffsetLocal(int _offsetLocal) {
         offsetLocal = _offsetLocal;
     }
-    @Override
-    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        if (getFirstChild().getArgument() == null) {
-            return;
-        }
-        quickCalculate(_conf);
-    }
+
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
         if (getFirstChild().getArgument() == null) {

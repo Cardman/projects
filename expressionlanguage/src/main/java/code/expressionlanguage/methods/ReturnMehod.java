@@ -30,7 +30,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
+public final class ReturnMehod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
 
     private final String expression;
 
@@ -178,10 +178,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             ass_.put(e.getKey(), e.getValue().assign());
         }
         _anEl.getAssignments().put(this, ass_);
-    }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

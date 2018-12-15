@@ -12,9 +12,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -26,11 +24,6 @@ public final class StaticAccessOperation extends LeafOperation {
     }
     @Override
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
-    @Override
-    public final boolean isCalculated() {
         return true;
     }
 
@@ -56,7 +49,7 @@ public final class StaticAccessOperation extends LeafOperation {
                 }
             }
             Argument a_ = new Argument();
-            setArguments(a_);
+            setSimpleArgument(a_);
             setStaticResultClass(new ClassArgumentMatching(ext_));
             return;
         }
@@ -96,13 +89,10 @@ public final class StaticAccessOperation extends LeafOperation {
             }
         }
         Argument a_ = new Argument();
-        setArguments(a_);
+        setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(classStr_));
-        return;
     }
-    @Override
-    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-    }
+
     @Override
     public void tryCalculateNode(Analyzable _conf) {
     }

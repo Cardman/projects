@@ -947,7 +947,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument118Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $enum pkg.Ex :pkg.Int{\n");
+        xml_.append("$public $enum pkg.Ex {\n");
         xml_.append(" ONE(4i),\n");
         xml_.append(" TWO;\n");
         xml_.append(" $public $int first;\n");
@@ -966,21 +966,14 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
         xml_.append(" $public $en pre=$static(pkg.Ex).TWO;\n");
-        xml_.append(" $public java.lang.String inst=pre.name();\n");
+        xml_.append(" $public java.lang.String inst=pre.$name();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Int {\n");
-        xml_.append(" $public $abstract java.lang.String name();\n");
-        xml_.append(" $public $abstract $int ordinal();\n");
-        xml_.append("}\n");
-        files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -992,6 +985,45 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     }
     @Test
     public void instanceArgument119Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex{\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $en pre=$static(pkg.Ex).TWO;\n");
+        xml_.append(" $public $int inst=pre.$ordinal();\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument120Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex :pkg.Int{\n");
         xml_.append(" ONE(4i),\n");
@@ -1006,12 +1038,69 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $final $int doubleValue(){\n");
         xml_.append("  $return first;\n");
         xml_.append(" }\n");
+        xml_.append(" $public $final String name(){\n");
+        xml_.append("  $return $name();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int ordinal(){\n");
+        xml_.append("  $return $ordinal();\n");
+        xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $en pre=$static(pkg.Ex).TWO;\n");
+        xml_.append(" $public Int pre=$static(pkg.Ex).TWO;\n");
+        xml_.append(" $public java.lang.String inst=pre.name();\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int {\n");
+        xml_.append(" $public $abstract java.lang.String name();\n");
+        xml_.append(" $public $abstract $int ordinal();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Int", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("TWO",(String) field_.getInstance());
+    }
+    @Test
+    public void instanceArgument121Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex :pkg.Int{\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final String name(){\n");
+        xml_.append("  $return $name();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int ordinal(){\n");
+        xml_.append("  $return $ordinal();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public Int pre=$static(pkg.Ex).TWO;\n");
         xml_.append(" $public $int inst=pre.ordinal();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
@@ -1026,7 +1115,6 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();

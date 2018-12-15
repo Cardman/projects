@@ -19,7 +19,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class WhileCondition extends Condition implements Loop, IncrNextGroup {
+public final class WhileCondition extends Condition implements Loop {
 
     private String label;
     private int labelOffset;
@@ -247,11 +247,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     @Override
     boolean canBeIncrementedCurGroup() {
         return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
     }
 
     @Override

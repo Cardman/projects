@@ -15,12 +15,10 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,11 +30,6 @@ public final class ConstantOperation extends LeafOperation {
     }
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
-    @Override
-    public boolean isCalculated() {
         return true;
     }
 
@@ -207,10 +200,6 @@ public final class ConstantOperation extends LeafOperation {
         vars_.getVariables().put(this, ass_);
         vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);
-    }
-
-    @Override
-    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
     }
 
     @Override

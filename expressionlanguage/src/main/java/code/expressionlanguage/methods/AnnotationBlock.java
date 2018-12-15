@@ -99,11 +99,6 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public StringList getImportedDirectSuperTypes() {
         return allSuperTypes;
     }

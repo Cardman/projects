@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -100,11 +99,6 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         removeBlockFinally(_cont);
     }
@@ -136,11 +130,6 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
             }
         }
         loop_.processLastElementLoop(_conf);
-    }
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
 }

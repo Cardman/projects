@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -10,9 +9,7 @@ import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.errors.custom.UnassignedInfered;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.ParentStackBlock;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -21,11 +18,10 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class Block extends Blockable {
+public abstract class Block {
     public static final String EQ = "=";
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
@@ -62,9 +58,6 @@ public abstract class Block extends Blockable {
 
     private OffsetsBlock offset;
 
-    private StringList annotations = new StringList();
-    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     Block(BracedBlock _m, OffsetsBlock _offset) {
         parent = _m;
@@ -354,16 +347,6 @@ public abstract class Block extends Blockable {
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
 
-    public abstract ExpressionLanguage getEl(ContextEl _context, int _indexProcess);
-
-    @Override
-    boolean canCallSuperThis() {
-        return false;
-    }
-    @Override
-    boolean isAlwaysExitable() {
-        return false;
-    }
     public final FunctionBlock getFunction() {
         Block b_ = this;
         while (b_ != null) {
@@ -404,7 +387,6 @@ public abstract class Block extends Blockable {
 
     abstract boolean canBeIncrementedNextGroup();
     abstract boolean canBeIncrementedCurGroup();
-    abstract boolean canBeLastOfBlockGroup();
 
     public final Block getPreviousSibling() {
         return previousSibling;
@@ -425,22 +407,6 @@ public abstract class Block extends Blockable {
         return parent;
     }
 
-    public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<OperationNode>>();
-        for (String a: annotations) {
-            Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
-        }
-    }
-    public StringList getAnnotations() {
-        return annotations;
-    }
-    public CustList<CustList<OperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
-    public Numbers<Integer> getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
     public final boolean hasChildNodes() {
         return getFirstChild() != null;
     }

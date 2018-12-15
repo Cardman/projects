@@ -1096,4 +1096,14 @@ public class Configuration implements ExecutableCode {
     public int getCurrentLocationIndex() {
         return getLastPage().getSum();
     }
+
+    @Override
+    public boolean isValidSingleToken(String _id) {
+        return context.isValidSingleToken(_id);
+    }
+
+    @Override
+    public boolean isValidToken(String _id) {
+        return context.isValidToken(_id);
+    }
 }

@@ -7365,7 +7365,6 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(files_, cont_);
@@ -7382,7 +7381,6 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(files_, cont_);
@@ -7403,7 +7401,6 @@ public final class ElRenderUtilTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(_files, cont_);

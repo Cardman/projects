@@ -25,7 +25,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -35,7 +34,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -217,40 +215,7 @@ public abstract class SettableAbstractFieldOperation extends
     }
 
     @Override
-    public final void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-        if (fieldMetaInfo != null && fieldMetaInfo.isStaticField()) {
-            ClassField fieldId_ = fieldMetaInfo.getClassField();
-            int index_ = _list.indexOfObj(new SortedClassField(fieldId_));
-            if (index_ < 0) {
-                ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-                if (res_.getResult() != null) {
-                    Argument arg_ = Argument.createVoid();
-                    arg_.setStruct(res_.getResult());
-                    setSimpleArgumentAna(arg_,_conf);
-                }
-                return;
-            }
-            SortedClassField found_ = _list.get(index_);
-            if (ElUtil.isDeclaringField(this, _conf)) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(found_.getStruct());
-                setArguments(arg_);
-                return;
-            }
-            if (found_.isOk()) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(found_.getStruct());
-                setSimpleArgumentAna(arg_,_conf);
-            }
-        }
-    }
-
-    @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (isCalculated()) {
-            return;
-        }
         if (fieldMetaInfo == null) {
             return;
         }
@@ -270,7 +235,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (_conf.isGearConst() && ElUtil.isDeclaringField(this, _conf) && fieldMetaInfo.isFinalField()) {
             Argument arg_ = Argument.createVoid();
-            setArguments(arg_);
+            setSimpleArgument(arg_);
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
@@ -455,16 +420,8 @@ public abstract class SettableAbstractFieldOperation extends
     public final Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right, boolean _convert) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -494,12 +451,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final Argument calculateCompoundSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = _nodes.getVal(this).getArgument();
         Struct store_;
         if (current_ != null) {
@@ -508,9 +460,7 @@ public abstract class SettableAbstractFieldOperation extends
             store_ = NullStruct.NULL_VALUE;
         }
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     @Override
@@ -539,12 +489,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final Argument calculateSemiSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = _nodes.getVal(this).getArgument();
         Struct store_;
         if (current_ != null) {
@@ -553,9 +498,7 @@ public abstract class SettableAbstractFieldOperation extends
             store_ = NullStruct.NULL_VALUE;
         }
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     @Override
@@ -791,12 +734,7 @@ public abstract class SettableAbstractFieldOperation extends
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
-        Argument previousNode_;
-        if (isIntermediateDottedOperation()) {
-            previousNode_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previousNode_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
         if (previous_.getStruct() instanceof FieldableStruct) {

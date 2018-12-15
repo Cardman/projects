@@ -2,13 +2,10 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.EmptyPartError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SortedClassField;
-import code.util.EqList;
 
 public final class ErrorPartOperation extends AbstractFieldOperation {
 
@@ -39,11 +36,6 @@ public final class ErrorPartOperation extends AbstractFieldOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
     }
 
     @Override

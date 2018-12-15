@@ -37,7 +37,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     @Override
     public void preAnalyze(Analyzable _conf) {
-        if (!StringList.isWord(fieldName.trim())) {
+        if (!StringList.isDollarWord(fieldName.trim())) {
             BadFieldName err_ = new BadFieldName();
             err_.setName(fieldName.trim());
             err_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -94,7 +94,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             setResultClass(new ClassArgumentMatching(objCl_));
             return;
         }
-        if (!StringList.isWord(fieldName)) {
+        if (!StringList.isDollarWord(fieldName)) {
             setResultClass(new ClassArgumentMatching(objCl_));
             return;
         }

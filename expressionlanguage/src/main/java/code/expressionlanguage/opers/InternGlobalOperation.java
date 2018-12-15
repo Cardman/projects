@@ -9,11 +9,9 @@ import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -51,11 +49,6 @@ public final class InternGlobalOperation extends LeafOperation {
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
 
@@ -73,9 +66,6 @@ public final class InternGlobalOperation extends LeafOperation {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.hasExceptionOrFailInit()) {
-            return arg_;
-        }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -96,18 +86,6 @@ public final class InternGlobalOperation extends LeafOperation {
         OperationNode op_ = this;
         while (op_ != null) {
             if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
                 return true;
             }
             op_ = op_.getParent();

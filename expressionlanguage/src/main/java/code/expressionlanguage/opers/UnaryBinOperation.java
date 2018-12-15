@@ -89,9 +89,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
         Argument a_ = getArgument(_conf, arg_);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(a_, _conf, _nodes);
-        }
+        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 

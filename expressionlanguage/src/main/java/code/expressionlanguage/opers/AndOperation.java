@@ -5,6 +5,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -26,6 +27,11 @@ public final class AndOperation extends QuickOperation {
     @Override
     boolean absorbingValue() {
         return false;
+    }
+
+    @Override
+    public BooleanStruct absorbingStruct() {
+        return new BooleanStruct(false);
     }
 
     @Override

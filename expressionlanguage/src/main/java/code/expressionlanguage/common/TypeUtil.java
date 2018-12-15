@@ -57,9 +57,9 @@ public final class TypeUtil {
         }
     }
 
-    public static void checkInterfaces(ContextEl _context, StringList _types) {
+    public static void checkInterfaces(ContextEl _context, StringList _types, boolean _predefined) {
         Classes classes_ = _context.getClasses();
-        for (RootBlock c: classes_.getClassBodies()) {
+        for (RootBlock c: classes_.getClassBodies(_predefined)) {
             RootBlock bl_ = c;
             _context.getAnalyzing().setCurrentBlock(bl_);
             _context.getAnalyzing().setGlobalClass(bl_.getGenericString());

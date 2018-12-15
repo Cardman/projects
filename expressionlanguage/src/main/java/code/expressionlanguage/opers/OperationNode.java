@@ -47,7 +47,6 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -170,14 +169,13 @@ public abstract class OperationNode {
 
     public final void tryAnalyzeAssignmentAfter(Analyzable _conf) {
         Block currentBlock_ = _conf.getCurrentBlock();
-        if (currentBlock_  == null) {
+        if (currentBlock_ == null) {
             return;
         }
         analyzeAssignmentAfter(_conf);
     }
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
     public abstract void calculate(ExecutableCode _conf);
-    public abstract void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
     public abstract void tryCalculateNode(Analyzable _conf);
 
     public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
@@ -480,8 +478,6 @@ public abstract class OperationNode {
     }
 
     public abstract boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes);
-
-    public abstract boolean isCalculated();
 
     public abstract ConstructorId getConstId();
 
@@ -1313,14 +1309,14 @@ public abstract class OperationNode {
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
         String idClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock r_ = _conf.getClasses().getClassBody(idClass_);
-        if (!_conf.getOptions().isSpecialEnumsMethods() || !(r_ instanceof EnumBlock)) {
+        if (!(r_ instanceof EnumBlock)) {
             return methods_;
         }
         String wildCardForm_ = r_.getWildCardString();
         String string_ = _conf.getStandards().getAliasString();
         String returnType_ = wildCardForm_;
         ParametersGroup p_ = new ParametersGroup();
-        String valueOf_ = _conf.getStandards().getAliasValueOf();
+        String valueOf_ = _conf.getStandards().getAliasEnumPredValueOf();
         MethodId realId_ = new MethodId(true, valueOf_, new StringList(string_));
         for (String c: realId_.getParametersTypes()) {
             p_.add(new ClassMatching(c));
@@ -1335,7 +1331,7 @@ public abstract class OperationNode {
         ClassMethodId clId_ = new ClassMethodId(idClass_, realId_);
         methods_.add(clId_, mloc_);
         p_ = new ParametersGroup();
-        String values_ = _conf.getStandards().getAliasValues();
+        String values_ = _conf.getStandards().getAliasEnumValues();
         realId_ = new MethodId(true, values_, new StringList());
         mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);
@@ -2174,6 +2170,15 @@ public abstract class OperationNode {
         return CustList.NO_SWAP_SORT;
     }
 
+    protected static Argument getPreviousArg(PossibleIntermediateDotted _possible,IdMap<OperationNode,ArgumentsPair> _nodes,  ContextEl _conf) {
+        Argument previous_;
+        if (_possible.isIntermediateDottedOperation()) {
+            previous_ = _nodes.getVal((OperationNode)_possible).getPreviousArgument();
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
+        return previous_;
+    }
     final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
         if (_cont.getContextEl().hasException()) {
             return;
@@ -2218,8 +2223,8 @@ public abstract class OperationNode {
         }
     }
 
-    final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (_cont.hasExceptionOrFailInit()) {
+    private void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        if (_cont.callsOrException()) {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
@@ -2323,23 +2328,29 @@ public abstract class OperationNode {
         argument = _argument;
     }
 
-    public final void setArguments(Argument _argument) {
-        argument = _argument;
+    public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(_argument, _conf, _nodes);
+        setNextSiblingsArg(_argument, _conf, _nodes);
+        if (_conf.callsOrException()) {
+            return;
+        }
+        _nodes.getVal(this).setArgument(_argument);
     }
 
     public final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        if (_conf.callsOrException()) {
+            return;
+        }
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
         }
+        _nodes.getVal(this).setArgument(_argument);
     }
 
-    public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
-        }
-        setNextSiblingsArg(_argument, _conf, _nodes);
+    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
+        setQuickSimpleArgument(_argument, _conf);
+        setNextSiblingsArg(_argument, _conf);
     }
 
     public final void setQuickSimpleArgument(Argument _argument, ExecutableCode _conf) {
@@ -2348,15 +2359,6 @@ public abstract class OperationNode {
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
-    }
-
-    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        argument = _argument;
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-        setNextSiblingsArg(_argument, _conf);
     }
 
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {

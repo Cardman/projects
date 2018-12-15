@@ -574,7 +574,7 @@ public class ParserTypeTest {
         ContextEl cont_ = contextEnElDefault();
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClassesId(cont_, false);

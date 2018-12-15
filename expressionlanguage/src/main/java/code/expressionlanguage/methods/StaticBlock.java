@@ -19,11 +19,6 @@ public final class StaticBlock extends InitBlock {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return true;
     }

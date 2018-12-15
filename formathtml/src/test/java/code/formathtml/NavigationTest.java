@@ -8744,7 +8744,6 @@ public class NavigationTest {
         Navigation nav_ = new Navigation();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
@@ -8757,7 +8756,6 @@ public class NavigationTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);

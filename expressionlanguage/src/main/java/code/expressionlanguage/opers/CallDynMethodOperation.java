@@ -176,16 +176,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_= getPreviousArg(this, _nodes, _conf);
         Argument res_ = prepareCallDyn(previous_, arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }

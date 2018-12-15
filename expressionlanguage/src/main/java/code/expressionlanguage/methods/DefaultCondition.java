@@ -5,10 +5,9 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 
-public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
+public final class DefaultCondition extends SwitchPartBlock {
 
     public DefaultCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -37,11 +36,6 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return true;
     }
 
@@ -93,11 +87,5 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
         } else {
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 }

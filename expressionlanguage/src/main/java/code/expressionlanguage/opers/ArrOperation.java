@@ -279,9 +279,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf, _convert));
-        if (_conf.hasExceptionOrFailInit()) {
-            return a_;
-        }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -314,9 +311,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(compoundAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op,_right, _conf));
-        if (_conf.hasExceptionOrFailInit()) {
-            return a_;
-        }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -352,9 +346,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(semiAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.hasExceptionOrFailInit()) {
-            return a_;
-        }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -440,14 +431,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = _nodes.getVal(this).getArgument();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Argument index_ = _nodes.getVal(lastElement_).getArgument();
         InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf, false);
-        if (_conf.hasExceptionOrFailInit()) {
-            return a_;
-        }
         Argument out_ = _right;
         if (_post) {
             out_ = _stored;

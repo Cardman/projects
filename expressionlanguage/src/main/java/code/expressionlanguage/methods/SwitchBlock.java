@@ -31,7 +31,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SwitchBlock extends BracedStack implements BreakableBlock {
+public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl {
 
     private String label;
     private int labelOffset;
@@ -180,15 +180,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     @Override
     boolean canBeIncrementedCurGroup() {
         return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        CustList<Block> ch_ = Classes.getDirectChildren(this);
-        if (ch_.isEmpty()) {
-            return false;
-        }
-        return ch_.last().canBeLastOfBlockGroup();
     }
 
     @Override

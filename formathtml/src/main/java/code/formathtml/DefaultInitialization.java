@@ -139,7 +139,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("values");
+        _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$invokeTaget");
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
@@ -192,6 +192,9 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("$name");
+        _lgNames.setAliasEnumOrdinal("$ordinal");
+        _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasSetOldString("setOldString");

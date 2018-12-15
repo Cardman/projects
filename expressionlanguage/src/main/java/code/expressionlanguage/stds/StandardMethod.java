@@ -95,20 +95,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     }
 
     @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        if (isStaticMethod()) {
-            return false;
-        }
-        if (isFinalMethod()) {
-            return false;
-        }
-        if (isAbstractMethod()) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
     }

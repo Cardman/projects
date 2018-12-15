@@ -49,7 +49,6 @@ public final class StaticInitPageEl extends AbstractPageEl {
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
-            setCurrentBlock(en_);
             ((WithEl)en_).processEl(_context);
             return;
         }

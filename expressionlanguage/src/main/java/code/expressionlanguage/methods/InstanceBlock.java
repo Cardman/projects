@@ -20,11 +20,6 @@ public final class InstanceBlock extends InitBlock {
     }
 
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticContext() {
         return false;
     }

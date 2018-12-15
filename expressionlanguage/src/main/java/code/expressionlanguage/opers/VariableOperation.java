@@ -7,9 +7,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
@@ -22,15 +20,12 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -86,81 +81,12 @@ public final class VariableOperation extends LeafOperation implements
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
-            if (!StringList.isWord(str_)) {
+            if (!_conf.isValidSingleToken(str_)) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
                 b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
-            }
-            if (_conf.getKeyWords().isKeyWordNotVar(str_)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            if (StringList.quickEq(str_, _conf.getStandards().getAliasVoid())) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            Options opt_ = _conf.getOptions();
-            if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                if (!str_.isEmpty() && ContextEl.isDigit(str_.charAt(0))) {
-                    BadVariableName b_ = new BadVariableName();
-                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(page_.getTraceIndex());
-                    b_.setVarName(str_);
-                    _conf.getClasses().addError(b_);
-                }
-            }
-            if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-                if (_conf.getAnalyzing().containsCatchVar(variableName)) {
-                    DuplicateVariable d_ = new DuplicateVariable();
-                    d_.setId(str_);
-                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    d_.setIndexFile(page_.getTraceIndex());
-                    _conf.getClasses().addError(d_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
-                if (_conf.getAnalyzing().containsMutableLoopVar(str_)) {
-                    DuplicateVariable d_ = new DuplicateVariable();
-                    d_.setId(str_);
-                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    d_.setIndexFile(page_.getTraceIndex());
-                    _conf.getClasses().addError(d_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
-                if (_conf.getAnalyzing().containsVar(str_)) {
-                    DuplicateVariable d_ = new DuplicateVariable();
-                    d_.setId(str_);
-                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    d_.setIndexFile(page_.getTraceIndex());
-                    _conf.getClasses().addError(d_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
-                if (_conf.getParameters().contains(str_)) {
-                    DuplicateVariable d_ = new DuplicateVariable();
-                    d_.setId(str_);
-                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    d_.setIndexFile(page_.getTraceIndex());
-                    _conf.getClasses().addError(d_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
             }
             String c_ = _conf.getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -291,11 +217,6 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
 
@@ -316,9 +237,6 @@ public final class VariableOperation extends LeafOperation implements
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.hasExceptionOrFailInit()) {
-            return arg_;
-        }
         if (resultCanBeSet()) {
             setQuickSimpleArgument(arg_, _conf, _nodes);
         } else {
@@ -355,18 +273,6 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
     }
@@ -376,9 +282,7 @@ public final class VariableOperation extends LeafOperation implements
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right, boolean _convert) {
         Argument arg_ = getCommonSetting(_conf, _right, _convert);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -399,9 +303,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -426,9 +328,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 

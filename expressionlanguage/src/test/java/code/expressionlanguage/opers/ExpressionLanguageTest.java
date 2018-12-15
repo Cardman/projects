@@ -1790,7 +1790,6 @@ public class ExpressionLanguageTest {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
@@ -1800,7 +1799,6 @@ public class ExpressionLanguageTest {
     private static ContextEl contextEl(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);

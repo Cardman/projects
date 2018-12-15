@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class IfCondition extends Condition implements BlockCondition, IncrCurrentGroup {
+public final class IfCondition extends Condition implements BlockCondition {
 
     private String label;
     private int labelOffset;
@@ -101,10 +101,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         mutableVars_ = buildAssMutableLoopAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
-    }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

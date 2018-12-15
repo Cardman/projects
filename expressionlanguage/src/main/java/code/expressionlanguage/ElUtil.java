@@ -7,9 +7,9 @@ import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
+import code.expressionlanguage.opers.AbstractTernaryOperation;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DeclaringOperation;
@@ -22,7 +22,10 @@ import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.PreAnalyzableOperation;
+import code.expressionlanguage.opers.QuickOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.opers.SettableElResult;
+import code.expressionlanguage.opers.StandardFieldOperation;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
@@ -31,10 +34,10 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -276,12 +279,15 @@ public final class ElUtil {
         }
         return op_;
     }
-    public static boolean isDeclaringField(SettableAbstractFieldOperation _var, Analyzable _an) {
+    public static boolean isDeclaringField(SettableElResult _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }
-        return isDeclaringVariable(_var);
+        if (!(_var instanceof StandardFieldOperation)) {
+            return false;
+        }
+        return isDeclaringVariable((StandardFieldOperation) _var);
     }
 
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
@@ -450,8 +456,7 @@ public final class ElUtil {
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
-                ArgumentsPair a_ = e.getValue();
-                Argument arg_ = o.calculate(_nodes, _context);
+                o.calculate(_nodes, _context);
                 if (_context.hasExceptionOrFailInit()) {
                     pageEl_.setTranslatedOffset(0);
                     pageEl_.clearCurrentEls();
@@ -461,41 +466,19 @@ public final class ElUtil {
                     _el.setCurrentOper(o);
                     return;
                 }
-                a_.setArgument(arg_);
             }
         }
         _context.getLastPage().setTranslatedOffset(0);
     }
-    public static void tryCalculate(FieldBlock _field, String _fieldName, ContextEl _context, EqList<SortedClassField> _list) {
-        RootBlock r_ = (RootBlock) _field.getParent();
-        ClassField key_ = new ClassField(r_.getFullName(), _fieldName);
-        for (SortedClassField f: _list) {
-            if (f.getClassField().eq(key_)) {
-                tryCalculate(_field, _context, 0, _list, f);
-                break;
-            }
-        }
-    }
-    static void tryCalculate(FieldBlock _field, ContextEl _context, int _offset, EqList<SortedClassField> _list, SortedClassField _current) {
-        AnalyzedPageEl pageEl_ = _context.getAnalyzing();
-        pageEl_.setCurrentInitizedField(_current);
-        pageEl_.setTranslatedOffset(_offset);
+    public static void tryCalculate(FieldBlock _field, ContextEl _context, String _fieldName) {
         CustList<OperationNode> nodes_ = _field.getOpValue();
-        String fieldName_ = _current.getClassField().getFieldName();
         OperationNode root_ = nodes_.last();
+        CustList<OperationNode> sub_;
         if (!(root_ instanceof DeclaringOperation)) {
-            for (OperationNode o: nodes_) {
-                if (!o.isCalculated()) {
-                    o.tryCalculateNode(_context, _list, _current);
-                }
-            }
-            if (root_.getArgument() == null) {
-                _current.setOk(false);
-                pageEl_.setTranslatedOffset(0);
-            }
+            sub_ = nodes_;
         } else {
             MethodOperation m_ = (MethodOperation)root_;
-            int index_ = _field.getFieldName().indexOfObj(fieldName_);
+            int index_ = _field.getFieldName().indexOfObj(_fieldName);
             CustList<OperationNode> ch_ = m_.getChildrenNodes();
             OperationNode rootLoc_ = ch_.get(index_);
             int from_;
@@ -505,15 +488,84 @@ public final class ElUtil {
             } else {
                 from_ = ch_.get(index_-1).getOrder() + 1;
             }
-            for (OperationNode o: nodes_.sub(from_, to_)) {
-                if (!o.isCalculated()) {
-                    o.tryCalculateNode(_context, _list, _current);
+            sub_ = nodes_.sub(from_, to_);
+        }
+        int ind_ = 0;
+        int len_ = sub_.size();
+        while (ind_ < len_) {
+            OperationNode curr_ = sub_.get(ind_);
+            Argument a_ = curr_.getArgument();
+            if (a_ != null) {
+                ind_++;
+                continue;
+            }
+            curr_.tryCalculateNode(_context);
+            a_ = curr_.getArgument();
+            if (a_ == null) {
+                return;
+            }
+            ind_ = getNextIndex(curr_, a_.getStruct());
+        }
+    }
+    public static CustList<OperationNode> getReducedNodes(OperationNode _root) {
+        CustList<OperationNode> out_ = new CustList<OperationNode>();
+        OperationNode current_ = _root;
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            OperationNode op_ = current_.getFirstChild();
+            if (op_ != null) {
+                if (current_.getArgument() == null) {
+                    current_ = op_;
+                    continue;
                 }
             }
-            if (rootLoc_.getArgument() == null) {
-                _current.setOk(false);
-                pageEl_.setTranslatedOffset(0);
+            while (true) {
+                current_.setOrder(out_.size());
+                out_.add(current_);
+                op_ = current_.getNextSibling();
+                if (op_ != null) {
+                    current_ = op_;
+                    break;
+                }
+                op_ = current_.getParent();
+                if (op_ == _root) {
+                    op_.setOrder(out_.size());
+                    out_.add(op_);
+                    current_ = null;
+                    break;
+                }
+                if (op_ == null) {
+                    current_ = null;
+                    break;
+                }
+                current_ = op_;
             }
         }
+        return out_;
+    }
+    public static int getNextIndex(OperationNode _operation, Struct _value) {
+        int index_ = _operation.getIndexChild();
+        MethodOperation par_ = _operation.getParent();
+        if (par_ instanceof QuickOperation) {
+            QuickOperation q_ = (QuickOperation) par_;
+            BooleanStruct bs_ = q_.absorbingStruct();
+            if (bs_.sameReference(_value)) {
+                return par_.getOrder() + 1;
+            }
+        }
+        if (par_ instanceof AbstractTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0) {
+                BooleanStruct bs_ = new BooleanStruct(false);
+                if (bs_.sameReference(_value)) {
+                    return _operation.getNextSibling().getOrder() + 1;
+                }
+            }
+        }
+        return _operation.getOrder() + 1;
     }
 }

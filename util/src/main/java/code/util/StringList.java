@@ -2014,7 +2014,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         }
         return ret_;
     }
-    public static StringList getDollarWordSeparators(StringBuilder _str) {
+    public static StringList getDollarWordSeparators(CharSequence _str) {
         if (_str.length() == 0) {
             return new StringList();
         }
@@ -2028,7 +2028,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 return ret_;
             }
             if (isWordChar(_str.charAt(i_)) || _str.charAt(i_) == '$') {
-                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
+                str_.append(_str.toString().substring(CustList.FIRST_INDEX, i_));
                 break;
             }
             i_++;

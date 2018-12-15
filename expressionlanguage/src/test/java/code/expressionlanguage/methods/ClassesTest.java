@@ -1721,48 +1721,45 @@ public class ClassesTest {
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateIds(cont_,false);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.initStaticFields(cont_);
+        classes_.initStaticFields(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1771,12 +1768,11 @@ public class ClassesTest {
     private ContextEl failValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
@@ -1785,16 +1781,15 @@ public class ClassesTest {
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }

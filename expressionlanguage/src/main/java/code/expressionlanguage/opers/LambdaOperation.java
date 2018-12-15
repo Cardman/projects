@@ -34,14 +34,12 @@ import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
 import code.expressionlanguage.structs.LambdaFieldStruct;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1238,11 +1236,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
     }
 
@@ -1261,12 +1254,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getCommonArgument(previous_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
@@ -1307,18 +1295,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         OperationNode op_ = this;
         while (op_ != null) {
             if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
                 return true;
             }
             op_ = op_.getParent();

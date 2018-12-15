@@ -7,7 +7,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -78,10 +77,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         buildEmptyEl(_an);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -104,9 +99,4 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         return finalVariableOffset;
     }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
-    }
 }

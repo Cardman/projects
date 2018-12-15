@@ -91,16 +91,8 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument arg_ = getCommonArgument(previous_, _conf);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
         boolean simple_ = false;
         if (this instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) this;
@@ -121,18 +113,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         OperationNode op_ = this;
         while (op_ != null) {
             if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public final boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
                 return true;
             }
             op_ = op_.getParent();

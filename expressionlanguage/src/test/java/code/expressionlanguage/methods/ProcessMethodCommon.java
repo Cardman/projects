@@ -84,7 +84,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -97,7 +96,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextElIntern() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSingleInnerParts(true);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -127,7 +125,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(boolean _multAff, boolean _eqPlus,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -140,7 +137,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -153,7 +149,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(VariableSuffix _suf,boolean _multAff, boolean _eqPlus,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {

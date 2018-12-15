@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
@@ -9,10 +8,8 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -33,18 +30,6 @@ public abstract class MethodOperation extends OperationNode {
         OperationNode op_ = this;
         while (op_ != null) {
             if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public final boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
                 return true;
             }
             op_ = op_.getParent();
@@ -265,16 +250,6 @@ public abstract class MethodOperation extends OperationNode {
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
         vars_.getMutableLoop().put(this, mutableAfter_);
-    }
-    @Override
-    public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        CustList<OperationNode> children_ = getChildrenNodes();
-        for (OperationNode o: children_) {
-            if (o.getArgument() == null) {
-                return;
-            }
-        }
-        quickCalculate(_conf);
     }
     @Override
     public void tryCalculateNode(Analyzable _conf) {

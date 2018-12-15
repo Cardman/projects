@@ -50,7 +50,7 @@ public final class ExpressionLanguage {
             ((CallSimpleOperation)currentOper).endCalculate(_cont, arguments, _arg);
             return;
         }
-        arguments.getVal(currentOper).setArgument(_arg);
+//        arguments.getVal(currentOper).setArgument(_arg);
         currentOper.setSimpleArgument(_arg, _cont, arguments);
     }
 

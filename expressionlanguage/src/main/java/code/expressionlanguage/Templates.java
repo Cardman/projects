@@ -556,7 +556,7 @@ public final class Templates {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isWordChar(_type.charAt(i))) {
+            if (StringList.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -600,7 +600,7 @@ public final class Templates {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isWordChar(_type.charAt(i))) {
+            if (StringList.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -681,7 +681,7 @@ public final class Templates {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isWordChar(_type.charAt(i))) {
+            if (StringList.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
@@ -802,7 +802,7 @@ public final class Templates {
                 str_.append(_type.charAt(i));
                 continue;
             }
-            if (StringList.isWordChar(_type.charAt(i))) {
+            if (StringList.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
