@@ -10,7 +10,6 @@ import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -88,10 +87,6 @@ public final class StaticInfoOperation extends LeafOperation {
         a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
-    }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

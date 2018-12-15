@@ -13,7 +13,6 @@ import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -163,10 +162,6 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         return a_;
     }
 
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
 
     @Override
     public final void setIntermediateDotted() {

@@ -77,7 +77,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     }
 
     public ConstructorId getConstId() {
-        return opExp.last().getConstId();
+        return ((CurrentInvokingConstructor) opExp.last()).getConstId();
     }
 
     public boolean isCallSuper() {

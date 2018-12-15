@@ -34,18 +34,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (!(m_ instanceof InvokingOperation)) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        InvokingOperation parent_ = (InvokingOperation)m_;
-        if (!parent_.isCallMethodCtor(_conf)) {
+        if (!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());

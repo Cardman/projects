@@ -19,7 +19,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -230,11 +229,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             setSimpleArgument(arg_, _conf, _nodes);
         }
         return arg_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     @Override

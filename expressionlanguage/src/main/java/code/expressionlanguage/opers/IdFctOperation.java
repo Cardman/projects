@@ -10,7 +10,6 @@ import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.IdMap;
@@ -53,25 +52,13 @@ public final class IdFctOperation extends LeafOperation {
             }
         }
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
-        if (!(m_ instanceof InvokingOperation)) {
+        if (!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        InvokingOperation parent_ = (InvokingOperation) m_;
-        if (!parent_.isCallMethodCtor(_conf)) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (!isFirstChild()) {
@@ -81,7 +68,6 @@ public final class IdFctOperation extends LeafOperation {
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (argsRes_ == null) {
@@ -139,11 +125,6 @@ public final class IdFctOperation extends LeafOperation {
         Argument a_ = new Argument();
         _nodes.getVal(this).setArgument(a_);
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     public ClassMethodId getMethod() {

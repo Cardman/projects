@@ -21,7 +21,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -396,10 +395,6 @@ public final class FctOperation extends InvokingOperation {
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
 
     @Override
     void calculateChildren() {
@@ -408,8 +403,4 @@ public final class FctOperation extends InvokingOperation {
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
-    }
 }

@@ -1,12 +1,10 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -29,15 +27,6 @@ public abstract class AbstractArrayInstancingOperation extends AbstractInstancin
     }
     public final void setClassName(String _className) {
         className = _className;
-    }
-    @Override
-    public final ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
-    final boolean isCallMethodCtor(Analyzable _an) {
-        return false;
     }
 
     @Override

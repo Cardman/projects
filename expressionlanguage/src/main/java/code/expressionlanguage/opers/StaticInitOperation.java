@@ -12,7 +12,6 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -79,10 +78,6 @@ public final class StaticInitOperation extends LeafOperation {
         return cur_;
     }
 
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
     void setInit(Analyzable _conf, String _base, boolean _staticType) {
         if (!_staticType) {
             possibleInitClass = false;

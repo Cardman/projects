@@ -7,7 +7,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 
@@ -51,11 +50,6 @@ public final class DeclaringOperation extends MethodOperation {
         Argument a_ = new Argument();
         _nodes.getVal(this).setArgument(a_);
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

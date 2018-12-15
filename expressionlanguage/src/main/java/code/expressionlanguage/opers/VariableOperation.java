@@ -19,7 +19,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -258,11 +257,6 @@ public final class VariableOperation extends LeafOperation implements
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     @Override

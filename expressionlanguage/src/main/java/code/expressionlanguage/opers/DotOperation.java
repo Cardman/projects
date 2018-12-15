@@ -6,7 +6,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -36,11 +35,6 @@ public final class DotOperation extends MethodOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     @Override

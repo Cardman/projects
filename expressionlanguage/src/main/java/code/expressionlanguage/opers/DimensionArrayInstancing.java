@@ -114,11 +114,7 @@ public final class DimensionArrayInstancing extends
         LgNames stds_ = _conf.getStandards();
         String size_;
         size_ = stds_.getAliasBadSize();
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
@@ -128,9 +124,9 @@ public final class DimensionArrayInstancing extends
 
         int[] args_;
 
-        args_ = new int[chidren_.size()];
+        args_ = new int[filter_.size()];
         int i_ = CustList.FIRST_INDEX;
-        for (OperationNode o: chidren_) {
+        for (OperationNode o: filter_) {
             NumberStruct n_ = (NumberStruct)_arguments.get(i_).getStruct();
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
             int dim_ = n_.getInstance().intValue();

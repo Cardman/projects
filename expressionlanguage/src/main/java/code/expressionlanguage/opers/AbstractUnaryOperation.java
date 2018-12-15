@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
@@ -47,10 +46,5 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
             }
         }
         quickCalculate(_conf);
-    }
-
-    @Override
-    public final ConstructorId getConstId() {
-        return null;
     }
 }

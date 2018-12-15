@@ -18,7 +18,6 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -120,11 +119,6 @@ public final class ValuesOperation extends LeafOperation {
     }
     Argument getCommonArgument(ExecutableCode _conf) {
         return InvokingOperation.getEnumValues(className, _conf);
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

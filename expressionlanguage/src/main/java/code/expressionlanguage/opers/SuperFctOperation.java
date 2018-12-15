@@ -21,7 +21,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -46,11 +45,6 @@ public final class SuperFctOperation extends InvokingOperation {
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
     }
 
     @Override
@@ -254,10 +248,4 @@ public final class SuperFctOperation extends InvokingOperation {
         }
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
 }

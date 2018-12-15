@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Initializer;
@@ -300,40 +301,18 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         CustList<Argument> firstArgs_ = new CustList<Argument>(_nodes);
         return firstArgs_;
     }
-    static boolean setCheckedElement(ArrayStruct _array,Object _index, Argument _element, Analyzable _conf) {
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf.getStandards())) {
+    static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        Struct elt_ = _element.getStruct();
+        IntStruct i_ = new IntStruct(_index);
+        if (Templates.getErrorWhenContain(_array, i_, elt_, _conf) != ErrorType.NOTHING) {
             return false;
         }
-        return setElement(_array, _index, _element.getStruct(), _conf);
-    }
-    private static boolean setElement(ArrayStruct _struct, Object _index, Struct _value, Analyzable _conf) {
-        if (_index == null) {
-            return false;
-        }
-        String strClass_ = _struct.getClassName();
-        String valClass_ = _value.getClassName(_conf.getContextEl());
-        Struct[] instance_ = _struct.getInstance();
-        int len_ = instance_.length;
-        int index_ = ((Number)_index).intValue();
-        if (index_ < 0 || index_ >= len_) {
-            return false;
-        }
-        if (_value != NullStruct.NULL_VALUE) {
-            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            String elementType_ = valClass_;
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(elementType_);
-            mapping_.setParam(componentType_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
-                return false;
-            }
-        }
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+        Struct[] instance_ = _array.getInstance();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
         LgNames stds_ = _conf.getStandards();
-        Struct value_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-        instance_[index_] = value_;
+        Struct value_ = PrimitiveTypeUtil.convertObject(cl_, elt_, stds_);
+        instance_[_index] = value_;
         return true;
     }
     static StringList getBounds(String _cl, Analyzable _conf) {
@@ -537,7 +516,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     public final void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;
     }
-    abstract boolean isCallMethodCtor(Analyzable _an);
+
     public static boolean hasToExit(ExecutableCode _conf, String _className) {
         Classes classes_ = _conf.getClasses();
         String idClass_ = Templates.getIdFromAllTypes(_className);

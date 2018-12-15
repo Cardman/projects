@@ -14,7 +14,6 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -211,11 +210,6 @@ public final class ConstantOperation extends LeafOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

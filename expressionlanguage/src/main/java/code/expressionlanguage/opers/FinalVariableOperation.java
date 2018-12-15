@@ -11,7 +11,6 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
@@ -167,11 +166,6 @@ public final class FinalVariableOperation extends LeafOperation {
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

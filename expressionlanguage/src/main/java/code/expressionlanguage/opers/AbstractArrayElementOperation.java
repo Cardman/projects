@@ -57,11 +57,6 @@ public abstract class AbstractArrayElementOperation extends
     }
     @Override
     final Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            filter_.add(o);
-        }
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -70,11 +65,11 @@ public abstract class AbstractArrayElementOperation extends
         PageEl page_ = _conf.getOperationPageEl();
         className_ = page_.formatVarType(cl_, _conf);
 
-        int nbCh_ = chidren_.size();
+        int nbCh_ = _arguments.size();
         int[] args_;
 
         args_ = new int[CustList.ONE_ELEMENT];
-        args_[CustList.FIRST_INDEX] = chidren_.size();
+        args_[CustList.FIRST_INDEX] = _arguments.size();
         Argument a_ = new Argument();
 
         Numbers<Integer> dims_;

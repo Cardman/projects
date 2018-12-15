@@ -172,13 +172,7 @@ public abstract class MethodOperation extends OperationNode {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: children_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(children_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();

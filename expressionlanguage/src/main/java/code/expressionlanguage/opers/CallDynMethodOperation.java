@@ -18,7 +18,6 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -31,11 +30,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
     }
 
     @Override
@@ -180,11 +174,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
         Argument res_ = prepareCallDyn(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

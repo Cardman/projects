@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -62,15 +63,6 @@ public final class StandardInstancingOperation extends
         fieldName = _fieldName;
     }
 
-    public boolean initStaticClass(Analyzable _an) {
-        return isCallMethodCtor(_an);
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
-    }
-
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -82,13 +74,7 @@ public final class StandardInstancingOperation extends
         String className_ = methodName.trim().substring(newKeyWord_.length());
         className_ = className_.trim();
         String realClassName_ = className_;
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
@@ -197,13 +183,7 @@ public final class StandardInstancingOperation extends
     void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
@@ -354,20 +334,9 @@ public final class StandardInstancingOperation extends
     }
 
     @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
+        CustList<Argument> arguments_ = ElUtil.filterInvoking(chidren_, _nodes);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
@@ -414,13 +383,7 @@ public final class StandardInstancingOperation extends
     Argument getArgument(Argument _previous,CustList<Argument> _arguments,
             ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;

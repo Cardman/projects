@@ -13,6 +13,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -878,7 +879,10 @@ public final class Templates {
     public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context, boolean _arr) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
-        if (str_ != NullStruct.NULL_VALUE && !_convert) {
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
+        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
+        str_ = _arg.getStruct();
+        if (str_ != NullStruct.NULL_VALUE) {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
                 if (_arr) {
@@ -896,11 +900,44 @@ public final class Templates {
             _context.setException(new ErrorStruct(_context,npe_));
             return false;
         }
-        if (str_ instanceof NumberStruct) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-            _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
-        }
         return true;
+    }
+    public static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, Analyzable _context) {
+        if (_array == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_array instanceof ArrayStruct)) {
+            return ErrorType.CAST;
+        }
+        if (_index == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_index instanceof NumberStruct)) {
+            return ErrorType.CAST;
+        }
+        Number nb_ = ((NumberStruct)_index).getInstance();
+        if (!(nb_ instanceof Integer)) {
+            return ErrorType.CAST;
+        }
+        ArrayStruct arr_ = (ArrayStruct) _array;
+        Struct[] inst_ = arr_.getInstance();
+        int index_ = nb_.intValue();
+        if (index_ < 0 || index_ >= inst_.length) {
+            return ErrorType.BAD_INDEX;
+        }
+        String arrType_ = arr_.getClassName();
+        String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
+        LgNames stds_ = _context.getStandards();
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(param_, _value, stds_)) {
+            return ErrorType.NPE;
+        }
+        if (_value != NullStruct.NULL_VALUE) {
+            String arg_ = stds_.getStructClassName(_value, _context.getContextEl());
+            if (!Templates.isCorrectExecute(arg_, param_, _context)) {
+                return ErrorType.STORE;
+            }
+        }
+        return ErrorType.NOTHING;
     }
     public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isVariable()) {

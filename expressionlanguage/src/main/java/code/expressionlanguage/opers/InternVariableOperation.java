@@ -8,7 +8,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.IdMap;
@@ -78,11 +77,6 @@ public final class InternVariableOperation extends LeafOperation {
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

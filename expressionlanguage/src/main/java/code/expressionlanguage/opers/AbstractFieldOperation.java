@@ -8,7 +8,6 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.IdMap;
 
 public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -109,10 +108,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     }
     abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
 
-    @Override
-    public final ConstructorId getConstId() {
-        return null;
-    }
 
     @Override
     public final Argument getPreviousArgument() {

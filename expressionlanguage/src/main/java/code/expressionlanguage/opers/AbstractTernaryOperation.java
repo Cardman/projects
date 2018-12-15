@@ -22,7 +22,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -327,11 +326,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             arg_ = _arguments.last();
         }
         return arg_;
-    }
-
-    @Override
-    public final ConstructorId getConstId() {
-        return null;
     }
 
 }

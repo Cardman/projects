@@ -414,7 +414,7 @@ public final class Classes {
         StringList pkgFound_ = cl_.getPackagesFound();
         if (_context.getOptions().isSingleInnerParts()) {
             for (RootBlock r: _context.getClasses().getClassBodies(_predefined)) {
-                if (r.getParent() != null) {
+                if (!(r.getParent() instanceof FileBlock)) {
                     continue;
                 }
                 String fullName_ = r.getFullName();

@@ -94,15 +94,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return implicitCallSuper;
     }
 
-    public Block getFirstBlockAfterOtherConstr() {
-        Block ch_ = getFirstChild();
-        if (implicitConstr()) {
-            return ch_;
-        }
-        //the constructor has a line as first block which call an other constructor
-        return ch_.getNextSibling();
-    }
-
     public ConstructorId getConstIdSameClass() {
         return constIdSameClass;
     }

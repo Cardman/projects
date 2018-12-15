@@ -14,7 +14,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.stds.LgNames;
@@ -232,11 +231,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         a_ = r_;
         setSimpleArgument(a_, _conf);
-    }
-
-    @Override
-    public final ConstructorId getConstId() {
-        return null;
     }
 
     @Override

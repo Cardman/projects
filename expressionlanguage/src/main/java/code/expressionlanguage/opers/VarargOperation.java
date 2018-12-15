@@ -8,7 +8,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.IdMap;
 
@@ -29,18 +28,7 @@ public final class VarargOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (!(m_ instanceof InvokingOperation)) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        InvokingOperation parent_ = (InvokingOperation) m_;
-        if (!parent_.isCallMethodCtor(_conf)) {
+        if (!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -84,11 +72,6 @@ public final class VarargOperation extends LeafOperation {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         return _nodes.getVal(this).getArgument();
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

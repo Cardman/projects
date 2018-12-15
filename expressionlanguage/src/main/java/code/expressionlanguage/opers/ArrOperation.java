@@ -9,7 +9,6 @@ import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -32,11 +31,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     @Override

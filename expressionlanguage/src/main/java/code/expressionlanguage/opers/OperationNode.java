@@ -178,6 +178,16 @@ public abstract class OperationNode {
     public abstract void calculate(ExecutableCode _conf);
     public abstract void tryCalculateNode(Analyzable _conf);
 
+    final boolean isCallMethodCtor(){
+        if (!(this instanceof InvokingOperation)) {
+            return false;
+        }
+        if (this instanceof AbstractArrayInstancingOperation) {
+            return false;
+        }
+        return !(this instanceof AnnotationInstanceOperation);
+    }
+
     public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
 
 
@@ -476,8 +486,6 @@ public abstract class OperationNode {
         }
         return getIndexChild() == CustList.FIRST_INDEX;
     }
-
-    public abstract ConstructorId getConstId();
 
     public abstract OperationNode getFirstChild();
 
@@ -1700,8 +1708,8 @@ public abstract class OperationNode {
                     if (i == j) {
                         continue;
                     }
-                    String clOther_ = Templates.getIdFromAllTypes(curMi_.getClassName());
                     MethodInfo otherMi_ = (MethodInfo) allMax_.get(j);
+                    String clOther_ = Templates.getIdFromAllTypes(otherMi_.getClassName());
                     String otherRet_ = otherMi_.getReturnType();
                     if (StringList.quickEq(curRet_, otherRet_)) {
                         if (StringList.quickEq(clOther_, cl_)) {
@@ -2374,11 +2382,11 @@ public abstract class OperationNode {
         resultClass = _resultClass;
     }
 
-    public PossibleIntermediateDotted getSiblingSet() {
+    public final PossibleIntermediateDotted getSiblingSet() {
         return siblingSet;
     }
 
-    public void setSiblingSet(PossibleIntermediateDotted _siblingSet) {
+    public final void setSiblingSet(PossibleIntermediateDotted _siblingSet) {
         siblingSet = _siblingSet;
     }
 }

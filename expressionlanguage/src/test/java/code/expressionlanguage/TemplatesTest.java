@@ -1258,6 +1258,17 @@ public class TemplatesTest {
         assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
     }
     @Test
+    public void wildCardFormat50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "#T";
+        assertEq("java.lang.Number",Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+    @Test
     public void getGenericTypeByBases1Test() {
         ContextEl context_ = simpleContextEl();
         String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.Object", context_);

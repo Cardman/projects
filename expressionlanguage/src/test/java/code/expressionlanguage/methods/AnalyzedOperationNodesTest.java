@@ -343,7 +343,7 @@ public class AnalyzedOperationNodesTest {
         FctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -374,12 +374,12 @@ public class AnalyzedOperationNodesTest {
         FctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
@@ -422,12 +422,12 @@ public class AnalyzedOperationNodesTest {
         FctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
@@ -454,12 +454,12 @@ public class AnalyzedOperationNodesTest {
         FctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
@@ -878,7 +878,7 @@ public class AnalyzedOperationNodesTest {
         FctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleFive", id_.getName());
         StringList params_ = id_.getParametersTypes();

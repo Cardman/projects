@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -1790,6 +1791,31 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument138Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<$int> inst=$new pkg.ExTwo<$int>():\n");
+        xml_.append(" $public $int ance=inst;;;get():\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  #T err = $null:\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertNotNull(cont_.getException());
     }
     @Test
     public void instanceArgument2FailTest() {

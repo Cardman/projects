@@ -1285,10 +1285,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         arg_.setStruct(l_);
         return arg_;
     }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
 
     public final void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;

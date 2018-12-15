@@ -21,7 +21,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -359,10 +358,6 @@ public final class CompoundAffectationOperation extends MethodOperation implemen
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
-    }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

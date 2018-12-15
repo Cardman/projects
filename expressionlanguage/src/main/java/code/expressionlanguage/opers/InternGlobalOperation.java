@@ -8,7 +8,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -80,11 +79,6 @@ public final class InternGlobalOperation extends LeafOperation {
         a_ = new Argument();
         a_.setStruct(struct_);
         return a_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

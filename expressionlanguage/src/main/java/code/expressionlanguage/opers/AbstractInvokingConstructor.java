@@ -54,11 +54,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    final boolean isCallMethodCtor(Analyzable _an) {
-        return true;
-    }
-
-    @Override
     public final void analyze(Analyzable _conf) {
         String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -198,8 +193,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
     abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
 
-    @Override
-    public ConstructorId getConstId() {
+    public final ConstructorId getConstId() {
         return constId;
     }
 

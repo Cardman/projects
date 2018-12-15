@@ -208,7 +208,7 @@ public final class ElUtil {
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
             if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-                if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+                if (_index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
                     OperationsSequence opSeq_ = new OperationsSequence();
                     opSeq_.setFctName(block_.getOperations().getFctName());
@@ -225,7 +225,7 @@ public final class ElUtil {
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
-            if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+            if (_index == CustList.FIRST_INDEX) {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(new Delimiters());
@@ -277,6 +277,26 @@ public final class ElUtil {
             _context.getClasses().addError(badEl_);
         }
         return op_;
+    }
+    public static CustList<OperationNode> filterInvoking(CustList<OperationNode> _list) {
+        CustList<OperationNode> out_ = new CustList<OperationNode>();
+        for (OperationNode o: _list) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            out_.add(o);
+        }
+        return out_;
+    }
+    public static CustList<Argument> filterInvoking(CustList<OperationNode> _list, IdMap<OperationNode,ArgumentsPair> _nodes) {
+        CustList<Argument> out_ = new CustList<Argument>();
+        for (OperationNode o: _list) {
+            if (o instanceof StaticInitOperation) {
+                continue;
+            }
+            out_.add(_nodes.getVal(o).getArgument());
+        }
+        return out_;
     }
     public static boolean isDeclaringField(SettableElResult _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();

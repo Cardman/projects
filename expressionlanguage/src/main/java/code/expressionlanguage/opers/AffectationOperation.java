@@ -20,7 +20,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -423,11 +422,6 @@ public final class AffectationOperation extends MethodOperation {
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_, convertNumber);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

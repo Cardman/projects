@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -22,8 +23,6 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -188,13 +187,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         setStaticAccess(_conf.isStaticContext());
         analyzeCtor(_conf, firstArgs_);
@@ -202,13 +195,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     void analyzeCtor(Analyzable _conf, CustList<ClassArgumentMatching> _firstArgs) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _conf.getStandards().getAliasObject();
         if (StringList.quickEq(className, objCl_)) {
             setResultClass(new ClassArgumentMatching(className));
@@ -341,20 +328,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     }
 
     @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
+        CustList<Argument> arguments_ = ElUtil.filterInvoking(chidren_, _nodes);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
@@ -401,13 +377,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     Argument getArgument(Argument _previous,CustList<Argument> _arguments,
             ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         if (array) {
@@ -448,12 +417,4 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
-        String new_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(new_.length());
-        className_ = ContextEl.removeDottedSpaces(className_);
-        return !className_.startsWith(ARR);
-    }
 }
