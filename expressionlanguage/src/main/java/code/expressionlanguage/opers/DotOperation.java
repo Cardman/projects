@@ -10,7 +10,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 
-public final class DotOperation extends MethodOperation {
+public final class DotOperation extends ReflectableOpering {
 
     public DotOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {

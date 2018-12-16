@@ -29,7 +29,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
+public final class MutableLoopVariableOperation extends VariableLeafOperation implements SettableElResult {
 
     private boolean variable;
 

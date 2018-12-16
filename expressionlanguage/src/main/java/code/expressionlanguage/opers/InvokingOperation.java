@@ -62,7 +62,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted {
+public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted, AtomicCalculableOperation {
     private ClassArgumentMatching previousResultClass;
     private boolean staticAccess;
     private boolean intermediate;

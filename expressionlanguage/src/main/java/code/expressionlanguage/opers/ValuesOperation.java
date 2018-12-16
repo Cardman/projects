@@ -22,7 +22,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class ValuesOperation extends LeafOperation {
+public final class ValuesOperation extends VariableLeafOperation {
 
     private String className;
     private int argOffset;

@@ -2,13 +2,10 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.errors.custom.BadFormatNumber;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -18,11 +15,10 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ConstantOperation extends LeafOperation {
+public final class ConstantOperation extends ConstLeafOperation {
 
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -195,21 +191,6 @@ public final class ConstantOperation extends LeafOperation {
         vars_.getVariables().put(this, ass_);
         vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        return _nodes.getVal(this).getArgument();
-    }
-
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
     }
 
 }

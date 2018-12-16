@@ -15,7 +15,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class StaticInitOperation extends LeafOperation {
+public final class StaticInitOperation extends VariableLeafOperation {
 
     private boolean possibleInitClass;
     private String methodName;

@@ -2,19 +2,16 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class InternGlobalOperation extends LeafOperation {
+public final class InternGlobalOperation extends LeafOperation implements DirectCalculableOperation {
 
     public InternGlobalOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -59,14 +56,6 @@ public final class InternGlobalOperation extends LeafOperation {
             return;
         }
         setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
     Argument getCommonArgument(ExecutableCode _conf) {

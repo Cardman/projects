@@ -83,7 +83,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         Argument f_ = _nodes.getVal(first_).getArgument();
         Struct abs_ = f_.getStruct();
         if (absorbingStruct().sameReference(abs_)) {
-            _nodes.getVal(this).setArgument(f_);
+            setQuickSimpleArgument(f_, _conf, _nodes);
             return f_;
         }
         OperationNode last_ = chidren_.last();

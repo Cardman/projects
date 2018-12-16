@@ -44,7 +44,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
+public final class LambdaOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;

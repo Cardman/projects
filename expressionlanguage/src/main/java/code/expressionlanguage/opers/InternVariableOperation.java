@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class InternVariableOperation extends LeafOperation {
+public final class InternVariableOperation extends VariableLeafOperation {
 
     private String variableName = EMPTY_STRING;
 

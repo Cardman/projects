@@ -175,7 +175,7 @@ public abstract class OperationNode {
         analyzeAssignmentAfter(_conf);
     }
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
-    public abstract void calculate(ExecutableCode _conf);
+
     public abstract void tryCalculateNode(Analyzable _conf);
 
     final boolean isCallMethodCtor(){
@@ -187,9 +187,6 @@ public abstract class OperationNode {
         }
         return !(this instanceof AnnotationInstanceOperation);
     }
-
-    public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf);
-
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, Analyzable _cont) {
         _cont.setAnalyzedOffset(operations.getDelimiter().getIndexBegin()+_offset);
@@ -2313,10 +2310,6 @@ public abstract class OperationNode {
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
         setQuickSimpleArgument(_argument, _conf, _nodes);
         setNextSiblingsArg(_argument, _conf, _nodes);
-        if (_conf.callsOrException()) {
-            return;
-        }
-        _nodes.getVal(this).setArgument(_argument);
     }
 
     public final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {

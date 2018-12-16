@@ -11,6 +11,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.AbstractTernaryOperation;
 import code.expressionlanguage.opers.AffectationOperation;
+import code.expressionlanguage.opers.AtomicCalculableOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
@@ -477,11 +478,16 @@ public final class ElUtil {
         while (fr_ < len_) {
             OperationNode o = _nodes.getKey(fr_);
             ArgumentsPair pair_ = _nodes.getValue(fr_);
+            if (!(o instanceof AtomicCalculableOperation)) {
+                fr_++;
+                continue;
+            }
             if (pair_.getArgument() != null) {
                 fr_++;
                 continue;
             }
-            o.calculate(_nodes, _context);
+            AtomicCalculableOperation a_ = (AtomicCalculableOperation)o;
+            a_.calculate(_nodes, _context);
             if (_context.hasExceptionOrFailInit()) {
                 pageEl_.setTranslatedOffset(0);
                 pageEl_.clearCurrentEls();

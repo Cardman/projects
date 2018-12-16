@@ -34,7 +34,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class AffectationOperation extends MethodOperation {
+public final class AffectationOperation extends ReflectableOpering {
 
     private SettableElResult settable;
 

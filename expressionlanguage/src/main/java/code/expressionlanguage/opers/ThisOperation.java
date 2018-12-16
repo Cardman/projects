@@ -19,7 +19,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
+public final class ThisOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;

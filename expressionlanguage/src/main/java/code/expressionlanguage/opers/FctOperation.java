@@ -35,7 +35,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class FctOperation extends InvokingOperation {
+public final class FctOperation extends ReflectableInvokingOperation {
 
     private String methodName;
 

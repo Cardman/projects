@@ -3,19 +3,16 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class StaticAccessOperation extends LeafOperation {
+public final class StaticAccessOperation extends ConstLeafOperation {
 
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -89,21 +86,8 @@ public final class StaticAccessOperation extends LeafOperation {
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-    @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument a_ = _nodes.getVal(this).getArgument();
-        return a_;
     }
 
 }

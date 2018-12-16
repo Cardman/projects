@@ -7,6 +7,7 @@ import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.opers.DirectCalculableOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.util.BadElRender;
@@ -119,12 +120,17 @@ public final class ElRenderUtil {
         int len_ = _nodes.size();
         while (ind_ < len_) {
             OperationNode curr_ = _nodes.get(ind_);
+            if (!(curr_ instanceof DirectCalculableOperation)) {
+                ind_++;
+                continue;
+            }
             Argument a_ = curr_.getArgument();
             if (a_ != null) {
                 ind_++;
                 continue;
             }
-            curr_.calculate(_context);
+            DirectCalculableOperation dir_ = (DirectCalculableOperation) curr_;
+            dir_.calculate(_context);
             a_ = curr_.getArgument();
             if (_context.getException() != null) {
                 return;

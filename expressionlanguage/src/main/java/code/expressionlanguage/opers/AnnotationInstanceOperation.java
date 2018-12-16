@@ -8,8 +8,6 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
@@ -20,7 +18,6 @@ import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.IntStruct;
@@ -335,43 +332,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        Argument res_;
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
     }
 
     Argument getArgument(Argument _previous,CustList<Argument> _arguments,

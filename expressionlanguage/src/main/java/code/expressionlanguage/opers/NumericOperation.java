@@ -27,7 +27,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public abstract class NumericOperation extends MethodOperation {
+public abstract class NumericOperation extends ReflectableOpering {
     private ClassMethodId classMethodId;
 
     public NumericOperation(int _index,

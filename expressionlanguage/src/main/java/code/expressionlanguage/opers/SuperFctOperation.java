@@ -29,7 +29,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SuperFctOperation extends InvokingOperation {
+public final class SuperFctOperation extends ReflectableInvokingOperation {
 
     private String methodName;
 

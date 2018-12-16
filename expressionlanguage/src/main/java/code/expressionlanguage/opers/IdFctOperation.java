@@ -3,19 +3,16 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.VarargError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class IdFctOperation extends LeafOperation {
+public final class IdFctOperation extends ConstLeafOperation {
 
     private String className;
     private int offset;
@@ -74,6 +71,7 @@ public final class IdFctOperation extends LeafOperation {
             return;
         }
         method = new ClassMethodId(cl_, argsRes_);
+        setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
     private MethodId resolveArguments(int _from,Analyzable _conf, String _fromType, String _name,boolean _static, StringList _params){
@@ -109,22 +107,6 @@ public final class IdFctOperation extends LeafOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument a_ = new Argument();
-        _nodes.getVal(this).setArgument(a_);
-        return a_;
     }
 
     public ClassMethodId getMethod() {

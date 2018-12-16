@@ -1,13 +1,8 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class DeclaringOperation extends MethodOperation {
@@ -38,18 +33,6 @@ public final class DeclaringOperation extends MethodOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument a_ = new Argument();
-        _nodes.getVal(this).setArgument(a_);
-        return a_;
     }
 
 }

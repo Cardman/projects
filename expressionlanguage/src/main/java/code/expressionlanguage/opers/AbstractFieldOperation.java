@@ -10,7 +10,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.IdMap;
 
-public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
+public abstract class AbstractFieldOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;

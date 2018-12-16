@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
@@ -14,7 +13,6 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -116,27 +114,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         unwrapArgsFct(_children, constId, naturalVararg, lastType, _args, _conf);
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        Argument res_;
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
     }
 
     @Override

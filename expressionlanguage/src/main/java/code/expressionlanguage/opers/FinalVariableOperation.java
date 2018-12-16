@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class FinalVariableOperation extends LeafOperation {
+public final class FinalVariableOperation extends VariableLeafOperation {
 
     private String variableName = EMPTY_STRING;
 

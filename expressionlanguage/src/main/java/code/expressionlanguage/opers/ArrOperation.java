@@ -17,12 +17,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 
-public final class ArrOperation extends MethodOperation implements SettableElResult, PossibleIntermediateDotted {
-
-    private ClassArgumentMatching previousResultClass;
-    private boolean intermediate;
-
-    private Argument previousArgument;
+public final class ArrOperation extends ReflectableInvokingOperation implements SettableElResult {
 
     private boolean variable;
 
@@ -90,15 +85,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         class_ = PrimitiveTypeUtil.getQuickComponentType(class_);
         setResultClass(class_);
-    }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
@@ -226,40 +212,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void setCatenizeStrings() {
         catString = true;
-    }
-
-    @Override
-    public final void setIntermediateDotted() {
-        intermediate = true;
-    }
-    @Override
-    public final boolean isIntermediateDottedOperation() {
-        return intermediate;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
-    }
-
-    @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
-        setPreviousResultClass(_previousResultClass, false);
-    }
-
-    @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
-        previousResultClass = _previousResultClass;
-    }
-
-    @Override
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
     }
 
     @Override

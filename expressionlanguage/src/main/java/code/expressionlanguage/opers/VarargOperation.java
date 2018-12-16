@@ -2,16 +2,12 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.VarargError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.util.IdMap;
 
-public final class VarargOperation extends LeafOperation {
+public final class VarargOperation extends ConstLeafOperation {
 
     private String className;
     private int offset;
@@ -58,20 +54,6 @@ public final class VarargOperation extends LeafOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        return _nodes.getVal(this).getArgument();
     }
 
 }

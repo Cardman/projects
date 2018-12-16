@@ -27,7 +27,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class ChoiceFctOperation extends InvokingOperation {
+public final class ChoiceFctOperation extends ReflectableInvokingOperation {
 
     private String methodName;
 

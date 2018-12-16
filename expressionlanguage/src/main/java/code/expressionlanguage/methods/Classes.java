@@ -341,6 +341,13 @@ public final class Classes {
                 }
             }
         }
+        for (OperatorBlock o: cl_.getOperators()) {
+            for (Block b:getSortedDescNodes(o)) {
+                if (b instanceof ReducableOperations) {
+                    ((ReducableOperations)b).reduce(_context);
+                }
+            }
+        }
         StringList all_ = cl_.classesBodies.getKeys();
         _context.setInitEnums(true);
         while (true) {

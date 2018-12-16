@@ -14,7 +14,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class StaticInfoOperation extends LeafOperation {
+public final class StaticInfoOperation extends VariableLeafOperation {
 
     private String className;
 

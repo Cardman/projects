@@ -22,7 +22,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class EnumValueOfOperation extends MethodOperation {
+public final class EnumValueOfOperation extends ReflectableOpering {
 
     private String className;
     private int argOffset;

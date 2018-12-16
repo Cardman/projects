@@ -31,7 +31,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class AbstractTernaryOperation extends MethodOperation {
+public abstract class AbstractTernaryOperation extends ReflectableOpering {
 
     private static final int BOOLEAN_ARGS = 3;
 

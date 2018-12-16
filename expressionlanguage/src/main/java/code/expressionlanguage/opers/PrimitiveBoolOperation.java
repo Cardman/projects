@@ -4,7 +4,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.util.CustList;
 
 
-public abstract class PrimitiveBoolOperation extends MethodOperation {
+public abstract class PrimitiveBoolOperation extends ReflectableOpering {
 
     public PrimitiveBoolOperation(int _index,
             int _indexChild, MethodOperation _m,
