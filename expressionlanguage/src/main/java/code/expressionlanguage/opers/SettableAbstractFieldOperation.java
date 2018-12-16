@@ -419,28 +419,28 @@ public abstract class SettableAbstractFieldOperation extends
     @Override
     public final Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, boolean _convert) {
+            Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
+        Argument arg_ = getCommonSetting(previous_, _conf, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     @Override
-    public final void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
+    public final void calculateSetting(ExecutableCode _conf, Argument _right) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
             previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
+        Argument arg_ = getCommonSetting(previous_, _conf, _right);
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getContextEl().hasException()) {
                 return;
             }
-            arg_ = getCommonSetting(previous_, _conf, _right,_convert);
+            arg_ = getCommonSetting(previous_, _conf, _right);
         }
         if (_conf.getContextEl().hasException()) {
             return;
@@ -453,12 +453,7 @@ public abstract class SettableAbstractFieldOperation extends
             String _op, Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
+        Struct store_ = current_.getStruct();
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
@@ -473,12 +468,7 @@ public abstract class SettableAbstractFieldOperation extends
             previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
         Argument current_ = getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
+        Struct store_ = current_.getStruct();
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
         if (_conf.getContextEl().hasException()) {
             return;
@@ -491,12 +481,7 @@ public abstract class SettableAbstractFieldOperation extends
             String _op, boolean _post) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
+        Struct store_ = current_.getStruct();
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
@@ -524,7 +509,7 @@ public abstract class SettableAbstractFieldOperation extends
         setSimpleArgument(arg_, _conf);
         
     }
-    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right, boolean _convert) {
+    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
@@ -543,7 +528,7 @@ public abstract class SettableAbstractFieldOperation extends
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
-        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_, _convert);
+        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
     final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
         int relativeOff_ = getOperations().getOffset();
@@ -636,11 +621,7 @@ public abstract class SettableAbstractFieldOperation extends
                     return res_;
                 }
                 classes_.initializeStaticField(fieldId_, res_.getStruct());
-                Argument a_ = res_;
-                if (_post) {
-                    return left_;
-                }
-                return a_;
+                return SemiAffectationOperation.getPrePost(_post, left_, res_);
             }
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
@@ -648,11 +629,7 @@ public abstract class SettableAbstractFieldOperation extends
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
             }
-            Argument a_ = res_;
-            if (_post) {
-                return left_;
-            }
-            return a_;
+            return SemiAffectationOperation.getPrePost(_post, left_, res_);
         }
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
@@ -669,11 +646,7 @@ public abstract class SettableAbstractFieldOperation extends
                 return res_;
             }
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-            if (_post) {
-                return left_;
-            }
-            Argument a_ = res_;
-            return a_;
+            return SemiAffectationOperation.getPrePost(_post, left_, res_);
         }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
@@ -681,11 +654,7 @@ public abstract class SettableAbstractFieldOperation extends
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
-        Argument a_ = res_;
-        if (_post) {
-            return left_;
-        }
-        return a_;
+        return SemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override
@@ -714,10 +683,7 @@ public abstract class SettableAbstractFieldOperation extends
                     return _right;
                 }
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
-                Argument a_ = _right;
-                if (_post) {
-                    a_ = _stored;
-                }
+                Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             }
@@ -727,10 +693,7 @@ public abstract class SettableAbstractFieldOperation extends
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
+            Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
@@ -743,10 +706,7 @@ public abstract class SettableAbstractFieldOperation extends
                 return _right;
             }
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
+            Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
@@ -756,10 +716,7 @@ public abstract class SettableAbstractFieldOperation extends
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
-        Argument a_ = _right;
-        if (_post) {
-            a_ = _stored;
-        }
+        Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -776,10 +733,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (fieldMetaInfo.isStaticField()) {
             if (classes_.isCustomType(className_)) {
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
-                Argument a_ = _right;
-                if (_post) {
-                    a_ = _stored;
-                }
+                Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
                 setSimpleArgument(a_, _conf);
                 return a_;
             }
@@ -789,10 +743,7 @@ public abstract class SettableAbstractFieldOperation extends
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
+            Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
             setSimpleArgument(a_, _conf);
             return a_;
         }
@@ -806,10 +757,7 @@ public abstract class SettableAbstractFieldOperation extends
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
         if (previous_.getStruct() instanceof FieldableStruct) {
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
+            Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
             setSimpleArgument(a_, _conf);
             return a_;
         }
@@ -819,10 +767,7 @@ public abstract class SettableAbstractFieldOperation extends
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
-        Argument a_ = _right;
-        if (_post) {
-            a_ = _stored;
-        }
+        Argument a_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(a_, _conf);
         return a_;
     }

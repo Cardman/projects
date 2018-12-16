@@ -74,6 +74,9 @@ public final class CastOperation extends AbstractUnaryOperation {
         }
         LgNames stds_ = _conf.getStandards();
         Argument objArg_ = arguments_.first();
+        if (className.startsWith("#")) {
+            return;
+        }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(className, objArg_.getStruct(), _conf.getStandards())) {
             return;
         }

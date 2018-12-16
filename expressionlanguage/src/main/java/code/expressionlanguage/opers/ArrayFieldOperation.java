@@ -42,7 +42,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
-            cl_.setCheckOnlyNullPe(true);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
             return;
         }
@@ -72,13 +71,13 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
             a_.setStruct(new IntStruct(arr_.getInstance().length));
             return a_;
         }
-        String cast_;
-        cast_ = _conf.getStandards().getAliasCast();
+        String npe_;
+        npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),cast_));
+        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
         a_ = new Argument();
         return a_;
     }

@@ -262,15 +262,15 @@ public final class VariableOperation extends VariableLeafOperation implements
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, boolean _convert) {
-        Argument arg_ = getCommonSetting(_conf, _right, _convert);
+            Argument _right) {
+        Argument arg_ = getCommonSetting(_conf, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
-        Argument arg_ = getCommonSetting(_conf, _right, _convert);
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
+        Argument arg_ = getCommonSetting(_conf, _right);
         if (_conf.getContextEl().hasException()) {
             return;
         }
@@ -326,7 +326,7 @@ public final class VariableOperation extends VariableLeafOperation implements
         }
         setSimpleArgument(arg_, _conf);
     }
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
+    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -337,7 +337,7 @@ public final class VariableOperation extends VariableLeafOperation implements
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(locVar_.getStruct());
-        if (!Templates.checkObject(formattedClassVar_, _right, _convert, _conf)) {
+        if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
         locVar_.setStruct(_right.getStruct());
@@ -381,10 +381,7 @@ public final class VariableOperation extends VariableLeafOperation implements
             return res_;
         }
         locVar_.setStruct(res_.getStruct());
-        if (_post) {
-            return left_;
-        }
-        return res_;
+        return SemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override
@@ -407,10 +404,7 @@ public final class VariableOperation extends VariableLeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
+        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);
         return out_;
     }
@@ -424,10 +418,7 @@ public final class VariableOperation extends VariableLeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
+        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf);
         return out_;
     }

@@ -868,15 +868,6 @@ public final class Templates {
         return str_.toString();
     }
     public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
-        return checkObject(_param, _arg, false, _context,false);
-    }
-    public static boolean checkElt(String _param, Argument _arg, boolean _convert,ExecutableCode _context) {
-        return checkObject(_param, _arg, _convert, _context,true);
-    }
-    public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context) {
-        return checkObject(_param, _arg, _convert, _context,false);
-    }
-    public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context, boolean _arr) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
@@ -885,11 +876,6 @@ public final class Templates {
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
-                if (_arr) {
-                    String cast_ = stds_.getAliasStore();
-                    _context.setException(new ErrorStruct(_context,cast_));
-                    return false;
-                }
                 String cast_ = stds_.getAliasCast();
                 _context.setException(new ErrorStruct(_context,cast_));
                 return false;
@@ -901,6 +887,66 @@ public final class Templates {
             return false;
         }
         return true;
+    }
+    public static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ExecutableCode _context) {
+        ErrorType err_ = Templates.getErrorWhenContain(_array, _index, _value, _context);
+        LgNames stds_ = _context.getStandards();
+        if (err_ == ErrorType.NOTHING) {
+            Number nb_ = ((NumberStruct)_index).getInstance();
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            Struct[] inst_ = arr_.getInstance();
+            int index_ = nb_.intValue();
+            String arrType_ = arr_.getClassName();
+            String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
+            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+            if (_context.getContextEl().isContainedSensibleFields(arr_)) {
+                _context.getContextEl().failInitEnums();
+                return;
+            }
+            inst_[index_] = conv_;
+            return;
+        }
+        if (err_ == ErrorType.NPE) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return;
+        }
+        if (err_ == ErrorType.BAD_INDEX) {
+            String cast_ = stds_.getAliasBadIndex();
+            Number nb_ = ((NumberStruct)_index).getInstance();
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            Struct[] inst_ = arr_.getInstance();
+            int index_ = nb_.intValue();
+            StringBuilder mess_ = new StringBuilder();
+            if (index_ < 0) {
+                mess_.append(index_);
+                mess_.append("<0");
+            } else {
+                mess_.append(index_);
+                mess_.append(">=");
+                mess_.append(inst_.length);
+            }
+            _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
+            return;
+        }
+        if (err_ == ErrorType.CAST) {
+            String cast_ = stds_.getAliasCast();
+            _context.setException(new ErrorStruct(_context,cast_));
+            return;
+        }
+        ArrayStruct arr_ = (ArrayStruct) _array;
+        String arrType_ = arr_.getClassName();
+        String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
+        Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+        String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+        String cast_ = stds_.getAliasStore();
+        StringBuilder mess_ = new StringBuilder();
+        mess_.append(arg_);
+        mess_.append("!=");
+        mess_.append(param_);
+        _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
     }
     public static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, Analyzable _context) {
         if (_array == NullStruct.NULL_VALUE) {
@@ -916,9 +962,6 @@ public final class Templates {
             return ErrorType.CAST;
         }
         Number nb_ = ((NumberStruct)_index).getInstance();
-        if (!(nb_ instanceof Integer)) {
-            return ErrorType.CAST;
-        }
         ArrayStruct arr_ = (ArrayStruct) _array;
         Struct[] inst_ = arr_.getInstance();
         int index_ = nb_.intValue();
@@ -932,10 +975,71 @@ public final class Templates {
             return ErrorType.NPE;
         }
         if (_value != NullStruct.NULL_VALUE) {
-            String arg_ = stds_.getStructClassName(_value, _context.getContextEl());
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
+            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+            String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
             }
+        }
+        return ErrorType.NOTHING;
+    }
+    public static Struct gearErrorWhenIndex(Struct _array, Struct _index, ExecutableCode _context) {
+        ErrorType err_ = Templates.getErrorWhenIndex(_array, _index, _context);
+        LgNames stds_ = _context.getStandards();
+        if (err_ == ErrorType.NOTHING) {
+            Number nb_ = ((NumberStruct)_index).getInstance();
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            Struct[] inst_ = arr_.getInstance();
+            int index_ = nb_.intValue();
+            return inst_[index_];
+        }
+        if (err_ == ErrorType.NPE) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return NullStruct.NULL_VALUE;
+        }
+        if (err_ == ErrorType.BAD_INDEX) {
+            String cast_ = stds_.getAliasBadIndex();
+            Number nb_ = ((NumberStruct)_index).getInstance();
+            ArrayStruct arr_ = (ArrayStruct) _array;
+            Struct[] inst_ = arr_.getInstance();
+            int index_ = nb_.intValue();
+            StringBuilder mess_ = new StringBuilder();
+            if (index_ < 0) {
+                mess_.append(index_);
+                mess_.append("<0");
+            } else {
+                mess_.append(index_);
+                mess_.append(">=");
+                mess_.append(inst_.length);
+            }
+            _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
+            return NullStruct.NULL_VALUE;
+        }
+        String cast_ = stds_.getAliasCast();
+        _context.setException(new ErrorStruct(_context,cast_));
+        return NullStruct.NULL_VALUE;
+    }
+    public static ErrorType getErrorWhenIndex(Struct _array, Struct _index, Analyzable _context) {
+        if (_array == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_array instanceof ArrayStruct)) {
+            return ErrorType.CAST;
+        }
+        if (_index == NullStruct.NULL_VALUE) {
+            return ErrorType.NPE;
+        }
+        if (!(_index instanceof NumberStruct)) {
+            return ErrorType.CAST;
+        }
+        Number nb_ = ((NumberStruct)_index).getInstance();
+        ArrayStruct arr_ = (ArrayStruct) _array;
+        Struct[] inst_ = arr_.getInstance();
+        int index_ = nb_.intValue();
+        if (index_ < 0 || index_ >= inst_.length) {
+            return ErrorType.BAD_INDEX;
         }
         return ErrorType.NOTHING;
     }

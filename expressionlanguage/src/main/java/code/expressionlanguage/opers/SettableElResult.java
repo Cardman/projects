@@ -15,10 +15,10 @@ public interface SettableElResult {
     ClassArgumentMatching getResultClass();
 
     Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, boolean _convert);
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right);
 
     void calculateSetting(
-            ExecutableCode _conf, Argument _right, boolean _convert);
+            ExecutableCode _conf, Argument _right);
 
     Argument calculateCompoundSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,

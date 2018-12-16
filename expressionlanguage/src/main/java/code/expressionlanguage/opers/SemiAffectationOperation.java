@@ -316,4 +316,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
         return arg_;
     }
 
+    static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
+        Argument a_ = _right;
+        if (_post) {
+            a_ = _stored;
+        }
+        return a_;
+    }
 }

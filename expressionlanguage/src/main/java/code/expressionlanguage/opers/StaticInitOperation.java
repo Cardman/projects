@@ -5,9 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -28,8 +26,6 @@ public final class StaticInitOperation extends VariableLeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        Argument a_ = new Argument();
-        setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
 
@@ -56,6 +52,10 @@ public final class StaticInitOperation extends VariableLeafOperation {
             return;
         }
         Argument arg_ = argres_;
+        if (arg_ == null) {
+            setQuickSimpleArgument(Argument.createVoid(), _conf);
+            return;
+        }
         setSimpleArgument(arg_, _conf);
     }
 
@@ -64,6 +64,10 @@ public final class StaticInitOperation extends VariableLeafOperation {
             ContextEl _conf) {
         Argument current_ = _nodes.getVal(this).getArgument();
         Argument arg_ = getCommonArgument(current_, _conf);
+        if (arg_ == null) {
+            _nodes.getVal(this).setArgument(Argument.createVoid());
+            return arg_;
+        }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -74,39 +78,24 @@ public final class StaticInitOperation extends VariableLeafOperation {
                 return Argument.createVoid();
             }
         }
-        Argument cur_ = _argument;
-        return cur_;
+        return null;
     }
 
     void setInit(Analyzable _conf, String _base, boolean _staticType) {
         if (!_staticType) {
             possibleInitClass = false;
-            Argument a_ = new Argument();
             String argClName_ = _conf.getStandards().getAliasObject();
-            setSimpleArgument(a_);
             setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(_base)) {
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            }
-            if (!Classes.canAccessClass(curClassBase_, _base, _conf)) {
-                BadAccessClass badAccess_ = new BadAccessClass();
-                badAccess_.setId(_base);
-                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-                badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(badAccess_);
-            }
             possibleInitClass = true;
+        } else {
+            setSimpleArgument(new Argument());
         }
-        Argument a_ = new Argument();
-        setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(_base));
     }
 

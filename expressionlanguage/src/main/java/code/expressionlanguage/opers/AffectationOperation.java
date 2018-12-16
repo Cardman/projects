@@ -38,7 +38,6 @@ public final class AffectationOperation extends ReflectableOpering {
 
     private SettableElResult settable;
 
-    private boolean convertNumber;
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -166,42 +165,34 @@ public final class AffectationOperation extends ReflectableOpering {
                 long valueUnwrapped_ = value_.longValue();
                 if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primChar_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primShort_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primInt_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(byte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(char_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(short_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(int_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
             }
@@ -409,7 +400,7 @@ public final class AffectationOperation extends ReflectableOpering {
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_, convertNumber);
+        settable.calculateSetting(_conf, rightArg_);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
     }
@@ -419,7 +410,7 @@ public final class AffectationOperation extends ReflectableOpering {
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = _nodes.getVal(right_).getArgument();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_, convertNumber);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }

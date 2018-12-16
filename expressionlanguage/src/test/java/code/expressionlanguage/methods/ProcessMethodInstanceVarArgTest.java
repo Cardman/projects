@@ -1124,4 +1124,68 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
+    @Test
+    public void instanceArgument122Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex{\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int... i){\n");
+        xml_.append("  first=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        Classes cl_ = cont_.getClasses();
+        Struct valueOne_ = cl_.getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct valueTwo_ = cl_.getStaticField(new ClassField("pkg.Ex", "TWO"));
+        assertEq("pkg.Ex", valueOne_.getClassName(cont_));
+        assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
+        Struct field_;
+        field_ = valueOne_.getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, (Number)field_.getInstance());
+        field_ = valueTwo_.getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(5, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument123Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex{\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int... i){\n");
+        xml_.append("  first=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  $this(5i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        Classes cl_ = cont_.getClasses();
+        Struct valueOne_ = cl_.getStaticField(new ClassField("pkg.Ex", "ONE"));
+        Struct valueTwo_ = cl_.getStaticField(new ClassField("pkg.Ex", "TWO"));
+        assertEq("pkg.Ex", valueOne_.getClassName(cont_));
+        assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
+        Struct field_;
+        field_ = valueOne_.getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, (Number)field_.getInstance());
+        field_ = valueTwo_.getFields().getVal(new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(5, (Number)field_.getInstance());
+    }
 }

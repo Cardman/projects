@@ -16,7 +16,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             Argument instance_ = getArguments().first();
             Argument right_ = getArguments().last();
             setWrapException(false);
-            Argument arg_ = InvokingOperation.setField(method_, instance_, right_, _context, false);
+            Argument arg_ = InvokingOperation.setField(method_, instance_, right_, _context);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;

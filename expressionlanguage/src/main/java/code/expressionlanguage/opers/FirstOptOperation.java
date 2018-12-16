@@ -41,7 +41,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (isFirstChild()) {
@@ -51,7 +50,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         OperationNode child_ = getFirstChild();

@@ -14,6 +14,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
@@ -188,12 +189,13 @@ public final class StandardInstancingOperation extends
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
+        Classes classes_ = _conf.getClasses();
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            classes_.addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -204,9 +206,23 @@ public final class StandardInstancingOperation extends
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            classes_.addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
+        }
+        String glClass_ = _conf.getGlobalClass();
+        if (classes_.isCustomType(base_)) {
+            String curClassBase_ = null;
+            if (glClass_ != null) {
+                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
+            }
+            if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
+                BadAccessClass badAccess_ = new BadAccessClass();
+                badAccess_.setId(base_);
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
+                badAccess_.setFileName(_conf.getCurrentFileName());
+                classes_.addError(badAccess_);
+            }
         }
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
@@ -276,7 +292,6 @@ public final class StandardInstancingOperation extends
             lastType = constId.getParametersTypes().last();
         }
         unwrapArgsFct(filter_, constId, naturalVararg, lastType, _firstArgs, _conf);
-        String glClass_ = _conf.getGlobalClass();
         CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
         String curClassBase_ = null;
         if (glClass_ != null) {

@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -35,8 +34,6 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
     private MethodId realId;
 
     private boolean staticMethod;
-
-    private boolean staticChoiceMethodTemplate;
 
     private String lastType = EMPTY_STRING;
 
@@ -73,7 +70,6 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_);
-        staticChoiceMethodTemplate = true;
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -209,63 +205,17 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
                 return a_;
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
-            if (staticChoiceMethodTemplate) {
-                classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-                if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                String base_ = Templates.getIdFromAllTypes(classNameFound_);
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            } else {
-                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-                String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf, StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                methodId_ = realId.quickFormat(classNameFound_, _conf);
-                if (!methodId_.isVararg()) {
-                    lastType_ = EMPTY_STRING;
-                    naturalVararg_ = -1;
-                } else {
-                    if (methodId_.getParametersTypes().size() != _arguments.size()) {
-                        lastType_ = methodId_.getParametersTypes().last();
-                        naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                    } else {
-                        Mapping map_ = new Mapping();
-                        String param_ = methodId_.getParametersTypes().last();
-                        param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                        String argClass_ = _arguments.last().getObjectClassName(_conf.getContextEl());
-                        map_.setArg(argClass_);
-                        if (argClass_ != null) {
-                            map_.setParam(param_);
-                            if (!Templates.isCorrect(map_, _conf)) {
-                                lastType_ = methodId_.getParametersTypes().last();
-                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                            } else {
-                                naturalVararg_ = -1;
-                            }
-                        } else {
-                            String paramOr_ = methodId_.getParametersTypes().last();
-                            if (PrimitiveTypeUtil.isPrimitive(paramOr_, _conf)) {
-                                naturalVararg_ = -1;
-                            } else {
-                                lastType_ = methodId_.getParametersTypes().last();
-                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                            }
-                        }
-                    }
-                }
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
+            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+                Argument a_ = new Argument();
+                return a_;
             }
+            String base_ = Templates.getIdFromAllTypes(classNameFound_);
+            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = realId;
         } else {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);

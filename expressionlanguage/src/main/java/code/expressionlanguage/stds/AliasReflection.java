@@ -1378,7 +1378,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
                 Struct value_ = args_[2];
-                InvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont, false);
+                InvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }

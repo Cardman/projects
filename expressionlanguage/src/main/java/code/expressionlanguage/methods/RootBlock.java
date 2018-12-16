@@ -435,9 +435,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         while (par_.getParent() instanceof RootBlock) {
             par_ = par_.getParent();
         }
-        if (!(par_ instanceof RootBlock)) {
-            return packageName;
-        }
         return ((RootBlock)par_).packageName;
     }
 

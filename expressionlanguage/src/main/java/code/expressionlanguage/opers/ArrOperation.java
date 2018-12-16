@@ -69,7 +69,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             return;
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
-        if (!class_.isArray()) {
+        if (class_ == null || !class_.isArray()) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
@@ -189,7 +189,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         return a_;
     }
     static void setCheckedElement(Struct _array,NumberStruct _index, Argument _element, ExecutableCode _conf) {
-        InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf, false);
+        InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
     }
     
     @Override
@@ -217,27 +217,27 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, boolean _convert) {
+            Argument _right) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = _nodes.getVal(this).getArgument();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf, _convert));
+        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument();
         OperationNode lastElement_ = chidren_.last();
         Argument last_ = lastElement_.getArgument();
         Struct array_;
         array_ = getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf, _convert));
+        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
         if (_conf.getContextEl().hasException()) {
             return;
         }
@@ -314,13 +314,13 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         setSimpleArgument(a_, _conf);
     }
 
-    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf, boolean _convert) {
+    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _right.getStruct();
         }
-        InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf, _convert);
+        InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
@@ -338,7 +338,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
-        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
@@ -355,11 +355,9 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
-        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
-        if (_post) {
-            return left_.getStruct();
-        }
-        return res_.getStruct();
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
+        Argument out_ = SemiAffectationOperation.getPrePost(_post, left_, res_);
+        return out_.getStruct();
     }
 
     @Override
@@ -380,11 +378,8 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Argument index_ = _nodes.getVal(lastElement_).getArgument();
-        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf, false);
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
+        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
+        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);
         return out_;
     }
@@ -398,14 +393,11 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Argument index_ = lastElement_.getArgument();
-        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf, false);
+        InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
         if (_conf.getContextEl().hasException()) {
             return a_;
         }
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
+        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf);
         return out_;
     }

@@ -1237,56 +1237,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return a_;
     }
     public static Struct getElement(Struct _struct, NumberStruct _index, ExecutableCode _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        String badIndex_;
-        null_ = stds_.getAliasNullPe();
-        badIndex_ = stds_.getAliasBadIndex();
-        if (!(_struct instanceof ArrayStruct)) {
-            _conf.setException(new ErrorStruct(_conf,null_));
-            return NullStruct.NULL_VALUE;
-        }
-        ArrayStruct a_ = (ArrayStruct) _struct;
-        Struct[] array_ = a_.getInstance();
-        int len_ = array_.length;
-        int index_ = _index.getInstance().intValue();
-        if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
-            return NullStruct.NULL_VALUE;
-        }
-        Struct elt_ = array_[index_];
+        Struct elt_ = Templates.gearErrorWhenIndex(_struct, _index, _conf);
         _conf.getContextEl().addSensibleField(_struct, elt_);
         return elt_;
     }
-    public static void setElement(Struct _struct, NumberStruct _index, Struct _value, ExecutableCode _conf, boolean _convert) {
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        String badIndex_;
-        null_ = stds_.getAliasNullPe();
-        badIndex_ = stds_.getAliasBadIndex();
-        if (!(_struct instanceof ArrayStruct)) {
-            _conf.setException(new ErrorStruct(_conf,null_));
-            return;
-        }
-        String strClass_ = stds_.getStructClassName(_struct, _conf.getContextEl());
-        ArrayStruct a_ = (ArrayStruct) _struct;
-        Struct[] arr_ = a_.getInstance();
-        int len_ = arr_.length;
-        int index_ = _index.getInstance().intValue();
-        if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
-            return;
-        }
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-        Argument arg_ = new Argument(_value);
-        if (!Templates.checkElt(componentType_, arg_, _convert, _conf)) {
-            return;
-        }
-        if (_conf.getContextEl().isContainedSensibleFields(_struct)) {
-            _conf.getContextEl().failInitEnums();
-            return;
-        }
-        arr_[index_] = _value;
+    public static void setElement(Struct _struct, NumberStruct _index, Struct _value, ExecutableCode _conf) {
+        Templates.gearErrorWhenContain(_struct, _index, _value, _conf);
     }
     public static Argument getEnumValues(String _class, ExecutableCode _conf) {
         String id_ = Templates.getIdFromAllTypes(_class);
@@ -1414,16 +1370,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return a_;
     }
-    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf, boolean _convert) {
+    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf) {
         String baseClass_ = _meta.getDeclaringClass();
         baseClass_ = Templates.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1, _convert);
+        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
     }
-    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset, boolean _convert) {
+    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -1444,7 +1400,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return Argument.createVoid();
             }
             fieldType_ = _returnType;
-            if (!Templates.checkObject(fieldType_, _right, _convert, _conf)) {
+            if (!Templates.checkObject(fieldType_, _right, _conf)) {
                 return Argument.createVoid();
             }
             if (classes_.isCustomType(_className)) {
@@ -1479,7 +1435,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
         fieldType_ = _returnType;
         fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
-        if (!Templates.checkObject(fieldType_, _right, _convert, _conf)) {
+        if (!Templates.checkObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
         if (_previous.getStruct() instanceof FieldableStruct) {
