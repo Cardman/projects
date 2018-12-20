@@ -126,4 +126,7 @@ public final class AddOperation extends NumericOperation {
         catString = _res.isCatString();
     }
 
+    public boolean isCatString() {
+        return catString;
+    }
 }

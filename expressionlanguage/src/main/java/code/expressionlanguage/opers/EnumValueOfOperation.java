@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
@@ -132,7 +133,7 @@ public final class EnumValueOfOperation extends ReflectableOpering {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         OperationNode first_ = getFirstChild();
-        Argument a_ = _nodes.getVal(first_).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,first_);
         Argument arg_ = getCommonArgument(a_, _conf);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
@@ -141,4 +142,11 @@ public final class EnumValueOfOperation extends ReflectableOpering {
         return InvokingOperation.getEnumValue(className, _argument, _conf);
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public int getArgOffset() {
+        return argOffset;
+    }
 }

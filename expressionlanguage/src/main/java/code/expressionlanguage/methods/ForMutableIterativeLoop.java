@@ -17,6 +17,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -281,7 +282,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected AssignedBooleanVariables buildNewAssignedVariable() {
-        return new AssignedBooleanVariables();
+        return new AssignedBooleanLoopVariables();
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
@@ -388,8 +389,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                     res_.getMutableLoopRootAfter().add(sm_);
                 }
             } else {
-                OperationNode prev_ = opInit.last();
-                for (EntryCust<String,Assignment> e: res_.getFields().getVal(prev_).entryList()) {
+                for (EntryCust<String,Assignment> e: res_.getLastFieldsOrEmpty().entryList()) {
                     BooleanAssignment ba_ = new BooleanAssignment();
                     ba_.setAssignedAfterWhenFalse(true);
                     ba_.setUnassignedAfterWhenFalse(true);
@@ -397,7 +397,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                     ba_.setUnassignedAfterWhenTrue(e.getValue().isUnassignedAfter());
                     res_.getFieldsRootAfter().put(e.getKey(), ba_);
                 }
-                for (StringMap<Assignment> s: res_.getVariables().getVal(prev_)) {
+                for (StringMap<Assignment> s: res_.getLastVariablesOrEmpty()) {
                     StringMap<BooleanAssignment> sm_;
                     sm_ = new StringMap<BooleanAssignment>();
                     for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -410,7 +410,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                     }
                     res_.getVariablesRootAfter().add(sm_);
                 }
-                for (StringMap<Assignment> s: res_.getMutableLoop().getVal(prev_)) {
+                for (StringMap<Assignment> s: res_.getLastMutableLoopOrEmpty()) {
                     StringMap<BooleanAssignment> sm_;
                     sm_ = new StringMap<BooleanAssignment>();
                     for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -433,11 +433,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     protected void buildConditions(ContextEl _cont) {
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-        for (EntryCust<String,Assignment> e: res_.getFields().getVal(opExp.last()).entryList()) {
+        for (EntryCust<String,Assignment> e: res_.getLastFieldsOrEmpty().entryList()) {
             BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
             res_.getFieldsRootAfter().put(e.getKey(), ba_);
         }
-        for (StringMap<Assignment> s: res_.getVariables().getVal(opExp.last())) {
+        for (StringMap<Assignment> s: res_.getLastVariablesOrEmpty()) {
             StringMap<BooleanAssignment> sm_;
             sm_ = new StringMap<BooleanAssignment>();
             for (EntryCust<String,Assignment> e: s.entryList()) {
@@ -446,7 +446,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
             res_.getVariablesRootAfter().add(sm_);
         }
-        for (StringMap<Assignment> s: res_.getMutableLoop().getVal(opExp.last())) {
+        for (StringMap<Assignment> s: res_.getLastMutableLoopOrEmpty()) {
             StringMap<BooleanAssignment> sm_;
             sm_ = new StringMap<BooleanAssignment>();
             for (EntryCust<String,Assignment> e: s.entryList()) {
@@ -459,12 +459,27 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        if (_an.getForLoopPartState() == ForLoopPart.INIT) {
+            AssignedBooleanLoopVariables loop_ = (AssignedBooleanLoopVariables) vars_;
+            StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
+            loop_.getFieldsRootAfterInit().putAllMap(res_);
+            CustList<StringMap<Assignment>> varsRes_;
+            varsRes_ = vars_.getLastVariablesOrEmpty();
+            for (StringMap<Assignment> s: varsRes_) {
+                loop_.getVariablesRootAfterInit().add(s);
+            }
+            CustList<StringMap<Assignment>> mutableRes_;
+            mutableRes_ = vars_.getLastMutableLoopOrEmpty();
+            for (StringMap<Assignment> s: mutableRes_) {
+                loop_.getMutableLoopRootAfterInit().add(s);
+            }
+        }
+        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         for (EntryCust<String,Assignment> e: res_.entryList()) {
             vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
         }
         CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getVariables().getVal(_root);
+        varsRes_ = vars_.getLastVariablesOrEmpty();
         vars_.getVariablesRoot().clear();
         for (StringMap<Assignment> s: varsRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
@@ -474,7 +489,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             vars_.getVariablesRoot().add(sm_);
         }
         CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         vars_.getMutableLoopRoot().clear();
         for (StringMap<Assignment> s: mutableRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
@@ -492,11 +507,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         boolean add_ = false;
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedBooleanVariables varsWhile_ = null;
+        AssignedVariables varsWhile_ = null;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == this) {
                 add_ = true;
-                varsWhile_ = (AssignedBooleanVariables) e.getValue();
+                varsWhile_ = e.getValue();
             } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
@@ -647,7 +662,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         fields_ = new StringMap<AssignmentBefore>();
         if (opInit.isEmpty()) {
@@ -662,8 +677,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 fields_.put(e.getKey(), h_);
             }
         } else {
-            OperationNode prev_ = opInit.last();
-            for (EntryCust<String,Assignment> e: vars_.getFields().getVal(prev_).entryList()) {
+            for (EntryCust<String,Assignment> e: vars_.getFieldsRootAfterInit().entryList()) {
                 Assignment ass_ = e.getValue();
                 AssignmentBefore h_ = new AssignmentBefore();
                 if (ass_.isAssignedAfter()) {
@@ -678,7 +692,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         if (opInit.isEmpty()) {
@@ -697,8 +711,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 variables_.add(sm_);
             }
         } else {
-            OperationNode prev_ = opInit.last();
-            for (StringMap<Assignment> s: vars_.getVariables().getVal(prev_)) {
+            for (StringMap<Assignment> s: vars_.getVariablesRootAfterInit()) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String,Assignment> e: s.entryList()) {
                     Assignment ass_ = e.getValue();
@@ -717,7 +730,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         if (opInit.isEmpty()) {
@@ -736,8 +749,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 variables_.add(sm_);
             }
         } else {
-            OperationNode prev_ = opInit.last();
-            for (StringMap<Assignment> s: vars_.getMutableLoop().getVal(prev_)) {
+            for (StringMap<Assignment> s: vars_.getMutableLoopRootAfterInit()) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String,Assignment> e: s.entryList()) {
                     Assignment ass_ = e.getValue();

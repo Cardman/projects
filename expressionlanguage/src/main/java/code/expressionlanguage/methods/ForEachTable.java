@@ -298,9 +298,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        if (opList.isEmpty()) {
-            return;
-        }
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.size() == 1) {

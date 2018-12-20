@@ -1326,4 +1326,57 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     public final void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
     }
+
+    public boolean isIntermediate() {
+        return intermediate;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public ClassMethodId getMethod() {
+        return method;
+    }
+
+    public String getFoundClass() {
+        return foundClass;
+    }
+
+    public int getAncestor() {
+        return ancestor;
+    }
+
+    public boolean isShiftArgument() {
+        return shiftArgument;
+    }
+
+    public boolean isPolymorph() {
+        return polymorph;
+    }
+
+    public boolean isAbstractMethod() {
+        return abstractMethod;
+    }
+
+    public ConstructorId getRealId() {
+        return realId;
+    }
+
+    public ClassField getFieldId() {
+        return fieldId;
+    }
+
+    public boolean isAffField() {
+        return affField;
+    }
+
+    public String getReturnFieldType() {
+        return returnFieldType;
+    }
+    
 }

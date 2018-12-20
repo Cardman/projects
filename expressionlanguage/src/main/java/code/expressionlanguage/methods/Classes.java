@@ -1924,7 +1924,6 @@ public final class Classes {
         }
         EqList<ClassField> success_ = new EqList<ClassField>();
         EqList<ClassField> cstFields_ = new EqList<ClassField>();
-        page_.getAssignedVariables().getFinalVariablesGlobal().initVars();
         for (RootBlock c: getClassBodies(_predefined)) {
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {

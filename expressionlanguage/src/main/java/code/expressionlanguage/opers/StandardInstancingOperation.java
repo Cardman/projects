@@ -415,4 +415,36 @@ public final class StandardInstancingOperation extends
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
+    public boolean isPossibleInitClass() {
+        return possibleInitClass;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public ConstructorId getConstId() {
+        return constId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public int getBlockIndex() {
+        return blockIndex;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public String getLastType() {
+        return lastType;
+    }
+
 }

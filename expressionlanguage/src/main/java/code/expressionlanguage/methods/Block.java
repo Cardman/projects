@@ -119,7 +119,7 @@ public abstract class Block {
     }
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         for (EntryCust<String,Assignment> e: res_.entryList()) {
             vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
         }
@@ -131,7 +131,7 @@ public abstract class Block {
             }
         }
         CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getVariables().getVal(_root);
+        varsRes_ = vars_.getLastVariablesOrEmpty();
         for (StringMap<Assignment> s: varsRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -140,7 +140,7 @@ public abstract class Block {
             vars_.getVariablesRoot().add(sm_);
         }
         CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         for (StringMap<Assignment> s: mutableRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {

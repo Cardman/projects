@@ -20,26 +20,24 @@ import code.util.StringList;
 
 public final class DimensionArrayInstancing extends
         AbstractArrayInstancingOperation {
-    private String methodName;
     private int countArrayDims;
 
-    private String className;
     public DimensionArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName();
         countArrayDims = getOperations().getCountArrays();
     }
 
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        String m_ = getMethodName();
+        int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        className = _conf.getStandards().getAliasObject();
+        setClassName(_conf.getStandards().getAliasObject());
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(new_.length());
+        String className_ = m_.trim().substring(new_.length());
         className_ = className_.trim();
         className_ = _conf.resolveCorrectType(className_);
         if (chidren_.isEmpty()) {
@@ -65,7 +63,7 @@ public final class DimensionArrayInstancing extends
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
         }
-        className = className_;
+        setClassName(className_);
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));
     }
 
@@ -73,7 +71,8 @@ public final class DimensionArrayInstancing extends
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        String m_ = getMethodName();
+        int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (!_conf.isGearConst()) {
             return;
@@ -103,7 +102,7 @@ public final class DimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        String className_ = className;
+        String className_ = getClassName();
         className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
         a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
         setSimpleArgumentAna(a_, _conf);
@@ -111,15 +110,16 @@ public final class DimensionArrayInstancing extends
     @Override
     Argument getArgument(CustList<Argument> _arguments,
             ExecutableCode _conf) {
+        String m_ = getMethodName();
         LgNames stds_ = _conf.getStandards();
         String size_;
         size_ = stds_.getAliasBadSize();
         CustList<OperationNode> filter_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_;
+        String className_ = getClassName();
         PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className, _conf);
+        className_ = page_.formatVarType(className_, _conf);
         className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_;
@@ -146,6 +146,10 @@ public final class DimensionArrayInstancing extends
         }
         a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
         return a_;
+    }
+
+    public int getCountArrayDims() {
+        return countArrayDims;
     }
 
 }

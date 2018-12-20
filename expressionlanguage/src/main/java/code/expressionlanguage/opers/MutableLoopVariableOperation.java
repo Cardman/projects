@@ -33,15 +33,17 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
 
     private boolean variable;
 
-    private boolean excVar;
-
     private boolean catString;
 
     private String variableName = EMPTY_STRING;
+    private int off;
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
     }
 
     @Override
@@ -92,13 +94,11 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putMutableLoopVar(str_, lv_);
             _conf.getVariablesNames().add(str_);
-            excVar = true;
-        }
-        variableName = str_;
-        if (excVar) {
+            variableName = str_;
             setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
             return;
         }
+        variableName = str_;
         LoopVariable locVar_ = _conf.getMutableLoopVar(variableName);
         if (locVar_ != null) {
             String c_ = locVar_.getClassName();
@@ -283,7 +283,7 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
     public Argument calculateCompoundSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
-        Argument a_ = _nodes.getVal(this).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
@@ -308,7 +308,7 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
     public Argument calculateSemiSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
-        Argument a_ = _nodes.getVal(this).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
@@ -426,4 +426,16 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
         setSimpleArgument(out_, _conf);
         return out_;
     }
+    public int getOff() {
+        return off;
+    }
+
+    public boolean isVariable() {
+        return variable;
+    }
+
+    public boolean isCatString() {
+        return catString;
+    }
+    
 }

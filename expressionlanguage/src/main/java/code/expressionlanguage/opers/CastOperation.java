@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -134,12 +135,8 @@ public final class CastOperation extends AbstractUnaryOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument argres_ = getArgument( arguments_, _conf);
+        CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
+        Argument argres_ = getArgument(arguments_, _conf);
         setSimpleArgument(argres_, _conf, _nodes);
         return argres_;
     }
@@ -187,5 +184,13 @@ public final class CastOperation extends AbstractUnaryOperation {
             }
         }
         return arg_;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 }

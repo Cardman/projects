@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -29,10 +30,14 @@ import code.util.StringList;
 
 public abstract class NumericOperation extends ReflectableOpering {
     private ClassMethodId classMethodId;
+    private String op;
+    private int opOffset;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        op = _op.getOperators().firstValue();
+        opOffset = _op.getOperators().firstKey();
     }
 
     static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
@@ -165,15 +170,15 @@ public abstract class NumericOperation extends ReflectableOpering {
             ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.first();
-        Argument a_ = _nodes.getVal(o_).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,o_);
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
         o_ = chidren_.last();
-        Argument c_ = _nodes.getVal(o_).getArgument();
+        Argument c_ = ElUtil.getArgument(_nodes,o_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         if (classMethodId != null) {
             CustList<Argument> arguments_ = new CustList<Argument>();
             for (OperationNode o: chidren_) {
-                arguments_.add(_nodes.getVal(o).getArgument());
+                arguments_.add(ElUtil.getArgument(_nodes, o));
             }
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
@@ -239,4 +244,17 @@ public abstract class NumericOperation extends ReflectableOpering {
         getChildren().putAllMap(vs_);
     }
     abstract void setCatenize(ResultOperand _res);
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public String getOp() {
+        return op;
+    }
+
+    public int getOpOffset() {
+        return opOffset;
+    }
+    
 }

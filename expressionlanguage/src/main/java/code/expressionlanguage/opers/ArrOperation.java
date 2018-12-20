@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -139,11 +140,11 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             int _maxIndexChildren, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        array_ = ElUtil.getPreviousArgument(_nodes,this).getStruct();
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
-            NumberStruct o_ = (NumberStruct) _nodes.getVal(op_).getArgument().getStruct();
+            NumberStruct o_ = (NumberStruct) ElUtil.getArgument(_nodes,op_).getStruct();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = InvokingOperation.getElement(array_, o_, _conf);
@@ -209,6 +210,10 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         variable = _variable;
     }
 
+    public boolean isCatString() {
+        return catString;
+    }
+
     @Override
     public void setCatenizeStrings() {
         catString = true;
@@ -219,12 +224,13 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = _nodes.getVal(this).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,this);
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf));
+        array_ = ElUtil.getPreviousArgument(_nodes,this).getStruct();
+        Argument lastArg_ = ElUtil.getArgument(_nodes, lastElement_);
+        a_.setStruct(affectArray(array_, lastArg_, lastElement_.getIndexInEl(), _right, _conf));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -249,14 +255,15 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = _nodes.getVal(this).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(compoundAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op,_right, _conf));
+        array_ = ElUtil.getPreviousArgument(_nodes, this).getStruct();
+        Argument lastArg_ = ElUtil.getArgument(_nodes, lastElement_);
+        a_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -284,14 +291,15 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = _nodes.getVal(this).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(semiAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
+        array_ = ElUtil.getPreviousArgument(_nodes,this).getStruct();
+        Argument lastArg_ = ElUtil.getArgument(_nodes, lastElement_);
+        a_.setStruct(semiAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op, _post, _conf));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -373,11 +381,11 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
         Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        array_ = ElUtil.getPreviousArgument(_nodes,this).getStruct();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
-        Argument index_ = _nodes.getVal(lastElement_).getArgument();
+        Argument index_ = ElUtil.getArgument(_nodes, lastElement_);
         InvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);

@@ -17,12 +17,9 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
@@ -67,6 +64,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
+            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
@@ -99,10 +97,13 @@ public final class CaseCondition extends SwitchPartBlock {
                     opValue = new CustList<OperationNode>();
                     opValue.add(op_);
                     defaultAssignmentAfter(_cont, op_);
+                    checkDuplicateEnumCase(_cont);
                     return;
                 }
                 opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-                if (Argument.isNullValue(opValue.last().getArgument())) {
+                Argument a_ = opValue.last().getArgument();
+                if (Argument.isNullValue(a_)) {
+                    checkDuplicateCase(_cont, a_);
                     return;
                 }
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -114,43 +115,78 @@ public final class CaseCondition extends SwitchPartBlock {
             }
         }
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opValue.last().isVoidArg(_cont)) {
+        OperationNode op_ = opValue.last();
+        ClassArgumentMatching resCase_ = op_.getResultClass();
+        if (resCase_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
         }
-        if (opValue.last().getArgument() == null) {
+        Argument arg_ = op_.getArgument();
+        if (arg_ == null) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
+        } else {
+            checkDuplicateCase(_cont, arg_);
         }
-        ClassArgumentMatching resCase_ = opValue.last().getResultClass();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
         }
     }
 
-    public ClassField getFieldId() {
-        OperationNode last_ = opValue.last();
-        if (!(last_ instanceof SettableAbstractFieldOperation)) {
-            DotOperation d_ = (DotOperation) last_;
-            last_ = d_.getFirstChild().getNextSibling();
-            return ((SettableAbstractFieldOperation)last_).getFieldId();
-        }
-        return ((SettableAbstractFieldOperation)last_).getFieldId();
-    }
     public CustList<OperationNode> getOpValue() {
         return opValue;
     }
 
+    private void checkDuplicateCase(ContextEl _cont, Argument _arg) {
+        BracedBlock par_ = getParent();
+        Block first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof CaseCondition) {
+                CaseCondition c_ = (CaseCondition) first_;
+                OperationNode curOp_ = c_.opValue.last();
+                Argument a_ = curOp_.getArgument();
+                if (a_ != null) {
+                    if (_arg.getStruct().sameReference(a_.getStruct())) {
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                        break;
+                    }
+                }
+            }
+            first_ = first_.getNextSibling();
+        }
+    }
+    private void checkDuplicateEnumCase(ContextEl _cont) {
+        BracedBlock par_ = getParent();
+        Block first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof CaseCondition) {
+                CaseCondition c_ = (CaseCondition) first_;
+                String v_ = c_.value.trim();
+                if (StringList.quickEq(v_, value.trim())) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                    break;
+                }
+                
+            }
+            first_ = first_.getNextSibling();
+        }
+    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

@@ -1,14 +1,7 @@
 package code.expressionlanguage.opers.util;
 import code.util.StringList;
-import code.util.ints.Displayable;
 
-public final class MethodInfo implements Parametrable, Displayable {
-
-    private static final String RIGHT_PAR = ")";
-
-    private static final String LEFT_PAR = "(";
-
-    private static final String DOT = ".";
+public final class MethodInfo implements Parametrable {
 
     private MethodId constraints;
     private MethodId formatted;
@@ -29,17 +22,6 @@ public final class MethodInfo implements Parametrable, Displayable {
     private boolean varArgWrap;
     private boolean abstractMethod;
     private InvocationMethod invocation;
-    @Override
-    public String display() {
-        StringBuilder str_ = new StringBuilder();
-        str_.append(className);
-        str_.append(DOT);
-        str_.append(constraints.getSignature());
-        str_.append(LEFT_PAR);
-        str_.append(parameters.display());
-        str_.append(RIGHT_PAR);
-        return str_.toString();
-    }
 
     public MethodId getConstraints() {
         return constraints;

@@ -16,6 +16,7 @@ import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -231,6 +232,9 @@ public final class AffectationOperation extends ReflectableOpering {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        if (vars_ instanceof AssignedBooleanLoopVariables) {
+            ((AssignedBooleanLoopVariables)vars_).add(this, _conf);
+        }
         OperationNode firstChild_ = (OperationNode) settable;
         OperationNode lastChild_ = getChildrenNodes().last();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
@@ -409,7 +413,7 @@ public final class AffectationOperation extends ReflectableOpering {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = _nodes.getVal(right_).getArgument();
+        Argument rightArg_ = ElUtil.getArgument(_nodes, right_);
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;

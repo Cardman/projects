@@ -377,4 +377,16 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         getChildren().putAllMap(vs_);
     }
 
+    public boolean isPossibleInitClass() {
+        return possibleInitClass;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public StringMap<String> getFieldNames() {
+        return fieldNames;
+    }
+
 }

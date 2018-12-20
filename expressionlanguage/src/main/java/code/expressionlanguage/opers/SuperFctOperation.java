@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -201,11 +202,7 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
+        CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
@@ -248,4 +245,29 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
         }
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public boolean isStaticMethod() {
+        return staticMethod;
+    }
+
+    public String getLastType() {
+        return lastType;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public int getAnc() {
+        return anc;
+    }
+
 }

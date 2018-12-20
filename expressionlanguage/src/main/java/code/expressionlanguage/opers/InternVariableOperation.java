@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -13,7 +12,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class InternVariableOperation extends VariableLeafOperation {
+public final class InternVariableOperation extends LeafOperation implements AtomicCalculableOperation {
 
     private String variableName = EMPTY_STRING;
 
@@ -48,35 +47,21 @@ public final class InternVariableOperation extends VariableLeafOperation {
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (arg_ == null) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        AbstractPageEl ip_ = ((ContextEl)_conf).getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         LocalVariable locVar_ = ip_.getInternVars().getVal(variableName);
-        a_ = new Argument();
+        Argument a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
+        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 
+    public String getVariableName() {
+        return variableName;
+    }
 }

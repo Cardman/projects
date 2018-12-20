@@ -452,7 +452,7 @@ public abstract class SettableAbstractFieldOperation extends
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument current_ = _nodes.getVal(this).getArgument();
+        Argument current_ = ElUtil.getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
         setSimpleArgument(arg_, _conf, _nodes);
@@ -480,7 +480,7 @@ public abstract class SettableAbstractFieldOperation extends
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument current_ = _nodes.getVal(this).getArgument();
+        Argument current_ = ElUtil.getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
         setSimpleArgument(arg_, _conf, _nodes);
@@ -771,4 +771,14 @@ public abstract class SettableAbstractFieldOperation extends
         setSimpleArgument(a_, _conf);
         return a_;
     }
+    public boolean isVariable() {
+        return variable;
+    }
+    public boolean isCatString() {
+        return catString;
+    }
+    public int getAnc() {
+        return anc;
+    }
+    
 }

@@ -56,7 +56,7 @@ public final class CompoundAffectationOperation extends ReflectableOpering imple
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
-        SettableElResult elt_ = tryGetSettable(this);
+        SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
         boolean ok_ = elt_ != null;
         LgNames stds_ = _conf.getStandards();
         if (!ok_) {
@@ -158,22 +158,6 @@ public final class CompoundAffectationOperation extends ReflectableOpering imple
         }
     }
 
-    static SettableElResult tryGetSettable(MethodOperation _operation) {
-        CustList<OperationNode> chidren_ = _operation.getChildrenNodes();
-        OperationNode root_ = chidren_.first();
-        SettableElResult elt_ = null;
-        if (!(root_ instanceof DotOperation)) {
-            if (root_ instanceof SettableElResult) {
-                elt_ = (SettableElResult) root_;
-            }
-        } else {
-            OperationNode beforeLast_ = ((MethodOperation)root_).getChildrenNodes().last();
-            if (beforeLast_ instanceof SettableElResult) {
-                elt_ = (SettableElResult) beforeLast_;
-            }
-        }
-        return elt_;
-    }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
@@ -334,14 +318,14 @@ public final class CompoundAffectationOperation extends ReflectableOpering imple
             ContextEl _conf) {
         CustList<OperationNode> list_ = getChildrenNodes();
         OperationNode right_ = list_.last();
-        Argument rightArg_ = _nodes.getVal(right_).getArgument();
+        Argument rightArg_ = ElUtil.getArgument(_nodes,right_);
         if (classMethodId != null) {
             CustList<OperationNode> chidren_ = new CustList<OperationNode>();
             chidren_.add((OperationNode) settable);
             chidren_.add(right_);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(_nodes.getVal((OperationNode) settable).getArgument());
-            arguments_.add(_nodes.getVal(right_).getArgument());
+            arguments_.add(ElUtil.getArgument(_nodes,(OperationNode) settable));
+            arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
@@ -358,6 +342,14 @@ public final class CompoundAffectationOperation extends ReflectableOpering imple
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
+    }
+
+    public String getOper() {
+        return oper;
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
     }
 
 }

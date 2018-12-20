@@ -25,6 +25,18 @@ public final class DefaultCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
+        } else {
+            Block first_ = b_.getFirstChild();
+            while (first_ != this) {
+                if (first_ instanceof DefaultCondition) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                    break;
+                }
+                first_ = first_.getNextSibling();
+            }
         }
         buildEmptyEl(_cont);
     }

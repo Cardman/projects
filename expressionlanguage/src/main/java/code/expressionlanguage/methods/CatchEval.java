@@ -98,6 +98,9 @@ public final class CatchEval extends AbstractCatchEval {
             if (p_ instanceof CatchEval) {
                 classes_.add(((CatchEval)p_).importedClassName);
             }
+            if (p_ == null) {
+                break;
+            }
             p_ = p_.getPreviousSibling();
         }
         _anEl.setArgMapping(importedClassName);

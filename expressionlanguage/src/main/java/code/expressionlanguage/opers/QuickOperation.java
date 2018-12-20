@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
@@ -14,7 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 
 
-public abstract class QuickOperation extends PrimitiveBoolOperation {
+public abstract class QuickOperation extends ReflectableOpering {
 
     public QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -80,7 +81,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode first_ = chidren_.first();
-        Argument f_ = _nodes.getVal(first_).getArgument();
+        Argument f_ = ElUtil.getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (absorbingStruct().sameReference(abs_)) {
             setQuickSimpleArgument(f_, _conf, _nodes);
@@ -88,7 +89,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         }
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
-        Argument a_ = _nodes.getVal(last_).getArgument();
+        Argument a_ = ElUtil.getArgument(_nodes,last_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }

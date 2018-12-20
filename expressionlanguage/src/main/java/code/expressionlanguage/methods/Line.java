@@ -81,9 +81,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     }
 
     public boolean isCallSuper() {
-        if (opExp.isEmpty()) {
-            return false;
-        }
         return opExp.last() instanceof SuperInvokingConstructor;
     }
 
@@ -95,9 +92,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
         return cl_;
     }
     public boolean isCallInts() {
-        if (opExp.isEmpty()) {
-            return false;
-        }
         OperationNode last_ = opExp.last();
         if (!(last_ instanceof InterfaceInvokingConstructor)) {
             return false;
@@ -110,9 +104,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     }
 
     public boolean isCallThis() {
-        if (opExp.isEmpty()) {
-            return false;
-        }
         return opExp.last() instanceof CurrentInvokingConstructor;
     }
 

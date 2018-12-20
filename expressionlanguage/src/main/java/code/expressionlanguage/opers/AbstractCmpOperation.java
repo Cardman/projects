@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -22,14 +23,16 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
+public abstract class AbstractCmpOperation extends ReflectableOpering {
 
     private boolean stringCompare;
     private ClassMethodId classMethodId;
+    private String op;
 
     public AbstractCmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        op = _op.getOperators().firstValue().trim();
     }
 
     @Override
@@ -204,10 +207,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             ContextEl _conf) {
         if (classMethodId != null) {
             CustList<OperationNode> chidren_ = getChildrenNodes();
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (OperationNode o: chidren_) {
-                arguments_.add(_nodes.getVal(o).getArgument());
-            }
+            CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
@@ -222,6 +222,14 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
     final void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public String getOp() {
+        return op;
     }
 
 }

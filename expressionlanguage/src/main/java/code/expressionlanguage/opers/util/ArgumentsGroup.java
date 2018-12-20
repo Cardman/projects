@@ -4,7 +4,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
+public final class ArgumentsGroup {
 
     private Analyzable context;
 
@@ -14,8 +14,10 @@ public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
 
     private String globalClass;
 
+    private CustList<ClassArgumentMatching> arguments;
+
     public ArgumentsGroup(Analyzable _context, StringMap<StringList> _map, ClassArgumentMatching[] _elements) {
-        super(_elements);
+        arguments = new CustList<ClassArgumentMatching>(_elements);
         context = _context;
         map = _map;
     }
@@ -44,12 +46,16 @@ public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
         globalClass = _globalClass;
     }
 
+    public ClassArgumentMatching get(int _index) {
+        return arguments.get(_index);
+    }
+
     public ClassArgumentMatching[] getArgumentsArray() {
-        int len_ = size();
+        int len_ = arguments.size();
         ClassArgumentMatching[] args_;
         args_ = new ClassArgumentMatching[len_];
-        for (int i = FIRST_INDEX; i < len_; i++) {
-            args_[i] = get(i);
+        for (int i = 0; i < len_; i++) {
+            args_[i] = arguments.get(i);
         }
         return args_;
     }

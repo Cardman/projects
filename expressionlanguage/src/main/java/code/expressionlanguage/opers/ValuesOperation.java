@@ -121,4 +121,10 @@ public final class ValuesOperation extends VariableLeafOperation {
         return InvokingOperation.getEnumValues(className, _conf);
     }
 
+    public String getClassName() {
+        return className;
+    }
+    public int getArgOffset() {
+        return argOffset;
+    }
 }

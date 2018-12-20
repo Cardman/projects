@@ -116,9 +116,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (!finalField) {
             return null;
         }
-        if (opValue == null) {
-            return null;
-        }
         Argument arg_ = opValue.last().getArgument();
         if (arg_ == null) {
             return null;

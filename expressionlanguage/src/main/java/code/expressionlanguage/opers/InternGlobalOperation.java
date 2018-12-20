@@ -12,10 +12,14 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class InternGlobalOperation extends LeafOperation implements DirectCalculableOperation {
+    private int off;
 
     public InternGlobalOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
     }
 
     @Override
@@ -70,4 +74,7 @@ public final class InternGlobalOperation extends LeafOperation implements Direct
         return a_;
     }
 
+    public int getOff() {
+        return off;
+    }
 }

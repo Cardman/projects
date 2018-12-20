@@ -19,12 +19,10 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -91,11 +89,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<String, Assignment> e: parAss_.getFields().lastValue().entryList()) {
+        for (EntryCust<String, Assignment> e: parAss_.getLastFieldsOrEmpty().entryList()) {
             Assignment ba_ = e.getValue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
         }
-        for (StringMap<Assignment> s: parAss_.getVariables().lastValue()) {
+        for (StringMap<Assignment> s: parAss_.getLastVariablesOrEmpty()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 Assignment ba_ = e.getValue();
@@ -104,7 +102,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             assBl_.getVariablesRootBefore().add(sm_);
         }
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<Assignment> s: parAss_.getMutableLoop().lastValue()) {
+        for (StringMap<Assignment> s: parAss_.getLastMutableLoopOrEmpty()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 Assignment ba_ = e.getValue();
@@ -122,20 +120,21 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opValue.last().isVoidArg(_cont)) {
+        OperationNode op_ = opValue.last();
+        ClassArgumentMatching clArg_ = op_.getResultClass();
+        if (clArg_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(clArg_);
             _cont.getClasses().addError(un_);
         }
-        ClassArgumentMatching clArg_ = opValue.last().getResultClass();
         StringList names_ = clArg_.getNames();
         if (names_.size() != 1) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(clArg_);
             _cont.getClasses().addError(un_);
         } else {
             String exp_ = names_.first();
@@ -146,7 +145,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                         UnexpectedTypeError un_ = new UnexpectedTypeError();
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(valueOffset);
-                        un_.setType(opValue.last().getResultClass());
+                        un_.setType(clArg_);
                         _cont.getClasses().addError(un_);
                     } else {
                         enumTest = true;
@@ -182,85 +181,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             return;
         }
         boolean abrupt_ = true;
-        boolean def_ = false;
-        CustList<ClassField> enums_ = new CustList<ClassField>();
-        CustList<Struct> knowns_ = new CustList<Struct>();
-        CustList<CaseCondition> childrenKnowns_ = new CustList<CaseCondition>();
-        CustList<CaseCondition> childrenFields_ = new CustList<CaseCondition>();
+        boolean def_ = hasDefaultCase();
         while (ch_.getNextSibling() != null) {
-            if (ch_ instanceof DefaultCondition) {
-                if (def_) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
-                    un_.setFileName(ch_.getFile().getFileName());
-                    un_.setIndexFile(ch_.getOffset().getOffsetTrim());
-                    _an.getClasses().addError(un_);
-                }
-                def_ = true;
-            } else if (ch_ instanceof CaseCondition){
-                CaseCondition case_ = (CaseCondition) ch_;
-                OperationNode root_ = case_.getOpValue().last();
-                Argument arg_ = root_.getArgument();
-                if (arg_ != null) {
-                    knowns_.add(arg_.getStruct());
-                    childrenKnowns_.add(case_);
-                } else {
-                    ClassField cl_ = case_.getFieldId();
-                    if (cl_ != null) {
-                        enums_.add(cl_);
-                        childrenFields_.add(case_);
-                    }
-                }
-            }
             ch_ = ch_.getNextSibling();
-        }
-        if (ch_ instanceof DefaultCondition) {
-            if (def_) {
-                UnexpectedTagName un_ = new UnexpectedTagName();
-                un_.setFileName(ch_.getFile().getFileName());
-                un_.setIndexFile(ch_.getOffset().getOffsetTrim());
-                _an.getClasses().addError(un_);
-            }
-            def_ = true;
-        } else if (ch_ instanceof CaseCondition) {
-            CaseCondition case_ = (CaseCondition) ch_;
-            OperationNode root_ = case_.getOpValue().last();
-            Argument arg_ = root_.getArgument();
-            if (arg_ != null) {
-                knowns_.add(arg_.getStruct());
-                childrenKnowns_.add(case_);
-            } else {
-                ClassField cl_ = case_.getFieldId();
-                if (cl_ != null) {
-                    enums_.add(cl_);
-                    childrenFields_.add(case_);
-                }
-            }
-        }
-        int lenTab_ = knowns_.size();
-        for (int i = 0; i < lenTab_; i++) {
-            for (int j = i + 1; j < lenTab_; j++) {
-                if (knowns_.get(i).sameReference(knowns_.get(j))) {
-                    //error
-                    CaseCondition locCh_ = childrenKnowns_.get(j);
-                    UnexpectedTagName un_ = new UnexpectedTagName();
-                    un_.setFileName(locCh_.getFile().getFileName());
-                    un_.setIndexFile(locCh_.getValueOffset()+ locCh_.getOffset().getOffsetTrim());
-                    _an.getClasses().addError(un_);
-                }
-            }
-        }
-        lenTab_ = enums_.size();
-        for (int i = 0; i < lenTab_; i++) {
-            for (int j = i + 1; j < lenTab_; j++) {
-                if (enums_.get(i).eq(enums_.get(j))) {
-                    //error
-                    CaseCondition locCh_ = childrenFields_.get(j);
-                    UnexpectedTagName un_ = new UnexpectedTagName();
-                    un_.setFileName(locCh_.getFile().getFileName());
-                    un_.setIndexFile(locCh_.getValueOffset()+ locCh_.getOffset().getOffsetTrim());
-                    _an.getClasses().addError(un_);
-                }
-            }
         }
         if (_anEl.canCompleteNormally(ch_)) {
             abrupt_ = false;
@@ -286,15 +209,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             super.setAssignmentAfter(_an, _anEl);
             return;
         }
-        boolean def_ = false;
+        boolean def_ = hasDefaultCase();
         while (ch_.getNextSibling() != null) {
-            if (ch_ instanceof DefaultCondition) {
-                def_ = true;
-            }
             ch_ = ch_.getNextSibling();
-        }
-        if (ch_ instanceof DefaultCondition) {
-            def_ = true;
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
@@ -311,6 +228,20 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
+    private boolean hasDefaultCase() {
+        Block ch_ = getFirstChild();
+        boolean def_ = false;
+        while (ch_.getNextSibling() != null) {
+            if (ch_ instanceof DefaultCondition) {
+                def_ = true;
+            }
+            ch_ = ch_.getNextSibling();
+        }
+        if (ch_ instanceof DefaultCondition) {
+            def_ = true;
+        }
+        return def_;
+    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
@@ -371,7 +302,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 if (op_.getArgument() != null) {
                     continue;
                 }
-                if (!StringList.quickEq(c_.getFieldId().getFieldName(), en_.getName())) {
+                if (!StringList.quickEq(c_.getValue().trim(), en_.getName())) {
                     continue;
                 }
                 found_ = true;

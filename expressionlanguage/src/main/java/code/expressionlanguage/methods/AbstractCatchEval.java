@@ -42,10 +42,15 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         group_.add(this);
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             group_.add(p_);
             p_ = p_.getPreviousSibling();
         }
-        group_.add(p_);
+        if (p_ != null) {
+            group_.add(p_);
+        }
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {

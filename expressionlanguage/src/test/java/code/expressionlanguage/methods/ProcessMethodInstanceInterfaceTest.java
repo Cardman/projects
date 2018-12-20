@@ -3767,4 +3767,41 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void instanceArgument2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int doubleValue(){\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
+        xml_.append("  $int r = 0i:\n");
+        xml_.append("  $switch(var;.){\n");
+        xml_.append("   $default:\n");
+        xml_.append("   $case(TWO):\n");
+        xml_.append("   $case(TWO){\n");
+        xml_.append("    r;. = 1i:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $values(pkg.Ex).length+r;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

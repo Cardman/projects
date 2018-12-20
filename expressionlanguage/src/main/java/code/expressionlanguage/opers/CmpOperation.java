@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -23,8 +24,8 @@ public final class CmpOperation extends AbstractCmpOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
-        Argument first_ = _nodes.getVal(opOne_).getArgument();
-        Argument second_ = _nodes.getVal(opTwo_).getArgument();
+        Argument first_ = ElUtil.getArgument(_nodes,opOne_);
+        Argument second_ = ElUtil.getArgument(_nodes,opTwo_);
         Argument arg_ = calculateCommon(first_, second_);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;

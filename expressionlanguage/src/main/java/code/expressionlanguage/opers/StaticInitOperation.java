@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.calls.util.NotInitializedClass;
@@ -62,7 +63,7 @@ public final class StaticInitOperation extends VariableLeafOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument current_ = _nodes.getVal(this).getArgument();
+        Argument current_ = ElUtil.getArgument(_nodes,this);
         Argument arg_ = getCommonArgument(current_, _conf);
         if (arg_ == null) {
             _nodes.getVal(this).setArgument(Argument.createVoid());
@@ -99,4 +100,7 @@ public final class StaticInitOperation extends VariableLeafOperation {
         setStaticResultClass(new ClassArgumentMatching(_base));
     }
 
+    public boolean isPossibleInitClass() {
+        return possibleInitClass;
+    }
 }

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
@@ -52,7 +53,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
+        Argument arg_ = ElUtil.getArgument(_nodes,chidren_.first());
         BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         Boolean b_ = o_.getInstance();

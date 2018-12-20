@@ -148,12 +148,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ == this) {
                     return;
                 }
-                if (anEl_.canCompleteNormallyGroup(par_) && par_.getNextSibling() == null && !(par_ instanceof SwitchPartBlock)) {
-                    BracedBlock grPar_ = par_.getParent();
-                    OffsetsBlock off_ = par_.getOffset();
-                    EmptyInstruction empty_ = new EmptyInstruction(_cont, grPar_, off_);
-                    grPar_.appendChild(empty_);
-                }
                 parents_.removeLast();
                 if (par_ instanceof BreakableBlock) {
                     parentsBreakables_.removeLast();

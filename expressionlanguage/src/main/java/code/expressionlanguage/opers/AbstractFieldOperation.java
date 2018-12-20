@@ -8,7 +8,9 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class AbstractFieldOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
 
@@ -16,9 +18,13 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
     private boolean intermediate;
 
     private Argument previousArgument;
+    private int off;
     public AbstractFieldOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
     }
 
     public void setStaticAccess(boolean _staticAccess) {
@@ -117,5 +123,8 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
     @Override
     public final void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
+    }
+    public int getOff() {
+        return off;
     }
 }

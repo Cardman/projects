@@ -13,7 +13,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.VariableSuffix;
@@ -2623,7 +2622,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2652,7 +2651,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2681,7 +2680,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2710,7 +2709,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2740,7 +2739,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2770,7 +2769,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2800,7 +2799,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2830,7 +2829,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2859,7 +2858,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2889,7 +2888,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2921,7 +2920,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2953,7 +2952,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -2983,7 +2982,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3015,7 +3014,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3049,7 +3048,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3084,7 +3083,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3119,7 +3118,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3154,7 +3153,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3178,7 +3177,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3295,7 +3294,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3324,7 +3323,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3356,7 +3355,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -3388,7 +3387,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
@@ -6479,7 +6478,7 @@ public final class ElRenderUtilTest {
         Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        CustList<OperationNode> all_ = ElRenderUtil.getSortedDescNodes(op_, static_, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);

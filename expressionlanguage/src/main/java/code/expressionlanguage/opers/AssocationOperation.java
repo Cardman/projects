@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.BadFieldName;
@@ -124,7 +125,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument arg_ = _nodes.getVal(getFirstChild()).getArgument();
+        Argument arg_ = ElUtil.getArgument(_nodes,getFirstChild());
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }

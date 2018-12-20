@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -46,6 +47,9 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         offsetLocal = _offsetLocal;
     }
 
+    public final int getOffsetLocal() {
+        return offsetLocal;
+    }
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
         if (getFirstChild().getArgument() == null) {
@@ -307,11 +311,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
+        CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
         return res_;

@@ -81,18 +81,6 @@ public final class ClassArgumentMatching {
     public boolean isUndefined() {
         return className.containsNull();
     }
-//    public CustList<Class<?>> getDeclaredClasses() {
-//        try {
-//            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className);
-//            CustList<Class<?>> cls_ = new CustList<Class<?>>();
-//            for (Class<?> c: cl_.getDeclaredClasses()) {
-//                cls_.add(c);
-//            }
-//            return cls_;
-//        } catch (Throwable _0) {
-//            return new CustList<Class<?>>();
-//        }
-//    }
 
     public boolean isVariable() {
         return className.containsStr("");

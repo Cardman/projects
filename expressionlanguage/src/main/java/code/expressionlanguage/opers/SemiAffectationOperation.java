@@ -295,7 +295,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
             CustList<OperationNode> chidren_ = new CustList<OperationNode>();
             chidren_.add((OperationNode) settable);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(_nodes.getVal((OperationNode) settable).getArgument());
+            arguments_.add(ElUtil.getArgument(_nodes,(OperationNode) settable));
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
@@ -310,7 +310,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
     @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        Argument stored_ = _nodes.getVal((OperationNode) settable).getArgument();
+        Argument stored_ = ElUtil.getArgument(_nodes,(OperationNode) settable);
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
@@ -323,4 +323,21 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
         }
         return a_;
     }
+
+    public SettableElResult getSettable() {
+        return settable;
+    }
+
+    public boolean isPost() {
+        return post;
+    }
+
+    public String getOper() {
+        return oper;
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
 }

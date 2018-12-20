@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -76,10 +77,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (OperationNode o: chidren_) {
-                arguments_.add(_nodes.getVal(o).getArgument());
-            }
+            CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
@@ -87,7 +85,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             return Argument.createVoid();
         }
         OperationNode op_ = chidren_.first();
-        Argument arg_ = _nodes.getVal(op_).getArgument();
+        Argument arg_ = ElUtil.getArgument(_nodes,op_);
         Argument a_ = getArgument(_conf, arg_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -148,5 +146,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
     }
 }

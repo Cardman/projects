@@ -89,4 +89,7 @@ public final class StaticInfoOperation extends VariableLeafOperation {
         return a_;
     }
 
+    public String getClassName() {
+        return className;
+    }
 }

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
@@ -20,7 +21,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class EqOperation extends PrimitiveBoolOperation {
+public final class EqOperation extends ReflectableOpering {
 
     private String oper;
     private ClassMethodId classMethodId;
@@ -80,10 +81,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (OperationNode o: chidren_) {
-                arguments_.add(_nodes.getVal(o).getArgument());
-            }
+            CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
@@ -92,8 +90,8 @@ public final class EqOperation extends PrimitiveBoolOperation {
         }
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
-        Argument first_ = _nodes.getVal(opOne_).getArgument();
-        Argument second_ = _nodes.getVal(opTwo_).getArgument();
+        Argument first_ = ElUtil.getArgument(_nodes,opOne_);
+        Argument second_ = ElUtil.getArgument(_nodes,opTwo_);
         boolean complement_ = false;
         String op_ = oper.trim();
         if (StringList.quickEq(op_, DIFF)) {
@@ -162,6 +160,14 @@ public final class EqOperation extends PrimitiveBoolOperation {
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
+    }
+
+    public String getOper() {
+        return oper;
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
     }
 
 }

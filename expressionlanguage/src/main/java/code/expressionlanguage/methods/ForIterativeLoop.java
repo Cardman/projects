@@ -179,18 +179,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     @Override
     public void reduce(ContextEl _context) {
-        if (opInit != null && !opInit.isEmpty()) {
-            OperationNode i_ = opInit.last();
-            opInit = ElUtil.getReducedNodes(i_);
-        }
-        if (opExp != null && !opExp.isEmpty()) {
-            OperationNode e_ = opExp.last();
-            opExp = ElUtil.getReducedNodes(e_);
-        }
-        if (opStep != null && !opStep.isEmpty()) {
-            OperationNode s_ = opStep.last();
-            opStep = ElUtil.getReducedNodes(s_);
-        }
+        OperationNode i_ = opInit.last();
+        opInit = ElUtil.getReducedNodes(i_);
+        OperationNode e_ = opExp.last();
+        opExp = ElUtil.getReducedNodes(e_);
+        OperationNode s_ = opStep.last();
+        opStep = ElUtil.getReducedNodes(s_);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
@@ -376,12 +370,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         for (EntryCust<String,Assignment> e: res_.entryList()) {
             vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
         }
         CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getVariables().getVal(_root);
+        varsRes_ = vars_.getLastVariablesOrEmpty();
         if (vars_.getVariablesRoot().isEmpty()) {
             for (StringMap<Assignment> s: varsRes_) {
                 StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
@@ -402,7 +396,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             }
         }
         CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         if (vars_.getMutableLoopRoot().isEmpty()) {
             for (StringMap<Assignment> s: mutableRes_) {
                 StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();

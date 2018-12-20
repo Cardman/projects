@@ -229,9 +229,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
     public void inferArrayClass(ContextEl _cont) {
-        if (opList.isEmpty()) {
-            return;
-        }
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         OperationNode el_ = opList.last();
@@ -291,9 +288,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
     public abstract StringList getInferredIterable(StringList _types,ContextEl _cont);
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        if (opList.isEmpty()) {
-            return;
-        }
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.size() == 1) {

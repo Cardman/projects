@@ -23,22 +23,26 @@ import code.util.StringList;
 public final class FinalVariableOperation extends VariableLeafOperation {
 
     private String variableName = EMPTY_STRING;
+    private int off;
+    private ConstType type;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        type = _op.getConstType();
     }
 
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
         LgNames stds_ = _conf.getStandards();
-        if (op_.getConstType() == ConstType.PARAM) {
+        if (type == ConstType.PARAM) {
             variableName = str_;
             LocalVariable locVar_ = _conf.getParameters().getVal(variableName);
             if (locVar_ != null) {
@@ -58,7 +62,7 @@ public final class FinalVariableOperation extends VariableLeafOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (op_.getConstType() == ConstType.CATCH_VAR) {
+        if (type == ConstType.CATCH_VAR) {
             variableName = str_;
             LocalVariable locVar_ = _conf.getCatchVar(variableName);
             if (locVar_ != null) {
@@ -73,7 +77,7 @@ public final class FinalVariableOperation extends VariableLeafOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (op_.getConstType() == ConstType.LOOP_INDEX) {
+        if (type == ConstType.LOOP_INDEX) {
             variableName = str_;
             LoopVariable locVar_ = _conf.getVar(variableName);
             if (locVar_ != null) {
@@ -166,6 +170,18 @@ public final class FinalVariableOperation extends VariableLeafOperation {
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         return a_;
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public ConstType getType() {
+        return type;
+    }
+
+    public int getOff() {
+        return off;
     }
 
 }

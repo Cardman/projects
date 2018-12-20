@@ -127,7 +127,14 @@ public final class FinallyEval extends BracedStack implements Eval {
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             p_ = p_.getPreviousSibling();
+        }
+        if (p_ == null) {
+            _anEl.reach(this);
+            return;
         }
         if (_anEl.isReachable(p_)) {
             _anEl.reach(this);
@@ -140,10 +147,15 @@ public final class FinallyEval extends BracedStack implements Eval {
         CustList<Block> group_ = new CustList<Block>();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             group_.add(p_);
             p_ = p_.getPreviousSibling();
         }
-        group_.add(p_);
+        if (p_ != null) {
+            group_.add(p_);
+        }
         if (!_anEl.canCompleteNormally(this)) {
             for (Block b: group_) {
                 _anEl.completeAbruptGroup(b);
