@@ -19,7 +19,6 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -772,11 +771,6 @@ public class Configuration implements ExecutableCode {
 
     public void setGearConst(boolean _gearConst) {
         context.setGearConst(_gearConst);
-    }
-
-    @Override
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return context.getTextualSortedOperations();
     }
 
     @Override

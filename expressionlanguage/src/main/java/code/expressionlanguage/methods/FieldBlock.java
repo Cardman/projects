@@ -13,11 +13,11 @@ import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.MethodOperation;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
+import code.expressionlanguage.opers.exec.ExecMethodOperation;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -55,9 +55,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private int accessOffset;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
     private StringList annotations = new StringList();
-    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public FieldBlock(ContextEl _importingPage,
@@ -123,7 +123,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return arg_.getStruct();
     }
 
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 
@@ -218,7 +218,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     @Override
     public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<OperationNode>>();
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
         for (String a: annotations) {
             Calculation c_ = Calculation.staticCalculation(true);
             annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
@@ -226,14 +226,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     @Override
     public void reduce(ContextEl _context) {
-        CustList<CustList<OperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<OperationNode>>();
-        for (CustList<OperationNode> a: annotationsOps) {
-            OperationNode r_ = a.last();
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
             annotationsOps_.add(ElUtil.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
-        OperationNode r_ = opValue.last();
+        ExecOperationNode r_ = opValue.last();
         opValue = ElUtil.getReducedNodes(r_);
     }
     @Override
@@ -241,7 +241,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return annotations;
     }
     @Override
-    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
     }
     @Override
@@ -253,16 +253,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public EqList<ClassField> getStaticConstantDependencies(Analyzable _an, String _name) {
-        OperationNode last_ = opValue.last();
-        if (!(last_ instanceof DeclaringOperation)) {
+        ExecOperationNode last_ = opValue.last();
+        if (!(last_ instanceof ExecDeclaringOperation)) {
             EqList<ClassField> eq_;
             eq_ = getDeps(_an, opValue.mid(1));
             return eq_;
         }
         EqList<ClassField> eq_;
-        MethodOperation m_ = (MethodOperation)last_;
+        ExecMethodOperation m_ = (ExecMethodOperation)last_;
         int index_ = fieldName.indexOfObj(_name);
-        CustList<OperationNode> ch_ = m_.getChildrenNodes();
+        CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
         int from_;
         int to_ = ch_.get(index_).getOrder();
         if (index_ == 0) {
@@ -274,9 +274,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return eq_;
     }
 
-    private static EqList<ClassField> getDeps(Analyzable _an, CustList<OperationNode> _op) {
+    private static EqList<ClassField> getDeps(Analyzable _an, CustList<ExecOperationNode> _op) {
         EqList<ClassField> eq_ = new EqList<ClassField>();
-        for (OperationNode o: _op) {
+        for (ExecOperationNode o: _op) {
             ClassField key_ = getDep(_an, o);
             if (key_ == null) {
                 continue;
@@ -285,11 +285,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         return eq_;
     }
-    private static ClassField getDep(Analyzable _an, OperationNode _op) {
-        if (!(_op instanceof SettableAbstractFieldOperation)) {
+    private static ClassField getDep(Analyzable _an, ExecOperationNode _op) {
+        if (!(_op instanceof ExecSettableFieldOperation)) {
             return null;
         }
-        SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) _op;
+        ExecSettableFieldOperation cst_ = (ExecSettableFieldOperation) _op;
         ClassField key_ = cst_.getFieldId();
         if (key_ == null) {
             return null;

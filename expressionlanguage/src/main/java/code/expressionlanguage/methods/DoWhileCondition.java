@@ -8,7 +8,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.EmptyTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -60,7 +60,7 @@ public final class DoWhileCondition extends Condition {
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

@@ -11,7 +11,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.AbstractTernaryOperation;
 import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.AtomicCalculableOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
@@ -31,8 +30,10 @@ import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
 import code.expressionlanguage.opers.VariableOperation;
+import code.expressionlanguage.opers.exec.AtomicExecCalculableOperation;
 import code.expressionlanguage.opers.exec.ExecAffectationOperation;
 import code.expressionlanguage.opers.exec.ExecCompoundAffectationOperation;
+import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
 import code.expressionlanguage.opers.exec.ExecMethodOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecPossibleIntermediateDotted;
@@ -57,7 +58,7 @@ public final class ElUtil {
         if (_right.isFinished()) {
             return _right.getArgument();
         }
-        IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
+        IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset);
         if (_conf.callsOrException()) {
             return _right.getArgument();
@@ -68,7 +69,7 @@ public final class ElUtil {
     }
 
 
-    public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
+    public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         _conf.setStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
@@ -89,7 +90,7 @@ public final class ElUtil {
                 currentBlock_.defaultAssignmentAfter(_conf, e_);
             }
             e_.setOrder(0);
-            return new CustList<OperationNode>(e_);
+            return new CustList<ExecOperationNode>(ExecOperationNode.createExecOperationNode(e_, _conf));
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
@@ -107,7 +108,8 @@ public final class ElUtil {
             ((StandardInstancingOperation)op_).setFieldName(fieldName_);
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
-        return all_;
+        CustList<ExecOperationNode> out_ = getExecutableNodes(all_, _conf);
+        return out_;
     }
 
 
@@ -151,8 +153,8 @@ public final class ElUtil {
             if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
-            current_.tryCalculateNode(_context);
             current_.setOrder(_sortedNodes.size());
+            current_.tryCalculateNode(_context);
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
                 next_ = createFirstChild(current_.getParent(), _context, 1);
@@ -195,8 +197,8 @@ public final class ElUtil {
                 if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
-                par_.tryCalculateNode(_context);
                 par_.setOrder(_sortedNodes.size());
+                par_.tryCalculateNode(_context);
                 _sortedNodes.add(par_);
                 return null;
             }
@@ -464,15 +466,15 @@ public final class ElUtil {
         return false;
     }
 
-    static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
+    static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
         int fr_ = _el.getIndex();
         int len_ = _nodes.size();
         while (fr_ < len_) {
-            OperationNode o = _nodes.getKey(fr_);
+            ExecOperationNode o = _nodes.getKey(fr_);
             ArgumentsPair pair_ = _nodes.getValue(fr_);
-            if (!(o instanceof AtomicCalculableOperation)) {
+            if (!(o instanceof AtomicExecCalculableOperation)) {
                 fr_++;
                 continue;
             }
@@ -480,7 +482,7 @@ public final class ElUtil {
                 fr_++;
                 continue;
             }
-            AtomicCalculableOperation a_ = (AtomicCalculableOperation)o;
+            AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
             a_.calculate(_nodes, _context);
             if (_context.hasExceptionOrFailInit()) {
                 pageEl_.setTranslatedOffset(0);
@@ -493,7 +495,7 @@ public final class ElUtil {
             }
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
-            fr_ = ElUtil.getNextIndex(o, st_);
+            fr_ = ExecOperationNode.getNextIndex(o, st_);
         }
         _context.getLastPage().setTranslatedOffset(0);
     }
@@ -511,16 +513,16 @@ public final class ElUtil {
         return _nodes.getValue(_node.getOrder()).getPreviousArgument();
     }
     public static void tryCalculate(FieldBlock _field, ContextEl _context, String _fieldName) {
-        CustList<OperationNode> nodes_ = _field.getOpValue();
-        OperationNode root_ = nodes_.last();
-        CustList<OperationNode> sub_;
-        if (!(root_ instanceof DeclaringOperation)) {
+        CustList<ExecOperationNode> nodes_ = _field.getOpValue();
+        ExecOperationNode root_ = nodes_.last();
+        CustList<ExecOperationNode> sub_;
+        if (!(root_ instanceof ExecDeclaringOperation)) {
             sub_ = nodes_;
         } else {
-            MethodOperation m_ = (MethodOperation)root_;
+            ExecMethodOperation m_ = (ExecMethodOperation)root_;
             int index_ = _field.getFieldName().indexOfObj(_fieldName);
-            CustList<OperationNode> ch_ = m_.getChildrenNodes();
-            OperationNode rootLoc_ = ch_.get(index_);
+            CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
+            ExecOperationNode rootLoc_ = ch_.get(index_);
             int from_;
             int to_ = rootLoc_.getOrder() + 1;
             if (index_ == 0) {
@@ -533,7 +535,7 @@ public final class ElUtil {
         int ind_ = 0;
         int len_ = sub_.size();
         while (ind_ < len_) {
-            OperationNode curr_ = sub_.get(ind_);
+            ExecOperationNode curr_ = sub_.get(ind_);
             Argument a_ = curr_.getArgument();
             if (a_ != null) {
                 ind_++;
@@ -544,7 +546,7 @@ public final class ElUtil {
             if (a_ == null) {
                 return;
             }
-            ind_ = getNextIndex(curr_, a_.getStruct());
+            ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
     }
     public static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list, Analyzable _an) {
@@ -613,14 +615,14 @@ public final class ElUtil {
         }
         return out_;
     }
-    public static CustList<OperationNode> getReducedNodes(OperationNode _root) {
-        CustList<OperationNode> out_ = new CustList<OperationNode>();
-        OperationNode current_ = _root;
+    public static CustList<ExecOperationNode> getReducedNodes(ExecOperationNode _root) {
+        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
+        ExecOperationNode current_ = _root;
         while (true) {
             if (current_ == null) {
                 break;
             }
-            OperationNode op_ = current_.getFirstChild();
+            ExecOperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
                 if (current_.getArgument() == null) {
                     current_ = op_;

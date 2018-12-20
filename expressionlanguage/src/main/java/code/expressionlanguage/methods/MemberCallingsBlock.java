@@ -11,7 +11,7 @@ import code.expressionlanguage.errors.custom.DeadCodeMethod;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -19,7 +19,7 @@ import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock, AnnotableBlock {
     private StringList annotations = new StringList();
-    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     MemberCallingsBlock(ContextEl _importingPage,
@@ -183,7 +183,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     @Override
     public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<OperationNode>>();
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
         for (String a: annotations) {
             Calculation c_ = Calculation.staticCalculation(true);
             annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
@@ -191,10 +191,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
     @Override
     public void reduce(ContextEl _context) {
-        CustList<CustList<OperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<OperationNode>>();
-        for (CustList<OperationNode> a: annotationsOps) {
-            OperationNode r_ = a.last();
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
             annotationsOps_.add(ElUtil.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
@@ -204,7 +204,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         return annotations;
     }
     @Override
-    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
     }
     @Override

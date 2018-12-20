@@ -19,6 +19,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
@@ -27,7 +28,7 @@ import code.util.StringList;
 public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     private int valueOffset;
 
@@ -94,8 +95,8 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);
                     op_.setOrder(0);
-                    opValue = new CustList<OperationNode>();
-                    opValue.add(op_);
+                    opValue = new CustList<ExecOperationNode>();
+                    opValue.add(ExecOperationNode.createExecOperationNode(op_, _cont));
                     defaultAssignmentAfter(_cont, op_);
                     checkDuplicateEnumCase(_cont);
                     return;
@@ -115,7 +116,7 @@ public final class CaseCondition extends SwitchPartBlock {
             }
         }
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode op_ = opValue.last();
+        ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -143,7 +144,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 
@@ -153,7 +154,7 @@ public final class CaseCondition extends SwitchPartBlock {
         while (first_ != this) {
             if (first_ instanceof CaseCondition) {
                 CaseCondition c_ = (CaseCondition) first_;
-                OperationNode curOp_ = c_.opValue.last();
+                ExecOperationNode curOp_ = c_.opValue.last();
                 Argument a_ = curOp_.getArgument();
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {

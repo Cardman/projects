@@ -17,6 +17,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -64,11 +65,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     private final String step;
     private int stepOffset;
 
-    private CustList<OperationNode> opInit;
+    private CustList<ExecOperationNode> opInit;
 
-    private CustList<OperationNode> opExp;
+    private CustList<ExecOperationNode> opExp;
 
-    private CustList<OperationNode> opStep;
+    private CustList<ExecOperationNode> opStep;
 
     public ForMutableIterativeLoop(ContextEl _importingPage,
             BracedBlock _m, OffsetBooleanInfo _final,
@@ -162,15 +163,15 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     public void setImportedClassName(String _importedClassName) {
         importedClassName = _importedClassName;
     }
-    public CustList<OperationNode> getOpInit() {
+    public CustList<ExecOperationNode> getOpInit() {
         return opInit;
     }
 
-    public CustList<OperationNode> getOpExp() {
+    public CustList<ExecOperationNode> getOpExp() {
         return opExp;
     }
 
-    public CustList<OperationNode> getOpStep() {
+    public CustList<ExecOperationNode> getOpStep() {
         return opStep;
     }
 
@@ -189,15 +190,15 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     public void reduce(ContextEl _context) {
         if (!opInit.isEmpty()) {
-            OperationNode i_ = opInit.last();
+            ExecOperationNode i_ = opInit.last();
             opInit = ElUtil.getReducedNodes(i_);
         }
         if (!opExp.isEmpty()) {
-            OperationNode e_ = opExp.last();
+            ExecOperationNode e_ = opExp.last();
             opExp = ElUtil.getReducedNodes(e_);
         }
         if (!opStep.isEmpty()) {
-            OperationNode s_ = opStep.last();
+            ExecOperationNode s_ = opStep.last();
             opStep = ElUtil.getReducedNodes(s_);
         }
     }
@@ -322,7 +323,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setOffset(0);
         _cont.setForLoopPartState(ForLoopPart.INIT);
         if (init.trim().isEmpty()) {
-            opInit = new CustList<OperationNode>();
+            opInit = new CustList<ExecOperationNode>();
         } else {
             opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         }
@@ -335,12 +336,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setOffset(0);
         _cont.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
-            opExp = new CustList<OperationNode>();
+            opExp = new CustList<ExecOperationNode>();
         } else {
             opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         }
         if (!opExp.isEmpty()) {
-            OperationNode elCondition_ = opExp.last();
+            ExecOperationNode elCondition_ = opExp.last();
             LgNames stds_ = _cont.getStandards();
             if (!elCondition_.getResultClass().isBoolType(_cont)) {
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -523,7 +524,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         _an.setMerged(true);
         _an.getLocalVariables().last().clear();
         if (step.trim().isEmpty()) {
-            opStep = new CustList<OperationNode>();
+            opStep = new CustList<ExecOperationNode>();
         } else {
             opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(f_.isStaticContext()));
         }
@@ -915,7 +916,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         if (opExp.isEmpty()) {
             return true;
         }
-        OperationNode op_ = opExp.last();
+        ExecOperationNode op_ = opExp.last();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (op_.getArgument() == null) {
@@ -932,7 +933,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         boolean abr_ = true;
         boolean proc_ = true;
         if (!opExp.isEmpty()) {
-            OperationNode op_ = opExp.last();
+            ExecOperationNode op_ = opExp.last();
             Argument arg_ = op_.getArgument();
             if (op_.getArgument() == null) {
                 proc_ = false;

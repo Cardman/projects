@@ -9,7 +9,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -101,9 +101,9 @@ public abstract class BeanLgNames extends LgNames {
     private String aliasSize;
     private String aliasSimpleIterator;
 
-    private CustList<OperationNode> expsIterator;
-    private CustList<OperationNode> expsHasNext;
-    private CustList<OperationNode> expsNext;
+    private CustList<ExecOperationNode> expsIterator;
+    private CustList<ExecOperationNode> expsHasNext;
+    private CustList<ExecOperationNode> expsNext;
     public void buildBeans() {
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
@@ -315,13 +315,13 @@ public abstract class BeanLgNames extends LgNames {
     public String getNextVar() {
         return nextVar;
     }
-    public CustList<OperationNode> getExpsIterator() {
+    public CustList<ExecOperationNode> getExpsIterator() {
         return expsIterator;
     }
-    public CustList<OperationNode> getExpsHasNext() {
+    public CustList<ExecOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
-    public CustList<OperationNode> getExpsNext() {
+    public CustList<ExecOperationNode> getExpsNext() {
         return expsNext;
     }
     @Override

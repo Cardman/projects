@@ -17,6 +17,7 @@ import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -60,11 +61,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     private final boolean eq;
     private int eqOffset;
 
-    private CustList<OperationNode> opInit;
+    private CustList<ExecOperationNode> opInit;
 
-    private CustList<OperationNode> opExp;
+    private CustList<ExecOperationNode> opExp;
 
-    private CustList<OperationNode> opStep;
+    private CustList<ExecOperationNode> opStep;
 
     public ForIterativeLoop(ContextEl _importingPage,
             BracedBlock _m,
@@ -179,11 +180,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode i_ = opInit.last();
+        ExecOperationNode i_ = opInit.last();
         opInit = ElUtil.getReducedNodes(i_);
-        OperationNode e_ = opExp.last();
+        ExecOperationNode e_ = opExp.last();
         opExp = ElUtil.getReducedNodes(e_);
-        OperationNode s_ = opStep.last();
+        ExecOperationNode s_ = opStep.last();
         opStep = ElUtil.getReducedNodes(s_);
     }
     @Override
@@ -242,7 +243,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode initEl_ = opInit.last();
+        ExecOperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
@@ -256,7 +257,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode expressionEl_ = opExp.last();
+        ExecOperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
@@ -270,7 +271,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode stepEl_ = opStep.last();
+        ExecOperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());

@@ -9,7 +9,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -21,7 +21,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
 
     private int conditionOffset;
 
-    private CustList<OperationNode> opCondition;
+    private CustList<ExecOperationNode> opCondition;
 
     public Condition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -47,7 +47,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode elCondition_ = opCondition.last();
+        ExecOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -62,17 +62,17 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opCondition.last();
+        ExecOperationNode r_ = opCondition.last();
         opCondition = ElUtil.getReducedNodes(r_);
     }
 
     public final ExpressionLanguage getElCondition() {
         return new ExpressionLanguage(opCondition);
     }
-    public OperationNode getRoot() {
+    public ExecOperationNode getRoot() {
         return getOpCondition().last();
     }
-    public CustList<OperationNode> getOpCondition() {
+    public CustList<ExecOperationNode> getOpCondition() {
         return opCondition;
     }
 

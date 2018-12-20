@@ -18,7 +18,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
@@ -37,7 +37,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     private String defaultValue;
     private int defaultValueOffset;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     public AnnotationMethodBlock(ContextEl _importingPage,
             BracedBlock _m,
@@ -177,7 +177,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
-            opValue = new CustList<OperationNode>();
+            opValue = new CustList<ExecOperationNode>();
             return;
         }
         page_.setGlobalOffset(defaultValueOffset);
@@ -208,7 +208,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (opValue.isEmpty()) {
             return;
         }
-        OperationNode r_ = opValue.last();
+        ExecOperationNode r_ = opValue.last();
         opValue = ElUtil.getReducedNodes(r_);
     }
     @Override
@@ -243,7 +243,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             int _indexProcess) {
         return new ExpressionLanguage(opValue);
     }
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 }

@@ -20,7 +20,7 @@ import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -72,7 +72,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opList;
+    private CustList<ExecOperationNode> opList;
 
     public ForEachTable(ContextEl _importingPage,
             BracedBlock _m,
@@ -187,7 +187,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         buildEl(_cont);
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             StaticAccessError static_ = new StaticAccessError();
@@ -204,7 +204,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opList.last();
+        ExecOperationNode r_ = opList.last();
         opList = ElUtil.getReducedNodes(r_);
     }
     private StringList getCustomType(StringList _names, ContextEl _context) {
@@ -294,7 +294,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
@@ -416,7 +416,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
         buildConditions(_cont);
     }
-    public CustList<OperationNode> getOpList() {
+    public CustList<ExecOperationNode> getOpList() {
         return opList;
     }
     @Override

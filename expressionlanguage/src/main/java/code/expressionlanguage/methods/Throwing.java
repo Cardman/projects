@@ -9,7 +9,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -19,7 +19,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opThrow;
+    private CustList<ExecOperationNode> opThrow;
 
     public Throwing(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -38,7 +38,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opThrow.last();
+        ExecOperationNode r_ = opThrow.last();
         opThrow = ElUtil.getReducedNodes(r_);
     }
 

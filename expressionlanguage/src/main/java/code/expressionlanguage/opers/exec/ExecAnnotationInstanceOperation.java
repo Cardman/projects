@@ -31,6 +31,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         possibleInitClass = _ann.isPossibleInitClass();
         methodName = _ann.getMethodName();
         fieldNames = _ann.getFieldNames();
+        className = _ann.getClassName();
         array = _ann.isArray();
     }
 

@@ -17,7 +17,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -36,7 +36,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opRet;
+    private CustList<ExecOperationNode> opRet;
 
     public ReturnMehod(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -61,7 +61,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         return new ExpressionLanguage(opRet);
     }
 
-    public CustList<OperationNode> getOpRet() {
+    public CustList<ExecOperationNode> getOpRet() {
         return opRet;
     }
     @Override
@@ -134,7 +134,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         if (opRet == null) {
             return;
         }
-        OperationNode r_ = opRet.last();
+        ExecOperationNode r_ = opRet.last();
         opRet = ElUtil.getReducedNodes(r_);
     }
 

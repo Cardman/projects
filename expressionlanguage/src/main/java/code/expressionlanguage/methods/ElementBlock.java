@@ -11,7 +11,7 @@ import code.expressionlanguage.calls.StaticInitPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -38,7 +38,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private String importedClassName;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     private int fieldNameOffest;
 
@@ -46,7 +46,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private int trOffset;
     private StringList annotations = new StringList();
-    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public ElementBlock(ContextEl _importingPage,
@@ -196,7 +196,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
     @Override
     public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<OperationNode>>();
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
         for (String a: annotations) {
             Calculation c_ = Calculation.staticCalculation(true);
             annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
@@ -204,14 +204,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
     @Override
     public void reduce(ContextEl _context) {
-        CustList<CustList<OperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<OperationNode>>();
-        for (CustList<OperationNode> a: annotationsOps) {
-            OperationNode r_ = a.last();
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
             annotationsOps_.add(ElUtil.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
-        OperationNode r_ = opValue.last();
+        ExecOperationNode r_ = opValue.last();
         opValue = ElUtil.getReducedNodes(r_);
     }
     @Override
@@ -219,7 +219,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         return annotations;
     }
     @Override
-    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
     }
     @Override

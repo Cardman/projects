@@ -20,7 +20,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InvokingOperation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -66,7 +66,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opList;
+    private CustList<ExecOperationNode> opList;
 
     protected AbstractForEachLoop(ContextEl _importingPage,
             BracedBlock _m,
@@ -142,7 +142,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opList.last();
+        ExecOperationNode r_ = opList.last();
         opList = ElUtil.getReducedNodes(r_);
     }
 
@@ -225,13 +225,13 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
     public void inferArrayClass(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -270,7 +270,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         buildEl(_cont);
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             StaticAccessError static_ = new StaticAccessError();
@@ -360,7 +360,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
-    public CustList<OperationNode> getOpList() {
+    public CustList<ExecOperationNode> getOpList() {
         return opList;
     }
     @Override
@@ -584,7 +584,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         Struct iterStr_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
             ArrayStruct arr_ = (ArrayStruct)its_;
             length_ = arr_.getInstance().length;
@@ -657,7 +657,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
-        OperationNode op_ = opList.last();
+        ExecOperationNode op_ = opList.last();
         if (op_.getResultClass().isArray()) {
             if (!(ito_ instanceof ArrayStruct)) {
                 String cast_;
@@ -750,7 +750,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         LoopVariable lv_ = _vars.getVal(variableName);
         Struct iterator_ = _l.getStructIterator();
         Struct element_;
-        OperationNode el_ = opList.last();
+        ExecOperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
             String locName_ = getNextVar(_conf);
             LocalVariable locVar_ = new LocalVariable();

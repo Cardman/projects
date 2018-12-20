@@ -35,7 +35,7 @@ import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -93,14 +93,14 @@ public final class Classes {
     private String nextPairVarCust;
     private String firstVarCust;
     private String secondVarCust;
-    private CustList<OperationNode> expsIteratorCust;
-    private CustList<OperationNode> expsHasNextCust;
-    private CustList<OperationNode> expsNextCust;
-    private CustList<OperationNode> expsIteratorTableCust;
-    private CustList<OperationNode> expsHasNextPairCust;
-    private CustList<OperationNode> expsNextPairCust;
-    private CustList<OperationNode> expsFirstCust;
-    private CustList<OperationNode> expsSecondCust;
+    private CustList<ExecOperationNode> expsIteratorCust;
+    private CustList<ExecOperationNode> expsHasNextCust;
+    private CustList<ExecOperationNode> expsNextCust;
+    private CustList<ExecOperationNode> expsIteratorTableCust;
+    private CustList<ExecOperationNode> expsHasNextPairCust;
+    private CustList<ExecOperationNode> expsNextPairCust;
+    private CustList<ExecOperationNode> expsFirstCust;
+    private CustList<ExecOperationNode> expsSecondCust;
     private CustList<OperatorBlock> operators;
     private StringList packagesFound = new StringList();
 
@@ -2529,58 +2529,58 @@ public final class Classes {
     public void setSecondVarCust(String _secondVarCust) {
         secondVarCust = _secondVarCust;
     }
-    public CustList<OperationNode> getExpsIteratorCust() {
+    public CustList<ExecOperationNode> getExpsIteratorCust() {
         return expsIteratorCust;
     }
 
-    public void setExpsIteratorCust(CustList<OperationNode> _expsIteratorCust) {
+    public void setExpsIteratorCust(CustList<ExecOperationNode> _expsIteratorCust) {
         expsIteratorCust = _expsIteratorCust;
     }
 
-    public CustList<OperationNode> getExpsHasNextCust() {
+    public CustList<ExecOperationNode> getExpsHasNextCust() {
         return expsHasNextCust;
     }
 
-    public void setExpsHasNextCust(CustList<OperationNode> _expsHasNextCust) {
+    public void setExpsHasNextCust(CustList<ExecOperationNode> _expsHasNextCust) {
         expsHasNextCust = _expsHasNextCust;
     }
 
-    public CustList<OperationNode> getExpsNextCust() {
+    public CustList<ExecOperationNode> getExpsNextCust() {
         return expsNextCust;
     }
 
-    public void setExpsNextCust(CustList<OperationNode> _expsNextCust) {
+    public void setExpsNextCust(CustList<ExecOperationNode> _expsNextCust) {
         expsNextCust = _expsNextCust;
     }
-    public CustList<OperationNode> getExpsIteratorTableCust() {
+    public CustList<ExecOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
     public void setExpsIteratorTableCust(
-            CustList<OperationNode> _expsIteratorTableCust) {
+            CustList<ExecOperationNode> _expsIteratorTableCust) {
         expsIteratorTableCust = _expsIteratorTableCust;
     }
-    public CustList<OperationNode> getExpsHasNextPairCust() {
+    public CustList<ExecOperationNode> getExpsHasNextPairCust() {
         return expsHasNextPairCust;
     }
-    public void setExpsHasNextPairCust(CustList<OperationNode> _expsHasNextPairCust) {
+    public void setExpsHasNextPairCust(CustList<ExecOperationNode> _expsHasNextPairCust) {
         expsHasNextPairCust = _expsHasNextPairCust;
     }
-    public CustList<OperationNode> getExpsNextPairCust() {
+    public CustList<ExecOperationNode> getExpsNextPairCust() {
         return expsNextPairCust;
     }
-    public void setExpsNextPairCust(CustList<OperationNode> _expsNextPairCust) {
+    public void setExpsNextPairCust(CustList<ExecOperationNode> _expsNextPairCust) {
         expsNextPairCust = _expsNextPairCust;
     }
-    public CustList<OperationNode> getExpsFirstCust() {
+    public CustList<ExecOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
-    public void setExpsFirstCust(CustList<OperationNode> _expsFirstCust) {
+    public void setExpsFirstCust(CustList<ExecOperationNode> _expsFirstCust) {
         expsFirstCust = _expsFirstCust;
     }
-    public CustList<OperationNode> getExpsSecondCust() {
+    public CustList<ExecOperationNode> getExpsSecondCust() {
         return expsSecondCust;
     }
-    public void setExpsSecondCust(CustList<OperationNode> _expsSecondCust) {
+    public void setExpsSecondCust(CustList<ExecOperationNode> _expsSecondCust) {
         expsSecondCust = _expsSecondCust;
     }
 

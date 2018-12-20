@@ -12,7 +12,7 @@ import code.expressionlanguage.methods.AnnotableBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -30,8 +30,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private int indexAnnotationParam;
     private boolean onParameters;
     private ArrayStruct array;
-    private CustList<CustList<OperationNode>> annotations;
-    private CustList<CustList<CustList<OperationNode>>> annotationsParams;
+    private CustList<CustList<ExecOperationNode>> annotations;
+    private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams;
 
     @Override
     public boolean checkCondition(ContextEl _context) {
@@ -48,7 +48,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                             if (c instanceof NamedFunctionBlock) {
                                 annotationsParams=((NamedFunctionBlock)c).getAnnotationsOpsParams();
                             } else {
-                                annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
+                                annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                             }
                         }
                     }
@@ -62,7 +62,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                             if (m instanceof NamedFunctionBlock) {
                                 annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
                             } else {
-                                annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
+                                annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                             }
                         }
                     }
@@ -72,7 +72,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         }
                     }
                 } else {
-                    annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
+                    annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                 }
             } else if (structBlock_ instanceof ClassMetaInfo) {
                 String cl_ = ((ClassMetaInfo)structBlock_).getName();
@@ -81,7 +81,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 if (type_ instanceof AnnotableBlock) {
                     annotations=((AnnotableBlock)type_).getAnnotationsOps();
                 } else {
-                    annotations = new CustList<CustList<OperationNode>>();
+                    annotations = new CustList<CustList<ExecOperationNode>>();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
                 ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
@@ -93,7 +93,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         if (c instanceof AnnotableBlock) {
                             annotations=((AnnotableBlock)c).getAnnotationsOps();
                         } else {
-                            annotations = new CustList<CustList<OperationNode>>();
+                            annotations = new CustList<CustList<ExecOperationNode>>();
                         }
                     }
                 }
@@ -107,7 +107,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         if (m instanceof AnnotableBlock) {
                             annotations=((AnnotableBlock)m).getAnnotationsOps();
                         } else {
-                            annotations = new CustList<CustList<OperationNode>>();
+                            annotations = new CustList<CustList<ExecOperationNode>>();
                         }
                     }
                 }
@@ -129,7 +129,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     if (f instanceof AnnotableBlock) {
                         annotations=((AnnotableBlock)f).getAnnotationsOps();
                     } else {
-                        annotations = new CustList<CustList<OperationNode>>();
+                        annotations = new CustList<CustList<ExecOperationNode>>();
                     }
                 }
             }
@@ -144,10 +144,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (!cl_.isEmpty()) {
                 ClassArgumentMatching param_ = new ClassArgumentMatching(cl_);
                 if (onParameters) {
-                    CustList<CustList<CustList<OperationNode>>> filters_ = new CustList<CustList<CustList<OperationNode>>>();
-                    for (CustList<CustList<OperationNode>> a: annotationsParams) {
-                        CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
-                        for (CustList<OperationNode> b: a) {
+                    CustList<CustList<CustList<ExecOperationNode>>> filters_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+                    for (CustList<CustList<ExecOperationNode>> a: annotationsParams) {
+                        CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
+                        for (CustList<ExecOperationNode> b: a) {
                             ClassArgumentMatching arg_ = b.last().getResultClass();
                             if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _context)) {
                                 filter_.add(b);
@@ -157,8 +157,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                     annotationsParams = filters_;
                 } else {
-                    CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
-                    for (CustList<OperationNode> a: annotations) {
+                    CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
+                    for (CustList<ExecOperationNode> a: annotations) {
                         ClassArgumentMatching arg_ = a.last().getResultClass();
                         if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _context)) {
                             filter_.add(a);
@@ -174,7 +174,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String annotArr_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annotArr_);
                 int i_ = 0;
-                for (CustList<CustList<OperationNode>> e: annotationsParams) {
+                for (CustList<CustList<ExecOperationNode>> e: annotationsParams) {
                     ArrayStruct loc_;
                     loc_ = new ArrayStruct(new Struct[e.size()], annot_);
                     array.getInstance()[i_] = loc_;
@@ -195,7 +195,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 Struct loc_ = rr_[i];
                 int lenLoc_ = annotationsParams.get(i).size();
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
-                    CustList<OperationNode> ops_ = annotationsParams.get(i).get(j);
+                    CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
                     ExpressionLanguage el_;
                     if (!isEmptyEl()) {
                         el_ = getLastEl();
@@ -217,7 +217,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         } else {
             int len_ = annotations.size();
             for (int i = indexAnnotation; i < len_; i++) {
-                CustList<OperationNode> ops_ = annotations.get(i);
+                CustList<ExecOperationNode> ops_ = annotations.get(i);
                 ExpressionLanguage el_;
                 if (!isEmptyEl()) {
                     el_ = getLastEl();

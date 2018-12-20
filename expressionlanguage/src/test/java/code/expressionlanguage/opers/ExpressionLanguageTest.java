@@ -20,6 +20,7 @@ import code.expressionlanguage.classes.StdStruct;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -1461,7 +1462,7 @@ public class ExpressionLanguageTest {
         cont_.getAnalyzing().putLocalVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
         Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<OperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
@@ -1486,7 +1487,7 @@ public class ExpressionLanguageTest {
         cont_.getAnalyzing().putVar(_var, lv_);
         cont_.getAnalyzing().setGlobalClass(_className);
         Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<OperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LoopVariable();
         lv_.setStruct(fresh_);
@@ -1513,7 +1514,7 @@ public class ExpressionLanguageTest {
         cont_.getAnalyzing().setGlobalClass(_className);
         String form_ = StringList.concat(var_,";.",_el);
         Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<OperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
+        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
         addImportingPage(cont_);
         lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
@@ -1770,7 +1771,7 @@ public class ExpressionLanguageTest {
     }
     private static Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
         Calculation calc_ = Calculation.staticCalculation(_static);
-        CustList<OperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
+        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
         _context.setAnalyzing(null);
         ExpressionLanguage el_ = new ExpressionLanguage(ops_);
         return el_.calculateMember(_context);

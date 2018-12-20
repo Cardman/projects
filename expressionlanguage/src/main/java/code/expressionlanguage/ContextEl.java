@@ -61,7 +61,6 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -1313,11 +1312,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public AssignedVariablesBlock getAssignedVariables() {
         return analyzing.getAssignedVariables();
-    }
-
-    @Override
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return analyzing.getTextualSortedOperations();
     }
 
     @Override

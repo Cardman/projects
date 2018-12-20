@@ -7,7 +7,7 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.util.CustList;
 import code.util.IdMap;
@@ -43,7 +43,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final boolean varargs;
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
-    private CustList<CustList<CustList<OperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
+    private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     public NamedFunctionBlock(ContextEl _importingPage,
             BracedBlock _m,
@@ -92,10 +92,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     @Override
     public void buildAnnotations(ContextEl _context) {
         super.buildAnnotations(_context);
-        annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
+        annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
         for (StringList p: annotationsParams) {
-            CustList<CustList<OperationNode>> annotation_;
-            annotation_ = new CustList<CustList<OperationNode>>();
+            CustList<CustList<ExecOperationNode>> annotation_;
+            annotation_ = new CustList<CustList<ExecOperationNode>>();
             for (String a:p) {
                 Calculation c_ = Calculation.staticCalculation(true);
                 annotation_.add(ElUtil.getAnalyzedOperations(a, _context, c_));
@@ -106,20 +106,20 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     @Override
     public void reduce(ContextEl _context) {
         super.reduce(_context);
-        CustList<CustList<CustList<OperationNode>>> annotationsOpsParams_;
-        annotationsOpsParams_ = new CustList<CustList<CustList<OperationNode>>>();
-        for (CustList<CustList<OperationNode>> l: annotationsOpsParams) {
-            CustList<CustList<OperationNode>> l_;
-            l_ = new CustList<CustList<OperationNode>>();
-            for (CustList<OperationNode> k: l) {
-                OperationNode o_ = k.last();
+        CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams_;
+        annotationsOpsParams_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        for (CustList<CustList<ExecOperationNode>> l: annotationsOpsParams) {
+            CustList<CustList<ExecOperationNode>> l_;
+            l_ = new CustList<CustList<ExecOperationNode>>();
+            for (CustList<ExecOperationNode> k: l) {
+                ExecOperationNode o_ = k.last();
                 l_.add(ElUtil.getReducedNodes(o_));
             }
             annotationsOpsParams_.add(l_);
         }
         annotationsOpsParams = annotationsOpsParams_;
     }
-    public CustList<CustList<CustList<OperationNode>>> getAnnotationsOpsParams() {
+    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
     public Numbers<Integer> getParametersTypesOffset() {

@@ -11,11 +11,11 @@ import code.expressionlanguage.calls.AbstractInstancingPageEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.NotInitializedFields;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.InterfaceInvokingConstructor;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SuperInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecCurrentInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.opers.exec.ExecSuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
@@ -26,7 +26,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opExp;
+    private CustList<ExecOperationNode> opExp;
 
     public Line(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _left, OffsetsBlock _offset) {
@@ -64,7 +64,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opExp.last();
+        ExecOperationNode r_ = opExp.last();
         opExp = ElUtil.getReducedNodes(r_);
     }
 
@@ -72,31 +72,31 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
-    public CustList<OperationNode> getExp() {
+    public CustList<ExecOperationNode> getExp() {
         return opExp;
     }
 
     public ConstructorId getConstId() {
-        return ((CurrentInvokingConstructor) opExp.last()).getConstId();
+        return ((ExecCurrentInvokingConstructor) opExp.last()).getConstId();
     }
 
     public boolean isCallSuper() {
-        return opExp.last() instanceof SuperInvokingConstructor;
+        return opExp.last() instanceof ExecSuperInvokingConstructor;
     }
 
     public String getCalledInterface() {
-        OperationNode last_ = opExp.last();
-        InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
+        ExecOperationNode last_ = opExp.last();
+        ExecInterfaceInvokingConstructor int_ = (ExecInterfaceInvokingConstructor) last_;
         String cl_ = int_.getConstId().getName();
         cl_ = Templates.getIdFromAllTypes(cl_);
         return cl_;
     }
     public boolean isCallInts() {
-        OperationNode last_ = opExp.last();
-        if (!(last_ instanceof InterfaceInvokingConstructor)) {
+        ExecOperationNode last_ = opExp.last();
+        if (!(last_ instanceof ExecInterfaceInvokingConstructor)) {
             return false;
         }
-        InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
+        ExecInterfaceInvokingConstructor int_ = (ExecInterfaceInvokingConstructor) last_;
         if (int_.getConstId() == null) {
             return false;
         }
@@ -104,7 +104,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
     }
 
     public boolean isCallThis() {
-        return opExp.last() instanceof CurrentInvokingConstructor;
+        return opExp.last() instanceof ExecCurrentInvokingConstructor;
     }
 
     @Override

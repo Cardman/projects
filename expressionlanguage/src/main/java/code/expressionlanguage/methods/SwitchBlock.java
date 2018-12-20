@@ -14,7 +14,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -37,7 +37,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     private final String value;
     private int valueOffset;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     private boolean enumTest;
 
@@ -74,13 +74,13 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         return new ExpressionLanguage(opValue);
     }
 
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 
     @Override
     public void reduce(ContextEl _context) {
-        OperationNode r_ = opValue.last();
+        ExecOperationNode r_ = opValue.last();
         opValue = ElUtil.getReducedNodes(r_);
     }
     @Override
@@ -120,7 +120,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode op_ = opValue.last();
+        ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -298,7 +298,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 CaseCondition c_ = (CaseCondition) b;
-                OperationNode op_ = c_.getOpValue().last();
+                ExecOperationNode op_ = c_.getOpValue().last();
                 if (op_.getArgument() != null) {
                     continue;
                 }

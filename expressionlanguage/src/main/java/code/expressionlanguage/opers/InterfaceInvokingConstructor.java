@@ -14,6 +14,9 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.Line;
+import code.expressionlanguage.opers.exec.ExecAbstractInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -67,9 +70,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
                 if (!((Line)f_).getExp().isEmpty()) {
-                    OperationNode root_ = ((Line)f_).getExp().last();
-                    if (root_ instanceof InterfaceInvokingConstructor) {
-                        AbstractInvokingConstructor ctor_ = (AbstractInvokingConstructor) root_;
+                    ExecOperationNode root_ = ((Line)f_).getExp().last();
+                    if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                        ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
                         ConstructorId cid_ = ctor_.getConstId();
                         if (cid_ != null) {
                             String cl_ = cid_.getName();
@@ -92,8 +95,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     } else {
                         if (!((Line)f_).getExp().isEmpty()) {
                             //the case ((Line)f_).getExp().isEmpty() leads already to an error
-                            OperationNode root_ = ((Line)f_).getExp().last();
-                            if (!(root_ instanceof AbstractInvokingConstructor)) {
+                            ExecOperationNode root_ = ((Line)f_).getExp().last();
+                            if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
                                 //error
                                 BadConstructorCall call_ = new BadConstructorCall();
                                 call_.setFileName(curLine_.getFile().getFileName());
@@ -107,9 +110,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 }
                 if (n_ instanceof Line){
                     if (!((Line)n_).getExp().isEmpty()) {
-                        OperationNode root_ = ((Line)n_).getExp().last();
-                        if (root_ instanceof InterfaceInvokingConstructor) {
-                            AbstractInvokingConstructor ctor_ = (AbstractInvokingConstructor) root_;
+                        ExecOperationNode root_ = ((Line)n_).getExp().last();
+                        if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                            ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
                             ConstructorId cid_ = ctor_.getConstId();
                             if (cid_ != null) {
                                 String cl_ = cid_.getName();

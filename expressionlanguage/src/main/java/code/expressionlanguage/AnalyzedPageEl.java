@@ -5,7 +5,6 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -35,8 +34,6 @@ public final class AnalyzedPageEl {
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
     private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
-
-    private CustList<OperationNode> textualSortedOperations = new CustList<OperationNode>();
 
     private boolean enabledInternVars;
 
@@ -446,9 +443,6 @@ public final class AnalyzedPageEl {
 
     public AssignedVariablesBlock getAssignedVariables() {
         return assignedVariables;
-    }
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return textualSortedOperations;
     }
 
     public boolean isGearConst() {

@@ -7,7 +7,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -45,7 +45,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean abr_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -136,7 +136,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -150,7 +150,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
     @Override
     public boolean accessibleForNext() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

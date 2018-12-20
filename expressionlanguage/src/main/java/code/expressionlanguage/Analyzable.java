@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -99,7 +98,6 @@ public interface Analyzable {
     AnalyzedPageEl getAnalyzing();
     Numbers<Integer> getCurrentBadIndexes();
     Block getCurrentBlock();
-    CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
 

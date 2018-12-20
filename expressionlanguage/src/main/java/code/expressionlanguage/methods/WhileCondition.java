@@ -6,7 +6,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -284,7 +284,7 @@ public final class WhileCondition extends Condition implements Loop {
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -299,7 +299,7 @@ public final class WhileCondition extends Condition implements Loop {
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         boolean abr_ = true;
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
