@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.text.OperationsSequence;
 
 public abstract class ConstLeafOperation extends LeafOperation {
 

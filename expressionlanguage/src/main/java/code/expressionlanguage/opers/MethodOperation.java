@@ -1,7 +1,5 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
@@ -9,6 +7,8 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.text.ElUtil;
+import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;

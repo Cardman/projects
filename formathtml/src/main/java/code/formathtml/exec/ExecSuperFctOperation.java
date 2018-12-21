@@ -2,12 +2,12 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.SuperFctOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;

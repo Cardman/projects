@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.util.Numbers;
 import code.util.StringList;
 

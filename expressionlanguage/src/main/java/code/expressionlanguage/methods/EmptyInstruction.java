@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.files.OffsetsBlock;
 
 public class EmptyInstruction extends Leaf {
 

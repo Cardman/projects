@@ -28,7 +28,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class LgNamesUtils extends LgNames implements LgAdv {
+public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
     private String aliasThread;

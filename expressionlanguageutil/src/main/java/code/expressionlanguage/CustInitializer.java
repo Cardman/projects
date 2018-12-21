@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -13,7 +15,7 @@ public class CustInitializer extends DefaultInitializer {
             ObjectMap<ClassField, Struct> _fields) {
         String base_ = Templates.getIdFromAllTypes(_className);
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
-        if (PrimitiveTypeUtil.canBeUseAsArgument(run_, base_, _context)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, run_, base_, _context)) {
             return new ContextEl(_context, _className, _fieldName, _ordinal, _fields, _parent);
         }
         return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);

@@ -1,9 +1,9 @@
 package code.expressionlanguage.calls;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundBlock;
+import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InitBlock;

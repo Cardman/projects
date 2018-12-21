@@ -6,15 +6,15 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;

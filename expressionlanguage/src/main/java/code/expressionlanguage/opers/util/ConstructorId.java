@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Equallable;

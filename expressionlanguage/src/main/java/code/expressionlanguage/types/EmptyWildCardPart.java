@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;

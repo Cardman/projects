@@ -3,7 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StaticInfoOperation;
 import code.util.IdMap;

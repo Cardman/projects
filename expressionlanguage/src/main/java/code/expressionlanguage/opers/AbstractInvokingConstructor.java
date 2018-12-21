@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
@@ -15,6 +14,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;

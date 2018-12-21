@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.IdList;

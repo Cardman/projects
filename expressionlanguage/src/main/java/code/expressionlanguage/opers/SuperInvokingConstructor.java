@@ -1,11 +1,11 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.text.OperationsSequence;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
 

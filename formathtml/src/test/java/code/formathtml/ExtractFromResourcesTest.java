@@ -4,8 +4,8 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringMap;
 import code.util.consts.Constants;
 

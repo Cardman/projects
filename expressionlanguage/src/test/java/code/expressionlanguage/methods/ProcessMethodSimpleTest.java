@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
 

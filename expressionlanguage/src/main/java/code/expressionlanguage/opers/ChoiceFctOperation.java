@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.AbstractMethod;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -10,6 +9,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;

@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods.util;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;

@@ -1,6 +1,6 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.variables.VariableSuffix;
 
 public final class Options {
 

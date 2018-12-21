@@ -1,7 +1,7 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;

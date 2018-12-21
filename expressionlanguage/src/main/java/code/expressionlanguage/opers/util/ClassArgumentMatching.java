@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;

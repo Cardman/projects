@@ -1,9 +1,9 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.EmptyPartError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.text.OperationsSequence;
 
 public final class ErrorPartOperation extends ConstLeafOperation {
 

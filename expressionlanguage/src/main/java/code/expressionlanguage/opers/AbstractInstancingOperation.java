@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.text.OperationsSequence;
 import code.util.NatTreeMap;
 
 public abstract class AbstractInstancingOperation extends ReflectableInvokingOperation {

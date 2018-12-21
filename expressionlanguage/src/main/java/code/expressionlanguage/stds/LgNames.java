@@ -4,16 +4,13 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.LgAdv;
-import code.expressionlanguage.NumberInfos;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
@@ -42,6 +39,8 @@ import code.expressionlanguage.structs.SimpleObjectStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.text.ElUtil;
+import code.expressionlanguage.text.NumberInfos;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -1000,11 +999,7 @@ public abstract class LgNames {
             _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
-        if(lgNames_ instanceof LgAdv) {
-            result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _struct, _method, args_);
-        } else {
-            result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);
-        }
+        result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);
         if (result_.getError() != null) {
             _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
@@ -2045,11 +2040,8 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilderStruct.instantiate(_cont, result_, _method, args_);
             return result_;
-        }
-        else if (StringList.quickEq(type_, objectType_)) {
+        } else if (StringList.quickEq(type_, objectType_)) {
             result_.setResult(new SimpleObjectStruct());
-        } else if (lgNames_ instanceof LgAdv) {
-            result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _method, args_);
         } else {
             result_ = lgNames_.getOtherResult(_cont, _method, args_);
         }

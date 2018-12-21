@@ -1,7 +1,7 @@
 package code.expressionlanguage.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;

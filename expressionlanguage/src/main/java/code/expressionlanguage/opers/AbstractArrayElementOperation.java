@@ -2,9 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

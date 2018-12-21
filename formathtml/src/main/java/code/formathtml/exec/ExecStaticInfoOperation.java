@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.StaticInfoOperation;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 

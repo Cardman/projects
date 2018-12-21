@@ -1,12 +1,12 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StandardArgumentsPair;
 import code.expressionlanguage.opers.exec.CallExecSimpleOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecPossibleIntermediateDotted;
+import code.expressionlanguage.text.ElUtil;
 import code.util.CustList;
 import code.util.IdMap;
 

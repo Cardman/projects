@@ -2,9 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.util.NatTreeMap;
 import code.util.StringList;
 

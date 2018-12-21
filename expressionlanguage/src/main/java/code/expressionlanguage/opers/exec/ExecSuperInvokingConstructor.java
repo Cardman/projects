@@ -2,9 +2,9 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.calls.util.InstancingStep;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.SuperInvokingConstructor;

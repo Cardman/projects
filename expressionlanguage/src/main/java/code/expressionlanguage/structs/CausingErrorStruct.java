@@ -1,6 +1,5 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
@@ -8,7 +7,7 @@ import code.util.ObjectMap;
 public final class CausingErrorStruct implements Struct {
 
     private final Struct cause;
-    private final CustomError error;
+    private final String message;
 
     public CausingErrorStruct() {
         this("");
@@ -23,7 +22,7 @@ public final class CausingErrorStruct implements Struct {
     }
 
     public CausingErrorStruct(String _message,Struct _cause) {
-        error = new CustomError(_message);
+        message = _message;
         cause = _cause;
     }
     @Override
@@ -55,9 +54,12 @@ public final class CausingErrorStruct implements Struct {
 
     @Override
     public Object getInstance() {
-        return error;
+        return this;
     }
 
+    public String getMessage() {
+        return message;
+    }
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
