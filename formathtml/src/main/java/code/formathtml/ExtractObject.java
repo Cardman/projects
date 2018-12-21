@@ -200,7 +200,7 @@ final class ExtractObject {
                         String valName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(trloc_);
-                        lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
+                        lv_.setClassName(trloc_.getClassName(_conf.getContext()));
                         _ip.putLocalVar(valName_, lv_);
                         String patName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
@@ -209,13 +209,13 @@ final class ExtractObject {
                         _ip.putLocalVar(patName_, lv_);
                         String navName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
-                        lv_.setStruct(StdStruct.wrapStd(_conf, _conf.toContextEl()));
+                        lv_.setStruct(StdStruct.wrapStd(_conf, _conf.getContext()));
                         lv_.setClassName(_conf.getStandards().getAliasObject());
                         _ip.putLocalVar(navName_, lv_);
                         String beanName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(bean_);
-                        lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
+                        lv_.setClassName(bean_.getClassName(_conf.getContext()));
                         _ip.putLocalVar(beanName_, lv_);
                         String objName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
@@ -321,7 +321,7 @@ final class ExtractObject {
         if (_evalBool) {
             return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
         }
-        return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
+        return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.getContext(), rateClass_);
     }
 
     static Struct instanceByString(Configuration _conf, String _class, String _arg) {
@@ -514,7 +514,7 @@ final class ExtractObject {
         if (_obj instanceof CharSequenceStruct) {
             return ((CharSequenceStruct)_obj).getDisplayedString(_conf).getInstance();
         }
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         String method_;
         String param_ = _conf.getStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
@@ -533,7 +533,7 @@ final class ExtractObject {
         return EMPTY_STRING;
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.toContextEl()));
+        return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.getContext()));
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
         Boolean bool_;
@@ -558,7 +558,7 @@ final class ExtractObject {
     }
 
     static String getStringKey(Configuration _conf, Struct _instance) {
-        ContextEl cont_ = _conf.toContextEl();
+        ContextEl cont_ = _conf.getContext();
         if (_instance instanceof EnumerableStruct) {
             return ((EnumerableStruct) _instance).getName();
         }

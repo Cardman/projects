@@ -321,7 +321,7 @@ public final class FormatHtml {
         Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,PACKAGE_BLOCK_TAG))) {
@@ -736,7 +736,7 @@ public final class FormatHtml {
 
     static void throwException(Configuration _conf) {
         Element catchElt_ = null;
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         Struct custCause_ = context_.getException();
         while (!_conf.noPages()) {
@@ -1785,7 +1785,7 @@ public final class FormatHtml {
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
         Struct struct_ = null;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         if (!numExpr_.isEmpty()) {
             expression_ = numExpr_;
@@ -1809,7 +1809,7 @@ public final class FormatHtml {
                     vi_.setStruct(struct_);
                     return vi_;
                 }
-                className_ = lgNames_.getStructClassName(struct_, _conf.toContextEl());
+                className_ = lgNames_.getStructClassName(struct_, _conf.getContext());
             } else {
                 String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
                 if (res_.isEmpty()) {
@@ -2001,7 +2001,7 @@ public final class FormatHtml {
     static LocalVariable tryToCreateVariable(Configuration _conf, ImportingPage _ip, String _className, Struct _object) {
         ClassArgumentMatching clMatch_ = new ClassArgumentMatching(_className);
         LgNames lgNames_ = _conf.getStandards();
-        if (clMatch_.isPrimitive(_conf.toContextEl())) {
+        if (clMatch_.isPrimitive(_conf.getContext())) {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
@@ -2026,8 +2026,8 @@ public final class FormatHtml {
             }
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
-            String type_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.toContextEl())) {
+            String type_ = lgNames_.getStructClassName(_object, _conf.getContext());
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.getContext())) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(type_);
                 mapping_.setParam(lgNames_.getAliasDouble());
@@ -2065,7 +2065,7 @@ public final class FormatHtml {
                     return loc_;
                 }
             } else {
-                if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.toContextEl()) == 0) {
+                if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.getContext()) == 0) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
                     mapping_.setParam(_className);
@@ -2092,8 +2092,8 @@ public final class FormatHtml {
             return loc_;
         }
         String param_ = _className;
-        String arg_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.toContextEl())) {
+        String arg_ = lgNames_.getStructClassName(_object, _conf.getContext());
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.getContext())) {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
             loc_.setStruct(_object);
@@ -2117,7 +2117,7 @@ public final class FormatHtml {
         return loc_;
     }
     static void checkClass(Configuration _conf, ImportingPage _ip, String _class, Struct _object) {
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.toContextEl())) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(EMPTY_STRING);
             mapping_.setParam(_class);
@@ -2139,7 +2139,7 @@ public final class FormatHtml {
         _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
         _ip.setLookForAttrValue(true);
         _ip.setOffset(0);
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         String argClassName_ = lgNames_.getStructClassName(_object, context_);
         if (!PrimitiveTypeUtil.isPrimitive(_class, context_)) {
@@ -2161,8 +2161,8 @@ public final class FormatHtml {
                 return;
             }
         } else {
-            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.toContextEl()) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
+            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.getContext()) > 0) {
+                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.getContext()) == 0) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
                     mapping_.setParam(_class);
@@ -4042,7 +4042,7 @@ public final class FormatHtml {
             String _default, Document _docSelect, Element _docElementSelect, String _className) {
         StringList names_ = new StringList();
         if (!_className.isEmpty()) {
-            ContextEl cont_ = _conf.toContextEl();
+            ContextEl cont_ = _conf.getContext();
             names_ = _conf.getStandards().getDefaultValues(cont_, _className, _default);
         } else {
             names_ = new StringList(_default);
@@ -4521,7 +4521,7 @@ public final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = (Number) lv_.getStruct().getInstance();
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()).getInstance());
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()).getInstance());
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4697,9 +4697,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argFrom_.isIntegerType(_conf.toContextEl())) {
+            if (!argFrom_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argFrom_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argFrom_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4720,9 +4720,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argTo_.isIntegerType(_conf.toContextEl())) {
+            if (!argTo_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argTo_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argTo_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4743,9 +4743,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argStep_.isIntegerType(_conf.toContextEl())) {
+            if (!argStep_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argStep_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argStep_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4760,9 +4760,9 @@ public final class FormatHtml {
                 return;
             }
             realFromValue_ = argFrom_.getLong();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.toContextEl()).getInstance();
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.toContextEl()).getInstance();
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.toContextEl()).getInstance();
+            fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.getContext()).getInstance();
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.getContext()).getInstance();
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.getContext()).getInstance();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4908,7 +4908,7 @@ public final class FormatHtml {
             className_ = rest_;
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()).getInstance());
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.getContext()).getInstance());
             lv_.setStep(stepValue_);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {

@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.CustStruct;
 import code.expressionlanguage.structs.EnumStruct;
@@ -131,13 +130,5 @@ public class DefaultInitializer implements Initializer {
             return new CustStruct(_className, _fields);
         }
         return new EnumStruct(_className, _fields, _ordinal, _fieldName);
-    }
-    @Override
-    public String getInterfaceTask(LgNames _stds) {
-        return "";
-    }
-    @Override
-    public String getRunTask(LgNames _stds) {
-        return "";
     }
 }

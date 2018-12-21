@@ -6,9 +6,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.StringList;
 

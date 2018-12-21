@@ -182,7 +182,7 @@ public final class ImportingPage {
 
     public void setGlobalArgumentStruct(Struct _obj, Configuration _context) {
         LgNames lgNames_ = _context.getStandards();
-        pageEl.setGlobalClass(lgNames_.getStructClassName(_obj, _context.toContextEl()));
+        pageEl.setGlobalClass(lgNames_.getStructClassName(_obj, _context.getContext()));
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
@@ -202,7 +202,7 @@ public final class ImportingPage {
 
     public void setGlobalArgument(Argument _globalArgument, Configuration _context) {
         LgNames lgNames_ = _context.getStandards();
-        pageEl.setGlobalClass(lgNames_.getStructClassName(_globalArgument.getStruct(), _context.toContextEl()));
+        pageEl.setGlobalClass(lgNames_.getStructClassName(_globalArgument.getStruct(), _context.getContext()));
         pageEl.setGlobalArgument(_globalArgument);
     }
 

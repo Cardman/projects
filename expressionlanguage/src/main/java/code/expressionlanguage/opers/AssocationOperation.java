@@ -5,12 +5,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.NatTreeMap;
 import code.util.StringList;
 

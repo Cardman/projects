@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.NatTreeMap;
 

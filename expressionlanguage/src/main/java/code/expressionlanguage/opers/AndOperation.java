@@ -1,11 +1,11 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;

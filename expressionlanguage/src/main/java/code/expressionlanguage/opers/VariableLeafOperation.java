@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.text.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 
 public abstract class VariableLeafOperation extends LeafOperation {
 

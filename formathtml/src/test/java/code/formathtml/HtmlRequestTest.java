@@ -44,7 +44,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(composite_, conf_.toContextEl());
+        nc_.setObject(composite_, conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
@@ -60,11 +60,11 @@ public class HtmlRequestTest {
         Configuration conf_ = newConfiguration();
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
-        conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite(),COMPOSITE, conf_.toContextEl());
+        conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite(),COMPOSITE, conf_.getContext());
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
         nc_.setTypedField(8);
-        nc_.setObject(bean_.getComposite(), conf_.toContextEl());
+        nc_.setObject(bean_.getComposite(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
@@ -92,7 +92,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(bean_.getComposite(), conf_.toContextEl());
+        nc_.setObject(bean_.getComposite(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
@@ -163,7 +163,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(bean_.getComposite(), conf_.toContextEl());
+        nc_.setObject(bean_.getComposite(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
@@ -199,7 +199,7 @@ public class HtmlRequestTest {
         nc_.setIndex(0);
         nc_.setLastToken("");
         nc_.setTypedField(bean_.getStrings().first());
-        nc_.setObject(bean_.getStrings(), conf_.toContextEl());
+        nc_.setObject(bean_.getStrings(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
@@ -217,7 +217,7 @@ public class HtmlRequestTest {
         nc_.setIndex(0);
         nc_.setKey(true);
         nc_.setTypedField(bean_.getTree().getKey(0));
-        nc_.setObject(bean_.getTree(), conf_.toContextEl());
+        nc_.setObject(bean_.getTree(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
@@ -236,7 +236,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getTree().getValue(0));
-        nc_.setObject(bean_.getTree(), conf_.toContextEl());
+        nc_.setObject(bean_.getTree(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
@@ -283,7 +283,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getStrings().first());
-        nc_.setObject(bean_.getStrings(), conf_.toContextEl());
+        nc_.setObject(bean_.getStrings(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
@@ -433,10 +433,10 @@ public class HtmlRequestTest {
         Configuration conf_ = newConfiguration();
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
-        conf_.getLastPage().setGlobalArgumentObj(composite_,COMPOSITE, conf_.toContextEl());
+        conf_.getLastPage().setGlobalArgumentObj(composite_,COMPOSITE, conf_.getContext());
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setObject(composite_, conf_.toContextEl());
+        nc_.setObject(composite_, conf_.getContext());
         nc_.getNodeInformation().setVarMethod("inexistantmethod");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());

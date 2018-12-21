@@ -1,4 +1,4 @@
-package code.expressionlanguage.text;
+package code.expressionlanguage.instr;
 
 public final class ResultAfterInstKeyWord {
 

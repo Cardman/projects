@@ -1,4 +1,4 @@
-package code.expressionlanguage.text;
+package code.expressionlanguage.instr;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;

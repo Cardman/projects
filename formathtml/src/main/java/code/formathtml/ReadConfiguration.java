@@ -4,6 +4,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -94,7 +95,7 @@ public final class ReadConfiguration {
             }
         }
         if (!found_) {
-            ContextEl context_ = new ContextEl();
+            ContextEl context_ = new SingleContextEl();
             context_.getOptions().setEndLineSemiColumn(false);
             context_.getOptions().setUpperLong(true);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
@@ -103,7 +104,7 @@ public final class ReadConfiguration {
         }
     }
     static ContextEl loadContext(Element _elt) {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = new SingleContextEl();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

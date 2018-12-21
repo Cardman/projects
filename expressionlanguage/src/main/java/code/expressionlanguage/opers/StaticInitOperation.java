@@ -2,9 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.StringList;
 
 public final class StaticInitOperation extends VariableLeafOperation {

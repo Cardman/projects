@@ -166,7 +166,7 @@ final class ExtractCondition {
             Struct o_ = a_.getStruct();
             if (!(o_ instanceof BooleanStruct)) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(a_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(a_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimBoolean());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);

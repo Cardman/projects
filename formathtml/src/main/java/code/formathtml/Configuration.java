@@ -12,6 +12,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -28,7 +29,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.text.ResultAfterInstKeyWord;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -319,7 +319,7 @@ public class Configuration implements ExecutableCode {
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -364,11 +364,6 @@ public class Configuration implements ExecutableCode {
 
     final void setSepPrefix(String _prefix) {
         prefix = StringList.concat(_prefix,SEP);
-    }
-
-    public final ContextEl toContextEl() {
-        context.setHtml(html);
-        return context;
     }
 
     public String getFirstUrl() {
@@ -573,11 +568,11 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public CustList<GeneType> getClassBodies() {
-        return toContextEl().getClassBodies();
+        return getContext().getClassBodies();
     }
     @Override
     public GeneType getClassBody(String _type) {
-        return toContextEl().getClassBody(_type);
+        return getContext().getClassBody(_type);
     }
     @Override
     public final BeanLgNames getStandards() {
@@ -616,7 +611,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public Classes getClasses() {
-        return toContextEl().getClasses();
+        return getContext().getClasses();
     }
 
     @Override
@@ -703,13 +698,13 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        return toContextEl().getClassMetaInfo(_name);
+        return getContext().getClassMetaInfo(_name);
     }
 
     @Override
     public CustList<GeneMethod> getMethodBodiesById(String _genericClassName,
             MethodId _id) {
-        return toContextEl().getMethodBodiesById(_genericClassName, _id);
+        return getContext().getMethodBodiesById(_genericClassName, _id);
     }
 
     public int getNextIndex() {

@@ -2,11 +2,11 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.StringList;
 

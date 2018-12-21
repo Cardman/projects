@@ -1,4 +1,4 @@
-package code.expressionlanguage.text;
+package code.expressionlanguage.instr;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;

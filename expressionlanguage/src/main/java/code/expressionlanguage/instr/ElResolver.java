@@ -1,4 +1,4 @@
-package code.expressionlanguage.text;
+package code.expressionlanguage.instr;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;

@@ -9,6 +9,7 @@ import code.expressionlanguage.calls.util.NotInitializedFields;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecCurrentInvokingConstructor;
@@ -16,7 +17,6 @@ import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecSuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.text.ElUtil;
 import code.util.CustList;
 import code.util.StringList;
 

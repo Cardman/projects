@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.text.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.util.NatTreeMap;
 import code.util.StringList;
 

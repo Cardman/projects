@@ -12,6 +12,9 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.instr.ElResolver;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
@@ -25,9 +28,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.text.Delimiters;
-import code.expressionlanguage.text.ElResolver;
-import code.expressionlanguage.text.OperationsSequence;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -2609,7 +2609,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.+=1i";
@@ -2638,7 +2638,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.&=$false";
@@ -2667,7 +2667,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.|=$true";
@@ -2696,7 +2696,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.&=1/0 > 0";
@@ -2726,7 +2726,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.|=1/0 > 0";
@@ -2756,7 +2756,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.&=1 > 0";
@@ -2786,7 +2786,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.|=1 > 0";
@@ -2816,7 +2816,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.==1i";
@@ -2845,7 +2845,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.++";
@@ -2875,7 +2875,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "++v;.";
@@ -2907,7 +2907,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.[0i]++";
@@ -2939,7 +2939,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "++v;.[0i]";
@@ -2969,7 +2969,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.+=2i";
@@ -3001,7 +3001,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.[0i]+=3i";
@@ -3035,7 +3035,7 @@ public final class ElRenderUtilTest {
         lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.+++v2;.";
@@ -3070,7 +3070,7 @@ public final class ElRenderUtilTest {
         lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.---v2;.";
@@ -3105,7 +3105,7 @@ public final class ElRenderUtilTest {
         lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.=++v2;.";
@@ -3140,7 +3140,7 @@ public final class ElRenderUtilTest {
         lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.= ++v2;.";
@@ -3165,7 +3165,7 @@ public final class ElRenderUtilTest {
     public void processEl197Test() {
         Configuration context_ = contextEl(true, false);
         addImportingPage(context_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         String elr_ = "+1b";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
@@ -3279,7 +3279,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "++v;.";
@@ -3308,7 +3308,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.++";
@@ -3340,7 +3340,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INTEGER);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.[0i]++";
@@ -3372,7 +3372,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INTEGER);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "++v;.[0i]";
@@ -6459,7 +6459,7 @@ public final class ElRenderUtilTest {
         lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
-        ContextEl ctx_ = context_.toContextEl();
+        ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.=v2;.=4i";
@@ -7337,12 +7337,12 @@ public final class ElRenderUtilTest {
     private static void addBean(Configuration _conf, Object _bean, String _beanClass) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass),_conf);
         _conf.setGlobalClass(_beanClass);
-        _conf.toContextEl().setGlobalClass(_beanClass);
+        _conf.getContext().setGlobalClass(_beanClass);
     }
 
     private static void addBeanClassName(Configuration _conf, String _bean) {
         _conf.setGlobalClass(_bean);
-        _conf.toContextEl().setGlobalClass(_bean);
+        _conf.getContext().setGlobalClass(_bean);
     }
 
     private Configuration contextEl() {

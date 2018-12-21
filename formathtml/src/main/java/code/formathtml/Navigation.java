@@ -571,13 +571,13 @@ public final class Navigation {
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
-            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (resError_.getError() != null) {
                 String err_ = resError_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));
                 return;
             }
-            ContextEl context_ = session.toContextEl();
+            ContextEl context_ = session.getContext();
             Struct obj_ = resError_.getResult();
             LocalVariable lv_ = new LocalVariable();
             String valName_ = ip_.getNextTempVar();
@@ -671,10 +671,10 @@ public final class Navigation {
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
             if (!obj_.isNull()) {
-                ContextEl context_ = session.toContextEl();
+                ContextEl context_ = session.getContext();
                 className_ = context_.getStandards().getStructClassName(obj_, context_);
             }
-            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (res_.getError() != null) {
                 String err_ = res_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));

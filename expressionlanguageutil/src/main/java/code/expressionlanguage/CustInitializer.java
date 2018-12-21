@@ -16,7 +16,7 @@ public class CustInitializer extends DefaultInitializer {
         String base_ = Templates.getIdFromAllTypes(_className);
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
         if (PrimitiveTypeUtil.canBeUseAsArgument(false, run_, base_, _context)) {
-            return new ContextEl(_context, _className, _fieldName, _ordinal, _fields, _parent);
+            return new RunnableContextEl(_context, _className, _fieldName, _ordinal, _fields, _parent);
         }
         return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);
     }
@@ -30,11 +30,11 @@ public class CustInitializer extends DefaultInitializer {
             return !_owner.hasException();
         }
     }
-    @Override
+
     public String getInterfaceTask(LgNames _stds) {
         return ((LgNamesUtils)_stds).getAliasRunnable();
     }
-    @Override
+
     public String getRunTask(LgNames _stds) {
         return ((LgNamesUtils)_stds).getAliasRun();
     }

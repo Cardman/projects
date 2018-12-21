@@ -7,6 +7,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.instr.ElResolver;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -18,10 +22,6 @@ import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.text.ConstType;
-import code.expressionlanguage.text.Delimiters;
-import code.expressionlanguage.text.ElResolver;
-import code.expressionlanguage.text.OperationsSequence;
 import code.formathtml.exec.DirectExecCalculableOperation;
 import code.formathtml.exec.ExecAffectationOperation;
 import code.formathtml.exec.ExecCompoundAffectationOperation;
@@ -37,7 +37,7 @@ import code.util.StringList;
 
 public final class ElRenderUtil {
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
@@ -90,7 +90,7 @@ public final class ElRenderUtil {
     }
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());

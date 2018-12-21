@@ -6,11 +6,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.text.ElUtil;
 import code.util.CustList;
 
 public final class Throwing extends AbruptBlock implements StackableBlock, WithNotEmptyEl {

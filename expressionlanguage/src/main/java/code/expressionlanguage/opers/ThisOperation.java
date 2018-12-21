@@ -5,10 +5,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.text.OperationsSequence;
 import code.util.CustList;
 import code.util.StringList;
 
