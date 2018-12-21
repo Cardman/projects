@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -50,22 +49,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         fieldId = _l.getFieldId();
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf);
     }
 
     @Override

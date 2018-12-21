@@ -1,10 +1,6 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.BadAccessConstructor;
@@ -14,14 +10,12 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -117,15 +111,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
     }
 
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-
     final void checkPositionBasis(Analyzable _conf) {
         Block curBlock_ = _conf.getCurrentBlock();
         if (getParent() != null) {
@@ -165,7 +150,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             _conf.getClasses().addError(call_);
         }
     }
-    abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
 
     public final ConstructorId getConstId() {
         return constId;

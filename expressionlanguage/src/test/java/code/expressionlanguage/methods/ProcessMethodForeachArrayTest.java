@@ -40,7 +40,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(24, (Number)ret_.getObject());
+        assertEq(24, ret_.getNumber());
     }
 
     @Test
@@ -67,7 +67,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -96,7 +96,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(24, (Number)ret_.getObject());
+        assertEq(24, ret_.getNumber());
     }
 
     @Test
@@ -129,7 +129,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(5, (Number)ret_.getObject());
+        assertEq(5, ret_.getNumber());
     }
 
     @Test
@@ -159,7 +159,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(30, (Number)ret_.getObject());
+        assertEq(30, ret_.getNumber());
     }
     @Test
     public void calculateArgument73Test() {
@@ -191,6 +191,6 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(5, (Number)ret_.getObject());
+        assertEq(5, ret_.getNumber());
     }
 }

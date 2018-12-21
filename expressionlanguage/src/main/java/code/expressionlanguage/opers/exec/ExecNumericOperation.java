@@ -7,7 +7,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -158,32 +157,5 @@ public abstract class ExecNumericOperation extends ExecReflectableOpering {
         }
         a_ = r_;
         setSimpleArgumentAna(a_, _conf);
-    }
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.first().getArgument();
-        Argument c_ = chidren_.last().getArgument();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
-        if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (ExecOperationNode o: chidren_) {
-                arguments_.add(o.getArgument());
-            }
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        Argument r_;
-        r_ = calculateOper(a_, op, c_, _conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        a_ = r_;
-        setSimpleArgument(a_, _conf);
     }
 }

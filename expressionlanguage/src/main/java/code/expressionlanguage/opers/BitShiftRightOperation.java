@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
@@ -43,11 +42,6 @@ public final class BitShiftRightOperation extends NumericOperation {
         return res_;
     }
 
-    @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b,
-            ExecutableCode _cont) {
-        return new Argument(NumberStruct.calculateBitShiftRight((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
-    }
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,

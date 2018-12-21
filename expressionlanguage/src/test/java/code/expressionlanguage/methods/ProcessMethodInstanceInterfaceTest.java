@@ -11,6 +11,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -1132,7 +1133,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(ARR_CUST, field_.getClassName(cont_));
         assertEq(1, ((Struct[])field_.getInstance()).length);
         Struct elt_ = ((Struct[])field_.getInstance()) [0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
     }
     @Test
     public void instanceArgument76Test() {
@@ -3637,7 +3638,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
     @Test
     public void calculateArgument114Test() {
@@ -3664,7 +3665,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
     @Test
     public void calculateArgument75Test() {
@@ -3729,7 +3730,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(ARR_CUST, field_.getClassName(cont_));
         assertEq(1, ((Struct[])field_.getInstance()).length);
         Struct elt_ = ((Struct[])field_.getInstance()) [0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
     }
     @Test
     public void instanceArgumentFailTest() {

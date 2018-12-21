@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -11,8 +12,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -35,9 +39,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("$int", (String)res_);
+        assertEq("$int", ret_.getString());
     }
     @Test
     public void processEl221Test() {
@@ -56,9 +58,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("java.lang.Integer", (String)res_);
+        assertEq("java.lang.Integer", ret_.getString());
     }
     @Test
     public void processEl222Test() {
@@ -85,9 +85,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex", (String)res_);
+        assertEq("pkg.Ex", ret_.getString());
     }
     @Test
     public void processEl223Test() {
@@ -108,9 +106,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex", (String)res_);
+        assertEq("pkg.Ex", ret_.getString());
     }
     @Test
     public void processEl224Test() {
@@ -134,9 +130,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("java.lang.Integer", (String)res_);
+        assertEq("java.lang.Integer", ret_.getString());
     }
     @Test
     public void processEl225Test() {
@@ -160,9 +154,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex<java.lang.Integer>", (String)res_);
+        assertEq("pkg.Ex<java.lang.Integer>", ret_.getString());
     }
     @Test
     public void processEl226Test() {
@@ -181,9 +173,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("java.lang.String", (String)res_);
+        assertEq("java.lang.String", ret_.getString());
     }
     @Test
     public void processEl227Test() {
@@ -202,9 +192,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("java.lang.Integer", (String)res_);
+        assertEq("java.lang.Integer", ret_.getString());
     }
     @Test
     public void processEl228Test() {
@@ -248,9 +236,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex<java.lang.Integer>", (String)res_);
+        assertEq("pkg.Ex<java.lang.Integer>", ret_.getString());
     }
     @Test
     public void processEl230Test() {
@@ -269,9 +255,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[$int", (String)res_);
+        assertEq("[$int", ret_.getString());
     }
     @Test
     public void processEl231Test() {
@@ -290,9 +274,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[java.lang.Integer", (String)res_);
+        assertEq("[java.lang.Integer", ret_.getString());
     }
     @Test
     public void processEl232Test() {
@@ -313,9 +295,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[pkg.Ex", (String)res_);
+        assertEq("[pkg.Ex", ret_.getString());
     }
     @Test
     public void processEl233Test() {
@@ -336,9 +316,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[pkg.Ex", (String)res_);
+        assertEq("[pkg.Ex", ret_.getString());
     }
     @Test
     public void processEl234Test() {
@@ -359,9 +337,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[pkg.Ex<java.lang.Integer>", (String)res_);
+        assertEq("[pkg.Ex<java.lang.Integer>", ret_.getString());
     }
     @Test
     public void processEl235Test() {
@@ -385,9 +361,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[java.lang.Integer", (String)res_);
+        assertEq("[java.lang.Integer", ret_.getString());
     }
     @Test
     public void processEl236Test() {
@@ -411,9 +385,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex<[java.lang.Integer>", (String)res_);
+        assertEq("pkg.Ex<[java.lang.Integer>", ret_.getString());
     }
     @Test
     public void processEl237Test() {
@@ -432,9 +404,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[$int", (String)res_);
+        assertEq("[$int", ret_.getString());
     }
     @Test
     public void processEl238Test() {
@@ -461,9 +431,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex", (String)res_);
+        assertEq("pkg.Ex", ret_.getString());
     }
     @Test
     public void processEl239Test() {
@@ -498,9 +466,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("pkg.Ex", (String)res_);
+        assertEq("pkg.Ex", ret_.getString());
         assertEq(14, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
     }
     @Test
@@ -520,9 +486,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("$void", (String)res_);
+        assertEq("$void", ret_.getString());
     }
     @Test
     public void processEl241Test() {
@@ -541,9 +505,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("$void", (String)res_);
+        assertEq("$void", ret_.getString());
     }
     @Test
     public void processEl242Test() {
@@ -834,9 +796,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(14, (Number)res_);
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void processEl251Test() {
@@ -855,9 +815,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(1, (Number)res_);
+        assertEq(1, ret_.getNumber());
     }
     @Test
     public void processEl252Test() {
@@ -905,11 +863,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(15, (Number)res_);
-        res_ = cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance();
-        assertEq(14, (Number)res_);
+        assertEq(15, ret_.getNumber());
+        NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        assertEq(14, res_.getInstance());
     }
     @Test
     public void processEl253Test() {
@@ -957,9 +913,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(14, (Number)res_);
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void processEl254Test() {
@@ -1007,9 +961,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("out", (String)res_);
+        assertEq("out", ret_.getString());
     }
     @Test
     public void processEl255Test() {
@@ -1055,9 +1007,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("super", (String)res_);
+        assertEq("super", ret_.getString());
     }
     @Test
     public void processEl256Test() {
@@ -1105,9 +1055,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl257Test() {
@@ -1152,9 +1100,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(14, (Number)res_);
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void processEl258Test() {
@@ -1202,9 +1148,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl259Test() {
@@ -1254,9 +1198,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(9, (Number)res_);
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void processEl260Test() {
@@ -1307,9 +1249,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl261Test() {
@@ -1666,9 +1606,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl268Test() {
@@ -1720,9 +1658,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(22, (Number)res_);
+        assertEq(22, ret_.getNumber());
     }
     @Test
     public void processEl269Test() {
@@ -1774,9 +1710,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(28, (Number)res_);
+         assertEq(28, ret_.getNumber());
     }
     @Test
     public void processEl270Test() {
@@ -1830,9 +1764,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(32, (Number)res_);
+        assertEq(32, ret_.getNumber());
     }
     @Test
     public void processEl271Test() {
@@ -1888,9 +1820,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl272Test() {
@@ -2101,9 +2031,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
     @Test
     public void processEl276Test() {
@@ -2153,9 +2081,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(19, (Number)res_);
+        assertEq(19, ret_.getNumber());
     }
 
     @Test
@@ -2176,9 +2102,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Boolean);
-        assertTrue((Boolean)res_);
+        assertTrue(ret_.isTrue());
     }
     @Test
     public void processEl278Test() {
@@ -2230,9 +2154,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(15, (Number)res_);
+        assertEq(15, ret_.getNumber());
     }
     @Test
     public void processEl279Test() {
@@ -2426,9 +2348,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(15, (Number)res_);
+        assertEq(15, ret_.getNumber());
     }
     @Test
     public void processEl283Test() {
@@ -2477,9 +2397,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof StringBuilder);
-        assertEq("hello", ((StringBuilder)res_).toString());
+        assertEq("hello", ret_.getString());
     }
     @Test
     public void processEl284Test() {
@@ -2880,9 +2798,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(16, (Number)res_);
+        assertEq(16, ret_.getNumber());
     }
     @Test
     public void processEl292Test() {
@@ -2985,9 +2901,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(16, (Number)res_);
+        assertEq(16, ret_.getNumber());
     }
     @Test
     public void processEl294Test() {
@@ -3227,7 +3141,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Struct exc_ = cont_.getException();
         assertTrue(exc_ instanceof CausingErrorStruct);
         Struct cause_ = ((CausingErrorStruct)exc_).getCause();
-        assertTrue(cause_.isNull());
+        assertSame(NullStruct.NULL_VALUE,cause_);
     }
     @Test
     public void processEl303Test() {
@@ -3345,7 +3259,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        assertTrue(arg_.getStruct().isArray());
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(0,((Struct[])arg_.getStruct().getInstance()).length);
     }
@@ -3367,7 +3281,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        assertTrue(arg_.getStruct().isArray());
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
         assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(cont_));
@@ -3391,7 +3305,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        assertTrue(arg_.getStruct().isArray());
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
         assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
         assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(cont_));
@@ -3425,9 +3339,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[pkg.Ex", (String)res_);
+        assertEq("[pkg.Ex", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3458,9 +3370,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof String);
-        assertEq("[pkg.Ex", (String)res_);
+        assertEq("[pkg.Ex", ret_.getString());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3516,9 +3426,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(16, (Number)res_);
+        assertEq(16, ret_.getNumber());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3573,9 +3481,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(15, (Number)res_);
+        assertEq(15, ret_.getNumber());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3789,9 +3695,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ =  calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(35, (Number)res_);
+        assertEq(35, ret_.getNumber());
     }
     @Test
     public void processEl326Test() {
@@ -3845,9 +3749,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ =  calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(35, (Number)res_);
+        assertEq(35, ret_.getNumber());
     }
     @Test
     public void processEl327Test() {
@@ -3890,8 +3792,6 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        Object res_ = ret_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(14, (Number)res_);
+        assertEq(14, ret_.getNumber());
     }
 }

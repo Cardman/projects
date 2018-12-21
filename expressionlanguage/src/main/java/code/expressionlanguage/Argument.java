@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
@@ -61,6 +62,9 @@ public final class Argument {
         return object == NullStruct.NULL_VALUE;
     }
 
+    public String getString() {
+        return ((CharSequenceStruct)object).getInstance().toString();
+    }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();
     }
@@ -73,8 +77,11 @@ public final class Argument {
     public int getInt() {
         return ((NumberStruct)object).getInstance().intValue();
     }
-    public Object getObject() {
-        return object.getInstance();
+    public boolean isTrue() {
+        return ((BooleanStruct)object).getInstance();
+    }
+    public boolean isFalse() {
+        return !((BooleanStruct)object).getInstance();
     }
 
     public void setObject(Character _object) {

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CmpOperation;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -37,16 +36,6 @@ public final class ExecCmpOperation extends ExecAbstractCmpOperation {
         Argument second_ = opTwo_.getArgument();
         Argument arg_ = calculateCommon(first_, second_);
         setSimpleArgumentAna(arg_, _conf);
-    }
-    @Override
-    public void calculateCmp(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ExecOperationNode opOne_ = chidren_.first();
-        ExecOperationNode opTwo_ = chidren_.last();
-        Argument first_ = opOne_.getArgument();
-        Argument second_ = opTwo_.getArgument();
-        Argument arg_ = calculateCommon(first_, second_);
-        setSimpleArgument(arg_, _conf);
     }
 
     private Argument calculateCommon(Argument _one, Argument _two) {

@@ -96,7 +96,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     op_.tryAnalyzeAssignmentAfter(_cont);
                     op_.setOrder(0);
                     opValue = new CustList<ExecOperationNode>();
-                    opValue.add(ExecOperationNode.createExecOperationNode(op_, _cont));
+                    opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _cont));
                     defaultAssignmentAfter(_cont, op_);
                     checkDuplicateEnumCase(_cont);
                     return;

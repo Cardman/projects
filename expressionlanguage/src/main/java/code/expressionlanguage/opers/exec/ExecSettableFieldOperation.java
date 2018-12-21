@@ -5,9 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -126,28 +124,6 @@ public final class ExecSettableFieldOperation extends
         return arg_;
     }
     @Override
-    public final void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            arg_ = getCommonSetting(previous_, _conf, _right);
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-    @Override
     public final Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
@@ -159,23 +135,6 @@ public final class ExecSettableFieldOperation extends
         return arg_;
     }
     @Override
-    public final void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument current_ = getArgument();
-        Struct store_ = current_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-    @Override
     public final Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
@@ -185,29 +144,6 @@ public final class ExecSettableFieldOperation extends
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
-    }
-    @Override
-    public final void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument current_ = getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
-        Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-        
     }
     final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
         int off_ = getOff();
@@ -355,10 +291,6 @@ public final class ExecSettableFieldOperation extends
         return endCalculate(_conf, _nodes, false, null, _right);
     }
     @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
@@ -409,55 +341,6 @@ public final class ExecSettableFieldOperation extends
         }
         Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            if (classes_.isCustomType(className_)) {
-                classes_.initializeStaticField(fieldId_, _right.getStruct());
-                Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-                setSimpleArgument(a_, _conf);
-                return a_;
-            }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return _right;
-            }
-            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            setSimpleArgument(a_, _conf);
-            return a_;
-        }
-        Argument previousNode_;
-        if (isIntermediateDottedOperation()) {
-            previousNode_ = getPreviousArgument();
-        } else {
-            previousNode_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        if (previous_.getStruct() instanceof FieldableStruct) {
-            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
-            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            setSimpleArgument(a_, _conf);
-            return a_;
-        }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
-            return _right;
-        }
-        Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(a_, _conf);
         return a_;
     }
 }

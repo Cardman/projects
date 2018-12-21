@@ -34,7 +34,7 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculate2Test() {
@@ -57,7 +57,7 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculate3Test() {
@@ -80,7 +80,7 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(18, (Number)ret_.getObject());
+        assertEq(18, ret_.getNumber());
     }
     @Test
     public void calculate4Test() {
@@ -103,7 +103,7 @@ public final class ProcessMethodArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("first second", (String)ret_.getObject());
+        assertEq("first second", ret_.getString());
     }
     @Test
     public void calculate5Test() {

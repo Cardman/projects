@@ -3,13 +3,12 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StaticInfoOperation;
 import code.util.IdMap;
 
-public final class ExecStaticInfoOperation extends ExecVariableLeafOperation {
+public final class ExecStaticInfoOperation extends ExecVariableLeafOperation implements ReductibleOperable {
 
     private String className;
 
@@ -26,13 +25,6 @@ public final class ExecStaticInfoOperation extends ExecVariableLeafOperation {
         Argument a_ = new Argument();
         a_.setStruct(_conf.getExtendedClassMetaInfo(className));
         setSimpleArgumentAna(a_, _conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
-        setSimpleArgument(a_, _conf);
     }
 
     @Override

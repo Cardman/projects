@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.OperationsSequence;
 
-public abstract class ReflectableInvokingOperation extends InvokingOperation implements DirectCalculableOperation {
+public abstract class ReflectableInvokingOperation extends InvokingOperation {
 
     ReflectableInvokingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

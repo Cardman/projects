@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
@@ -67,14 +66,6 @@ public final class ExecAffectationOperation extends ExecReflectableOpering {
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         _conf.getClasses().initializeStaticField(id_, str_);
         setSimpleArgument(value_);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        ExecOperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_);
-        ExecOperationNode op_ = (ExecOperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
     }
 
     @Override

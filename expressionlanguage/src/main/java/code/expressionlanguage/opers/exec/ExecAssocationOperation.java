@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AssocationOperation;
 import code.util.IdMap;
@@ -24,12 +23,6 @@ public final class ExecAssocationOperation extends ExecAbstractUnaryOperation {
     }
     public String getFieldName() {
         return fieldName;
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgument(arg_, _conf);
     }
 
     @Override

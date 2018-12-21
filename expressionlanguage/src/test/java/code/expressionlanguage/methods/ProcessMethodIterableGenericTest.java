@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -11,6 +12,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -241,7 +243,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertTrue(field_.isNull());
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
 
     @Test
@@ -1205,7 +1207,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertTrue(field_.isNull());
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void instanceArgument147Test() {
@@ -1251,7 +1253,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertTrue(field_.isNull());
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void instanceArgument148Test() {
@@ -1299,7 +1301,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(1, arr_.length);
         assertEq(8, (Number) arr_[0].getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertTrue(field_.isNull());
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void instanceArgument149Test() {

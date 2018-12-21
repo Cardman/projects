@@ -25,17 +25,6 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf);
-    }
-
-    @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);

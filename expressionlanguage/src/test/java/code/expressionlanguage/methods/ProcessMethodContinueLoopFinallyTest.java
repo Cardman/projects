@@ -46,7 +46,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(424, (Number)ret_.getObject());
+        assertEq(424, ret_.getNumber());
     }
 
     @Test
@@ -81,7 +81,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2424, (Number)ret_.getObject());
+        assertEq(2424, ret_.getNumber());
     }
 
     @Test
@@ -120,7 +120,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(4424, (Number)ret_.getObject());
+        assertEq(4424, ret_.getNumber());
     }
 
 
@@ -157,6 +157,6 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(424, (Number)ret_.getObject());
+        assertEq(424, ret_.getNumber());
     }
 }

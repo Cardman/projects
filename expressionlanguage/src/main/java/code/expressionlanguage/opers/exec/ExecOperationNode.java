@@ -42,7 +42,6 @@ import code.expressionlanguage.opers.IdOperation;
 import code.expressionlanguage.opers.InferArrayInstancing;
 import code.expressionlanguage.opers.InstanceOfOperation;
 import code.expressionlanguage.opers.InterfaceInvokingConstructor;
-import code.expressionlanguage.opers.InternGlobalOperation;
 import code.expressionlanguage.opers.InternVariableOperation;
 import code.expressionlanguage.opers.LambdaOperation;
 import code.expressionlanguage.opers.MultOperation;
@@ -76,7 +75,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
-public abstract class ExecOperationNode {
+public abstract class ExecOperationNode implements Operable {
 
 
     protected static final String ARR = "[";
@@ -100,8 +99,6 @@ public abstract class ExecOperationNode {
     protected static final String EMPTY_STRING = "";
     protected static final String RETURN_LINE = "\n";
 
-    private static final int QUICK_OP = 3;
-
     private ExecMethodOperation parent;
 
     private ExecOperationNode nextSibling;
@@ -116,8 +113,6 @@ public abstract class ExecOperationNode {
 
     private ClassArgumentMatching resultClass;
 
-    private boolean staticBlock;
-
     private ExecPossibleIntermediateDotted siblingSet;
 
     private int indexBegin;
@@ -127,28 +122,13 @@ public abstract class ExecOperationNode {
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
         resultClass = _oper.getResultClass();
-        staticBlock = _oper.isStaticBlock();
         argument = _oper.getArgument();
         order = _oper.getOrder();
-    }
-
-    public void setArgument(Argument _argument) {
-        argument = _argument;
-    }
-
-    public void setIndexInEl(int _indexInEl) {
-        indexInEl = _indexInEl;
-    }
-
-    public void setIndexBegin(int _indexBegin) {
-        indexBegin = _indexBegin;
     }
 
     public void setParent(ExecMethodOperation _parent) {
         parent = _parent;
     }
-
-    public abstract void tryCalculateNode(Analyzable _conf);
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
         _cont.setOffset(indexBegin+_offset);
@@ -157,7 +137,7 @@ public abstract class ExecOperationNode {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode,Analyzable _conf) {
+    public static Operable createExecOperationNode(OperationNode _anaNode,Analyzable _conf) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -294,10 +274,6 @@ public abstract class ExecOperationNode {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
             return new ExecFinalVariableOperation(m_);
         }
-        if (_anaNode instanceof InternGlobalOperation) {
-            InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
-            return new ExecInternGlobalOperation(m_);
-        }
         if (_anaNode instanceof DotOperation) {
             DotOperation m_ = (DotOperation) _anaNode;
             return new ExecDotOperation(m_);
@@ -394,22 +370,8 @@ public abstract class ExecOperationNode {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             return new ExecCompoundAffectationOperation(c_);
         }
-        if (_anaNode instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) _anaNode;
-            return new ExecAffectationOperation(a_);
-        }
-        return null;
-    }
-
-    final boolean isFirstChild() {
-        ExecMethodOperation par_ = getParent();
-        if (par_ == null) {
-            return true;
-        }
-        if (par_.getFirstChild() instanceof ExecStaticInitOperation) {
-            return getIndexChild() == CustList.SECOND_INDEX;
-        }
-        return getIndexChild() == CustList.FIRST_INDEX;
+        AffectationOperation a_ = (AffectationOperation) _anaNode;
+        return new ExecAffectationOperation(a_);
     }
 
     public abstract ExecOperationNode getFirstChild();
@@ -463,49 +425,6 @@ public abstract class ExecOperationNode {
         }
         return out_;
     }
-    final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
-        if (_cont.getContextEl().hasException()) {
-            return;
-        }
-        String un_ = resultClass.getUnwrapObject();
-        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
-            if (_arg.isNull()) {
-                LgNames stds_ = _cont.getStandards();
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont,null_));
-                return;
-            }
-        }
-        if (!un_.isEmpty()) {
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-        }
-        int res_ = processBooleanValues(_arg, _cont);
-        if (res_ <= 0) {
-            return;
-        }
-        ExecMethodOperation par_ = getParent();
-        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
-        Boolean b_ = o_.getInstance();
-        if (res_ != QUICK_OP) {
-            CustList<ExecOperationNode> l_ = par_.getChildrenNodes();
-            ExecOperationNode opElt_ = l_.get(res_);
-            opElt_.setSimpleArgument(_arg);
-            return;
-        }
-        ExecQuickOperation q_ = (ExecQuickOperation) par_;
-        if (b_ == q_.absorbingValue()) {
-            CustList<ExecOperationNode> opers_ = new CustList<ExecOperationNode>();
-            for (ExecOperationNode s: par_.getChildrenNodes()) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                opers_.get(i).setSimpleArgument(_arg);
-            }
-        }
-    }
 
     private void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         if (_cont.callsOrException()) {
@@ -527,28 +446,6 @@ public abstract class ExecOperationNode {
         }
     }
 
-    final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
-        Struct o_ = _arg.getStruct();
-        ExecMethodOperation par_ = getParent();
-        if (!(o_ instanceof BooleanStruct)) {
-            return 0;
-        }
-        if (!(par_ instanceof ExecQuickOperation)) {
-            boolean ternaryParent_ = false;
-            if (par_ instanceof ExecTernaryOperation) {
-                ternaryParent_ = isFirstChild();
-            }
-            if (!ternaryParent_) {
-                return 0;
-            }
-            Boolean b_ = ((BooleanStruct) o_).getInstance();
-            if (b_) {
-                return 2;
-            }
-            return 1;
-        }
-        return QUICK_OP;
-    }
 
     public final ExecMethodOperation getParent() {
         return parent;
@@ -625,10 +522,12 @@ public abstract class ExecOperationNode {
         return indexChild;
     }
 
+    @Override
     public final Argument getArgument() {
         return argument;
     }
 
+    @Override
     public final void setSimpleArgument(Argument _argument) {
         argument = _argument;
     }
@@ -649,19 +548,7 @@ public abstract class ExecOperationNode {
         _nodes.getVal(this).setArgument(_argument);
     }
 
-    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        setQuickSimpleArgument(_argument, _conf);
-        setNextSiblingsArg(_argument, _conf);
-    }
-
-    public final void setQuickSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        argument = _argument;
-        ExecPossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-    }
-
+    @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
@@ -676,20 +563,9 @@ public abstract class ExecOperationNode {
         }
         argument = _argument;
     }
-    public final boolean isStaticBlock() {
-        return staticBlock;
-    }
-
-    public final void setStaticBlock(boolean _staticBlock) {
-        staticBlock = _staticBlock;
-    }
 
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
-    }
-
-    public final void setResultClass(ClassArgumentMatching _resultClass) {
-        resultClass = _resultClass;
     }
 
     public final ExecPossibleIntermediateDotted getSiblingSet() {

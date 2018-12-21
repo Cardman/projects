@@ -8,7 +8,6 @@ import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.errors.custom.UnknownClassName;
-import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -22,6 +21,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.formathtml.exec.ExecInvokingOperation;
 import code.formathtml.util.ActionNext;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanElement;
@@ -4478,7 +4478,7 @@ public final class FormatHtml {
                 lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
                 LongStruct l_ = new LongStruct(_l.getIndex());
-                lv_.setStruct(InvokingOperation.getElement(lv_.getContainer(),l_, _conf));
+                lv_.setStruct(ExecInvokingOperation.getElement(lv_.getContainer(),l_, _conf));
             }
             if (_conf.getContext().getException() != null) {
                 return;
@@ -4654,7 +4654,7 @@ public final class FormatHtml {
         boolean iterationNb_ = false;
         long stepValue_ = 0;
         long fromValue_ = 0;
-        Object realFromValue_ = 0;
+        long realFromValue_ = 0;
         String primLong_ = _conf.getStandards().getAliasPrimLong();
         if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             String listAttr_ = currentForNode_.getAttribute(ATTRIBUTE_LIST);
@@ -4759,10 +4759,10 @@ public final class FormatHtml {
                 _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                 return;
             }
-            realFromValue_ = argFrom_.getObject();
+            realFromValue_ = argFrom_.getLong();
             fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.toContextEl()).getInstance();
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getObject(), _conf.toContextEl()).getInstance();
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getObject(), _conf.toContextEl()).getInstance();
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.toContextEl()).getInstance();
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.toContextEl()).getInstance();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4855,7 +4855,7 @@ public final class FormatHtml {
             int_ = realFromValue_;
         } else if (container_.isArray()) {
             IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
-            elt_ = InvokingOperation.getElement(container_, i_, _conf);
+            elt_ = ExecInvokingOperation.getElement(container_, i_, _conf);
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }

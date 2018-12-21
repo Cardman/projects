@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.OperationsSequence;
 
-public abstract class VariableLeafOperation extends LeafOperation implements AtomicCalculableOperation,DirectCalculableOperation {
+public abstract class VariableLeafOperation extends LeafOperation {
 
     VariableLeafOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

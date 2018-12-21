@@ -35,7 +35,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
     @Test
@@ -95,7 +95,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(20, (Number)ret_.getObject());
+        assertEq(20, ret_.getNumber());
     }
 
     @Test
@@ -130,7 +130,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(20, (Number)ret_.getObject());
+        assertEq(20, ret_.getNumber());
     }
 
     @Test
@@ -171,6 +171,6 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(21, (Number)ret_.getObject());
+        assertEq(21, ret_.getNumber());
     }
 }

@@ -2,30 +2,22 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -202,36 +194,6 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf, _nodes);
-        } else {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-
-    @Override
     public void setVariable(boolean _variable) {
         variable = _variable;
     }
@@ -245,186 +207,9 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
     public boolean resultCanBeSet() {
         return variable;
     }
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
-        if (resultCanBeSet()) {
-            return Argument.createVoid();
-        }
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
-    }
-
-    @Override
-    public Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
-    @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
-        Argument a_ = ElUtil.getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
-        Argument a_ = ElUtil.getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(locVar_.getStruct());
-        if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        locVar_.setStruct(_right.getStruct());
-        return _right;
-    }
-    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
-        Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
-        return res_;
-    }
-    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
-        Argument res_;
-        res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
-        return SemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
 
     public String getVariableName() {
         return variableName;
-    }
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ContextEl _conf,
-            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf, _nodes);
-        return out_;
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = SemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
-        return out_;
     }
     public int getOff() {
         return off;

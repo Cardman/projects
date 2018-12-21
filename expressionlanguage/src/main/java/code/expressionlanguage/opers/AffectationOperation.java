@@ -2,9 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -14,7 +12,6 @@ import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -30,7 +27,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -320,26 +316,6 @@ public final class AffectationOperation extends ReflectableOpering {
             fromCurClass_ = cst_.isFromCurrentClass(_conf);
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
-//            String fieldName_ = "";
-//            if (cl_ != null) {
-//                fieldName_ = cl_.getFieldName();
-//            }
-//            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-//                if (fromCurClass_ && StringList.quickEq(fieldName_, e.getKey()) && ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-//                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-//                    if (meta_ != null && meta_.isFinalField()) {
-//                        //error if final field
-//                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
-//                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-//                        un_.setFileName(_conf.getCurrentFileName());
-//                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-//                        _conf.getClasses().addError(un_);
-//                    }
-//                }
-//                boolean ass_ = StringList.quickEq(fieldName_, e.getKey()) || e.getValue().isAssignedAfter();
-//                boolean unass_ = !StringList.quickEq(fieldName_,e.getKey()) && e.getValue().isUnassignedAfter();
-//                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
-//            }
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
                 FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
@@ -400,23 +376,4 @@ public final class AffectationOperation extends ReflectableOpering {
         _conf.getClasses().initializeStaticField(id_, str_);
         setSimpleArgument(value_);
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_);
-        OperationNode op_ = (OperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = ElUtil.getArgument(_nodes, right_);
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
 }

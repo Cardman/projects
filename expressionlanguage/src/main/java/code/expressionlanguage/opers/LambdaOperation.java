@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -22,7 +21,6 @@ import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -36,11 +34,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.LambdaConstructorStruct;
-import code.expressionlanguage.structs.LambdaFieldStruct;
-import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1233,57 +1227,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        Argument arg_ = new Argument();
-        String clArg_ = getResultClass().getNames().first();
-        String ownerType_ = foundClass;
-        ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
-        clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);
-        if (realId == null && method == null) {
-            String formatType_ = _conf.getOperationPageEl().formatVarType(returnFieldType, _conf);
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
-            l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
-        }
-        if (method == null) {
-            LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
-            l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
-        }
-        MethodId id_ = method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
-        l_.setInstanceCall(_previous);
-        arg_.setStruct(l_);
-        return arg_;
     }
 
     public final void setStaticAccess(boolean _staticAccess) {

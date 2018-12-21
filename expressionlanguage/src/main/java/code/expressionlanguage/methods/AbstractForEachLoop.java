@@ -19,7 +19,7 @@ import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -767,7 +767,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         } else {
             Struct container_ = lv_.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
-            element_ = InvokingOperation.getElement(container_, lg_, _conf);
+            element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
             if (_conf.hasExceptionOrFailInit()) {
                 return;
             }

@@ -38,6 +38,7 @@ import code.expressionlanguage.opers.exec.ExecMethodOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecPossibleIntermediateDotted;
 import code.expressionlanguage.opers.exec.ExecSemiAffectationOperation;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -90,7 +91,7 @@ public final class ElUtil {
                 currentBlock_.defaultAssignmentAfter(_conf, e_);
             }
             e_.setOrder(0);
-            return new CustList<ExecOperationNode>(ExecOperationNode.createExecOperationNode(e_, _conf));
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_, _conf));
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
@@ -154,7 +155,9 @@ public final class ElUtil {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
             current_.setOrder(_sortedNodes.size());
-            current_.tryCalculateNode(_context);
+            if (current_ instanceof ReductibleOperable) {
+                ((ReductibleOperable)current_).tryCalculateNode(_context);
+            }
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
                 next_ = createFirstChild(current_.getParent(), _context, 1);
@@ -292,16 +295,6 @@ public final class ElUtil {
                 continue;
             }
             out_.add(o);
-        }
-        return out_;
-    }
-    public static CustList<Argument> filterInvoking(CustList<OperationNode> _list, IdMap<OperationNode,ArgumentsPair> _nodes) {
-        CustList<Argument> out_ = new CustList<Argument>();
-        for (OperationNode o: _list) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            out_.add(getArgument(_nodes,o));
         }
         return out_;
     }
@@ -499,19 +492,6 @@ public final class ElUtil {
         }
         _context.getLastPage().setTranslatedOffset(0);
     }
-    public static CustList<Argument> getArguments(IdMap<OperationNode,ArgumentsPair> _nodes, MethodOperation _method) {
-        CustList<Argument> a_ = new CustList<Argument>();
-        for (OperationNode o: _method.getChildrenNodes()) {
-            a_.add(getArgument(_nodes, o));
-        }
-        return a_;
-    }
-    public static Argument getArgument(IdMap<OperationNode,ArgumentsPair> _nodes, OperationNode _node) {
-        return _nodes.getValue(_node.getOrder()).getArgument();
-    }
-    public static Argument getPreviousArgument(IdMap<OperationNode,ArgumentsPair> _nodes, PossibleIntermediateDotted _node) {
-        return _nodes.getValue(_node.getOrder()).getPreviousArgument();
-    }
     public static void tryCalculate(FieldBlock _field, ContextEl _context, String _fieldName) {
         CustList<ExecOperationNode> nodes_ = _field.getOpValue();
         ExecOperationNode root_ = nodes_.last();
@@ -541,7 +521,9 @@ public final class ElUtil {
                 ind_++;
                 continue;
             }
-            curr_.tryCalculateNode(_context);
+            if (curr_ instanceof ReductibleOperable) {
+                ((ReductibleOperable)curr_).tryCalculateNode(_context);
+            }
             a_ = curr_.getArgument();
             if (a_ == null) {
                 return;
@@ -553,14 +535,14 @@ public final class ElUtil {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_, _an);
+        ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_, _an);
         while (true) {
             if (current_ == null) {
                 break;
             }
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
-                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_, _an);
+                ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _an);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -579,7 +561,7 @@ public final class ElUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_, _an);
+                    ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _an);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof DotOperation) {

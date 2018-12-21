@@ -48,16 +48,6 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
         }
         setSimpleArgumentAna(arg_, _conf);
     }
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
 
     @Override
     public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

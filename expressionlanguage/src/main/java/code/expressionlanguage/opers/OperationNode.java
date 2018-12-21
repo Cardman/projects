@@ -24,8 +24,8 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -47,19 +47,15 @@ import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.IdMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class OperationNode {
+public abstract class OperationNode implements Operable {
 
     protected static final char ESCAPE_META_CHAR = '\\';
     protected static final char DELIMITER_CHAR = 39;
@@ -134,8 +130,6 @@ public abstract class OperationNode {
     protected static final String VARARG_SUFFIX = "...";
     protected static final String AROBASE = "@";
 
-    private static final int QUICK_OP = 3;
-
     private MethodOperation parent;
 
     private OperationNode nextSibling;
@@ -174,8 +168,6 @@ public abstract class OperationNode {
     }
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
 
-    public abstract void tryCalculateNode(Analyzable _conf);
-
     final boolean isCallMethodCtor(){
         if (!(this instanceof InvokingOperation)) {
             return false;
@@ -201,7 +193,6 @@ public abstract class OperationNode {
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordThis_ = keyWords_.getKeyWordThis();
@@ -267,9 +258,6 @@ public abstract class OperationNode {
             }
             if (_an.isEnabledInternVars()) {
                 return new InternVariableOperation(_index, _indexChild, _m, _op);
-            }
-            if (_an.isInternGlobal() && StringList.quickEq(str_, keyWordIntern_)) {
-                return new InternGlobalOperation(_index, _indexChild, _m, _op);
             }
             if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
                 return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
@@ -2129,102 +2117,6 @@ public abstract class OperationNode {
         return CustList.NO_SWAP_SORT;
     }
 
-    protected static Argument getPreviousArg(PossibleIntermediateDotted _possible,IdMap<OperationNode,ArgumentsPair> _nodes,  ContextEl _conf) {
-        Argument previous_;
-        if (_possible.isIntermediateDottedOperation()) {
-            previous_ = ElUtil.getPreviousArgument(_nodes, _possible);
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        return previous_;
-    }
-    final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
-        if (_cont.getContextEl().hasException()) {
-            return;
-        }
-        String un_ = resultClass.getUnwrapObject();
-        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
-            if (_arg.isNull()) {
-                LgNames stds_ = _cont.getStandards();
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont,null_));
-                return;
-            }
-        }
-        if (!un_.isEmpty()) {
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-        }
-        int res_ = processBooleanValues(_arg, _cont);
-        if (res_ <= 0) {
-            return;
-        }
-        MethodOperation par_ = getParent();
-        BooleanStruct o_ = (BooleanStruct) _arg.getStruct();
-        Boolean b_ = o_.getInstance();
-        if (res_ != QUICK_OP) {
-            CustList<OperationNode> l_ = par_.getChildrenNodes();
-            OperationNode opElt_ = l_.get(res_);
-            opElt_.setSimpleArgument(_arg);
-            return;
-        }
-        QuickOperation q_ = (QuickOperation) par_;
-        if (b_ == q_.absorbingValue()) {
-            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            for (OperationNode s: par_.getChildrenNodes()) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                opers_.get(i).setSimpleArgument(_arg);
-            }
-        }
-    }
-
-    private void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (_cont.callsOrException()) {
-            return;
-        }
-        String un_ = resultClass.getUnwrapObject();
-        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
-            if (_arg.isNull()) {
-                LgNames stds_ = _cont.getStandards();
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont,null_));
-                return;
-            }
-        }
-        if (!un_.isEmpty()) {
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-        }
-    }
-
-    final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
-        Struct o_ = _arg.getStruct();
-        MethodOperation par_ = getParent();
-        if (!(o_ instanceof BooleanStruct)) {
-            return 0;
-        }
-        if (!(par_ instanceof QuickOperation)) {
-            boolean ternaryParent_ = false;
-            if (par_ instanceof TernaryOperation) {
-                ternaryParent_ = isFirstChild();
-            }
-            if (!ternaryParent_) {
-                return 0;
-            }
-            Boolean b_ = ((BooleanStruct) o_).getInstance();
-            if (b_) {
-                return 2;
-            }
-            return 1;
-        }
-        return QUICK_OP;
-    }
-
     public final MethodOperation getParent() {
         return parent;
     }
@@ -2255,43 +2147,17 @@ public abstract class OperationNode {
         return indexChild;
     }
 
+    @Override
     public final Argument getArgument() {
         return argument;
     }
 
+    @Override
     public final void setSimpleArgument(Argument _argument) {
         argument = _argument;
     }
 
-    public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        setQuickSimpleArgument(_argument, _conf, _nodes);
-        setNextSiblingsArg(_argument, _conf, _nodes);
-    }
-
-    public final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (_conf.callsOrException()) {
-            return;
-        }
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
-        }
-        _nodes.getVal(this).setArgument(_argument);
-    }
-
-    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        setQuickSimpleArgument(_argument, _conf);
-        setNextSiblingsArg(_argument, _conf);
-    }
-
-    public final void setQuickSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        argument = _argument;
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-    }
-
+    @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {

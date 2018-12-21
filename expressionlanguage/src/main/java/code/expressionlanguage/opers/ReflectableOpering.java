@@ -2,7 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.OperationsSequence;
 
-public abstract class ReflectableOpering extends MethodOperation implements AtomicCalculableOperation, DirectCalculableOperation {
+public abstract class ReflectableOpering extends MethodOperation {
 
     public ReflectableOpering(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {

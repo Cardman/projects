@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
@@ -29,23 +28,6 @@ public final class ExecFinalVariableOperation extends ExecVariableLeafOperation 
         type = _f.getType();
         variableName = _f.getVariableName();
     }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (arg_ == null) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
     @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {

@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -226,7 +227,8 @@ final class ExtractObject {
                         expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-                        o_ = (String) ElRenderUtil.processEl(expression_.toString(), 0, _conf).getObject();
+                        Struct trStr_ = ElRenderUtil.processEl(expression_.toString(), 0, _conf).getStruct();
+                        o_ = valueOf(_conf, trStr_);
                         if (_conf.getContext().getException() != null) {
                             return EMPTY_STRING;
                         }
@@ -308,7 +310,7 @@ final class ExtractObject {
                     _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                     return NullStruct.NULL_VALUE;
                 }
-                calculateVariables_.append(mathFact_.toString(arg_.getObject()));
+                calculateVariables_.append(toString(_conf, arg_.getStruct()));
                 i_ = _conf.getNextIndex();
                 continue;
             }
@@ -494,8 +496,8 @@ final class ExtractObject {
         if (_conf.getContext().getException() != null) {
             return false;
         }
-        Boolean ret_ = (Boolean)arg_.getObject();
-        return ret_;
+        BooleanStruct ret_ = (BooleanStruct)arg_.getStruct();
+        return ret_.getInstance();
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
         if (_obj == null) {
@@ -509,8 +511,8 @@ final class ExtractObject {
         return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
-        if (_obj.getInstance() instanceof String) {
-            return (String) _obj.getInstance();
+        if (_obj instanceof CharSequenceStruct) {
+            return ((CharSequenceStruct)_obj).getDisplayedString(_conf).getInstance();
         }
         ContextEl context_ = _conf.toContextEl();
         String method_;

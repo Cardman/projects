@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -27,27 +25,6 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
 
     public void setup() {
         settable = ExecAffectationOperation.tryGetSettable(this);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        if (classMethodId != null) {
-            CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
-            chidren_.add((ExecOperationNode) settable);
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            Argument stored_ = ((ExecOperationNode) settable).getArgument();
-            arguments_.add(stored_);
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            settable.endCalculate(_conf, post, stored_, res_);
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        settable.calculateSemiSetting(_conf, oper, post);
-        ExecOperationNode op_ = (ExecOperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
     }
 
     @Override

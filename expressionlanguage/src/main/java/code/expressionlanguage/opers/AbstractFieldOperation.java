@@ -1,18 +1,13 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public abstract class AbstractFieldOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
+public abstract class AbstractFieldOperation extends VariableLeafOperation implements PossibleIntermediateDotted, ReductibleOperable {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
@@ -57,63 +52,6 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
         previousResultClass = _previousResultClass;
         setStaticAccess(_staticAccess);
     }
-
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = getCommonArgument(previous_, _conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            argres_ = getCommonArgument(previous_, _conf);
-        }
-        Argument arg_ = argres_;
-        if (arg_ == null) {
-            return;
-        }
-        boolean simple_ = false;
-        if (this instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) this;
-            if (s_.resultCanBeSet()) {
-                simple_ = true;
-            }
-        }
-        if (simple_) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
-
-    @Override
-    public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument arg_ = getCommonArgument(previous_, _conf);
-        boolean simple_ = false;
-        if (this instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) this;
-            if (s_.resultCanBeSet()) {
-                simple_ = true;
-            }
-        }
-        if (simple_) {
-            setQuickSimpleArgument(arg_, _conf, _nodes);
-        } else {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-    abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
-
 
     @Override
     public final Argument getPreviousArgument() {

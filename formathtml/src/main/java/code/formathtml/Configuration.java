@@ -23,7 +23,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ClassMetaInfo;
@@ -1044,16 +1043,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setLookLocalClass(String _lookLocalClass) {
         context.setLookLocalClass(_lookLocalClass);
-    }
-
-    @Override
-    public SortedClassField getCurrentInitizedField() {
-        return context.getCurrentInitizedField();
-    }
-
-    @Override
-    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
-        context.setCurrentInitizedField(_currentInitizedField);
     }
 
     @Override

@@ -69,7 +69,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -3067,16 +3066,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setLookLocalClass(String _lookLocalClass) {
         analyzing.setLookLocalClass(_lookLocalClass);
-    }
-
-    @Override
-    public SortedClassField getCurrentInitizedField() {
-        return analyzing.getCurrentInitizedField();
-    }
-
-    @Override
-    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
-        analyzing.setCurrentInitizedField(_currentInitizedField);
     }
 
     @Override

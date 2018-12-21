@@ -1,17 +1,16 @@
-package code.expressionlanguage.opers;
+package code.formathtml.exec;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
+import code.expressionlanguage.opers.LeafOperation;
+import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class InternGlobalOperation extends LeafOperation implements DirectCalculableOperation {
+public final class InternGlobalOperation extends LeafOperation {
     private int off;
 
     public InternGlobalOperation(int _indexInEl, int _indexChild,
@@ -46,32 +45,6 @@ public final class InternGlobalOperation extends LeafOperation implements Direct
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Struct struct_ = _conf.getInternGlobal();
-        a_ = new Argument();
-        a_.setStruct(struct_);
-        return a_;
     }
 
     public int getOff() {

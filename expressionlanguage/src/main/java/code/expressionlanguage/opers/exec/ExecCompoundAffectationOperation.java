@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CompoundAffectationOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -30,31 +28,6 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
     public ExecSettableElResult getSettable() {
         return settable;
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        ExecOperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = right_.getArgument();
-        if (classMethodId != null) {
-            CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
-            chidren_.add((ExecOperationNode) settable);
-            chidren_.add(right_);
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(((ExecOperationNode) settable).getArgument());
-            arguments_.add(right_.getArgument());
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            settable.endCalculate(_conf, res_);
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        settable.calculateCompoundSetting(_conf, oper, rightArg_);
-        ExecOperationNode op_ = (ExecOperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
-    }
-
     @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {

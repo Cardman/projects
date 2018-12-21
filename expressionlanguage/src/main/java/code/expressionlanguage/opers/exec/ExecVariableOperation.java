@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -43,23 +42,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
-
-    @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
@@ -93,15 +75,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
@@ -111,19 +84,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
     }
 
     @Override
@@ -138,18 +98,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         return arg_;
     }
 
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
     Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
@@ -205,10 +153,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
     }
 
     @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
@@ -218,17 +162,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         locVar_.setStruct(_right.getStruct());
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);
-        return out_;
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
         return out_;
     }
 }

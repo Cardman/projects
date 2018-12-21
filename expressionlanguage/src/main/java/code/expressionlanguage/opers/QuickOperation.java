@@ -1,18 +1,14 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IdMap;
 
 
 public abstract class QuickOperation extends ReflectableOpering {
@@ -24,11 +20,17 @@ public abstract class QuickOperation extends ReflectableOpering {
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
+        Struct abs_ = absorbingStruct();
+        tryGetResult(_conf, this, abs_);
+    }
+
+    public static void tryGetResult(Analyzable _conf, Operable _to,Struct _abs) {
         if (!_conf.isOkNumOp()) {
             return;
         }
-        CustList<OperationNode> children_ = getChildrenNodes();
+        CustList<Operable> children_ = _to.getChildrenOperable();
         Argument f_ = children_.first().getArgument();
+        Argument s_ = children_.last().getArgument();
         if (f_ == null) {
             return;
         }
@@ -36,19 +38,18 @@ public abstract class QuickOperation extends ReflectableOpering {
         if (!(v_ instanceof BooleanStruct)) {
             return;
         }
-        if (((BooleanStruct)v_).getInstance() == absorbingValue()) {
-            setSimpleArgumentAna(f_, _conf);
-        } else {
-            Argument s_ = children_.last().getArgument();
-            if (s_ == null) {
-                return;
-            }
-            v_ = s_.getStruct();
-            if (!(v_ instanceof BooleanStruct)) {
-                return;
-            }
-            setSimpleArgumentAna(s_, _conf);
+        if (((BooleanStruct)v_).sameReference(_abs)) {
+            _to.setSimpleArgumentAna(f_, _conf);
+            return;
         }
+        if (s_ == null) {
+            return;
+        }
+        v_ = s_.getStruct();
+        if (!(v_ instanceof BooleanStruct)) {
+            return;
+        }
+        _to.setSimpleArgumentAna(s_, _conf);
     }
     @Override
     public final void analyze(Analyzable _conf) {
@@ -76,42 +77,5 @@ public abstract class QuickOperation extends ReflectableOpering {
         setResultClass(chidren_.last().getResultClass());
     }
 
-    @Override
-    public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode first_ = chidren_.first();
-        Argument f_ = ElUtil.getArgument(_nodes,first_);
-        Struct abs_ = f_.getStruct();
-        if (absorbingStruct().sameReference(abs_)) {
-            setQuickSimpleArgument(f_, _conf, _nodes);
-            return f_;
-        }
-        OperationNode last_ = chidren_.last();
-        setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
-        Argument a_ = ElUtil.getArgument(_nodes,last_);
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-
-    @Override
-    public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isOkNumOp()) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.last().getArgument();
-        setSimpleArgumentAna(a_, _conf);
-    }
-
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-        Argument a_ = chidren_.last().getArgument();
-        setSimpleArgument(a_, _conf);
-    }
-
-    abstract boolean absorbingValue();
     public abstract BooleanStruct absorbingStruct();
 }

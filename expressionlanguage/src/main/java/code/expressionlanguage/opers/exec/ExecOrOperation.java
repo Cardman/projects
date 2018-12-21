@@ -9,11 +9,6 @@ public final class ExecOrOperation extends ExecQuickOperation {
     }
 
     @Override
-    boolean absorbingValue() {
-        return true;
-    }
-
-    @Override
     public BooleanStruct absorbingStruct() {
         return new BooleanStruct(true);
     }

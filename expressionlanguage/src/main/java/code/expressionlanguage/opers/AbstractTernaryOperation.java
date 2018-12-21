@@ -2,9 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ResultTernary;
@@ -18,8 +15,8 @@ import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ReturnMehod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -28,7 +25,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -52,19 +48,22 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
     }
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (getFirstChild().getArgument() == null) {
-            return;
-        }
-        quickCalculate(_conf);
+        tryGetResult(_conf, this);
     }
-    @Override
-    public final void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    public static void tryGetResult(Analyzable _conf, Operable _to) {
+        CustList<Operable> chidren_ = _to.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
+        for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        if (arguments_.first().isNull()) {
+        if (arguments_.size() != 3) {
+            return;
+        }
+        Argument argBool_ = arguments_.first();
+        if (argBool_ == null) {
+            return;
+        }
+        if (argBool_.isNull()) {
             return;
         }
         Boolean obj_ = ((BooleanStruct) arguments_.first().getStruct()).getInstance();
@@ -77,7 +76,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         if (arg_ == null) {
             return;
         }
-        setSimpleArgumentAna(arg_, _conf);
+        _to.setSimpleArgumentAna(arg_, _conf);
     }
     @Override
     public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
@@ -295,37 +294,6 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
         vars_.getMutableLoop().put(this, mutableAfter_);
-    }
-
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
-    public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<Argument> arguments_ = ElUtil.getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-    final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
-        Argument arg_;
-        if (obj_) {
-            arg_ = _arguments.get(CustList.SECOND_INDEX);
-        } else {
-            arg_ = _arguments.last();
-        }
-        return arg_;
     }
 
 }

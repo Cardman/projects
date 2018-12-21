@@ -38,7 +38,7 @@ public final class ProcessMethodForeachSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -67,7 +67,7 @@ public final class ProcessMethodForeachSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10,(Number) ret_.getObject());
+        assertEq(10,ret_.getNumber());
     }
 
     @Test
@@ -97,6 +97,6 @@ public final class ProcessMethodForeachSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(12, (Number)ret_.getObject());
+        assertEq(12, ret_.getNumber());
     }
 }

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.QuickOperation;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -19,31 +18,8 @@ public abstract class ExecQuickOperation extends ExecReflectableOpering {
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        if (!_conf.isOkNumOp()) {
-            return;
-        }
-        CustList<ExecOperationNode> children_ = getChildrenNodes();
-        Argument f_ = children_.first().getArgument();
-        if (f_ == null) {
-            return;
-        }
-        Struct v_ = f_.getStruct();
-        if (!(v_ instanceof BooleanStruct)) {
-            return;
-        }
-        if (((BooleanStruct)v_).getInstance() == absorbingValue()) {
-            setSimpleArgumentAna(f_, _conf);
-        } else {
-            Argument s_ = children_.last().getArgument();
-            if (s_ == null) {
-                return;
-            }
-            v_ = s_.getStruct();
-            if (!(v_ instanceof BooleanStruct)) {
-                return;
-            }
-            setSimpleArgumentAna(s_, _conf);
-        }
+        Struct abs_ = absorbingStruct();
+        QuickOperation.tryGetResult(_conf, this, abs_);
     }
     @Override
     public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -63,24 +39,5 @@ public abstract class ExecQuickOperation extends ExecReflectableOpering {
         return a_;
     }
 
-    @Override
-    public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isOkNumOp()) {
-            return;
-        }
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.last().getArgument();
-        setSimpleArgumentAna(a_, _conf);
-    }
-
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-        Argument a_ = chidren_.last().getArgument();
-        setSimpleArgument(a_, _conf);
-    }
-
-    abstract boolean absorbingValue();
     public abstract BooleanStruct absorbingStruct();
 }

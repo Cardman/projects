@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -121,8 +120,6 @@ public interface Analyzable {
     void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
     StringList getVariablesNames();
-    SortedClassField getCurrentInitizedField();
-    void setCurrentInitizedField(SortedClassField _field);
 
     boolean isAssignedStaticFields();
 
@@ -144,5 +141,4 @@ public interface Analyzable {
     void setKeyWords(KeyWords _keyWords);
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
-
 }

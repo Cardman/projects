@@ -2,9 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
@@ -12,10 +9,8 @@ import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -114,20 +109,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = ElUtil.getArgument(_nodes,getFirstChild());
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

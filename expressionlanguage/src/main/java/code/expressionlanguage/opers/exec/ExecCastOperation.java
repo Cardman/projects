@@ -80,19 +80,6 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         }
         setSimpleArgumentAna(arg_, _conf);
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(argres_, _conf);
-    }
 
     @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

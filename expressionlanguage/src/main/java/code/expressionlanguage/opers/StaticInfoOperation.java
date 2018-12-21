@@ -2,19 +2,16 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class StaticInfoOperation extends VariableLeafOperation {
+public final class StaticInfoOperation extends VariableLeafOperation implements ReductibleOperable {
 
     private String className;
 
@@ -70,23 +67,6 @@ public final class StaticInfoOperation extends VariableLeafOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument a_ = new Argument();
-        String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
     public String getClassName() {

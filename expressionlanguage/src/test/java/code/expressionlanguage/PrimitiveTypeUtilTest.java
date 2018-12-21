@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,6 +11,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.Numbers;
 import code.util.StringList;
@@ -938,7 +940,7 @@ public class PrimitiveTypeUtilTest {
         Struct[] instance_ = customArray_.getInstance();
         assertEq(1, instance_.length);
         Struct elt_ = instance_[0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
     }
 
     @Test
@@ -950,9 +952,9 @@ public class PrimitiveTypeUtilTest {
         Struct[] instance_ = customArray_.getInstance();
         assertEq(2, instance_.length);
         Struct elt_ = instance_[0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = instance_[1];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
     }
 
     @Test
@@ -968,21 +970,21 @@ public class PrimitiveTypeUtilTest {
         Struct[] subInstance_ = subArray_.getInstance();
         assertEq(3, subInstance_.length);
         Struct elt_ = subInstance_[0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = subInstance_[1];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = subInstance_[2];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         subArray_ = (ArrayStruct) instance_[1];
         assertEq(ARR_CUST_CLASS, subArray_.getClassName());
         subInstance_ = subArray_.getInstance();
         assertEq(3, subInstance_.length);
         elt_ = subInstance_[0];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = subInstance_[1];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
         elt_ = subInstance_[2];
-        assertTrue(elt_.isNull());
+        assertSame(NullStruct.NULL_VALUE,elt_);
     }
     @Test
     public void getSuperTypesSet1Test() {

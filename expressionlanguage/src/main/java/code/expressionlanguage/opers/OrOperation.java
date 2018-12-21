@@ -79,11 +79,6 @@ public final class OrOperation extends QuickOperation {
         vars_.getMutableLoop().put(this, mutableAfter_);
     }
     @Override
-    boolean absorbingValue() {
-        return true;
-    }
-
-    @Override
     public BooleanStruct absorbingStruct() {
         return new BooleanStruct(true);
     }

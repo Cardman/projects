@@ -609,7 +609,8 @@ public final class Navigation {
                 return;
             }
             if (!message_.isNull()) {
-                Message messageTr_ = (Message) message_.getObject();
+                StdStruct std_ = (StdStruct) message_.getStruct();
+                Message messageTr_ = (Message) std_.getInstance();
                 errors_.put(id_, messageTr_.format());
                 errorsArgs_.put(id_, messageTr_.getArgs());
             }

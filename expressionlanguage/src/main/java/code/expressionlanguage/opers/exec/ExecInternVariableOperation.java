@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -16,10 +15,6 @@ public final class ExecInternVariableOperation extends ExecLeafOperation impleme
     public ExecInternVariableOperation(InternVariableOperation _i) {
         super(_i);
         variableName = _i.getVariableName();
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
     }
 
     @Override

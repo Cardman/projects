@@ -3,6 +3,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -12,7 +14,7 @@ import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
-public abstract class MethodOperation extends OperationNode {
+public abstract class MethodOperation extends OperationNode implements ReductibleOperable {
 
     private OperationNode firstChild;
 
@@ -259,6 +261,18 @@ public abstract class MethodOperation extends OperationNode {
             }
             child_ = sibling_;
         }
+    }
+
+    @Override
+    public final CustList<Operable> getChildrenOperable() {
+        CustList<Operable> list_ = new CustList<Operable>();
+        OperationNode firstChild_ = getFirstChild();
+        OperationNode elt_ = firstChild_;
+        while (elt_ != null) {
+            list_.add(elt_);
+            elt_ = elt_.getNextSibling();
+        }
+        return list_;
     }
     public final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

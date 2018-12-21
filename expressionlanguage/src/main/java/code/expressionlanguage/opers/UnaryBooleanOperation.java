@@ -1,13 +1,9 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -17,7 +13,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
@@ -51,20 +46,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = ElUtil.getArgument(_nodes,chidren_.first());
-        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = o_.getInstance();
-        b_ = !b_;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-
-    @Override
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
@@ -74,18 +55,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         Argument a_ = new Argument();
         a_.setObject(b_);
         setSimpleArgumentAna(a_, _conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = o_.getInstance();
-        b_ = !b_;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        setSimpleArgument(a_, _conf);
     }
 
     @Override

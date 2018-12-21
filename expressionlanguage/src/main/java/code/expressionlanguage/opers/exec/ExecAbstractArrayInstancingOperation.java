@@ -36,21 +36,6 @@ public abstract class ExecAbstractArrayInstancingOperation extends ExecAbstractI
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        Argument res_;
-        res_ = argres_;
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
-    }
     abstract Argument getArgument(CustList<Argument> _arguments,
             ExecutableCode _conf);
 }

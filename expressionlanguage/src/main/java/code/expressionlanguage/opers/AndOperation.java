@@ -25,11 +25,6 @@ public final class AndOperation extends QuickOperation {
     }
 
     @Override
-    boolean absorbingValue() {
-        return false;
-    }
-
-    @Override
     public BooleanStruct absorbingStruct() {
         return new BooleanStruct(false);
     }

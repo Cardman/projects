@@ -3281,7 +3281,6 @@ public final class ElResolver {
         }
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThis_ = keyWords_.getKeyWordThis();
@@ -3411,16 +3410,6 @@ public final class ElResolver {
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
-        }
-        if (_conf.isInternGlobal()) {
-            if (StringList.quickEq(sub_, keyWordIntern_)) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.WORD);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string, firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
         }
         if (StringList.quickEq(sub_, keyWordNull_)) {
             OperationsSequence op_ = new OperationsSequence();

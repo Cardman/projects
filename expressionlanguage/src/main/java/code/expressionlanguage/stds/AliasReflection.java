@@ -11,7 +11,7 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -1368,7 +1368,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                Struct out_ = InvokingOperation.getElement(inst_, (NumberStruct)args_[1], _cont);
+                Struct out_ = ExecInvokingOperation.getElement(inst_, (NumberStruct)args_[1], _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }
@@ -1378,7 +1378,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
                 Struct value_ = args_[2];
-                InvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont);
+                ExecInvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }

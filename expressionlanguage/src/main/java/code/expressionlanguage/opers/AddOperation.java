@@ -33,12 +33,6 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
-        return localSumDiff(_a, _op, _b, _cont);
-    }
-
-
-    @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
         if (!catString) {
             if (_a.isNull() || _b.isNull()) {

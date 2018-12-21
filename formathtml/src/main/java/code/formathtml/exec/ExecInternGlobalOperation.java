@@ -1,9 +1,7 @@
-package code.expressionlanguage.opers.exec;
+package code.formathtml.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.InternGlobalOperation;
 import code.expressionlanguage.structs.Struct;
 
 public final class ExecInternGlobalOperation extends ExecLeafOperation implements DirectExecCalculableOperation {
@@ -11,11 +9,6 @@ public final class ExecInternGlobalOperation extends ExecLeafOperation implement
     public ExecInternGlobalOperation(InternGlobalOperation _i) {
         super(_i);
         off = _i.getOff();
-    }
-
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
     }
 
 

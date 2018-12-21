@@ -2,21 +2,14 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.StaticAccessThisError;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class ThisOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
@@ -127,45 +120,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
     }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
-        Struct struct_ = ip_.getGlobalArgument().getStruct();
-        a_ = new Argument();
-        a_.setStruct(struct_);
-        if (isIntermediateDottedOperation()) {
-            String c_ = getResultClass().getNames().first();
-            a_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors, c_, a_.getStruct(), _conf));
-        }
-        return a_;
-    }
-
 
     @Override
     public final void setIntermediateDotted() {

@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBinOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -54,29 +53,6 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
         ClassArgumentMatching res_ = getResultClass();
         out_.setStruct(NumberStruct.negBinNumber((NumberStruct)arg_.getStruct(), _conf, res_));
         setSimpleArgumentAna(out_, _conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (ExecOperationNode o: chidren_) {
-                arguments_.add(o.getArgument());
-            }
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        Argument arg_ = chidren_.first().getArgument();
-        Argument a_ = getArgument(_conf, arg_);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(a_, _conf);
     }
 
     Argument getArgument(ExecutableCode _conf,

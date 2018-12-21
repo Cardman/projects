@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBooleanOperation;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -39,18 +38,6 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
         Argument a_ = new Argument();
         a_.setObject(b_);
         setSimpleArgumentAna(a_, _conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Boolean b_ = o_.getInstance();
-        b_ = !b_;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        setSimpleArgument(a_, _conf);
     }
 
 }

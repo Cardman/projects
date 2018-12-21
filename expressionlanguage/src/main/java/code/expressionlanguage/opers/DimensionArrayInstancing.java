@@ -2,16 +2,13 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -107,47 +104,6 @@ public final class DimensionArrayInstancing extends
         a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
         setSimpleArgumentAna(a_, _conf);
     }
-    @Override
-    Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf) {
-        String m_ = getMethodName();
-        LgNames stds_ = _conf.getStandards();
-        String size_;
-        size_ = stds_.getAliasBadSize();
-        CustList<OperationNode> filter_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(m_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_ = getClassName();
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className_, _conf);
-        className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
-
-        int[] args_;
-
-        args_ = new int[filter_.size()];
-        int i_ = CustList.FIRST_INDEX;
-        for (OperationNode o: filter_) {
-            NumberStruct n_ = (NumberStruct)_arguments.get(i_).getStruct();
-            setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-            int dim_ = n_.getInstance().intValue();
-            if (dim_ < 0) {
-                _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
-                Argument a_ = new Argument();
-                return a_;
-            }
-            args_[i_] = dim_;
-            i_++;
-        }
-        Argument a_ = new Argument();
-        Numbers<Integer> dims_;
-        dims_ = new Numbers<Integer>();
-        for (int d: args_) {
-            dims_.add(d);
-        }
-        a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
-        return a_;
-    }
-
     public int getCountArrayDims() {
         return countArrayDims;
     }

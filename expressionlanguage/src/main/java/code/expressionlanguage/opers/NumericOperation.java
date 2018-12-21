@@ -1,17 +1,12 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -24,7 +19,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -162,36 +156,8 @@ public abstract class NumericOperation extends ReflectableOpering {
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
-    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _an);
 
-    @Override
-    public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode o_ = chidren_.first();
-        Argument a_ = ElUtil.getArgument(_nodes,o_);
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
-        o_ = chidren_.last();
-        Argument c_ = ElUtil.getArgument(_nodes,o_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
-        if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (OperationNode o: chidren_) {
-                arguments_.add(ElUtil.getArgument(_nodes, o));
-            }
-            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
-            return Argument.createVoid();
-        }
-        Argument r_;
-        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
-        a_ = r_;
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
     @Override
     public void quickCalculate(Analyzable _conf) {
         if (classMethodId != null || !_conf.isOkNumOp()) {
@@ -208,34 +174,6 @@ public abstract class NumericOperation extends ReflectableOpering {
         }
         a_ = r_;
         setSimpleArgumentAna(a_, _conf);
-    }
-    @Override
-    public final void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.first().getArgument();
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
-        Argument c_ = chidren_.last().getArgument();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
-        if (classMethodId != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (OperationNode o: chidren_) {
-                arguments_.add(o.getArgument());
-            }
-            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        Argument r_;
-        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        a_ = r_;
-        setSimpleArgument(a_, _conf);
     }
 
     @Override

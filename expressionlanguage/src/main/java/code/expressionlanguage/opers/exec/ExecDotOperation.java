@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.DotOperation;
 import code.util.CustList;
@@ -43,23 +42,5 @@ public final class ExecDotOperation extends ExecReflectableOpering {
             return;
         }
         setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        boolean simple_ = false;
-        if (getParent() instanceof ExecSemiAffectationOperation) {
-            simple_ = false;
-        } else if (getParent() instanceof ExecAffectationOperation) {
-            ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
-            if (aff_.getSettable() == chidren_.last()) {
-                simple_ = true;
-            }
-        }
-        if (simple_) {
-            setQuickSimpleArgument(chidren_.last().getArgument(), _conf);
-        } else {
-            setSimpleArgument(chidren_.last().getArgument(), _conf);
-        }
     }
 }

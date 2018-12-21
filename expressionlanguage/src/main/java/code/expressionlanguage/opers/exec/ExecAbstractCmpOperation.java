@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractCmpOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -49,24 +47,6 @@ public abstract class ExecAbstractCmpOperation extends ExecReflectableOpering {
     abstract void quickCalculateNotNull(Analyzable _conf);
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        if (classMethodId != null) {
-            CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            for (ExecOperationNode o: chidren_) {
-                arguments_.add(o.getArgument());
-            }
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
-            setSimpleArgument(res_, _conf);
-            return;
-        }
-        calculateCmp(_conf);
-    }
-    @Override
     public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         if (classMethodId != null) {
@@ -81,7 +61,6 @@ public abstract class ExecAbstractCmpOperation extends ExecReflectableOpering {
         return calculateCmp(_nodes, _conf);
     }
     abstract Argument calculateCmp(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf);
-    abstract void calculateCmp(ExecutableCode _conf);
 
     public String getOp() {
         return op;

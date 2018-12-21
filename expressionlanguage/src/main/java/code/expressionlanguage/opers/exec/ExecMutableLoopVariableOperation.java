@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -29,24 +28,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         catString = _v.isCatString();
         variableName  = _v.getVariableName();
         off = _v.getOff();
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
     }
 
     @Override
@@ -87,15 +68,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
@@ -105,19 +77,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
     }
 
     @Override
@@ -132,18 +91,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         return arg_;
     }
 
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
     Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
@@ -200,10 +147,7 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         return endCalculate(_conf, _nodes, false, null, _right);
     }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
+
     @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
@@ -216,15 +160,5 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         setSimpleArgument(out_, _conf, _nodes);
         return out_;
     }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
-        return out_;
-    }
+
 }

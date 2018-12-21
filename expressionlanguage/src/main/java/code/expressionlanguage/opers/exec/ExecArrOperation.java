@@ -93,22 +93,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         return a_;
     }
 
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        int max_ = chidren_.size();
-        if (resultCanBeSet()) {
-            max_--;
-        }
-        Argument a_ = getArgument(max_, _conf);
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(a_, _conf);
-        } else {
-            setSimpleArgument(a_, _conf);
-        }
-    }
-
     Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Struct array_;
@@ -152,21 +136,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        ExecOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
@@ -185,24 +154,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     }
 
     @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        ExecOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
     public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
@@ -218,24 +169,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         a_.setStruct(semiAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op, _post, _conf));
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
-    }
-
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        ExecOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(a_, _conf);
     }
 
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
@@ -288,10 +221,7 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         return endCalculate(_conf, _nodes, false, null, _right);
     }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
+
     @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
@@ -305,24 +235,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(out_, _conf, _nodes);
-        return out_;
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        ExecOperationNode lastElement_ = chidren_.last();
-        Argument index_ = lastElement_.getArgument();
-        ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
-        if (_conf.getContextEl().hasException()) {
-            return a_;
-        }
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
         return out_;
     }
 }

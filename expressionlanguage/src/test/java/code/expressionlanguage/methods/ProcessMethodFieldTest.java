@@ -60,7 +60,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
     @Test
@@ -111,7 +111,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(110, (Number)ret_.getObject());
+        assertEq(110, ret_.getNumber());
     }
 
     @Test
@@ -165,7 +165,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1110, (Number)ret_.getObject());
+        assertEq(1110, ret_.getNumber());
     }
 
     @Test
@@ -220,7 +220,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1110,(Number) ret_.getObject());
+        assertEq(1110,ret_.getNumber());
     }
 
     @Test
@@ -277,7 +277,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1110,(Number) ret_.getObject());
+        assertEq(1110,ret_.getNumber());
     }
 
     @Test
@@ -337,7 +337,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1210, (Number)ret_.getObject());
+        assertEq(1210, ret_.getNumber());
     }
 
     @Test
@@ -397,7 +397,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1210, (Number)ret_.getObject());
+        assertEq(1210, ret_.getNumber());
     }
 
     @Test
@@ -478,7 +478,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
 
     @Test
@@ -560,7 +560,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
 
     @Test
@@ -643,7 +643,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
 
     @Test
@@ -729,7 +729,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
 
     @Test
@@ -816,7 +816,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
 
     @Test
@@ -879,7 +879,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         args_.add(v_);
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(39916800, (Number)ret_.getObject());
+        assertEq(39916800, ret_.getNumber());
     }
 
     @Test
@@ -961,7 +961,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
 
     @Test
@@ -1049,7 +1049,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
 
     @Test
@@ -1100,7 +1100,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(110, (Number)ret_.getObject());
+        assertEq(110, ret_.getNumber());
     }
 
     @Test
@@ -1152,7 +1152,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(110, (Number)ret_.getObject());
+        assertEq(110, ret_.getNumber());
     }
 
     @Test
@@ -1209,7 +1209,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1110, (Number)ret_.getObject());
+        assertEq(1110, ret_.getNumber());
     }
 
     @Test
@@ -1271,7 +1271,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11110, (Number)ret_.getObject());
+        assertEq(11110, ret_.getNumber());
     }
 
     @Test
@@ -1333,7 +1333,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11110, (Number)ret_.getObject());
+        assertEq(11110, ret_.getNumber());
     }
 
     @Test
@@ -1400,7 +1400,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         v_.setObject(2);
         args_.add(v_);
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(-2, (Number)ret_.getObject());
+        assertEq(-2, ret_.getNumber());
     }
     @Test
     public void calculateArgument1046Test() {
@@ -1447,7 +1447,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument1047Test() {
@@ -1494,7 +1494,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument1048Test() {
@@ -1542,7 +1542,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
     @Test
@@ -1575,7 +1575,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(20, (Number)ret_.getObject());
+        assertEq(20, ret_.getNumber());
     }
     @Test
     public void calculateArgument1050Test() {
@@ -1608,7 +1608,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(20, (Number)ret_.getObject());
+        assertEq(20, ret_.getNumber());
     }
     @Test
     public void calculateArgument1051Test() {
@@ -1641,7 +1641,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(12, (Number)ret_.getObject());
+        assertEq(12, ret_.getNumber());
     }
     @Test
     public void calculateArgument1052Test() {
@@ -1673,7 +1673,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(12, (Number)ret_.getObject());
+        assertEq(12, ret_.getNumber());
     }
     @Test
     public void calculateArgument1053Test() {
@@ -1708,7 +1708,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(15, (Number)ret_.getObject());
+        assertEq(15, ret_.getNumber());
     }
     @Test
     public void calculateArgument1054Test() {
@@ -1743,6 +1743,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(16, (Number)ret_.getObject());
+        assertEq(16, ret_.getNumber());
     }
 }

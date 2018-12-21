@@ -2,17 +2,13 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -56,32 +52,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
     }
-    @Override
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument arg_ = _previous;
-        Struct inst_ = arg_.getStruct();
-        if (inst_ instanceof ArrayStruct) {
-            ArrayStruct arr_ = (ArrayStruct) inst_;
-            a_ = new Argument();
-            a_.setStruct(new IntStruct(arr_.getInstance().length));
-            return a_;
-        }
-        String npe_;
-        npe_ = _conf.getStandards().getAliasNullPe();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
-        String arrObj_ = _conf.getStandards().getAliasObject();
-        arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
-        a_ = new Argument();
-        return a_;
-    }
-
     @Override
     public void tryCalculateNode(Analyzable _conf) {
         Argument arg_ = getPreviousArgument();

@@ -11,6 +11,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -46,7 +47,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -71,7 +72,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg.ExTwo", (String)ret_.getObject());
+        assertEq("pkg.ExTwo", ret_.getString());
     }
 
     @Test
@@ -95,7 +96,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg.ExTwo", (String)ret_.getObject());
+        assertEq("pkg.ExTwo", ret_.getString());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.Boolean,true", (String)ret_.getObject());
+        assertEq("java.lang.Boolean,true", ret_.getString());
     }
 
     @Test
@@ -143,7 +144,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("[pkg.ExTwo", (String)ret_.getObject());
+        assertEq("[pkg.ExTwo", ret_.getString());
     }
 
     @Test
@@ -167,7 +168,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("[pkg.ExTwo", (String)ret_.getObject());
+        assertEq("[pkg.ExTwo", ret_.getString());
     }
 
     @Test
@@ -200,7 +201,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("1.7.", (String)ret_.getObject());
+        assertEq("1.7.", ret_.getString());
     }
 
     @Test
@@ -238,7 +239,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("100.1.", (String)ret_.getObject());
+        assertEq("100.1.", ret_.getString());
     }
 
     @Test
@@ -279,7 +280,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("100.1.", (String)ret_.getObject());
+        assertEq("100.1.", ret_.getString());
     }
 
     @Test
@@ -320,7 +321,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("100.1.", (String)ret_.getObject());
+        assertEq("100.1.", ret_.getString());
     }
 
     @Test
@@ -371,7 +372,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("1.100.", (String)ret_.getObject());
+        assertEq("1.100.", ret_.getString());
     }
 
     @Test
@@ -420,7 +421,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("-1.0.11.1.", (String)ret_.getObject());
+        assertEq("-1.0.11.1.", ret_.getString());
     }
 
     @Test
@@ -444,7 +445,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg.ExTwo", (String)ret_.getObject());
+        assertEq("pkg.ExTwo", ret_.getString());
     }
 
     @Test
@@ -468,7 +469,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg.ExTwo", (String)ret_.getObject());
+        assertEq("pkg.ExTwo", ret_.getString());
     }
     @Test
     public void calculateArgument15Test() {
@@ -952,7 +953,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "second"));
-        assertTrue(field_.isNull());
+        assertSame(NullStruct.NULL_VALUE,field_);
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "THREE"));
         assertEq("pkg.Ex<pkg.ExTwo>", str_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
@@ -988,7 +989,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -1018,7 +1019,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -1053,7 +1054,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
 
@@ -1094,7 +1095,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -1120,7 +1121,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -1146,7 +1147,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -1178,7 +1179,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
     @Test
@@ -1210,7 +1211,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     private static String getSecondCustomList() {
         StringBuilder xml_ = new StringBuilder();
