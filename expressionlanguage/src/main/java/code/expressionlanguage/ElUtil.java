@@ -576,6 +576,10 @@ public final class ElUtil {
                     current_ = null;
                     break;
                 }
+                if (exp_ == null) {
+                    current_ = null;
+                    break;
+                }
                 ExecMethodOperation par_ = exp_.getParent();
                 if (op_ == root_) {
                     if (par_ instanceof ExecAffectationOperation) {

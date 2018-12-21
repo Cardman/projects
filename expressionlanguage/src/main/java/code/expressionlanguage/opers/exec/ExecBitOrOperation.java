@@ -6,7 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.BitOrOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
-public final class ExecBitOrOperation extends ExecNumericOperation {
+public final class ExecBitOrOperation extends ExecStdNumericOperation {
 
     public ExecBitOrOperation(BitOrOperation _b) {
         super(_b);

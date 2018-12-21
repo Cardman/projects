@@ -1,5 +1,4 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -40,11 +39,6 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     }
     public String getClassName() {
         return className;
-    }
-
-
-    @Override
-    public void quickCalculate(Analyzable _conf) {
     }
 
     @Override

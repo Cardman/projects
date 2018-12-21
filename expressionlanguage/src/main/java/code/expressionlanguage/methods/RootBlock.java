@@ -143,7 +143,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         _an.getAvailableVariables().clear();
         _an.getAvailableVariables().addAllElts(varsList_);
-        _an.setDirectImport(false);
         Numbers<Integer> bi_ = _an.getCurrentBadIndexes();
         bi_.clear();
         StringList all_ = new StringList();

@@ -28,30 +28,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new StringStruct(str_.toString()));
                 return;
             }
-            if (StringList.quickEq(_op, "<=")) {
-                if (_args[0].sameReference(_args[1])) {
-                    _res.setResult(new BooleanStruct(true));
-                    return;
-                }
-                _res.setResult(quickCalculateLower(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, ">=")) {
-                if (_args[0].sameReference(_args[1])) {
-                    _res.setResult(new BooleanStruct(true));
-                    return;
-                }
-                _res.setResult(quickCalculateGreater(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, "<")) {
-                _res.setResult(quickCalculateLower(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, ">")) {
-                _res.setResult(quickCalculateGreater(_args[0], true, _args[1]));
-                return;
-            }
         }
         if (StringList.quickEq(_op, "++")) {
             IntStruct one_ = new IntStruct(1);
@@ -78,31 +54,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (StringList.quickEq(_op, "!")) {
             Boolean arg_ = ((BooleanStruct)_args[0]).getInstance();
             _res.setResult(new BooleanStruct(!arg_));
-            return;
-        }
-        
-        if (StringList.quickEq(_op, "<=")) {
-            if (_args[0].sameReference(_args[1])) {
-                _res.setResult(new BooleanStruct(true));
-                return;
-            }
-            _res.setResult(quickCalculateLower(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, ">=")) {
-            if (_args[0].sameReference(_args[1])) {
-                _res.setResult(new BooleanStruct(true));
-                return;
-            }
-            _res.setResult(quickCalculateGreater(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, "<")) {
-            _res.setResult(quickCalculateLower(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, ">")) {
-            _res.setResult(quickCalculateGreater(_args[0], false, _args[1]));
             return;
         }
         if (StringList.quickEq(_op, "!=")) {
@@ -720,26 +671,27 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             }
         }
     }
-    public static BooleanStruct quickCalculateLower(Struct _a, boolean _strCmp, Struct _b) {
-        if (_strCmp) {
-            String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-            String second_ = ((CharSequenceStruct)_b).getInstance().toString();
-            return new BooleanStruct(first_.compareTo(second_) < 0);
-        }
+    public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         Number a_ = ((NumberStruct) _a).getInstance();
         Number b_ = ((NumberStruct) _b).getInstance();
         return new BooleanStruct(Numbers.lt(a_, b_));
     }
 
-    public static BooleanStruct quickCalculateGreater(Struct _a, boolean _strCmp, Struct _b) {
-        if (_strCmp) {
-            String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-            String second_ = ((CharSequenceStruct)_b).getInstance().toString();
-            return new BooleanStruct(first_.compareTo(second_) > 0);
-        }
+    public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
         Number a_ = ((NumberStruct) _a).getInstance();
         Number b_ = ((NumberStruct) _b).getInstance();
         return new BooleanStruct(Numbers.gt(a_, b_));
+    }
+    public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
+        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
+        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        return new BooleanStruct(first_.compareTo(second_) < 0);
+    }
+
+    public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
+        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
+        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        return new BooleanStruct(first_.compareTo(second_) > 0);
     }
     public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();

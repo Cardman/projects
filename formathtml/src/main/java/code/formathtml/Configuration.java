@@ -7,6 +7,7 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ResultAfterInstKeyWord;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
@@ -817,7 +818,6 @@ public class Configuration implements ExecutableCode {
         return false;
     }
 
-    @Override
     public boolean isInternGlobal() {
         return getLastPage().isInternGlobal();
     }
@@ -908,16 +908,6 @@ public class Configuration implements ExecutableCode {
     public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field,
             Block _rooted) {
         return new ObjectMap<ClassField,Integer>();
-    }
-
-    @Override
-    public boolean isDirectImport() {
-        return context.isDirectImport();
-    }
-
-    @Override
-    public void setDirectImport(boolean _directImport) {
-        context.setDirectImport(_directImport);
     }
 
     @Override
@@ -1088,5 +1078,31 @@ public class Configuration implements ExecutableCode {
     @Override
     public boolean isValidToken(String _id) {
         return context.isValidToken(_id);
+    }
+
+    @Override
+    public void processInternKeyWord(String _string, int _fr,
+            ResultAfterInstKeyWord _out) {
+        KeyWords keyWords_ = getKeyWords();
+        String keyWordIntern_ = keyWords_.getKeyWordIntern();
+        String sub_ = _string.substring(_fr);
+        int i_ = _fr;
+        if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
+            if (isInternGlobal()) {
+                int afterSuper_ = i_ + keyWordIntern_.length();
+                String trim_ = _string.substring(afterSuper_).trim();
+                if (trim_.startsWith(".")) {
+                    while (true) {
+                        if (_string.charAt(afterSuper_) == '.') {
+                            //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                            break;
+                        }
+                        afterSuper_++;
+                    }
+                    i_ = afterSuper_;
+                    _out.setNextIndex(i_);
+                }
+            }
+        }
     }
 }

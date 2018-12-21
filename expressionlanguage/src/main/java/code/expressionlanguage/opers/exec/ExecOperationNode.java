@@ -46,6 +46,7 @@ import code.expressionlanguage.opers.InternVariableOperation;
 import code.expressionlanguage.opers.LambdaOperation;
 import code.expressionlanguage.opers.MultOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
+import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.OrOperation;
 import code.expressionlanguage.opers.RotateLeftOperation;
@@ -298,12 +299,22 @@ public abstract class ExecOperationNode implements Operable {
             CastOperation m_ = (CastOperation) _anaNode;
             return new ExecCastOperation(m_);
         }
+        if (_anaNode instanceof NumericOperation) {
+            NumericOperation n_ = (NumericOperation) _anaNode;
+            if (n_.getClassMethodId() != null || !n_.isOkNum()) {
+                ExecCustNumericOperation exec_ = new ExecCustNumericOperation(n_);
+                return exec_;
+            }
+        }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
             return new ExecMultOperation(m_);
         }
         if (_anaNode instanceof AddOperation) {
             AddOperation m_ = (AddOperation) _anaNode;
+            if (m_.isCatString()) {
+                return new ExecCatOperation(m_);
+            }
             return new ExecAddOperation(m_);
         }
         if (_anaNode instanceof ShiftLeftOperation) {
@@ -332,6 +343,15 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;
+            if (!c_.isOkNum()) {
+                new ExecCmpOperation(c_);
+            }
+            if (c_.getClassMethodId() == null) {
+                if (!c_.isStringCompare()) {
+                    return new ExecNbCmpOperation(c_);
+                }
+                return new ExecStrCmpOperation(c_);
+            }
             return new ExecCmpOperation(c_);
         }
         if (_anaNode instanceof InstanceOfOperation) {

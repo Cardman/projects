@@ -349,7 +349,11 @@ public abstract class ExecDynOperationNode implements Operable {
         }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;
-            return new ExecCmpOperation(c_);
+            if (!c_.isOkNum()) {
+                ErrorPartOperation err_ = new ErrorPartOperation(c_.getIndexInEl(), c_.getIndexChild(), c_.getParent(), c_.getOperations());
+                return new ExecErrorPartOperation(err_);
+            }
+            return new ExecAbstractCmpOperation(c_);
         }
         if (_anaNode instanceof InstanceOfOperation) {
             InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;

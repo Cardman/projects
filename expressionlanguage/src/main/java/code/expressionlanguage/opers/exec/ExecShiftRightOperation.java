@@ -6,7 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.ShiftRightOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
-public final class ExecShiftRightOperation extends ExecNumericOperation {
+public final class ExecShiftRightOperation extends ExecStdNumericOperation {
 
     public ExecShiftRightOperation(ShiftRightOperation _b) {
         super(_b);

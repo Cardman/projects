@@ -402,20 +402,20 @@ public final class AliasMath {
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(list_.first());
             result_.setResult(NumberStruct.calculateXor(args_[0], args_[1], _cont, clArg_));
         } else if (StringList.quickEq(name_, am_.aliasLt)) {
-            result_.setResult(NumberStruct.quickCalculateLower(args_[0], false, args_[1]));
+            result_.setResult(NumberStruct.quickCalculateLowerNb(args_[0], args_[1]));
         } else if (StringList.quickEq(name_, am_.aliasGt)) {
-            result_.setResult(NumberStruct.quickCalculateGreater(args_[0], false, args_[1]));
+            result_.setResult(NumberStruct.quickCalculateGreaterNb(args_[0], args_[1]));
         } else if (StringList.quickEq(name_, am_.aliasLe)) {
             if (args_[0].sameReference(args_[1])) {
                 result_.setResult(new BooleanStruct(true));
             } else {
-                result_.setResult(NumberStruct.quickCalculateLower(args_[0], false, args_[1]));
+                result_.setResult(NumberStruct.quickCalculateLowerNb(args_[0], args_[1]));
             }
         } else if (StringList.quickEq(name_, am_.aliasGe)) {
             if (args_[0].sameReference(args_[1])) {
                 result_.setResult(new BooleanStruct(true));
             } else {
-                result_.setResult(NumberStruct.quickCalculateGreater(args_[0], false, args_[1]));
+                result_.setResult(NumberStruct.quickCalculateGreaterNb(args_[0], args_[1]));
             }
         } else if (StringList.quickEq(name_, am_.aliasShiftLeft)) {
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(list_.first());

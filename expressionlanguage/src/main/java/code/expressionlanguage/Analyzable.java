@@ -85,7 +85,7 @@ public interface Analyzable {
     boolean isMerged();
     Struct getInternGlobal();
     String getInternGlobalClass();
-    boolean isInternGlobal();
+
 
     void setMerged(boolean _merged);
 
@@ -115,9 +115,6 @@ public interface Analyzable {
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
     String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
 
-    boolean isDirectImport();
-
-    void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
     StringList getVariablesNames();
 
@@ -141,4 +138,5 @@ public interface Analyzable {
     void setKeyWords(KeyWords _keyWords);
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
+    void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);
 }

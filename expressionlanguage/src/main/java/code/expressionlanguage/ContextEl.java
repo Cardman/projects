@@ -1350,11 +1350,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isInternGlobal() {
-        return false;
-    }
-
-    @Override
     public Struct getInternGlobal() {
         return null;
     }
@@ -1457,7 +1452,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
@@ -1514,7 +1508,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
         if (resType_.trim().isEmpty()) {
@@ -1601,7 +1594,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
         if (resType_.trim().isEmpty()) {
@@ -1676,7 +1668,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
-        setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true);
         if (resType_.trim().isEmpty()) {
@@ -1710,7 +1701,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
-        setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
         String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false);
         if (resType_.trim().isEmpty()) {
@@ -2951,16 +2941,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isDirectImport() {
-        return analyzing.isDirectImport();
-    }
-
-    @Override
-    public void setDirectImport(boolean _directImport) {
-        analyzing.setDirectImport(_directImport);
-    }
-
-    @Override
     public StringList getAvailableVariables() {
         if (analyzing == null) {
             return new StringList();
@@ -3154,5 +3134,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
         }
         return true;
+    }
+
+    @Override
+    public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
     }
 }

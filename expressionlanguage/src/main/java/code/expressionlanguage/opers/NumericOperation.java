@@ -1,73 +1,30 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.StringList;
 
 public abstract class NumericOperation extends ReflectableOpering {
     private ClassMethodId classMethodId;
     private String op;
     private int opOffset;
+    private boolean okNum;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         op = _op.getOperators().firstValue();
         opOffset = _op.getOperators().firstKey();
-    }
-
-    static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
-        ResultErrorStd res_= new ResultErrorStd();
-        NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
-        return new Argument(res_.getResult());
-    }
-    static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
-        Argument o_;
-        if (StringList.quickEq(_op, Block.INCR)) {
-            o_ = new Argument(AddOperation.addOne((NumberStruct) _left.getStruct(), _conf, _arg));
-        } else {
-            o_ = new Argument(AddOperation.removeOne((NumberStruct) _left.getStruct(), _conf, _arg));
-        }
-        return o_;
-    }
-
-    static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
-        LgNames stds_ = _cont.getStandards();
-        String div_;
-        div_ = stds_.getAliasDivisionZero();
-        Struct res_ = NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
-        if (res_ == NullStruct.NULL_VALUE) {
-            _cont.setException(new ErrorStruct(_cont,div_));
-        }
-        return new Argument(res_);
-    }
-    static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
-        LgNames stds_ = _cont.getStandards();
-        String div_;
-        div_ = stds_.getAliasDivisionZero();
-        Struct res_ = NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, _order);
-        if (res_ == NullStruct.NULL_VALUE) {
-            _cont.setException(new ErrorStruct(_cont,div_));
-        }
-        return new Argument(res_);
     }
 
     static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, Analyzable _cont, ClassArgumentMatching _b) {
@@ -126,6 +83,7 @@ public abstract class NumericOperation extends ReflectableOpering {
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         ClassMethodIdReturn cust_ = getOperator(_conf, ops_.firstValue(), a_, c_);
+        okNum = true;
         if (cust_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
             String foundClass_ = cust_.getRealClass();
@@ -142,6 +100,7 @@ public abstract class NumericOperation extends ReflectableOpering {
         }
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
         setCatenize(r_);
+        okNum = _conf.isOkNumOp();
         a_ = r_.getResult();
         setResultClass(a_);
     }
@@ -160,7 +119,7 @@ public abstract class NumericOperation extends ReflectableOpering {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (classMethodId != null || !_conf.isOkNumOp()) {
+        if (classMethodId != null || !okNum) {
             return;
         }
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -195,4 +154,7 @@ public abstract class NumericOperation extends ReflectableOpering {
         return opOffset;
     }
     
+    public boolean isOkNum() {
+        return okNum;
+    }
 }

@@ -151,6 +151,9 @@ public final class ElRenderUtil {
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
                 ExecDynOperationNode loc_ = (ExecDynOperationNode) ExecDynOperationNode.createExecOperationNode(op_, _an);
+                if (!(exp_ instanceof ExecMethodOperation)) {
+                    return out_;
+                }
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -171,6 +174,9 @@ public final class ElRenderUtil {
                 if (op_ != null) {
                     ExecDynOperationNode loc_ = (ExecDynOperationNode) ExecDynOperationNode.createExecOperationNode(op_, _an);
                     ExecMethodOperation par_ = exp_.getParent();
+                    if (par_ == null) {
+                        return out_;
+                    }
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof DotOperation) {
                         exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
@@ -358,7 +364,7 @@ public final class ElRenderUtil {
         return op_;
     }
     private static OperationsSequence getOperationsSequence(int _offset, String _string,
-            Analyzable _conf, Delimiters _d) {
+            Configuration _conf, Delimiters _d) {
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
@@ -394,7 +400,7 @@ public final class ElRenderUtil {
         return ElResolver.getOperationsSequence(_offset, _string, _conf, _d);
     }
     private static OperationNode createOperationNode(int _index,
-            int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
+            int _indexChild, MethodOperation _m, OperationsSequence _op, Configuration _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         if (_op.getOperators().isEmpty()) {

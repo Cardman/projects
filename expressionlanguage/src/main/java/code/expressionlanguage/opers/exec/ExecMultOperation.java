@@ -7,7 +7,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;
 
 
-public final class ExecMultOperation extends ExecNumericOperation {
+public final class ExecMultOperation extends ExecStdNumericOperation {
 
     public ExecMultOperation(MultOperation _m) {
         super(_m);

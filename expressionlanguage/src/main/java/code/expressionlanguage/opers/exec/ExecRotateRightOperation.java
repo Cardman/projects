@@ -6,7 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.RotateRightOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
-public final class ExecRotateRightOperation extends ExecNumericOperation {
+public final class ExecRotateRightOperation extends ExecStdNumericOperation {
 
     public ExecRotateRightOperation(RotateRightOperation _r) {
         super(_r);

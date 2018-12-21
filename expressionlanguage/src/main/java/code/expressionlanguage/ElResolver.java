@@ -328,7 +328,6 @@ public final class ElResolver {
         String keyWordId_ = keyWords_.getKeyWordId();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String keyWordLambda_ = keyWords_.getKeyWordLambda();
         String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordNull_ = keyWords_.getKeyWordNull();
@@ -1034,23 +1033,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
-            if (_conf.isInternGlobal()) {
-                int afterSuper_ = i_ + keyWordIntern_.length();
-                String trim_ = _string.substring(afterSuper_).trim();
-                if (trim_.startsWith(String.valueOf(DOT_VAR))) {
-                    while (true) {
-                        if (_string.charAt(afterSuper_) == DOT_VAR) {
-                            //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                            break;
-                        }
-                        afterSuper_++;
-                    }
-                    i_ = afterSuper_;
-                    _out.setNextIndex(i_);
-                }
-            }
-        }
+        _conf.processInternKeyWord(_string, i_, _out);
     }
     private static void processWords(String _string,Delimiters _d, ResultAfterDoubleDotted _out,Analyzable _an) {
         Delimiters d_ = _d;

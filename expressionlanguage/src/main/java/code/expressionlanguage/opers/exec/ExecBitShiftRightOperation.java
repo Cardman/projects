@@ -6,7 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.BitShiftRightOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
-public final class ExecBitShiftRightOperation extends ExecNumericOperation {
+public final class ExecBitShiftRightOperation extends ExecStdNumericOperation {
 
     public ExecBitShiftRightOperation(BitShiftRightOperation _b) {
         super(_b);
