@@ -1,4 +1,4 @@
-package aiki;
+package aiki.db;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -128,6 +128,7 @@ import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.TypeStatistic;
+import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.maths.LgInt;
@@ -156,7 +157,6 @@ import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
 import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
-import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SelectedBoolean;
 
 public class DataBase implements WithMathFactory {
@@ -3976,7 +3976,7 @@ public class DataBase implements WithMathFactory {
     public static void deleteLineReturn(StringMap<String> _map) {
         for (EntryCust<String, String> e : _map.entryList()) {
             String value_ = e.getValue();
-            e.setValue(StringList.removeStrings(value_, Constants.RETURN_LINE));
+            e.setValue(StringList.removeStrings(value_, RETURN_LINE));
         }
     }
 
@@ -3984,7 +3984,7 @@ public class DataBase implements WithMathFactory {
             ListableEntries<ImageHeroKey, String> _map) {
         for (EntryCust<ImageHeroKey, String> e : _map.entryList()) {
             String value_ = e.getValue();
-            e.setValue(StringList.removeStrings(value_, Constants.RETURN_LINE));
+            e.setValue(StringList.removeStrings(value_, RETURN_LINE));
         }
     }
 

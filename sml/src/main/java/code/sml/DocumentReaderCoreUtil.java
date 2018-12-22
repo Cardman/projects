@@ -3,7 +3,6 @@ package code.sml;
 import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -120,10 +119,10 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static EqList<Numbers<Byte>> getListListByte(Element _elt) {
+    public static CustList<Numbers<Byte>> getListListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        EqList<Numbers<Byte>> list_ = new EqList<Numbers<Byte>>(new CollCapacity(len_));
+        CustList<Numbers<Byte>> list_ = new CustList<Numbers<Byte>>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getListByte(c));
         }

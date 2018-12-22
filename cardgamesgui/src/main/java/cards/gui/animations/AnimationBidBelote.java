@@ -7,8 +7,8 @@ import cards.belote.GameBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -48,7 +48,7 @@ public final class AnimationBidBelote extends Thread {
                 break;
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
-            Constants.sleep(delaiContrat_);
+            ThreadUtil.sleep(delaiContrat_);
             BidBeloteSuit contrat_=partie_.strategieContrat(lg_);
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);

@@ -1,13 +1,15 @@
-package code.util.pagination;
+package aiki.facade;
+
+import code.util.pagination.SelectedBoolean;
 
 
-public final class FieldComparator<T extends Comparable<T>> {
+public final class BooleanFieldComparator {
 
     private SelectedBoolean increasing = SelectedBoolean.YES_AND_NO;
 
     private int priority;
 
-    public int compare(T _o1, T _o2) {
+    public int compare(Boolean _o1, Boolean _o2) {
         if (increasing == SelectedBoolean.YES) {
             return _o1.compareTo(_o2);
         }

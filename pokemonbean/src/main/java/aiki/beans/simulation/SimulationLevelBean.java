@@ -1,9 +1,9 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.comparators.ComparatorPoint;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -20,10 +20,10 @@ import aiki.map.places.Road;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class SimulationLevelBean extends CommonBean {
     private TreeMap<Point,String> tiles;
@@ -40,7 +40,7 @@ public class SimulationLevelBean extends CommonBean {
     public void beforeDisplaying() {
         levelIndex = CustList.INDEX_NOT_FOUND_ELT;
         tiles = new TreeMap<Point, String>(new ComparatorPoint());
-        noFight = (Integer) getForms().getVal(NO_FIGHT);
+        noFight = ((Number) getForms().getVal(NO_FIGHT)).intValue();
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
         for (Short i: data_.getMap().getPlaces().getKeys()) {

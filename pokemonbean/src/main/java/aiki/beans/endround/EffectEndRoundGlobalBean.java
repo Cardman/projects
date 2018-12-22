@@ -1,5 +1,5 @@
 package aiki.beans.endround;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;

@@ -1,5 +1,5 @@
 package aiki.beans.pokemon.evolutions;
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 public class EvolutionHappinessBean extends EvolutionBean {
     private long min;

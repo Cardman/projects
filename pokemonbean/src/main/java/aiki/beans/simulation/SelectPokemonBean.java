@@ -1,17 +1,17 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.PokemonLine;
 import aiki.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SelectedBoolean;
 
 public class SelectPokemonBean extends CommonBean {

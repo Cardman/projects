@@ -16,10 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
-import aiki.DataBase;
-import aiki.ImageHeroKey;
-import aiki.Resources;
 import aiki.beans.PokemonStandards;
+import aiki.db.DataBase;
+import aiki.db.ImageHeroKey;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
@@ -74,6 +74,7 @@ import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.gui.Clock;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.FileOpenDialog;
 import code.gui.FileSaveDialog;
 import code.gui.GroupFrame;
@@ -99,7 +100,6 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler

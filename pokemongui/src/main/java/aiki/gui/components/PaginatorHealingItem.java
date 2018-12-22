@@ -7,7 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.HealingItemLabel;

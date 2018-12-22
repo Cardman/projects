@@ -764,10 +764,6 @@ public class Configuration implements ExecutableCode {
         return context.isGearConst();
     }
 
-    public void setGearConst(boolean _gearConst) {
-        context.setGearConst(_gearConst);
-    }
-
     @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return context.getLocalVariables();

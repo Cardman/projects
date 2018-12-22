@@ -538,7 +538,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         return getOtherStructClassName(_struct, _context);
     }
-    public final String getSimpleStructClassName(Object _struct) {
+    private String getSimpleStructClassName(Object _struct) {
         if (_struct instanceof Double) {
             return getAliasDouble();
         }

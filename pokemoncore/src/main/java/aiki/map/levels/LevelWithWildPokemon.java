@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.characters.CharacterInRoadCave;

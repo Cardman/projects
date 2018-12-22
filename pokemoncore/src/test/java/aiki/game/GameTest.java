@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.ImageHeroKey;
 import aiki.comments.Comment;
+import aiki.db.ImageHeroKey;
 import aiki.fight.enums.Statistic;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.FightFacade;

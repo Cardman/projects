@@ -12,6 +12,7 @@ import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.LaunchingCards;
 import cards.president.GamePresident;
 import cards.tarot.GameTarot;
+import code.gui.ConstFiles;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
@@ -19,7 +20,6 @@ import code.gui.TopLeftFrame;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public class LaunchingPokecards extends SoftApplicationCore {
 

@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
 
 

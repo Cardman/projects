@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;

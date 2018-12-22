@@ -13,10 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
-import aiki.DataBase;
-import aiki.Resources;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
+import aiki.db.DataBase;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
 import aiki.game.Game;
@@ -81,6 +81,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -98,7 +99,6 @@ import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public class ScenePanel extends Panel {
 

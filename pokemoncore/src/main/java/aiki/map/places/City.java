@@ -1,6 +1,6 @@
 package aiki.map.places;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;

@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCommonStatistics;
 import code.util.EnumMap;

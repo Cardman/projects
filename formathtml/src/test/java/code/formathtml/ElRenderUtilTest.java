@@ -170,7 +170,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("'\\\\'",0, context_);
         
         
-        assertEq((int)'\\', arg_.getNumber());
+        assertEq('\\', arg_.getNumber());
     }
 
     @Test
@@ -180,7 +180,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("'\\''",0, context_);
         
         
-        assertEq((int)'\'', arg_.getNumber());
+        assertEq('\'', arg_.getNumber());
     }
 
     @Test
@@ -190,7 +190,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("'\"'",0, context_);
         
         
-        assertEq((int)'"', arg_.getNumber());
+        assertEq('"', arg_.getNumber());
     }
 
     @Test
@@ -200,7 +200,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("'\\n'",0, context_);
         
         
-        assertEq((int)'\n', arg_.getNumber());
+        assertEq('\n', arg_.getNumber());
     }
 
     @Test

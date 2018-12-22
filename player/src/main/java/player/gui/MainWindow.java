@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -21,7 +22,9 @@ import code.gui.PackingWindowAfter;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.SetStyle;
+import code.gui.ThreadUtil;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
@@ -37,7 +40,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.mainwindow";
@@ -211,7 +213,7 @@ public class MainWindow extends GroupFrame {
                         c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                     } else {
                         String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                        c_ = StreamSoundFile.openClip(txt_);
+                        c_ = openClip(txt_);
                     }
                     while (true) {
                         if (c_ != null) {
@@ -225,7 +227,7 @@ public class MainWindow extends GroupFrame {
                             c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                         } else {
                             String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                            c_ = StreamSoundFile.openClip(txt_);
+                            c_ = openClip(txt_);
                         }
                     }
                     if (songsList.isEmpty()) {
@@ -286,7 +288,7 @@ public class MainWindow extends GroupFrame {
                         c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                     } else {
                         String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                        c_ = StreamSoundFile.openClip(txtIn_);
+                        c_ = openClip(txtIn_);
                     }
                     while (true) {
                         if (c_ != null) {
@@ -300,7 +302,7 @@ public class MainWindow extends GroupFrame {
                             c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
                         } else {
                             String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
-                            c_ = StreamSoundFile.openClip(txtIn_);
+                            c_ = openClip(txtIn_);
                         }
                     }
                     clipStream = c_;
@@ -346,6 +348,23 @@ public class MainWindow extends GroupFrame {
         }
     }
 
+    public static ClipStream resourceClipSixtyFour(String _file) {
+        String content_ = ResourceFiles.ressourceFichier(_file);
+        return openClip(content_, null);
+    }
+
+    public static ClipStream resourceClipSixtyFour(String _file, LineListener _l) {
+        String content_ = ResourceFiles.ressourceFichier(_file);
+        return openClip(content_, _l);
+    }
+
+    public static ClipStream openClip(String _imageString) {
+        return StreamSoundFile.openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), null);
+    }
+
+    public static ClipStream openClip(String _imageString, LineListener _l) {
+        return StreamSoundFile.openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), _l);
+    }
     public void nextSong() {
         if (clipStream != null && !next) {
             lastFrame = 0;
@@ -473,7 +492,7 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        Constants.exit();
+        ThreadUtil.exit();
     }
 
     @Override

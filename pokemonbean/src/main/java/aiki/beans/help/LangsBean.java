@@ -1,5 +1,4 @@
 package aiki.beans.help;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorLanguageEnvType;
 import aiki.beans.facade.comparators.ComparatorLanguageGender;
@@ -7,6 +6,7 @@ import aiki.beans.facade.comparators.ComparatorLanguageSelectedBoolean;
 import aiki.beans.facade.comparators.ComparatorLanguageStatisic;
 import aiki.beans.facade.comparators.ComparatorLanguageString;
 import aiki.beans.facade.comparators.ComparatorLanguageTargetChoice;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;

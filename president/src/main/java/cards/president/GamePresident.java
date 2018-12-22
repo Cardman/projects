@@ -100,7 +100,7 @@ public final class GamePresident {
 
     private CustList<CustList<TrickPresident>> dealTricks = new CustList<CustList<TrickPresident>>();
 
-    private EqList<Numbers<Byte>> ranksDeals = new EqList<Numbers<Byte>>();
+    private CustList<Numbers<Byte>> ranksDeals = new CustList<Numbers<Byte>>();
 
     private NumberMap<Integer,NumberMap<Byte,Playing>> lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
 
@@ -2669,7 +2669,7 @@ public final class GamePresident {
         return dealTricks;
     }
 
-    public EqList<Numbers<Byte>> getRanksDeals() {
+    public CustList<Numbers<Byte>> getRanksDeals() {
         return ranksDeals;
     }
 

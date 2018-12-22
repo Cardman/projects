@@ -3,10 +3,8 @@ package code.formathtml.classes;
 import java.util.Iterator;
 
 import code.util.CustList;
-import code.util.EqList;
 import code.util.Numbers;
 import code.util.SimpleItr;
-import code.util.ints.Comparing;
 import code.util.ints.Displayable;
 import code.util.ints.Listable;
 
@@ -14,41 +12,9 @@ public class Ints implements Listable<Integer>, Displayable {
 
     private Numbers<Integer> ints = new Numbers<Integer>();
 
-    public void removeAllObj(Integer _obj) {
-        ints.removeAllObj(_obj);
-    }
-
-    public void removeObj(Integer _obj) {
-        ints.removeObj(_obj);
-    }
-
-    public CustList<Integer> intersect(CustList<Integer> _list) {
-        return ints.intersect(_list);
-    }
-
     @Override
     public void addAllElts(Listable<Integer> _c) {
         ints.addAllElts(_c);
-    }
-
-    public boolean containsObj(Integer _obj) {
-        return ints.containsObj(_obj);
-    }
-
-    public void sortElts(Comparing<Integer> _comp) {
-        ints.sortElts(_comp);
-    }
-
-    public int indexOfObj(Integer _obj) {
-        return ints.indexOfObj(_obj);
-    }
-
-    public int lastIndexOfObj(Integer _obj) {
-        return ints.lastIndexOfObj(_obj);
-    }
-
-    public void removeDuplicates() {
-        ints.removeDuplicates();
     }
 
     @Override
@@ -101,10 +67,6 @@ public class Ints implements Listable<Integer>, Displayable {
         return ints.isEmpty();
     }
 
-    public Numbers<Integer> indexesOfObj(Integer _element) {
-        return ints.indexesOfObj(_element);
-    }
-
     @Override
     public Iterator<Integer> iterator() {
         return ints.iterator();
@@ -118,10 +80,6 @@ public class Ints implements Listable<Integer>, Displayable {
     @Override
     public void add(Integer _e) {
         ints.add(_e);
-    }
-
-    public EqList<Numbers<Integer>> getAllIndexes() {
-        return ints.getAllIndexes();
     }
 
     @Override
@@ -186,26 +144,14 @@ public class Ints implements Listable<Integer>, Displayable {
         return ints.indexOfNull(_from);
     }
 
-    public void removeOneNumber(Number _n) {
-        ints.removeOneNumber(_n);
-    }
-
     @Override
     public int lastIndexOfNull() {
         return ints.lastIndexOfNull();
     }
 
-    public boolean contains(Number _element) {
-        return ints.contains(_element);
-    }
-
     @Override
     public Numbers<Integer> indexesOfNull() {
         return ints.indexesOfNull();
-    }
-
-    public int indexOf(Number _element) {
-        return ints.indexOf(_element);
     }
 
     @Override
@@ -226,16 +172,8 @@ public class Ints implements Listable<Integer>, Displayable {
         return ints.mid(_beginIndex, _nbElements);
     }
 
-    public int indexOfObj(Integer _element, int _from) {
-        return ints.indexOfObj(_element, _from);
-    }
-
     public void removeFirst() {
         ints.removeFirst();
-    }
-
-    public Numbers<Integer> indexesOfNumber(Integer _number) {
-        return ints.indexesOfNumber(_number);
     }
 
     public void removeLast() {
@@ -246,17 +184,9 @@ public class Ints implements Listable<Integer>, Displayable {
         return ints.mid(_beginIndex);
     }
 
-    public void removeAllNb(Integer _obj) {
-        ints.removeAllNb(_obj);
-    }
-
     @Override
     public Numbers<Integer> getReverse() {
         return ints.getReverse();
-    }
-
-    public boolean eq(Numbers<Integer> _g) {
-        return ints.eq(_g);
     }
 
     @Override

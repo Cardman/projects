@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
 import code.util.EntryCust;

@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharSequenceStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -422,8 +422,8 @@ final class ExtractObject {
 
     static String getLanguage(Configuration _conf, Struct _it) {
         Struct str_ = getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean());
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
@@ -434,8 +434,8 @@ final class ExtractObject {
 
     static String getScope(Configuration _conf, Struct _it) {
         Struct str_ = getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean());
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
@@ -511,8 +511,8 @@ final class ExtractObject {
         return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
-        if (_obj instanceof CharSequenceStruct) {
-            return ((CharSequenceStruct)_obj).getDisplayedString(_conf).getInstance();
+        if (_obj instanceof DisplayableStruct) {
+            return ((DisplayableStruct)_obj).getDisplayedString(_conf).getInstance();
         }
         ContextEl context_ = _conf.getContext();
         String method_;
@@ -527,8 +527,8 @@ final class ExtractObject {
             method_ = _conf.getStandards().getAliasToString();
         }
         Struct str_ = getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_));
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
@@ -538,9 +538,9 @@ final class ExtractObject {
     static boolean hasNext(Configuration _conf, Struct _it) {
         Boolean bool_;
         if (_it instanceof StdStruct) {
-            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
+            bool_ = ((BooleanStruct) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType())).getInstance();
         } else {
-            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
+            bool_ = ((BooleanStruct) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType())).getInstance();
         }
         if (bool_ == null) {
             return false;

@@ -1,12 +1,11 @@
-package code.util.comparators;
+package cards.gui.dialogs.help;
 import code.util.CustList;
-import code.util.Numbers;
 import code.util.ints.Comparing;
 
-public final class ComparatorListSizeElement implements Comparing<Numbers<Integer>> {
+public final class ComparatorListSizeElement implements Comparing<HelpIndexes> {
 
     @Override
-    public int compare(Numbers<Integer> _arg0, Numbers<Integer> _arg1) {
+    public int compare(HelpIndexes _arg0, HelpIndexes _arg1) {
         if (_arg0.size() < _arg1.size()) {
             return CustList.NO_SWAP_SORT;
         }

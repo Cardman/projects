@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;

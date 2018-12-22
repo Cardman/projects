@@ -84,41 +84,9 @@ public final class StdStruct implements Struct {
     }
 
     public static Struct wrapStd(Object _element, ContextEl _context) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
         BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        return StdStruct.newInstance(_element, lgNames_.getStructClassName(_element, _context));
+        String aliasObject_ = lgNames_.getAliasObject();
+        return wrapStd(_element, _context, aliasObject_);
     }
 
     public static Struct wrapStd(Object _element, ContextEl _context, String _alias) {

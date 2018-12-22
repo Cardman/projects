@@ -1,4 +1,4 @@
-package aiki;
+package aiki.db;
 
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;

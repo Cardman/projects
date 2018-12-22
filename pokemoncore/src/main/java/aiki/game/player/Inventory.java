@@ -1,5 +1,5 @@
 package aiki.game.player;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.maths.LgInt;
 import code.util.EntryCust;
 import code.util.NumberMap;

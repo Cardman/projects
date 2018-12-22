@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;

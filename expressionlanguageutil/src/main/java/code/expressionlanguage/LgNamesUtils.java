@@ -21,6 +21,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.resources.ResourceFiles;
 import code.util.CustList;
@@ -223,7 +224,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicBoolean at_ = new AtomicBoolean((Boolean)_args[0].getInstance());
+            AtomicBoolean at_ = new AtomicBoolean(((BooleanStruct)_args[0]).getInstance());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
@@ -235,7 +236,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicInteger at_ = new AtomicInteger(((Number)_args[0].getInstance()).intValue());
+            AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).getInstance().intValue());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
@@ -247,7 +248,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicLong at_ = new AtomicLong(((Number)_args[0].getInstance()).longValue());
+            AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).getInstance().longValue());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
@@ -263,14 +264,14 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasStart)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
                 thread_.start();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSleep)) {
                 try {
-                    Thread.sleep(((Number)_args[0].getInstance()).longValue());
+                    Thread.sleep(((NumberStruct)_args[0]).getInstance().longValue());
                     res_.setResult(new BooleanStruct(true));
                 } catch (InterruptedException _0) {
                     res_.setResult(new BooleanStruct(false));
@@ -278,7 +279,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 try {
                     boolean alive_ = thread_.isAlive();
                     thread_.join();
@@ -289,47 +290,47 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsInterrupted)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 boolean alive_ = thread_.isInterrupted();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasInterrupt)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 thread_.interrupt();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetId)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(thread_.getId()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetPriority)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsDaemon)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new BooleanStruct(thread_.isDaemon()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetPriority)) {
-                Thread thread_ = (Thread) _instance.getInstance();
-                thread_.setPriority(((Number)_args[0].getInstance()).intValue());
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                thread_.setPriority(((NumberStruct)_args[0]).getInstance().intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetDaemon)) {
-                Thread thread_ = (Thread) _instance.getInstance();
-                thread_.setDaemon((Boolean)_args[0].getInstance());
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                thread_.setDaemon(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -346,19 +347,19 @@ public class LgNamesUtils extends LgNames {
             }
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasLock)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 re_.lock();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasUnlock)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 re_.unlock();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.isHeldByCurrentThread();
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
@@ -367,7 +368,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
@@ -377,8 +378,8 @@ public class LgNamesUtils extends LgNames {
                     _cont.failInitEnums();
                     return res_;
                 }
-                AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
-                re_.set((Boolean)_args[0].getInstance());
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                re_.set(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -386,7 +387,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
                 return res_;
@@ -396,8 +397,8 @@ public class LgNamesUtils extends LgNames {
                     _cont.failInitEnums();
                     return res_;
                 }
-                AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
-                re_.set(((Number)_args[0].getInstance()).intValue());
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                re_.set(((NumberStruct)_args[0]).getInstance().intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -405,7 +406,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) _instance.getInstance();
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
                 return res_;
@@ -415,8 +416,8 @@ public class LgNamesUtils extends LgNames {
                     _cont.failInitEnums();
                     return res_;
                 }
-                AtomicLong re_ = (AtomicLong) _instance.getInstance();
-                re_.set(((Number)_args[0].getInstance()).longValue());
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                re_.set(((NumberStruct)_args[0]).getInstance().longValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

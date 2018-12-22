@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.IssueSimulation;

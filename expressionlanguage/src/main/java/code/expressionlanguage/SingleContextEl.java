@@ -1,38 +1,29 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 
-public class SingleContextEl extends ContextEl {
+public final class SingleContextEl extends ContextEl {
 
-    public SingleContextEl() {
-        // TODO Auto-generated constructor stub
-    }
+    private Initializer init;
 
-    public SingleContextEl(int _stackOverFlow) {
-        super(_stackOverFlow);
-        // TODO Auto-generated constructor stub
-    }
-
-    public SingleContextEl(DefaultLockingClass _lock, Initializer _init,
-            Options _options, KeyWords _keyWords) {
-        super(_lock, _init, _options, _keyWords);
-        // TODO Auto-generated constructor stub
+    public SingleContextEl(LgNames _stds) {
+        super(_stds, DEFAULT_TAB_WIDTH);
     }
 
     public SingleContextEl(int _stackOverFlow, DefaultLockingClass _lock,
-            Initializer _init, Options _options, KeyWords _keyWords) {
-        super(_stackOverFlow, _lock, _init, _options, _keyWords);
-        // TODO Auto-generated constructor stub
+            Initializer _init, Options _options, KeyWords _keyWords, LgNames _stds) {
+        super(_stackOverFlow, _lock, _options, _keyWords, _stds, DEFAULT_TAB_WIDTH);
+        init = _init;
     }
-
-    public SingleContextEl(ContextEl _context, String _className, String _name,
-            int _ordinal, ObjectMap<ClassField, Struct> _fields, Struct _parent) {
-        super(_context, _className, _name, _ordinal, _fields, _parent);
-        // TODO Auto-generated constructor stub
+    @Override
+    public void initError() {
+        setMemoryError(new ErrorStruct(this, getStandards().getAliasError()));
     }
-
+    @Override
+    public Initializer getInit() {
+        return init;
+    }
 }

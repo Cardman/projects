@@ -1,6 +1,6 @@
 package aiki.instances;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;

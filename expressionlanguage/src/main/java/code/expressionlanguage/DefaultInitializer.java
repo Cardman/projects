@@ -21,7 +21,7 @@ import code.util.StringList;
 public class DefaultInitializer implements Initializer {
 
     @Override
-    public Struct processInit(ContextEl _context, Struct _parent,
+    public final Struct processInit(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
@@ -59,7 +59,7 @@ public class DefaultInitializer implements Initializer {
     }
 
     @Override
-    public Struct processInitAnnot(ContextEl _context,
+    public final Struct processInitAnnot(ContextEl _context,
             String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);

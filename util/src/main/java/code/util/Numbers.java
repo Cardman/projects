@@ -1,10 +1,10 @@
 package code.util;
 import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class Numbers<T extends Number> extends AbEqList<T> implements Equallable<Numbers<T>>, Displayable {
+public final class Numbers<T extends Number> extends CustList<T> implements Displayable {
+
     private static final int DEFAULT_RADIX = 10;
     private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
@@ -44,17 +44,10 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
     }
 
     public static boolean equalsSetBytes(Listable<Byte> _list1,Listable<Byte> _list2) {
-        for (Number c: _list2) {
+        for (Byte c: _list2) {
             boolean contains_ = false;
-            for (Number d: _list1) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && eq(c, d)) {
+            for (Byte d: _list1) {
+                if (eq(c.byteValue(), d.byteValue())) {
                     contains_ = true;
                     break;
                 }
@@ -63,17 +56,10 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
                 return false;
             }
         }
-        for (Number c: _list1) {
+        for (Byte c: _list1) {
             boolean contains_ = false;
-            for (Number d: _list2) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && eq(c, d)) {
+            for (Byte d: _list2) {
+                if (eq(c.byteValue(), d.byteValue())) {
                     contains_ = true;
                     break;
                 }
@@ -85,17 +71,10 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return true;
     }
     public static boolean equalsSetShorts(Listable<Short> _list1,Listable<Short> _list2) {
-        for (Number c: _list2) {
+        for (Short c: _list2) {
             boolean contains_ = false;
-            for (Number d: _list1) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && eq(c, d)) {
+            for (Short d: _list1) {
+                if (eq(c.shortValue(), d.shortValue())) {
                     contains_ = true;
                     break;
                 }
@@ -104,17 +83,10 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
                 return false;
             }
         }
-        for (Number c: _list1) {
+        for (Short c: _list1) {
             boolean contains_ = false;
-            for (Number d: _list2) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && eq(c, d)) {
+            for (Short d: _list2) {
+                if (eq(c.shortValue(), d.shortValue())) {
                     contains_ = true;
                     break;
                 }
@@ -217,7 +189,15 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         }
         return CustList.EQ_CMP;
     }
-
+    public static int compareLg(long _nb1,long _nb2) {
+        if (_nb1 < _nb2) {
+            return CustList.NO_SWAP_SORT;
+        }
+        if (_nb1 > _nb2) {
+            return CustList.SWAP_SORT;
+        }
+        return CustList.EQ_CMP;
+    }
     public static byte[] wrapByteArray(byte... _ints) {
         return _ints;
     }
@@ -284,9 +264,9 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return -result_;
     }
 
-    public EqList<Numbers<Integer>> getAllIndexes() {
-        EqList<Numbers<Integer>> e_;
-        e_ = new EqList<Numbers<Integer>>();
+    public CustList<Numbers<Integer>> getAllIndexes() {
+        CustList<Numbers<Integer>> e_;
+        e_ = new CustList<Numbers<Integer>>();
         if (isEmpty()) {
             return e_;
         }
@@ -297,8 +277,8 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
             e_.add(nbs_);
         }
         for (int i = 1; i < sdims_; i++) {
-            EqList<Numbers<Integer>> newIndexes_;
-            newIndexes_ = new EqList<Numbers<Integer>>();
+            CustList<Numbers<Integer>> newIndexes_;
+            newIndexes_ = new CustList<Numbers<Integer>>();
             for (Numbers<Integer> p: e_) {
                 int d_ = get(i).intValue();
                 for (int j = 0; j < d_; j++) {
@@ -316,29 +296,6 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         //setModified();
         sortElts(new ComparatorNatNumber<T>());
     }
-
-//    @Override
-//    public void removeDuplicates() {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_ + 1;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (eq(get(i_),get(j_))) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
 
     public T getMinimum() {
         if (isEmpty()) {
@@ -368,29 +325,22 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return max_;
     }
 
-    public void removeOneNumber(Number _n) {
-        //setModified();
-        if (_n == null) {
-            removeObj(null);
-            return;
-        }
-        for (T e:this) {
-            if (e != null && eq(e,_n)) {
-                removeObj(e);
+    public void removeOneNumber(long _n) {
+        for (Number e:this) {
+            long lg_ = e.longValue();
+            if (eq(lg_,_n)) {
+                removeObj(lg_);
                 break;
             }
         }
     }
-    public boolean contains(Number _element) {
+    public boolean contains(long _element) {
         return indexOf(_element) != INDEX_NOT_FOUND_ELT;
     }
-    public int indexOf(Number _element) {
-        if (_element == null) {
-            return indexOfNull();
-        }
+    public int indexOf(long _element) {
         int index_ = FIRST_INDEX;
         for (T e:this) {
-            if (e != null && eq(_element,e)) {
+            if (_element == e.longValue()) {
                 return index_;
             }
             index_++;
@@ -424,7 +374,40 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return return_.toString();
     }
 
-    @Override
+    public void removeAllElements(Listable<T> _c) {
+        for (Number s: _c) {
+            long lg_ = s.longValue();
+            if (containsObj(lg_)) {
+                removeAllObj(lg_);
+            }
+        }
+    }
+
+    public void removeAllObj(long _obj) {
+        while (containsObj(_obj)) {
+            removeObj(_obj);
+        }
+    }
+
+    public void removeObj(long _obj) {
+        int index_ = indexOfObj(_obj);
+        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+            return;
+        }
+        removeAt(index_);
+    }
+    public boolean containsAllObj(Listable<T> _list) {
+        for (Number e: _list) {
+            long nb_ = e.longValue();
+            if (!containsObj(nb_)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean containsObj(long _obj) {
+        return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
+    }
     public Numbers<T> subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }
@@ -442,109 +425,64 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return new Numbers<T>(sub(_beginIndex, _beginIndex+_nbElements));
     }
 
-    @Override
-    public int indexOfObj(T _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
+    public void removeDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            long e_ = get(i_).longValue();
+            boolean rem_ = false;
+            int next_ = indexOfObj(e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
         }
+    }
+    public int indexOfObj(long _element) {
+        return indexOfObj(_element, FIRST_INDEX);
+    }
+    public int indexOfObj(long _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
-            T e_ = get(i);
-            if (e_ == null) {
-                continue;
-            }
+            long e_ = get(i).longValue();
             if (eq(_element, e_)) {
                 return i;
             }
         }
         return INDEX_NOT_FOUND_ELT;
     }
-
-//    @Override
-//    public Numbers<Integer> indexesOfObj(T _number) {
-//        Numbers<Integer> list_ = new Numbers<Integer>();
-//        int size_ = size();
-//        if (_number == null) {
-//            for (int i=FIRST_INDEX;i<size_;i++) {
-//                if (get(i) == _number) {
-//                    list_.add(i);
-//                }
-//            }
-//        } else {
-//            for (int i=FIRST_INDEX;i<size_;i++) {
-//                if (get(i) == null) {
-//                    continue;
-//                }
-//                if (eq(get(i),_number)) {
-//                    list_.add(i);
-//                }
-//            }
-//        }
-//        return list_;
-//    }
-
-    public Numbers<Integer> indexesOfNumber(T _number) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
-        int size_ = size();
-        if (_number == null) {
-            for (int i=FIRST_INDEX;i<size_;i++) {
-                if (get(i) == _number) {
-                    list_.add(i);
-                }
+    public Numbers<Integer> indexesOfObj(long _element) {
+        Numbers<Integer> indexes_;
+        indexes_ = new Numbers<Integer>();
+        int i_ = FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_element, i_);
+            if (found_ == INDEX_NOT_FOUND_ELT) {
+                break;
             }
-        } else {
-            for (int i=FIRST_INDEX;i<size_;i++) {
-                if (get(i) == null) {
-                    continue;
-                }
-                if (eq(get(i),_number)) {
-                    list_.add(i);
-                }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
+
+    public void removeAllLong(long _obj) {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            long elt_ = get(i_).longValue();
+            if (elt_ == _obj) {
+                remove(i_);
+            } else {
+                i_++;
             }
         }
-        return list_;
     }
-    public void removeAllNb(T _obj) {
-        //setModified();
-        while (contains(_obj)) {
-            removeObj(_obj);
-        }
-    }
-//    public static <K extends Number,L extends Number,V> V get(Map<K,V> _map, L _key) {
-//        for (EntryCust<K,V> k: _map.entryList()) {
-//            if (eq(k.getKey(),_key)) {
-//                return k.getValue();
-//            }
-//        }
-//        return null;
-//    }
-//
-//    public static <K extends Number,L extends Number,V> boolean containsKey(Map<K,V> _map, L _key) {
-//        for (EntryCust<K,V> k: _map.entryList()) {
-//            if (eq(k.getKey(),_key)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public static <K extends Number,L extends Number,V> void remove(Map<K,V> _map, L _key) {
-//        for (EntryCust<K,V> k: _map.entryList()) {
-//            if (eq(k.getKey(),_key)) {
-//                _map.remove(k);
-//                return;
-//            }
-//        }
-//    }
-//
-//    public static <K extends Number,L extends Number,V> void put(Map<K,V> _map, L _key, V _value) {
-//        for (EntryCust<K,V> k: _map.entryList()) {
-//            if (eq(k.getKey(),_key)) {
-//                k.setValueOnly(_value);
-//                return;
-//            }
-//        }
-//    }
 
     @Override
     public String display() {
@@ -565,31 +503,15 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return list_;
     }
 
-    @Override
-    public boolean eq(Numbers<T> _g) {
-        if (_g == null) {
-            return false;
-        }
-        int len_ = size();
-        if (_g.size() != len_) {
-            return false;
-        }
-        for (int i = FIRST_INDEX; i < len_; i++) {
-            T e_ = get(i);
-            T f_ = _g.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (f_ == null) {
-                return false;
-            }
-            if (!eq(e_, f_)) {
-                return false;
+    public void retainAllElements(Numbers<T> _c) {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            long e_ = get(i_).longValue();
+            if (!_c.containsObj(e_)) {
+                removeAt(i_);
+            } else {
+                i_++;
             }
         }
-        return true;
     }
 }

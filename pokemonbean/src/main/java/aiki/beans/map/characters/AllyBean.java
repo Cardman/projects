@@ -1,7 +1,7 @@
 package aiki.beans.map.characters;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -19,10 +19,10 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.characters.Ally;
 import aiki.map.pokemon.PkTrainer;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class AllyBean extends CommonBean {
     private Ally ally;

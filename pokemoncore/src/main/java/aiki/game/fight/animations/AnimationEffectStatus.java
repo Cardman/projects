@@ -1,5 +1,5 @@
 package aiki.game.fight.animations;
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 public class AnimationEffectStatus extends AnimationEffect {
 

@@ -1,5 +1,5 @@
 package aiki.beans.items;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.items.Fossil;
 import code.util.StringMap;
 

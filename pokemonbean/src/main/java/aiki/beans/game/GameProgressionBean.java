@@ -7,13 +7,13 @@ import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;
 import aiki.map.DataMap;
 import code.bean.Bean;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class GameProgressionBean extends Bean {
     private String heroImage;

@@ -1,7 +1,7 @@
 package aiki.game;
-import aiki.DataBase;
-import aiki.ImageHeroKey;
 import aiki.comments.Comment;
+import aiki.db.DataBase;
+import aiki.db.ImageHeroKey;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
@@ -1604,7 +1604,7 @@ public final class Game {
         StringList fullAccessiblePlaces_ = new StringList();
         for (Short c: accessiblePlaces_) {
             Place pl_ = map_.getPlaces().getVal(c);
-            if (inaccessiblePlaces_.containsObj(c)) {
+            if (inaccessiblePlaces_.containsObj(c.shortValue())) {
                 partiallyAccessiblePlaces_.add(pl_.getName());
             } else {
                 fullAccessiblePlaces_.add(pl_.getName());

@@ -1,7 +1,7 @@
 package aiki.beans.effects;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectEndRound;

@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
 import aiki.map.pokemon.PkTrainer;

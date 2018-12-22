@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.ImageHeroKey;
+import aiki.db.ImageHeroKey;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;

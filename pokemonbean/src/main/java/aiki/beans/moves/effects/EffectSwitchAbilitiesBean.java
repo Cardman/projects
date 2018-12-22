@@ -1,5 +1,5 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectSwitchAbilities;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import code.util.StringMap;

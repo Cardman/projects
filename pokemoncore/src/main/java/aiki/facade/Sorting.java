@@ -1,4 +1,4 @@
-package code.util.pagination;
+package aiki.facade;
 
 public interface Sorting {
 

@@ -1,8 +1,8 @@
 package aiki.beans.map;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;

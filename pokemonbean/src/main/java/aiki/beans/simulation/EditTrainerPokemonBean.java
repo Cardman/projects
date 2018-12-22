@@ -1,10 +1,10 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.comparators.ComparatorTrStringGender;
+import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
@@ -33,7 +33,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         item = (String) getForms().getVal(ITEM_EDIT);
         ability = (String) getForms().getVal(POKEMON_ABILITY_EDIT);
         gender = (Gender) getForms().getVal(POKEMON_GENDER_EDIT);
-        level = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
+        level = ((Number) getForms().getVal(POKEMON_LEVEL_EDIT)).shortValue();
 
         moves.clear();
         DataBase data_ = (DataBase) getDataBase();

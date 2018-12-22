@@ -1,11 +1,11 @@
 package aiki.beans.solution;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorWildPokemonDto;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 import aiki.comparators.ComparatorPlaceLevel;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.Solution;
 import aiki.map.Step;
@@ -17,11 +17,11 @@ import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class SolutionBean extends CommonBean {
 

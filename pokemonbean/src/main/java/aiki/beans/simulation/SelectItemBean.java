@@ -1,13 +1,13 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.items.Item;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class SelectItemBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;

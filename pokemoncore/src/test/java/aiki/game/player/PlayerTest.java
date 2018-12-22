@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.ExchangedData;
+import aiki.db.ExchangedData;
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;

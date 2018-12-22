@@ -1,5 +1,5 @@
 package aiki.beans.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;

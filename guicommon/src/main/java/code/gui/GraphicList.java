@@ -43,7 +43,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
 
     public GraphicList(boolean _owned, boolean _simple, Numbers<Integer> _selectedIndexes, T... _objects) {
-        selectedIndexes = new Numbers<Integer>(selectedIndexes);
+        selectedIndexes = new Numbers<Integer>(_selectedIndexes);
         owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;

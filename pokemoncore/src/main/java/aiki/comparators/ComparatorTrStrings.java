@@ -1,5 +1,5 @@
 package aiki.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.util.StringMap;
 import code.util.ints.Comparing;
 

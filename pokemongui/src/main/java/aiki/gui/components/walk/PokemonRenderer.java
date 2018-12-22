@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;

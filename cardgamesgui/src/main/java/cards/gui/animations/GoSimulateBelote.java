@@ -27,11 +27,11 @@ import cards.gui.dialogs.FileConst;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -98,7 +98,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
             mainsUtilisateurs_.get(0).trier(container.getDisplayingBelote().getCouleurs(),container.getDisplayingBelote().getDecroissant(),container.getDisplayingBelote().getOrdreAvantEncheres());
         }
         partie_.setChargementSimulation(100);
-        Constants.sleep(500);
+        ThreadUtil.sleep(500);
         String event_;
         event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
@@ -127,7 +127,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(StringList.simpleFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerBelote.RETURN_LINE_CHAR);
-            Constants.sleep(1000);
+            ThreadUtil.sleep(1000);
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
             event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_), contrats_.get(indiceContrat_).toString(lg_)),ContainerGame.RETURN_LINE);
             event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);
@@ -197,7 +197,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(ContainerBelote.EMPTY+ContainerBelote.RETURN_LINE_CHAR);
-        Constants.sleep(3000);
+        ThreadUtil.sleep(3000);
         ThreadInvoker.invokeNow(new WithdrawCards(container));
         container.pause();
         if(container.isArretDemo()) {
@@ -207,7 +207,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         afficherMainUtilisateurSimuBelote(mainsUtilisateurs_.get(1));
         container.revalidate();
         //container.pack();
-        Constants.sleep(4000);
+        ThreadUtil.sleep(4000);
         container.pause();
         if(container.isArretDemo()) {
             arretDemo();
@@ -232,7 +232,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
                 }
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                container.ajouterTexteDansZone(event_);
-                Constants.sleep(1000);
+                ThreadUtil.sleep(1000);
                 container.pause();
                 if(indicePli_==CustList.FIRST_INDEX) {
                     DeclareHandBelote decl_ = partie_.getAnnonce(joueur_);
@@ -283,7 +283,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(ramasseur_), BonusBelote.LAST_TRICK)+ContainerBelote.RETURN_LINE_CHAR);
                 }
             }
-            Constants.sleep(4000);
+            ThreadUtil.sleep(4000);
             container.pause();
             container.tapisBelote().setCartesBeloteJeu(nombreJoueurs_, lg_);
             if(container.isArretDemo()) {

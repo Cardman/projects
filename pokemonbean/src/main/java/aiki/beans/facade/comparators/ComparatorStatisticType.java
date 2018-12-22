@@ -1,7 +1,7 @@
 package aiki.beans.facade.comparators;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticType;
 import code.util.EnumMap;

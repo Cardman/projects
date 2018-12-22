@@ -13,16 +13,13 @@ public final class EquallableTarotUtil {
 
     private EquallableTarotUtil() {
     }
-    public static void assertEq(Number _expected, Number _result) {
+    public static void assertEq(long _expected, Number _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
-    private static boolean sameValue(Number _expected, Number _result) {
-        if (_expected instanceof Double || _expected instanceof Float) {
-            return _expected.doubleValue() == _result.doubleValue();
-        }
-        return _expected.longValue() == _result.longValue();
+    private static boolean sameValue(long _expected, Number _result) {
+        return _expected == _result.longValue();
     }
     public static void assertEq(HandTarot _expected, HandTarot _result) {
         Assert.assertNotNull(_result);

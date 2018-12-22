@@ -1,7 +1,7 @@
 package aiki.map.pokemon;
+import aiki.facade.CriteriaForSearching;
 import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
-import code.util.pagination.CriteriaForSearching;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 

@@ -1,10 +1,10 @@
 package aiki.beans.fight;
-import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorMoveTeamPosition;
 import aiki.beans.facade.comparators.ComparatorStatisticInfo;
 import aiki.beans.facade.fight.MultPowerMoves;
 import aiki.beans.facade.fight.StatisticInfo;
 import aiki.beans.facade.fight.SufferedDamageCategory;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;

@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;

@@ -1,14 +1,14 @@
 package aiki.beans.map.characters;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class TrainerBean extends CommonBean {
     private final String pageTeam = "web/html/map/elements/pokemon_team.html";

@@ -1,10 +1,10 @@
 package aiki.beans.items;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.fight.items.Item;
+import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class ItemBean extends CommonBean {
     private final String itemBean="web/html/items/item.html";

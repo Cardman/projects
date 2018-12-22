@@ -1,10 +1,10 @@
 package aiki.beans.map;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorDirection;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.comparators.ComparatorPoint;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -47,6 +47,7 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -54,7 +55,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class MapLevelBean extends CommonBean {
     private TreeMap<Point,String> tiles;
@@ -159,8 +159,10 @@ public class MapLevelBean extends CommonBean {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
+        short plValue_ = pl_.shortValue();
+        byte levValue_ = lev_.byteValue();
         DataBase data_ = (DataBase) getDataBase();
-        Place p_ = data_.getMap().getPlaces().getVal(pl_.shortValue());
+        Place p_ = data_.getMap().getPlaces().getVal(plValue_);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
@@ -175,10 +177,10 @@ public class MapLevelBean extends CommonBean {
             }
             League l_ = (League) place_;
             Coords access_ = l_.getAccessCoords();
-            if (!Numbers.eq(pl_, access_.getNumberPlace())) {
+            if (!Numbers.eq(plValue_, access_.getNumberPlace())) {
                 continue;
             }
-            if (!Numbers.eq(lev_, access_.getLevel().getLevelIndex())) {
+            if (!Numbers.eq(levValue_, access_.getLevel().getLevelIndex())) {
                 continue;
             }
             if (!Point.eq(pt_, access_.getLevel().getPoint())) {
@@ -192,7 +194,7 @@ public class MapLevelBean extends CommonBean {
             Coords coords_ = new Coords();
             coords_.setNumberPlace(pl_.shortValue());
             coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex(lev_.byteValue());
+            coords_.getLevel().setLevelIndex(levValue_);
             coords_.getLevel().setPoint(pt_);
             InitializedPlace i_ = (InitializedPlace) p_;
             if (i_.getLinksWithCaves().contains(pt_)) {

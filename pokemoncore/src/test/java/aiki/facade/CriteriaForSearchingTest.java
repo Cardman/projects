@@ -1,9 +1,11 @@
-package code.util.pagination;
+package aiki.facade;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingTest {

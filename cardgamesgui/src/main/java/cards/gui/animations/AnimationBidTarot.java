@@ -7,8 +7,8 @@ import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -49,7 +49,7 @@ public final class AnimationBidTarot extends Thread {
                 break;
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
-            Constants.sleep(delaiContrat_);
+            ThreadUtil.sleep(delaiContrat_);
             BidTarot contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_,player_);
             String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,contrat_.toString(lg_),ContainerGame.RETURN_LINE);

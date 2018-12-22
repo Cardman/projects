@@ -1,5 +1,5 @@
 package aiki.beans;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.bean.Bean;
 import code.util.CustList;
 import code.util.NatStringTreeMap;

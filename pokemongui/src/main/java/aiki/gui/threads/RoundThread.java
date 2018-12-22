@@ -2,7 +2,7 @@ package aiki.gui.threads;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.gui.components.fight.Battle;
-import code.util.consts.Constants;
+import code.gui.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -39,7 +39,7 @@ public abstract class RoundThread extends Thread {
 //            ThreadInvoker.invokeNow(new DrawingAnimation(battle, a, true));
             battle.drawAnimationInstantInitial(a);
             while (battle.isKeepAnimation()) {
-                Constants.sleep(5l);
+                ThreadUtil.sleep(5l);
 //                ThreadInvoker.invokeNow(new DrawingAnimation(battle, a, false));
                 battle.drawAnimationInstant(a);
             }

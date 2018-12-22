@@ -1,5 +1,5 @@
 package aiki.map.pokemon;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.ints.Displayable;
 

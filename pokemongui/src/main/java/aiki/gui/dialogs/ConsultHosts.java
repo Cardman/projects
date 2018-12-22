@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import aiki.Resources;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
 import aiki.gui.MainWindow;

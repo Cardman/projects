@@ -11994,8 +11994,8 @@ public final class GameTarot {
         }
         return true;
     }
-    public EqList<Numbers<Byte>> playersBelongingToSameTeam() {
-        EqList<Numbers<Byte>> teams_ = new EqList<Numbers<Byte>>();
+    public CustList<Numbers<Byte>> playersBelongingToSameTeam() {
+        CustList<Numbers<Byte>> teams_ = new CustList<Numbers<Byte>>();
         if (existePreneur()) {
             Numbers<Byte> takerTeam_ = tousCoequipiers(taker);
             takerTeam_.add(taker);

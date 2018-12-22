@@ -110,13 +110,11 @@ import code.util.graphs.SortedGraph;
 
 public abstract class ContextEl implements ExecutableCode {
 
+    protected static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
     private static final String EMPTY_PREFIX = "";
-    private static final int DEFAULT_TAB_WIDTH = 4;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
-
-    private String filesConfName;
 
     private int stackOverFlow;
 
@@ -126,7 +124,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     private Struct memoryError;
 
-    private LocalThrowing throwing = new LocalThrowing();
+    private LocalThrowing throwing;
 
     private CustomFoundAnnotation callAnnot;
     private CustomFoundConstructor callCtor;
@@ -148,45 +146,31 @@ public abstract class ContextEl implements ExecutableCode {
 
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
-    private Initializer init;
-
     private KeyWords keyWords;
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
 
-    public ContextEl() {
-        this(CustList.INDEX_NOT_FOUND_ELT);
+    public ContextEl(LgNames _stds, int _tabWitdth) {
+        this(CustList.INDEX_NOT_FOUND_ELT, _stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow) {
-        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer(), new Options(), new KeyWords());
-    }
-    public ContextEl(DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
-        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init, _options,_keyWords);
+    public ContextEl(int _stackOverFlow, LgNames _stds, int _tabWitdth) {
+        this(_stackOverFlow, new DefaultLockingClass(), new Options(), new KeyWords(),_stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
-        options = _options;
-        stackOverFlow = _stackOverFlow;
-        init = _init;
-        keyWords = _keyWords;
-        classes = new Classes();
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+        this();
+        setOptions(_options);
+        setStackOverFlow(_stackOverFlow);
+        setStandards(_stds);
+        setTabWidth(_tabWitdth);
+        setKeyWords(_keyWords);
+        setClasses(new Classes());
+        setThrowing(new LocalThrowing());
         classes.setLocks(_lock);
     }
-    public ContextEl(ContextEl _context, String _className,
-            String _name, int _ordinal,
-            ObjectMap<ClassField,Struct> _fields, Struct _parent) {
-        classes = _context.classes;
-        options = _context.options;
-        standards = _context.standards;
-        tabWidth = _context.tabWidth;
-        stackOverFlow = _context.stackOverFlow;
-        filesConfName = _context.filesConfName;
-        memoryError = _context.memoryError;
-        init = _context.init;
-        keyWords = _context.keyWords;
-        sensibleFields = _context.sensibleFields;
+    public ContextEl() {
     }
     public boolean isSensibleField(String _clName) {
         if (!initEnums) {
@@ -206,9 +190,6 @@ public abstract class ContextEl implements ExecutableCode {
             return false;
         }
         return sensibleFields.containsObj(_array);
-    }
-    public IdList<Struct> getSensibleFields() {
-        return sensibleFields;
     }
     public void addSensibleField(String _fc, Struct _container) {
         if (!initEnums) {
@@ -311,7 +292,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public boolean processException() {
         if (exception != null) {
-            throwing.removeBlockFinally(this);
+            getThrowing().removeBlockFinally(this);
             if (exception != null) {
                 return false;
             }
@@ -357,7 +338,7 @@ public abstract class ContextEl implements ExecutableCode {
             return null;
         }
         if (exception != null) {
-            throwing.removeBlockFinally(this);
+            getThrowing().removeBlockFinally(this);
         }
         return null;
     }
@@ -470,7 +451,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         String fieldName_ = _call.getFieldName();
         int ordinal_ = _call.getChildIndex();
-        argGl_.setStruct(init.processInit(this, str_, _class, fieldName_, ordinal_));
+        argGl_.setStruct(getInit().processInit(this, str_, _class, fieldName_, ordinal_));
         page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -507,7 +488,7 @@ public abstract class ContextEl implements ExecutableCode {
         page_ = new NewAnnotationPageEl();
         page_.setArgs(_args);
         page_.setNames(_id);
-        argGl_.setStruct(init.processInitAnnot(this, _class));
+        argGl_.setStruct(getInit().processInitAnnot(this, _class));
         page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -674,9 +655,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return f_;
     }
-    public void initError() {
-        memoryError = new ErrorStruct(this, standards.getAliasError());
-    }
+    public abstract void initError();
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
         if (!classes.isCustomType(_name)) {
@@ -861,6 +840,9 @@ public abstract class ContextEl implements ExecutableCode {
         options = _options;
     }
 
+    public int getStackOverFlow() {
+        return stackOverFlow;
+    }
     public void setStackOverFlow(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
     }
@@ -871,14 +853,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
-    }
-
-    public String getFilesConfName() {
-        return filesConfName;
-    }
-
-    public void setFilesConfName(String _filesConfName) {
-        filesConfName = _filesConfName;
     }
 
     @Override
@@ -910,7 +884,7 @@ public abstract class ContextEl implements ExecutableCode {
     public void addPage(AbstractPageEl _page) {
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
-        if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
+        if (getStackOverFlow() >= CustList.FIRST_INDEX && getStackOverFlow() <= importing.size()) {
             exception = new ErrorStruct(this,sof_);
         } else {
             importing.add(_page);
@@ -1035,10 +1009,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.isGearConst();
     }
 
-    public void setGearConst(boolean _gearConst) {
-        analyzing.setGearConst(_gearConst);
-    }
-
     public boolean callsOrException() {
         if (calls()) {
             return true;
@@ -1090,6 +1060,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public LocalThrowing getThrowing() {
         return throwing;
+    }
+    public void setThrowing(LocalThrowing _throwing) {
+        throwing = _throwing;
     }
     
     public CustomFoundConstructor getCallCtor() {
@@ -1152,13 +1125,10 @@ public abstract class ContextEl implements ExecutableCode {
         return memoryError;
     }
 
-    public Initializer getInit() {
-        return init;
+    public void setMemoryError(Struct _memoryError) {
+        memoryError = _memoryError;
     }
-
-    public void setInit(Initializer _init) {
-        init = _init;
-    }
+    public abstract Initializer getInit();
 
     @Override
     public int getCurrentChildTypeIndex() {

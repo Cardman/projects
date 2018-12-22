@@ -5,15 +5,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.opers.BaseSixtyFourUtil;
 
 public final class VideoLoading {
 

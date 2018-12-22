@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -33,13 +34,28 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
     public RunnableContextEl(ContextEl _context, String _className,
             String _name, int _ordinal,
             ObjectMap<ClassField,Struct> _fields, Struct _parent) {
-        super(_context, _className, _name, _ordinal, _fields, _parent);
+        setClasses(_context.getClasses());
+        setOptions(_context.getOptions());
+        setStandards(_context.getStandards());
+        setTabWidth(_context.getTabWidth());
+        setStackOverFlow(_context.getStackOverFlow());
+        setMemoryError(_context.getMemoryError());
+        setKeyWords(_context.getKeyWords());
+        setThrowing(_context.getThrowing());
         custInit = (CustInitializer) _context.getInit();
         name = _name;
         ordinal = _ordinal;
         className = _className;
         fields = _fields;
         parent = _parent;
+    }
+    @Override
+    public void initError() {
+        setMemoryError(new ErrorStruct(this, getStandards().getAliasError()));
+    }
+    @Override
+    public CustInitializer getInit() {
+        return custInit;
     }
     @Override
     public boolean isNull() {
@@ -76,18 +92,17 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
 
     @Override
     public void run() {
-        ContextEl context = this;
-        LgNames stds_ = context.getStandards();
-        Classes cls_ = context.getClasses();
+        LgNames stds_ = getStandards();
+        Classes cls_ = getClasses();
         String run_ = custInit.getRunTask(stds_);
         String runnable_ = custInit.getInterfaceTask(stds_);
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList(), false);
         GeneType type_ = cls_.getClassBody(runnable_);
         String base_ = Templates.getIdFromAllTypes(className);
-        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, context).getVal(base_);
+        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, this).getVal(base_);
         Argument arg_ = new Argument();
         arg_.setStruct(this);
-        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), context);
+        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
     }
 
     @Override

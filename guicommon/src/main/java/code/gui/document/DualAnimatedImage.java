@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.formathtml.render.MetaAnimatedImage;
+import code.gui.ThreadUtil;
 import code.sml.Element;
-import code.util.consts.Constants;
 
 
 public class DualAnimatedImage extends DualImage {
@@ -59,7 +59,7 @@ public class DualAnimatedImage extends DualImage {
 
     public void increment() {
         paint();
-        Constants.sleep(delay);
+        ThreadUtil.sleep(delay);
         index++;
         if (index >= getComponent().getImages().size()) {
             index = 0;

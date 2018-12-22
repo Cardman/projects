@@ -2,12 +2,11 @@ package code.util.opers;
 
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class MessagesUtil {
 
     private static final String LINE_RETURN = "\n";
-    private static final String EMPTY_STRING = Constants.EMPTY_STRING;
+    private static final String EMPTY_STRING = "";
     private static final String TAB = "\t";
     private static final String EQUALS = "=";
     private static final String BEFORE_LINE_RETURN = "\r\n";

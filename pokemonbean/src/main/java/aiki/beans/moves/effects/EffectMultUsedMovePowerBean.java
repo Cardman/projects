@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectMultUsedMovePower;
 import code.maths.Rate;
 import code.util.StringMap;

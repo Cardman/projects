@@ -1,6 +1,6 @@
 package aiki.map.buildings;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.levels.Level;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;

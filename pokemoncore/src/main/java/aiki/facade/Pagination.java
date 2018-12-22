@@ -1,17 +1,15 @@
-package code.util.pagination;
+package aiki.facade;
 import code.util.CustList;
 import code.util.TreeMap;
 import code.util.ints.Listable;
 
-public abstract class Pagination<T extends Sorting,U, C extends CriteriaForSearching> {
+public abstract class Pagination<T extends Sorting,U> {
 
     public static final int NO_PRIORITY = 0;
 
     public static final int MIN_PRIORITY = 1;
 
     protected static final int EQUALS_ELEMENTS = 0;
-
-    private C criteria;
 
     private int numberPage = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -20,10 +18,6 @@ public abstract class Pagination<T extends Sorting,U, C extends CriteriaForSearc
     private int line = CustList.INDEX_NOT_FOUND_ELT;
 
     private int delta = 1;
-
-    public Pagination(C _criteria) {
-        criteria = _criteria;
-    }
 
     public void clear() {
         getResults().clear();
@@ -153,9 +147,7 @@ public abstract class Pagination<T extends Sorting,U, C extends CriteriaForSearc
 
     protected abstract Listable<T> getRendered();
 
-    public C getCriteria() {
-        return criteria;
-    }
+    public abstract CriteriaForSearching getCriteria();
 
     public int getNumberPage() {
         return numberPage;

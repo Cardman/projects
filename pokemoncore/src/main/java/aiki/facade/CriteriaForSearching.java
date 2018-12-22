@@ -1,5 +1,7 @@
-package code.util.pagination;
+package aiki.facade;
 import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 public abstract class CriteriaForSearching {
 

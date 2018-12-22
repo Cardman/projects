@@ -1,6 +1,6 @@
 package aiki.fight.status.effects;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.maths.Rate;
 
 

@@ -1,5 +1,5 @@
 package aiki.map.places;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.tree.PlaceArea;

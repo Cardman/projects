@@ -25,6 +25,7 @@ import cards.gui.dialogs.events.ValidateRulesDealEvent;
 import cards.gui.panels.BeloteCardsScrollableList;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -34,7 +35,6 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.ConstFiles;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 

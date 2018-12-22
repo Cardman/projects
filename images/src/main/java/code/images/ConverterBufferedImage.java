@@ -4,7 +4,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.PairNumber;
 import code.util.StringList;
-import code.util.opers.BaseSixtyFourUtil;
 import code.util.opers.PairUtil;
 
 public final class ConverterBufferedImage {

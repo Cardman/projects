@@ -1,5 +1,5 @@
 package aiki.game;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.levels.LevelWithWildPokemon;

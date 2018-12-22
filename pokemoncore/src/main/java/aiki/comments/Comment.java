@@ -1,5 +1,5 @@
 package aiki.comments;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.util.StringList;
 
 public class Comment {

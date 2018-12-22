@@ -86,7 +86,7 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "context")) {
                 found_ = true;
-                _configuration.setContext(loadContext(c));
+                _configuration.setContext(loadContext(c, stds_));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "uncompressed")) {
@@ -95,7 +95,7 @@ public final class ReadConfiguration {
             }
         }
         if (!found_) {
-            ContextEl context_ = new SingleContextEl();
+            ContextEl context_ = new SingleContextEl(stds_);
             context_.getOptions().setEndLineSemiColumn(false);
             context_.getOptions().setUpperLong(true);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
@@ -103,8 +103,8 @@ public final class ReadConfiguration {
             _configuration.setContext(context_);
         }
     }
-    static ContextEl loadContext(Element _elt) {
-        ContextEl context_ = new SingleContextEl();
+    static ContextEl loadContext(Element _elt, LgNames _stds) {
+        ContextEl context_ = new SingleContextEl(_stds);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

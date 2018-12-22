@@ -39,7 +39,6 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.ComparatorIndexes;
 
 public final class TypeUtil {
 
@@ -704,7 +703,7 @@ public final class TypeUtil {
                 }
                 String classNameFound_;
                 MethodId realId_;
-                foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
+                foundSuperClasses_.sortElts(new ComparingByTypeList(allSuperClasses_));
                 if (foundSuperClasses_.isEmpty()) {
                     continue;
                 }

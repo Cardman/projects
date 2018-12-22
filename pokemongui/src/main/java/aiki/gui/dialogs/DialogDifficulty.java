@@ -8,8 +8,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import aiki.Resources;
 import aiki.beans.PokemonStandards;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;

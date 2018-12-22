@@ -1,27 +1,28 @@
 package aiki.comparators;
+import aiki.facade.EnumFieldComparator;
+import aiki.facade.LongFieldComparator;
+import aiki.facade.Pagination;
+import aiki.facade.StringFieldComparator;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Comparing;
-import code.util.pagination.EnumFieldComparator;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class ComparatorPokemonPlayer implements
         Comparing<SortingPokemonPlayer> {
 
-    private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();
+    private LongFieldComparator cmpLevel = new LongFieldComparator();
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<String> cmpAbility = new FieldComparator<String>();
+    private StringFieldComparator cmpAbility = new StringFieldComparator();
 
-    private FieldComparator<String> cmpItem = new FieldComparator<String>();
+    private StringFieldComparator cmpItem = new StringFieldComparator();
 
     private EnumFieldComparator<Gender> cmpGender = new EnumFieldComparator<Gender>();
 
-    private FieldComparator<Short> cmpPossEvos = new FieldComparator<Short>();
+    private LongFieldComparator cmpPossEvos = new LongFieldComparator();
 
     private final int nbComparators;
 
@@ -29,12 +30,12 @@ public final class ComparatorPokemonPlayer implements
         nbComparators = 0;
     }
 
-    public ComparatorPokemonPlayer(FieldComparator<Short> _cmpLevel,
-            FieldComparator<String> _cmpName,
-            FieldComparator<String> _cmpAbility,
-            FieldComparator<String> _cmpItem,
+    public ComparatorPokemonPlayer(LongFieldComparator _cmpLevel,
+            StringFieldComparator _cmpName,
+            StringFieldComparator _cmpAbility,
+            StringFieldComparator _cmpItem,
             EnumFieldComparator<Gender> _cmpGender,
-            FieldComparator<Short> _cmpPossEvos, int _nbComparators) {
+            LongFieldComparator _cmpPossEvos, int _nbComparators) {
         cmpLevel = _cmpLevel;
         cmpName = _cmpName;
         cmpAbility = _cmpAbility;

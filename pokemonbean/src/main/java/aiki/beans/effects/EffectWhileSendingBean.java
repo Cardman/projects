@@ -1,6 +1,6 @@
 package aiki.beans.effects;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;

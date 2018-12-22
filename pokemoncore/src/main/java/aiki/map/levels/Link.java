@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
 import code.util.CustList;

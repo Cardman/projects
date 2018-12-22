@@ -3,7 +3,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.WindowConstants;
 
-import aiki.Resources;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorMove;

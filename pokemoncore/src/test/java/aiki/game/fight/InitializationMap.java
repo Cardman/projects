@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import aiki.DataBase;
-import aiki.ImageHeroKey;
+import aiki.db.DataBase;
+import aiki.db.ImageHeroKey;
 import aiki.fight.pokemon.NameLevel;
 import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;

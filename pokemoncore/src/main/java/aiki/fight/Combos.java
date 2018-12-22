@@ -1,6 +1,6 @@
 package aiki.fight;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectCombo;
 import code.util.ObjectMap;
 import code.util.StringList;

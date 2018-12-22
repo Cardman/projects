@@ -1,7 +1,7 @@
 package aiki.beans.fight;
-import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.fight.KeyHypothesis;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;

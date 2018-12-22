@@ -1,4 +1,5 @@
 package aiki.map.pokemon;
+import aiki.facade.CriteriaForSearching;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.HealingHp;
@@ -12,7 +13,6 @@ import code.util.EnumList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.pagination.CriteriaForSearching;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 

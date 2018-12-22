@@ -5,7 +5,7 @@ import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public final class StringList extends AbEqList<String> implements Equallable<StringList>, Displayable {
+public final class StringList extends CustList<String> implements Equallable<StringList>, Displayable {
 
     public static final char LEFT_BRACE = '{';
 
@@ -201,14 +201,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         for (String c: _list2) {
             boolean contains_ = false;
             for (String d: _list1) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && quickEq(c, d)) {
+                if (quickEq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -220,14 +213,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         for (String c: _list1) {
             boolean contains_ = false;
             for (String d: _list2) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && quickEq(c, d)) {
+                if (quickEq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -267,23 +253,11 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static boolean eqStrings(StringList _list1,StringList _list2) {
-        if (_list1 == null) {
-            return _list2 == null;
-        }
         if (_list1.size() != _list2.size()) {
             return false;
         }
         int size_ = _list1.size();
         for (int i=FIRST_INDEX;i<size_;i++) {
-            if (_list1.get(i) == null) {
-                if (_list2.get(i) != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (_list2.get(i) == null) {
-                return false;
-            }
             if (!quickEq(_list1.get(i),_list2.get(i))) {
                 return false;
             }
@@ -928,29 +902,16 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         StringList list_ = new StringList();
         for (String s: _list) {
             if (containsObj(s)) {
-                //_list.containsObj(s)
                 list_.add(s);
             }
         }
         return list_;
     }
 
-//    @Override
-//    public boolean containsObj(String _element) {
-//        return indexOfObj(_element) != INDEX_NOT_FOUND_ELT;
-//    }
-
-    @Override
     public int indexOfObj(String _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
-        }
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             String e_ = get(i);
-            if (e_ == null) {
-                continue;
-            }
             if (quickEq(_element, e_)) {
                 return i;
             }
@@ -992,6 +953,9 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     public StringList filterByMultiWords(String _exp) {
         StringList list_ = new StringList();
         for (String s: this) {
+            if (s == null) {
+                continue;
+            }
             if (!match(s, _exp)) {
                 continue;
             }
@@ -1020,11 +984,52 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return list_;
     }
 
+    public void removeAllElements(Listable<String> _c) {
+        for (String s: _c) {
+            if (containsObj(s)) {
+                removeAllObj(s);
+            }
+        }
+    }
+
+    public void removeAllObj(String _obj) {
+        while (containsObj(_obj)) {
+            removeObj(_obj);
+        }
+    }
+
+    public void removeObj(String _obj) {
+        int index_ = indexOfObj(_obj);
+        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+            return;
+        }
+        removeAt(index_);
+    }
+
+    public CustList<String> intersect(CustList<String> _list) {
+        CustList<String> list_ = new CustList<String>();
+        for (String s: _list) {
+            if (containsObj(s)) {
+                list_.add(s);
+            }
+        }
+        return list_;
+    }
+    public boolean containsAllObj(Listable<String> _list) {
+        for (String e: _list) {
+            if (!containsObj(e)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean containsObj(String _obj) {
+        return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
+    }
     public StringList intersectStr(StringList _list) {
         StringList list_ = new StringList();
         for (String s: _list) {
             if (containsObj(s)) {
-                //_list.containsObj(s)
                 list_.add(s);
             }
         }
@@ -1032,7 +1037,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public void removeAllString(String _obj) {
-        //setModified();
         while (containsStr(_obj)) {
             removeObj(_obj);
         }
@@ -1041,13 +1045,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     public void removeString(String _string) {
         removeObj(_string);
     }
-
-//    public StringList mid(int _beginIndex, int _nbElements) {
-//        if (_beginIndex+_nbElements > size()) {
-//            return mid(_beginIndex);
-//        }
-//        return new StringList(sub(_beginIndex, _beginIndex+_nbElements));
-//    }
 
     @Override
     public StringList mid(int _beginIndex) {
@@ -1429,7 +1426,41 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return new StringList(sub(_beginIndex, _beginIndex+_nbElements));
     }
 
-    @Override
+    public void removeDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            String e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
+        }
+    }
+
+    public int indexOfObj(String _obj) {
+        return indexOfObj(_obj,FIRST_INDEX);
+    }
+
+    public void retainAllElements(StringList _c) {
+        int i_ = FIRST_INDEX;
+        while (i_ < size()) {
+            String e_ = get(i_);
+            if (!_c.containsObj(e_)) {
+                removeAt(i_);
+            } else {
+                i_++;
+            }
+        }
+    }
     public StringList subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }
@@ -2267,9 +2298,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     @Override
     public boolean eq(StringList _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;
@@ -2277,15 +2305,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         for (int i = FIRST_INDEX; i < len_; i++) {
             String e_ = get(i);
             String f_ = _g.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (f_ == null) {
-                continue;
-            }
             if (!quickEq(e_, f_)) {
                 return false;
             }

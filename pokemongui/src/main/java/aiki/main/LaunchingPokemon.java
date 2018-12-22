@@ -2,11 +2,12 @@ package aiki.main;
 import java.awt.Image;
 import java.io.File;
 
-import aiki.DataBase;
-import aiki.Resources;
+import aiki.db.DataBase;
+import aiki.db.Resources;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
+import code.gui.ConstFiles;
 import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
@@ -14,7 +15,6 @@ import code.gui.TopLeftFrame;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public class LaunchingPokemon extends SoftApplicationCore {
 

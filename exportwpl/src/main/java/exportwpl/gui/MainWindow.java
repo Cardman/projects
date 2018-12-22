@@ -7,17 +7,18 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import code.gui.Clock;
+import code.gui.ConstFiles;
 import code.gui.FileSaveDialog;
 import code.gui.FolderOpenDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.SetStyle;
+import code.gui.ThreadUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
 
 public class MainWindow extends GroupFrame {
@@ -119,7 +120,7 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        Constants.exit();
+        ThreadUtil.exit();
     }
 
     @Override

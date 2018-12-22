@@ -25,6 +25,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -34,7 +35,6 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.ConstFiles;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editortarot";

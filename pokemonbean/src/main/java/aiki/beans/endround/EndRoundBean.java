@@ -1,6 +1,6 @@
 package aiki.beans.endround;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.items.Item;

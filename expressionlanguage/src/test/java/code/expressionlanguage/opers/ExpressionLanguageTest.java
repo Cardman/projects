@@ -99,22 +99,22 @@ public class ExpressionLanguageTest {
     @Test
     public void processEl12Test() {
         Argument arg_ = directCalculate("'\\\\'");
-        assertEq((int)'\\', arg_.getNumber());
+        assertEq('\\', arg_.getNumber());
     }
     @Test
     public void processEl13Test() {
         Argument arg_ = directCalculate("'\\''");
-         assertEq((int)'\'', arg_.getNumber());
+         assertEq('\'', arg_.getNumber());
     }
     @Test
     public void processEl14Test() {
         Argument arg_ = directCalculate("'\"'");
-        assertEq((int)'"', arg_.getNumber());
+        assertEq('"', arg_.getNumber());
     }
     @Test
     public void processEl15Test() {
         Argument arg_ = directCalculate("'\\n'");
-        assertEq((int)'\n', arg_.getNumber());
+        assertEq('\n', arg_.getNumber());
     }
     @Test
     public void processEl16Test() {

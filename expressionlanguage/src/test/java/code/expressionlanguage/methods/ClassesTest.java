@@ -1539,10 +1539,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(2, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(5, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1598,7 +1596,6 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(1, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1620,10 +1617,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(1, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myt"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(3, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1658,10 +1653,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(127, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(129, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1676,10 +1669,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(2, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(5, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1694,10 +1685,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Byte);
         assertEq(2, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Byte);
         assertEq(5, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1715,7 +1704,6 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(5, ((Number)str_.getInstance()).intValue());
     }
     @Test
@@ -1731,10 +1719,8 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(2, ((Number)str_.getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
         assertEq(5, ((Number)str_.getInstance()).intValue());
     }
     private ContextEl validateStaticFields(StringMap<String> _files) {

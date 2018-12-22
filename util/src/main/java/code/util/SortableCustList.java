@@ -34,38 +34,6 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
     public SortableCustList(CollCapacity _capacity) {
         super(_capacity);
     }
-//    public void removeComparableDuplicates() {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_;
-//            j_++;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-////                if (get(i_).cmp(get(j_)) == 0)
-//                if (get(i_) == null) {
-//                    if (get(j_) == null) {
-//                        removeAt(j_);
-//                    } else {
-//                        j_++;
-//                    }
-//                } else if (get(j_) == null) {
-//                    j_++;
-//                } else if (get(i_).eq(get(j_))) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
-
     public void sort() {
         sortElts(new NatComparator<T>());
     }
@@ -83,9 +51,6 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
     }
     @Override
     public boolean eq(SortableCustList<T> _b) {
-        if (_b == null) {
-            return false;
-        }
         int len_ = size();
         if (_b.size() != len_) {
             return false;
@@ -93,15 +58,6 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
         for (int i = FIRST_INDEX; i < len_; i++) {
             T e_ = get(i);
             T f_ = _b.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (f_ == null) {
-                return false;
-            }
             if (!e_.eq(f_)) {
                 return false;
             }
@@ -111,15 +67,9 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
 
     @Override
     public int indexOfObj(T _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
-        }
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             T e_ = get(i);
-            if (e_ == null) {
-                continue;
-            }
             if (_element.eq(e_)) {
                 return i;
             }
@@ -127,45 +77,4 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
         return INDEX_NOT_FOUND_ELT;
     }
 
-//    @Override
-//    public Numbers<Integer> indexesOfObj(T _element) {
-//        if (_element == null) {
-//            return indexesOfNull();
-//        }
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            T e_ = get(i);
-//            if (e_ == null) {
-//                continue;
-//            }
-//            if (_element.eq(e_)) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
-//    @Override
-//    public int indexOfObj(T _element) {
-//        int len_ = size();
-//        if (_element == null) {
-//            for (int i = FIRST_INDEX; i < len_; i++) {
-//                if (get(i) == null) {
-//                    return i;
-//                }
-//            }
-//            return INDEX_NOT_FOUND_ELT;
-//        }
-//        for (int i = FIRST_INDEX; i < len_; i++) {
-//            T elt_ = get(i);
-//            if (elt_ == null) {
-//                continue;
-//            }
-//            if (_element.cmp(elt_) == EQ_CMP) {
-//                return i;
-//            }
-//        }
-//        return INDEX_NOT_FOUND_ELT;
-//    }
 }

@@ -1,4 +1,4 @@
-package aiki;
+package aiki.db;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;

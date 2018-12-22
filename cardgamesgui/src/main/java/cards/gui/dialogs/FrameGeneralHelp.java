@@ -11,7 +11,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;
+import cards.gui.dialogs.help.ComparatorListSizeElement;
 import cards.gui.dialogs.help.ElementHelp;
+import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.NodeHelp;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.formathtml.DefaultInitialization;
@@ -28,12 +30,10 @@ import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.ComparatorListSizeElement;
 
 public final class FrameGeneralHelp extends ChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
@@ -64,7 +64,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //    private static final String EMPTY_STRING = "";
     private StringMap<String> messages;
 
-    private ObjectMap<Numbers<Integer>,ElementHelp> elementsBis = new ObjectMap<Numbers<Integer>,ElementHelp>();
+    private ObjectMap<HelpIndexes,ElementHelp> elementsBis = new ObjectMap<HelpIndexes,ElementHelp>();
 
     private NodeHelp racineBis;
 
@@ -113,11 +113,11 @@ public final class FrameGeneralHelp extends ChildFrame {
         noeudsActuels_.add(element_);
         StringList cheminsActuels_ = new StringList();
         cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
-        Numbers<Integer> indices_ = new Numbers<Integer>();
+        HelpIndexes indices_ = new HelpIndexes();
         indices_.add(Integer.parseInt(element_.getAttribute(POSITION)));
 //            CustList<CustList<Integer>> cheminsNumeriques_ = new CustList<CustList<Integer>>();
 //            cheminsNumeriques_.add(indices_);
-        EqList<Numbers<Integer>> cheminsNumeriquesActuels_ = new EqList<Numbers<Integer>>();
+        CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
         cheminsNumeriquesActuels_.add(indices_);
         ElementHelp elementRacine_ = new ElementHelp(element_
                 .getAttribute(TEXTE));
@@ -129,11 +129,11 @@ public final class FrameGeneralHelp extends ChildFrame {
         while (true) {
             CustList<Node> nouveauxElements_ = new CustList<Node>();
             StringList nouveauxChemins_ = new StringList();
-            EqList<Numbers<Integer>> nouveauxCheminsNum_ = new EqList<Numbers<Integer>>();
+            CustList<HelpIndexes> nouveauxCheminsNum_ = new CustList<HelpIndexes>();
             int j_ = CustList.FIRST_INDEX;
             for (Node e : noeudsActuels_) {
                 String cheminCourant_ = cheminsActuels_.get(j_);
-                Numbers<Integer> cheminNumCourant_ = cheminsNumeriquesActuels_
+                HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
                         .get(j_);
                 for (Element e2_ : e.getChildElements()) {
 //                        NamedNodeMap attributs_ = e2_.getAttributes();
@@ -153,7 +153,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                         noeud_.ajouterInfo(StringList.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName(), FileConst.XML_EXT));
                         nouveauxElements_.add(e2_);
-                        Numbers<Integer> cheminNumCourantBis_ = new Numbers<Integer>(
+                        HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
                                 cheminNumCourant_);
                         cheminNumCourantBis_.add(Integer
                                 .parseInt(e2_.getAttribute(
@@ -181,7 +181,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        }
         setFocusable(true);
         setFocusableWindowState(true);
-        EqList<Numbers<Integer>> cles_ = new EqList<Numbers<Integer>>(
+        CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
                 elementsBis.getKeys());
         // Non null pour les valeurs
         cles_.sortElts(new ComparatorListSizeElement());
@@ -197,7 +197,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_ = getPane();
             container_.removeAll();
         }
-        for (Numbers<Integer> chemin_ : cles_) {
+        for (HelpIndexes chemin_ : cles_) {
             Numbers<Integer> cheminSansNoeud_ = chemin_.mid(CustList.FIRST_INDEX,
                     chemin_.getLastIndex());
             NodeHelp noeudLoc_ = null;

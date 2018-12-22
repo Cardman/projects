@@ -63,7 +63,7 @@ public class HtmlRequestTest {
         conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite(),COMPOSITE, conf_.getContext());
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
-        nc_.setTypedField(8);
+        nc_.setTypedStruct(new IntStruct(8));
         nc_.setObject(bean_.getComposite(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
@@ -235,7 +235,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setTypedField(bean_.getTree().getValue(0));
+        nc_.setTypedStruct(new IntStruct(bean_.getTree().getValue(0)));
         nc_.setObject(bean_.getTree(), conf_.getContext());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
@@ -261,7 +261,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setTypedField(1);
+        nc_.setTypedStruct(new IntStruct(1));
         nc_.setStruct(arr_);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");

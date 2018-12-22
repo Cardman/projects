@@ -3,7 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;

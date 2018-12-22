@@ -1,6 +1,6 @@
 package aiki.beans.endround;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
 import code.maths.Rate;
 import code.util.StringMap;

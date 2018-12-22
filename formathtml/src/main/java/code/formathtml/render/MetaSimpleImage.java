@@ -1,7 +1,7 @@
 package code.formathtml.render;
 
+import code.images.BaseSixtyFourUtil;
 import code.sml.Element;
-import code.util.opers.BaseSixtyFourUtil;
 
 public final class MetaSimpleImage extends MetaImage {
 

@@ -18,9 +18,9 @@ public final class EquallableElUtil {
         Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
-    public static void assertEq(Character _expected, Character _result) {
+    public static void assertEq(char _expected, Character _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), _expected.charValue() == _result.charValue());
+        Assert.assertTrue(StringList.concat(Character.toString(_expected),DIFF,_result.toString()), _expected == _result.charValue());
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
@@ -37,16 +37,27 @@ public final class EquallableElUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected.getSignature(),DIFF,_result.getSignature()), _expected.eq(_result));
     }
-
-    public static void assertEq(Number _expected, Number _result) {
+    
+    public static void assertEq(long _expected, Number _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    }
+    
+    public static void assertEq(int _expected, Number _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
-    private static boolean sameValue(Number _expected, Number _result) {
-        if (_expected instanceof Double || _expected instanceof Float) {
-            return _expected.doubleValue() == _result.doubleValue();
-        }
-        return _expected.longValue() == _result.longValue();
+    public static void assertEq(double _expected, Number _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    }
+    
+    private static boolean sameValue(long _expected, Number _result) {
+        return _expected == _result.longValue();
+    }
+
+    private static boolean sameValue(double _expected, Number _result) {
+        return _expected == _result.doubleValue();
     }
 }

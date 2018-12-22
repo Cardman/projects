@@ -1,6 +1,6 @@
 package aiki.map.characters;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.pokemon.PkTrainer;
 import code.util.CustList;
 

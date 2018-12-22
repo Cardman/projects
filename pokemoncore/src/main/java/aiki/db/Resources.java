@@ -1,4 +1,4 @@
-package aiki;
+package aiki.db;
 
 import code.util.StringList;
 

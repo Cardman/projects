@@ -1,4 +1,4 @@
-package code.util.opers;
+package code.images;
 import static code.util.EquallableExUtil.assertEq;
 
 import org.junit.Test;

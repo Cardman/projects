@@ -5,8 +5,8 @@ import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -31,7 +31,7 @@ public final class AnimationCardBelote extends Thread {
             long delaiPli_;
             if(!container.getParametres().getAttentePlisClic()) {
                 delaiPli_=container.getParametres().getDelaiAttentePlis();
-                Constants.sleep(delaiPli_);
+                ThreadUtil.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs(),lg_);
             }
@@ -49,7 +49,7 @@ public final class AnimationCardBelote extends Thread {
                     break;
                 }
                 long delaiPli_=container.getParametres().getDelaiAttentePlis();
-                Constants.sleep(delaiPli_);
+                ThreadUtil.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
@@ -62,7 +62,7 @@ public final class AnimationCardBelote extends Thread {
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
                 break;
             }
-            Constants.sleep(delaiCarte_);
+            ThreadUtil.sleep(delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             container.jouerBelote(player_,pseudos_.get(player_),partie_.premierTour());
             container.pause();

@@ -1,8 +1,8 @@
 package aiki.beans.moves;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectDamage;

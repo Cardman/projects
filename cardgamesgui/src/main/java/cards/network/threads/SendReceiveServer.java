@@ -93,6 +93,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
+import code.gui.ThreadUtil;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
@@ -601,7 +602,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
-            Constants.sleep(1000);
+            ThreadUtil.sleep(1000);
             if (Net.getGames().partieTarot().playerHasAlreadyBidded(place_)) {
                 return;
             }
@@ -625,11 +626,11 @@ public final class SendReceiveServer extends BasicServer {
                 game_.ajouterPetitAuBoutPliEnCours();
 
                 if (!game_.keepPlayingCurrentGame()) {
-                    Constants.sleep(1000);
+                    ThreadUtil.sleep(1000);
                     endGameTarot();
                     return;
                 }
-                Constants.sleep(3000);
+                ThreadUtil.sleep(3000);
                 Net.initAllReceived();
                 for (byte p: Net.activePlayers()) {
                     Net.sendObject(Net.getSocketByPlace(p), new Pause());
@@ -661,7 +662,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
-            Constants.sleep(1000);
+            ThreadUtil.sleep(1000);
             if (Net.getGames().partieTarot().playerHasAlreadyBidded(place_)) {
                 return;
             }
@@ -683,7 +684,7 @@ public final class SendReceiveServer extends BasicServer {
             if (game_.getRegles().getDiscardAfterCall()) {
                 game_.ecarter(true);
             }
-            Constants.sleep(5000);
+            ThreadUtil.sleep(5000);
             if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                 DiscardedTrumps discarded_ = new DiscardedTrumps();
                 discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
@@ -1025,7 +1026,7 @@ public final class SendReceiveServer extends BasicServer {
                     return;
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
-                Constants.sleep(1000);
+                ThreadUtil.sleep(1000);
                 if (Net.getGames().partieBelote().playerHasAlreadyBidded(place_)) {
                     return;
                 }
@@ -1069,7 +1070,7 @@ public final class SendReceiveServer extends BasicServer {
                     return;
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
-                Constants.sleep(1000);
+                ThreadUtil.sleep(1000);
                 if (Net.getGames().partieBelote().playerHasAlreadyBidded(place_)) {
                     return;
                 }
@@ -1141,11 +1142,11 @@ public final class SendReceiveServer extends BasicServer {
                     game_.ajouterDixDeDerPliEnCours();
 
                     if (!game_.keepPlayingCurrentGame()) {
-                        Constants.sleep(1000);
+                        ThreadUtil.sleep(1000);
                         endGameBelote();
                         return;
                     }
-                    Constants.sleep(3000);
+                    ThreadUtil.sleep(3000);
                     Net.initAllReceived();
                     for (byte p: Net.activePlayers()) {
                         Net.sendObject(Net.getSocketByPlace(p), new Pause());
@@ -1411,11 +1412,11 @@ public final class SendReceiveServer extends BasicServer {
                 if (game_.getProgressingTrick().estVide()) {
 
                     if (!game_.keepPlayingCurrentGame()) {
-                        Constants.sleep(1000);
+                        ThreadUtil.sleep(1000);
                         endGamePresident();
                         return;
                     }
-                    Constants.sleep(3000);
+                    ThreadUtil.sleep(3000);
                     Net.initAllReceived();
                     for (byte p: Net.activePlayers()) {
                         Net.sendObject(Net.getSocketByPlace(p), new Pause());
@@ -1500,7 +1501,7 @@ public final class SendReceiveServer extends BasicServer {
             if (game_.keepBidding()) {
                 byte place_ = game_.playerHavingToBid();
                 if (place_ == bye_.getPlace()) {
-                    Constants.sleep(1000);
+                    ThreadUtil.sleep(1000);
                     if (game_.playerHasAlreadyBidded(place_)) {
                         return;
                     }
@@ -1515,7 +1516,7 @@ public final class SendReceiveServer extends BasicServer {
             } else {
                 byte place_ = game_.playerHavingToPlay();
                 if (place_ == bye_.getPlace()) {
-                    Constants.sleep(800);
+                    ThreadUtil.sleep(800);
                     if (game_.currentPlayerHasPlayed(place_)) {
                         return;
                     }
@@ -1579,7 +1580,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             if (game_.getNextPlayer() == player_) {
-                Constants.sleep(800);
+                ThreadUtil.sleep(800);
                 if (game_.currentPlayerHasPlayed(player_,Constants.getDefaultLanguage())) {
                     return;
                 }
@@ -1605,7 +1606,7 @@ public final class SendReceiveServer extends BasicServer {
             if (game_.keepBidding()) {
                 byte place_ = game_.playerHavingToBid();
                 if (place_ == bye_.getPlace()) {
-                    Constants.sleep(1000);
+                    ThreadUtil.sleep(1000);
                     if (game_.playerHasAlreadyBidded(place_)) {
                         return;
                     }
@@ -1622,7 +1623,7 @@ public final class SendReceiveServer extends BasicServer {
             if (!game_.unionPlis(true).isEmpty() && game_.getPliEnCours().getVuParToutJoueur() && game_.keepPlayingCurrentTrick()) {
                 byte place_ = game_.playerHavingToBid();
                 if (place_ == bye_.getPlace()) {
-                    Constants.sleep(800);
+                    ThreadUtil.sleep(800);
                     if (game_.currentPlayerHasPlayed(place_)) {
                         return;
                     }
@@ -1832,7 +1833,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(place_),decla_);
             return;
         }
-        Constants.sleep(800);
+        ThreadUtil.sleep(800);
         if (game_.currentPlayerHasPlayed(place_)) {
             return;
         }
@@ -1871,7 +1872,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(place_),allow_);
             return;
         }
-        Constants.sleep(800);
+        ThreadUtil.sleep(800);
         if (game_.currentPlayerHasPlayed(place_, Constants.getDefaultLanguage())) {
             return;
         }
@@ -1909,7 +1910,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(place_), decla_);
             return;
         }
-        Constants.sleep(800);
+        ThreadUtil.sleep(800);
         if (game_.currentPlayerHasPlayed(place_)) {
             return;
         }

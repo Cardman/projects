@@ -1,9 +1,9 @@
 package aiki.beans.help;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorMiniMapCoords;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.comparators.TrMovesComparator;
+import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -24,6 +24,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
 import code.util.CustList;
@@ -32,7 +33,6 @@ import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class GeneralHelpBean extends CommonBean {
     private TreeMap<MiniMapCoords, int[][]> miniMap;

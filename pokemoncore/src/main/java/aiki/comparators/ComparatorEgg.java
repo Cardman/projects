@@ -1,16 +1,17 @@
 package aiki.comparators;
+import aiki.facade.LongFieldComparator;
+import aiki.facade.Pagination;
+import aiki.facade.StringFieldComparator;
 import aiki.util.SortingEgg;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Comparing;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class ComparatorEgg implements Comparing<SortingEgg> {
 
-    private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
+    private LongFieldComparator cmpSteps = new LongFieldComparator();
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
     private final int nbComparators;
 
@@ -18,8 +19,8 @@ public final class ComparatorEgg implements Comparing<SortingEgg> {
         nbComparators = 0;
     }
 
-    public ComparatorEgg(FieldComparator<Integer> _cmpSteps,
-            FieldComparator<String> _cmpName,
+    public ComparatorEgg(LongFieldComparator _cmpSteps,
+            StringFieldComparator _cmpName,
             int _nbComparators) {
         cmpSteps = _cmpSteps;
         cmpName = _cmpName;

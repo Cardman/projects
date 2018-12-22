@@ -1,6 +1,6 @@
 package aiki.map.characters;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 
 public final class GymLeader extends TrainerOneFight implements Fightable {

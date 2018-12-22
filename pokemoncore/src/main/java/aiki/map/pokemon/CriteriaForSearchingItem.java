@@ -1,5 +1,6 @@
 package aiki.map.pokemon;
-import aiki.DataBase;
+import aiki.db.DataBase;
+import aiki.facade.CriteriaForSearching;
 import aiki.fight.items.HealingHp;
 import aiki.fight.items.HealingHpStatus;
 import aiki.fight.items.HealingItem;
@@ -8,7 +9,6 @@ import aiki.fight.items.HealingStatus;
 import aiki.fight.items.Item;
 import code.maths.LgInt;
 import code.util.StringList;
-import code.util.pagination.CriteriaForSearching;
 import code.util.pagination.SearchingMode;
 
 public class CriteriaForSearchingItem extends CriteriaForSearching {

@@ -1,4 +1,4 @@
-package code.util.opers;
+package code.images;
 
 public final class BaseSixtyFourUtil {
 

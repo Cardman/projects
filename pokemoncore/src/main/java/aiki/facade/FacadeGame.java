@@ -3,13 +3,13 @@ package aiki.facade;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import aiki.DataBase;
-import aiki.ExchangedData;
-import aiki.ImageHeroKey;
 import aiki.comments.Comment;
 import aiki.comparators.ComparatorCoords;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.comparators.TrMovesComparator;
+import aiki.db.DataBase;
+import aiki.db.ExchangedData;
+import aiki.db.ImageHeroKey;
 import aiki.facade.enums.StorageActions;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
@@ -58,6 +58,7 @@ import aiki.util.SortingHealingItem;
 import aiki.util.SortingItem;
 import aiki.util.SortingMove;
 import aiki.util.SortingPokemonPlayer;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
@@ -74,7 +75,6 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.MathFactory;
 import code.util.ints.WithMathFactory;
-import code.util.opers.BaseSixtyFourUtil;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
@@ -2030,7 +2030,7 @@ public class FacadeGame implements WithMathFactory {
 
     public void removeTmToBuy(String _item) {
         // chosenTmForBuy.removeObj(data.getTm().getKeys(_item).first());
-        chosenTmForBuy.removeObj(data.getTmByMove(_item).first());
+        chosenTmForBuy.removeObj(data.getTmByMove(_item).first().shortValue());
     }
 
     public LgInt amountTm() {

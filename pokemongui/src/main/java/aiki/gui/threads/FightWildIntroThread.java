@@ -3,8 +3,8 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
+import code.gui.ThreadUtil;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -25,7 +25,7 @@ public final class FightWildIntroThread extends FightIntroThread {
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), false);
         getBattle().drawAnimationFightIni(getHeros(), pokemon);
         while (getBattle().isKeepAnimation()) {
-            Constants.sleep(5l);
+            ThreadUtil.sleep(5l);
             getBattle().drawAnimationFightIniInst();
         }
         getBattle().setComments();

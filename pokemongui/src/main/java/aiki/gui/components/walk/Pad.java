@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
 import code.gui.PaintableLabel;

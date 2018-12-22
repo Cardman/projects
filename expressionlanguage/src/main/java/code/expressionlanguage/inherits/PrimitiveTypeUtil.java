@@ -320,12 +320,6 @@ public final class PrimitiveTypeUtil {
         }
         return current_;
     }
-    public static String toNumberString(Number _nb) {
-        if (_nb instanceof Double || _nb instanceof Float) {
-            return Double.toString(_nb.doubleValue());
-        }
-        return Long.toString(_nb.longValue());
-    }
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
@@ -1011,53 +1005,32 @@ public final class PrimitiveTypeUtil {
         }
         return NullStruct.NULL_VALUE;
     }
-    public static Struct convert(String _toClass, Object _arg, ContextEl _context) {
+    public static Struct convert(String _toClass, long _arg, ContextEl _context) {
         return convert(_toClass, _arg, _context.getStandards());
     }
-    static Struct convert(String _toClass, Object _arg, LgNames _stds) {
+    static Struct convert(String _toClass, long _arg, LgNames _stds) {
         ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
         ClassArgumentMatching prim_ = toPrimitive(class_, true, _stds);
         if (prim_.matchClass(_stds.getAliasPrimDouble())) {
-            if (_arg instanceof Character) {
-                return new DoubleStruct(((Character)_arg).charValue());
-            }
-            return new DoubleStruct(((Number)_arg).doubleValue());
+            return new DoubleStruct(_arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimFloat())) {
-            if (_arg instanceof Character) {
-                return new FloatStruct(((Character)_arg).charValue());
-            }
-            return new FloatStruct(((Number)_arg).floatValue());
+            return new FloatStruct(_arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimLong())) {
-            if (_arg instanceof Character) {
-                return new LongStruct(((Character)_arg).charValue());
-            }
-            return new LongStruct(((Number)_arg).longValue());
+            return new LongStruct(_arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimInteger())) {
-            if (_arg instanceof Character) {
-                return new IntStruct(((Character)_arg).charValue());
-            }
-            return new IntStruct(((Number)_arg).intValue());
+            return new IntStruct((int) _arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimChar())) {
-            if (_arg instanceof Character) {
-                return new CharStruct((Character)_arg);
-            }
-            return new CharStruct((char)((Number)_arg).longValue());
+            return new CharStruct((char)_arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimShort())) {
-            if (_arg instanceof Character) {
-                return new ShortStruct((short)((Character)_arg).charValue());
-            }
-            return new ShortStruct(((Number)_arg).shortValue());
+            return new ShortStruct((short) _arg);
         }
         if (prim_.matchClass(_stds.getAliasPrimByte())) {
-            if (_arg instanceof Character) {
-                return new ByteStruct((byte)((Character)_arg).charValue());
-            }
-            return new ByteStruct(((Number)_arg).byteValue());
+            return new ByteStruct((byte) _arg);
         }
         return NullStruct.NULL_VALUE;
     }

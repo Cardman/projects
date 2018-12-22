@@ -16,13 +16,12 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
     private static final String LINE_RETURN = "\n";
-    private static final String EMPTY_STRING = Constants.EMPTY_STRING;
+    private static final String EMPTY_STRING = "";
     private static final char INVALID_CHARACTER = 65533;
 
     private StreamTextFile() {

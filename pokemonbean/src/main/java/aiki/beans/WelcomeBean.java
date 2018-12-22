@@ -1,6 +1,6 @@
 package aiki.beans;
-import aiki.DataBase;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
 import code.util.StringList;

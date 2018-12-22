@@ -189,10 +189,11 @@ public final class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
-    private static boolean sameValue(Number _expected, Number _result) {
-        if (_expected instanceof Double || _expected instanceof Float) {
-            return _expected.doubleValue() == _result.doubleValue();
-        }
+    private static boolean sameValue(Byte _expected, Number _result) {
+        return _expected.longValue() == _result.longValue();
+    }
+
+    private static boolean sameValue(Integer _expected, Number _result) {
         return _expected.longValue() == _result.longValue();
     }
 }

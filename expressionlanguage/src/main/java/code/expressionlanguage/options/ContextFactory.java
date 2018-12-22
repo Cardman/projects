@@ -39,7 +39,7 @@ public final class ContextFactory {
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
             Options _options, KeyWords _definedKw, LgNames _definedLgNames) {
-        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw);
+        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames);
         contextEl_.setStandards(_definedLgNames);
         StringList keyWords_ = _definedKw.allKeyWords();
         _definedKw.validateKeyWordContents(contextEl_, keyWords_);

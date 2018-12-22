@@ -1,5 +1,5 @@
 package aiki.game.params;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;

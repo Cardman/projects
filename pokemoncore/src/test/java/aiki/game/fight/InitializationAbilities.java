@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingSimple;

@@ -8,6 +8,7 @@ import java.io.File;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
+import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -17,9 +18,7 @@ import code.stream.StreamTextFile;
 import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.util.opers.BaseSixtyFourUtil;
 
 public abstract class SoftApplicationCore {
 

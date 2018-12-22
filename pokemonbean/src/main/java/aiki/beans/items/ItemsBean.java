@@ -1,8 +1,8 @@
 package aiki.beans.items;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -18,10 +18,10 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class ItemsBean extends CommonBean {
     private CustList<ItemLine> items = new CustList<ItemLine>();

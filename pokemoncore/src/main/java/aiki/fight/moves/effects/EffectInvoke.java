@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
 import code.util.EntryCust;

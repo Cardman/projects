@@ -1067,12 +1067,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         grDigits = copieAutre_.grDigits;
     }
 
-    private PairEq<Numbers<Long>, Numbers<Long>> divisionEuclidienne(LgInt _autre) {
-        PairEq<Numbers<Long>, Numbers<Long>> quotientReste_ = new PairEq<Numbers<Long>, Numbers<Long>>();
+    private QuotMod divisionEuclidienne(LgInt _autre) {
+        QuotMod quotientReste_ = new QuotMod();
         if (plusPetitQue(_autre)) {
-            quotientReste_.setFirst(new Numbers<Long>());
-            quotientReste_.getFirst().add(0l);
-            quotientReste_.setSecond(new Numbers<Long>(grDigits));
+            quotientReste_.setQuot(new Numbers<Long>());
+            quotientReste_.getQuot().add(0l);
+            quotientReste_.setMod(new Numbers<Long>(grDigits));
             return quotientReste_;
         }
         int taille_ = grDigits.size();
@@ -1143,8 +1143,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             indiceChiffre_++;
         }
-        quotientReste_.setFirst(chiffresQuotient_);
-        quotientReste_.setSecond(reste_.grDigits);
+        quotientReste_.setQuot(chiffresQuotient_);
+        quotientReste_.setMod(reste_.grDigits);
         return quotientReste_;
     }
 
@@ -1286,9 +1286,24 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (signum != _two.signum) {
             return false;
         }
-        return grDigits.eq(_two.grDigits);
+        return eq(grDigits,_two.grDigits);
     }
 
+
+    private static boolean eq(Numbers<Long> _f, Numbers<Long> _s) {
+        int len_ = _f.size();
+        if (_s.size() != len_) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            long e_ = _f.get(i);
+            long i_ = _s.get(i);
+            if (e_ != i_) {
+                return false;
+            }
+        }
+        return true;
+    }
     LgInt multiplyBy(long _autre) {
         LgInt resultat_ = LgInt.zero();
         if (_autre == 0L) {
@@ -1566,7 +1581,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         if (!sameSignum(_autre)) {
             //numbers which have not a same signum
-            if (grDigits.eq(_autre.grDigits)) {
+            if (eq(grDigits,_autre.grDigits)) {
                 //opposite numbers
                 affectZero();
                 return;
@@ -1594,10 +1609,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         PairEq<LgInt, LgInt> quotientReste_ = new PairEq<LgInt, LgInt>();
         LgInt absolu_ = absNb();
         LgInt autreAbsolu_ = _autre.absNb();
-        PairEq<Numbers<Long>, Numbers<Long>> quotientRestePositif_;
+        QuotMod quotientRestePositif_;
         quotientRestePositif_ = absolu_.divisionEuclidienne(autreAbsolu_);
-        quotientReste_.setFirst(new LgInt(quotientRestePositif_.getFirst(), SIGNE_POSITIF));
-        quotientReste_.setSecond(new LgInt(quotientRestePositif_.getSecond(), SIGNE_POSITIF));
+        quotientReste_.setFirst(new LgInt(quotientRestePositif_.getQuot(), SIGNE_POSITIF));
+        quotientReste_.setSecond(new LgInt(quotientRestePositif_.getMod(), SIGNE_POSITIF));
         if (isZeroOrGt()) {
             LgInt int_ = quotientReste_.getFirst();
             if (!int_.isZero()) {

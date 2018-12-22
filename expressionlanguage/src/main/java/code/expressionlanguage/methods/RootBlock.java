@@ -18,6 +18,7 @@ import code.expressionlanguage.errors.custom.UndefinedSuperConstructor;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.ComparingByTypeList;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -43,7 +44,6 @@ import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.ComparatorIndexes;
 import code.util.graphs.Graph;
 
 public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock, AnnotableBlock {
@@ -1079,7 +1079,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 String classNameFound_;
                 MethodId realId_;
-                foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
+                foundSuperClasses_.sortElts(new ComparingByTypeList(allSuperClasses_));
                 if (foundSuperClasses_.isEmpty()) {
                     continue;
                 }

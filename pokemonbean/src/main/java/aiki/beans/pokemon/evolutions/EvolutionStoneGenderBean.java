@@ -1,5 +1,5 @@
 package aiki.beans.pokemon.evolutions;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.evolution.EvolutionStoneGender;
 import aiki.map.pokemon.enums.Gender;
 import code.util.EnumMap;

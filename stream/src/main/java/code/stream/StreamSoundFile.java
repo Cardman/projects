@@ -10,8 +10,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import code.resources.ClipStream;
-import code.resources.ResourceFiles;
-import code.util.opers.BaseSixtyFourUtil;
 
 public final class StreamSoundFile {
 
@@ -45,24 +43,6 @@ public final class StreamSoundFile {
         }
     }
 
-    public static ClipStream resourceClipSixtyFour(String _file) {
-        String content_ = ResourceFiles.ressourceFichier(_file);
-        return openClip(content_, null);
-    }
-
-    public static ClipStream resourceClipSixtyFour(String _file, LineListener _l) {
-        String content_ = ResourceFiles.ressourceFichier(_file);
-        return openClip(content_, _l);
-    }
-
-    public static ClipStream openClip(String _imageString) {
-        return openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), null);
-    }
-
-    public static ClipStream openClip(String _imageString, LineListener _l) {
-        return openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), _l);
-    }
-
     public static ClipStream openClip(byte[] _file) {
         return openClip(_file, null);
     }
@@ -91,8 +71,4 @@ public final class StreamSoundFile {
             return null;
         }
     }
-
-//    public static void openClip(Clip _clip, byte[] _file, AudioFormat _format) throws LineUnavailableException {
-//        _clip.open(_format, _file, List.FIRST_INDEX, _file.length);
-//    }
 }

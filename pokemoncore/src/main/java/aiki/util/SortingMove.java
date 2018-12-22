@@ -1,9 +1,9 @@
 package aiki.util;
+import aiki.facade.Sorting;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Cmp;
-import code.util.pagination.Sorting;
 
 public final class SortingMove implements Sorting,Cmp<SortingMove> {
 

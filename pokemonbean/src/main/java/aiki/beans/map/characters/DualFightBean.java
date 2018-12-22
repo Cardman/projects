@@ -1,9 +1,9 @@
 package aiki.beans.map.characters;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
-import code.util.opers.BaseSixtyFourUtil;
+import code.images.BaseSixtyFourUtil;
 
 public class DualFightBean extends CommonBean {
     private final String pageAlly = "web/html/map/elements/ally.html";

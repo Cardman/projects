@@ -26,7 +26,6 @@ import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public abstract class FileDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.filedialog";

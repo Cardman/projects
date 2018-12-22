@@ -1,5 +1,5 @@
 package aiki.network.stream;
-import aiki.ExchangedData;
+import aiki.db.ExchangedData;
 import aiki.map.pokemon.UsablePokemon;
 import code.util.CustList;
 

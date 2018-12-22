@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import aiki.DataBase;
-import aiki.Resources;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.ChosenMoveInfos;

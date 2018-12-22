@@ -3,7 +3,7 @@ import static aiki.EquallablePkUtil.assertEq;
 
 import org.junit.Test;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;

@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -4520,8 +4521,8 @@ public final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
-            Number element_ = (Number) lv_.getStruct().getInstance();
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()).getInstance());
+            Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
+            lv_.setStruct(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4760,9 +4761,9 @@ public final class FormatHtml {
                 return;
             }
             realFromValue_ = argFrom_.getLong();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.getContext()).getInstance();
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.getContext()).getInstance();
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.getContext()).getInstance();
+            fromValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.getContext())).getInstance().longValue();
+            long toValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.getContext())).getInstance().longValue();
+            stepValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.getContext())).getInstance().longValue();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4849,7 +4850,7 @@ public final class FormatHtml {
         if (finished_) {
             return;
         }
-        Object int_ = null;
+        long int_ = 0;
         Struct elt_ = null;
         if (iterationNb_) {
             int_ = realFromValue_;
@@ -4908,7 +4909,7 @@ public final class FormatHtml {
             className_ = rest_;
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.getContext()).getInstance());
+            lv_.setStruct(PrimitiveTypeUtil.convert(className_, int_, _conf.getContext()));
             lv_.setStep(stepValue_);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {

@@ -133,7 +133,7 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(NUMBER_EXPRESSION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Boolean b_ = (Boolean) ExtractObject.evaluateMathExpression(_ip, _conf, true, mathExpr_).getInstance();
+            Boolean b_ = ((BooleanStruct) ExtractObject.evaluateMathExpression(_ip, _conf, true, mathExpr_)).getInstance();
             if (_conf.getContext().getException() != null) {
                 return false;
             }

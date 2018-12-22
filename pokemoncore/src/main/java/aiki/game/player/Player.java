@@ -1,7 +1,7 @@
 package aiki.game.player;
-import aiki.DataBase;
-import aiki.ExchangedData;
 import aiki.comments.Comment;
+import aiki.db.DataBase;
+import aiki.db.ExchangedData;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;

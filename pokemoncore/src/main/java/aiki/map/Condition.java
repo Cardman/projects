@@ -1,11 +1,11 @@
 package aiki.map;
 import aiki.util.Coords;
-import code.util.AbEqList;
+import code.util.CustList;
 import code.util.EqList;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class Condition extends AbEqList<Coords> implements Equallable<Condition> {
+public final class Condition extends CustList<Coords> implements Equallable<Condition> {
 
     public Condition() {
     }
@@ -30,17 +30,31 @@ public final class Condition extends AbEqList<Coords> implements Equallable<Cond
         return equalsSet(this, _g);
     }
 
-    @Override
-    public int indexOfObj(Coords _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
+
+    public void removeDuplicates()  {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            Coords e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
         }
+    }
+
+    public int indexOfObj(Coords _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             Coords e_ = get(i);
-            if (e_ == null) {
-                continue;
-            }
             if (_element.eq(e_)) {
                 return i;
             }
@@ -48,7 +62,6 @@ public final class Condition extends AbEqList<Coords> implements Equallable<Cond
         return INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
     public Condition subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }
@@ -60,23 +73,17 @@ public final class Condition extends AbEqList<Coords> implements Equallable<Cond
         }
         return new Condition(super.sub(_from, _to));
     }
-//    @Override
-//    public Numbers<Integer> indexesOfObj(Coords _element) {
-//        if (_element == null) {
-//            return indexesOfNull();
-//        }
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            Coords e_ = get(i);
-//            if (e_ == null) {
-//                continue;
-//            }
-//            if (_element.eq(e_)) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
+
+    public boolean containsObj(Coords _coords) {
+        return indexOfObj(_coords, FIRST_INDEX) > -1;
+    }
+
+    public boolean containsAllObj(Condition _val) {
+        for (Coords e: _val) {
+            if (!containsObj(e)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

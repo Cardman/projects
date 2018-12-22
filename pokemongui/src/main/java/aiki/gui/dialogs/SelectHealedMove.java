@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.WindowConstants;
 
-import aiki.Resources;
 import aiki.comparators.TrMovesComparator;
+import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.HealedMoveEvent;

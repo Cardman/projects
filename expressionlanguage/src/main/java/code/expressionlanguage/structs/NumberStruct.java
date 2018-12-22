@@ -1163,24 +1163,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     private byte getByte() {
         return getInstance().byteValue();
     }
-    public static NumberStruct wrapNb(Number _element) {
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        return new ByteStruct((Byte) _element);
-    }
 
     @Override
     public final boolean sameReference(Struct _other) {

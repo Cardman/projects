@@ -141,6 +141,7 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.CheckBoxMenuItem;
 import code.gui.Clock;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.FileOpenDialog;
 import code.gui.FileSaveDialog;
 import code.gui.GroupFrame;
@@ -165,7 +166,6 @@ import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 /**
 
