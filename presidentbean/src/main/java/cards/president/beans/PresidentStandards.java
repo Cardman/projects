@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
@@ -129,28 +130,28 @@ public final class PresidentStandards extends BeanLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (_instance.getInstance() instanceof PresidentBean) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof PresidentBean) {
             if (StringList.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new StdStruct(((PresidentBean)_instance.getInstance()).getLinesDeal(), getCustList()));
+                res_.setResult(new StdStruct(((PresidentBean)((RealInstanceStruct)_instance).getInstance()).getLinesDeal(), getCustList()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof LineDeal) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(StdStruct.newListLong(((LineDeal)_instance.getInstance()).getScores(), getCustList()));
+                res_.setResult(StdStruct.newListLong(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, NUMBER)) {
-                res_.setResult(new IntStruct(((LineDeal)_instance.getInstance()).getNumber()));
+                res_.setResult(new IntStruct(((LineDeal)((RealInstanceStruct)_instance).getInstance()).getNumber()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof RulesPresidentBean) {
-            RulesPresidentBean rules_ = (RulesPresidentBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
+            RulesPresidentBean rules_ = (RulesPresidentBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NB_PLAYERS)) {
                 res_.setResult(new IntStruct(rules_.getNbPlayers()));
                 return res_;
@@ -202,9 +203,9 @@ public final class PresidentStandards extends BeanLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance.getInstance() instanceof RulesPresidentBean) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
-                res_.setResult(new BooleanStruct(((RulesPresidentBean)_instance.getInstance()).sameAmount()));
+                res_.setResult(new BooleanStruct(((RulesPresidentBean)((RealInstanceStruct)_instance).getInstance()).sameAmount()));
                 return res_;
             }
         }

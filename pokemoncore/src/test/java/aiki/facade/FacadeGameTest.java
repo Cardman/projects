@@ -1,5 +1,5 @@
 package aiki.facade;
-import static aiki.EquallablePkUtil.assertEq;
+import static aiki.db.EquallablePkUtil.assertEq;
 
 import org.junit.Test;
 

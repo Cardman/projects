@@ -92,7 +92,7 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
                 m_.setArg(a_);
                 m_.setParam(p_);
                 m_.setMapping(map_);
-                if (!Templates.isCorrect(m_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(m_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(m_);
                     cast_.setFileName(_conf.getCurrentFileName());

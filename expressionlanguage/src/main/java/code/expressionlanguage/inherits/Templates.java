@@ -14,6 +14,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
@@ -399,7 +400,7 @@ public final class Templates {
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (isCorrect(m_, _context)) {
+                    if (isCorrectOrNumbers(m_, _context)) {
                         ok_ = true;
                         break;
                     }
@@ -1047,7 +1048,34 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
-    public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
+    public static boolean isCorrectOrNumbers(Mapping _m, Analyzable _context) {
+    	ClassArgumentMatching a_ = _m.getArg();
+    	ClassArgumentMatching p_ = _m.getParam();
+    	if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
+    		StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
+			if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
+				String aName_ = a_.getName();
+    			String pName_ = p_.getName();
+    			return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
+			}
+			if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(a_, _context)) {
+				return false;
+			}
+			ClassArgumentMatching aPrim_ = PrimitiveTypeUtil.toPrimitive(a_, true, _context);
+			String aName_ = aPrim_.getName();
+			String pName_ = p_.getName();
+			return prims_.getVal(aName_).getAllSuperType(_context).containsStr(pName_);
+		}
+    	if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
+    		StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
+			String aName_ = a_.getName();
+    		ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, true, _context);
+    		String pName_ = pPrim_.getName();
+    		return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
+    	}
+    	return isGenericCorrect(_m, _context);
+    }
+    private static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isVariable()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }
@@ -1063,7 +1091,7 @@ public final class Templates {
         map_.setArg(_a);
         map_.setParam(_p);
         map_.setMapping(_mapping);
-        return isCorrect(map_, _context);
+        return isCorrectOrNumbers(map_, _context);
     }
     public static boolean isCorrect(Mapping _m, Analyzable _context) {
         ClassArgumentMatching arg_ = _m.getArg();

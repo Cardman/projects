@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -233,7 +234,10 @@ public final class CustLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
-        Object instance_ = _instance.getInstance();
+        Object instance_ = null;
+        if (!_method.getConstraints().isStaticMethod()) {
+        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+        }
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getClassName(), aliasInts)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasAdd)) {
@@ -448,12 +452,12 @@ public final class CustLgNames extends BeanLgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 Integer i_ = cpt_.getObjInteger();
                 if (i_ != null) {
                     res_.setResult(new IntStruct(i_));
@@ -463,20 +467,20 @@ public final class CustLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, aliasCompositeField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 CompositeSec i_ = cpt_.getComposite();
                 res_.setResult(StdStruct.newInstance(i_, aliasCompositeSec));
                 return res_;
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasCompositeSec)) {
-            CompositeSec cpt_ = (CompositeSec) _instance.getInstance();
+            CompositeSec cpt_ = (CompositeSec) ((RealInstanceStruct)_instance).getInstance();
             res_.setResult(new IntStruct(cpt_.getInteger()));
             return res_;
         }
         if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
             if (StringList.quickEq(fieldName_, aliasCompositeField)) {
-                BeanOne cpt_ = (BeanOne) _instance.getInstance();
+                BeanOne cpt_ = (BeanOne) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(new StdStruct(cpt_.getComposite(), aliasComposite));
                 return res_;
             }
@@ -496,15 +500,15 @@ public final class CustLgNames extends BeanLgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
-                cpt_.setInteger((Integer) _value.getInstance());
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                cpt_.setInteger((Integer) ((RealInstanceStruct)_value).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
-                if (!_value.isNull()) {
-                    cpt_.setObjInteger((Integer) _value.getInstance());
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                if (_value != NullStruct.NULL_VALUE) {
+                    cpt_.setObjInteger((Integer) ((RealInstanceStruct)_value).getInstance());
                 } else {
                     cpt_.setObjInteger(null);
                 }

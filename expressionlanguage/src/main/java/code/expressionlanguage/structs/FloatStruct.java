@@ -1,8 +1,6 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
 public final class FloatStruct extends NumberStruct {
 
@@ -13,13 +11,8 @@ public final class FloatStruct extends NumberStruct {
     }
 
     @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasPrimFloat();
+        return _context.getStandards().getAliasFloat();
     }
 
     @Override
@@ -27,8 +20,4 @@ public final class FloatStruct extends NumberStruct {
         return value;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 }

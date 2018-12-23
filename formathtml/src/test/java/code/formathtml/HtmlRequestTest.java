@@ -15,6 +15,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -74,9 +75,9 @@ public class HtmlRequestTest {
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("88 8", bean_.getComposite().getStrings().first());
         ValueChangeEvent changing_ = bean_.getComposite().getChanging();
-        int new_ = (Integer) changing_.getNewValue();
+        int new_ = (Integer) ((NumberStruct) changing_.getNewValue()).getInstance();
         assertEq(88, new_);
-        int old_ = (Integer) changing_.getOldValue();
+        int old_ = (Integer) ((NumberStruct) changing_.getOldValue()).getInstance();
         assertEq(8, old_);
         Numbers<Long> list_ = changing_.getIndexes();
         assertEq(1, list_.size());
@@ -268,8 +269,8 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
         assertEq(2, inst_.length);
-        assertEq(5, (Number)inst_[0].getInstance());
-        assertEq(3, (Number)inst_[1].getInstance());
+        assertEq(5, ((NumberStruct) inst_[0]).getInstance());
+        assertEq(3, ((NumberStruct) inst_[1]).getInstance());
     }
 
     @Ignore
@@ -474,7 +475,7 @@ public class HtmlRequestTest {
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         Argument arg_ = new Argument(new LongStruct(7));
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", arg_).getInstance();
+        String return_ = ((StringStruct) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", arg_)).getInstance();
         assertEq("returned value",return_);
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("7", bean_.getComposite().getStrings().first());
@@ -488,7 +489,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "composite.internMethod").getInstance();
+        String return_ = ((StringStruct) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "composite.internMethod")).getInstance();
         assertEq("sample",return_);
     }
 

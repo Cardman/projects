@@ -818,7 +818,7 @@ public final class AliasReflection {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                result_.setResult(new BooleanStruct(Templates.isCorrect(mapping_, _cont)));
+                result_.setResult(new BooleanStruct(Templates.isCorrectOrNumbers(mapping_, _cont)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
@@ -828,7 +828,7 @@ public final class AliasReflection {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                result_.setResult(new BooleanStruct(Templates.isCorrect(mapping_, _cont)));
+                result_.setResult(new BooleanStruct(Templates.isCorrectOrNumbers(mapping_, _cont)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {

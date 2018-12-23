@@ -75,14 +75,14 @@ final class HtmlRequest {
             Struct _attribute,
             Numbers<Long> _indexes) {
         Struct obj_ = _nodeContainer.getStruct();
-        if (obj_.isNull()) {
+        if (obj_ == NullStruct.NULL_VALUE) {
             String err_ = _conf.getStandards().getAliasNullPe();
             ContextEl context_ = _conf.getContext();
             context_.setException(new ErrorStruct(_conf,err_));
             return;
         }
         long index_ = _nodeContainer.getIndex();
-        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
+        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute, _indexes);
         if (index_ >= 0) {
             boolean key_ = _nodeContainer.isKey();
             ContextEl context_ = _conf.getContext();
@@ -175,7 +175,7 @@ final class HtmlRequest {
         }
     }
     private static ValueChangeEvent calculateChange(NodeContainer _nodeContainer,
-            Object _attribute,
+            Struct _attribute,
             Numbers<Long> _indexes) {
         String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
         if (!varMethod_.isEmpty()) {
@@ -185,6 +185,6 @@ final class HtmlRequest {
         if (method_.isEmpty()) {
             return null;
         }
-        return new ValueChangeEvent(_indexes, _nodeContainer.getTypedField(), _attribute);
+        return new ValueChangeEvent(_indexes, _nodeContainer.getTypedStruct(), _attribute);
     }
 }

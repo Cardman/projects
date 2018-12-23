@@ -28,7 +28,7 @@ public final class ClassMatching {
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());
         map_.setParam(className);
-        return Templates.isGenericCorrect(map_, _context);
+        return Templates.isCorrectOrNumbers(map_, _context);
     }
 
     public boolean isPrimitive(LgNames _context) {

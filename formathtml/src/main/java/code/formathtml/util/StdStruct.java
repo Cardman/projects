@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -13,19 +12,19 @@ import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleIterable;
 import code.util.pagination.SelectedBoolean;
 
-public final class StdStruct implements Struct {
+public final class StdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -93,26 +92,26 @@ public final class StdStruct implements Struct {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
+        if (_element instanceof Byte) {
+            return new ByteStruct((Byte) _element);
         }
         if (_element instanceof Short) {
             return new ShortStruct((Short) _element);
         }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
+        if (_element instanceof Character) {
+            return new CharStruct((Character) _element);
+        }
+        if (_element instanceof Integer) {
+            return new IntStruct((Integer) _element);
+        }
+        if (_element instanceof Long) {
+            return new LongStruct((Long) _element);
+        }
+        if (_element instanceof Float) {
+            return new FloatStruct((Float) _element);
+        }
+        if (_element instanceof Double) {
+            return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
             return new BooleanStruct((Boolean) _element);
@@ -124,15 +123,11 @@ public final class StdStruct implements Struct {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String className_ = lgNames_.getStructClassName(_element, _context);
+        String className_ = lgNames_.getOtherStructClassName(_element, _context);
         if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
             return StdStruct.newInstance(_element, _alias);
         }
         return StdStruct.newInstance(_element, className_);
-    }
-    @Override
-    public boolean isNull() {
-        return false;
     }
 
     @Override
@@ -157,13 +152,4 @@ public final class StdStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return className.startsWith(PrimitiveTypeUtil.ARR_CLASS);
-    }
 }

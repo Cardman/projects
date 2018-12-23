@@ -2,10 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 
@@ -109,15 +107,6 @@ public final class MethodMetaInfo implements Struct {
     public String getFormattedReturnType() {
         return formattedReturnType;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -139,13 +128,4 @@ public final class MethodMetaInfo implements Struct {
         return realId.eq(info_.realId);
     }
 
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 }

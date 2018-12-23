@@ -162,7 +162,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 ClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
-                if (!Templates.isGenericCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());

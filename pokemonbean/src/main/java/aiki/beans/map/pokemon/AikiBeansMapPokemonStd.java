@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -93,7 +94,7 @@ public final class AikiBeansMapPokemonStd {
     public static ResultErrorStd getResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) _instance.getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,REWARD)) {
             res_.setResult(new ShortStruct(instance_.getReward()));
@@ -115,8 +116,8 @@ public final class AikiBeansMapPokemonStd {
     }
     public static ResultErrorStd setResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TRAINER)) {
             instance_.setTrainer((Trainer) value_);
@@ -131,7 +132,7 @@ public final class AikiBeansMapPokemonStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokemonTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        PokemonTeamBean instance_ = (PokemonTeamBean) _instance.getInstance();
+        PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_IMAGE)) {

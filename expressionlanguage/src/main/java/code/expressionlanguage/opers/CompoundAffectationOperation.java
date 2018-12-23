@@ -85,7 +85,7 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
             Mapping map_ = new Mapping();
             map_.setArg(out_);
             map_.setParam(elt_.getResultClass());
-            if (!Templates.isCorrect(map_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(map_);
                 cast_.setFileName(_conf.getCurrentFileName());

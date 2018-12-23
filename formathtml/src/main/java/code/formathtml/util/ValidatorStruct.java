@@ -2,12 +2,11 @@ package code.formathtml.util;
 
 import code.bean.validator.Validator;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
 
-public final class ValidatorStruct implements Struct {
+public final class ValidatorStruct implements RealInstanceStruct {
 
     private Validator translator;
 
@@ -18,15 +17,7 @@ public final class ValidatorStruct implements Struct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -43,9 +34,5 @@ public final class ValidatorStruct implements Struct {
         return translator;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 
 }

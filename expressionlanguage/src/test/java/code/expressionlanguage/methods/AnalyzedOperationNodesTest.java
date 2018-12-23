@@ -127,7 +127,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("getOverridenThree", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("$double", params_.first());
+        assertEq("java.lang.Double", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }

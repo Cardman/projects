@@ -10,6 +10,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.classes.BeanOne;
@@ -705,7 +706,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true").getInstance());
+        assertTrue(((BooleanStruct)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -740,7 +741,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false").getInstance());
+        assertTrue(!((BooleanStruct)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -807,7 +808,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}").getInstance());
+        assertTrue(!((BooleanStruct)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -839,7 +840,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}").getInstance());
+        assertTrue(((BooleanStruct)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}")).getInstance());
     }
 
     @Test

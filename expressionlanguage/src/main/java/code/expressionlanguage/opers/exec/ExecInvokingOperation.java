@@ -646,7 +646,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                             cont_.setException(new ErrorStruct(_conf,null_));
                             return Argument.createVoid();
                         }
-                        String argCl_ = par_.getClassName(cont_);
+                        String argCl_ = stds_.getStructClassName(par_, _conf.getContextEl());
                         //From analyze
                         StringList inners_ = Templates.getAllInnerTypes(className_);
                         String param_ = inners_.mid(0, inners_.size() - 1).join("..");
@@ -791,10 +791,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
         Struct ls_ = _previous.getStruct();
-        String typeFct_ = ls_.getClassName(_conf);
+        LgNames lgNames_ = _conf.getStandards();
+        String typeFct_ = lgNames_.getStructClassName(ls_, _conf.getContextEl());
         StringList parts_ = Templates.getAllTypes(typeFct_);
         StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
-        LgNames lgNames_ = _conf.getStandards();
         int valuesSize_ = _values.size();
         if (valuesSize_ != paramsFct_.size()) {
             String null_;

@@ -74,7 +74,7 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
             mapping_.put(t.getName(), t.getConstraints());
         }
         map_.setMapping(mapping_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setIndexFile(_conf.getCurrentLocationIndex());

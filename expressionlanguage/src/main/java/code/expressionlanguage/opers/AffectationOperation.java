@@ -194,7 +194,7 @@ public final class AffectationOperation extends ReflectableOpering {
                 }
             }
         }
-        if (!Templates.isCorrect(mapping_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());

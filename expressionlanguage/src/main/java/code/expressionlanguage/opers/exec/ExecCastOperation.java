@@ -54,14 +54,14 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             }
         }
         Struct s_ = objArg_.getStruct();
-        String argClassName_ = s_.getClassName(_conf.getContextEl());
+        String argClassName_ = stds_.getStructClassName(s_, _conf.getContextEl());
         ClassArgumentMatching resCl_ = getResultClass();
         Argument arg_ = new Argument();
         if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
             mapping_.setParam(className);
-            if (!Templates.isCorrect(mapping_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 return;
             }
             arg_.setStruct(objArg_.getStruct());

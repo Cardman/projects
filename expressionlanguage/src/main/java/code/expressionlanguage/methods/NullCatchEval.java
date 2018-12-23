@@ -22,6 +22,9 @@ public final class NullCatchEval extends AbstractCatchEval {
                 reachCatch_ = false;
                 break;
             }
+            if (p_ == null) {
+                break;
+            }
             p_ = p_.getPreviousSibling();
         }
         if (reachCatch_) {

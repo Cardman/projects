@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -215,7 +216,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionBean instance_ = (EvolutionBean) _instance.getInstance();
+        EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             res_.setResult(new LongStruct(instance_.getIndex()));
@@ -233,7 +234,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionHappinessBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionHappinessBean instance_ = (EvolutionHappinessBean) _instance.getInstance();
+        EvolutionHappinessBean instance_ = (EvolutionHappinessBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MIN)) {
             res_.setResult(new LongStruct(instance_.getMin()));
@@ -243,7 +244,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionItemBean instance_ = (EvolutionItemBean) _instance.getInstance();
+        EvolutionItemBean instance_ = (EvolutionItemBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,ITEM)) {
             res_.setResult(new StringStruct(instance_.getItem()));
@@ -253,7 +254,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionLevelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionLevelBean instance_ = (EvolutionLevelBean) _instance.getInstance();
+        EvolutionLevelBean instance_ = (EvolutionLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
@@ -263,7 +264,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionLevelGenderBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionLevelGenderBean instance_ = (EvolutionLevelGenderBean) _instance.getInstance();
+        EvolutionLevelGenderBean instance_ = (EvolutionLevelGenderBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
@@ -273,7 +274,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionMoveBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionMoveBean instance_ = (EvolutionMoveBean) _instance.getInstance();
+        EvolutionMoveBean instance_ = (EvolutionMoveBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MOVE)) {
             res_.setResult(new StringStruct(instance_.getMove()));
@@ -283,7 +284,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionMoveTypeBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionMoveTypeBean instance_ = (EvolutionMoveTypeBean) _instance.getInstance();
+        EvolutionMoveTypeBean instance_ = (EvolutionMoveTypeBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPE)) {
             res_.setResult(new StringStruct(instance_.getType()));
@@ -293,7 +294,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionStoneBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionStoneBean instance_ = (EvolutionStoneBean) _instance.getInstance();
+        EvolutionStoneBean instance_ = (EvolutionStoneBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,STONE)) {
             res_.setResult(new StringStruct(instance_.getStone()));
@@ -303,7 +304,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionStoneGenderBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionStoneGenderBean instance_ = (EvolutionStoneGenderBean) _instance.getInstance();
+        EvolutionStoneGenderBean instance_ = (EvolutionStoneGenderBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,GENDER)) {
             res_.setResult(new StringStruct(instance_.getGender()));
@@ -313,7 +314,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd getResultEvolutionTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionTeamBean instance_ = (EvolutionTeamBean) _instance.getInstance();
+        EvolutionTeamBean instance_ = (EvolutionTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,OTHER)) {
             res_.setResult(new StringStruct(instance_.getOther()));
@@ -323,8 +324,8 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     public static ResultErrorStd setResultEvolutionBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionBean instance_ = (EvolutionBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             instance_.setIndex((Long) value_);
@@ -344,7 +345,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEvolutionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EvolutionBean instance_ = (EvolutionBean) _instance.getInstance();
+        EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_EVO)) {
@@ -354,7 +355,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEvolutionItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EvolutionItemBean instance_ = (EvolutionItemBean) _instance.getInstance();
+        EvolutionItemBean instance_ = (EvolutionItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_ITEM)) {
@@ -364,7 +365,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEvolutionMoveBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EvolutionMoveBean instance_ = (EvolutionMoveBean) _instance.getInstance();
+        EvolutionMoveBean instance_ = (EvolutionMoveBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {
@@ -374,7 +375,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEvolutionStoneBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EvolutionStoneBean instance_ = (EvolutionStoneBean) _instance.getInstance();
+        EvolutionStoneBean instance_ = (EvolutionStoneBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_STONE)) {
@@ -384,7 +385,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEvolutionTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EvolutionTeamBean instance_ = (EvolutionTeamBean) _instance.getInstance();
+        EvolutionTeamBean instance_ = (EvolutionTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_TEAM)) {

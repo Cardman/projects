@@ -376,7 +376,7 @@ public final class Navigation {
                 return;
             }
             String urlDest_ = currentUrl;
-            if (!return_.isNull()) {
+            if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
                 if (session.getContext().getException() != null) {
@@ -670,7 +670,7 @@ public final class Navigation {
             Struct newObj_;
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
-            if (!obj_.isNull()) {
+            if (obj_ != NullStruct.NULL_VALUE) {
                 ContextEl context_ = session.getContext();
                 className_ = context_.getStandards().getStructClassName(obj_, context_);
             }

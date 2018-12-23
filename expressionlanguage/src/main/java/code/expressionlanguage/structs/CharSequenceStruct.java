@@ -8,7 +8,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct, RealInstanceStruct {
     @Override
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;

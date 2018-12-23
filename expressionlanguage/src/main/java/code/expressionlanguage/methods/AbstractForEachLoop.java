@@ -257,7 +257,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                     }
                 }
                 mapping_.setMapping(vars_);
-                if (!Templates.isGenericCorrect(mapping_, _cont)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
@@ -317,7 +317,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                     }
                 }
                 mapping_.setMapping(vars_);
-                if (!Templates.isGenericCorrect(mapping_, _cont)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());

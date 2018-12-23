@@ -56,10 +56,6 @@ public class NodeContainer {
         }
     }
 
-    public Object getTypedField() {
-        return typedField.getInstance();
-    }
-
     public void setTypedField(String _typedField) {
         typedField = new StringStruct(_typedField);
     }

@@ -20,9 +20,9 @@ public abstract class ProcessMethodCommon {
     protected static final String ARR_ARR_CUST = "[[pkg.ExThree";
     protected static final String NUMBERS = "code.expressionlanguage.classes.Ints";
     protected static final String CUST = NUMBERS;
-    protected static final String INTEGER = "$int";
+    protected static final String INTEGER = "java.lang.Integer";
     protected static final String STRING = "java.lang.String";
-    protected static final String BOOLEAN = "$boolean";
+    protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static void initializeClass(String _class, ContextEl _cont) {
 //        ProcessMethod.initializeClass(_class, _cont);

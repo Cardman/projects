@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -84,7 +85,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
     }
     public static ResultErrorStd getResultPlaceTrainerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PlaceTrainerDto instance_ = (PlaceTrainerDto) _instance.getInstance();
+        PlaceTrainerDto instance_ = (PlaceTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TRAINER)) {
             res_.setResult(new StringStruct(instance_.getTrainer()));
@@ -98,7 +99,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
     }
     public static ResultErrorStd getResultWildPokemonDto(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        WildPokemonDto instance_ = (WildPokemonDto) _instance.getInstance();
+        WildPokemonDto instance_ = (WildPokemonDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,IMAGE)) {
             res_.setResult(new StringStruct(instance_.getImage()));
@@ -116,7 +117,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
     }
     public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        StepDto instance_ = (StepDto) _instance.getInstance();
+        StepDto instance_ = (StepDto) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_POKEMON)) {

@@ -9,6 +9,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -56,7 +57,7 @@ public final class AikiBeansFacadeGameDtoStd {
         _std.getStandards().put(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
     }
     public static ResultErrorStd invokeMethodStatisticInfoPkPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        StatisticInfoPkPlayer instance_ = (StatisticInfoPkPlayer) _instance.getInstance();
+        StatisticInfoPkPlayer instance_ = (StatisticInfoPkPlayer) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_NAME)) {

@@ -101,13 +101,6 @@ public abstract class LgNames {
         buildOther();
     }
 
-    public String toWrapper(String _type) {
-        return primTypes.toWrapper(_type);
-    }
-    public String toPrimitive(String _type) {
-        return primTypes.toPrimitive(_type);
-    }
-
     public StringList allPrimitives() {
         StringList list_ = new StringList();
         list_.add(primTypes.getAliasPrimBoolean());
@@ -2308,7 +2301,6 @@ public abstract class LgNames {
 
     public String getStructClassName(Struct _struct, ContextEl _context) {
         String w_ = _struct.getClassName(_context);
-        w_ = _context.getStandards().toWrapper(w_);
         return w_;
     }
     

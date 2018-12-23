@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -629,7 +630,7 @@ public final class AikiBeansAbilitiesStd {
     public static ResultErrorStd getResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilitiesBean instance_ = (AbilitiesBean) _instance.getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTypedAbility()));
@@ -644,7 +645,7 @@ public final class AikiBeansAbilitiesStd {
     public static ResultErrorStd getResultAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilityBean instance_ = (AbilityBean) _instance.getInstance();
+        AbilityBean instance_ = (AbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -1018,8 +1019,8 @@ public final class AikiBeansAbilitiesStd {
     }
     public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        AbilitiesBean instance_ = (AbilitiesBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
             instance_.setTypedAbility((String) value_);
@@ -1029,7 +1030,7 @@ public final class AikiBeansAbilitiesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        AbilitiesBean instance_ = (AbilitiesBean) _instance.getInstance();
+        AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,SEARCH)) {
@@ -1047,7 +1048,7 @@ public final class AikiBeansAbilitiesStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        AbilityBean instance_ = (AbilityBean) _instance.getInstance();
+        AbilityBean instance_ = (AbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_INDEX)) {

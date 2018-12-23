@@ -164,14 +164,14 @@ public final class PrimitiveTypeUtil {
                 map_.setArg(s);
                 map_.setParam(f);
                 map_.setMapping(_vars);
-                if (Templates.isCorrect(map_, _conf)) {
+                if (Templates.isCorrectOrNumbers(map_, _conf)) {
                     superTypesSecondAdj_.add(f);
                 }
                 map_ = new Mapping();
                 map_.setArg(f);
                 map_.setParam(s);
                 map_.setMapping(_vars);
-                if (Templates.isCorrect(map_, _conf)) {
+                if (Templates.isCorrectOrNumbers(map_, _conf)) {
                     superTypesFirstAdj_.add(s);
                 }
             }
@@ -722,22 +722,25 @@ public final class PrimitiveTypeUtil {
     }
 
     static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, Analyzable _context) {
-        return getOrdersGreaterEqThan(_class, _context.getStandards());
-    }
-    static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, LgNames _stds) {
+    	LgNames stds_ = _context.getStandards();
         CustList<ClassArgumentMatching> primitives_ = new CustList<ClassArgumentMatching>();
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimDouble()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimFloat()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimLong()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimInteger()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimChar()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimShort()));
-        primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimByte()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimDouble()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimFloat()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimLong()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimChar()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimShort()));
+        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimByte()));
         CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
-        for (ClassArgumentMatching p: primitives_) {
-            if (getOrderClass(p, _stds) >= getOrderClass(_class, _stds)) {
-                gt_.add(p);
-            }
+        String name_ = _class.getName();
+        StringMap<PrimitiveType> prs_ = stds_.getPrimitiveTypes();
+        PrimitiveType pr_ = prs_.getVal(name_);
+        gt_.add(_class);
+        for (String s: pr_.getAllSuperType(_context)) {
+        	if (!prs_.contains(s)) {
+        		continue;
+        	}
+        	gt_.add(new ClassArgumentMatching(s));
         }
         return gt_;
     }

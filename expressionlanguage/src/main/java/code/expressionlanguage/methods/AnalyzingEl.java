@@ -91,7 +91,7 @@ public final class AnalyzingEl {
         mapping.setArg(_arg);
     }
     public boolean isCorrectMapping(Analyzable _an) {
-        return Templates.isCorrect(mapping, _an);
+        return Templates.isCorrectOrNumbers(mapping, _an);
     }
 
     public IdMap<BreakBlock, BreakableBlock> getBreakables() {

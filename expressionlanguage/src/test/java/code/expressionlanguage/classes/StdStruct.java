@@ -2,8 +2,6 @@ package code.expressionlanguage.classes;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -12,15 +10,16 @@ import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
+import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.ints.SimpleIterable;
 
-public final class StdStruct implements Struct {
+public final class StdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -45,34 +44,39 @@ public final class StdStruct implements Struct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    public static StdStruct newInstance(Object _instance, String _className) {
+    public static StdStruct newInstance(Composite _instance, String _className) {
+    	return new StdStruct(_instance, _className);
+    }
+    public static StdStruct newInstance(PickableList _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
-
+    public static StdStruct newInstance(SimpleItr _instance, String _className) {
+        return new StdStruct(_instance, _className);
+    }
     public static Struct wrapStd(Object _element, ContextEl _context) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
+        if (_element instanceof Byte) {
+            return new ByteStruct((Byte) _element);
         }
         if (_element instanceof Short) {
             return new ShortStruct((Short) _element);
         }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
+        if (_element instanceof Character) {
+            return new CharStruct((Character) _element);
+        }
+        if (_element instanceof Integer) {
+            return new IntStruct((Integer) _element);
+        }
+        if (_element instanceof Long) {
+            return new LongStruct((Long) _element);
+        }
+        if (_element instanceof Float) {
+            return new FloatStruct((Float) _element);
+        }
+        if (_element instanceof Double) {
+            return new DoubleStruct((Double) _element);
         }
         if (_element instanceof Boolean) {
             return new BooleanStruct((Boolean) _element);
@@ -83,10 +87,6 @@ public final class StdStruct implements Struct {
         return new StringBuilderStruct((StringBuilder) _element);
     }
 
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -110,13 +110,4 @@ public final class StdStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return className.startsWith(PrimitiveTypeUtil.ARR_CLASS);
-    }
 }

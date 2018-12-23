@@ -1160,7 +1160,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (StringList.quickEq(formattedSup_, subType_)) {
                         continue;
                     }
-                    if (!Templates.isCorrect(mapping_, _context)) {
+                    if (!Templates.isCorrectOrNumbers(mapping_, _context)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }
@@ -1215,7 +1215,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (StringList.quickEq(formattedSup_, subType_)) {
                         continue;
                     }
-                    if (!Templates.isCorrect(mapping_, _context)) {
+                    if (!Templates.isCorrectOrNumbers(mapping_, _context)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }
@@ -1322,7 +1322,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (StringList.quickEq(formattedSupType_, subType_)) {
                         continue;
                     }
-                    if (!Templates.isCorrect(map_, _context)) {
+                    if (!Templates.isCorrectOrNumbers(map_, _context)) {
                         addClass(output_, cst_, subInt_);
                         addClass(output_, cst_, s);
                     }

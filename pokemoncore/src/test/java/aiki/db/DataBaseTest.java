@@ -1,10 +1,9 @@
-package aiki;
-import static aiki.EquallablePkUtil.assertEq;
+package aiki.db;
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.enums.Statistic;

@@ -3,16 +3,14 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.util.ObjectMap;
 import code.util.Replacement;
 import code.util.StringList;
 
-public final class ReplacementStruct implements Struct {
+public final class ReplacementStruct implements RealInstanceStruct {
 
     private final Replacement instance;
 
@@ -89,10 +87,6 @@ public final class ReplacementStruct implements Struct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -104,10 +98,6 @@ public final class ReplacementStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -118,8 +108,4 @@ public final class ReplacementStruct implements Struct {
         return getInstance() == other_.getInstance();
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

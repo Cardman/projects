@@ -1419,7 +1419,7 @@ public abstract class OperationNode implements Operable {
                 return false;
             }
             map_.setParam(wc_);
-            if (!Templates.isCorrect(map_, _context)) {
+            if (!Templates.isCorrectOrNumbers(map_, _context)) {
                 return false;
             }
             if (PrimitiveTypeUtil.isPrimitive(wc_, _context)) {
@@ -1464,7 +1464,7 @@ public abstract class OperationNode implements Operable {
             formatPar_.add(compo_);
             _id.format(formatPar_);
             map_.setParam(wc_);
-            if (Templates.isGenericCorrect(map_, _context)) {
+            if (Templates.isCorrectOrNumbers(map_, _context)) {
                 if (allNotBoxUnbox_) {
                     _id.setInvocation(InvocationMethod.STRICT);
                 } else {
@@ -1473,7 +1473,7 @@ public abstract class OperationNode implements Operable {
                 return true;
             }
             map_.setParam(compo_);
-            if (Templates.isGenericCorrect(map_, _context)) {
+            if (Templates.isCorrectOrNumbers(map_, _context)) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
                 return true;
@@ -1497,7 +1497,7 @@ public abstract class OperationNode implements Operable {
         map_.setParam(wc_);
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i]);
-            if (!Templates.isGenericCorrect(map_, _context)) {
+            if (!Templates.isCorrectOrNumbers(map_, _context)) {
                 return false;
             }
         }

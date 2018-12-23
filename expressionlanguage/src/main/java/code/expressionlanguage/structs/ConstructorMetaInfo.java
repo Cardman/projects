@@ -2,9 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class ConstructorMetaInfo implements Struct {
@@ -82,16 +80,6 @@ public final class ConstructorMetaInfo implements Struct {
     }
 
     @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
-
-    @Override
     public String getClassName(ExecutableCode _contextEl) {
         return _contextEl.getStandards().getAliasConstructor();
     }
@@ -108,13 +96,4 @@ public final class ConstructorMetaInfo implements Struct {
         return realId.eq(info_.realId);
     }
 
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 }

@@ -1,5 +1,5 @@
-package aiki;
-import static aiki.EquallablePkUtil.assertEq;
+package aiki.db;
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.db.ExchangedData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;

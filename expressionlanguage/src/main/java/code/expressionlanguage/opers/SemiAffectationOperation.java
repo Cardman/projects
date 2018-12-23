@@ -82,7 +82,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             Mapping map_ = new Mapping();
             map_.setArg(out_);
             map_.setParam(settable.getResultClass());
-            if (!Templates.isCorrect(map_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(map_);
                 cast_.setFileName(_conf.getCurrentFileName());

@@ -35,6 +35,7 @@ import code.formathtml.classes.SimpleDataBase;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.sml.DocumentBuilder;
@@ -8728,7 +8729,7 @@ public class NavigationTest {
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
-            _conf.getBeans().put(e.getKey(), (Bean) e.getValue().getInstance());
+            _conf.getBeans().put(e.getKey(), ((BeanStruct) e.getValue()).getInstance());
         }
     }
 

@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -147,7 +148,7 @@ public final class AikiBeansStatusStd {
     public static ResultErrorStd getResultStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        StatusBean instance_ = (StatusBean) _instance.getInstance();
+        StatusBean instance_ = (StatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -254,7 +255,7 @@ public final class AikiBeansStatusStd {
     public static ResultErrorStd getResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        StatusSetBean instance_ = (StatusSetBean) _instance.getInstance();
+        StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_STATUS)) {
             res_.setResult(new StringStruct(instance_.getTypedStatus()));
@@ -268,8 +269,8 @@ public final class AikiBeansStatusStd {
     }
     public static ResultErrorStd setResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        StatusSetBean instance_ = (StatusSetBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_STATUS)) {
             instance_.setTypedStatus((String) value_);
@@ -279,7 +280,7 @@ public final class AikiBeansStatusStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        StatusBean instance_ = (StatusBean) _instance.getInstance();
+        StatusBean instance_ = (StatusBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_INDEX)) {
@@ -305,7 +306,7 @@ public final class AikiBeansStatusStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodStatusSetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        StatusSetBean instance_ = (StatusSetBean) _instance.getInstance();
+        StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,SEARCH)) {

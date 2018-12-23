@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -467,7 +468,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
-        assertEq(14, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
+        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
     }
     @Test
     public void processEl240Test() {
@@ -1305,7 +1306,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
         assertNull(cont_.getException());
-        assertEq(10, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
+        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
     }
     @Test
     public void processEl262Test() {
@@ -3261,7 +3262,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
-        assertEq(0,((Struct[])arg_.getStruct().getInstance()).length);
+        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
     }
     @Test
     public void processEl309Test() {
@@ -3283,9 +3284,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
-        assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
-        assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(cont_));
-        assertEq("sample",(String)((Struct[])arg_.getStruct().getInstance())[0].getInstance());
+        assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
+        assertEq("java.lang.String",(((ArrayStruct)arg_.getStruct()).getInstance())[0].getClassName(cont_));
+        assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl310Test() {
@@ -3307,9 +3308,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         arg_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
         assertEq("[java.lang.String",arg_.getStruct().getClassName(cont_));
-        assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
-        assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(cont_));
-        assertEq("sample",(String)((Struct[])arg_.getStruct().getInstance())[0].getInstance());
+        assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
+        assertEq("java.lang.String",(((ArrayStruct)arg_.getStruct()).getInstance())[0].getClassName(cont_));
+        assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl318Test() {

@@ -58,7 +58,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
             mapping_.setParam(className);
-            if (!Templates.isCorrect(mapping_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 return;
             }
             arg_.setStruct(objArg_.getStruct());

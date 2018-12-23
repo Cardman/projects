@@ -27,6 +27,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
@@ -34,6 +35,8 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
+import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -344,26 +347,30 @@ public abstract class BeanLgNames extends LgNames {
         StringList list_ = _method.getConstraints().getParametersTypes();
         BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, b_, _args);
-        if (_instance.getInstance() instanceof Displayable) {
+        Object instance_ = null;
+        if (!_method.getConstraints().isStaticMethod()) {
+        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+        }
+        if (instance_ instanceof Displayable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, b_.getAliasDisplay()) || StringList.quickEq(name_, b_.getAliasToString())) {
-                res_.setResult(new StringStruct(((Displayable)_instance.getInstance()).display()));
+                res_.setResult(new StringStruct(((Displayable)instance_).display()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof Bean) {
+        if (instance_ instanceof Bean) {
             if (StringList.quickEq(_method.getConstraints().getName(), BEFORE_DISPLAYING)) {
-                ((Bean)_instance.getInstance()).beforeDisplaying();
+                ((Bean)instance_).beforeDisplaying();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_DATA_BASE)) {
-                ((Bean)_instance.getInstance()).setDataBase(argsObj_[0]);
+                ((Bean)instance_).setDataBase(argsObj_[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_DATA_BASE)) {
-                Object db_ = ((Bean)_instance.getInstance()).getDataBase();
+                Object db_ = ((Bean)instance_).getDataBase();
                 if (getAliasDataBase() != null) {
                     res_.setResult(StdStruct.wrapStd(db_, _cont, getAliasDataBase()));
                     return res_;
@@ -372,37 +379,36 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_FORMS)) {
-                StringMapObject resMap_ = ((Bean)_instance.getInstance()).getForms();
+                StringMapObject resMap_ = ((Bean)instance_).getForms();
                 res_.setResult(new StringMapObjectStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_FORMS)) {
-                ((Bean)_instance.getInstance()).setForms(((StringMapObjectStruct)_args[0]).getInstance());
+                ((Bean)instance_).setForms(((StringMapObjectStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_LANGUAGE)) {
-                String resMap_ = ((Bean)_instance.getInstance()).getLanguage();
+                String resMap_ = ((Bean)instance_).getLanguage();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_LANGUAGE)) {
-                ((Bean)_instance.getInstance()).setLanguage(((StringStruct) _args[0]).getInstance());
+                ((Bean)instance_).setLanguage(((StringStruct) _args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCOPE)) {
-                String resMap_ = ((Bean)_instance.getInstance()).getScope();
+                String resMap_ = ((Bean)instance_).getScope();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_SCOPE)) {
-                ((Bean)_instance.getInstance()).setScope(((StringStruct) _args[0]).getInstance());
+                ((Bean)instance_).setScope(((StringStruct) _args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
         }
-        Object instance_ = _instance.getInstance();
         if (instance_ instanceof Countable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, getAliasIsEmpty())) {
@@ -418,7 +424,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleIterable) {
+        if (instance_ instanceof SimpleIterable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, getAliasSimpleIterator())) {
                 String typeInst_ = getStructClassName(_instance, _cont);
@@ -427,17 +433,17 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleItr) {
+        if (instance_ instanceof SimpleItr) {
             String name_ = _method.getConstraints().getName();
             return prIterator(_cont, name_, _instance);
         }
-        if (_instance.getInstance() instanceof SimpleEntries) {
-            SimpleIterable db_ = ((SimpleEntries)_instance.getInstance()).entries();
+        if (instance_ instanceof SimpleEntries) {
+            SimpleIterable db_ = ((SimpleEntries)instance_).entries();
             res_.setResult(new StdStruct(db_, custEntries));
             return res_;
         }
-        if (_instance.getInstance() instanceof SimpleEntry) {
-            SimpleEntry db_ = (SimpleEntry)_instance.getInstance();
+        if (instance_ instanceof SimpleEntry) {
+            SimpleEntry db_ = (SimpleEntry)instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), GET_KEY)) {
                 Object key_ = db_.getKey();
                 res_.setResult(StdStruct.wrapStd(key_, _cont));
@@ -449,16 +455,14 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ValueChangeEvent) {
-            ValueChangeEvent db_ = (ValueChangeEvent)_instance.getInstance();
+        if (instance_ instanceof ValueChangeEvent) {
+            ValueChangeEvent db_ = (ValueChangeEvent)instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NEW_VALUE)) {
-                Object key_ = db_.getNewValue();
-                res_.setResult(StdStruct.wrapStd(key_, _cont,getStructClassName(key_, _cont)));
+                res_.setResult(db_.getNewValue());
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_OLD_VALUE)) {
-                Object value_ = db_.getOldValue();
-                res_.setResult(StdStruct.wrapStd(value_, _cont, getStructClassName(value_, _cont)));
+                res_.setResult(db_.getOldValue());
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_INDEXES)) {
@@ -467,8 +471,8 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof Validator) {
-            Validator validator_ = (Validator) _instance.getInstance();
+        if (instance_ instanceof Validator) {
+            Validator validator_ = (Validator) instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), VALIDATE)) {
                 Message message_ = validator_.validate(argsObj_[0], argsObj_[1], argsObj_[2]);
                 if (message_ == null) {
@@ -483,7 +487,7 @@ public abstract class BeanLgNames extends LgNames {
     }
     ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Object instance_ = _struct.getInstance();
+        Object instance_ = ((StdStruct) _struct).getInstance();
         LgNames lgNames_ = _cont.getStandards();
         if (StringList.quickEq(_name, lgNames_.getAliasNext())) {
             Object resObj_ = ((SimpleItr)instance_).next();
@@ -494,7 +498,7 @@ public abstract class BeanLgNames extends LgNames {
         return result_;
     }
 
-    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+    public final String getOtherStructClassName(Object _struct, ContextEl _context) {
         String cl_ = getOtherBeanStructClassName(_struct, _context);
         if (!StringList.quickEq(cl_, getAliasObject())) {
             return cl_;
@@ -530,43 +534,6 @@ public abstract class BeanLgNames extends LgNames {
             return aliasSimpleIteratorType;
         }
         return cl_;
-    }
-    public String getStructClassName(Object _struct, ContextEl _context) {
-        String cl_ = getSimpleStructClassName(_struct);
-        if (!StringList.quickEq(cl_, getAliasObject())) {
-            return cl_;
-        }
-        return getOtherStructClassName(_struct, _context);
-    }
-    private String getSimpleStructClassName(Object _struct) {
-        if (_struct instanceof Double) {
-            return getAliasDouble();
-        }
-        if (_struct instanceof Float) {
-            return getAliasFloat();
-        }
-        if (_struct instanceof Long) {
-            return getAliasLong();
-        }
-        if (_struct instanceof Integer) {
-            return getAliasInteger();
-        }
-        if (_struct instanceof Character) {
-            return getAliasCharacter();
-        }
-        if (_struct instanceof Short) {
-            return getAliasShort();
-        }
-        if (_struct instanceof Byte) {
-            return getAliasByte();
-        }
-        if (_struct instanceof String) {
-            return getAliasString();
-        }
-        if (_struct instanceof StringBuilder) {
-            return getAliasStringBuilder();
-        }
-        return getAliasObject();
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -720,10 +687,12 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Object r_ = _instance.getInstance();
-        if (r_ instanceof SelectedBoolean) {
-            res_.setResult(new StringStruct(((SelectedBoolean)_instance.getInstance()).name()));
-            return res_;
+        if (_instance instanceof StdStruct) {
+        	Object r_ = ((StdStruct) _instance).getInstance();
+            if (r_ instanceof SelectedBoolean) {
+                res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
+                return res_;
+            }
         }
         if (_instance instanceof StringStruct) {
             res_.setResult(_instance);
@@ -747,7 +716,7 @@ public abstract class BeanLgNames extends LgNames {
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
             Struct argStruct_ = _args[i];
-            if (argStruct_.isNull()) {
+            if (argStruct_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             if (argStruct_ instanceof ArrayStruct) {
@@ -828,7 +797,7 @@ public abstract class BeanLgNames extends LgNames {
                     String[] adapt_ = new String[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (String) s.getInstance();
+                        adapt_[i_] = ((CharSequenceStruct)s).getInstance().toString();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -838,7 +807,7 @@ public abstract class BeanLgNames extends LgNames {
                     Replacement[] adapt_ = new Replacement[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (Replacement) s.getInstance();
+                        adapt_[i_] = ((ReplacementStruct) s).getInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -848,7 +817,7 @@ public abstract class BeanLgNames extends LgNames {
                     boolean[] adapt_ = new boolean[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (Boolean) s.getInstance();
+                        adapt_[i_] = ((BooleanStruct) s).getInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -874,7 +843,7 @@ public abstract class BeanLgNames extends LgNames {
                     }
                 }
             } else {
-                args_[i] = argStruct_.getInstance();
+                args_[i] = ((RealInstanceStruct)argStruct_).getInstance();
             }
         }
         return args_;

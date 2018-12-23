@@ -38,6 +38,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.ParentElement;
 import code.formathtml.util.ReadWriteHtml;
+import code.formathtml.util.StringMapObjectStruct;
 import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
@@ -295,11 +296,11 @@ public final class FormatHtml {
         }
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        StringMapObject forms_ = (StringMapObject) ExtractObject.getForms(_conf, bean_).getInstance();
+        StringMapObject forms_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, bean_)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
-        StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
+        StringMapObject formsMap_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, _mainBean)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -339,7 +340,7 @@ public final class FormatHtml {
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(false);
                 String searchedClass_ = StringList.concat(package_,DOT,className_);
-                if (bean_ == null || bean_.isNull()) {
+                if (bean_ == null || bean_ == NullStruct.NULL_VALUE) {
                     _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                     return;
                 }
@@ -561,7 +562,7 @@ public final class FormatHtml {
         ip_.setBeanName(_beanName);
         ip_.setPrefix(_conf.getPrefix());
         Element r_ = _docOrig.getDocumentElement();
-        if (bean_ != null && !bean_.isNull()) {
+        if (bean_ != null && bean_ != NullStruct.NULL_VALUE) {
             ip_.setGlobalArgumentStruct(bean_, _conf);
         }
         _conf.addPage(ip_);
@@ -782,16 +783,13 @@ public final class FormatHtml {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
-                    Mapping mapping_ = new Mapping();
                     String excepClass_ = lgNames_.getStructClassName(custCause_, context_);
                     if (excepClass_ == null) {
                         catchElt_ = e;
                         try_.setVisitedCatch(i_);
                         break;
                     }
-                    mapping_.setArg(excepClass_);
-                    mapping_.setParam(name_);
-                    if (Templates.isCorrect(mapping_, context_)) {
+                    if (Templates.isCorrectExecute(excepClass_,name_, context_)) {
                         catchElt_ = e;
                         try_.setVisitedCatch(i_);
                         break;
@@ -1160,7 +1158,7 @@ public final class FormatHtml {
             }
             boolean enter_ = false;
             if (value_ == null) {
-                if (arg_.getStruct().isNull()) {
+                if (arg_.getStruct() == NullStruct.NULL_VALUE) {
                     enter_ = true;
                 }
             } else {
@@ -1466,7 +1464,7 @@ public final class FormatHtml {
             rwLoc_.setWrite(currentNode_);
             rwLoc_.setRead(newElt_.getRoot().getFirstChild());
             newIp_.setReadWrite(rwLoc_);
-            if (newBean_ != null && !newBean_.isNull()) {
+            if (newBean_ != null && newBean_ != NullStruct.NULL_VALUE) {
                 newIp_.setGlobalArgumentStruct(newBean_, _conf);
             }
             _conf.addPage(newIp_);
@@ -1803,7 +1801,7 @@ public final class FormatHtml {
                 return vi_;
             }
             if (className_.isEmpty()) {
-                ExtractObject.checkNullPointer(_conf, struct_.getInstance());
+                ExtractObject.checkNullPointer(_conf, struct_);
                 if (_conf.getContext().getException() != null) {
                     VariableInformation vi_ = new VariableInformation();
                     vi_.setClassName(className_);
@@ -2006,7 +2004,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            if (_object == null || _object.isNull()) {
+            if (_object == null || _object == NullStruct.NULL_VALUE) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(EMPTY_STRING);
                 mapping_.setParam(_className);
@@ -2134,7 +2132,7 @@ public final class FormatHtml {
             _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             return;
         }
-        if (_object.isNull()) {
+        if (_object == NullStruct.NULL_VALUE) {
             return;
         }
         _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
@@ -2148,7 +2146,7 @@ public final class FormatHtml {
             mapping_.setArg(argClassName_);
             String paramName_ = _conf.getLastPage().getPageEl().formatVarType(_class, context_);
             mapping_.setParam(paramName_);
-            if (!Templates.isCorrect(mapping_, context_)) {
+            if (!Templates.isCorrectExecute(argClassName_, paramName_, context_)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
@@ -2923,7 +2921,7 @@ public final class FormatHtml {
                 return;
             }
             obj_ = lv_.getContainer();
-            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            ExtractObject.checkNullPointer(_conf, obj_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -2982,7 +2980,7 @@ public final class FormatHtml {
                 obj_ = getBean(_conf, _ip.getBeanName());
                 end_ = name_;
             }
-            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            ExtractObject.checkNullPointer(_conf, obj_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -3447,7 +3445,7 @@ public final class FormatHtml {
                         return;
                     }
                 }
-                if (o_ == null || o_.isNull()) {
+                if (o_ == null || o_ == NullStruct.NULL_VALUE) {
                     _tag.removeAttribute(CHECKED);
                 } else {
                     String strObj_ = ExtractObject.getStringKey(_conf, o_);
@@ -3594,7 +3592,7 @@ public final class FormatHtml {
         if (_conf.getContext().getException() != null) {
             return;
         }
-        if (o_.isNull()) {
+        if (o_ == NullStruct.NULL_VALUE) {
             o_ = new StringStruct(EMPTY_STRING);
         }
         //TODO converter
@@ -3616,10 +3614,10 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
-                _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_.getInstance());
-            } else if (o_.getInstance() instanceof Boolean) {
-                if ((Boolean) o_.getInstance()) {
+            if (o_ == NullStruct.NULL_VALUE) {
+                _tag.setAttribute(ATTRIBUTE_VALUE, null);
+            } else if (o_ instanceof BooleanStruct) {
+                if (((BooleanStruct) o_).getInstance()) {
                     _tag.setAttribute(CHECKED, CHECKED);
                 } else {
                     _tag.removeAttribute(CHECKED);
@@ -3738,7 +3736,7 @@ public final class FormatHtml {
         if (_conf.getContext().getException() != null) {
             return;
         }
-        if (returnedObject_.isNull()) {
+        if (returnedObject_ == NullStruct.NULL_VALUE) {
             _elt.removeAttribute(_attrName);
             return;
         }
@@ -3768,7 +3766,7 @@ public final class FormatHtml {
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                if (o_.isNull()) {
+                if (o_ == NullStruct.NULL_VALUE) {
                     returnedVarValue_ = null;
                 } else {
                     Struct it_ = ExtractObject.iterator(_conf, o_);
@@ -4064,7 +4062,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            ExtractObject.checkNullPointer(_conf, entry_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4072,7 +4070,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
+            if (o_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
@@ -4141,7 +4139,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            ExtractObject.checkNullPointer(_conf, entry_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4149,7 +4147,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
+            if (o_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
@@ -4666,7 +4664,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (container_.isNull()) {
+            if (container_ == NullStruct.NULL_VALUE) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
                 _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                 return;
@@ -4681,7 +4679,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (container_.isNull()) {
+            if (container_ == NullStruct.NULL_VALUE) {
                 _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                 return;
             }
@@ -4854,7 +4852,7 @@ public final class FormatHtml {
         Struct elt_ = null;
         if (iterationNb_) {
             int_ = realFromValue_;
-        } else if (container_.isArray()) {
+        } else if (container_ instanceof ArrayStruct) {
             IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
             elt_ = ExecInvokingOperation.getElement(container_, i_, _conf);
         } else {

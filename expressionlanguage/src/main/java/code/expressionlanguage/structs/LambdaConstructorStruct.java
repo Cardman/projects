@@ -2,9 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.util.ObjectMap;
 
 public class LambdaConstructorStruct implements Struct {
 
@@ -45,16 +43,6 @@ public class LambdaConstructorStruct implements Struct {
     }
 
     @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
-
-    @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
@@ -69,13 +57,4 @@ public class LambdaConstructorStruct implements Struct {
         return this == _other;
     }
 
-    @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 }

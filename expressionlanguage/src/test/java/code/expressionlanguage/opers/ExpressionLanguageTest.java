@@ -25,6 +25,8 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -266,10 +268,10 @@ public class ExpressionLanguageTest {
         ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
         Struct[] res_ = arr_.getInstance();
         assertEq(4, res_.length);
-        assertEq("h", (String)res_[0].getInstance());
-        assertEq("ll", (String)res_[1].getInstance());
-        assertEq(" w", (String)res_[2].getInstance());
-        assertEq("rd", (String)res_[3].getInstance());
+        assertEq("h", ((StringStruct)res_[0]).getInstance());
+        assertEq("ll", ((StringStruct)res_[1]).getInstance());
+        assertEq(" w", ((StringStruct)res_[2]).getInstance());
+        assertEq("rd", ((StringStruct)res_[3]).getInstance());
     }
     public void processEl62Test() {
         ContextEl context_ = contextEl();
@@ -292,7 +294,7 @@ public class ExpressionLanguageTest {
         ArrayStruct res_ = (ArrayStruct) arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName());
         assertEq(1, res_.getInstance().length);
-        assertEq(0, (Number) res_.getInstance()[0].getInstance());
+        assertEq(0, ((NumberStruct) res_.getInstance()[0]).getInstance());
     }
     @Test
     public void processEl64Test() {
@@ -384,7 +386,7 @@ public class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(1, o_.length);
-        assertEq(2, ((Number)o_[0].getInstance()).intValue());
+        assertEq(2, ((NumberStruct)o_[0]).getInstance().intValue());
     }
     @Test
     public void processEl97Test() {
@@ -393,8 +395,8 @@ public class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((Number)o_[0].getInstance()).intValue());
-        assertEq(7, ((Number)o_[1].getInstance()).intValue());
+        assertEq(3, ((NumberStruct)o_[0]).getInstance().intValue());
+        assertEq(7, ((NumberStruct)o_[1]).getInstance().intValue());
     }
     @Test
     public void processEl98Test() {
@@ -411,8 +413,8 @@ public class ExpressionLanguageTest {
         assertEq(ARR_INTEGER, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((Number)o_[0].getInstance()).intValue());
-        assertEq(7, ((Number)o_[1].getInstance()).intValue());
+        assertEq(3, ((NumberStruct)o_[0]).getInstance().intValue());
+        assertEq(7, ((NumberStruct)o_[1]).getInstance().intValue());
     }
 
     @Test
@@ -487,8 +489,8 @@ public class ExpressionLanguageTest {
         assertEq(ARR_ARR_INT, res_.getClassName());
         assertEq(1, res_.getInstance().length);
         assertEq(ARR_INT, ((ArrayStruct) res_.getInstance()[0]).getClassName());
-        assertEq(1, ((Struct[])res_.getInstance()[0].getInstance()).length);
-        assertEq(0, (Number) ((Struct[])res_.getInstance()[0].getInstance())[0].getInstance());
+        assertEq(1, ((ArrayStruct)res_.getInstance()[0]).getInstance().length);
+        assertEq(0, ((NumberStruct) ((ArrayStruct)res_.getInstance()[0]).getInstance()[0]).getInstance());
     }
 
     @Test
@@ -498,7 +500,7 @@ public class ExpressionLanguageTest {
         assertEq(ARR_ARR_INTEGER, res_.getClassName());
         assertEq(1, res_.getInstance().length);
         assertEq(ARR_INTEGER, ((ArrayStruct) res_.getInstance()[0]).getClassName());
-        assertSame(NullStruct.NULL_VALUE, ((Struct[])res_.getInstance()[0].getInstance())[0]);
+        assertSame(NullStruct.NULL_VALUE, (((ArrayStruct)res_.getInstance()[0]).getInstance())[0]);
     }
 
     @Test
@@ -1426,7 +1428,7 @@ public class ExpressionLanguageTest {
     private static void addImportingPage(ContextEl _conf) {
         _conf.addPage(new MethodPageEl());
     }
-    private static void addBean(ContextEl _conf, Object _bean, String _beanClass) {
+    private static void addBean(ContextEl _conf, Composite _bean, String _beanClass) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));
         _conf.setGlobalClass(_beanClass);
     }

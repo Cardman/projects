@@ -467,7 +467,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
         }
         map_.setMapping(maps_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -844,7 +844,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!Templates.isCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -902,7 +902,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!Templates.isCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -963,7 +963,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
         }
         map_.setMapping(maps_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -1003,7 +1003,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             mapping_.setArg(arg_);
             mapping_.setParam(out_);
             mapping_.setMapping(maps_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());

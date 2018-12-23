@@ -3,7 +3,6 @@ import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
-import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -23,6 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BadElRender;
+import code.formathtml.util.BeanStruct;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.TranslatorStruct;
 import code.sml.DocumentBuilder;
@@ -192,8 +192,8 @@ final class ExtractObject {
 
                 if (trloc_ != null) {
                     if (trloc_ instanceof TranslatorStruct) {
-                        Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
-                        o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, s_.getInstance());
+                        Bean bean_ = ((BeanStruct) _ip.getGlobalArgument().getStruct()).getInstance();
+                        o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, valueOf(_conf, s_));
                     } else {
                         Struct bean_ = _ip.getGlobalArgument().getStruct();
                         LocalVariable lv_ = new LocalVariable();
@@ -400,7 +400,7 @@ final class ExtractObject {
         if (_it == null) {
             return;
         }
-        if (_it.isNull()) {
+        if (_it == NullStruct.NULL_VALUE) {
             return;
         }
         if (_addpage) {
@@ -469,15 +469,6 @@ final class ExtractObject {
     }
     /**This method use the equal operator*/
     static boolean eq(Configuration _conf, Struct _objOne, Struct _objTwo) {
-        if (_objOne.isNull()) {
-            if (_objTwo.isNull()) {
-                return true;
-            }
-            return false;
-        }
-        if (_objTwo.isNull()) {
-            return false;
-        }
         ImportingPage ip_ = _conf.getLastPage();
         LocalVariable lvOne_ = new LocalVariable();
         lvOne_.setClassName(_conf.getStandards().getAliasObject());
@@ -499,13 +490,13 @@ final class ExtractObject {
         BooleanStruct ret_ = (BooleanStruct)arg_.getStruct();
         return ret_.getInstance();
     }
-    static void checkNullPointer(Configuration _conf, Object _obj) {
-        if (_obj == null) {
+    static void checkNullPointer(Configuration _conf, Struct _obj) {
+        if (_obj == NullStruct.NULL_VALUE) {
             _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
         }
     }
     static String valueOf(Configuration _conf, Struct _obj) {
-        if (_obj.isNull()) {
+        if (_obj == NullStruct.NULL_VALUE) {
             return _conf.getStandards().getNullString();
         }
         return toString(_conf, _obj);
@@ -518,10 +509,7 @@ final class ExtractObject {
         String method_;
         String param_ = _conf.getStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
-        Mapping map_ = new Mapping();
-        map_.setArg(arg_);
-        map_.setParam(param_);
-        if (Templates.isCorrect(map_, context_)) {
+        if (Templates.isCorrectExecute(arg_, param_, context_)) {
             method_ = _conf.getStandards().getAliasDisplay();
         }  else {
             method_ = _conf.getStandards().getAliasToString();

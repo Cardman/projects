@@ -13,7 +13,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
-public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct,RealInstanceStruct {
     private static final int DEFAULT_RADIX = 10;
     @Override
     public final Struct getParent() {
@@ -1184,8 +1184,4 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     @Override
     public abstract Number getInstance();
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

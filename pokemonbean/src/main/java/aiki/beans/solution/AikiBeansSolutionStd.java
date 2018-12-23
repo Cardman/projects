@@ -10,6 +10,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -48,7 +49,7 @@ public final class AikiBeansSolutionStd {
     public static ResultErrorStd getResultSolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SolutionBean instance_ = (SolutionBean) _instance.getInstance();
+        SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,STEPS)) {
             res_.setResult(new StdStruct(instance_.getSteps(),std_.getCustList()));
@@ -57,7 +58,7 @@ public final class AikiBeansSolutionStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSolutionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SolutionBean instance_ = (SolutionBean) _instance.getInstance();
+        SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_PLACE)) {

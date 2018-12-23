@@ -190,7 +190,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         ClassArgumentMatching arg_ = opValue.last().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
-        if (!Templates.isGenericCorrect(mapping_, _cont)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());

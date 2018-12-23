@@ -117,7 +117,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             _cont.getClasses().addError(cast_);
             return;
         }
-        if (!Templates.isGenericCorrect(mapping_, _cont)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());

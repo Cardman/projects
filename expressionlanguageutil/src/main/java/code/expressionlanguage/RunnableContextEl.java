@@ -57,15 +57,6 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
     public CustInitializer getInit() {
         return custInit;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public Struct getParent() {
@@ -79,10 +70,6 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return fields;
-    }
-    @Override
-    public Object getInstance() {
-        return this;
     }
 
     @Override

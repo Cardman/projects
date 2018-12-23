@@ -9,10 +9,8 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class StackTraceElementStruct implements DisplayableStruct {
@@ -65,15 +63,6 @@ public final class StackTraceElementStruct implements DisplayableStruct {
         cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
         return new ArrayStruct(arr_, cl_);
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public Struct getParent() {
@@ -95,16 +84,6 @@ public final class StackTraceElementStruct implements DisplayableStruct {
             return false;
         }
         return Numbers.eq(indexFileType, other_.indexFileType);
-    }
-
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
     }
 
     @Override

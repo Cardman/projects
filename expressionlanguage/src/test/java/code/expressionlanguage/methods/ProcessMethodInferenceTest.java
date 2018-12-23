@@ -10,6 +10,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -485,9 +487,9 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
+        assertEq(6, ((NumberStruct)field_).getInstance());
     }
     @Test
     public void calculateArgument15Test() {

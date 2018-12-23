@@ -1,4 +1,4 @@
-package aiki;
+package aiki.db;
 import org.junit.Assert;
 
 import aiki.fight.enums.EndTurnType;

@@ -137,10 +137,6 @@ final class ExtractCondition {
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            ExtractObject.checkNullPointer(_conf, b_);
-            if (_conf.getContext().getException() != null) {
-                return false;
-            }
             if (!b_) {
                 return_ = false;
             }

@@ -66,20 +66,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (OperationNode o: optArgsNodes_) {
                 setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
                 ClassArgumentMatching argType_ = o.getResultClass();
-                if (argType_.isVariable()) {
-                    if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
-                        mapping_.setMapping(map_);
-                        BadImplicitCast cast_ = new BadImplicitCast();
-                        cast_.setMapping(mapping_);
-                        cast_.setFileName(_conf.getCurrentFileName());
-                        cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getClasses().addError(cast_);
-                    }
-                    continue;
-                }
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
-                if (!Templates.isGenericCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());

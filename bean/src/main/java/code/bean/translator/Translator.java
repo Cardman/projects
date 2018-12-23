@@ -6,7 +6,7 @@ public abstract class Translator {
 
     private String className;
 
-    public abstract String getString(String _pattern, Object _conf, Bean _object, Object _value);
+    public abstract String getString(String _pattern, Object _conf, Bean _object, String _value);
 
     public String getClassName() {
         return className;

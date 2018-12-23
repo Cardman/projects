@@ -2,8 +2,6 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
 public final class CharStruct extends NumberStruct {
 
@@ -13,10 +11,6 @@ public final class CharStruct extends NumberStruct {
         value = _value;
     }
 
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
@@ -25,7 +19,7 @@ public final class CharStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasPrimChar();
+        return _context.getStandards().getAliasCharacter();
     }
 
     @Override
@@ -37,8 +31,4 @@ public final class CharStruct extends NumberStruct {
         return value;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 }

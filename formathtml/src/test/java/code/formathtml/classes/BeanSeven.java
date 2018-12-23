@@ -1,5 +1,6 @@
 package code.formathtml.classes;
 import code.bean.Bean;
+import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
@@ -144,7 +145,7 @@ public class BeanSeven extends Bean {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString()));
+        composite.getStrings().add(StringList.concat(((NumberStruct)_changing.getNewValue()).getInstance().toString()," ",((NumberStruct)_changing.getOldValue()).getInstance().toString()));
         changing = _changing;
     }
 
