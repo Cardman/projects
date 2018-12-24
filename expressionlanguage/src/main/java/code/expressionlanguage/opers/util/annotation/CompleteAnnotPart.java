@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -13,7 +12,6 @@ final class CompleteAnnotPart extends ParentAnnotPart {
     private String className;
 
     private NatStringTreeMap<Struct> fields;
-    private AnnotationStruct annotation;
     @Override
     String getBegin() {
         return StringList.concat("@",className,"(");
@@ -24,31 +22,11 @@ final class CompleteAnnotPart extends ParentAnnotPart {
         return ")";
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String _className) {
+    void setClassName(String _className) {
         className = _className;
     }
 
-    @Override
-    AnnotationStruct getInstance() {
-        return annotation;
-    }
-    public AnnotationStruct getAnnotation() {
-        return annotation;
-    }
-
-    public void setAnnotation(AnnotationStruct _annotation) {
-        annotation = _annotation;
-    }
-
-    public NatStringTreeMap<Struct> getFields() {
-        return fields;
-    }
-
-    public void setFields(NatStringTreeMap<Struct> _fields) {
+    void setFields(NatStringTreeMap<Struct> _fields) {
         fields = _fields;
     }
 

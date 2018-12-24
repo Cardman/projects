@@ -5,12 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.IdMap;
 
 public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted, ReductibleOperable {
 
-    private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
 
     private Argument previousArgument;
@@ -19,7 +17,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
 
     public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
-        previousResultClass = _a.getPreviousResultClass();
         intermediate = _a.isIntermediateDottedOperation();
         previousArgument = _a.getPreviousArgument();
         off = _a.getOff();
@@ -32,11 +29,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
     }
     public boolean isStaticAccess() {
         return false;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
     }
 
     @Override

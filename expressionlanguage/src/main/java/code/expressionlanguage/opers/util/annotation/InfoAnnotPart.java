@@ -13,19 +13,18 @@ abstract class InfoAnnotPart {
     private InfoAnnotPart next;
     private int index;
     
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
-    public void setIndex(int _index) {
+    void setIndex(int _index) {
         index = _index;
     }
-    abstract Struct getInstance();
+
     static InfoAnnotPart create(Struct _value, ParentAnnotPart _parent) {
         if (_value instanceof AnnotationStruct) {
             CompleteAnnotPart c_ = new CompleteAnnotPart();
             AnnotationStruct a_ = (AnnotationStruct)_value;
             c_.setClassName(a_.getClassName());
-            c_.setAnnotation(a_);
             c_.setParent(_parent);
             NatStringTreeMap<Struct> fields_ = new NatStringTreeMap<Struct>();
             for (EntryCust<ClassField, Struct> e: a_.getFields().entryList()) {
@@ -46,17 +45,17 @@ abstract class InfoAnnotPart {
         l_.setParent(_parent);
         return l_;
     }
-    abstract InfoAnnotPart getFirst();
-    public ParentAnnotPart getParent() {
+
+    ParentAnnotPart getParent() {
         return parent;
     }
-    public void setParent(ParentAnnotPart _parent) {
+    void setParent(ParentAnnotPart _parent) {
         parent = _parent;
     }
-    public InfoAnnotPart getNext() {
+    InfoAnnotPart getNext() {
         return next;
     }
-    public void setNext(InfoAnnotPart _next) {
+    void setNext(InfoAnnotPart _next) {
         next = _next;
     }
 

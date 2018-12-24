@@ -777,6 +777,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public static CustList<GeneConstructor> getConstructorBlocks(GeneType _element) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof ConstructorBlock) {
@@ -792,6 +795,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof MethodBlock) {
@@ -810,6 +816,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public static CustList<GeneField> getFieldBlocks(GeneType _element) {
         CustList<GeneField> methods_ = new CustList<GeneField>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof InfoBlock) {

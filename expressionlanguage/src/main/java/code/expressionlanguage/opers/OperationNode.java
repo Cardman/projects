@@ -2082,10 +2082,6 @@ public abstract class OperationNode implements Operable {
 
     @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
             if (_argument.isNull()) {

@@ -893,7 +893,8 @@ public final class Templates {
         str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
-            if (!Templates.isCorrectExecute(a_, _param, _context)) {
+            String param_ = PrimitiveTypeUtil.toWrapper(_param, true, stds_);
+            if (!Templates.isCorrectExecute(a_, param_, _context)) {
                 String cast_ = stds_.getAliasCast();
                 _context.setException(new ErrorStruct(_context,cast_));
                 return false;
@@ -996,6 +997,7 @@ public final class Templates {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
             String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+            param_ = PrimitiveTypeUtil.toWrapper(param_, true, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
             }

@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -17,7 +16,6 @@ import code.util.IdMap;
 
 public final class ExecLambdaOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
 
-    private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private Argument previousArgument;
     private boolean staticAccess;
@@ -35,7 +33,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
 
     public ExecLambdaOperation(LambdaOperation _l) {
         super(_l);
-        previousResultClass = _l.getPreviousResultClass();
         intermediate = _l.isIntermediate();
         previousArgument = _l.getPreviousArgument();
         staticAccess = _l.isStaticAccess();
@@ -96,11 +93,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
     }
 
     @Override

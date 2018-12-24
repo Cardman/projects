@@ -1360,6 +1360,23 @@ public class ClassesTest {
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
         assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
     }
+    @Test
+    public void calculateStaticField12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=\"\".toString().length()+myf+1:\n");
+        xml_.append(" $public $static $final $int myf=1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq(1, (((NumberStruct)str_).getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

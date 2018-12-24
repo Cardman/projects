@@ -7,20 +7,17 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ThisOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecThisOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
 
-    private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private int nbAncestors;
     private int off;
 
     public ExecThisOperation(ThisOperation _t) {
         super(_t);
-        previousResultClass = _t.getPreviousResultClass();
         intermediate = _t.isIntermediate();
         nbAncestors = _t.getNbAncestors();
         off = _t.getOff();
@@ -50,11 +47,6 @@ public final class ExecThisOperation extends ExecVariableLeafOperation implement
     @Override
     public boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
     }
 
     @Override

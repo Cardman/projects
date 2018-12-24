@@ -59,7 +59,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
-    private ClassArgumentMatching previousResultClass;
     private boolean staticAccess;
     private boolean intermediate;
 
@@ -68,7 +67,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public ExecInvokingOperation(
             InvokingOperation _inter) {
         super(_inter);
-        previousResultClass = _inter.getPreviousResultClass();
         staticAccess = _inter.isStaticAccess();
         intermediate = _inter.isIntermediateDottedOperation();
         previousArgument = _inter.getPreviousArgument();
@@ -245,11 +243,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
     }
 
     @Override

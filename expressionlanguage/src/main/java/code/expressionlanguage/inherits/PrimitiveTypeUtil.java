@@ -239,7 +239,7 @@ public final class PrimitiveTypeUtil {
             }
             if (PrimitiveTypeUtil.isPrimitive(base_, _conf)) {
                 ClassArgumentMatching c_ = new ClassArgumentMatching(base_);
-                for (ClassArgumentMatching s: PrimitiveTypeUtil.getOrdersGreaterEqThan(c_, _conf)) {
+                for (ClassArgumentMatching s: PrimitiveTypeUtil.getAllSuperTypes(c_, _conf)) {
                     for (String p: s.getNames()) {
                         superTypes_.add(getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, true, stds_);
@@ -331,37 +331,6 @@ public final class PrimitiveTypeUtil {
         return _instance == NullStruct.NULL_VALUE;
     }
 
-    public static boolean isExistentPrimitive(String _className, Analyzable _context) {
-        return isExistentPrimitive(_className, _context.getStandards());
-    }
-    static boolean isExistentPrimitive(String _className, LgNames _stds) {
-        ClassArgumentMatching prim_ = toPrimitive(new ClassArgumentMatching(_className), true, _stds);
-        if (prim_.matchClass(_stds.getAliasPrimBoolean())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimDouble())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimFloat())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimLong())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimInteger())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimChar())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimShort())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimByte())) {
-            return true;
-        }
-        return false;
-    }
     public static boolean isPrimitive(String _className, Analyzable _context) {
         return isPrimitive(_className, _context.getStandards());
     }
@@ -600,7 +569,7 @@ public final class PrimitiveTypeUtil {
         }
         return _obj;
     }
-    static Struct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
+    private static Struct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
         Number obj_ = _obj.getInstance();
         if (_match.matchClass(_stds.getAliasPrimDouble()) || _match.matchClass(_stds.getAliasDouble())) {
             return new DoubleStruct(obj_.doubleValue());
@@ -721,16 +690,8 @@ public final class PrimitiveTypeUtil {
         return AssignableFrom.NO;
     }
 
-    static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, Analyzable _context) {
+    private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
-        CustList<ClassArgumentMatching> primitives_ = new CustList<ClassArgumentMatching>();
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimDouble()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimFloat()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimLong()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimChar()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimShort()));
-        primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimByte()));
         CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
         String name_ = _class.getName();
         StringMap<PrimitiveType> prs_ = stds_.getPrimitiveTypes();
@@ -748,13 +709,13 @@ public final class PrimitiveTypeUtil {
     public static int getOrderClass(String _class, Analyzable _context) {
         return getOrderClass(_class, _context.getStandards());
     }
-    static int getOrderClass(String _class, LgNames _stds) {
+    private static int getOrderClass(String _class, LgNames _stds) {
         return getOrderClass(new ClassArgumentMatching(_class), _stds);
     }
     public static int getOrderClass(ClassArgumentMatching _class, Analyzable _context) {
         return getOrderClass(_class, _context.getStandards());
     }
-    static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+    private static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
         ClassArgumentMatching class_ = toPrimitive(_class, true, _stds);
         if (class_.matchClass(_stds.getAliasPrimDouble())) {
             return DOUBLE_CASTING;
@@ -782,7 +743,7 @@ public final class PrimitiveTypeUtil {
     public static int getIntOrderClass(ClassArgumentMatching _class, Analyzable _context) {
         return getIntOrderClass(_class, _context.getStandards());
     }
-    static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+    private static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
         ClassArgumentMatching class_ = toPrimitive(_class, true, _stds);
         if (class_.matchClass(_stds.getAliasPrimLong())) {
             return LONG_CASTING;
@@ -812,7 +773,7 @@ public final class PrimitiveTypeUtil {
     public static boolean isPrimitiveOrWrapper(String _className, Analyzable _context) {
         return isPrimitiveOrWrapper(_className, _context.getStandards());
     }
-    static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
+    private static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
         if (isPrimitive(_className, _stds)) {
             return true;
         }
@@ -846,7 +807,7 @@ public final class PrimitiveTypeUtil {
         }
         return false;
     }
-    static ClassMatching toPrimitive(ClassMatching _class, LgNames _stds) {
+    private static ClassMatching toPrimitive(ClassMatching _class, LgNames _stds) {
         String cl_ = _class.getClassName();
         return new ClassMatching(toPrimitive(cl_, true, _stds)); 
     }
@@ -856,30 +817,13 @@ public final class PrimitiveTypeUtil {
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, Analyzable _context) {
         return toPrimitive(_class, _id, _context.getStandards());
     }
-    static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
-        if (_class.matchClass(_stds.getAliasBoolean())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimBoolean());
-        }
-        if (_class.matchClass(_stds.getAliasDouble())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimDouble());
-        }
-        if (_class.matchClass(_stds.getAliasFloat())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimFloat());
-        }
-        if (_class.matchClass(_stds.getAliasLong())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimLong());
-        }
-        if (_class.matchClass(_stds.getAliasInteger())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimInteger());
-        }
-        if (_class.matchClass(_stds.getAliasShort())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimShort());
-        }
-        if (_class.matchClass(_stds.getAliasByte())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimByte());
-        }
-        if (_class.matchClass(_stds.getAliasCharacter())) {
-            return new ClassArgumentMatching(_stds.getAliasPrimChar());
+    private static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
+        for (String w: _class.getNames()) {
+            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+                if (StringList.quickEq(e.getValue().getWrapper(), w)) {
+                    return new ClassArgumentMatching(e.getKey());
+                }
+            }
         }
         if (_id) {
             return _class;
@@ -887,59 +831,23 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     public static String toPrimitive(String _class, boolean _id, LgNames _stds) {
-        if (StringList.quickEq(_class,_stds.getAliasBoolean())) {
-            return _stds.getAliasPrimBoolean();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasDouble())) {
-            return _stds.getAliasPrimDouble();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasFloat())) {
-            return _stds.getAliasPrimFloat();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasLong())) {
-            return _stds.getAliasPrimLong();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasInteger())) {
-            return _stds.getAliasPrimInteger();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasShort())) {
-            return _stds.getAliasPrimShort();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasByte())) {
-            return _stds.getAliasPrimByte();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasCharacter())) {
-            return _stds.getAliasPrimChar();
+        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
+                return e.getKey();
+            }
         }
         if (_id) {
             return _class;
         }
         return null;
     }
-    static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
-        if (_class.matchClass(_stds.getAliasPrimBoolean())) {
-            return new ClassArgumentMatching(_stds.getAliasBoolean());
-        }
-        if (_class.matchClass(_stds.getAliasPrimDouble())) {
-            return new ClassArgumentMatching(_stds.getAliasDouble());
-        }
-        if (_class.matchClass(_stds.getAliasPrimFloat())) {
-            return new ClassArgumentMatching(_stds.getAliasFloat());
-        }
-        if (_class.matchClass(_stds.getAliasPrimLong())) {
-            return new ClassArgumentMatching(_stds.getAliasLong());
-        }
-        if (_class.matchClass(_stds.getAliasPrimInteger())) {
-            return new ClassArgumentMatching(_stds.getAliasInteger());
-        }
-        if (_class.matchClass(_stds.getAliasPrimChar())) {
-            return new ClassArgumentMatching(_stds.getAliasCharacter());
-        }
-        if (_class.matchClass(_stds.getAliasPrimShort())) {
-            return new ClassArgumentMatching(_stds.getAliasShort());
-        }
-        if (_class.matchClass(_stds.getAliasPrimByte())) {
-            return new ClassArgumentMatching(_stds.getAliasByte());
+    private static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
+        for (String w: _class.getNames()) {
+            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+                if (StringList.quickEq(e.getKey(), w)) {
+                    return new ClassArgumentMatching(e.getValue().getWrapper());
+                }
+            }
         }
         if (_id) {
             return _class;
@@ -947,29 +855,10 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     static String toWrapper(String _class, boolean _id, LgNames _stds) {
-        if (StringList.quickEq(_class,_stds.getAliasPrimBoolean())) {
-            return _stds.getAliasBoolean();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimDouble())) {
-            return _stds.getAliasDouble();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimFloat())) {
-            return _stds.getAliasFloat();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimLong())) {
-            return _stds.getAliasLong();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimInteger())) {
-            return _stds.getAliasInteger();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimShort())) {
-            return _stds.getAliasShort();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimByte())) {
-            return _stds.getAliasByte();
-        }
-        if (StringList.quickEq(_class,_stds.getAliasPrimChar())) {
-            return _stds.getAliasCharacter();
+        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getKey(), _class)) {
+                return e.getValue().getWrapper();
+            }
         }
         if (_id) {
             return _class;

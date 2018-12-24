@@ -250,10 +250,6 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         return _context.processException();
     }
 
-    public boolean isOnParameters() {
-        return onParameters;
-    }
-
     public void setOnParameters(boolean _onParameters) {
         onParameters = _onParameters;
     }

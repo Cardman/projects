@@ -3795,4 +3795,221 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq(14, ret_.getNumber());
     }
+    @Test
+    public void processEl328Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return $class(java.lang.CharSequence).getDeclaredMethods(\"length\",$false,$false)[0i].invoke($null):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void processEl329Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return $Class.getClass($class(pkg.Ex).getDeclaredConstructors()[0].newInstance()).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static $int info=0i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $int inst=ExTwo.info++:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Ex", ret_.getString());
+    }
+    @Test
+    public void processEl330Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+$($int)e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Constructor c = $class(pkg.Ex<?>).getDeclaredConstructors()[0i]:\n");
+        xml_.append("  $return $($int) c;.newInstance():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void processEl331Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+$($int)e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String).makeWildCard($null).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("?",out_.getString());
+    }
+    @Test
+    public void processEl332Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+$($int)e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String).makeWildCard($true).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("?java.lang.String",out_.getString());
+    }
+    
+    @Test
+    public void processEl333Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+$($int)e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String).makeWildCard($false).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("!java.lang.String",out_.getString());
+    }
 }

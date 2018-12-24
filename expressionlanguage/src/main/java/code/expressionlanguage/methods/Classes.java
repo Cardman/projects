@@ -1895,6 +1895,9 @@ public final class Classes {
                 }
             }
         }
+        for (OperatorBlock o : _context.getAllOperators(_predefined)) {
+            ((AnnotableBlock)o).buildAnnotations(_context);
+        }
         //init annotations here
         for (RootBlock c: getClassBodies(_predefined)) {
             c.validateConstructors(_context);
