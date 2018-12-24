@@ -396,7 +396,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args) {
         setCallMethod(null);
-        MethodPageEl pageLoc_ = new MethodPageEl();
+        MethodPageEl pageLoc_ = new MethodPageEl(this);
         pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);

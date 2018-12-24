@@ -14,7 +14,6 @@ import code.expressionlanguage.errors.custom.UndefinedMethodError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.ElUtil;
@@ -778,7 +777,7 @@ public abstract class OperationNode implements Operable {
                     continue;
                 }
             }
-            CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(clCurName_, ctor_, _conf);
+            CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
             if (!Classes.canAccess(glClass_, ctors_.first(), _conf)) {
                 continue;
             }
@@ -1391,12 +1390,7 @@ public abstract class OperationNode implements Operable {
             }
         }
         String glClass_ = _context.getGlobalClass();
-        CustList<TypeVar> vars_;
-        if (glClass_ != null) {
-            vars_ = Templates.getConstraints(glClass_, _context);
-        } else {
-            vars_ = new CustList<TypeVar>();
-        }
+        StringMap<StringList> mapCtr_ = Templates.getMapConstraints(glClass_, _context);
         int len_ = nbDem_;
         StringList formatPar_ = new StringList();
         boolean allNotBoxUnbox_ = true;
@@ -1412,9 +1406,7 @@ public abstract class OperationNode implements Operable {
             Mapping map_ = new Mapping();
             ClassArgumentMatching arg_ = _argsClass[i];
             map_.setArg(arg_);
-            for (TypeVar t: vars_) {
-                map_.getMapping().put(t.getName(), t.getConstraints());
-            }
+            map_.getMapping().putAllMap(mapCtr_);
             if (wc_ == null) {
                 return false;
             }
@@ -1452,9 +1444,7 @@ public abstract class OperationNode implements Operable {
             Mapping map_ = new Mapping();
             ClassArgumentMatching arg_ = _argsClass[last_];
             map_.setArg(arg_);
-            for (TypeVar t: vars_) {
-                map_.getMapping().put(t.getName(), t.getConstraints());
-            }
+            map_.getMapping().putAllMap(mapCtr_);
             String param_ = _params[last_].getClassName();
             String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
             if (wc_ == null) {
@@ -1485,9 +1475,7 @@ public abstract class OperationNode implements Operable {
         int last_ = _params.length - 1;
         String param_ = _params[last_].getClassName();
         param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-        for (TypeVar t: vars_) {
-            map_.getMapping().put(t.getName(), t.getConstraints());
-        }
+        map_.getMapping().putAllMap(mapCtr_);
         String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
         if (wc_ == null) {
             return false;
@@ -1670,10 +1658,6 @@ public abstract class OperationNode implements Operable {
                         spec_ = false;
                         break;
                     }
-                    if (Templates.isReturnCorrect(curRet_, otherRet_, map_, context_)) {
-                        spec_ = false;
-                        break;
-                    }
                 }
                 if (spec_) {
                     return new CustList<Parametrable>(curMi_);
@@ -1759,8 +1743,6 @@ public abstract class OperationNode implements Operable {
         Identifiable idOne_ = _one.getFormatted();
         Identifiable idTwo_ = _two.getFormatted();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            ClassMatching one_;
-            ClassMatching two_;
             String wcOne_ = idOne_.getParametersTypes().get(i);
             String wcTwo_ = idTwo_.getParametersTypes().get(i);
             if (idOne_.isVararg() && i + 1 == len_) {
@@ -1769,22 +1751,7 @@ public abstract class OperationNode implements Operable {
             if (idTwo_.isVararg() && i + 1 == len_) {
                 wcTwo_ = PrimitiveTypeUtil.getPrettyArrayType(wcTwo_);
             }
-            if (wcOne_ == null) {
-                if (wcTwo_ != null) {
-                    all_ = false;
-                    break;
-                }
-                continue;
-            }
-            if (wcTwo_ == null) {
-                continue;
-            }
-            one_ = new ClassMatching(wcOne_);
-            two_ = new ClassMatching(wcTwo_);
-            if (one_.matchClass(two_)) {
-                continue;
-            }
-            if (!two_.isAssignableFrom(one_, map_, context_)) {
+            if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
                 all_ = false;
                 break;
             }
@@ -1813,50 +1780,17 @@ public abstract class OperationNode implements Operable {
         if (lenOne_ >= lenTwo_) {
             int pr_ = lenTwo_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                ClassMatching one_;
-                ClassMatching two_;
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (wcOne_ == null) {
-                    if (wcTwo_ != null) {
-                        all_ = false;
-                        break;
-                    }
-                    continue;
-                }
-                if (wcTwo_ == null) {
-                    continue;
-                }
-                one_ = new ClassMatching(wcOne_);
-                two_ = new ClassMatching(wcTwo_);
-                if (one_.matchClass(two_)) {
-                    continue;
-                }
-                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
                     all_ = false;
                     break;
                 }
             }
             String wcTwo_ = _two.getFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenOne_; i++) {
-                ClassMatching one_;
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
-                if (wcOne_ == null) {
-                    if (wcTwo_ != null) {
-                        all_ = false;
-                        break;
-                    }
-                    continue;
-                }
-                if (wcTwo_ == null) {
-                    continue;
-                }
-                one_ = new ClassMatching(wcOne_);
-                ClassMatching two_ = new ClassMatching(wcTwo_);
-                if (one_.matchClass(two_)) {
-                    continue;
-                }
-                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
                     all_ = false;
                     break;
                 }
@@ -1864,56 +1798,45 @@ public abstract class OperationNode implements Operable {
         } else {
             int pr_ = lenOne_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                ClassMatching one_;
-                ClassMatching two_;
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (wcOne_ == null) {
-                    if (wcTwo_ != null) {
-                        all_ = false;
-                        break;
-                    }
-                    continue;
-                }
-                if (wcTwo_ == null) {
-                    continue;
-                }
-                one_ = new ClassMatching(wcOne_);
-                two_ = new ClassMatching(wcTwo_);
-                if (one_.matchClass(two_)) {
-                    continue;
-                }
-                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
                     all_ = false;
                     break;
                 }
             }
             String wcOne_ = _one.getFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenTwo_; i++) {
-                ClassMatching two_;
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (wcTwo_ == null) {
-                    if (wcOne_ != null) {
-                        all_ = false;
-                        break;
-                    }
-                    continue;
-                }
-                if (wcOne_ == null) {
-                    continue;
-                }
-                two_ = new ClassMatching(wcTwo_);
-                ClassMatching one_ = new ClassMatching(wcOne_);
-                if (two_.matchClass(one_)) {
-                    continue;
-                }
-                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
                     all_ = false;
                     break;
                 }
             }
         }
         return all_;
+    }
+    private static boolean isPreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, Analyzable _ana) {
+        ClassMatching one_;
+        ClassMatching two_;
+        if (_paramFctOne == null) {
+            if (_paramFctTwo != null) {
+                return false;
+            }
+            return true;
+        }
+        if (_paramFctTwo == null) {
+            return true;
+        }
+        one_ = new ClassMatching(_paramFctOne);
+        two_ = new ClassMatching(_paramFctTwo);
+        if (one_.matchClass(two_)) {
+            return true;
+        }
+        if (!two_.isAssignableFrom(one_, _map, _ana)) {
+            return false;
+        }
+        return true;
     }
 
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {

@@ -841,7 +841,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         Object instance_ = null;
         if (_instance != NullStruct.NULL_VALUE) {
-        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
@@ -1303,7 +1303,7 @@ public final class CustBeanLgNames extends BeanLgNames {
 
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
-        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         String className_ = _method.getClassName();
         String methodName_ = _method.getConstraints().getName();

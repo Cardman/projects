@@ -494,6 +494,19 @@ public final class Templates {
         GeneType root_ = _context.getClassBody(className_);
         return root_.getParamTypesMapValues();
     }
+    public static StringMap<StringList> getMapConstraints(String _className, Analyzable _context) {
+        if (_className == null || _className.isEmpty()) {
+            return new StringMap<StringList>();
+        }
+        String types_ = getIdFromAllTypes(_className);
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_).getComponent();
+        GeneType root_ = _context.getClassBody(className_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        for (TypeVar t: root_.getParamTypesMapValues()) {
+            map_.put(t.getName(), t.getConstraints());
+        }
+        return map_;
+    }
     public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
         String type_ = getIdFromAllTypes(_className);
         String fct_ = _context.getStandards().getAliasFct();
@@ -1049,31 +1062,43 @@ public final class Templates {
         return ErrorType.NOTHING;
     }
     public static boolean isCorrectOrNumbers(Mapping _m, Analyzable _context) {
-    	ClassArgumentMatching a_ = _m.getArg();
-    	ClassArgumentMatching p_ = _m.getParam();
-    	if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
-    		StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
-			if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
-				String aName_ = a_.getName();
-    			String pName_ = p_.getName();
-    			return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
-			}
-			if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(a_, _context)) {
-				return false;
-			}
-			ClassArgumentMatching aPrim_ = PrimitiveTypeUtil.toPrimitive(a_, true, _context);
-			String aName_ = aPrim_.getName();
-			String pName_ = p_.getName();
-			return prims_.getVal(aName_).getAllSuperType(_context).containsStr(pName_);
-		}
-    	if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
-    		StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
-			String aName_ = a_.getName();
-    		ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, true, _context);
-    		String pName_ = pPrim_.getName();
-    		return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
-    	}
-    	return isGenericCorrect(_m, _context);
+        ClassArgumentMatching a_ = _m.getArg();
+        ClassArgumentMatching p_ = _m.getParam();
+        if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
+            StringList bounds_ = new StringList();
+            LgNames stds_ = _context.getStandards();
+            if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
+                bounds_.add(a_.getName());
+            } else if (!a_.isArray()){
+                String aliasObj_ = stds_.getAliasObject();
+                for (String n: a_.getNames()) {
+                    for (String u: _m.getAllUpperBounds(n, aliasObj_)) {
+                        bounds_.add(u);
+                    }
+                }
+            }
+            StringMap<PrimitiveType> prims_ = stds_.getPrimitiveTypes();
+            for (String b: bounds_) {
+                if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
+                    String pName_ = p_.getName();
+                    return prims_.getVal(b).getAllPrimSuperType(_context).containsStr(pName_);
+                }
+                if (PrimitiveTypeUtil.isWrapper(b, _context)) {
+                    String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, true, stds_);
+                    String pName_ = p_.getName();
+                    return prims_.getVal(aPrim_).getAllSuperType(_context).containsStr(pName_);
+                }
+            }
+            return false;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
+            StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
+            String aName_ = a_.getName();
+            ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, true, _context);
+            String pName_ = pPrim_.getName();
+            return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
+        }
+        return isGenericCorrect(_m, _context);
     }
     private static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isVariable()) {

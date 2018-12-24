@@ -17,7 +17,6 @@ import code.sml.Element;
 import code.sml.Node;
 import code.sml.RowCol;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -32,8 +31,6 @@ public final class ImportingPage {
     private static final String READ_URL = "readUrl";
 
     private static final String BEAN_NAME = "beanName";
-
-    private static final String RETURNED_VALUES = "returned values";
 
     private static final String SEP_INFO = "\n";
 
@@ -79,10 +76,6 @@ public final class ImportingPage {
 
     public String getInfos(Configuration _context) {
         StringList list_ = new StringList();
-        list_.add(RETURNED_VALUES);
-        for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-            list_.add(new StringBuilder(e.getKey()).append(SEP_KEY_VAL).append(SEP_INFO).append(e.getValue().getInfos()).toString());
-        }
         StringBuilder keyMessage_ = new StringBuilder();
         if (key != null) {
             StringBuilder intro_ = new StringBuilder(key).append(EQ);

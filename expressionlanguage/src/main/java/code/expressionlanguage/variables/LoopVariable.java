@@ -41,9 +41,6 @@ public final class LoopVariable {
 
     public void setStruct(Struct _element) {
         element = _element;
-        if (element == null) {
-            element = NullStruct.NULL_VALUE;
-        }
     }
 
     public void setElement(Long _element) {
@@ -64,9 +61,6 @@ public final class LoopVariable {
 
     public void setContainer(Struct _container) {
         container = _container;
-        if (_container == null) {
-            container = NullStruct.NULL_VALUE;
-        }
     }
 
     public String getClassName() {
@@ -74,9 +68,6 @@ public final class LoopVariable {
     }
 
     public void setClassName(String _className) {
-        if (_className.isEmpty()) {
-            return;
-        }
         className = _className;
     }
 
@@ -85,9 +76,6 @@ public final class LoopVariable {
     }
 
     public void setIndexClassName(String _indexClassName) {
-        if (_indexClassName.isEmpty()) {
-            return;
-        }
         indexClassName = _indexClassName;
     }
 }

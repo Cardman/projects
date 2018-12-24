@@ -236,7 +236,7 @@ public final class CustLgNames extends BeanLgNames {
             ClassMethodId _method, Struct... _args) {
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
-        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getClassName(), aliasInts)) {

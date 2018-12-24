@@ -413,6 +413,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -492,6 +493,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     
@@ -508,6 +510,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -523,6 +526,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -554,6 +558,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -570,6 +575,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("[$long", params_.last());
         assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -585,6 +591,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -600,6 +607,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -615,6 +623,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -630,6 +639,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -645,6 +655,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -660,6 +671,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -676,6 +688,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -692,6 +705,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -707,6 +721,7 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -724,6 +739,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.get(1));
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -740,6 +756,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -757,6 +774,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.get(1));
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -773,6 +791,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$long", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -789,6 +808,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -806,6 +826,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$long", params_.get(1));
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -822,6 +843,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     
@@ -839,6 +861,7 @@ public class AnalyzedOperationNodesTest {
         assertEq("java.lang.Integer", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
 
@@ -901,6 +924,66 @@ public class AnalyzedOperationNodesTest {
         assertEq("java.lang.Integer", params_.first());
         assertEq("java.lang.Number", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl160Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSix(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("sampleSix", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.first());
+        assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl161Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq(COMPOSITE, cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOvVarargEleven", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(2, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("java.lang.Integer", params_.last());
+        assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl162Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
+        xml_.append(" $public $normal $int get(String i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?>");
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("pkg.ExTwo", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("get", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("java.lang.String", params_.last());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -913,6 +996,71 @@ public class AnalyzedOperationNodesTest {
         analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, true);
     }
 
+    @Test
+    public void processEl3FailTest() {
+        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
+        analyzeIndirectLocalVarsParam("myvar.sampleFour((W[])$null)", "W","myvar", g_, true);
+    }
+    @Test
+    public void processEl4FailTest() {
+        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
+        analyzeIndirectLocalVarsParam("myvar.sampleFour((W)$null,(W)$null)", "W","myvar", g_, true);
+    }
+    @Test
+    public void processEl5FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven()", "composite", COMPOSITE, true);
+    }
+    @Test
+    public void processEl6FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer))", "composite", COMPOSITE, true);
+    }
+    @Test
+    public void processEl7FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),$firstopt(0i))", "composite", COMPOSITE, true);
+    }
+
+    @Test
+    public void processEl8FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl10FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null,$null)", "myvar", g_, xml_.toString(), true);
+    }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {
@@ -922,9 +1070,12 @@ public class AnalyzedOperationNodesTest {
         return null;
     }
     private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
+        return analyzeIndirectLocalVars(_el, _var, _className, file(), _mustFail);
+    }
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
-        files_.put("pkg/Ex", file());
+        files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
@@ -933,9 +1084,12 @@ public class AnalyzedOperationNodesTest {
         return list_;
     }
     private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
+        return analyzeIndirectLocalVarsParam(_el, _param, _var, _className, file(), _mustFail);
+    }
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, String _file, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param,_var));
-        files_.put("pkg/Ex", file());
+        files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
@@ -1258,6 +1412,7 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $int sample($int p):\n");
         str_.append("    $long sampleTwo($int p):\n");
         str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
+        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $class myimpl.MySuperOne {\n");
         str_.append("    $public $final $int sampleThree($int p){$return 0:}\n");
@@ -1269,6 +1424,7 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $normal $long sampleThree($int p){$return 0:}\n");
         str_.append("    $long sampleFour($int p):\n");
         str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
+        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $abstract $class myimpl.MyGeneClass<#T> : MyGeneIntOne<#T> : MyGeneIntTwo<#T> {\n");
         str_.append("\n");
@@ -1277,12 +1433,14 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $int sample(#U p):\n");
         str_.append("    $long sampleTwo(#U p):\n");
         str_.append("    $long sampleThree(#U p):\n");
+        str_.append("    $long sampleFour(#U... p):\n");
         str_.append("    $long sampleThree(java.lang.Object p):\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyGeneIntTwo<#V> {\n");
         str_.append("    $int sample(#V p):\n");
         str_.append("    $int sampleTwo(#V p):\n");
         str_.append("    $long sampleThree(#V p):\n");
+        str_.append("    $long sampleFour(#V... p):\n");
         str_.append("    $long sampleThree(java.lang.Object p):\n");
         str_.append("}\n");
         return str_.toString();

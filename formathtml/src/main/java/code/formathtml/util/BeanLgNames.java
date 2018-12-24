@@ -349,7 +349,7 @@ public abstract class BeanLgNames extends LgNames {
         Object[] argsObj_ = adaptedArgs(list_, b_, _args);
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
-        	instance_ = ((RealInstanceStruct)_instance).getInstance();
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         if (instance_ instanceof Displayable) {
             String name_ = _method.getConstraints().getName();
@@ -688,7 +688,7 @@ public abstract class BeanLgNames extends LgNames {
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance instanceof StdStruct) {
-        	Object r_ = ((StdStruct) _instance).getInstance();
+            Object r_ = ((StdStruct) _instance).getInstance();
             if (r_ instanceof SelectedBoolean) {
                 res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
                 return res_;

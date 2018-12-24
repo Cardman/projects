@@ -32,11 +32,11 @@ public final class PrimitiveType {
         return wrapper;
     }
     public String getDirectUpperPrimitiveCast() {
-		return directUpperPrimitiveCast;
-	}
+        return directUpperPrimitiveCast;
+    }
     public String getDirectUpperPrimitiveInherit() {
-		return directUpperPrimitiveInherit;
-	}
+        return directUpperPrimitiveInherit;
+    }
     public StringList getAllSuperType(Analyzable _cont) {
         StringList all_ = new StringList();
         LgNames stds_ = _cont.getStandards();

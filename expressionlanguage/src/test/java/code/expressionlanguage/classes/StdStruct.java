@@ -45,7 +45,7 @@ public final class StdStruct implements RealInstanceStruct {
         return NullStruct.NULL_VALUE;
     }
     public static StdStruct newInstance(Composite _instance, String _className) {
-    	return new StdStruct(_instance, _className);
+        return new StdStruct(_instance, _className);
     }
     public static StdStruct newInstance(PickableList _instance, String _className) {
         return new StdStruct(_instance, _className);

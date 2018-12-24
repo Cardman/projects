@@ -722,7 +722,7 @@ public final class PrimitiveTypeUtil {
     }
 
     static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, Analyzable _context) {
-    	LgNames stds_ = _context.getStandards();
+        LgNames stds_ = _context.getStandards();
         CustList<ClassArgumentMatching> primitives_ = new CustList<ClassArgumentMatching>();
         primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimDouble()));
         primitives_.add(new ClassArgumentMatching(stds_.getAliasPrimFloat()));
@@ -737,10 +737,10 @@ public final class PrimitiveTypeUtil {
         PrimitiveType pr_ = prs_.getVal(name_);
         gt_.add(_class);
         for (String s: pr_.getAllSuperType(_context)) {
-        	if (!prs_.contains(s)) {
-        		continue;
-        	}
-        	gt_.add(new ClassArgumentMatching(s));
+            if (!prs_.contains(s)) {
+                continue;
+            }
+            gt_.add(new ClassArgumentMatching(s));
         }
         return gt_;
     }

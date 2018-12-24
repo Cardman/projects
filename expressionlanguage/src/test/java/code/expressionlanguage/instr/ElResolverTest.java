@@ -1,4 +1,4 @@
-package code.expressionlanguage.text;
+package code.expressionlanguage.instr;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -8,12 +8,6 @@ import org.junit.Test;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.instr.ConstType;
-import code.expressionlanguage.instr.Delimiters;
-import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.NumberInfos;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.VariableInfo;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
@@ -4098,6 +4092,38 @@ public class ElResolverTest extends ProcessMethodCommon{
         assertEq("1f", ni_.get(0).getIntPart().toString());
         assertEq("2", ni_.get(0).getDecimalPart().toString());
         assertEq("0", ni_.get(0).getExponentialPart().toString());
+    }
+
+    @Test
+    public void getOperationsSequence224Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "`18`";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("18", values_.getVal(0));
+        assertSame(ConstType.STRING, seq_.getConstType());
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence225Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "`18``36`";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("18`36", values_.getVal(0));
+        assertSame(ConstType.STRING, seq_.getConstType());
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
     public void checkSyntax1Test() {

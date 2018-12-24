@@ -2822,21 +2822,6 @@ public final class ElResolver {
         len_ = lastPrintChar_+1;
         boolean enPars_ = true;
         int iVar_ = -1;
-        for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + firstPrintChar_) {
-                continue;
-            }
-            iVar_ = v.getLastChar();
-            if (iVar_ != _offset + lastPrintChar_ + 1) {
-                break;
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(v.getKind());
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(v.getName(), firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
         boolean preIncr_ = false;
         String extracted_ = EMPTY_STRING;
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) {
@@ -2846,6 +2831,7 @@ public final class ElResolver {
                 }
             }
         }
+        Options opt_ = _conf.getOptions();
         if (preIncr_) {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
@@ -2867,14 +2853,21 @@ public final class ElResolver {
             int ext_ = min_ / 2;
             extracted_ = _d.getDelCastExtract().get(ext_);
             i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
-        } else {
+        } else if (opt_.getSuffixVar() != VariableSuffix.NONE){
+            for (VariableInfo v: _d.getVariables()) {
+                if (v.getFirstChar() != _offset + firstPrintChar_) {
+                    continue;
+                }
+                iVar_ = v.getLastChar();
+                break;
+            }
             if (iVar_ > -1) {
                 i_ = iVar_ - _offset;
                 enPars_ = false;
                 operators_.put(i_, EMPTY_STRING);
             }
         }
-        boolean useFct_ = false;
+        boolean leftParFirstOperator_ = false;
         boolean is_ = false;
         String fctName_ = EMPTY_STRING;
         boolean enabledId_ = false;
@@ -2886,7 +2879,6 @@ public final class ElResolver {
         if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
             instance_ = true;
         }
-        Options opt_ = _conf.getOptions();
         Numbers<Integer> laterIndexesDouble_ = new Numbers<Integer>();
         Numbers<Integer> escapings_ = new Numbers<Integer>();
         while (i_ < len_) {
@@ -2904,7 +2896,7 @@ public final class ElResolver {
             if (curChar_ == PAR_LEFT) {
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
                     if (enPars_) {
-                        useFct_ = true;
+                        leftParFirstOperator_ = true;
                         fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
                         operators_.put(i_, String.valueOf(PAR_LEFT));
                     } else if (enabledId_) {
@@ -2925,7 +2917,7 @@ public final class ElResolver {
                     enPars_ = false;
                     operators_.put(i_, String.valueOf(SEP_ARG));
                     declaring_ = true;
-                } else if (parsBrackets_.size() == 1 && prio_ >= FCT_OPER_PRIO && enPars_){
+                } else if (parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO && enPars_){
                     operators_.put(i_, String.valueOf(SEP_ARG));
                 }
             }
@@ -2943,8 +2935,8 @@ public final class ElResolver {
             }
             if (curChar_ == ANN_ARR_LEFT) {
                 if (parsBrackets_.isEmpty() && !declaring_) {
-                    if (FCT_OPER_PRIO <= prio_) {
-                        useFct_ = false;
+                    if (FCT_OPER_PRIO == prio_) {
+                        leftParFirstOperator_ = false;
                         if (instance_) {
                             fctName_ = _string.substring(firstPrintChar_, i_);
                             operators_.put(i_, ANN_ARR);
@@ -2976,8 +2968,8 @@ public final class ElResolver {
             }
             if (curChar_ == ARR_LEFT) {
                 if (parsBrackets_.isEmpty() && !declaring_) {
-                    if (FCT_OPER_PRIO <= prio_) {
-                        useFct_ = false;
+                    if (FCT_OPER_PRIO == prio_) {
+                        leftParFirstOperator_ = false;
 
                         if (instance_) {
                             if (operators_.isEmpty()) {
@@ -3023,7 +3015,7 @@ public final class ElResolver {
             if (curChar_ == BEGIN_TERNARY) {
                 if (parsBrackets_.isEmpty() && prio_ > TERNARY_PRIO && !declaring_) {
                     operators_.clear();
-                    useFct_ = false;
+                    leftParFirstOperator_ = false;
                     operators_.put(i_, String.valueOf(curChar_));
                 }
                 parsBrackets_.put(i_, curChar_);
@@ -3059,16 +3051,7 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
-                boolean processNextEq_ = true;
-                if (i_ + 1 < _string.length()) {
-                    char nextChar_ = _string.charAt(i_ + 1);
-                    if (nextChar_ != EQ_CHAR) {
-                        processNextEq_ = false;
-                    }
-                } else {
-                    processNextEq_ = false;
-                }
-                if (processNextEq_) {
+                if (nextCharIs(_string, i_ + 1, len_, EQ_CHAR)) {
                     builtOperator_.append(curChar_);
                     builtOperator_.append(EQ_CHAR);
                     if (prio_ > EQ_PRIO) {
@@ -3092,11 +3075,8 @@ public final class ElResolver {
             int prioOpMult_ = 0;
             boolean andOr_ = false;
             if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                if (i_ + 1 < len_) {
-                    char nextChar_ = _string.charAt(i_ + 1);
-                    if (nextChar_ == curChar_) {
-                        prioOpMult_ = SHIFT_PRIO;
-                    }
+                if (nextCharIs(_string, i_ + 1, len_, curChar_)) {
+                    prioOpMult_ = SHIFT_PRIO;
                 }
             }
             if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
@@ -3119,10 +3099,10 @@ public final class ElResolver {
                     int delta_ = 0;
                     if (prioOpMult_ == SHIFT_PRIO) {
                         builtOperator_.append(nextChar_);
-                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == nextChar_) {
+                        if (nextCharIs(_string, i_ + 2, len_, nextChar_)) {
                             delta_++;
                             builtOperator_.append(nextChar_);
-                            if (i_ + 3 < len_ && _string.charAt(i_ + 3) == nextChar_) {
+                            if (nextCharIs(_string, i_ + 3, len_, nextChar_)) {
                                 delta_++;
                                 builtOperator_.append(nextChar_);
                             }
@@ -3131,7 +3111,7 @@ public final class ElResolver {
                     boolean aff_ = false;
                     if (nextChar_ == EQ_CHAR) {
                         aff_ = true;
-                    } else if (prioOpMult_ == SHIFT_PRIO && delta_+i_ + 2 < len_ && _string.charAt(delta_+i_ + 2) == EQ_CHAR) {
+                    } else if (prioOpMult_ == SHIFT_PRIO && nextCharIs(_string, delta_+i_ + 2, len_, EQ_CHAR)) {
                         aff_ = true;
                     }
                     if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_) {
@@ -3215,19 +3195,17 @@ public final class ElResolver {
                 if (prio_ == CMP_PRIO) {
                     foundOperator_ = true;
                 }
-                if (i_ + 1 < _string.length()) {
+                if (nextCharIs(_string, i_ + 1, len_, EQ_CHAR)) {
                     char nextChar_ = _string.charAt(i_ + 1);
-                    if (nextChar_ == EQ_CHAR) {
-                        builtOperator_.append(nextChar_);
-                        increment_++;
-                    }
+                    builtOperator_.append(nextChar_);
+                    increment_++;
                 }
             }
             if (foundOperator_) {
                 if (clearOperators_) {
                     operators_.clear();
                 }
-                useFct_ = false;
+                leftParFirstOperator_ = false;
                 fctName_ = EMPTY_STRING;
                 instance_ = false;
                 enPars_ = false;
@@ -3240,7 +3218,7 @@ public final class ElResolver {
         op_.setDeclaring(declaring_);
         op_.setPriority(prio_);
         op_.setOperators(operators_);
-        op_.setUseFct(useFct_);
+        op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
         op_.setupValues(_string, is_, true, instance_, laterIndexesDouble_, escapings_);
         op_.setExtractType(extracted_);
@@ -3248,6 +3226,12 @@ public final class ElResolver {
         return op_;
     }
 
+    private static boolean nextCharIs(String _str, int _i, int _len, char _value) {
+        if (_i >= _len) {
+            return false;
+        }
+        return _str.charAt(_i) == _value;
+    }
     private static OperationsSequence tryGetSequence(int _offset, String _string,
             Analyzable _conf, Delimiters _d) {
         int len_ = _string.length();
@@ -3274,10 +3258,7 @@ public final class ElResolver {
         String keyWordTrue_ = keyWords_.getKeyWordTrue();
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
-        while (lastPrintChar_ >= 0) {
-            if (!Character.isWhitespace(_string.charAt(lastPrintChar_))) {
-                break;
-            }
+        while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         int strLen_ = _string.length();
@@ -3286,7 +3267,7 @@ public final class ElResolver {
         int end_;
         begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             int ext_ = begin_ / 2;
             String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
             OperationsSequence op_ = new OperationsSequence();
@@ -3299,7 +3280,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SIMPLE_ANNOTATION);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3310,7 +3291,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelVararg().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelVararg().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VARARG);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3320,7 +3301,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelLambda().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelLambda().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LAMBDA);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3330,7 +3311,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelIds().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelIds().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ID);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3340,7 +3321,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelClass().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelClass().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASS_INFO);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3350,7 +3331,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelKeyWordSuper().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelKeyWordSuper().indexOfObj(_offset + lastPrintChar_ + 1);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3360,7 +3341,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + lastPrintChar_ + 1);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3370,7 +3351,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelLoopVars().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelLoopVars().indexOfObj(_offset + lastPrintChar_);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             String name_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
@@ -3381,7 +3362,7 @@ public final class ElResolver {
         }
         begin_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + lastPrintChar_ + 1);
-        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -3422,41 +3403,25 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        int firstNbChar_ = firstPrintChar_;
-        int beginNb_ = _d.getDelNumbers().indexOfObj(_offset + firstNbChar_);
-        int endNb_ = _d.getDelNumbers().indexOfObj(_offset + lastPrintChar_ + 1);
-        if (beginNb_ > CustList.INDEX_NOT_FOUND_ELT && beginNb_ + 1 == endNb_) {
+        begin_ = _d.getDelNumbers().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelNumbers().indexOfObj(_offset + lastPrintChar_ + 1);
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NUMBER);
-            int indexNb_ = beginNb_/2;
+            int indexNb_ = begin_/2;
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
             op_.getNbInfos().setFirstPrintable(firstPrintChar_);
-            op_.getNbInfos().setFirstDigit(firstNbChar_);
+            op_.getNbInfos().setFirstDigit(firstPrintChar_);
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + firstPrintChar_) {
-                continue;
-            }
-            int iVar_ = v.getLastChar();
-            if (iVar_ != _offset + lastPrintChar_ + 1) {
-                break;
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(v.getKind());
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setValue(v.getName(), firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        int before_ = _d.getDelStringsChars().indexOfObj(firstPrintChar_+_offset);
-        int after_ = _d.getDelStringsChars().indexOfObj(lastPrintChar_+_offset);
-        if (before_ + 1 == after_) {
-            StringInfo info_ = _d.getStringInfo().get(before_/2);
+        begin_ = _d.getDelStringsChars().indexOfObj(firstPrintChar_+_offset);
+        end_ = _d.getDelStringsChars().indexOfObj(lastPrintChar_+_offset);
+        if (delimits(begin_, end_)) {
+            StringInfo info_ = _d.getStringInfo().get(begin_/2);
             CharList list_ = info_.getChars();
             int lenStr_ = list_.size();
             char[] str_ = new char[lenStr_];
@@ -3486,7 +3451,26 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
+        for (VariableInfo v: _d.getVariables()) {
+            if (v.getFirstChar() != _offset + firstPrintChar_) {
+                continue;
+            }
+            int iVar_ = v.getLastChar();
+            if (iVar_ != _offset + lastPrintChar_ + 1) {
+                break;
+            }
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(v.getKind());
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(v.getName(), firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         return null;
+    }
+
+    private static boolean delimits(int _begin, int _end) {
+        return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
     private static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
         int j_ = _from;

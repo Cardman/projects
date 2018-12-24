@@ -3,7 +3,6 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneClass;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
@@ -11,7 +10,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadAccessMethod;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
-import code.expressionlanguage.errors.custom.DuplicateParamMethod;
 import code.expressionlanguage.errors.custom.FinalMethod;
 import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.AloneBlock;
@@ -26,7 +24,6 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.stds.LgNames;
@@ -472,129 +469,12 @@ public final class TypeUtil {
                 }
             }
         }
-        StringList all_ = getAllGenericSuperTypes(_type,_context);
-        String gene_ = _type.getGenericString();
-        for (String s: all_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            GeneType r_ = _context.getClassBody(base_);
-            for (GeneMethod m: ContextEl.getMethodBlocks(r_)) {
-                if (m.isStaticMethod()) {
-                    continue;
-                }
-                String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId().quickFormat(formattedSuper_, _context);
-                CustList<GeneMethod> mBases_ = _context.getMethodBodiesById(gene_, id_);
-                if (!mBases_.isEmpty()) {
-                    GeneMethod mBas_ = mBases_.first();
-                    MethodId mId_ = mBas_.getId();
-                    for (String d: _type.getDirectGenericSuperTypes(_context)) {
-                        CustList<GeneMethod> mBasesSuper_ = TypeUtil.getMethodBodiesByFormattedId(_context, d, mId_);
-                        if (mBasesSuper_.isEmpty()) {
-                            continue;
-                        }
-                        if (mBasesSuper_.size() > 1) {
-                            DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                            duplicate_.setFileName(fileName_);
-                            if (m instanceof MethodBlock) {
-                                duplicate_.setIndexFile(((MethodBlock) m).getNameOffset());
-                            }
-                            duplicate_.setCommonSignature(mId_.getSignature());
-                            duplicate_.setOtherType(d);
-                            classesRef_.addError(duplicate_);
-                        }
-                    }
-                }
-            }
-        }
+//        EqList<ClassMethodId> all_ = new EqList<ClassMethodId>();
+//        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _type.getAllOverridingMethods().entryList()) {
+//            
+//        }
     }
-
-    public static CustList<GeneConstructor> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, ConstructorId _id) {
-        return getConstructorBodiesByFormattedId(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
-    }
-    private static CustList<GeneConstructor> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, StringList _parametersTypes, boolean _vararg) {
-        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
-        int nbParams_ = _parametersTypes.size();
-        for (GeneType c: _context.getClassBodies()) {
-            if (!StringList.quickEq(c.getFullName(), base_)) {
-                continue;
-            }
-            CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
-            for (GeneConstructor b: bl_) {
-                StringList list_ = b.getId().getParametersTypes();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (nbParams_ > 0 && _vararg) {
-                    if (!b.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (b.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.quickFormat(_genericClassName, list_.get(i), _context);
-                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(b);
-            }
-        }
-        return methods_;
-    }
-    public static CustList<GeneConstructor> getConstructorBodiesById(String _genericClassName, ConstructorId _id, Analyzable _context) {
-        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
-        StringList paramTypes_ = _id.getParametersTypes();
-        int nbParams_ = paramTypes_.size();
-        boolean vararg_ = _id.isVararg();
-        for (GeneType c: _context.getClassBodies()) {
-            if (!StringList.quickEq(c.getFullName(), base_)) {
-                continue;
-            }
-            CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
-            for (GeneConstructor b: bl_) {
-                StringList list_ = b.getId().getParametersTypes();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (nbParams_ > 0 && vararg_) {
-                    if (!b.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (b.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = list_.get(i);
-                    if (!StringList.quickEq(type_, paramTypes_.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(b);
-            }
-        }
-        return methods_;
-    }
-    public static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, String _genericClassName, MethodId _id) {
-        return getMethodBodiesByFormattedId(_context, _id.isStaticMethod(), _genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
-    }
-    public static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
+    static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         int nbParams_ = _parametersTypes.size();

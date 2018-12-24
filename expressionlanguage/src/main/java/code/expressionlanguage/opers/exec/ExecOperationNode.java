@@ -412,20 +412,20 @@ public abstract class ExecOperationNode implements Operable {
         }
         return previous_;
     }
-    public static CustList<Argument> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _method) {
+    protected static CustList<Argument> getArguments(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _method) {
         CustList<Argument> a_ = new CustList<Argument>();
         for (ExecOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
         }
         return a_;
     }
-    public static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
+    protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
         return _nodes.getValue(_node.getOrder()).getArgument();
     }
-    public static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecPossibleIntermediateDotted _node) {
+    protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecPossibleIntermediateDotted _node) {
         return _nodes.getValue(_node.getOrder()).getPreviousArgument();
     }
-    public static CustList<ExecOperationNode> filterInvoking(CustList<ExecOperationNode> _list) {
+    protected static CustList<ExecOperationNode> filterInvoking(CustList<ExecOperationNode> _list) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         for (ExecOperationNode o: _list) {
             if (o instanceof ExecStaticInitOperation) {
@@ -435,7 +435,7 @@ public abstract class ExecOperationNode implements Operable {
         }
         return out_;
     }
-    public static CustList<Argument> filterInvoking(CustList<ExecOperationNode> _list, IdMap<ExecOperationNode,ArgumentsPair> _nodes) {
+    protected static CustList<Argument> filterInvoking(CustList<ExecOperationNode> _list, IdMap<ExecOperationNode,ArgumentsPair> _nodes) {
         CustList<Argument> out_ = new CustList<Argument>();
         for (ExecOperationNode o: _list) {
             if (o instanceof ExecStaticInitOperation) {
@@ -493,7 +493,7 @@ public abstract class ExecOperationNode implements Operable {
         }
         return _operation.getOrder() + 1;
     }
-    public static boolean isDeclaringField(ExecSettableElResult _var, Analyzable _an) {
+    protected static boolean isDeclaringField(ExecSettableElResult _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;

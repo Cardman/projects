@@ -13,6 +13,12 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
 
     private Argument returnedArgument;
 
+    public MethodPageEl(ContextEl _context) {
+        Block root_ = getBlockRoot();
+        Argument global_ = getGlobalArgument();
+        Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _context);
+        returnedArgument = arg_;
+    }
     @Override
     public Argument getReturnedArgument() {
         return returnedArgument;
@@ -63,10 +69,6 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
     }
     @Override
     public void postBlock(ContextEl _context) {
-        Block root_ = getBlockRoot();
-        Argument global_ = getGlobalArgument();
-        Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _context);
-        returnedArgument = arg_;
         setNullReadWrite();
     }
 
@@ -77,8 +79,6 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
 
     @Override
     public void endRoot(ContextEl _context) {
-        Block root_ = getBlockRoot();
-        setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, getGlobalArgument(), _context));
         setNullReadWrite();
     }
 

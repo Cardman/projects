@@ -443,6 +443,9 @@ public final class Navigation {
             return;
         }
         Struct bean_ = getBean(currentBeanName);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
         Struct forms_;
         session.addPage(new ImportingPage(false));
         forms_ = ExtractObject.getForms(session, bean_);
@@ -489,6 +492,9 @@ public final class Navigation {
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         bean_ = getBean(currentBeanName_);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
         session.addPage(new ImportingPage(false));
         ExtractObject.setForms(session, bean_, forms_);
         session.removeLastPage();

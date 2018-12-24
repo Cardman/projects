@@ -1426,7 +1426,7 @@ public class ExpressionLanguageTest {
         return el_.calculateMember(_context);
     }
     private static void addImportingPage(ContextEl _conf) {
-        _conf.addPage(new MethodPageEl());
+        _conf.addPage(new MethodPageEl(_conf));
     }
     private static void addBean(ContextEl _conf, Composite _bean, String _beanClass) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));

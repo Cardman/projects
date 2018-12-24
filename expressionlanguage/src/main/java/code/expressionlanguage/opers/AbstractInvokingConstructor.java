@@ -1,13 +1,10 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.errors.custom.BadAccessConstructor;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.errors.custom.UndefinedConstructorError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -48,7 +45,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     @Override
     public final void analyze(Analyzable _conf) {
-        String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -88,14 +84,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             return;
         }
         constId = ctorRes_.getRealId();
-        GeneConstructor ctor_ = ctorRes_.getCtor();
-        if (ctor_ != null && !Classes.canAccess(clCurName_, ctor_, _conf)) {
-            BadAccessConstructor badAccess_ = new BadAccessConstructor();
-            badAccess_.setId(ctor_.getId());
-            badAccess_.setFileName(_conf.getCurrentFileName());
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badAccess_);
-        }
         checkPositionBasis(_conf);
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
     }

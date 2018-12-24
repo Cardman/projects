@@ -14,7 +14,7 @@ public final class OperationsSequence {
 
     private String fctName = "";
 
-    private boolean useFct;
+    private boolean leftParFirstOperator;
 
     private int priority;
 
@@ -65,10 +65,7 @@ public final class OperationsSequence {
                     beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
                     endValuePart_ = operators.getKey(i_);
                     str_ = _string.substring(beginValuePart_, endValuePart_);
-                    if (!str_.trim().isEmpty()) {
-                        str_ = transformToSpaces(str_, beginValuePart_, _esc);
-                        values.put(beginValuePart_, str_);
-                    }
+                    addValueIfNotEmpty(_esc, beginValuePart_, str_);
                     return;
                 }
                 while (i_ < nbKeys_) {
@@ -138,10 +135,7 @@ public final class OperationsSequence {
             values.put((int)CustList.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
-            if (!str_.trim().isEmpty()) {
-                str_ = transformToSpaces(str_, beginValuePart_, _esc);
-                values.put(beginValuePart_, str_);
-            }
+            addValueIfNotEmpty(_esc, beginValuePart_, str_);
             return;
         }
         if (_is && priority == ElResolver.CMP_PRIO) {
@@ -152,13 +146,10 @@ public final class OperationsSequence {
             values.put((int)CustList.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
-            if (!str_.trim().isEmpty()) {
-                str_ = transformToSpaces(str_, beginValuePart_, _esc);
-                values.put(beginValuePart_, str_);
-            }
+            addValueIfNotEmpty(_esc, beginValuePart_, str_);
             return;
         }
-        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
+        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && leftParFirstOperator)) {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             str_ = transformToSpaces(str_, beginValuePart_, _esc);
@@ -166,21 +157,7 @@ public final class OperationsSequence {
         } else if (priority != ElResolver.UNARY_PRIO){
             //fctName.trim().isEmpty() && useFct
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            if (!str_.trim().isEmpty()) {
-                //let analyze this
-                str_ = transformToSpaces(str_, beginValuePart_, _esc);
-                values.put(beginValuePart_, str_);
-            }
-        }
-        if (useFct && operators.size() == 2 && priority != ElResolver.TERNARY_PRIO) {
-            beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            if (!str_.trim().isEmpty()) {
-                str_ = transformToSpaces(str_, beginValuePart_, _esc);
-                values.put(beginValuePart_, str_);
-            }
-            return;
+            addValueIfNotEmpty(_esc, beginValuePart_, str_);
         }
         if (pureDot_) {
             beginValuePart_ = endValuePart_ + operators.lastValue().length();
@@ -212,6 +189,13 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.FCT_OPER_PRIO) {
+            if (leftParFirstOperator && operators.size() == 2) {
+                beginValuePart_ = endValuePart_ + operators.firstValue().length();
+                endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
+                str_ = _string.substring(beginValuePart_, endValuePart_);
+                addValueIfNotEmpty(_esc, beginValuePart_, str_);
+                return;
+            }
             int i_ = CustList.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
@@ -239,7 +223,16 @@ public final class OperationsSequence {
         str_ = transformToSpaces(str_, beginValuePart_, _esc);
         values.put(beginValuePart_, str_);
     }
-    static String transformToSpaces(String _sub, int _offsetLocal, Numbers<Integer> _esc) {
+
+    private void addValueIfNotEmpty(Numbers<Integer> _esc, int _beginValuePart,
+            String _str) {
+        if (_str.trim().isEmpty()) {
+            return;
+        }
+        String str_ = transformToSpaces(_str, _beginValuePart, _esc);
+        values.put(_beginValuePart, str_);
+    }
+    private static String transformToSpaces(String _sub, int _offsetLocal, Numbers<Integer> _esc) {
         StringBuilder str_ = new StringBuilder(_sub);
         int len_ = _sub.length();
         for (int i: _esc) {
@@ -284,12 +277,12 @@ public final class OperationsSequence {
         fctName = _fctName;
     }
 
-    public boolean isUseFct() {
-        return useFct;
+    public boolean isLeftParFirstOperator() {
+        return leftParFirstOperator;
     }
 
-    public void setUseFct(boolean _useFct) {
-        useFct = _useFct;
+    public void setLeftParFirstOperator(boolean _leftParFirstOperator) {
+        leftParFirstOperator = _leftParFirstOperator;
     }
     
     public boolean isCall() {

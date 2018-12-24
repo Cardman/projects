@@ -47,9 +47,6 @@ public final class Argument {
 
     public void setStruct(Struct _object) {
         object = _object;
-        if (object == null) {
-            object = NullStruct.NULL_VALUE;
-        }
     }
 
     public static boolean isNullValue(Argument _arg) {

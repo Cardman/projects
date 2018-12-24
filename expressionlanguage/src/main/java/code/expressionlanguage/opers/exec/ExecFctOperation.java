@@ -163,4 +163,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         return classMethodId;
     }
 
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
 }

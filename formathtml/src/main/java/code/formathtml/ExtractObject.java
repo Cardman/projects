@@ -204,7 +204,7 @@ final class ExtractObject {
                         _ip.putLocalVar(valName_, lv_);
                         String patName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
-                        lv_.setElement(_pattern);
+                        lv_.setStruct(new StringStruct(_pattern));
                         lv_.setClassName(_conf.getStandards().getAliasString());
                         _ip.putLocalVar(patName_, lv_);
                         String navName_ = _ip.getNextTempVar();

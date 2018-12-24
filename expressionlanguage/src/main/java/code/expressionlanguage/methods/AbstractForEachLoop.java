@@ -31,7 +31,6 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -657,17 +656,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
-        ExecOperationNode op_ = opList.last();
-        if (op_.getResultClass().isArray()) {
-            if (!(ito_ instanceof ArrayStruct)) {
-                String cast_;
-                cast_ = _conf.getStandards().getAliasCast();
-                String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
-                String arrObj_ = _conf.getStandards().getAliasObject();
-                arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),cast_));
-            }
-        }
         return ito_;
         
     }

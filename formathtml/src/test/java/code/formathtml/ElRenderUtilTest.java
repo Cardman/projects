@@ -5988,7 +5988,7 @@ public final class ElRenderUtilTest {
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(null);
+        lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
