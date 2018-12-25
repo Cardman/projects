@@ -1,5 +1,6 @@
 package code.expressionlanguage.calls;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
@@ -7,7 +8,7 @@ import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 
-public final class BlockPageEl extends AbstractPageEl implements ReturnablePageEl {
+public final class BlockPageEl extends AbstractPageEl implements ReturnablePageEl,WithElPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
@@ -49,7 +50,6 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         setNullReadWrite();
     }
@@ -60,7 +60,7 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
     }
 
     @Override
-    public void setReturnedArgument() {
+    public void setReturnedArgument(Argument _arg) {
     }
 
 }

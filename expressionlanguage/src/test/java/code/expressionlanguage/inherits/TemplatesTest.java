@@ -480,45 +480,51 @@ public class TemplatesTest {
     public void getAllInnerTypes18Test(){
         assertEq(new StringList("Map<[String..Character,Rate>","Inner<Boolean,Number>"), Templates.getAllInnerTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
     }
-//    @Test
-//    public void getAllTypes1Test(){
-//        assertEq(new StringList("String"), Templates.getAllTypes("String"));
-//    }
-//    @Test
-//    public void getAllTypes2Test(){
-//        assertEq(new StringList("Map","String","Rate"), Templates.getAllTypes("Map<String,Rate>"));
-//    }
-//    @Test
-//    public void getAllTypes3Test(){
-//        assertEq(new StringList("Map","String","Map<String,Rate>"), Templates.getAllTypes("Map<String,Map<String,Rate>>"));
-//    }
-//    @Test
-//    public void getAllTypes4Test(){
-//        assertEq(new StringList("List","Boolean"), Templates.getAllTypes("List<Boolean>"));
-//    }
-//    @Test
-//    public void getAllTypes5Test(){
-//        assertEq(new StringList("CustList","BooleanList"), Templates.getAllTypes("CustList<BooleanList>"));
-//    }
-//    @Test
-//    public void getAllTypes6Test(){
-//        assertNull(Templates.getAllTypes("Map<String,Rate>>"));
-//    }
-//    @Test
-//    public void getAllTypes7Test(){
-//        assertNull(Templates.getAllTypes("String,Rate"));
-//    }
-//    @Test
-//    public void getAllTypes8Test(){
-//        assertNull(Templates.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
-//    }
-//    @Test
-//    public void getAllTypes9Test(){
-//        assertNull(Templates.getAllTypes("Map<String,Rate"));
-//    }
-//
 
+    
+    @Test
+    public void quickFormat1Test() {
+        ContextEl context_ = simpleContextEl();
+        String first_ = context_.getStandards().getAliasString();
+        String second_ = context_.getStandards().getAliasInteger();
+        assertEq(second_,Templates.quickFormat(first_, second_, context_));
+    }
 
+    @Test
+    public void quickFormat2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "java.lang.String";
+        assertEq("java.lang.String",Templates.quickFormat(first_, second_, cont_));
+    }
+
+    @Test
+    public void quickFormat3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "#T";
+        assertEq("java.lang.Number",Templates.quickFormat(first_, second_, cont_));
+    }
+
+    @Test
+    public void quickFormat4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<#E>";
+        String second_ = "#T";
+        assertEq("#E",Templates.quickFormat(first_, second_, cont_));
+    }
     @Test
     public void format1Test() {
         ContextEl context_ = simpleContextEl();
@@ -589,6 +595,30 @@ public class TemplatesTest {
 
 
 
+    
+    @Test
+    public void format7Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "java.lang.String";
+        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+    }
+    
+    @Test
+    public void format8Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<#E>";
+        String second_ = "java.lang.String";
+        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+    }
 
     @Test
     public void format9Test() {

@@ -6,7 +6,6 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -168,9 +167,6 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public abstract void tryProcessEl(ContextEl _context);
-    public abstract ParentStackBlock getNextBlock(Block _block, ContextEl _context);
-    public abstract void postBlock(ContextEl _context);
-    public abstract void endRoot(ContextEl _context);
 
     public Block getBlockRoot() {
         return blockRoot;

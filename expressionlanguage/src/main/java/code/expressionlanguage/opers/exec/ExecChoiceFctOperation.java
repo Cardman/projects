@@ -56,7 +56,7 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
         String cast_;
         cast_ = stds_.getAliasCast();
         CustList<Argument> firstArgs_;
-        MethodId methodId_ = classMethodId.getConstraints();
+        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
@@ -82,6 +82,7 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = realId;
         } else {
+            methodId_ = classMethodId.getConstraints();
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
             if (hasToExit(_conf, classNameFound_)) {

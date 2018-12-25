@@ -29,10 +29,6 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    public void exitStack(ContextEl _context) {
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();

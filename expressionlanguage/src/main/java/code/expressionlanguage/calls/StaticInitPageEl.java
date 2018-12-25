@@ -17,7 +17,7 @@ import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.util.IdMap;
 
-public final class StaticInitPageEl extends AbstractPageEl {
+public final class StaticInitPageEl extends AbstractPageEl implements WithElPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -96,7 +96,6 @@ public final class StaticInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         String curClass_ = getGlobalClass();

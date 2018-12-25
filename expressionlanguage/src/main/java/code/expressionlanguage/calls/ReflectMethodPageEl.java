@@ -47,12 +47,13 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
-            if (method_.isPolymorph() && !method_.isStatic() && !method_.getClassName().startsWith("[")) {
+            String className_ = method_.getClassName();
+            if (method_.isPolymorph() && !method_.isStatic() && !className_.startsWith("[")) {
                 Struct instance_ = getArguments().first().getStruct();
-                ClassMethodId clId_ = new ClassMethodId(method_.getClassName(), method_.getRealId());
+                ClassMethodId clId_ = new ClassMethodId(className_, method_.getRealId());
                 methodToCall = ExecInvokingOperation.polymorph(_context, instance_, clId_);
             } else {
-                methodToCall = new ClassMethodId(method_.getClassName(), method_.getRealId());
+                methodToCall = new ClassMethodId(className_, method_.getRealId());
             }
         }
         if (!calledMethod) {

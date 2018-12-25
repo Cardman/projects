@@ -25,11 +25,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
     public int getOff() {
         return off;
     }
-    public void setStaticAccess(boolean _staticAccess) {
-    }
-    public boolean isStaticAccess() {
-        return false;
-    }
 
     @Override
     public boolean isIntermediateDottedOperation() {

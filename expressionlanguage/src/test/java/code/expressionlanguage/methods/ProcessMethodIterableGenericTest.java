@@ -1709,6 +1709,54 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(6, ((NumberStruct)field_).getInstance());
     }
     @Test
+    public void instanceArgument167Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst:\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.String> ance:\n");
+        xml_.append(" {\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $foreach($int i: $new Integer[]{$null}){\n");
+        xml_.append("    ance;;;=$new pkg.ExTwo<java.lang.String>(8i):\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(code.util.exceptions.NullObjectException e){\n");
+        xml_.append("   inst;;;=$new pkg.ExTwo<java.lang.Number>(8i):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public java.lang.Object inst:\n");
+        xml_.append(" $public (java.lang.Object i){\n");
+        xml_.append("  inst;;;=$(#T)i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
+        Struct subField_;
+        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(8, ((NumberStruct)subField_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertSame(NullStruct.NULL_VALUE,field_);
+    }
+    @Test
     public void instanceArgumentFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

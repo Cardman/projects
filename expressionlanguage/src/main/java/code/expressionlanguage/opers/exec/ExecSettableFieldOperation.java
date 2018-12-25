@@ -24,7 +24,6 @@ public final class ExecSettableFieldOperation extends
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
-    private boolean staticAccess;
 
     private boolean catString;
 
@@ -34,7 +33,6 @@ public final class ExecSettableFieldOperation extends
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
-        staticAccess = _s.isStaticAccess();
         catString = _s.isCatString();
         anc = _s.getAnc();
     }
@@ -44,14 +42,6 @@ public final class ExecSettableFieldOperation extends
         return variable;
     }
 
-    @Override
-    public final void setStaticAccess(boolean _staticAccess) {
-        staticAccess = _staticAccess;
-    }
-    @Override
-    public final boolean isStaticAccess() {
-        return staticAccess;
-    }
     @Override
     final Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         int off_ = getOff();

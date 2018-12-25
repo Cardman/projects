@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.WithElPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadLabelName;
 import code.expressionlanguage.errors.custom.DuplicateLabel;
@@ -323,9 +324,9 @@ public abstract class Block {
 
     public final void processBlock(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ParentStackBlock parElt_ = ip_.getNextBlock(this, _conf);
+        ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this, _conf);
         if (parElt_ == null) {
-            ip_.postBlock(_conf);
+            ((WithElPageEl)ip_).postBlock(_conf);
             return;
         }
         BracedBlock par_ = parElt_.getElement();

@@ -557,7 +557,7 @@ public abstract class ExecOperationNode implements Operable {
         setNextSiblingsArg(_argument, _conf, _nodes);
     }
 
-    public final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+    protected final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         if (_conf.callsOrException()) {
             return;
         }

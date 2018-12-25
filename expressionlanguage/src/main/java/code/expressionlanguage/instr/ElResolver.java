@@ -1644,7 +1644,7 @@ public final class ElResolver {
             _out.getDoubleDotted().setNextIndex(i_);
             return;
         }
-        if (partOfString_ && curChar_ == end_) {
+        if (isLogicAndOr(end_, partOfString_, curChar_)) {
             if (!beginOrEnd_) {
                 partOfString_ = false;
                 _out.setPartOfString(partOfString_);
@@ -1656,7 +1656,7 @@ public final class ElResolver {
             beginOrEnd_ = false;
             _out.setBeginOrEnd(beginOrEnd_);
         }
-        if (partOfString_ && curChar_ == begin_) {
+        if (isLogicAndOr(begin_, partOfString_, curChar_)) {
             if (!beginOrEnd_) {
                 _dout.setBadOffset(i_);
                 return;
@@ -3094,6 +3094,7 @@ public final class ElResolver {
             }
             if (prioOpMult_ > 0) {
                 builtOperator_.append(curChar_);
+                boolean processDefaultOp_ = true;
                 if (i_ + 1 < len_) {
                     char nextChar_ = _string.charAt(i_ + 1);
                     int delta_ = 0;
@@ -3108,13 +3109,7 @@ public final class ElResolver {
                             }
                         }
                     }
-                    boolean aff_ = false;
-                    if (nextChar_ == EQ_CHAR) {
-                        aff_ = true;
-                    } else if (prioOpMult_ == SHIFT_PRIO && nextCharIs(_string, delta_+i_ + 2, len_, EQ_CHAR)) {
-                        aff_ = true;
-                    }
-                    if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_) {
+                    if (isIncrementOperator(curChar_, prioOpMult_, nextChar_)) {
                         if (prio_ > POST_INCR_PRIO) {
                             clearOperators_ = true;
                             prio_ = POST_INCR_PRIO;
@@ -3122,7 +3117,8 @@ public final class ElResolver {
                         }
                         increment_ = 2;
                         builtOperator_.append(nextChar_);
-                    } else if (andOr_ && nextChar_ == curChar_) {
+                        processDefaultOp_ = false;
+                    } else if (isLogicAndOr(curChar_, andOr_, nextChar_)) {
                         builtOperator_.append(curChar_);
                         if (prio_ > prioOpMult_) {
                             prio_ = prioOpMult_;
@@ -3132,7 +3128,8 @@ public final class ElResolver {
                             foundOperator_ = true;
                         }
                         increment_ = 2;
-                    } else if (aff_) {
+                        processDefaultOp_ = false;
+                    } else if (isAffectation(nextChar_, prioOpMult_, _string, delta_+i_ + 2, len_)) {
                         increment_ = 2;
                         if (prioOpMult_ == SHIFT_PRIO) {
                             increment_++;
@@ -3143,6 +3140,7 @@ public final class ElResolver {
                             foundOperator_ = true;
                         }
                         builtOperator_.append(EQ_CHAR);
+                        processDefaultOp_ = false;
                     } else {
                         if (curChar_ == AND_CHAR) {
                             prioOpMult_ = BIT_AND_PRIO;
@@ -3153,15 +3151,9 @@ public final class ElResolver {
                             increment_++;
                             increment_ += delta_;
                         }
-                        if (prio_ > prioOpMult_) {
-                            prio_ = prioOpMult_;
-                        }
-                        if (prio_ == prioOpMult_) {
-                            clearOperators_ = true;
-                            foundOperator_ = true;
-                        }
                     }
-                } else {
+                }
+                if (processDefaultOp_) {
                     if (prio_ > prioOpMult_) {
                         prio_ = prioOpMult_;
                     }
@@ -3193,6 +3185,8 @@ public final class ElResolver {
                     prio_ = CMP_PRIO;
                 }
                 if (prio_ == CMP_PRIO) {
+                    //Event if there is a previous operator, add the current operator
+                    //Sample: 1<2<3 produces an error
                     foundOperator_ = true;
                 }
                 if (nextCharIs(_string, i_ + 1, len_, EQ_CHAR)) {
@@ -3224,6 +3218,25 @@ public final class ElResolver {
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);
         return op_;
+    }
+
+    private static boolean isAffectation(char _nextChar, int _prioOpMult, String _string, int _lastCharIndex,int _len) {
+        boolean aff_ = false;
+        if (_nextChar == EQ_CHAR) {
+            aff_ = true;
+        } else if (_prioOpMult == SHIFT_PRIO && nextCharIs(_string, _lastCharIndex, _len, EQ_CHAR)) {
+            aff_ = true;
+        }
+        return aff_;
+    }
+    private static boolean isIncrementOperator(char curChar_, int prioOpMult_,
+            char nextChar_) {
+        return prioOpMult_ == ADD_PRIO && nextChar_ == curChar_;
+    }
+
+    private static boolean isLogicAndOr(char _curChar, boolean _andOr,
+            char _nextChar) {
+        return _andOr && _nextChar == _curChar;
     }
 
     private static boolean nextCharIs(String _str, int _i, int _len, char _value) {

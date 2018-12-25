@@ -951,6 +951,41 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         assertEq(17, ret_.getNumber());
     }
     @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmethCall(){\n");
+        xml_.append("  $return 9i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  $long i:\n");
+        xml_.append("  i;.=9:\n");
+        xml_.append("  $switch(exmethCall())label{\n");
+        xml_.append("   $default{\n");
+        xml_.append("    t;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("   $case(10):\n");
+        xml_.append("   $case(8){\n");
+        xml_.append("    t;.=16:\n");
+        xml_.append("    $break label:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(17, ret_.getNumber());
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

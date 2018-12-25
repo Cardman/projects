@@ -13,7 +13,7 @@ import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.util.IdMap;
 
-public final class FieldInitPageEl extends AbstractPageEl {
+public final class FieldInitPageEl extends AbstractPageEl implements WithElPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -70,7 +70,6 @@ public final class FieldInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         setNullReadWrite();
     }

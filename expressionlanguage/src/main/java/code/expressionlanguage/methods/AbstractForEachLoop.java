@@ -567,12 +567,8 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 processLastElementLoop(_cont);
                 return;
             }
-            if (c_.isFinished()) {
-                removeVarAndLoop(ip_);
-                processBlock(_cont);
-                return;
-            }
-            ip_.getReadWrite().setBlock(getFirstChild());
+            removeVarAndLoop(ip_);
+            processBlock(_cont);
             return;
         }
         LgNames stds_ = _cont.getStandards();
@@ -626,9 +622,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 return;
             }
             finished_ = !has_;
-            if (_cont.callsOrException()) {
-                return;
-            }
         }
         if (finished_) {
             removeVarAndLoop(ip_);
@@ -639,11 +632,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         StringMap<LoopVariable> vars_ = ip_.getVars();
         incrementLoop(_cont, l_, vars_);
-        if (_cont.callsOrException()) {
-            return;
-        }
-        l_.setEvaluatingKeepLoop(false);
-        ip_.getReadWrite().setBlock(getFirstChild());
     }
 
     Struct processLoop(ContextEl _conf) {
@@ -695,18 +683,11 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         
         if (hasNext_) {
             incrementLoop(_conf, l_, vars_);
-            if (_conf.callsOrException()) {
-                if (_conf.calls()) {
-                    return;
-                }
-                l_.setEvaluatingKeepLoop(false);
-                return;
-            }
         } else {
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
+            l_.setEvaluatingKeepLoop(false);
         }
-        l_.setEvaluatingKeepLoop(false);
     }
 
     private Boolean iteratorHasNext(ContextEl _conf) {
@@ -731,43 +712,55 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
+        AbstractPageEl abs_ = _conf.getLastPage();
 
-        _conf.getLastPage().setGlobalOffset(variableNameOffset);
-        _conf.getLastPage().setOffset(0);
+        abs_.setGlobalOffset(variableNameOffset);
+        abs_.setOffset(0);
         LgNames stds_ = _conf.getStandards();
         LoopVariable lv_ = _vars.getVal(variableName);
         Struct iterator_ = _l.getStructIterator();
-        Struct element_;
+        Struct element_ = NullStruct.NULL_VALUE;
+        Argument arg_ = Argument.createVoid();
         ExecOperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
             String locName_ = getNextVar(_conf);
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
             locVar_.setStruct(iterator_);
-            _conf.getLastPage().getInternVars().put(locName_, locVar_);
-            ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
-            Argument arg_ = dyn_.calculateMember(_conf);
-            if (_conf.callsOrException()) {
-                return;
-            }
-            _conf.getLastPage().clearCurrentEls();
-            element_ = arg_.getStruct();
+            abs_.getInternVars().put(locName_, locVar_);
+            ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
+            arg_ = dyn_.calculateMember(_conf);
+//            if (_conf.callsOrException()) {
+//                return;
+//            }
+//            abs_.clearCurrentEls();
+//            element_ = arg_.getStruct();
         } else {
             Struct container_ = lv_.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
-            if (_conf.hasExceptionOrFailInit()) {
-                return;
-            }
-            _conf.addSensibleField(container_, element_);
+//            if (_conf.hasExceptionOrFailInit()) {
+//                return;
+//            }
         }
-        String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);
-        Argument arg_ = new Argument(element_);
+        if (_conf.callsOrException()) {
+            return;
+        }
+        if (!el_.getResultClass().isArray()) {
+            abs_.clearCurrentEls();
+            element_ = arg_.getStruct();
+        } else {
+            arg_ = new Argument(element_);
+        }
+        String className_ = abs_.formatVarType(importedClassName, _conf);
+//        Argument arg_ = new Argument(element_);
         if (!Templates.checkObject(className_, arg_, _conf)) {
             return;
         }
         lv_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);
+        _l.setEvaluatingKeepLoop(false);
+        abs_.getReadWrite().setBlock(getFirstChild());
     }
 
     @Override

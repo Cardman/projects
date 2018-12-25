@@ -121,6 +121,11 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
+    public Iterable<T> getList() {
+        return list;
+    }
+
+    @Override
     public Iterator<T> iterator() {
         return new CustIter<T>(this);
     }

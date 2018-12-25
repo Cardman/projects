@@ -189,7 +189,7 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.FCT_OPER_PRIO) {
-            if (leftParFirstOperator && operators.size() == 2) {
+            if (operators.size() == 2) {
                 beginValuePart_ = endValuePart_ + operators.firstValue().length();
                 endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
                 str_ = _string.substring(beginValuePart_, endValuePart_);

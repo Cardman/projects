@@ -272,8 +272,11 @@ public final class Templates {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
             return null;
         }
-        String geneSubType_ = _context.getClassBody(baseSubType_).getGenericString();
-        StringList curClasses_ = new StringList(geneSubType_);
+        DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseSubType_);
+        String compo_ = dc_.getComponent();
+        String geneSubType_ = _context.getClassBody(compo_).getGenericString();
+        String subType_ = PrimitiveTypeUtil.getPrettyArrayType(geneSubType_, dc_.getDim());
+        StringList curClasses_ = new StringList(subType_);
         String generic_ = null;
         if (StringList.quickEq(_subType, _superType)) {
             generic_ = _subType;

@@ -4012,4 +4012,91 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq("!java.lang.String",out_.getString());
     }
+    @Test
+    public void processEl334Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return $Class.getClass($class(pkg.Ex).getDeclaredConstructors()[0].newInstance()).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static ExTwo instance = $new ExTwo():\n");
+        xml_.append(" $int info=0i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $int inst=ExTwo.instance.info++:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Ex", ret_.getString());
+    }
+    @Test
+    public void calculateArgument15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append(" public static int field = pkgtwo.OuterTwo.field++;\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append(" public static int field = 1;\n");
+        xml_.append(" public class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" public class InnerFive<#E> {\n");
+        xml_.append("  public class InnerInner<#G> {\n");
+        xml_.append("   public normal String get(){\n");
+        xml_.append("    return static(OuterThree.InnerFive).this.getLoc();\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  public normal String getLoc(){\n");
+        xml_.append("   return static(Class).getClass(this).getName()+CST;\n");
+        xml_.append("  }\n");
+        xml_.append("  private static final String CST = \"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance();\n");
+        xml_.append("  if (static(Class).getClass(w).getName() != \"pkg.Outer<$core.String>\") {\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (static(ObjectsUtil).getParent(w) != null) {\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
 }

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.InterfaceInvokingConstructor;
@@ -36,7 +35,8 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
         String calledCtorTemp_ = superClass_;
-        _conf.getContextEl().setCallCtor(new CustomFoundConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER));
+        checkParameters(_conf, calledCtorTemp_, ctorId_, null, firstArgs_, 0);
+        callCtor(_conf, calledCtorTemp_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 

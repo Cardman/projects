@@ -21,7 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 
-public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl {
+public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl,WithElPageEl {
 
     private Argument argument;
 
@@ -82,7 +82,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         return parElt_;
     }
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public final boolean checkCondition(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         boolean implicitConstr_ = false;
         ConstructorBlock ctor_ = (ConstructorBlock) getBlockRoot();
@@ -141,7 +141,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
     }
 
     @Override
-    public void setReturnedArgument() {
+    public final void setReturnedArgument(Argument _arg) {
         setArgumentForConstructor();
     }
 
@@ -150,7 +150,6 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         exitFromConstructor();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         exitFromConstructor();
     }

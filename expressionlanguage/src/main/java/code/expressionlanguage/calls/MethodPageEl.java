@@ -9,7 +9,7 @@ import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 
-public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl {
+public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnablePageEl,WithElPageEl {
 
     private Argument returnedArgument;
 
@@ -19,11 +19,9 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
         Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _context);
         returnedArgument = arg_;
     }
-    @Override
     public Argument getReturnedArgument() {
         return returnedArgument;
     }
-
     @Override
     public void setReturnedArgument(Argument _returnedArgument) {
         returnedArgument = _returnedArgument;
@@ -34,11 +32,6 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
         return true;
     }
 
-    @Override
-    public void setReturnedArgument() {
-        Argument void_ = Argument.createVoid();
-        returnedArgument = void_;
-    }
     @Override
     public void tryProcessEl(ContextEl _context) {
         ReadWrite rw_ = getReadWrite();
@@ -77,7 +70,6 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl 
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         setNullReadWrite();
     }

@@ -4,7 +4,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.ForwardPageEl;
 import code.expressionlanguage.calls.ReturnablePageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
@@ -189,19 +188,20 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
+        Argument arg_;
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
+            arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
             }
             ip_.clearCurrentEls();
-            ((ForwardPageEl)_cont.getLastPage()).setReturnedArgument(arg_);
         } else {
-            ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument();
+            arg_ = Argument.createVoid();
         }
+        ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument(arg_);
         removeBlockFinally(_cont);
     }
 
@@ -223,9 +223,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     @Override
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
-        if (!isEmpty()) {
-            return getElRet();
-        }
-        return null;
+        return getElRet();
     }
 }

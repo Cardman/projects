@@ -88,8 +88,8 @@ public class BeanSeven extends Bean {
     }
     public void validateIntsSave() {
         Ints nbs_ = new Ints();
-        for (int i: arrayInt) {
-            nbs_.add(i);
+        for (Object i: arrayInt.toArray()) {
+            nbs_.add((Integer) i);
         }
         getForms().put("numbers", nbs_);
     }
