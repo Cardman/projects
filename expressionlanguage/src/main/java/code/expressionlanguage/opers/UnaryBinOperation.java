@@ -14,8 +14,10 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class UnaryBinOperation extends AbstractUnaryOperation {
+public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
+    private int opOffset;
+    private boolean okNum;
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -24,9 +26,11 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeUnary(Analyzable _conf) {
+        okNum = true;
         OperationNode child_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching clMatch_ = child_.getResultClass();
+        opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
         ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
         if (cust_.isFoundMethod()) {
@@ -92,7 +96,17 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         analyzeStdAssignmentAfter(_conf);
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
+    }
+    @Override
+    public int getOpOffset() {
+        return opOffset;
+    }
+
+    @Override
+    public boolean isOkNum() {
+        return okNum;
     }
 }

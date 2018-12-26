@@ -46,7 +46,6 @@ import code.expressionlanguage.opers.InternVariableOperation;
 import code.expressionlanguage.opers.LambdaOperation;
 import code.expressionlanguage.opers.MultOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.OrOperation;
 import code.expressionlanguage.opers.RotateLeftOperation;
@@ -61,6 +60,7 @@ import code.expressionlanguage.opers.StaticInfoOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
 import code.expressionlanguage.opers.SuperFctOperation;
 import code.expressionlanguage.opers.SuperInvokingConstructor;
+import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.ThisOperation;
 import code.expressionlanguage.opers.UnaryBinOperation;
 import code.expressionlanguage.opers.UnaryBooleanOperation;
@@ -118,7 +118,7 @@ public abstract class ExecOperationNode implements Operable {
 
     private int indexBegin;
 
-    ExecOperationNode(OperationNode _oper) {
+    ExecOperationNode(Operable _oper) {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
@@ -135,6 +135,7 @@ public abstract class ExecOperationNode implements Operable {
         _cont.setOffset(indexBegin+_offset);
     }
 
+    @Override
     public final int getIndexBegin() {
         return indexBegin;
     }
@@ -287,6 +288,16 @@ public abstract class ExecOperationNode implements Operable {
             UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
             return new ExecUnaryBooleanOperation(m_);
         }
+        if (_anaNode instanceof SymbolOperation) {
+            SymbolOperation n_ = (SymbolOperation) _anaNode;
+            if (!n_.isOkNum()) {
+                return new ExecErrorParentOperation(n_);
+            }
+            if (n_.getClassMethodId() != null) {
+                ExecCustNumericOperation exec_ = new ExecCustNumericOperation(n_);
+                return exec_;
+            }
+        }
         if (_anaNode instanceof UnaryBinOperation) {
             UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
             return new ExecUnaryBinOperation(m_);
@@ -298,13 +309,6 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof CastOperation) {
             CastOperation m_ = (CastOperation) _anaNode;
             return new ExecCastOperation(m_);
-        }
-        if (_anaNode instanceof NumericOperation) {
-            NumericOperation n_ = (NumericOperation) _anaNode;
-            if (n_.getClassMethodId() != null || !n_.isOkNum()) {
-                ExecCustNumericOperation exec_ = new ExecCustNumericOperation(n_);
-                return exec_;
-            }
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
@@ -343,16 +347,10 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;
-            if (!c_.isOkNum()) {
-                new ExecCmpOperation(c_);
+            if (!c_.isStringCompare()) {
+                return new ExecNbCmpOperation(c_);
             }
-            if (c_.getClassMethodId() == null) {
-                if (!c_.isStringCompare()) {
-                    return new ExecNbCmpOperation(c_);
-                }
-                return new ExecStrCmpOperation(c_);
-            }
-            return new ExecCmpOperation(c_);
+            return new ExecStrCmpOperation(c_);
         }
         if (_anaNode instanceof InstanceOfOperation) {
             InstanceOfOperation c_ = (InstanceOfOperation) _anaNode;
@@ -526,6 +524,7 @@ public abstract class ExecOperationNode implements Operable {
         }
         return false;
     }
+    @Override
     public final int getOrder() {
         return order;
     }
@@ -534,10 +533,12 @@ public abstract class ExecOperationNode implements Operable {
         order = _order;
     }
 
+    @Override
     public final int getIndexInEl() {
         return indexInEl;
     }
 
+    @Override
     public final int getIndexChild() {
         return indexChild;
     }
@@ -584,6 +585,7 @@ public abstract class ExecOperationNode implements Operable {
         argument = _argument;
     }
 
+    @Override
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }

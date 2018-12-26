@@ -29,6 +29,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -294,8 +295,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        ExecOperationNode el_ = opList.last();
-        el_.getResultClass().setCheckOnlyNullPe(true);
     }
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
         FunctionBlock f_ = getFunction();
@@ -721,6 +720,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
+        if (ito_== NullStruct.NULL_VALUE) {
+            String npe_ = _conf.getStandards().getAliasNullPe();
+            _conf.setException(new ErrorStruct(_conf, npe_));
+        }
         return ito_;
         
     }

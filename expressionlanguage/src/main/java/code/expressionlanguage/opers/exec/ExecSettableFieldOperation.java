@@ -15,7 +15,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -163,15 +162,15 @@ public final class ExecSettableFieldOperation extends
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            if (classes_.isCustomType(className_)) {
+        if (classes_.isCustomType(className_)) {
+            if (fieldMetaInfo.isStaticField()) {
+                fieldType_ = fieldMetaInfo.getRealType();
+                left_.setStruct(_store);
+                ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+                res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+                if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                    return res_;
+                }
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
                     return _right;
@@ -180,25 +179,15 @@ public final class ExecSettableFieldOperation extends
                 Argument a_ = res_;
                 return a_;
             }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
+            Argument previous_ = new Argument();
+            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+            left_.setStruct(_store);
+            fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+            res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return res_;
             }
-            Argument a_ = res_;
-            return a_;
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        if (previous_.getStruct() instanceof FieldableStruct) {
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
                 _conf.getContextEl().failInitEnums();
                 return _right;
@@ -207,6 +196,50 @@ public final class ExecSettableFieldOperation extends
             Argument a_ = res_;
             return a_;
         }
+//        if (fieldMetaInfo.isStaticField()) {
+//            fieldType_ = fieldMetaInfo.getRealType();
+//            left_.setStruct(_store);
+//            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+//            res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+//            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+//                return res_;
+//            }
+//            if (classes_.isCustomType(className_)) {
+//                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
+//                    _conf.getContextEl().failInitEnums();
+//                    return _right;
+//                }
+//                classes_.initializeStaticField(fieldId_, res_.getStruct());
+//                Argument a_ = res_;
+//                return a_;
+//            }
+//            ResultErrorStd result_;
+//            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
+//            if (result_.getError() != null) {
+//                _conf.setException(new ErrorStruct(_conf,result_.getError()));
+//                return res_;
+//            }
+//            Argument a_ = res_;
+//            return a_;
+//        }
+        Argument previous_ = new Argument();
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+        left_.setStruct(_store);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+//        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+//            return res_;
+//        }
+//        if (previous_.getStruct() instanceof FieldableStruct) {
+//            if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
+//                _conf.getContextEl().failInitEnums();
+//                return _right;
+//            }
+//            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
+//            Argument a_ = res_;
+//            return a_;
+//        }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
@@ -226,15 +259,12 @@ public final class ExecSettableFieldOperation extends
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
+        if (classes_.isCustomType(className_)) {
             fieldType_ = fieldMetaInfo.getRealType();
             left_.setStruct(_store);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
             res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            if (classes_.isCustomType(className_)) {
+            if (fieldMetaInfo.isStaticField()) {
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
                     return res_;
@@ -242,24 +272,12 @@ public final class ExecSettableFieldOperation extends
                 classes_.initializeStaticField(fieldId_, res_.getStruct());
                 return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
             }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return res_;
-            }
-            return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        if (previous_.getStruct() instanceof FieldableStruct) {
+            Argument previous_ = new Argument();
+            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+            left_.setStruct(_store);
+            fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
+            cl_ = new ClassArgumentMatching(fieldType_);
+            res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
                 _conf.getContextEl().failInitEnums();
                 return res_;
@@ -267,6 +285,47 @@ public final class ExecSettableFieldOperation extends
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
             return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
         }
+//        if (fieldMetaInfo.isStaticField()) {
+//            fieldType_ = fieldMetaInfo.getRealType();
+//            left_.setStruct(_store);
+//            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+//            res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
+//            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+//                return res_;
+//            }
+//            if (classes_.isCustomType(className_)) {
+//                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
+//                    _conf.getContextEl().failInitEnums();
+//                    return res_;
+//                }
+//                classes_.initializeStaticField(fieldId_, res_.getStruct());
+//                return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
+//            }
+//            ResultErrorStd result_;
+//            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
+//            if (result_.getError() != null) {
+//                _conf.setException(new ErrorStruct(_conf,result_.getError()));
+//                return res_;
+//            }
+//            return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
+//        }
+        Argument previous_ = new Argument();
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+        left_.setStruct(_store);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
+//        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+//            return res_;
+//        }
+//        if (previous_.getStruct() instanceof FieldableStruct) {
+//            if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
+//                _conf.getContextEl().failInitEnums();
+//                return res_;
+//            }
+//            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
+//            return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
+//        }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
@@ -289,8 +348,8 @@ public final class ExecSettableFieldOperation extends
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            if (classes_.isCustomType(className_)) {
+        if (classes_.isCustomType(className_)) {
+            if (fieldMetaInfo.isStaticField()) {
                 if (_conf.isSensibleField(fieldId_.getClassName())) {
                     _conf.failInitEnums();
                     return _right;
@@ -300,20 +359,9 @@ public final class ExecSettableFieldOperation extends
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return _right;
-            }
-            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        if (previous_.getStruct() instanceof FieldableStruct) {
+            Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
+            Argument previous_ = new Argument();
+            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
             if (_conf.isContainedSensibleFields(previous_.getStruct())) {
                 _conf.failInitEnums();
                 return _right;
@@ -323,6 +371,40 @@ public final class ExecSettableFieldOperation extends
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
+//        if (fieldMetaInfo.isStaticField()) {
+//            if (classes_.isCustomType(className_)) {
+//                if (_conf.isSensibleField(fieldId_.getClassName())) {
+//                    _conf.failInitEnums();
+//                    return _right;
+//                }
+//                classes_.initializeStaticField(fieldId_, _right.getStruct());
+//                Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
+//                setSimpleArgument(a_, _conf, _nodes);
+//                return a_;
+//            }
+//            ResultErrorStd result_;
+//            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
+//            if (result_.getError() != null) {
+//                _conf.setException(new ErrorStruct(_conf,result_.getError()));
+//                return _right;
+//            }
+//            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
+//            setSimpleArgument(a_, _conf, _nodes);
+//            return a_;
+//        }
+        Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
+        Argument previous_ = new Argument();
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
+//        if (previous_.getStruct() instanceof FieldableStruct) {
+//            if (_conf.isContainedSensibleFields(previous_.getStruct())) {
+//                _conf.failInitEnums();
+//                return _right;
+//            }
+//            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
+//            Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
+//            setSimpleArgument(a_, _conf, _nodes);
+//            return a_;
+//        }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {

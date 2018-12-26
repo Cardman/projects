@@ -1061,6 +1061,33 @@ public class AnalyzedOperationNodesTest {
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
         analyzeIndirectLocalVars("myvar.get($null,$null)", "myvar", g_, xml_.toString(), true);
     }
+    @Test
+    public void processEl11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static $int b:\n");
+        xml_.append(" $static $int c:\n");
+        xml_.append(" $static $int d:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = b < c < d:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl12FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = :\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {

@@ -109,7 +109,6 @@ public abstract class SettableAbstractFieldOperation extends
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
-            getPreviousResultClass().setCheckOnlyNullPe(true);
         }
     }
 

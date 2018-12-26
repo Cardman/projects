@@ -19,12 +19,13 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public class CmpOperation extends ReflectableOpering {
+public final class CmpOperation extends ReflectableOpering implements SymbolOperation {
 
     private boolean stringCompare;
     private ClassMethodId classMethodId;
     private String op;
     private boolean okNum;
+    private int opOffset;
 
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -49,9 +50,10 @@ public class CmpOperation extends ReflectableOpering {
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
+        opOffset = getOperations().getOperators().firstKey();
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
-        String op_ = getOperations().getOperators().values().first().trim();
+        String op_ = getOperations().getOperators().firstValue().trim();
         ClassMethodIdReturn cust_ = getOperator(_conf, op_, first_, second_);
         if (cust_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
@@ -249,6 +251,7 @@ public class CmpOperation extends ReflectableOpering {
         getChildren().putAllMap(vs_);
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -257,7 +260,13 @@ public class CmpOperation extends ReflectableOpering {
         return op;
     }
 
+    @Override
     public boolean isOkNum() {
         return okNum;
+    }
+
+    @Override
+    public int getOpOffset() {
+        return opOffset;
     }
 }

@@ -83,7 +83,6 @@ public final class StandardInstancingOperation extends
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
-        arg_.setCheckOnlyNullPe(true);
         if (arg_ == null || arg_.isUndefined() || arg_.isArray()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());

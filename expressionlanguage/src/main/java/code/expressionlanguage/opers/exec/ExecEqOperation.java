@@ -2,11 +2,8 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.EqOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -15,11 +12,9 @@ import code.util.StringList;
 public final class ExecEqOperation extends ExecReflectableOpering {
 
     private String oper;
-    private ClassMethodId classMethodId;
     public ExecEqOperation(EqOperation _e) {
         super(_e);
         oper = _e.getOper();
-        classMethodId = _e.getClassMethodId();
     }
 
     private static boolean calculateEq(Argument _a, Argument _b) {
@@ -29,14 +24,6 @@ public final class ExecEqOperation extends ExecReflectableOpering {
     @Override
     public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        if (classMethodId != null) {
-            CustList<Argument> arguments_ = getArguments(_nodes, this);
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            String classNameFound_ = classMethodId.getClassName();
-            MethodId id_ = classMethodId.getConstraints();
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
-            return Argument.createVoid();
-        }
         ExecOperationNode opOne_ = chidren_.first();
         ExecOperationNode opTwo_ = chidren_.last();
         Argument first_ = getArgument(_nodes,opOne_);
@@ -57,9 +44,6 @@ public final class ExecEqOperation extends ExecReflectableOpering {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (classMethodId != null || !_conf.isOkNumOp()) {
-            return;
-        }
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();

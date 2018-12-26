@@ -1277,9 +1277,12 @@ public final class Classes {
             _context.setGlobalClass(bl_.getGenericString());
             bl_.validateIds(_context);
         }
-        _context.setGlobalClass("");
+        if (_predefined) {
+            return;
+        }
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
-        for (OperatorBlock o: _context.getAllOperators(_predefined)) {
+        _context.setGlobalClass("");
+        for (OperatorBlock o: getOperators()) {
             String name_ = o.getName();
             o.buildImportedTypes(_context);
             if (!isOper(name_)) {
@@ -1867,20 +1870,22 @@ public final class Classes {
             }
         }
         _context.setGlobalClass("");
-        for (OperatorBlock o : _context.getAllOperators(_predefined)) {
-            StringList params_ = o.getParametersNames();
-            StringList types_ = o.getImportedParametersTypes();
-            int len_ = params_.size();
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                String p_ = params_.get(i);
-                String c_ = types_.get(i);
-                LocalVariable lv_ = new LocalVariable();
-                lv_.setClassName(c_);
-                page_.getParameters().put(p_, lv_);
+        if (!_predefined) {
+            for (OperatorBlock o : getOperators()) {
+                StringList params_ = o.getParametersNames();
+                StringList types_ = o.getImportedParametersTypes();
+                int len_ = params_.size();
+                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                    String p_ = params_.get(i);
+                    String c_ = types_.get(i);
+                    LocalVariable lv_ = new LocalVariable();
+                    lv_.setClassName(c_);
+                    page_.getParameters().put(p_, lv_);
+                }
+                o.buildFctInstructions(_context);
+                page_.getParameters().clear();
+                page_.clearAllLocalVars();
             }
-            o.buildFctInstructions(_context);
-            page_.getParameters().clear();
-            page_.clearAllLocalVars();
         }
         _context.setAnnotAnalysis(true);
         for (RootBlock c: getClassBodies(_predefined)) {
@@ -1895,8 +1900,10 @@ public final class Classes {
                 }
             }
         }
-        for (OperatorBlock o : _context.getAllOperators(_predefined)) {
-            ((AnnotableBlock)o).buildAnnotations(_context);
+        if (!_predefined) {
+            for (OperatorBlock o : getOperators()) {
+                ((AnnotableBlock)o).buildAnnotations(_context);
+            }
         }
         //init annotations here
         for (RootBlock c: getClassBodies(_predefined)) {

@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.NumericOperation;
+import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -15,7 +15,7 @@ import code.util.StringList;
 public abstract class ExecNumericOperation extends ExecReflectableOpering {
     private int opOffset;
 
-    public ExecNumericOperation(NumericOperation _n) {
+    public ExecNumericOperation(SymbolOperation _n) {
         super(_n);
         opOffset = _n.getOpOffset();
     }

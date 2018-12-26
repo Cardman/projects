@@ -14,14 +14,16 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class EqOperation extends ReflectableOpering {
+public final class EqOperation extends ReflectableOpering implements SymbolOperation {
 
     private String oper;
     private ClassMethodId classMethodId;
+    private int opOffset;
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         oper = _op.getOperators().values().first();
+        opOffset = _op.getOperators().firstKey();
     }
 
     private static boolean calculateEq(Argument _a, Argument _b) {
@@ -31,7 +33,6 @@ public final class EqOperation extends ReflectableOpering {
     @Override
     public void analyze(Analyzable _conf) {
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
-            _conf.setOkNumOp(false);
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -73,7 +74,7 @@ public final class EqOperation extends ReflectableOpering {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (classMethodId != null || !_conf.isOkNumOp()) {
+        if (classMethodId != null) {
             return;
         }
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -101,8 +102,21 @@ public final class EqOperation extends ReflectableOpering {
         return oper;
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
+    }
+
+    @Override
+    public int getOpOffset() {
+        return opOffset;
+    }
+
+    /**The execution cannot occur if there is only one character as symbol
+    Sample: 1!2 leads to error even if there is two operands*/
+    @Override
+    public boolean isOkNum() {
+        return true;
     }
 
 }

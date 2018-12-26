@@ -412,55 +412,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
     public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
         checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, _possibleOffset);
-//        if (_conf.)
-//        StringList params_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
-//        if (!_methodId.isStaticMethod()) {
-//            String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
-//            String classFormat_ = _classNameFound;
-//            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-//            if (classFormat_ == null) {
-//                _conf.setException(new ErrorStruct(_conf,cast_));
-//                Argument a_ = new Argument();
-//                return a_;
-//            }
-//            int i_ = 0;
-//            for (String c: _methodId.getParametersTypes()) {
-//                String c_ = c;
-//                c_ = Templates.quickFormat(classFormat_, c_, _conf);
-//                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
-//                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-//                }
-//                params_.add(c_);
-//                i_++;
-//            }
-//        } else {
-//            int i_ = 0;
-//            for (String c: _methodId.getParametersTypes()) {
-//                String c_ = c;
-//                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
-//                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-//                }
-//                params_.add(c_);
-//                i_++;
-//            }
-//        }
-//        int i_ = CustList.FIRST_INDEX;
-//        for (Argument a: _firstArgs) {
-//            if (i_ < params_.size()) {
-//                if (_possibleOffset > -1) {
-//                    _conf.setOffset(_possibleOffset);
-//                }
-//                String param_ = params_.get(i_);
-//                if (!Templates.checkObject(param_, a, _conf)) {
-//                    Argument a_ = new Argument();
-//                    return a_;
-//                }
-//            }
-//            i_++;
-//        }
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
@@ -788,6 +742,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return;
         }
         _conf.getContextEl().setCallCtor(new CustomFoundConstructor(_classNameFound, EMPTY_STRING, -1, _id, _arg, _firstArgs, _kindCall));
+    }
+    static void callOperator(ExecutableCode _conf,String _classNameFound, MethodId _id, CustList<Argument> _firstArgs) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            return;
+        }
+        _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), _classNameFound, _id, _firstArgs));
     }
     static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
         StringList params_ = new StringList();

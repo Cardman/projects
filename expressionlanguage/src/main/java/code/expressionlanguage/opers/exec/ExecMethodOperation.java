@@ -1,13 +1,12 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.opers.MethodOperation;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode implements ReductibleOperable {
 
     private ExecOperationNode firstChild;
 
-    public ExecMethodOperation(MethodOperation _m) {
+    public ExecMethodOperation(Operable _m) {
         super(_m);
     }
 

@@ -19,9 +19,11 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class UnaryOperation extends AbstractUnaryOperation {
+public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
     private String oper;
+    private int opOffset;
+    private boolean okNum;
 
     public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -31,9 +33,11 @@ public final class UnaryOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeUnary(Analyzable _conf) {
+        okNum = true;
         OperationNode child_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching clMatch_ = child_.getResultClass();
+        opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
         ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
         if (cust_.isFoundMethod()) {
@@ -130,6 +134,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         analyzeStdAssignmentAfter(_conf);
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -138,4 +143,13 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         return oper;
     }
 
+    @Override
+    public int getOpOffset() {
+        return opOffset;
+    }
+
+    @Override
+    public boolean isOkNum() {
+        return okNum;
+    }
 }

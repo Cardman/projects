@@ -3093,4 +3093,51 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void calculateArgument17FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public class pkg.Outer<C>: OuterTwo<C> {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" public class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerFour:InnerThree<B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public class InnerFive<E> {\n");
+        xml_.append("  public class InnerInner<G> {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  Outer<String> outer = null;\n");
+        xml_.append("  Outer<String>.InnerThree<String>.InnerInner<String> v;\n");
+        xml_.append("  v = outer.new InnerThree<String>().new InnerInner<String>();\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("$core.NullObject",cont_.getException().getClassName(cont_));
+    }
 }

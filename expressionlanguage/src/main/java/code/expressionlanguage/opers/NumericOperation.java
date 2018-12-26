@@ -14,7 +14,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public abstract class NumericOperation extends ReflectableOpering {
+public abstract class NumericOperation extends ReflectableOpering implements SymbolOperation {
     private ClassMethodId classMethodId;
     private String op;
     private int opOffset;
@@ -142,6 +142,7 @@ public abstract class NumericOperation extends ReflectableOpering {
     }
     abstract void setCatenize(ResultOperand _res);
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -150,10 +151,12 @@ public abstract class NumericOperation extends ReflectableOpering {
         return op;
     }
 
+    @Override
     public int getOpOffset() {
         return opOffset;
     }
     
+    @Override
     public boolean isOkNum() {
         return okNum;
     }

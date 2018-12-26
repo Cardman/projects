@@ -2048,6 +2048,7 @@ public abstract class OperationNode implements Operable {
         return operations;
     }
 
+    @Override
     public final int getOrder() {
         return order;
     }
@@ -2062,10 +2063,12 @@ public abstract class OperationNode implements Operable {
         return off_+operations.getDelimiter().getIndexBegin()+indexInEl;
     }
 
+    @Override
     public final int getIndexInEl() {
         return indexInEl;
     }
 
+    @Override
     public final int getIndexChild() {
         return indexChild;
     }
@@ -2099,6 +2102,7 @@ public abstract class OperationNode implements Operable {
         staticBlock = _staticBlock;
     }
 
+    @Override
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }
@@ -2119,7 +2123,8 @@ public abstract class OperationNode implements Operable {
         siblingSet = _siblingSet;
     }
 
-    public int getIndexBegin() {
+    @Override
+    public final int getIndexBegin() {
         return operations.getDelimiter().getIndexBegin();
     }
 }

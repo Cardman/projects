@@ -59,7 +59,6 @@ import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
@@ -619,41 +618,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
         }
         return file_;
-    }
-    public CustList<OperatorBlock> getAllOperators(boolean _pred) {
-        CustList<AccessingImportingBlock> b_ = getAllBlocks();
-        b_ = filter(b_, _pred);
-        return getOperators(b_);
-    }
-    private CustList<AccessingImportingBlock> getAllBlocks() {
-        CustList<AccessingImportingBlock> list_;
-        list_ = new CustList<AccessingImportingBlock>();
-        for (RootBlock r: classes.getClassBodies()) {
-            list_.add(r);
-        }
-        for (OperatorBlock r: classes.getOperators()) {
-            list_.add(r);
-        }
-        return list_;
-    }
-    private static CustList<AccessingImportingBlock> filter(CustList<AccessingImportingBlock> _list, boolean _predefined) {
-        CustList<AccessingImportingBlock> f_ = new CustList<AccessingImportingBlock>();
-        for (AccessingImportingBlock a: _list) {
-            if (a.getFile().isPredefined() != _predefined) {
-                continue;
-            }
-            f_.add(a);
-        }
-        return f_;
-    }
-    public static CustList<OperatorBlock> getOperators(CustList<AccessingImportingBlock> _list) {
-        CustList<OperatorBlock> f_ = new CustList<OperatorBlock>();
-        for (AccessingImportingBlock a: _list) {
-            if (a instanceof OperatorBlock) {
-                f_.add((OperatorBlock) a);
-            }
-        }
-        return f_;
     }
     public abstract void initError();
     @Override
