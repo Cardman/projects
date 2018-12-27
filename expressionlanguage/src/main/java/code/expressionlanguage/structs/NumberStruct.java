@@ -81,11 +81,11 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return;
         }
         if (StringList.quickEq(op_, "/")) {
-            _res.setResult(calculateDiv((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            _res.setResult(calculateDivEx((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
         }
         if (StringList.quickEq(op_, "%")) {
-            _res.setResult(calculateMod((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            _res.setResult(calculateModEx((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
         }
         if (StringList.quickEq(op_, "&")) {
@@ -800,6 +800,17 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         return new DoubleStruct(nb_.doubleValue());
     }
+    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String div_;
+        div_ = stds_.getAliasDivisionZero();
+        ContextEl c_ = _an.getContextEl();
+        Struct res_ = calculateDiv(_a,_b, _an, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            c_.setException(new ErrorStruct(c_,div_));
+        }
+        return res_;
+    }
     public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
@@ -825,6 +836,17 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return new FloatStruct(nb_.floatValue());
         }
         return new DoubleStruct(nb_.doubleValue());
+    }
+    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String div_;
+        div_ = stds_.getAliasDivisionZero();
+        ContextEl c_ = _an.getContextEl();
+        Struct res_ = calculateMod(_a,_b, _an, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            c_.setException(new ErrorStruct(c_,div_));
+        }
+        return res_;
     }
     public static Struct calculateMod(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);

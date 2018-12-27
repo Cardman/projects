@@ -35,7 +35,7 @@ public abstract class ExecNumericOperation extends ExecReflectableOpering {
         return o_;
     }
 
-    static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
+    public static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
