@@ -62,7 +62,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     public void setRandomDealer(int _nbJoueurs) {
         //On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer=(byte)(_nbJoueurs*MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomInt(_nbJoueurs);
+        dealer = (byte)AbMonteCarlo.randomLong(_nbJoueurs);
     }
     /**Initialise le donneur pour editer une partie*/
     public void initDonneur(byte _b) {

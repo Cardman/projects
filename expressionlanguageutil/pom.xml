@@ -86,5 +86,11 @@
             <artifactId>expressionlanguage</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- For enabling writing custom named files and predefined log file names -->
+        <dependency>
+            <groupId>stream</groupId>
+            <artifactId>stream</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 </project>

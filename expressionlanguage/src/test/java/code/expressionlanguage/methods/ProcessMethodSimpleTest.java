@@ -8,6 +8,9 @@ import org.junit.Test;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
@@ -717,6 +720,49 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, ret_.getNumber());
     }
+    @Test
+    public void calculateArgument40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $double exmeth(){\n");
+        xml_.append("  $return $math.random():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        NumberStruct res_ = (NumberStruct) ret_.getStruct();
+        assertTrue(res_ instanceof DoubleStruct);
+        assertTrue(res_.getInstance().doubleValue() >= 0.0d);
+        assertTrue(res_.getInstance().doubleValue() < 1.0d);
+    }
+    @Test
+    public void calculateArgument41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $long exmeth(){\n");
+        xml_.append("  $return $math.random(8l):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        NumberStruct res_ = (NumberStruct) ret_.getStruct();
+        assertTrue(res_ instanceof LongStruct);
+        assertTrue(res_.getInstance().longValue() >= 0);
+        assertTrue(res_.getInstance().longValue() < 8);
+    }
+
     @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();

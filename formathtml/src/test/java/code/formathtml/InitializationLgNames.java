@@ -314,6 +314,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasBitShiftRight("bitShiftRight");
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setAliasRandom("random");
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");

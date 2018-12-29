@@ -73,7 +73,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getNbPlayers() * MonteCarlo
 //                .randomDouble());
-        dealer = (byte)AbMonteCarlo.randomInt(_regles.getNbPlayers());
+        dealer = (byte)AbMonteCarlo.randomLong(_regles.getNbPlayers());
     }
 
     /**

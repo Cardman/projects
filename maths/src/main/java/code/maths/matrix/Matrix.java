@@ -381,7 +381,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
                 tr_.addNb(Rate.multiply(cell(j, k), inv_.cell(k, j)));
             }
         }
-        return tr_.intPart().remainByBase();
+        return tr_.intPart().ll();
     }
 
     public Matrix inv() {

@@ -7501,7 +7501,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7534,7 +7534,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7573,7 +7573,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7616,7 +7616,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7662,7 +7662,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7709,7 +7709,7 @@ public final class FileResolverTest {
         file_.append("  return;\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7758,7 +7758,7 @@ public final class FileResolverTest {
         file_.append("  return;\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7804,7 +7804,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7837,7 +7837,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7877,7 +7877,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7921,7 +7921,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7968,7 +7968,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8011,7 +8011,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8042,7 +8042,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8079,7 +8079,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8120,7 +8120,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8164,7 +8164,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8209,7 +8209,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8250,7 +8250,7 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8290,7 +8290,7 @@ public final class FileResolverTest {
         file_.append(" private static final java.lang.String multi=`\n");
         file_.append("  static {``next\"// /*\t)`;\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8315,7 +8315,7 @@ public final class FileResolverTest {
         file_.append(" private static final java.lang.String multi=`\n");
         file_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8342,7 +8342,7 @@ public final class FileResolverTest {
         file_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
         file_.append(" private static final java.lang.String single=\"`\";\n");
         file_.append("}\n");
-        ContextEl context_ = simpleContextDefault();
+        ContextEl context_ = simpleContextEnDefault();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8400,6 +8400,20 @@ public final class FileResolverTest {
         assertEq("", ((ElementBlock)field_).getValue());
         assertNull(child_.getNextSibling());
     }
+    @Test
+    public void parseFile125Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("public classe mon.paquet.Exemple{\n");
+        file_.append(" public static vide pcp(){\n");
+        file_.append("  Systeme.afficher(\"1+2=\"+(1+2));\n");
+        file_.append(" }\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContextFrDefault();
+        FileResolver.parseFile("mon_fichier",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("mon.paquet.Exemple", getCustomTypes(context_,0).getFullName());
+    }
+
     @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
@@ -8466,10 +8480,23 @@ public final class FileResolverTest {
         }
         return null;
     }
-    private static ContextEl simpleContextDefault() {
+    private static ContextEl simpleContextEnDefault() {
         //key words in some language
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne("en", opt_);
+        LgNames stds_ = cont_.getStandards();
+        cont_.setAnalyzing(new AnalyzedPageEl());
+        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolver.parseFile(name_, content_, true, cont_);
+        }
+        return cont_;
+    }
+    private static ContextEl simpleContextFrDefault() {
+        //key words in some language
+        Options opt_ = new Options();
+        ContextEl cont_ = InitializationLgNames.buildStdOne("fr", opt_);
         LgNames stds_ = cont_.getStandards();
         cont_.setAnalyzing(new AnalyzedPageEl());
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {

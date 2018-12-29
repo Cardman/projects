@@ -37,6 +37,7 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -188,7 +189,7 @@ public class MainWindow extends GroupFrame {
                 songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
                 StringList songsList_ = new StringList();
-                for (String o: AbMonteCarlo.suffledStrings(songsList.toArray())) {
+                for (String o: suffledSongsNames(songsList.toArray())) {
                     songsList_.add(o);
                 }
                 songsList = songsList_;
@@ -278,7 +279,7 @@ public class MainWindow extends GroupFrame {
                     }
                     if (random.isSelected()) {
                         StringList songsList_ = new StringList();
-                        for (String o: AbMonteCarlo.suffledStrings(songsList.toArray())) {
+                        for (String o: suffledSongsNames(songsList.toArray())) {
                             songsList_.add(o);
                         }
                         songsList = songsList_;
@@ -346,6 +347,30 @@ public class MainWindow extends GroupFrame {
             }
 
         }
+    }
+
+    public static StringList suffledSongsNames(String... _list) {
+        StringList list_ = new StringList(_list);
+        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Numbers<Integer> indexesEdited_ = new Numbers<Integer>();
+        int size_ = list_.size();
+        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
+            indexes_.add(i);
+        }
+        while (!indexes_.isEmpty()) {
+            long len_ = indexes_.size();
+            int rem_ = (int) AbMonteCarlo.randomLong(len_);
+            //rem_ >= 0 && rem_ < len_
+            indexesEdited_.add(indexes_.get(rem_));
+            indexes_.removeAt(rem_);
+        }
+        StringList newList_ = new StringList();
+        for (int i: indexesEdited_) {
+            newList_.add(list_.get(i));
+        }
+        list_.clear();
+        list_.addAllElts(newList_);
+        return list_;
     }
 
     public static ClipStream resourceClipSixtyFour(String _file) {

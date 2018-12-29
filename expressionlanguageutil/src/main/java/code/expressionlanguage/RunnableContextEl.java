@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
@@ -90,6 +91,14 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         Argument arg_ = new Argument();
         arg_.setStruct(this);
         ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
+        System.out.println();
+        System.out.println("Handler "+Thread.currentThread().getId());
+        System.out.println("Handler "+Thread.currentThread().getName());
+        Struct str_ = getException();
+        if (str_ instanceof DisplayableStruct) {
+            System.out.println(((DisplayableStruct)str_).getDisplayedString(getContextEl()).getInstance());
+        }
+        
     }
 
     @Override

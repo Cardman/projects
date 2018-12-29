@@ -5008,6 +5008,14 @@ public class ElResolverTest extends ProcessMethodCommon{
         String el_ = "$classchoice($math$abs$$abs;)";
         assertEq(28, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
+    @Test
+    public void checkSyntax94FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "_1";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getDelNumbers().size());
+    }
 
     private static void addImportingPage(ContextEl _conf, boolean _rendering) {
         _conf.setAnalyzing(new AnalyzedPageEl());

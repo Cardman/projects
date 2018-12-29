@@ -418,6 +418,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBitShiftRight("bitShiftRight");
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setAliasRandom("random");
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");
@@ -669,6 +670,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBitShiftRight("binGlisserDroite");
         _lgNames.setAliasRotateLeft("rotGauche");
         _lgNames.setAliasRotateRight("rotDroite");
+        _lgNames.setAliasRandom("alea");
         _lgNames.setFalseString("faux");
         _lgNames.setTrueString("vrai");
         _lgNames.setNullString("");

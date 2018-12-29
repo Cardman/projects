@@ -1,8 +1,7 @@
 package code.util;
 
-import java.util.Iterator;
 
-public final class SimpleItr implements Iterator<Object>{
+public final class SimpleItr {
 
     private Object[] list;
     private int index;
@@ -13,20 +12,15 @@ public final class SimpleItr implements Iterator<Object>{
         length = _list.length;
     }
 
-    @Override
     public boolean hasNext() {
         return index < length;
     }
 
-    @Override
     public Object next() {
         Object element_ = list[index];
         index++;
         return element_;
     }
 
-    @Override
-    public void remove() {
-    }
 
 }

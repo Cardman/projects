@@ -1,5 +1,5 @@
 package code.images;
-import static code.util.EquallableExUtil.assertEq;
+import static code.images.EquallableImageUtil.assertEq;
 
 import org.junit.Test;
 

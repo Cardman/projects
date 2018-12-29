@@ -42,6 +42,7 @@ import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -951,6 +952,19 @@ public abstract class LgNames {
         }
         if (result_.getError() != null) {
             _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            return result_;
+        }
+        String mathType_ = lgNames_.getAliasMath();
+        if (StringList.quickEq(type_, mathType_)) {
+            /** mathematics "random" calls in order to facilitate uses,
+             * despite of the difference between the JAVA names and the user choice names (parameterized in a text file)*/
+            StringList paramList_ = _method.getConstraints().getParametersTypes();
+            if (paramList_.isEmpty()) {
+                result_.setResult(new DoubleStruct(Math.random()));
+            } else {
+                Number value_ = ((NumberStruct) args_[0]).getInstance();
+                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(value_.longValue())));
+            }
             return result_;
         }
         if (StringList.quickEq(type_, replType_)
@@ -3774,7 +3788,9 @@ public abstract class LgNames {
     public void setAliasRotateRight(String _aliasRotateRight) {
         mathRef.setAliasRotateRight(_aliasRotateRight);
     }
-    
+    public void setAliasRandom(String _aliasRotateRight) {
+        mathRef.setAliasRandom(_aliasRotateRight);
+    }
     public String getAliasStackTraceElement() {
         return stackElt.getAliasStackTraceElement();
     }

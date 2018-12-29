@@ -83,7 +83,7 @@ public class CustLine {
             Rate signed_ = Rate.divide(Rate.minus(cst, yRate), xRate);
             Rate exact_ = signed_.absNb();
             if (exact_.greaterOrEqualsOne()) {
-                dx_ = exact_.intPart().remainByBase();
+                dx_ = exact_.intPart().ll();
             } else {
                 dx_ = 1;
             }
@@ -93,7 +93,7 @@ public class CustLine {
             Rate signed_ = Rate.divide(Rate.minus(cst, xRate), yRate);
             Rate exact_ = signed_.absNb();
             if (exact_.greaterOrEqualsOne()) {
-                dy_ = exact_.intPart().remainByBase();
+                dy_ = exact_.intPart().ll();
             } else {
                 dy_ = 1;
             }

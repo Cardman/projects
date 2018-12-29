@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -1079,6 +1080,36 @@ public class ExpressionLanguageTest {
     public void processEl370Test() {
         Argument arg_ = directCalculate("0xafff_ffff>>>>1");
         assertEq(-671088641, arg_.getNumber());
+    }
+    //To check math random behavior
+    @Test
+    public void processEl371Test() {
+        Argument arg_ = directCalculate("0.5d*2l");
+        NumberStruct res_ = (NumberStruct) arg_.getStruct();
+        assertTrue(res_ instanceof DoubleStruct);
+        assertEq(1d, ((DoubleStruct)res_).getInstance());
+    }
+    @Test
+    public void processEl372Test() {
+        Argument arg_ = directCalculate("$math.random()");
+        Number res_ = arg_.getNumber();
+        assertTrue(res_ instanceof Double);
+        assertTrue(res_.doubleValue() >= 0.0d);
+        assertTrue(res_.doubleValue() < 1.0d);
+    }
+    @Test
+    public void processEl373Test() {
+        Argument arg_ = directCalculate("$math.random(8l)");
+        Number res_ = arg_.getNumber();
+        assertTrue(res_ instanceof Long);
+        assertTrue(res_.longValue() >= 0);
+        assertTrue(res_.longValue() < 8);
+    }
+    @Test
+    public void processEl374Test() {
+        Argument arg_ = directCalculate("(Double)1.5 $instanceof Double");
+        boolean isTrue_ = arg_.isTrue();
+        assertTrue(isTrue_);
     }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);

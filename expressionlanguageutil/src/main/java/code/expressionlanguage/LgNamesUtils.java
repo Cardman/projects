@@ -204,6 +204,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(name_,aliasThread)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             Thread thread_ = new Thread((Runnable)_args[0]);
@@ -343,6 +344,7 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasReentrantLock)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             String name_ = _method.getConstraints().getName();
@@ -376,6 +378,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
@@ -395,6 +398,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
@@ -414,6 +418,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
