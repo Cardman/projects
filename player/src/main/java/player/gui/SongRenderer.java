@@ -18,12 +18,17 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
 
     public SongRenderer() {
         addMouseListener(this);
+        setDefaultSize();
     }
 
     public SongRenderer(StringList _songs) {
         songs = _songs;
     }
 
+    @Override
+    public void interceptDimension(int _w, int _h) {
+        super.interceptDimension(_w,_h);
+    }
     public void setSongs(StringList _songs) {
         songs = new StringList(_songs);
     }
@@ -42,6 +47,9 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
             }
         }
         setPreferredSize(new Dimension(w_, f_.getHeight() * songs.size()));
+    }
+    public void setDefaultSize() {
+        setSize(new Dimension(100, 60));
     }
 
     @Override

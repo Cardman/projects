@@ -162,6 +162,7 @@ public class MainWindow extends GroupFrame {
             getPane().add(radio_);
             radios.add(radio_);
         }
+        setContentPane(getPane());
         pack();
         setVisible(true);
         SetStyle.setupStyle(getFrame());

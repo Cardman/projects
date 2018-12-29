@@ -3,18 +3,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public abstract class PaintableLabel extends CustComponent implements Paintable{
+public abstract class PaintableLabel extends CustComponent {
 
-    private JLabel label;
+    private JLabel label = new JLabel();
+
+    public abstract void paintComponent(Graphics _g);
 
     public void validate() {
         label.validate();
@@ -132,10 +137,6 @@ public abstract class PaintableLabel extends CustComponent implements Paintable{
         return label.getPreferredSize();
     }
 
-    public PaintableLabel() {
-        label = new JLabel();
-    }
-
     public boolean isVisible() {
         return label.isVisible();
     }
@@ -159,5 +160,11 @@ public abstract class PaintableLabel extends CustComponent implements Paintable{
     @Override
     public JLabel getComponent() {
         return label;
+    }
+    public void interceptDimension(int _w, int _h) {
+        // TODO Auto-generated method stub
+        BufferedImage img_ = new BufferedImage(_w, _h, BufferedImage.TYPE_INT_ARGB);
+        paintComponent(img_.getGraphics());
+        getComponent().setIcon(new ImageIcon(img_));
     }
 }
