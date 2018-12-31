@@ -169,7 +169,7 @@ public abstract class ContextEl implements ExecutableCode {
         setThrowing(new LocalThrowing());
         classes.setLocks(_lock);
     }
-    public ContextEl() {
+    protected ContextEl() {
     }
     public boolean isSensibleField(String _clName) {
         if (!initEnums) {

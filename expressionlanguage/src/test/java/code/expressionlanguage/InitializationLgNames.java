@@ -169,6 +169,9 @@ public final class InitializationLgNames {
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
+        _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasResources("java.lang.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("java.lang.$invokeTaget");
         _lgNames.setAliasClassNotFoundError("java.lang.$classNotFound");

@@ -9,10 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public abstract class PaintableLabel extends CustComponent {
@@ -160,11 +158,5 @@ public abstract class PaintableLabel extends CustComponent {
     @Override
     public JLabel getComponent() {
         return label;
-    }
-    public void interceptDimension(int _w, int _h) {
-        // TODO Auto-generated method stub
-        BufferedImage img_ = new BufferedImage(_w, _h, BufferedImage.TYPE_INT_ARGB);
-        paintComponent(img_.getGraphics());
-        getComponent().setIcon(new ImageIcon(img_));
     }
 }

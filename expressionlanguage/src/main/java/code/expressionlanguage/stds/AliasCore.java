@@ -37,6 +37,9 @@ public final class AliasCore {
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetParent;
+    private String aliasReadResourcesNames;
+    private String aliasReadResources;
+    private String aliasResources;
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards = _lgNames.getStandards();
@@ -158,6 +161,17 @@ public final class AliasCore {
         method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards.put(aliasObjectsUtil, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasResources, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasReadResourcesNames, params_, PrimitiveTypeUtil.getPrettyArrayType(_lgNames.getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(_lgNames.getAliasString());
+        method_ = new StandardMethod(aliasReadResources, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        standards.put(aliasResources, stdcl_);
     }
 
     public String getAliasObject() {
@@ -335,5 +349,29 @@ public final class AliasCore {
     public void setAliasClone(String _aliasClone) {
         aliasClone = _aliasClone;
     }
+
+	public String getAliasReadResourcesNames() {
+		return aliasReadResourcesNames;
+	}
+
+	public void setAliasReadResourcesNames(String _aliasReadResourcesNames) {
+		aliasReadResourcesNames = _aliasReadResourcesNames;
+	}
+
+	public String getAliasReadResources() {
+		return aliasReadResources;
+	}
+
+	public void setAliasReadResources(String _aliasReadResources) {
+		aliasReadResources = _aliasReadResources;
+	}
+
+	public String getAliasResources() {
+		return aliasResources;
+	}
+
+	public void setAliasResources(String _aliasResources) {
+		aliasResources = _aliasResources;
+	}
 
 }

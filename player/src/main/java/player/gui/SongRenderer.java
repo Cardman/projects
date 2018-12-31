@@ -25,10 +25,6 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
         songs = _songs;
     }
 
-    @Override
-    public void interceptDimension(int _w, int _h) {
-        super.interceptDimension(_w,_h);
-    }
     public void setSongs(StringList _songs) {
         songs = new StringList(_songs);
     }

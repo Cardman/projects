@@ -7,6 +7,7 @@ import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -15,7 +16,15 @@ public final class ContextFactory {
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
             Options _options, LgNames _undefinedLgNames, StringMap<String> _files) {
         ContextEl context_ = buildDefKw(_lang, _lock, _init, _options, _undefinedLgNames);
-        Classes.validateAll(_files, context_);
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        for (EntryCust<String, String> e: _files.entryList()) {
+        	if (!e.getKey().startsWith("src/")) {
+        		continue;
+        	}
+        	srcFiles_.addEntry(e.getKey(), e.getValue());
+        }
+        context_.getClasses().addResources(_files);
+        Classes.validateAll(srcFiles_, context_);
         return context_;
     }
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
@@ -34,7 +43,15 @@ public final class ContextFactory {
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
             Options _options, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files) {
         ContextEl context_ = build(_stack, _lock, _init, _options, _definedKw, _definedLgNames);
-        Classes.validateAll(_files, context_);
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        for (EntryCust<String, String> e: _files.entryList()) {
+        	if (!e.getKey().startsWith("src/")) {
+        		continue;
+        	}
+        	srcFiles_.addEntry(e.getKey(), e.getValue());
+        }
+        context_.getClasses().addResources(_files);
+        Classes.validateAll(srcFiles_, context_);
         return context_;
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,

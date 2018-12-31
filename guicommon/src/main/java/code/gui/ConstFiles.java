@@ -34,8 +34,6 @@ public final class ConstFiles {
 
     private static final String HOME_PATH = StringList.replaceBackSlashDot(System.getProperty(USER_HOME));
 
-    private static final int PR_FILES = 3;
-
     private static final String TMP_USER_FOLDER = ConstFiles.initialize(INIT_FOLDER,HOME_PATH);
 
     private ConstFiles() {
@@ -51,20 +49,11 @@ public final class ConstFiles {
             String virtualStore_ = StringList.concat(_homePath,RELATIVE_VIRTUAL_STORE);
             //<home>/AppData/Local/VirtualStore/
             String jarFolder_ = getInitFolder();
-            StringList folders_ = new StringList();
-            for (String n: StringList.splitStrings(jarFolder_, SEPARATEUR)) {
-                if (n.isEmpty()) {
-                    continue;
-                }
-                folders_.add(n);
-            }
             boolean isStandardProgramFilesExecuted_ = false;
-            if (folders_.size() == PR_FILES) {
-                if (jarFolder_.startsWith(C_PROGRAM_FILES)) {
-                    isStandardProgramFilesExecuted_ = true;
-                } else if (jarFolder_.startsWith(C_PROGRAM_FILES_X86)) {
-                    isStandardProgramFilesExecuted_ = true;
-                }
+            if (jarFolder_.startsWith(C_PROGRAM_FILES)) {
+                isStandardProgramFilesExecuted_ = true;
+            } else if (jarFolder_.startsWith(C_PROGRAM_FILES_X86)) {
+                isStandardProgramFilesExecuted_ = true;
             }
             boolean storeVirtual_ = false;
             if (new File(virtualStore_).exists()){
@@ -75,6 +64,13 @@ public final class ConstFiles {
             if (storeVirtual_) {
                 //c:/program files/folder app
                 //c:/program files (x86)/folder app
+            	StringList folders_ = new StringList();
+                for (String n: StringList.splitStrings(jarFolder_, SEPARATEUR)) {
+                    if (n.isEmpty()) {
+                        continue;
+                    }
+                    folders_.add(n);
+                }
                 StringList lastFolders_ = new StringList();
                 lastFolders_.add(folders_.get(1));
                 lastFolders_.add(folders_.last());
@@ -83,17 +79,16 @@ public final class ConstFiles {
                 return virtualStore_;
             }
             //is it c:/program files (x86)/folder/... app writable?
-            boolean canWritePrFiles_ = false;
             if (isStandardProgramFilesExecuted_) {
                 //jarFolder_.startsWith("C:/Program Files/")
                 //jarFolder_.startsWith("C:/Program Files (x86)/")
                 //jarFolder_ == C:/<pf>/<appfolder>
                 if (new File(jarFolder_).canWrite()) {
-                    canWritePrFiles_ = true;
+                	return jarFolder_.substring(0, jarFolder_.length() - 1);
                 }
-            }
-            if (canWritePrFiles_) {
-                return jarFolder_.substring(0, jarFolder_.length() - 1);
+            } else {
+            	String tmpFolder_ = _initFolder;
+                return tmpFolder_.substring(0, tmpFolder_.length() - 1);
             }
             //use temp folder
             String tmpUserFolder_ = StringList.concat(TMP_FOLDER,USER_NAME);
@@ -124,8 +119,7 @@ public final class ConstFiles {
         if (!f_.endsWith(SEPARATEUR)) {
             f_ = StringList.concat(f_, SEPARATEUR);
         }
-        String tmpFolder_ = f_;
-        return tmpFolder_.substring(0, tmpFolder_.length() - 1);
+        return f_.substring(0, f_.length() - 1);
     }
 
     private static boolean isExecutedJar() {

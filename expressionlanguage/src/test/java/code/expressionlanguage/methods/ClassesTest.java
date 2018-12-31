@@ -1377,6 +1377,18 @@ public class ClassesTest {
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
         assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
     }
+    @Test
+    public void calculateStaticField13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int field=($int)$math.random():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(0, ctx_.getClasses().staticFieldCount());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

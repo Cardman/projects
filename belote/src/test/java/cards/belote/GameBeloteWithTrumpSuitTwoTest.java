@@ -1,6 +1,6 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -78,7 +78,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.SPADE_9);
         game.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         //assertTrue(!game.meme_equipe(game.getEntameur(),player_));
         hand_ = game.getDistribution().main(player_);

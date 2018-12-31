@@ -1,5 +1,8 @@
 package code.expressionlanguage;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
+
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassField;
@@ -9,6 +12,9 @@ import code.util.ObjectMap;
 
 public class CustInitializer extends DefaultInitializer {
 
+	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
+	private final ConcurrentHashMap<Thread, String> threadIdDate = new ConcurrentHashMap<Thread, String>();
+	private AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, 
@@ -37,5 +43,16 @@ public class CustInitializer extends DefaultInitializer {
 
     public String getRunTask(LgNames _stds) {
         return ((LgNamesUtils)_stds).getAliasRun();
+    }
+    String getCurrentTreadIdDate() {
+    	Thread thread_ = Thread.currentThread();
+		return threadIdDate.get(thread_);
+	}
+
+    void putNewCustTreadIdDate(Thread _id, String _value) {
+		threadIdDate.put(_id,_value);
+	}
+    long increment() {
+    	return countThreads.getAndIncrement();
     }
 }

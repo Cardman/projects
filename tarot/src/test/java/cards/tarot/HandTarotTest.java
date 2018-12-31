@@ -1,6 +1,6 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class HandTarotTest {
         resAtt_.ajouter(CardTarot.HEART_KING);
         resAtt_.ajouter(CardTarot.HEART_10);
         resAtt_.ajouter(CardTarot.HEART_1);
-        assertNotEquals(resAtt_,main_);
+        assertNotSame(resAtt_,main_);
         main_.trierParForceEnCours(Suit.HEART);
         assertEq(resAtt_, main_);
         main_ = new HandTarot();

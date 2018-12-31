@@ -36,6 +36,7 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ReplacementStruct;
+import code.expressionlanguage.structs.ResourcesStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.SimpleObjectStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
@@ -168,6 +169,7 @@ public abstract class LgNames {
         list_.add(getAliasField());
         list_.add(getAliasMethod());
         list_.add(getAliasObjectsUtil());
+        list_.add(getAliasResources());
         list_.add(getAliasClassNotFoundError());
         list_.add(getAliasCustomError());
         list_.add(getAliasErrorInitClass());
@@ -400,6 +402,9 @@ public abstract class LgNames {
         map_.put(getAliasObjectsUtil(), new StringList(
                 getAliasSameRef(),
                 getAliasGetParent()));
+        map_.put(getAliasResources(), new StringList(
+                getAliasReadResourcesNames(),
+                getAliasReadResources()));
         map_.put(getAliasEnum(), new StringList(
                 getAliasEnumName(),
                 getAliasEnumOrdinal(),
@@ -1025,6 +1030,14 @@ public abstract class LgNames {
         String charType_ = lgNames_.getAliasCharacter();
         String nbType_ = lgNames_.getAliasNumber();
         String stringType_ = lgNames_.getAliasString();
+        if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
+        	if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
+        		result_.setResult(ResourcesStruct.getResourceNames(_cont));
+        	} else {
+        		result_.setResult(ResourcesStruct.getResource(_cont, (StringStruct) args_[0]));
+        	}
+        	return result_;
+        }
         if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
             if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
                 result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
@@ -3131,6 +3144,24 @@ public abstract class LgNames {
     }
     public void setAliasClone(String _aliasClone) {
         coreNames.setAliasClone(_aliasClone);
+    }
+    public String getAliasReadResourcesNames() {
+    	return coreNames.getAliasReadResourcesNames();
+    }
+    public void setAliasReadResourcesNames(String _aliasReadResourcesNames) {
+    	coreNames.setAliasReadResourcesNames(_aliasReadResourcesNames);
+    }
+    public String getAliasReadResources() {
+        return coreNames.getAliasReadResources();
+    }
+    public void setAliasReadResources(String _aliasReadResources) {
+        coreNames.setAliasReadResources(_aliasReadResources);
+    }
+    public String getAliasResources() {
+        return coreNames.getAliasResources();
+    }
+    public void setAliasResources(String _aliasResources) {
+        coreNames.setAliasResources(_aliasResources);
     }
     public String getAliasEnumValues() {
         return predefTypes.getAliasEnumValues();

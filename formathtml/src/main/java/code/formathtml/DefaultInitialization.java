@@ -139,6 +139,9 @@ public final class DefaultInitialization {
         _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
         _lgNames.setAliasClone("clone");
+        _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasResources("java.lang.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$invokeTaget");
         _lgNames.setAliasClassNotFoundError("$classNotFound");

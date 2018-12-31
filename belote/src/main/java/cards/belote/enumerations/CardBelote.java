@@ -126,13 +126,11 @@ public enum CardBelote {
             if(couleur == _dem) {
                 return forceCouleur;
             }
-            //return 0;
         }
         if(_contrat.ordreAtout()) {
             if(couleur == _dem) {
                 return forceAtout;
             }
-            //return 0;
         }
         return 0;
     }

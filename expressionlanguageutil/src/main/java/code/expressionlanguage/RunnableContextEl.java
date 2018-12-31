@@ -15,6 +15,7 @@ import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ObjectMap;
@@ -91,12 +92,12 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         Argument arg_ = new Argument();
         arg_.setStruct(this);
         ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
-        System.out.println();
-        System.out.println("Handler "+Thread.currentThread().getId());
-        System.out.println("Handler "+Thread.currentThread().getName());
         Struct str_ = getException();
         if (str_ instanceof DisplayableStruct) {
-            System.out.println(((DisplayableStruct)str_).getDisplayedString(getContextEl()).getInstance());
+        	String toFile_ = custInit.getCurrentTreadIdDate();
+        	String text_ = ((DisplayableStruct)str_).getDisplayedString(getContextEl()).getInstance();
+        	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
+        	StreamTextFile.logToFile(toFile_, text_);
         }
         
     }

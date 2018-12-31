@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,13 +18,17 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.resources.ResourceFiles;
+import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -55,6 +60,11 @@ public class LgNamesUtils extends LgNames {
     private String aliasAtomicLong;
     private String aliasSetAtomic;
     private String aliasGetAtomic;
+    private String aliasPrint;
+    private String aliasFile;
+    private String aliasRead;
+    private String aliasWrite;
+    private String aliasAppendToFile;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -121,6 +131,12 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasYield, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasObject());
+        method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
@@ -195,6 +211,22 @@ public class LgNamesUtils extends LgNames {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasAtomicLong, std_);
+        
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasFile, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasRead, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasWrite, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasAppendToFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasFile, std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
@@ -208,6 +240,13 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             Thread thread_ = new Thread((Runnable)_args[0]);
+            CustInitializer init_ = (CustInitializer) _cont.getInit();
+            StringBuilder dtPart_ = new StringBuilder();
+            dtPart_.append(getDateTimeText("_", "_", "_"));
+            dtPart_.append("__");
+            dtPart_.append(init_.increment());
+            dtPart_.append(".txt");
+            init_.putNewCustTreadIdDate(thread_, dtPart_.toString());
             StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
             res_.setResult(std_);
             return res_;
@@ -257,6 +296,40 @@ public class LgNamesUtils extends LgNames {
         return res_;
     }
 
+    static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime) {
+        Calendar now_ = Calendar.getInstance();
+        int y_ = now_.get(Calendar.YEAR);
+        int m_ = now_.get(Calendar.MONTH) + 1;
+        int d_ = now_.get(Calendar.DAY_OF_MONTH);
+        int h_ = now_.get(Calendar.HOUR_OF_DAY);
+        int mi_ = now_.get(Calendar.MINUTE);
+        int s_ = now_.get(Calendar.SECOND);
+        int ms_ = now_.get(Calendar.MILLISECOND);
+        String strMonth_ = lpadZero(m_);
+        String strDay_ = lpadZero(d_);
+        String strHour_ = lpadZero(h_);
+        String strMinute_ = lpadZero(mi_);
+        String strSecond_ = lpadZero(s_);
+        String strMs_ = lpadZeroMillis(ms_);
+        return StringList.concat(String.valueOf(y_),_separatorDate,strMonth_,
+                _separatorDate,strDay_,_sep,strHour_,
+                _separatorTime,strMinute_,_separatorTime,strSecond_,_separatorTime,strMs_);
+    }
+    private static String lpadZero(int _nb) {
+    	if (_nb < 10) {
+        	return StringList.concat("0",Integer.toString(_nb));
+        }
+		return Integer.toString(_nb);
+    }
+    private static String lpadZeroMillis(int _millis) {
+    	if (_millis < 10) {
+        	return StringList.concat("00",Integer.toString(_millis));
+        }
+    	if (_millis < 100) {
+        	return StringList.concat("0",Integer.toString(_millis));
+        }
+		return Integer.toString(_millis);
+    }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
@@ -264,6 +337,17 @@ public class LgNamesUtils extends LgNames {
         String className_ = _method.getClassName();
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
+            if (StringList.quickEq(name_,aliasPrint)) {
+            	CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                String dtPart_ = cust_.getCurrentTreadIdDate();
+                if (dtPart_ == null) {
+                    dtPart_ = "pcp_tache.txt";
+                }
+                log(dtPart_, _cont, _instance, _method, _args);
+                ResultErrorStd out_ = new ResultErrorStd();
+                out_.setResult(NullStruct.NULL_VALUE);
+                return out_;
+            }
             if (StringList.quickEq(name_,aliasStart)) {
                 Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
                 thread_.start();
@@ -427,9 +511,81 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
         }
+        if (StringList.quickEq(className_,aliasFile)) {
+        	String name_ = _method.getConstraints().getName();
+        	if (_cont.isInitEnums()) {
+        		_cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasRead)) {
+        		StringStruct str_ = (StringStruct)_args[0];
+        		String read_ = StreamTextFile.contentsOfFile(str_.getInstance());
+        		if (read_ == null) {
+        			res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+        		}
+        		res_.setResult(new StringStruct(read_));
+        		return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasWrite)) {
+        		String file_ = ((StringStruct)_args[0]).getInstance();
+        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		res_.setResult(new BooleanStruct(StreamTextFile.saveTextFile(file_, txt_)));
+        		return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasAppendToFile)) {
+        		String file_ = ((StringStruct)_args[0]).getInstance();
+        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		res_.setResult(new BooleanStruct(StreamTextFile.logToFile(file_, txt_)));
+        		return res_;
+        	}
+        }
         return res_;
     }
 
+    private static void log(String _dtPart,ContextEl _cont, Struct _instance,
+            ClassMethodId _method, Struct... _args) {
+        String stringAppFile_ = buildLog(_cont, _method, _args);
+        stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
+        StreamTextFile.logToFile(_dtPart, stringAppFile_);
+    }
+    private static String buildLog(ContextEl _cont, ClassMethodId _method,
+            Struct... _args) {
+        String stringAppFile_;
+        StringList paramType_ = _method.getConstraints().getParametersTypes();
+        if (paramType_.size() == 1) {
+            if (_args[0] instanceof DisplayableStruct) {
+                stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+            } else {
+                stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
+            }
+        } else {
+            StringList values_ = new StringList();
+            if (_args[1] instanceof ArrayStruct) {
+                for (Struct e: ((ArrayStruct)_args[1]).getInstance()) {
+                    if (e instanceof DisplayableStruct) {
+                        values_.add(((DisplayableStruct)e).getDisplayedString(_cont).getInstance());
+                    } else {
+                        values_.add(StringList.concat("<",_args[0].getClassName(_cont),"...>"));
+                    }
+                }
+                if (_args[0] instanceof StringStruct) {
+                    stringAppFile_ = (StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_.toArray()));
+                } else {
+                    stringAppFile_ = _cont.getStandards().getNullString();
+                }
+            } else {
+                if (_args[0] instanceof DisplayableStruct) {
+                    stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+                } else {
+                    stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
+                }
+
+            }
+        }
+        return stringAppFile_;
+    }
     public String getAliasRunnable() {
         return aliasRunnable;
     }
@@ -579,4 +735,35 @@ public class LgNamesUtils extends LgNames {
     public void setAliasGetAtomic(String _aliasGetAtomic) {
         aliasGetAtomic = _aliasGetAtomic;
     }
+	public String getAliasPrint() {
+		return aliasPrint;
+	}
+	public void setAliasPrint(String _aliasPrint) {
+		aliasPrint = _aliasPrint;
+	}
+	public String getAliasFile() {
+		return aliasFile;
+	}
+	public void setAliasFile(String _aliasFile) {
+		aliasFile = _aliasFile;
+	}
+	public String getAliasRead() {
+		return aliasRead;
+	}
+	public void setAliasRead(String _aliasRead) {
+		aliasRead = _aliasRead;
+	}
+	public String getAliasWrite() {
+		return aliasWrite;
+	}
+	public void setAliasWrite(String _aliasWrite) {
+		aliasWrite = _aliasWrite;
+	}
+	public String getAliasAppendToFile() {
+		return aliasAppendToFile;
+	}
+	public void setAliasAppendToFile(String _aliasAppendToFile) {
+		aliasAppendToFile = _aliasAppendToFile;
+	}
+
 }

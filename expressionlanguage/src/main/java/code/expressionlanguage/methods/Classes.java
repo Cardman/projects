@@ -78,6 +78,7 @@ public final class Classes {
 
     private final StringMap<RootBlock> classesBodies;
     private final StringMap<FileBlock> filesBodies;
+    private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
 
@@ -107,6 +108,7 @@ public final class Classes {
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
         filesBodies = new StringMap<FileBlock>();
+        resources = new StringMap<String>();
         errorsDet = new ErrorList();
         warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
@@ -126,6 +128,9 @@ public final class Classes {
         return filesBodies;
     }
 
+    public StringMap<String> getResources() {
+		return resources;
+	}
     public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
         String fullName_ = _root.getFullName();
         if (classesBodies.contains(fullName_)) {
@@ -311,6 +316,12 @@ public final class Classes {
     public WarningList getWarningsDet() {
         return warningsDet;
     }
+    public void addResources(StringMap<String> _resources) {
+    	for (EntryCust<String, String> e: _resources.entryList()) {
+    		resources.add(e.getKey(), e.getValue());
+    	}
+    }
+    /**Resources are possibly added before analyzing file types*/
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
         if (!classes_.isEmptyStdError()) {

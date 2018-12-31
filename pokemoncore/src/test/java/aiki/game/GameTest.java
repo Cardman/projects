@@ -1,6 +1,6 @@
 package aiki.game;
 import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -2959,7 +2959,7 @@ public class GameTest extends InitializationDataBase {
         hosted_ = game_.getHostedPk().getVal(newCoords(3, 0, 2, 1, 8, 4));
         hosted_.setFirstPokemon(pokemonFemale_);
         hosted_.setSecondPokemon(pokemonMale_);
-        assertNotEquals(pokemonFemale_.getGender(), pokemonMale_.getGender());
+        assertNotSame(pokemonFemale_.getGender(), pokemonMale_.getGender());
         game_.incrementStepsToLayEggs(_data_);
         assertTrue(!hosted_.isFree());
         assertEq(1, hosted_.getNbSteps());
@@ -2989,7 +2989,7 @@ public class GameTest extends InitializationDataBase {
         hosted_.setNbSteps(1024);
         hosted_.setFirstPokemon(pokemonFemale_);
         hosted_.setSecondPokemon(pokemonMale_);
-        assertNotEquals(pokemonFemale_.getGender(), pokemonMale_.getGender());
+        assertNotSame(pokemonFemale_.getGender(), pokemonMale_.getGender());
         game_.incrementStepsToLayEggs(_data_);
         assertTrue(!hosted_.isFree());
         assertEq(1024, hosted_.getNbSteps());
