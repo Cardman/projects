@@ -85,7 +85,9 @@ public final class ElUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
-            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, null);
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
             Block currentBlock_ = _conf.getCurrentBlock();
