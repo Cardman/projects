@@ -1,4 +1,6 @@
 package code.expressionlanguage;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
 import code.expressionlanguage.calls.BlockPageEl;
@@ -152,6 +154,7 @@ public abstract class ContextEl implements ExecutableCode {
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
+    private AtomicBoolean interrupt;
 
     public ContextEl(LgNames _stds, int _tabWitdth) {
         this(CustList.INDEX_NOT_FOUND_ELT, _stds, _tabWitdth);
@@ -171,6 +174,7 @@ public abstract class ContextEl implements ExecutableCode {
         setKeyWords(_keyWords);
         setClasses(new Classes());
         setThrowing(new LocalThrowing());
+        setInterrupt(_exec.getInterrupt());
         classes.setLocks(_lock);
     }
     protected ContextEl() {
@@ -279,7 +283,16 @@ public abstract class ContextEl implements ExecutableCode {
     public void setInitEnums(boolean _initEnums) {
         initEnums = _initEnums;
     }
-    public void resetInitEnums() {
+    public AtomicBoolean getInterrupt() {
+		return interrupt;
+	}
+	public void setInterrupt(AtomicBoolean _interrupt) {
+		interrupt = _interrupt;
+	}
+	public void interrupt() {
+		interrupt.set(true);
+	}
+	public void resetInitEnums() {
         failInit = false;
         exception = null;
         sensibleFields.clear();
@@ -985,7 +998,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (failInit) {
             return true;
         }
-        return exception != null;
+        return hasException();
     }
 
     public boolean calls() {
@@ -1017,7 +1030,7 @@ public abstract class ContextEl implements ExecutableCode {
         return hasException();
     }
     public boolean hasException() {
-        return exception != null;
+        return exception != null && !interrupt.get();
     }
     public boolean isFailInit() {
         return failInit;

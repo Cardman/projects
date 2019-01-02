@@ -314,7 +314,7 @@ public final class StreamZipFile {
         return fileBuilder_.toString();
     }
 
-    public static void zipFiles(String _zipFileName, StringMap<String> _files) {
+    public static boolean zipFiles(String _zipFileName, StringMap<String> _files) {
         try{
             FileOutputStream fos_ = new FileOutputStream(_zipFileName);
             ZipOutputStream zos_ = new ZipOutputStream(fos_);
@@ -327,11 +327,14 @@ public final class StreamZipFile {
             zos_.closeEntry();
             //remember close it
             zos_.close();
+            return true;
         }catch(Throwable _0){
+        	_0.printStackTrace();
+        	return false;
         }
     }
 
-    public static void zipBinFiles(String _zipFileName, StringMap<byte[]> _files) {
+    public static boolean zipBinFiles(String _zipFileName, StringMap<byte[]> _files) {
         try {
             FileOutputStream fos_ = new FileOutputStream(_zipFileName);
             ZipOutputStream zos_ = new ZipOutputStream(fos_);
@@ -344,7 +347,9 @@ public final class StreamZipFile {
             zos_.closeEntry();
             // remember close it
             zos_.close();
+            return true;
         } catch (Throwable _0) {
+        	return false;
         }
     }
 

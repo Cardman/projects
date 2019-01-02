@@ -43,6 +43,7 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         setMemoryError(_context.getMemoryError());
         setKeyWords(_context.getKeyWords());
         setThrowing(_context.getThrowing());
+        setInterrupt(_context.getInterrupt());
         custInit = (CustInitializer) _context.getInit();
         name = _name;
         ordinal = _ordinal;
