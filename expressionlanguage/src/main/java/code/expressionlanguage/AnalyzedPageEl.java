@@ -38,7 +38,6 @@ public final class AnalyzedPageEl {
 
     private String readUrl;
 
-    private int tabWidth;
     private int offset;
 
     private boolean staticContext;
@@ -341,14 +340,6 @@ public final class AnalyzedPageEl {
 
     public void setReadUrl(String _readUrl) {
         readUrl = _readUrl;
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
     }
 
     public int getOffset() {

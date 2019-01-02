@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -52,7 +53,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
             arg_.setObject(res_);
             return arg_;
         }
-        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
+        boolean res_ = Templates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         Argument arg_ = new Argument();
         arg_.setObject(res_);
         return arg_;

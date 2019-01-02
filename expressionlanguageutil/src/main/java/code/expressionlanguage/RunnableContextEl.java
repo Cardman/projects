@@ -10,12 +10,10 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ObjectMap;
@@ -38,6 +36,7 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
             ObjectMap<ClassField,Struct> _fields, Struct _parent) {
         setClasses(_context.getClasses());
         setOptions(_context.getOptions());
+        setExecuting(_context.getExecuting());
         setStandards(_context.getStandards());
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
@@ -92,14 +91,7 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         Argument arg_ = new Argument();
         arg_.setStruct(this);
         ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
-        Struct str_ = getException();
-        if (str_ instanceof DisplayableStruct) {
-        	String toFile_ = custInit.getCurrentTreadIdDate();
-        	String text_ = ((DisplayableStruct)str_).getDisplayedString(getContextEl()).getInstance();
-        	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
-        	StreamTextFile.logToFile(toFile_, text_);
-        }
-        
+        custInit.prExc(this);
     }
 
     @Override

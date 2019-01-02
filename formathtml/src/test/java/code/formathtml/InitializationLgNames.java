@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -41,7 +42,8 @@ public final class InitializationLgNames {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, exec_, kw_, _lgNames,4);
         return out_;
     }
     public static BeanLgNames initStandards(ContextEl _cont) {

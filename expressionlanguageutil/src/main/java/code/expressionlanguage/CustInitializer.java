@@ -1,20 +1,25 @@
 package code.expressionlanguage;
 
+import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.stream.StreamTextFile;
 import code.util.ObjectMap;
+import code.util.StringList;
 
 public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
 	private final ConcurrentHashMap<Thread, String> threadIdDate = new ConcurrentHashMap<Thread, String>();
-	private AtomicLong countThreads = new AtomicLong();
+	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, 
@@ -48,6 +53,22 @@ public class CustInitializer extends DefaultInitializer {
     	Thread thread_ = Thread.currentThread();
 		return threadIdDate.get(thread_);
 	}
+    public void prExc(ContextEl _cont) {
+    	Struct str_ = _cont.getException();
+        if (str_ instanceof DisplayableStruct) {
+        	String toFile_ = getCurrentTreadIdDate();
+        	if (toFile_ == null) {
+        		toFile_ = _cont.getExecuting().getMainThread();
+        	}
+        	String text_ = ((DisplayableStruct)str_).getDisplayedString(_cont).getInstance();
+        	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
+        	ExecutingOptions ex_ = _cont.getExecuting();
+        	String folder_ = ex_.getLogFolder();
+        	new File(folder_).mkdirs();
+        	toFile_ = StringList.concat(folder_,"/",toFile_);
+        	StreamTextFile.logToFile(toFile_, text_);
+        }
+    }
 
     void putNewCustTreadIdDate(Thread _id, String _value) {
 		threadIdDate.put(_id,_value);

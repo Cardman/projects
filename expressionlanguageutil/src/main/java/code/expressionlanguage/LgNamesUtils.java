@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -341,7 +342,8 @@ public class LgNamesUtils extends LgNames {
             	CustInitializer cust_ = (CustInitializer) _cont.getInit();
                 String dtPart_ = cust_.getCurrentTreadIdDate();
                 if (dtPart_ == null) {
-                    dtPart_ = "pcp_tache.txt";
+                	String main_ = _cont.getExecuting().getMainThread();
+                    dtPart_ = main_;
                 }
                 log(dtPart_, _cont, _instance, _method, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
@@ -548,7 +550,10 @@ public class LgNamesUtils extends LgNames {
             ClassMethodId _method, Struct... _args) {
         String stringAppFile_ = buildLog(_cont, _method, _args);
         stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
-        StreamTextFile.logToFile(_dtPart, stringAppFile_);
+        String folder_ = _cont.getExecuting().getLogFolder();
+        new File(folder_).mkdirs();
+        String toFile_ = StringList.concat(folder_,"/",_dtPart);
+        StreamTextFile.logToFile(toFile_, stringAppFile_);
     }
     private static String buildLog(ContextEl _cont, ClassMethodId _method,
             Struct... _args) {

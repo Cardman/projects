@@ -815,10 +815,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         ip_.setOffset(0);
         int index_ = 0;
         if (ip_.isEmptyEl()) {
-            Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+        	String formatted_ = ip_.formatVarType(importedClassName, _cont);
+            Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
                 LoopVariable lv_ = new LoopVariable();
-                lv_.setClassName(importedClassName);
+                lv_.setClassName(formatted_);
                 lv_.setStruct(struct_);
                 ip_.getVars().put(v, lv_);
             }

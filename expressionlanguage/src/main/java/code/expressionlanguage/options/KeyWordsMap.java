@@ -447,7 +447,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasEnums("$coeur.Enums");
         _lgNames.setAliasReplacement("$coeur.Remplacement");
         _lgNames.setAliasStore("$coeur.MauvaisStockage");
-        _lgNames.setAliasNullPe("$coeur.ObjectNul");
+        _lgNames.setAliasNullPe("$coeur.ObjetNul");
         _lgNames.setAliasBadEncode("$coeur.MauvaisEncodage");
         _lgNames.setAliasBadIndex("$coeur.MauvaisIndice");
         _lgNames.setAliasBadSize("$coeur.TailleNegative");
@@ -476,7 +476,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasCharacter("$coeur.Caractere");
         _lgNames.setAliasInteger("$coeur.Entier4");
         _lgNames.setAliasLong("$coeur.Entier8");
-        _lgNames.setAliasFloat("$coeur.Floattant");
+        _lgNames.setAliasFloat("$coeur.Flottant");
         _lgNames.setAliasDouble("$coeur.Double");
         _lgNames.setAliasNumber("$coeur.Nombre");
         _lgNames.setAliasParseBoolean("parseBooleen");
@@ -522,7 +522,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasContains("contient");
         _lgNames.setAliasEndsWith("terminePar");
         _lgNames.setAliasStartsWith("commencePar");
-        _lgNames.setAliasIndexOf("indexDe");
+        _lgNames.setAliasIndexOf("indiceDe");
         _lgNames.setAliasFormat("formatter");
         _lgNames.setAliasGetBytes("valOctets");
         _lgNames.setAliasIsEmpty("estVide");

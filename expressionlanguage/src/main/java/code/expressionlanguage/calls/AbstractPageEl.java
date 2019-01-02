@@ -30,8 +30,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     private int translatedOffset;
 
-    private int tabWidth;
-
     private int offset;
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private FileBlock file;
@@ -125,13 +123,6 @@ public abstract class AbstractPageEl extends PageEl {
         finallyToProcess = _finallyToProcess;
     }
 
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
-    }
     public void clearCurrentEls() {
         currentEls.clear();
     }

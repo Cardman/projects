@@ -11,7 +11,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CastOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -91,47 +90,10 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
     }
 
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
         Argument objArg_ = _arguments.first();
-        if (objArg_.isNull()) {
-            Argument arg_ = new Argument();
-            return arg_;
-        }
-        String argClassName_ = objArg_.getObjectClassName(_conf.getContextEl());
-        Argument arg_ = new Argument();
         String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        ClassArgumentMatching resCl_ = new ClassArgumentMatching(paramName_);
-        if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
-            if (!Templates.isCorrectExecute(argClassName_, paramName_ , _conf)) {
-                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE),cast_));
-                Argument a_ = new Argument();
-                return a_;
-            }
-            arg_.setStruct(objArg_.getStruct());
-        } else {
-            if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf,StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
-            } else {
-                if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                arg_.setStruct(objArg_.getStruct());
-            }
-        }
-        return arg_;
+        Templates.checkObject(paramName_, objArg_, _conf);
+        return objArg_;
     }
 }

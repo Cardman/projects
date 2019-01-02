@@ -71,6 +71,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -119,6 +120,8 @@ public abstract class ContextEl implements ExecutableCode {
 
     private Options options;
 
+    private ExecutingOptions executing;
+
     private Struct exception;
 
     private Struct memoryError;
@@ -155,12 +158,13 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public ContextEl(int _stackOverFlow, LgNames _stds, int _tabWitdth) {
-        this(_stackOverFlow, new DefaultLockingClass(), new Options(), new KeyWords(),_stds, _tabWitdth);
+        this(_stackOverFlow, new DefaultLockingClass(), new Options(), new ExecutingOptions(),new KeyWords(),_stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, ExecutingOptions _exec,KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
         setOptions(_options);
+        setExecuting(_exec);
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
         setTabWidth(_tabWitdth);
@@ -368,7 +372,6 @@ public abstract class ContextEl implements ExecutableCode {
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
-        page_.setTabWidth(tabWidth);
         Argument argGl_ = new Argument();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -396,7 +399,6 @@ public abstract class ContextEl implements ExecutableCode {
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args) {
         setCallMethod(null);
         MethodPageEl pageLoc_ = new MethodPageEl(this);
-        pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         MethodId id_ = _method;
@@ -451,7 +453,6 @@ public abstract class ContextEl implements ExecutableCode {
         String fieldName_ = _call.getFieldName();
         int ordinal_ = _call.getChildIndex();
         argGl_.setStruct(getInit().processInit(this, str_, _class, fieldName_, ordinal_));
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -488,7 +489,6 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setArgs(_args);
         page_.setNames(_id);
         argGl_.setStruct(getInit().processInitAnnot(this, _class));
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -514,7 +514,6 @@ public abstract class ContextEl implements ExecutableCode {
             page_ = new CurrentInstancingPageEl();
         }
         argGl_.setStruct(global_.getStruct());
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -544,7 +543,6 @@ public abstract class ContextEl implements ExecutableCode {
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         ReadWrite rw_ = new ReadWrite();
@@ -565,7 +563,6 @@ public abstract class ContextEl implements ExecutableCode {
         setFoundBlock(null);
         FileBlock file_ = getFile(_class);
         BlockPageEl page_ = new BlockPageEl();
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         ReadWrite rw_ = new ReadWrite();
@@ -601,7 +598,6 @@ public abstract class ContextEl implements ExecutableCode {
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
         }
         pageLoc_.setLambda(_lambda);
-        pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setArguments(_args);
         ReadWrite rwLoc_ = new ReadWrite();
@@ -2913,7 +2909,15 @@ public abstract class ContextEl implements ExecutableCode {
         keyWords = _keyWords;
     }
 
-    @Override
+    public ExecutingOptions getExecuting() {
+		return executing;
+	}
+
+	public void setExecuting(ExecutingOptions _executing) {
+		executing = _executing;
+	}
+
+	@Override
     public boolean isValidSingleToken(String _id) {
         if (!isValidToken(_id)) {
             return false;

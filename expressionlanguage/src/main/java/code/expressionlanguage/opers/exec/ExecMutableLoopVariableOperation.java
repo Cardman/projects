@@ -95,10 +95,7 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(locVar_.getStruct());
         if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
@@ -111,7 +108,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
@@ -128,7 +124,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;

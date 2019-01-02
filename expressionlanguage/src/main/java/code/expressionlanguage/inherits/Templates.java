@@ -889,6 +889,21 @@ public final class Templates {
         return str_.toString();
     }
     public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
+    	ErrorType err_ = safeObject(_param, _arg, _context);
+    	LgNames stds_ = _context.getStandards();
+        if (err_ == ErrorType.CAST) {
+    		String cast_ = stds_.getAliasCast();
+            _context.setException(new ErrorStruct(_context,cast_));
+            return false;
+    	}
+        if (err_ == ErrorType.NPE) {
+        	String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return false;
+        }
+        return true;
+    }
+    public static ErrorType safeObject(String _param, Argument _arg, ExecutableCode _context) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
@@ -898,17 +913,13 @@ public final class Templates {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             String param_ = PrimitiveTypeUtil.toWrapper(_param, true, stds_);
             if (!Templates.isCorrectExecute(a_, param_, _context)) {
-                String cast_ = stds_.getAliasCast();
-                _context.setException(new ErrorStruct(_context,cast_));
-                return false;
+                return ErrorType.CAST;
             }
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
-            String npe_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(_context,npe_));
-            return false;
+            return ErrorType.NPE;
         }
-        return true;
+        return ErrorType.NOTHING;
     }
     public static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ExecutableCode _context) {
         ErrorType err_ = Templates.getErrorWhenContain(_array, _index, _value, _context);

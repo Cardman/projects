@@ -102,10 +102,7 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(locVar_.getStruct());
         if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
@@ -118,7 +115,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
@@ -135,7 +131,6 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;

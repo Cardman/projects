@@ -4,6 +4,7 @@ import org.junit.Assert;
 
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -14,30 +15,33 @@ public final class InitializationLgNames {
     public static ContextEl buildStdOne(Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt, exec_);
     }
     public static ContextEl buildStdOne(String _lg,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return buildLg(_lg, CustList.INDEX_NOT_FOUND_ELT, lgName_, _opt);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        return buildLg(_lg, CustList.INDEX_NOT_FOUND_ELT, lgName_, _opt, exec_);
     }
     public static ContextEl buildStdOne(int _stack,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return build(_stack,lgName_, _opt);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        return build(_stack,lgName_, _opt, exec_);
     }
-    public static ContextEl build(int _stack,LgNames _lgNames, Options _opt) {
+    public static ContextEl build(int _stack,LgNames _lgNames, Options _opt, ExecutingOptions _exec) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames);
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, _exec, kw_, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }
-    private static ContextEl buildLg(String _lang,int _stack,LgNames _lgNames, Options _opt) {
+    private static ContextEl buildLg(String _lang,int _stack,LgNames _lgNames, Options _opt, ExecutingOptions _exec) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        ContextEl out_ = ContextFactory.buildDefKw(_lang, lk_, di_, _opt, _lgNames);
+        ContextEl out_ = ContextFactory.buildDefKw(_lang, lk_, di_, _opt, _exec,_lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }

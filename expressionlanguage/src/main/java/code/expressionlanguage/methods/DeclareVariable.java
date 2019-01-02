@@ -81,10 +81,11 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+        String formatted_ = ip_.formatVarType(importedClassName, _cont);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(importedClassName);
+            lv_.setClassName(formatted_);
             lv_.setStruct(struct_);
             ip_.putLocalVar(v, lv_);
         }
