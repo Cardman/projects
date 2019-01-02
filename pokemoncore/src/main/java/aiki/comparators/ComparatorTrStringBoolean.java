@@ -1,5 +1,5 @@
 package aiki.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.util.EnumMap;
 import code.util.ints.Comparing;
 import code.util.pagination.SelectedBoolean;

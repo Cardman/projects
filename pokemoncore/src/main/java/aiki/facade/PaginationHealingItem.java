@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorHealingItem;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.HealingHp;
@@ -24,36 +24,33 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.FieldCustComparator;
-import code.util.pagination.Pagination;
 
 public final class PaginationHealingItem extends
-        Pagination<SortingHealingItem, String, CriteriaForSearchingHealingItem> {
+        Pagination<SortingHealingItem, String> {
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<String> cmpDescription = new FieldComparator<String>();
+    private StringFieldComparator cmpDescription = new StringFieldComparator();
 
-    private FieldComparator<Integer> cmpPrice = new FieldComparator<Integer>();
+    private LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private FieldComparator<Integer> cmpNbHealedStatus = new FieldComparator<Integer>();
+    private LongFieldComparator cmpNbHealedStatus = new LongFieldComparator();
 
-    private FieldComparator<Boolean> cmpRelativeRateHp = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
 
     private FieldCustComparator<Rate> cmpHp = new FieldCustComparator<Rate>();
 
     private FieldCustComparator<Rate> cmpRateHp = new FieldCustComparator<Rate>();
 
-    private FieldComparator<Boolean> cmpRelativeRatePp = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
 
     private FieldCustComparator<Rate> cmpPp = new FieldCustComparator<Rate>();
 
-    private FieldComparator<Boolean> cmpHealOneMove = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
 
-    private FieldComparator<Integer> cmpStatistics = new FieldComparator<Integer>();
+    private LongFieldComparator cmpStatistics = new LongFieldComparator();
 
-    private FieldComparator<Boolean> cmpKo = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpKo = new BooleanFieldComparator();
 
     private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
 
@@ -74,8 +71,10 @@ public final class PaginationHealingItem extends
 
     private EqList<SortingHealingItem> rendered = new EqList<SortingHealingItem>();
 
+    private CriteriaForSearchingHealingItem criteria;
+
     public PaginationHealingItem() {
-        super(new CriteriaForSearchingHealingItem());
+        criteria = new CriteriaForSearchingHealingItem();
     }
 
     public void setTranslation(DataBase _data, String _language) {
@@ -262,6 +261,10 @@ public final class PaginationHealingItem extends
     }
 
     @Override
+    public CriteriaForSearchingHealingItem getCriteria() {
+        return criteria;
+    }
+    @Override
     protected boolean match(String _item) {
         if (!getCriteria().matchName(_item)) {
             return false;
@@ -409,7 +412,7 @@ public final class PaginationHealingItem extends
         items = items_;
     }
 
-    public FieldComparator<String> getCmpName() {
+    public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
@@ -417,19 +420,19 @@ public final class PaginationHealingItem extends
         return cmpNumber;
     }
 
-    public FieldComparator<String> getCmpDescription() {
+    public StringFieldComparator getCmpDescription() {
         return cmpDescription;
     }
 
-    public FieldComparator<Integer> getCmpPrice() {
+    public LongFieldComparator getCmpPrice() {
         return cmpPrice;
     }
 
-    public FieldComparator<Integer> getCmpNbHealedStatus() {
+    public LongFieldComparator getCmpNbHealedStatus() {
         return cmpNbHealedStatus;
     }
 
-    public FieldComparator<Boolean> getCmpRelativeRateHp() {
+    public BooleanFieldComparator getCmpRelativeRateHp() {
         return cmpRelativeRateHp;
     }
 
@@ -441,7 +444,7 @@ public final class PaginationHealingItem extends
         return cmpRateHp;
     }
 
-    public FieldComparator<Boolean> getCmpRelativeRatePp() {
+    public BooleanFieldComparator getCmpRelativeRatePp() {
         return cmpRelativeRatePp;
     }
 
@@ -449,15 +452,15 @@ public final class PaginationHealingItem extends
         return cmpPp;
     }
 
-    public FieldComparator<Boolean> getCmpHealOneMove() {
+    public BooleanFieldComparator getCmpHealOneMove() {
         return cmpHealOneMove;
     }
 
-    public FieldComparator<Integer> getCmpStatistics() {
+    public LongFieldComparator getCmpStatistics() {
         return cmpStatistics;
     }
 
-    public FieldComparator<Boolean> getCmpKo() {
+    public BooleanFieldComparator getCmpKo() {
         return cmpKo;
     }
 

@@ -10,8 +10,9 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.TypeOwnersDepends;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -19,12 +20,10 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ClassMetaInfo;
@@ -142,7 +141,6 @@ public class Configuration implements ExecutableCode {
         if (lateTranslators == null) {
             lateTranslators = new StringMap<String>();
         }
-        standards.setContext(context);
         standards.build();
         standards.setupOverrides(context);
     }
@@ -321,7 +319,7 @@ public class Configuration implements ExecutableCode {
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(toContextEl()),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -366,11 +364,6 @@ public class Configuration implements ExecutableCode {
 
     final void setSepPrefix(String _prefix) {
         prefix = StringList.concat(_prefix,SEP);
-    }
-
-    public final ContextEl toContextEl() {
-        context.setHtml(html);
-        return context;
     }
 
     public String getFirstUrl() {
@@ -575,11 +568,11 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public CustList<GeneType> getClassBodies() {
-        return toContextEl().getClassBodies();
+        return getContext().getClassBodies();
     }
     @Override
     public GeneType getClassBody(String _type) {
-        return toContextEl().getClassBody(_type);
+        return getContext().getClassBody(_type);
     }
     @Override
     public final BeanLgNames getStandards() {
@@ -618,7 +611,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public Classes getClasses() {
-        return toContextEl().getClasses();
+        return getContext().getClasses();
     }
 
     @Override
@@ -705,13 +698,13 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        return toContextEl().getClassMetaInfo(_name);
+        return getContext().getClassMetaInfo(_name);
     }
 
     @Override
     public CustList<GeneMethod> getMethodBodiesById(String _genericClassName,
             MethodId _id) {
-        return toContextEl().getMethodBodiesById(_genericClassName, _id);
+        return getContext().getMethodBodiesById(_genericClassName, _id);
     }
 
     public int getNextIndex() {
@@ -771,15 +764,6 @@ public class Configuration implements ExecutableCode {
         return context.isGearConst();
     }
 
-    public void setGearConst(boolean _gearConst) {
-        context.setGearConst(_gearConst);
-    }
-
-    @Override
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return context.getTextualSortedOperations();
-    }
-
     @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return context.getLocalVariables();
@@ -825,7 +809,6 @@ public class Configuration implements ExecutableCode {
         return false;
     }
 
-    @Override
     public boolean isInternGlobal() {
         return getLastPage().isInternGlobal();
     }
@@ -916,16 +899,6 @@ public class Configuration implements ExecutableCode {
     public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field,
             Block _rooted) {
         return new ObjectMap<ClassField,Integer>();
-    }
-
-    @Override
-    public boolean isDirectImport() {
-        return context.isDirectImport();
-    }
-
-    @Override
-    public void setDirectImport(boolean _directImport) {
-        context.setDirectImport(_directImport);
     }
 
     @Override
@@ -1054,16 +1027,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public SortedClassField getCurrentInitizedField() {
-        return context.getCurrentInitizedField();
-    }
-
-    @Override
-    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
-        context.setCurrentInitizedField(_currentInitizedField);
-    }
-
-    @Override
     public boolean isOkNumOp() {
         return context.isOkNumOp();
     }
@@ -1096,5 +1059,41 @@ public class Configuration implements ExecutableCode {
     @Override
     public int getCurrentLocationIndex() {
         return getLastPage().getSum();
+    }
+
+    @Override
+    public boolean isValidSingleToken(String _id) {
+        return context.isValidSingleToken(_id);
+    }
+
+    @Override
+    public boolean isValidToken(String _id) {
+        return context.isValidToken(_id);
+    }
+
+    @Override
+    public void processInternKeyWord(String _string, int _fr,
+            ResultAfterInstKeyWord _out) {
+        KeyWords keyWords_ = getKeyWords();
+        String keyWordIntern_ = keyWords_.getKeyWordIntern();
+        String sub_ = _string.substring(_fr);
+        int i_ = _fr;
+        if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
+            if (isInternGlobal()) {
+                int afterSuper_ = i_ + keyWordIntern_.length();
+                String trim_ = _string.substring(afterSuper_).trim();
+                if (trim_.startsWith(".")) {
+                    while (true) {
+                        if (_string.charAt(afterSuper_) == '.') {
+                            //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                            break;
+                        }
+                        afterSuper_++;
+                    }
+                    i_ = afterSuper_;
+                    _out.setNextIndex(i_);
+                }
+            }
+        }
     }
 }

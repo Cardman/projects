@@ -11,8 +11,8 @@ public class MyTranslator extends Translator {
 
     @Override
     public String getString(String _pattern, Object _conf,
-            Bean _object, Object _value) {
-        return StringList.concat(((Integer)_value).toString()," &lt;= ",((Integer)_value).toString());
+            Bean _object, String _value) {
+        return StringList.concat(_value," &lt;= ",_value);
     }
 
 }

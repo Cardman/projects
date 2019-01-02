@@ -2,12 +2,11 @@ package code.formathtml.util;
 
 import code.bean.translator.Translator;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
 
-public final class TranslatorStruct implements Struct {
+public final class TranslatorStruct implements RealInstanceStruct {
 
     private Translator translator;
 
@@ -17,15 +16,6 @@ public final class TranslatorStruct implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
-    }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
     }
 
     @Override
@@ -41,11 +31,6 @@ public final class TranslatorStruct implements Struct {
     @Override
     public Translator getInstance() {
         return translator;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
     }
 
 }

@@ -1,10 +1,10 @@
 package aiki.beans.pokemon;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.comparators.ComparatorMiniMapCoords;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.Evolution;
@@ -27,6 +27,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -41,7 +42,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class PokemonBean extends CommonBean {
 

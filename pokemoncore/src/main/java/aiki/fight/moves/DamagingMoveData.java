@@ -1,6 +1,6 @@
 package aiki.fight.moves;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectBatonPass;
 import aiki.fight.moves.effects.EffectCopyFighter;

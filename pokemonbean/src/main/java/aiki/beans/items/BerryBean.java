@@ -1,7 +1,7 @@
 package aiki.beans.items;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.util.BoostHpRate;

@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorMove;
+import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
@@ -15,22 +15,19 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
-import code.util.pagination.EnumFieldComparator;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class PaginationMove extends
-        Pagination<SortingMove, String, CriteriaForSearchingMove> {
+        Pagination<SortingMove, String> {
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<Integer> cmpPrice = new FieldComparator<Integer>();
+    private LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private FieldComparator<Integer> cmpDescription = new FieldComparator<Integer>();
+    private LongFieldComparator cmpDescription = new LongFieldComparator();
 
-    private FieldComparator<Short> cmpPpp = new FieldComparator<Short>();
+    private LongFieldComparator cmpPpp = new LongFieldComparator();
 
-    private FieldComparator<Byte> cmpPrio = new FieldComparator<Byte>();
+    private LongFieldComparator cmpPrio = new LongFieldComparator();
 
     private EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
 
@@ -49,8 +46,10 @@ public final class PaginationMove extends
 
     private EqList<SortingMove> rendered = new EqList<SortingMove>();
 
+    private CriteriaForSearchingMove criteria;
+
     public PaginationMove() {
-        super(new CriteriaForSearchingMove());
+        criteria = new CriteriaForSearchingMove();
     }
 
     public void setTranslation(DataBase _data, String _language) {
@@ -159,6 +158,10 @@ public final class PaginationMove extends
         }
         return true;
     }
+    @Override
+    public CriteriaForSearchingMove getCriteria() {
+        return criteria;
+    }
 
     @Override
     protected boolean sortable() {
@@ -238,43 +241,43 @@ public final class PaginationMove extends
         moves = items_;
     }
 
-    public FieldComparator<String> getCmpName() {
+    public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
-    public void setCmpName(FieldComparator<String> _cmpName) {
+    public void setCmpName(StringFieldComparator _cmpName) {
         cmpName = _cmpName;
     }
 
-    public FieldComparator<Integer> getCmpPrice() {
+    public LongFieldComparator getCmpPrice() {
         return cmpPrice;
     }
 
-    public void setCmpPrice(FieldComparator<Integer> _cmpPrice) {
+    public void setCmpPrice(LongFieldComparator _cmpPrice) {
         cmpPrice = _cmpPrice;
     }
 
-    public FieldComparator<Integer> getCmpDescription() {
+    public LongFieldComparator getCmpDescription() {
         return cmpDescription;
     }
 
-    public void setCmpDescription(FieldComparator<Integer> _cmpDescription) {
+    public void setCmpDescription(LongFieldComparator _cmpDescription) {
         cmpDescription = _cmpDescription;
     }
 
-    public FieldComparator<Short> getCmpPpp() {
+    public LongFieldComparator getCmpPpp() {
         return cmpPpp;
     }
 
-    public void setCmpPpp(FieldComparator<Short> _cmpPpp) {
+    public void setCmpPpp(LongFieldComparator _cmpPpp) {
         cmpPpp = _cmpPpp;
     }
 
-    public FieldComparator<Byte> getCmpPrio() {
+    public LongFieldComparator getCmpPrio() {
         return cmpPrio;
     }
 
-    public void setCmpPrio(FieldComparator<Byte> _cmpPrio) {
+    public void setCmpPrio(LongFieldComparator _cmpPrio) {
         cmpPrio = _cmpPrio;
     }
 

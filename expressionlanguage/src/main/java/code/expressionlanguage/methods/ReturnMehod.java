@@ -3,21 +3,20 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.ForwardPageEl;
 import code.expressionlanguage.calls.ReturnablePageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -30,13 +29,13 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
+public final class ReturnMehod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
 
     private final String expression;
 
     private int expressionOffset;
 
-    private CustList<OperationNode> opRet;
+    private CustList<ExecOperationNode> opRet;
 
     public ReturnMehod(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -61,7 +60,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         return new ExpressionLanguage(opRet);
     }
 
-    public CustList<OperationNode> getOpRet() {
+    public CustList<ExecOperationNode> getOpRet() {
         return opRet;
     }
     @Override
@@ -97,9 +96,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             return;
         }
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opRet.isEmpty()) {
-            return;
-        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
@@ -120,7 +116,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             _cont.getClasses().addError(cast_);
             return;
         }
-        if (!Templates.isGenericCorrect(mapping_, _cont)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -130,6 +126,15 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
             opRet.last().getResultClass().setUnwrapObject(retType_);
         }
+    }
+
+    @Override
+    public void reduce(ContextEl _context) {
+        if (opRet == null) {
+            return;
+        }
+        ExecOperationNode r_ = opRet.last();
+        opRet = ElUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -179,43 +184,24 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         }
         _anEl.getAssignments().put(this, ass_);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
+        Argument arg_;
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
+            arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
             }
             ip_.clearCurrentEls();
-            LgNames stds_ = _cont.getStandards();
-            String retType_ = stds_.getAliasVoid();
-            BracedBlock par_ = getParent();
-            while (par_ != null) {
-                if (par_ instanceof Returnable) {
-                    Returnable meth_ = null;
-                    meth_ = (Returnable) par_;
-                    retType_ = meth_.getImportedReturnType();
-                    break;
-                }
-                par_ = par_.getParent();
-            }
-            retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
-            if (!Templates.checkObject(retType_, arg_, _cont)) {
-                return;
-            }
-            ((ForwardPageEl)_cont.getLastPage()).setReturnedArgument(arg_);
         } else {
-            ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument();
+            arg_ = Argument.createVoid();
         }
+        ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument(arg_);
         removeBlockFinally(_cont);
     }
 
@@ -237,9 +223,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     @Override
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
-        if (!isEmpty()) {
-            return getElRet();
-        }
-        return null;
+        return getElRet();
     }
 }

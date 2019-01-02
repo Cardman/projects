@@ -1,6 +1,6 @@
 package aiki.game;
-import aiki.DataBase;
 import aiki.comments.Comment;
+import aiki.db.DataBase;
 import aiki.map.pokemon.PokemonPlayer;
 
 

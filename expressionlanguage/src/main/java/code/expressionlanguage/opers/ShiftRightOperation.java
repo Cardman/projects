@@ -2,10 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.structs.NumberStruct;
@@ -41,12 +40,6 @@ public final class ShiftRightOperation extends NumericOperation {
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;
-    }
-
-    @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b,
-            ExecutableCode _cont) {
-        return new Argument(NumberStruct.calculateShiftRight((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
     }
 
     @Override

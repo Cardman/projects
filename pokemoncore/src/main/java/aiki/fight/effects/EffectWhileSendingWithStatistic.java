@@ -1,5 +1,5 @@
 package aiki.fight.effects;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectStatistic;
 
 

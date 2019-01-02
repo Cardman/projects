@@ -1,12 +1,12 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -136,21 +136,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-
-    @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        if (staticMethod) {
-            return false;
-        }
-        if (finalMethod) {
-            return false;
-        }
-        if (abstractMethod) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
@@ -174,21 +159,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     @Override
     public boolean isNormalMethod() {
         return normalMethod;
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

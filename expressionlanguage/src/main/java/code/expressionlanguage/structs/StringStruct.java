@@ -2,13 +2,11 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.util.ObjectMap;
 import code.util.Replacement;
 import code.util.StringList;
 
@@ -701,10 +699,6 @@ public final class StringStruct extends CharSequenceStruct {
         }
         _res.setResult(new StringStruct(StringList.replaceMult(instance, seps_)));
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -716,13 +710,4 @@ public final class StringStruct extends CharSequenceStruct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

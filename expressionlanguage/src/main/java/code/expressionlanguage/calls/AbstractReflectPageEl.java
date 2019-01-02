@@ -2,8 +2,6 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.util.CustList;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -14,44 +12,18 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     private boolean wrapException;
 
-    @Override
-    public Argument getReturnedArgument() {
+    private boolean lambda;
+
+    public final Argument getReturnedArgument() {
         return returnedArgument;
     }
 
-    @Override
     public void setReturnedArgument(Argument _returnedArgument) {
         returnedArgument = _returnedArgument;
     }
 
     @Override
-    public void setReturnedArgument() {
-        Argument void_ = Argument.createVoid();
-        returnedArgument = void_;
-    }
-
-    @Override
     public void tryProcessEl(ContextEl _context) {
-        setNullReadWrite();
-    }
-
-    @Override
-    public void postReturn(ContextEl _context) {
-        setNullReadWrite();
-    }
-
-    @Override
-    public ParentStackBlock getNextBlock(Block _block, ContextEl _context) {
-        return null;
-    }
-
-    @Override
-    public void postBlock(ContextEl _context) {
-        setNullReadWrite();
-    }
-
-    @Override
-    public void endRoot(ContextEl _context) {
         setNullReadWrite();
     }
 
@@ -80,7 +52,17 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     }
 
     public void setWrapException(boolean _wrapException) {
+        if (_wrapException) {
+            if (lambda) {
+                wrapException = false;
+                return;
+            }
+        }
         wrapException = _wrapException;
+    }
+
+    public void setLambda(boolean _lambda) {
+        lambda = _lambda;
     }
 
 }

@@ -2,8 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.NumberInfos;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -13,7 +13,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
-public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct,RealInstanceStruct {
     private static final int DEFAULT_RADIX = 10;
     @Override
     public final Struct getParent() {
@@ -26,30 +26,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 str_.append(((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
                 str_.append(((DisplayableStruct)_args[1]).getDisplayedString(_cont).getInstance());
                 _res.setResult(new StringStruct(str_.toString()));
-                return;
-            }
-            if (StringList.quickEq(_op, "<=")) {
-                if (_args[0].sameReference(_args[1])) {
-                    _res.setResult(new BooleanStruct(true));
-                    return;
-                }
-                _res.setResult(quickCalculateLower(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, ">=")) {
-                if (_args[0].sameReference(_args[1])) {
-                    _res.setResult(new BooleanStruct(true));
-                    return;
-                }
-                _res.setResult(quickCalculateGreater(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, "<")) {
-                _res.setResult(quickCalculateLower(_args[0], true, _args[1]));
-                return;
-            }
-            if (StringList.quickEq(_op, ">")) {
-                _res.setResult(quickCalculateGreater(_args[0], true, _args[1]));
                 return;
             }
         }
@@ -80,31 +56,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setResult(new BooleanStruct(!arg_));
             return;
         }
-        
-        if (StringList.quickEq(_op, "<=")) {
-            if (_args[0].sameReference(_args[1])) {
-                _res.setResult(new BooleanStruct(true));
-                return;
-            }
-            _res.setResult(quickCalculateLower(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, ">=")) {
-            if (_args[0].sameReference(_args[1])) {
-                _res.setResult(new BooleanStruct(true));
-                return;
-            }
-            _res.setResult(quickCalculateGreater(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, "<")) {
-            _res.setResult(quickCalculateLower(_args[0], false, _args[1]));
-            return;
-        }
-        if (StringList.quickEq(_op, ">")) {
-            _res.setResult(quickCalculateGreater(_args[0], false, _args[1]));
-            return;
-        }
         if (StringList.quickEq(_op, "!=")) {
             _res.setResult(new BooleanStruct(!_args[0].sameReference(_args[1])));
             return;
@@ -130,11 +81,11 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return;
         }
         if (StringList.quickEq(op_, "/")) {
-            _res.setResult(calculateDiv((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            _res.setResult(calculateDivEx((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
         }
         if (StringList.quickEq(op_, "%")) {
-            _res.setResult(calculateMod((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
+            _res.setResult(calculateModEx((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
         }
         if (StringList.quickEq(op_, "&")) {
@@ -720,26 +671,27 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             }
         }
     }
-    public static BooleanStruct quickCalculateLower(Struct _a, boolean _strCmp, Struct _b) {
-        if (_strCmp) {
-            String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-            String second_ = ((CharSequenceStruct)_b).getInstance().toString();
-            return new BooleanStruct(first_.compareTo(second_) < 0);
-        }
+    public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         Number a_ = ((NumberStruct) _a).getInstance();
         Number b_ = ((NumberStruct) _b).getInstance();
         return new BooleanStruct(Numbers.lt(a_, b_));
     }
 
-    public static BooleanStruct quickCalculateGreater(Struct _a, boolean _strCmp, Struct _b) {
-        if (_strCmp) {
-            String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-            String second_ = ((CharSequenceStruct)_b).getInstance().toString();
-            return new BooleanStruct(first_.compareTo(second_) > 0);
-        }
+    public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
         Number a_ = ((NumberStruct) _a).getInstance();
         Number b_ = ((NumberStruct) _b).getInstance();
         return new BooleanStruct(Numbers.gt(a_, b_));
+    }
+    public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
+        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
+        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        return new BooleanStruct(first_.compareTo(second_) < 0);
+    }
+
+    public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
+        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
+        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        return new BooleanStruct(first_.compareTo(second_) > 0);
     }
     public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -848,6 +800,17 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         return new DoubleStruct(nb_.doubleValue());
     }
+    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String div_;
+        div_ = stds_.getAliasDivisionZero();
+        ContextEl c_ = _an.getContextEl();
+        Struct res_ = calculateDiv(_a,_b, _an, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            c_.setException(new ErrorStruct(c_,div_));
+        }
+        return res_;
+    }
     public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
@@ -873,6 +836,17 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             return new FloatStruct(nb_.floatValue());
         }
         return new DoubleStruct(nb_.doubleValue());
+    }
+    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String div_;
+        div_ = stds_.getAliasDivisionZero();
+        ContextEl c_ = _an.getContextEl();
+        Struct res_ = calculateMod(_a,_b, _an, _order);
+        if (res_ == NullStruct.NULL_VALUE) {
+            c_.setException(new ErrorStruct(c_,div_));
+        }
+        return res_;
     }
     public static Struct calculateMod(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
@@ -1211,24 +1185,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     private byte getByte() {
         return getInstance().byteValue();
     }
-    public static NumberStruct wrapNb(Number _element) {
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        return new ByteStruct((Byte) _element);
-    }
 
     @Override
     public final boolean sameReference(Struct _other) {
@@ -1250,8 +1206,4 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     @Override
     public abstract Number getInstance();
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

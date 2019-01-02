@@ -2,7 +2,7 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
@@ -16,7 +16,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             Argument instance_ = getArguments().first();
             Argument right_ = getArguments().last();
             setWrapException(false);
-            Argument arg_ = InvokingOperation.setField(method_, instance_, right_, _context, false);
+            Argument arg_ = ExecInvokingOperation.setField(method_, instance_, right_, _context);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;

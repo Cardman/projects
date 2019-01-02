@@ -47,8 +47,8 @@ public final class ProcessMethod {
         return page_.getReturnedArgument();
     }
 
-    public static Argument reflectArgument(Argument _global, CustList<Argument> _args, ContextEl _cont, ReflectingType _reflect) {
-        AbstractReflectPageEl page_ = _cont.createReflectMethod(_global, _args, _reflect);
+    public static Argument reflectArgument(Argument _global, CustList<Argument> _args, ContextEl _cont, ReflectingType _reflect, boolean _lambda) {
+        AbstractReflectPageEl page_ = _cont.createReflectMethod(_global, _args, _reflect, _lambda);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

@@ -1,12 +1,12 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -87,12 +87,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-
-    @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        return true;
-    }
-
     @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
@@ -115,21 +109,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     @Override
     public boolean isNormalMethod() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
         return false;
     }
 
@@ -170,10 +149,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public boolean canAccessClass(String _type, Analyzable _analyzable) {
         return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
     }
-    @Override
-    public boolean isAccessibleType(String _type, Analyzable _analyzable, boolean _excludeProtected) {
-        return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
-    }
+
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();

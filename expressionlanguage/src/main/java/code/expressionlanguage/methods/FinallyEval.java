@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.util.LocalThrowing;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -16,7 +14,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class FinallyEval extends BracedStack implements Eval, IncrNextGroup {
+public final class FinallyEval extends BracedStack implements Eval {
 
     public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
         super(_importingPage, _m, _offset);
@@ -42,14 +40,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
@@ -101,20 +91,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -140,8 +116,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             ip_.removeLastBlock();
             if (call_ instanceof LocalThrowing) {
                 _context.setException(tryStack_.getException());
-            } else {
-                ip_.setCurrentBlock((Block) call_);
             }
             call_.removeBlockFinally(_context);
             return;
@@ -150,16 +124,17 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
-    }
-
-    @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             p_ = p_.getPreviousSibling();
+        }
+        if (p_ == null) {
+            _anEl.reach(this);
+            return;
         }
         if (_anEl.isReachable(p_)) {
             _anEl.reach(this);
@@ -172,10 +147,15 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         CustList<Block> group_ = new CustList<Block>();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             group_.add(p_);
             p_ = p_.getPreviousSibling();
         }
-        group_.add(p_);
+        if (p_ != null) {
+            group_.add(p_);
+        }
         if (!_anEl.canCompleteNormally(this)) {
             for (Block b: group_) {
                 _anEl.completeAbruptGroup(b);

@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -40,7 +40,7 @@ public abstract class SwitchPartBlock extends BracedStack implements
         AssignedVariables prevAss_ = id_.getVal(this);
         CustList<StringMap<AssignmentBefore>> out_;
         out_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getVariables().lastValue();
+        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getLastVariablesOrEmpty();
         int len_ = assSwitchs_.size();
         for (int i = 0; i < len_; i++) {
             StringMap<Assignment> assSwitch_ = assSwitchs_.get(i);
@@ -66,7 +66,7 @@ public abstract class SwitchPartBlock extends BracedStack implements
         AssignedVariables prevAss_ = id_.getVal(this);
         CustList<StringMap<AssignmentBefore>> out_;
         out_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getMutableLoop().lastValue();
+        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getLastMutableLoopOrEmpty();
         int len_ = assSwitchs_.size();
         for (int i = 0; i < len_; i++) {
             StringMap<Assignment> assSwitch_ = assSwitchs_.get(i);
@@ -96,7 +96,7 @@ public abstract class SwitchPartBlock extends BracedStack implements
         } else {
             current_ = new StringMap<SimpleAssignment>();
         }
-        StringMap<Assignment> assSwitch_ = parAss_.getFields().lastValue();
+        StringMap<Assignment> assSwitch_ = parAss_.getLastFieldsOrEmpty();
         return buildSwitchPart(assSwitch_, current_);
     }
     protected static StringMap<AssignmentBefore> buildSwitchPart(StringMap<Assignment> _assSwitch,

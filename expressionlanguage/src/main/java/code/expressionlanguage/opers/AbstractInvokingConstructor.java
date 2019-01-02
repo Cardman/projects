@@ -1,30 +1,18 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.errors.custom.BadAccessConstructor;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.errors.custom.UndefinedConstructorError;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -56,13 +44,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    final boolean isCallMethodCtor(Analyzable _an) {
-        return true;
-    }
-
-    @Override
     public final void analyze(Analyzable _conf) {
-        String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -102,14 +84,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             return;
         }
         constId = ctorRes_.getRealId();
-        GeneConstructor ctor_ = ctorRes_.getCtor();
-        if (ctor_ != null && !Classes.canAccess(clCurName_, ctor_, _conf)) {
-            BadAccessConstructor badAccess_ = new BadAccessConstructor();
-            badAccess_.setId(ctor_.getId());
-            badAccess_.setFileName(_conf.getCurrentFileName());
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badAccess_);
-        }
         checkPositionBasis(_conf);
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
     }
@@ -120,89 +94,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
-            int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: _children) {
-                if (o instanceof VarargOperation) {
-                    i_++;
-                    continue;
-                }
-                if (o instanceof FirstOptOperation) {
-                    break;
-                }
-                String param_ = constId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
-                i_++;
-            }
-        } else if (naturalVararg > -1) {
-            int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
-                if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
-                } else {
-                    String param_ = constId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
-                }
-            }
-        } else {
-            int lenCh_ = _args.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
-                String param_ = constId.getParametersTypes().get(i);
-                if (i + 1 == lenCh_ && constId.isVararg()) {
-                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
-            }
-        }
+        unwrapArgsFct(_children, constId, naturalVararg, lastType, _args, _conf);
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        Argument res_;
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument res_ = getArgument(arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
 
     final void checkPositionBasis(Analyzable _conf) {
@@ -244,22 +138,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             _conf.getClasses().addError(call_);
         }
     }
-    protected static void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: _args) {
-            if (i_ < _params.size()) {
-                String param_ = _params.get(i_);
-                if (!Templates.checkObject(param_, a, _ex)) {
-                    return;
-                }
-            }
-            i_++;
-        }
-    }
-    abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
 
-    @Override
-    public ConstructorId getConstId() {
+    public final ConstructorId getConstId() {
         return constId;
     }
 

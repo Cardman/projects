@@ -28,10 +28,6 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -59,11 +55,6 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
     }
 
     @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
     public int getOrdinal() {
         return ordinal;
     }
@@ -83,10 +74,6 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
         return className;
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public StringStruct exportValue() {

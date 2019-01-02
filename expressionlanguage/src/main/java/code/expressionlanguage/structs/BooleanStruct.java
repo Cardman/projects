@@ -2,10 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
-public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
+public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct,RealInstanceStruct {
 
     private final boolean value;
 
@@ -17,14 +15,10 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasPrimBoolean();
+        return _context.getStandards().getAliasBoolean();
     }
 
     @Override
@@ -47,11 +41,6 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
     }
 
     @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof BooleanStruct)) {
             return false;
@@ -60,8 +49,4 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
         return getInstance().booleanValue() == other_.getInstance().booleanValue();
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

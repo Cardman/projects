@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.EndTurnType;

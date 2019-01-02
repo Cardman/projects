@@ -7,15 +7,7 @@ abstract class ParentAnnotPart extends InfoAnnotPart {
     static final String PART_SEP = ",";
     private InfoAnnotPart first;
 
-    @Override
-    public InfoAnnotPart getFirst() {
-        return first;
-    }
-
-    public void setFirst(InfoAnnotPart _first) {
-        first = _first;
-    }
-    public void append(InfoAnnotPart _first) {
+    void append(InfoAnnotPart _first) {
         if (first == null) {
             first = _first;
             return;
@@ -31,15 +23,6 @@ abstract class ParentAnnotPart extends InfoAnnotPart {
         f_.setNext(_first);
     }
 
-    int count() {
-        int c_ = 0;
-        InfoAnnotPart f_ = first;
-        while (f_ != null) {
-            f_ = f_.getNext();
-            c_++;
-        }
-        return c_;
-    }
     abstract CustList<StackObject> getStack();
 
     abstract String getBegin();

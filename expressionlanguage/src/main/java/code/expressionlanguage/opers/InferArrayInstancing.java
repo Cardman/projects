@@ -1,12 +1,12 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FunctionBlock;
@@ -146,7 +146,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
             ClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
-            if (!Templates.isGenericCorrect(mapping_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());

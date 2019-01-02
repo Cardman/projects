@@ -2,13 +2,13 @@ package code.formathtml;
 import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -22,6 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BadElRender;
+import code.formathtml.util.BeanStruct;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.TranslatorStruct;
 import code.sml.DocumentBuilder;
@@ -191,30 +192,30 @@ final class ExtractObject {
 
                 if (trloc_ != null) {
                     if (trloc_ instanceof TranslatorStruct) {
-                        Bean bean_ = (Bean) _ip.getGlobalArgument().getStruct().getInstance();
-                        o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, s_.getInstance());
+                        Bean bean_ = ((BeanStruct) _ip.getGlobalArgument().getStruct()).getInstance();
+                        o_ = ((TranslatorStruct)trloc_).getInstance().getString(_pattern, _conf, bean_, valueOf(_conf, s_));
                     } else {
                         Struct bean_ = _ip.getGlobalArgument().getStruct();
                         LocalVariable lv_ = new LocalVariable();
                         String valName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(trloc_);
-                        lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
+                        lv_.setClassName(trloc_.getClassName(_conf.getContext()));
                         _ip.putLocalVar(valName_, lv_);
                         String patName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
-                        lv_.setElement(_pattern);
+                        lv_.setStruct(new StringStruct(_pattern));
                         lv_.setClassName(_conf.getStandards().getAliasString());
                         _ip.putLocalVar(patName_, lv_);
                         String navName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
-                        lv_.setStruct(StdStruct.wrapStd(_conf, _conf.toContextEl()));
+                        lv_.setStruct(StdStruct.wrapStd(_conf, _conf.getContext()));
                         lv_.setClassName(_conf.getStandards().getAliasObject());
                         _ip.putLocalVar(navName_, lv_);
                         String beanName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
                         lv_.setStruct(bean_);
-                        lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
+                        lv_.setClassName(bean_.getClassName(_conf.getContext()));
                         _ip.putLocalVar(beanName_, lv_);
                         String objName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
@@ -226,7 +227,8 @@ final class ExtractObject {
                         expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-                        o_ = (String) ElRenderUtil.processEl(expression_.toString(), 0, _conf).getObject();
+                        Struct trStr_ = ElRenderUtil.processEl(expression_.toString(), 0, _conf).getStruct();
+                        o_ = valueOf(_conf, trStr_);
                         if (_conf.getContext().getException() != null) {
                             return EMPTY_STRING;
                         }
@@ -308,7 +310,7 @@ final class ExtractObject {
                     _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                     return NullStruct.NULL_VALUE;
                 }
-                calculateVariables_.append(mathFact_.toString(arg_.getObject()));
+                calculateVariables_.append(toString(_conf, arg_.getStruct()));
                 i_ = _conf.getNextIndex();
                 continue;
             }
@@ -319,7 +321,7 @@ final class ExtractObject {
         if (_evalBool) {
             return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
         }
-        return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
+        return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.getContext(), rateClass_);
     }
 
     static Struct instanceByString(Configuration _conf, String _class, String _arg) {
@@ -398,7 +400,7 @@ final class ExtractObject {
         if (_it == null) {
             return;
         }
-        if (_it.isNull()) {
+        if (_it == NullStruct.NULL_VALUE) {
             return;
         }
         if (_addpage) {
@@ -420,8 +422,8 @@ final class ExtractObject {
 
     static String getLanguage(Configuration _conf, Struct _it) {
         Struct str_ = getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getStandards().getBean());
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
@@ -432,8 +434,8 @@ final class ExtractObject {
 
     static String getScope(Configuration _conf, Struct _it) {
         Struct str_ = getResult(_conf, 0, GET_SCOPE, _it, _conf.getStandards().getBean());
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
@@ -467,15 +469,6 @@ final class ExtractObject {
     }
     /**This method use the equal operator*/
     static boolean eq(Configuration _conf, Struct _objOne, Struct _objTwo) {
-        if (_objOne.isNull()) {
-            if (_objTwo.isNull()) {
-                return true;
-            }
-            return false;
-        }
-        if (_objTwo.isNull()) {
-            return false;
-        }
         ImportingPage ip_ = _conf.getLastPage();
         LocalVariable lvOne_ = new LocalVariable();
         lvOne_.setClassName(_conf.getStandards().getAliasObject());
@@ -494,51 +487,48 @@ final class ExtractObject {
         if (_conf.getContext().getException() != null) {
             return false;
         }
-        Boolean ret_ = (Boolean)arg_.getObject();
-        return ret_;
+        BooleanStruct ret_ = (BooleanStruct)arg_.getStruct();
+        return ret_.getInstance();
     }
-    static void checkNullPointer(Configuration _conf, Object _obj) {
-        if (_obj == null) {
+    static void checkNullPointer(Configuration _conf, Struct _obj) {
+        if (_obj == NullStruct.NULL_VALUE) {
             _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
         }
     }
     static String valueOf(Configuration _conf, Struct _obj) {
-        if (_obj.isNull()) {
+        if (_obj == NullStruct.NULL_VALUE) {
             return _conf.getStandards().getNullString();
         }
         return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
-        if (_obj.getInstance() instanceof String) {
-            return (String) _obj.getInstance();
+        if (_obj instanceof DisplayableStruct) {
+            return ((DisplayableStruct)_obj).getDisplayedString(_conf).getInstance();
         }
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         String method_;
         String param_ = _conf.getStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
-        Mapping map_ = new Mapping();
-        map_.setArg(arg_);
-        map_.setParam(param_);
-        if (Templates.isCorrect(map_, context_)) {
+        if (Templates.isCorrectExecute(arg_, param_, context_)) {
             method_ = _conf.getStandards().getAliasDisplay();
         }  else {
             method_ = _conf.getStandards().getAliasToString();
         }
         Struct str_ = getResult(_conf, 0, method_, _obj, _conf.getStandards().getStructClassName(_obj, context_));
-        if (str_.getInstance() instanceof String) {
-            return (String) str_.getInstance();
+        if (str_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
         }
         return EMPTY_STRING;
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.toContextEl()));
+        return getResult(_conf, 0, ITERATOR, _it, _conf.getStandards().getStructClassName(_it, _conf.getContext()));
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
         Boolean bool_;
         if (_it instanceof StdStruct) {
-            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType()).getInstance();
+            bool_ = ((BooleanStruct) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasSimpleIteratorType())).getInstance();
         } else {
-            bool_ = (Boolean) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType()).getInstance();
+            bool_ = ((BooleanStruct) getResult(_conf, 0, HAS_NEXT, _it, _conf.getStandards().getAliasIteratorType())).getInstance();
         }
         if (bool_ == null) {
             return false;
@@ -556,7 +546,7 @@ final class ExtractObject {
     }
 
     static String getStringKey(Configuration _conf, Struct _instance) {
-        ContextEl cont_ = _conf.toContextEl();
+        ContextEl cont_ = _conf.getContext();
         if (_instance instanceof EnumerableStruct) {
             return ((EnumerableStruct) _instance).getName();
         }

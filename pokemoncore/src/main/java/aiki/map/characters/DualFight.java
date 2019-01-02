@@ -1,5 +1,5 @@
 package aiki.map.characters;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.util.Point;
 import code.util.StringList;
 

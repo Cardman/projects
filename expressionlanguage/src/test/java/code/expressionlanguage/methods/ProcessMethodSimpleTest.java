@@ -7,8 +7,11 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -34,7 +37,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -56,7 +59,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -78,7 +81,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -100,7 +103,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -122,7 +125,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument6Test() {
@@ -143,7 +146,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(4, (Number)ret_.getObject());
+        assertEq(4, ret_.getNumber());
     }
     @Test
     public void calculateArgument7Test() {
@@ -164,7 +167,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(6, (Number)ret_.getObject());
+        assertEq(6, ret_.getNumber());
     }
     @Test
     public void calculateArgument14Test() {
@@ -189,7 +192,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -210,7 +213,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
 
     @Test
@@ -232,7 +235,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument17Test() {
@@ -253,7 +256,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument18Test() {
@@ -274,7 +277,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument19Test() {
@@ -295,7 +298,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument20Test() {
@@ -316,7 +319,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculateArgument21Test() {
@@ -338,7 +341,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(33, (Number)ret_.getObject());
+        assertEq(33, ret_.getNumber());
     }
     @Test
     public void calculateArgument22Test() {
@@ -360,7 +363,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(3, (Number)ret_.getObject());
+        assertEq(3, ret_.getNumber());
     }
     @Test
     public void calculateArgument23Test() {
@@ -382,7 +385,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(33, (Number)ret_.getObject());
+        assertEq(33, ret_.getNumber());
     }
     @Test
     public void calculateArgument24Test() {
@@ -404,7 +407,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(3, (Number)ret_.getObject());
+        assertEq(3, ret_.getNumber());
     }
     @Test
     public void calculateArgument25Test() {
@@ -425,7 +428,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(5, (Number)ret_.getObject());
+        assertEq(5, ret_.getNumber());
     }
     @Test
     public void calculateArgument26Test() {
@@ -446,7 +449,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument27Test() {
@@ -468,7 +471,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument28Test() {
@@ -490,7 +493,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument29Test() {
@@ -511,7 +514,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(9, (Number)ret_.getObject());
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument30Test() {
@@ -533,7 +536,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(32, (Number)ret_.getObject());
+        assertEq(32, ret_.getNumber());
     }
     @Test
     public void calculateArgument31Test() {
@@ -555,7 +558,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
     @Test
     public void calculateArgument32Test() {
@@ -577,7 +580,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(32, (Number)ret_.getObject());
+        assertEq(32, ret_.getNumber());
     }
     @Test
     public void calculateArgument33Test() {
@@ -599,7 +602,302 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument34Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Integer t:\n");
+        xml_.append("  t=$null:\n");
+        xml_.append("  $return ((Boolean)t) == $null?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Boolean t:\n");
+        xml_.append("  t=$true:\n");
+        xml_.append("  $return (($boolean)t) == $true?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument36Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return (($boolean)1) == $true?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument37Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return (($int)$true) == $true?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument38Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Boolean t:\n");
+        xml_.append("  t=$true:\n");
+        xml_.append("  $return (!t) == $false?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument39Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Boolean t:\n");
+        xml_.append("  t=$false:\n");
+        xml_.append("  $return (!t) == $true?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $double exmeth(){\n");
+        xml_.append("  $return $math.random():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        NumberStruct res_ = (NumberStruct) ret_.getStruct();
+        assertTrue(res_ instanceof DoubleStruct);
+        assertTrue(res_.getInstance().doubleValue() >= 0.0d);
+        assertTrue(res_.getInstance().doubleValue() < 1.0d);
+    }
+    @Test
+    public void calculateArgument41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $long exmeth(){\n");
+        xml_.append("  $return $math.random(8l):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        NumberStruct res_ = (NumberStruct) ret_.getStruct();
+        assertTrue(res_ instanceof LongStruct);
+        assertTrue(res_.getInstance().longValue() >= 0);
+        assertTrue(res_.getInstance().longValue() < 8);
+    }
+
+    @Test
+    public void calculateArgument42Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument43Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.readNames()[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("pkg/hello_res.txt", ret_.getString());
+    }
+    @Test
+    public void calculateArgument44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.readContent(Resources.readNames()[1]):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("content", ret_.getString());
+    }
+    @Test
+    public void calculateArgument45Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.readNames()[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("pkg/Ex", ret_.getString());
+    }
+    @Test
+    public void calculateArgument46Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.readContent(Resources.readNames()[0]):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(xml_.toString(), ret_.getString());
+    }
+    @Test
+    public void calculateArgument0FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Boolean t:\n");
+        xml_.append("  t=$true:\n");
+        xml_.append("  $return ((boolean)t) == $true?2;0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument1FailTest() {
@@ -632,6 +930,22 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument3FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  Boolean t:\n");
+        xml_.append("  t=$true:\n");
+        xml_.append("  $return 1&(((boolean)t) == $true):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());

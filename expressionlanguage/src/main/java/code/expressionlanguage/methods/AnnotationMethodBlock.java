@@ -4,21 +4,21 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
@@ -32,12 +32,12 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneMethod, WithEl {
+        GeneMethod, WithNotEmptyEl {
 
     private String defaultValue;
     private int defaultValueOffset;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     public AnnotationMethodBlock(ContextEl _importingPage,
             BracedBlock _m,
@@ -149,11 +149,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        return false;
-    }
-
-    @Override
     public boolean isConcreteMethod() {
         return false;
     }
@@ -179,33 +174,15 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
-            opValue = new CustList<OperationNode>();
+            opValue = new CustList<ExecOperationNode>();
             return;
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
-        if (opValue.isEmpty()) {
-            return;
-        }
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
@@ -213,7 +190,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         ClassArgumentMatching arg_ = opValue.last().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
-        if (!Templates.isGenericCorrect(mapping_, _cont)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -225,6 +202,15 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
     }
 
+    @Override
+    public void reduce(ContextEl _context) {
+        super.reduce(_context);
+        if (opValue.isEmpty()) {
+            return;
+        }
+        ExecOperationNode r_ = opValue.last();
+        opValue = ElUtil.getReducedNodes(r_);
+    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
@@ -257,7 +243,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             int _indexProcess) {
         return new ExpressionLanguage(opValue);
     }
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 }

@@ -1,14 +1,14 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct {
+public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct, RealInstanceStruct {
     @Override
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -130,14 +130,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         if (StringList.quickEq(name_, lgNames_.getAliasIndexOf())) {
             if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
+                if (!(_args[0] instanceof NumberStruct)) {
                     indexOfString(_args[0], lgNames_, _res);
                     return;
                 }
                 indexOf(_args[0], _res);
                 return;
             }
-            if (StringList.quickEq(list_.first(), stringType_)) {
+            if (!(_args[0] instanceof NumberStruct)) {
                 indexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
                 return;
             }
@@ -150,14 +150,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         if (StringList.quickEq(name_, lgNames_.getAliasLastIndexOf())) {
             if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
+                if (!(_args[0] instanceof NumberStruct)) {
                     lastIndexOfString(_args[0], lgNames_, _res);
                     return;
                 }
                 lastIndexOf(_args[0], _res);
                 return;
             }
-            if (StringList.quickEq(list_.first(), stringType_)) {
+            if (!(_args[0] instanceof NumberStruct)) {
                 lastIndexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
                 return;
             }
@@ -217,8 +217,8 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-        	_res.setResult(getDisplayedString(_cont));
-        	return;
+            _res.setResult(getDisplayedString(_cont));
+            return;
         }
     }
     private void length(ResultErrorStd _res) {

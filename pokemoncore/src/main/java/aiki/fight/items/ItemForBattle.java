@@ -1,6 +1,6 @@
 package aiki.fight.items;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;

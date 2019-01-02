@@ -1,36 +1,24 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -174,7 +162,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 ClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
-                if (!Templates.isGenericCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -188,13 +176,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         setStaticAccess(_conf.isStaticContext());
         analyzeCtor(_conf, firstArgs_);
@@ -202,13 +184,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     void analyzeCtor(Analyzable _conf, CustList<ClassArgumentMatching> _firstArgs) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _conf.getStandards().getAliasObject();
         if (StringList.quickEq(className, objCl_)) {
             setResultClass(new ClassArgumentMatching(className));
@@ -337,131 +313,22 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument res_ = getArgument(previous_, arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        Argument res_;
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
-    }
-
-    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
-            ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        if (array) {
-            int nbCh_ = chidren_.size();
-            int[] args_;
-            args_ = new int[CustList.ONE_ELEMENT];
-            args_[CustList.FIRST_INDEX] = chidren_.size();
-            Argument a_ = new Argument();
-            Numbers<Integer> dims_;
-            dims_ = new Numbers<Integer>();
-            dims_.add(nbCh_);
-            String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
-            Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-            for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                Argument chArg_ = _arguments.get(i);
-                IntStruct i_ = new IntStruct(i);
-                ArrOperation.setCheckedElement(str_, i_, chArg_, _conf);
-                if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                    return a_;
-                }
-            }
-            a_.setStruct(str_);
-            return a_;
-        }
-        if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(className);
-            if (InvokingOperation.hasToExit(_conf, base_)) {
-                return Argument.createVoid();
-            }
-        }
-        return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);
-    }
-
-    @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
-        String new_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(new_.length());
-        className_ = ContextEl.removeDottedSpaces(className_);
-        return !className_.startsWith(ARR);
+    public boolean isPossibleInitClass() {
+        return possibleInitClass;
     }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public StringMap<String> getFieldNames() {
+        return fieldNames;
+    }
+
 }

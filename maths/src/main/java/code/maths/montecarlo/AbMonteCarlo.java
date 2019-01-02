@@ -5,61 +5,11 @@ import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
 import code.util.ints.Listable;
 
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     private static final int NB_RAND = 4;
-
-    public static CustList<Object> suffledElts(Object... _list) {
-        CustList<Object> list_ = new CustList<Object>(_list);
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
-        Numbers<Integer> indexesEdited_ = new Numbers<Integer>();
-        int size_ = list_.size();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            indexes_.add(i);
-        }
-        while (!indexes_.isEmpty()) {
-            long len_ = indexes_.size();
-            int rem_ = randomInt(len_);
-            //rem_ >= 0 && rem_ < len_
-            indexesEdited_.add(indexes_.get(rem_));
-            indexes_.removeAt(rem_);
-        }
-        CustList<Object> newList_ = new CustList<Object>();
-        for (int i: indexesEdited_) {
-            newList_.add(list_.get(i));
-        }
-        list_.clear();
-        list_.addAllElts(newList_);
-        return list_;
-    }
-
-    public static StringList suffledStrings(String... _list) {
-        StringList list_ = new StringList(_list);
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
-        Numbers<Integer> indexesEdited_ = new Numbers<Integer>();
-        int size_ = list_.size();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            indexes_.add(i);
-        }
-        while (!indexes_.isEmpty()) {
-            long len_ = indexes_.size();
-            int rem_ = randomInt(len_);
-            //rem_ >= 0 && rem_ < len_
-            indexesEdited_.add(indexes_.get(rem_));
-            indexes_.removeAt(rem_);
-        }
-        StringList newList_ = new StringList();
-        for (int i: indexesEdited_) {
-            newList_.add(list_.get(i));
-        }
-        list_.clear();
-        list_.addAllElts(newList_);
-        return list_;
-    }
 
     public static MonteCarloBoolean booleanLaw(Rate _rateEnabled) {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
@@ -112,12 +62,13 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
     }
 
     public static int randomInt() {
-        return randomInt(Integer.MAX_VALUE + 1l);
+        return (int)randomLong(Integer.MAX_VALUE + 1l);
     }
 
-    public static int randomInt(long _excludeMax) {
-        long value_ = System.currentTimeMillis();
-        return (int) (value_ % _excludeMax);
+    /**@param _excludeMax the maximum of possible returned values
+    @return an long from 0 inclusive to the argument excluded*/
+    public static long randomLong(long _excludeMax) {
+        return (long) (Math.random() * _excludeMax);
     }
 
     protected static LgInt maxNumber(LgInt _max) {

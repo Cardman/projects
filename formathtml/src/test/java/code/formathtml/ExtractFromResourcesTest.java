@@ -4,8 +4,8 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -104,7 +104,6 @@ public class ExtractFromResourcesTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);

@@ -1,5 +1,5 @@
 package aiki.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.places.Place;
 import aiki.util.Coords;
 import code.util.CustList;

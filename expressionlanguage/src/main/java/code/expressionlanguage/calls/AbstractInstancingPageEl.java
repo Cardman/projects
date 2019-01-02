@@ -2,11 +2,11 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.calls.util.NotInitializedFields;
+import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
@@ -21,7 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 
-public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl {
+public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl,WithElPageEl {
 
     private Argument argument;
 
@@ -58,7 +58,6 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
-            setCurrentBlock(en_);
             ((WithEl)en_).processEl(_context);
             return;
         }
@@ -83,7 +82,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         return parElt_;
     }
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public final boolean checkCondition(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         boolean implicitConstr_ = false;
         ConstructorBlock ctor_ = (ConstructorBlock) getBlockRoot();
@@ -142,7 +141,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
     }
 
     @Override
-    public void setReturnedArgument() {
+    public final void setReturnedArgument(Argument _arg) {
         setArgumentForConstructor();
     }
 
@@ -151,7 +150,6 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         exitFromConstructor();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         exitFromConstructor();
     }

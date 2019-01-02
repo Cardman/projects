@@ -1,5 +1,5 @@
 package aiki.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.EnumMap;
 import code.util.ints.Comparing;

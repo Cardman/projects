@@ -1,47 +1,40 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConstType;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class FinalVariableOperation extends LeafOperation {
+public final class FinalVariableOperation extends VariableLeafOperation {
 
     private String variableName = EMPTY_STRING;
+    private int off;
+    private ConstType type;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        type = _op.getConstType();
     }
 
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
         LgNames stds_ = _conf.getStandards();
-        if (op_.getConstType() == ConstType.PARAM) {
+        if (type == ConstType.PARAM) {
             variableName = str_;
             LocalVariable locVar_ = _conf.getParameters().getVal(variableName);
             if (locVar_ != null) {
@@ -61,7 +54,7 @@ public final class FinalVariableOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (op_.getConstType() == ConstType.CATCH_VAR) {
+        if (type == ConstType.CATCH_VAR) {
             variableName = str_;
             LocalVariable locVar_ = _conf.getCatchVar(variableName);
             if (locVar_ != null) {
@@ -76,7 +69,7 @@ public final class FinalVariableOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (op_.getConstType() == ConstType.LOOP_INDEX) {
+        if (type == ConstType.LOOP_INDEX) {
             variableName = str_;
             LoopVariable locVar_ = _conf.getVar(variableName);
             if (locVar_ != null) {
@@ -112,99 +105,16 @@ public final class FinalVariableOperation extends LeafOperation {
         analyzeAssignmentAfter(_conf, isBool_);
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
+    public String getVariableName() {
+        return variableName;
     }
 
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public ConstType getType() {
+        return type;
     }
 
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (arg_ == null) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.hasExceptionOrFailInit()) {
-            return arg_;
-        }
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
-        OperationsSequence op_ = getOperations();
-        if (op_.getConstType() == ConstType.PARAM) {
-            LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
-        }
-        if (op_.getConstType() == ConstType.CATCH_VAR) {
-            LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
-        }
-        if (op_.getConstType() == ConstType.LOOP_INDEX) {
-            LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-            a_ = new Argument();
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
-            LgNames stds_ = _conf.getStandards();
-            LongStruct str_ = new LongStruct(locVar_.getIndex());
-            Struct value_ = PrimitiveTypeUtil.convertObject(clArg_, str_, stds_);
-            a_.setStruct(value_);
-            return a_;
-        }
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
-    }
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
+    public int getOff() {
+        return off;
     }
 
 }

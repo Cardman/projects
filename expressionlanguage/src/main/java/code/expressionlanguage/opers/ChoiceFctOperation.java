@@ -2,33 +2,19 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.calls.util.CustomReflectMethod;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.errors.custom.AbstractMethod;
 import code.expressionlanguage.errors.custom.StaticAccessError;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class ChoiceFctOperation extends InvokingOperation {
+public final class ChoiceFctOperation extends ReflectableInvokingOperation {
 
     private String methodName;
 
@@ -36,8 +22,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
     private MethodId realId;
 
     private boolean staticMethod;
-
-    private boolean staticChoiceMethodTemplate;
 
     private String lastType = EMPTY_STRING;
 
@@ -47,11 +31,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
     }
 
     @Override
@@ -79,7 +58,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_);
-        staticChoiceMethodTemplate = true;
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -140,164 +118,32 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
     }
 
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
-        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
-        Argument res_;
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else if (method_ != null) {
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
-        } else if (ref_ != null) {
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
+    public String getMethodName() {
+        return methodName;
     }
 
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument res_ = getArgument(previous_, arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
-        CustList<Argument> firstArgs_;
-        MethodId methodId_ = classMethodId.getConstraints();
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
-        String classNameFound_;
-        Argument prev_ = new Argument();
-        if (!staticMethod) {
-            classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                Argument a_ = new Argument();
-                return a_;
-            }
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
-            if (staticChoiceMethodTemplate) {
-                classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-                if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                String base_ = Templates.getIdFromAllTypes(classNameFound_);
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            } else {
-                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-                String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
-                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(_conf, StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                methodId_ = realId.quickFormat(classNameFound_, _conf);
-                if (!methodId_.isVararg()) {
-                    lastType_ = EMPTY_STRING;
-                    naturalVararg_ = -1;
-                } else {
-                    if (methodId_.getParametersTypes().size() != _arguments.size()) {
-                        lastType_ = methodId_.getParametersTypes().last();
-                        naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                    } else {
-                        Mapping map_ = new Mapping();
-                        String param_ = methodId_.getParametersTypes().last();
-                        param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                        String argClass_ = _arguments.last().getObjectClassName(_conf.getContextEl());
-                        map_.setArg(argClass_);
-                        if (argClass_ != null) {
-                            map_.setParam(param_);
-                            if (!Templates.isCorrect(map_, _conf)) {
-                                lastType_ = methodId_.getParametersTypes().last();
-                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                            } else {
-                                naturalVararg_ = -1;
-                            }
-                        } else {
-                            String paramOr_ = methodId_.getParametersTypes().last();
-                            if (PrimitiveTypeUtil.isPrimitive(paramOr_, _conf)) {
-                                naturalVararg_ = -1;
-                            } else {
-                                lastType_ = methodId_.getParametersTypes().last();
-                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                            }
-                        }
-                    }
-                }
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            }
-            methodId_ = realId;
-        } else {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            classNameFound_ = classMethodId.getClassName();
-            if (hasToExit(_conf, classNameFound_)) {
-                return Argument.createVoid();
-            }
-        }
-        int offLoc_ = -1;
-        if (!chidren_.isEmpty()) {
-            offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();
-        }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
     }
 
-    @Override
-    public ConstructorId getConstId() {
-        return null;
+    public MethodId getRealId() {
+        return realId;
+    }
+
+    public boolean isStaticMethod() {
+        return staticMethod;
+    }
+
+    public String getLastType() {
+        return lastType;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public int getAnc() {
+        return anc;
     }
 
 }

@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import aiki.DataBase;
 import aiki.comments.Comment;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;

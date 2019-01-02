@@ -12,4 +12,5 @@ public interface PossibleIntermediateDotted {
     void setPreviousResultClass(ClassArgumentMatching _previousResultClass,boolean _static);
     Argument getPreviousArgument();
     void setPreviousArgument(Argument _argument);
+    int getOrder();
 }

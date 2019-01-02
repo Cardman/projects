@@ -1,39 +1,41 @@
 package aiki.comparators;
+import aiki.facade.BooleanFieldComparator;
+import aiki.facade.FieldCustComparator;
+import aiki.facade.LongFieldComparator;
+import aiki.facade.Pagination;
+import aiki.facade.StringFieldComparator;
 import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Comparing;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.FieldCustComparator;
-import code.util.pagination.Pagination;
 
 public final class ComparatorHealingItem implements Comparing<SortingHealingItem> {
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<String> cmpDescription = new FieldComparator<String>();
+    private StringFieldComparator cmpDescription = new StringFieldComparator();
 
-    private FieldComparator<Integer> cmpPrice = new FieldComparator<Integer>();
+    private LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private FieldComparator<Integer> cmpNbHealedStatus = new FieldComparator<Integer>();
+    private LongFieldComparator cmpNbHealedStatus = new LongFieldComparator();
 
-    private FieldComparator<Boolean> cmpRelativeRateHp = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpRelativeRateHp = new BooleanFieldComparator();
 
     private FieldCustComparator<Rate> cmpHp = new FieldCustComparator<Rate>();
 
     private FieldCustComparator<Rate> cmpRateHp = new FieldCustComparator<Rate>();
 
-    private FieldComparator<Boolean> cmpRelativeRatePp = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpRelativeRatePp = new BooleanFieldComparator();
 
     private FieldCustComparator<Rate> cmpPp = new FieldCustComparator<Rate>();
 
-    private FieldComparator<Boolean> cmpHealOneMove = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpHealOneMove = new BooleanFieldComparator();
 
-    private FieldComparator<Integer> cmpStatistics = new FieldComparator<Integer>();
+    private LongFieldComparator cmpStatistics = new LongFieldComparator();
 
-    private FieldComparator<Boolean> cmpKo = new FieldComparator<Boolean>();
+    private BooleanFieldComparator cmpKo = new BooleanFieldComparator();
 
     private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
 
@@ -43,17 +45,17 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
         nbComparators = 0;
     }
 
-    public ComparatorHealingItem(FieldComparator<String> _cmpName,
-            FieldComparator<String> _cmpDescription,
-            FieldComparator<Integer> _cmpPrice,
-            FieldComparator<Integer> _cmpNbHealedStatus,
-            FieldComparator<Boolean> _cmpRelativeRateHp,
+    public ComparatorHealingItem(StringFieldComparator _cmpName,
+            StringFieldComparator _cmpDescription,
+            LongFieldComparator _cmpPrice,
+            LongFieldComparator _cmpNbHealedStatus,
+            BooleanFieldComparator _cmpRelativeRateHp,
             FieldCustComparator<Rate> _cmpHp, FieldCustComparator<Rate> _cmpRateHp,
-            FieldComparator<Boolean> _cmpRelativeRatePp,
+            BooleanFieldComparator _cmpRelativeRatePp,
             FieldCustComparator<Rate> _cmpPp,
-            FieldComparator<Boolean> _cmpHealOneMove,
-            FieldComparator<Integer> _cmpStatistics,
-            FieldComparator<Boolean> _cmpKo, FieldCustComparator<LgInt> _cmpNumber,
+            BooleanFieldComparator _cmpHealOneMove,
+            LongFieldComparator _cmpStatistics,
+            BooleanFieldComparator _cmpKo, FieldCustComparator<LgInt> _cmpNumber,
             int _nbComparators) {
         cmpName = _cmpName;
         cmpDescription = _cmpDescription;

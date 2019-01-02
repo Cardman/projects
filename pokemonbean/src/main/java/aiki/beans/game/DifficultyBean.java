@@ -1,5 +1,5 @@
 package aiki.beans.game;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;

@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;

@@ -104,7 +104,7 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
     int indexOfEntry(String _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<String, V> e:getList()) {
-            Comparable<String> c_ = _key;
+            String c_ = _key;
             int res_ = c_.compareTo(e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 return index_;
@@ -232,7 +232,7 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {
-                Comparable<String> c_ = getList().get(i).getKey();
+                String c_ = getList().get(i).getKey();
                 int res_ = c_.compareTo(getList().get(j).getKey());
                 if (res_ > CustList.EQ_CMP) {
                     getList().swapIndexes(i, j);

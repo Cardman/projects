@@ -2,9 +2,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.structs.DisplayableStruct;
@@ -31,12 +31,6 @@ public final class AddOperation extends NumericOperation {
     static NumberStruct removeOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
         return NumberStruct.calculateDiff(_arg, new IntStruct(1), _cont, _cl);
     }
-
-    @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
-        return localSumDiff(_a, _op, _b, _cont);
-    }
-
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
@@ -126,4 +120,7 @@ public final class AddOperation extends NumericOperation {
         catString = _res.isCatString();
     }
 
+    public boolean isCatString() {
+        return catString;
+    }
 }

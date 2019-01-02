@@ -23,10 +23,6 @@ public final class AnnotationStruct implements FieldableStruct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     public String toAnnotationString() {
         return ExportAnnotationUtil.exportAnnotation(this);
@@ -61,11 +57,6 @@ public final class AnnotationStruct implements FieldableStruct {
     }
 
     @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
     public ObjectMap<ClassField,Struct> getFields() {
         return fields;
     }
@@ -73,10 +64,5 @@ public final class AnnotationStruct implements FieldableStruct {
     @Override
     public String getClassName() {
         return className;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
     }
 }

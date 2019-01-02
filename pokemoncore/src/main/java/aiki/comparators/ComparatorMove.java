@@ -1,24 +1,25 @@
 package aiki.comparators;
+import aiki.facade.EnumFieldComparator;
+import aiki.facade.LongFieldComparator;
+import aiki.facade.Pagination;
+import aiki.facade.StringFieldComparator;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Comparing;
-import code.util.pagination.EnumFieldComparator;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class ComparatorMove implements Comparing<SortingMove> {
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<Integer> cmpPrice = new FieldComparator<Integer>();
+    private LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private FieldComparator<Integer> cmpDescription = new FieldComparator<Integer>();
+    private LongFieldComparator cmpDescription = new LongFieldComparator();
 
-    private FieldComparator<Short> cmpPpp = new FieldComparator<Short>();
+    private LongFieldComparator cmpPpp = new LongFieldComparator();
 
-    private FieldComparator<Byte> cmpPrio = new FieldComparator<Byte>();
+    private LongFieldComparator cmpPrio = new LongFieldComparator();
 
     private EnumFieldComparator<TargetChoice> cmpTargetChoice = new EnumFieldComparator<TargetChoice>();
 
@@ -28,10 +29,10 @@ public final class ComparatorMove implements Comparing<SortingMove> {
         nbComparators = 0;
     }
 
-    public ComparatorMove(FieldComparator<String> _cmpName,
-            FieldComparator<Integer> _cmpPrice,
-            FieldComparator<Integer> _cmpDescription,
-            FieldComparator<Short> _cmpPpp, FieldComparator<Byte> _cmpPrio,
+    public ComparatorMove(StringFieldComparator _cmpName,
+            LongFieldComparator _cmpPrice,
+            LongFieldComparator _cmpDescription,
+            LongFieldComparator _cmpPpp, LongFieldComparator _cmpPrio,
             EnumFieldComparator<TargetChoice> _cmpTargetChoice,
             int _nbComparators) {
         cmpName = _cmpName;

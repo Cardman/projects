@@ -3,7 +3,7 @@ import java.io.File;
 
 import javax.swing.SwingUtilities;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;

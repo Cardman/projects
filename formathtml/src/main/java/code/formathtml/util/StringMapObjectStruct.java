@@ -1,13 +1,12 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
 import code.util.StringMapObject;
 
-public final class StringMapObjectStruct implements Struct {
+public final class StringMapObjectStruct implements RealInstanceStruct {
 
     private StringMapObject bean;
 
@@ -17,10 +16,6 @@ public final class StringMapObjectStruct implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
-    }
-    @Override
-    public boolean isNull() {
-        return false;
     }
 
     @Override
@@ -39,13 +34,4 @@ public final class StringMapObjectStruct implements Struct {
         return bean;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

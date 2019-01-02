@@ -2,9 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
-import code.util.ObjectMap;
 
 public class LambdaMethodStruct implements Struct {
 
@@ -64,15 +62,6 @@ public class LambdaMethodStruct implements Struct {
     public boolean isAbstractMethod() {
         return abstractMethod;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public Struct getParent() {
@@ -89,14 +78,5 @@ public class LambdaMethodStruct implements Struct {
         return this == _other;
     }
 
-    @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 
 }

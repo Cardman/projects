@@ -1,13 +1,14 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.CustStruct;
 import code.expressionlanguage.structs.EnumStruct;
@@ -20,7 +21,7 @@ import code.util.StringList;
 public class DefaultInitializer implements Initializer {
 
     @Override
-    public Struct processInit(ContextEl _context, Struct _parent,
+    public final Struct processInit(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
@@ -58,7 +59,7 @@ public class DefaultInitializer implements Initializer {
     }
 
     @Override
-    public Struct processInitAnnot(ContextEl _context,
+    public final Struct processInitAnnot(ContextEl _context,
             String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
@@ -129,13 +130,5 @@ public class DefaultInitializer implements Initializer {
             return new CustStruct(_className, _fields);
         }
         return new EnumStruct(_className, _fields, _ordinal, _fieldName);
-    }
-    @Override
-    public String getInterfaceTask(LgNames _stds) {
-        return "";
-    }
-    @Override
-    public String getRunTask(LgNames _stds) {
-        return "";
     }
 }

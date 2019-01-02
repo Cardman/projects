@@ -1,20 +1,21 @@
 package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -31,6 +32,7 @@ public class ClassesTest {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
+        assertNotNull(cont_.getMemoryError());
     }
 
     @Test
@@ -1062,371 +1064,6 @@ public class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         failValidateInheritingClasses(files_);
     }
-    @Test
-    public void getMethodBodiesByFormattedId1Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger()), false);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
-        assertTrue(!methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId2Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq("#E", methods_.first().getId().getParametersTypes().first());
-        assertTrue(!methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId3Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq("#E", methods_.first().getId().getParametersTypes().first());
-        assertTrue(!methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId4Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E... i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq("#E", methods_.first().getId().getParametersTypes().first());
-        assertTrue(methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId5Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
-        assertEq("#E", methods_.first().getId().getParametersTypes().last());
-        assertTrue(methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId6Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
-        assertEq("#E", methods_.first().getId().getParametersTypes().last());
-        assertTrue(methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId7Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), false);
-        assertEq(0, methods_.size());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId8Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq("#E", methods_.first().getId().getParametersTypes().first());
-        assertTrue(!methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId9Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.String"), false);
-        assertEq(0, methods_.size());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId10Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(java.lang.Object i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
-        assertEq(2, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId().getParametersTypes().size());
-        assertEq("#E", methods_.first().getId().getParametersTypes().first());
-        assertTrue(!methods_.first().isVarargs());
-        assertEq("instancemethod", methods_.last().getName());
-        assertEq(1, methods_.last().getId().getParametersTypes().size());
-        assertEq("java.lang.Object", methods_.last().getId().getParametersTypes().first());
-        assertTrue(!methods_.last().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId11Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
-        assertEq("#E", methods_.first().getId().getParametersTypes().last());
-        assertTrue(methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId12Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(0, methods_.first().getId().getParametersTypes().size());
-        assertTrue(!methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId13Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod($int i,$int j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod($int i,#E... j){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $void instancemethod(){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
-        assertEq(1, methods_.size());
-        assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId().getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
-        assertEq("#E", methods_.first().getId().getParametersTypes().last());
-        assertTrue(methods_.first().isVarargs());
-    }
-
-    @Test
-    public void getMethodBodiesByFormattedId14Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
-        assertEq(0, methods_.size());
-    }
-    @Test
-    public void getMethodBodiesByFormattedId15Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$protected $class pkg.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
-        assertEq(0, methods_.size());
-    }
-    @Test
-    public void getMethodBodiesByFormattedId16Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$protected $class pkgtwo.Ex<#E> {\n");
-        xml_.append(" $public $normal $void instancemethod(#E i){\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkgtwo.Ex<#T>{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingClasses(files_);
-        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
-        assertEq(0, methods_.size());
-    }
-    public static CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
-        CustList<MethodBlock> ms_ = new CustList<MethodBlock>();
-        for (GeneMethod g: TypeUtil.getMethodBodiesByFormattedId(_context, _static, _genericClassName, _methodName, _parametersTypes, _vararg)) {
-            if (g instanceof MethodBlock) {
-                ms_.add((MethodBlock) g);
-            }
-        }
-        return ms_;
-    }
     
 
     @Test
@@ -1539,11 +1176,9 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(2, ((Number)str_.getInstance()).intValue());
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(5, ((Number)str_.getInstance()).intValue());
+        assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField2Test() {
@@ -1598,8 +1233,7 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(1, ((Number)str_.getInstance()).intValue());
+        assertEq(1, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField5Test() {
@@ -1620,11 +1254,9 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(1, ((Number)str_.getInstance()).intValue());
+        assertEq(1, (((NumberStruct)str_).getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myt"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(3, ((Number)str_.getInstance()).intValue());
+        assertEq(3, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField6Test() {
@@ -1658,11 +1290,9 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(127, ((Number)str_.getInstance()).intValue());
+        assertEq(127, (((NumberStruct)str_).getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(129, ((Number)str_.getInstance()).intValue());
+        assertEq(129, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField8Test() {
@@ -1676,11 +1306,9 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(2, ((Number)str_.getInstance()).intValue());
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(5, ((Number)str_.getInstance()).intValue());
+        assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField9Test() {
@@ -1694,11 +1322,9 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertTrue(str_.getInstance() instanceof Byte);
-        assertEq(2, ((Number)str_.getInstance()).intValue());
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Byte);
-        assertEq(5, ((Number)str_.getInstance()).intValue());
+        assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
     public void calculateStaticField10Test() {
@@ -1715,54 +1341,96 @@ public class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertTrue(str_.getInstance() instanceof Integer);
-        assertEq(5, ((Number)str_.getInstance()).intValue());
+        assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=myf;;;+3i:\n");
+        xml_.append(" $public $static $final $int myf=2i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertEq(5, (((NumberStruct)str_).getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int mys=\"\".toString().length()+myf+1:\n");
+        xml_.append(" $public $static $final $int myf=1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertEq(1, (((NumberStruct)str_).getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertEq(2, (((NumberStruct)str_).getInstance()).intValue());
+    }
+    @Test
+    public void calculateStaticField13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int field=($int)$math.random():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(0, ctx_.getClasses().staticFieldCount());
     }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateIds(cont_,false);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.initStaticFields(cont_);
+        classes_.initStaticFields(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1771,31 +1439,14 @@ public class ClassesTest {
     private ContextEl failValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
-        return cont_;
-    }
-    private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateIds(cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
 

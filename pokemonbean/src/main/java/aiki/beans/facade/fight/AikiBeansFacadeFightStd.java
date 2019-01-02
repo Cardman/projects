@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -157,7 +158,7 @@ public final class AikiBeansFacadeFightStd {
         _std.getStandards().put(TYPE_SUFFERED_DAMAGE_CATEGORY, type_);
     }
     public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        KeyHypothesis instance_ = (KeyHypothesis) _instance.getInstance();
+        KeyHypothesis instance_ = (KeyHypothesis) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_PLAYER_POKEMON)) {
@@ -187,7 +188,7 @@ public final class AikiBeansFacadeFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        MultPowerMoves instance_ = (MultPowerMoves) _instance.getInstance();
+        MultPowerMoves instance_ = (MultPowerMoves) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MULT_INFLICTED)) {
@@ -201,7 +202,7 @@ public final class AikiBeansFacadeFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        StatisticInfo instance_ = (StatisticInfo) _instance.getInstance();
+        StatisticInfo instance_ = (StatisticInfo) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_DISPLAY_STATISTIC)) {
@@ -235,7 +236,7 @@ public final class AikiBeansFacadeFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SufferedDamageCategory instance_ = (SufferedDamageCategory) _instance.getInstance();
+        SufferedDamageCategory instance_ = (SufferedDamageCategory) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_ROUND)) {

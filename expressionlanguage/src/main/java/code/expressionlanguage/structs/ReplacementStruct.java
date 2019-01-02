@@ -3,15 +3,14 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.util.ObjectMap;
 import code.util.Replacement;
 import code.util.StringList;
 
-public final class ReplacementStruct implements Struct {
+public final class ReplacementStruct implements RealInstanceStruct {
 
     private final Replacement instance;
 
@@ -19,8 +18,15 @@ public final class ReplacementStruct implements Struct {
         instance = _instance;
     }
 
-    public static void instantiate(ResultErrorStd _res) {
-        _res.setResult(new ReplacementStruct(new Replacement()));
+    public static void instantiate(ResultErrorStd _res, ConstructorId _id, Struct... _args) {
+        if (_id.getParametersTypes().size() == 0) {
+            _res.setResult(new ReplacementStruct(new Replacement()));
+            return;
+        }
+        Replacement rep_ = new Replacement();
+        rep_.setOldString(((CharSequenceStruct)_args[0]).getInstance().toString());
+        rep_.setNewString(((CharSequenceStruct)_args[1]).getInstance().toString());
+        _res.setResult(new ReplacementStruct(rep_));
     }
 
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
@@ -81,10 +87,6 @@ public final class ReplacementStruct implements Struct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -96,10 +98,6 @@ public final class ReplacementStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -110,8 +108,4 @@ public final class ReplacementStruct implements Struct {
         return getInstance() == other_.getInstance();
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

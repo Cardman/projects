@@ -7,7 +7,6 @@ import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public abstract class GroupFrame extends CommonFrame {
     private static final String ACCESS = "gui.groupframe";
@@ -73,7 +72,7 @@ public abstract class GroupFrame extends CommonFrame {
             index_ ++;
         }
         if(FRAMES.isEmpty()) {
-            Constants.exit();
+            ThreadUtil.exit();
         }
     }
 
@@ -105,7 +104,7 @@ public abstract class GroupFrame extends CommonFrame {
 //        }
 //        if(index_ == CustList.SIZE_EMPTY) {}
         if(!FRAMES.first().opened) {
-            Constants.exit();
+            ThreadUtil.exit();
         }
     }
 

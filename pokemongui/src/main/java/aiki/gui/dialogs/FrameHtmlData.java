@@ -7,8 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import aiki.Resources;
 import aiki.beans.PokemonStandards;
+import aiki.db.Resources;
 import aiki.gui.MainWindow;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;

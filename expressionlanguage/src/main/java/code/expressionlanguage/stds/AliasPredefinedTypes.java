@@ -14,6 +14,14 @@ public final class AliasPredefinedTypes {
     private String aliasPairType;
     private String aliasGetFirst;
     private String aliasGetSecond;
+
+    private String aliasEnumParam;
+    private String aliasEnum;
+    private String aliasEnumName;
+    private String aliasEnumOrdinal;
+    private String aliasEnumValues;
+    private String aliasEnumPredValueOf;
+
     public String getAliasIterable() {
         return aliasIterable;
     }
@@ -91,6 +99,42 @@ public final class AliasPredefinedTypes {
     }
     public void setAliasGetSecond(String _aliasGetSecond) {
         aliasGetSecond = _aliasGetSecond;
+    }
+    public String getAliasEnumParam() {
+        return aliasEnumParam;
+    }
+    public void setAliasEnumParam(String _aliasEnumParam) {
+        aliasEnumParam = _aliasEnumParam;
+    }
+    public String getAliasEnum() {
+        return aliasEnum;
+    }
+    public void setAliasEnum(String _aliasEnum) {
+        aliasEnum = _aliasEnum;
+    }
+    public String getAliasEnumName() {
+        return aliasEnumName;
+    }
+    public void setAliasEnumName(String _aliasEnumName) {
+        aliasEnumName = _aliasEnumName;
+    }
+    public String getAliasEnumOrdinal() {
+        return aliasEnumOrdinal;
+    }
+    public void setAliasEnumOrdinal(String _aliasEnumOrdinal) {
+        aliasEnumOrdinal = _aliasEnumOrdinal;
+    }
+    public String getAliasEnumValues() {
+        return aliasEnumValues;
+    }
+    public void setAliasEnumValues(String _aliasValues) {
+        aliasEnumValues = _aliasValues;
+    }
+    public String getAliasEnumPredValueOf() {
+        return aliasEnumPredValueOf;
+    }
+    public void setAliasEnumPredValueOf(String _aliasEnumPredValueOf) {
+        aliasEnumPredValueOf = _aliasEnumPredValueOf;
     }
 
 }

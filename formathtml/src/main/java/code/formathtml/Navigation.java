@@ -376,7 +376,7 @@ public final class Navigation {
                 return;
             }
             String urlDest_ = currentUrl;
-            if (!return_.isNull()) {
+            if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
                 if (session.getContext().getException() != null) {
@@ -443,6 +443,9 @@ public final class Navigation {
             return;
         }
         Struct bean_ = getBean(currentBeanName);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
         Struct forms_;
         session.addPage(new ImportingPage(false));
         forms_ = ExtractObject.getForms(session, bean_);
@@ -489,6 +492,9 @@ public final class Navigation {
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         bean_ = getBean(currentBeanName_);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
         session.addPage(new ImportingPage(false));
         ExtractObject.setForms(session, bean_, forms_);
         session.removeLastPage();
@@ -571,13 +577,13 @@ public final class Navigation {
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
-            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (resError_.getError() != null) {
                 String err_ = resError_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));
                 return;
             }
-            ContextEl context_ = session.toContextEl();
+            ContextEl context_ = session.getContext();
             Struct obj_ = resError_.getResult();
             LocalVariable lv_ = new LocalVariable();
             String valName_ = ip_.getNextTempVar();
@@ -609,7 +615,8 @@ public final class Navigation {
                 return;
             }
             if (!message_.isNull()) {
-                Message messageTr_ = (Message) message_.getObject();
+                StdStruct std_ = (StdStruct) message_.getStruct();
+                Message messageTr_ = (Message) std_.getInstance();
                 errors_.put(id_, messageTr_.format());
                 errorsArgs_.put(id_, messageTr_.getArgs());
             }
@@ -669,11 +676,11 @@ public final class Navigation {
             Struct newObj_;
             StringList v_ = nCont_.getNodeInformation().getValue();
             String className_ = nCont_.getNodeInformation().getInputClass();
-            if (!obj_.isNull()) {
-                ContextEl context_ = session.toContextEl();
+            if (obj_ != NullStruct.NULL_VALUE) {
+                ContextEl context_ = session.getContext();
                 className_ = context_.getStandards().getStructClassName(obj_, context_);
             }
-            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
+            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (res_.getError() != null) {
                 String err_ = res_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));

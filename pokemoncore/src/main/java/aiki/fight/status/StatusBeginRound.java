@@ -1,6 +1,6 @@
 package aiki.fight.status;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;

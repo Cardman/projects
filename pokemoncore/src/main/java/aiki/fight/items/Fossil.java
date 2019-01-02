@@ -1,6 +1,6 @@
 package aiki.fight.items;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 
 public final class Fossil extends Item {

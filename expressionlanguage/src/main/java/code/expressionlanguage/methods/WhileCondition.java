@@ -2,12 +2,11 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -19,7 +18,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class WhileCondition extends Condition implements Loop, IncrNextGroup {
+public final class WhileCondition extends Condition implements Loop {
 
     private String label;
     private int labelOffset;
@@ -50,7 +49,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
         IdMap<Block, AssignedVariables> id_;
@@ -63,25 +61,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
-        }
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            StringMap<SimpleAssignment> fieldsAfter_;
-            fieldsAfter_ =buildAssListFieldAfterLoop(_an, _anEl);
-            varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
-            CustList<StringMap<SimpleAssignment>> varsAfter_;
-            varsAfter_ =buildAssListLocVarAfterLoop(_an, _anEl);
-            varsWhile_.getVariablesRoot().clear();
-            varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-            CustList<StringMap<SimpleAssignment>> mutableAfter_;
-            mutableAfter_ =buildAssListMutableLoopAfterLoop(_an, _anEl);
-            varsWhile_.getMutableLoopRoot().clear();
-            varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
-            return;
         }
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
@@ -239,20 +218,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         }
         return out_;
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -319,7 +284,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -334,7 +299,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         boolean abr_ = true;
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

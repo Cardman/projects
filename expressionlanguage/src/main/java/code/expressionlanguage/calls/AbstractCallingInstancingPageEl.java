@@ -8,14 +8,8 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractInstancing
 
     private Argument returnedArgument;
 
-    @Override
-    public Argument getReturnedArgument() {
+    public final Argument getReturnedArgument() {
         return returnedArgument;
-    }
-
-    @Override
-    public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = _returnedArgument;
     }
 
     @Override

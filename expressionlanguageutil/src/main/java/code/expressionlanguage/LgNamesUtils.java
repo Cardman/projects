@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,18 +19,23 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.resources.ResourceFiles;
+import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class LgNamesUtils extends LgNames implements LgAdv {
+public class LgNamesUtils extends LgNames {
 
     private String aliasRunnable;
     private String aliasThread;
@@ -54,6 +61,11 @@ public class LgNamesUtils extends LgNames implements LgAdv {
     private String aliasAtomicLong;
     private String aliasSetAtomic;
     private String aliasGetAtomic;
+    private String aliasPrint;
+    private String aliasFile;
+    private String aliasRead;
+    private String aliasWrite;
+    private String aliasAppendToFile;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -120,6 +132,12 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasYield, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasObject());
+        method_ = new StandardMethod(aliasPrint, params_, getAliasVoid(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
@@ -194,6 +212,22 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasAtomicLong, std_);
+        
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasFile, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasRead, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasWrite, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString(),getAliasString());
+        method_ = new StandardMethod(aliasAppendToFile, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        std_ = stdcl_;
+        getStandards().put(aliasFile, std_);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
@@ -203,9 +237,17 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         if (StringList.quickEq(name_,aliasThread)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             Thread thread_ = new Thread((Runnable)_args[0]);
+            CustInitializer init_ = (CustInitializer) _cont.getInit();
+            StringBuilder dtPart_ = new StringBuilder();
+            dtPart_.append(getDateTimeText("_", "_", "_"));
+            dtPart_.append("__");
+            dtPart_.append(init_.increment());
+            dtPart_.append(".txt");
+            init_.putNewCustTreadIdDate(thread_, dtPart_.toString());
             StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
             res_.setResult(std_);
             return res_;
@@ -223,7 +265,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicBoolean at_ = new AtomicBoolean((Boolean)_args[0].getInstance());
+            AtomicBoolean at_ = new AtomicBoolean(((BooleanStruct)_args[0]).getInstance());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
@@ -235,7 +277,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicInteger at_ = new AtomicInteger(((Number)_args[0].getInstance()).intValue());
+            AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).getInstance().intValue());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
@@ -247,7 +289,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicLong at_ = new AtomicLong(((Number)_args[0].getInstance()).longValue());
+            AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).getInstance().longValue());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
@@ -255,6 +297,40 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         return res_;
     }
 
+    static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime) {
+        Calendar now_ = Calendar.getInstance();
+        int y_ = now_.get(Calendar.YEAR);
+        int m_ = now_.get(Calendar.MONTH) + 1;
+        int d_ = now_.get(Calendar.DAY_OF_MONTH);
+        int h_ = now_.get(Calendar.HOUR_OF_DAY);
+        int mi_ = now_.get(Calendar.MINUTE);
+        int s_ = now_.get(Calendar.SECOND);
+        int ms_ = now_.get(Calendar.MILLISECOND);
+        String strMonth_ = lpadZero(m_);
+        String strDay_ = lpadZero(d_);
+        String strHour_ = lpadZero(h_);
+        String strMinute_ = lpadZero(mi_);
+        String strSecond_ = lpadZero(s_);
+        String strMs_ = lpadZeroMillis(ms_);
+        return StringList.concat(String.valueOf(y_),_separatorDate,strMonth_,
+                _separatorDate,strDay_,_sep,strHour_,
+                _separatorTime,strMinute_,_separatorTime,strSecond_,_separatorTime,strMs_);
+    }
+    private static String lpadZero(int _nb) {
+    	if (_nb < 10) {
+        	return StringList.concat("0",Integer.toString(_nb));
+        }
+		return Integer.toString(_nb);
+    }
+    private static String lpadZeroMillis(int _millis) {
+    	if (_millis < 10) {
+        	return StringList.concat("00",Integer.toString(_millis));
+        }
+    	if (_millis < 100) {
+        	return StringList.concat("0",Integer.toString(_millis));
+        }
+		return Integer.toString(_millis);
+    }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
@@ -262,15 +338,27 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         String className_ = _method.getClassName();
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
+            if (StringList.quickEq(name_,aliasPrint)) {
+            	CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                String dtPart_ = cust_.getCurrentTreadIdDate();
+                if (dtPart_ == null) {
+                	String main_ = _cont.getExecuting().getMainThread();
+                    dtPart_ = main_;
+                }
+                log(dtPart_, _cont, _instance, _method, _args);
+                ResultErrorStd out_ = new ResultErrorStd();
+                out_.setResult(NullStruct.NULL_VALUE);
+                return out_;
+            }
             if (StringList.quickEq(name_,aliasStart)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
                 thread_.start();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSleep)) {
                 try {
-                    Thread.sleep(((Number)_args[0].getInstance()).longValue());
+                    Thread.sleep(((NumberStruct)_args[0]).getInstance().longValue());
                     res_.setResult(new BooleanStruct(true));
                 } catch (InterruptedException _0) {
                     res_.setResult(new BooleanStruct(false));
@@ -278,7 +366,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 try {
                     boolean alive_ = thread_.isAlive();
                     thread_.join();
@@ -289,47 +377,47 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsInterrupted)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 boolean alive_ = thread_.isInterrupted();
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasInterrupt)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 thread_.interrupt();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetId)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(thread_.getId()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetPriority)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsDaemon)) {
-                Thread thread_ = (Thread) _instance.getInstance();
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 res_.setResult(new BooleanStruct(thread_.isDaemon()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetPriority)) {
-                Thread thread_ = (Thread) _instance.getInstance();
-                thread_.setPriority(((Number)_args[0].getInstance()).intValue());
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                thread_.setPriority(((NumberStruct)_args[0]).getInstance().intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetDaemon)) {
-                Thread thread_ = (Thread) _instance.getInstance();
-                thread_.setDaemon((Boolean)_args[0].getInstance());
+                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
+                thread_.setDaemon(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -342,23 +430,24 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         if (StringList.quickEq(className_,aliasReentrantLock)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasLock)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 re_.lock();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasUnlock)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 re_.unlock();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
-                ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
+                ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.isHeldByCurrentThread();
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
@@ -367,7 +456,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         if (StringList.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
@@ -375,10 +464,11 @@ public class LgNamesUtils extends LgNames implements LgAdv {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
-                re_.set((Boolean)_args[0].getInstance());
+                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                re_.set(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -386,7 +476,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         if (StringList.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
                 return res_;
@@ -394,10 +484,11 @@ public class LgNamesUtils extends LgNames implements LgAdv {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
-                re_.set(((Number)_args[0].getInstance()).intValue());
+                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                re_.set(((NumberStruct)_args[0]).getInstance().intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -405,7 +496,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         if (StringList.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) _instance.getInstance();
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
                 return res_;
@@ -413,17 +504,93 @@ public class LgNamesUtils extends LgNames implements LgAdv {
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
                     _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                AtomicLong re_ = (AtomicLong) _instance.getInstance();
-                re_.set(((Number)_args[0].getInstance()).longValue());
+                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                re_.set(((NumberStruct)_args[0]).getInstance().longValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
         }
+        if (StringList.quickEq(className_,aliasFile)) {
+        	String name_ = _method.getConstraints().getName();
+        	if (_cont.isInitEnums()) {
+        		_cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasRead)) {
+        		StringStruct str_ = (StringStruct)_args[0];
+        		String read_ = StreamTextFile.contentsOfFile(str_.getInstance());
+        		if (read_ == null) {
+        			res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+        		}
+        		res_.setResult(new StringStruct(read_));
+        		return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasWrite)) {
+        		String file_ = ((StringStruct)_args[0]).getInstance();
+        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		res_.setResult(new BooleanStruct(StreamTextFile.saveTextFile(file_, txt_)));
+        		return res_;
+        	}
+        	if (StringList.quickEq(name_,aliasAppendToFile)) {
+        		String file_ = ((StringStruct)_args[0]).getInstance();
+        		String txt_ = ((StringStruct)_args[1]).getInstance();
+        		res_.setResult(new BooleanStruct(StreamTextFile.logToFile(file_, txt_)));
+        		return res_;
+        	}
+        }
         return res_;
     }
 
+    private static void log(String _dtPart,ContextEl _cont, Struct _instance,
+            ClassMethodId _method, Struct... _args) {
+        String stringAppFile_ = buildLog(_cont, _method, _args);
+        stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
+        String folder_ = _cont.getExecuting().getLogFolder();
+        new File(folder_).mkdirs();
+        String toFile_ = StringList.concat(folder_,"/",_dtPart);
+        StreamTextFile.logToFile(toFile_, stringAppFile_);
+    }
+    private static String buildLog(ContextEl _cont, ClassMethodId _method,
+            Struct... _args) {
+        String stringAppFile_;
+        StringList paramType_ = _method.getConstraints().getParametersTypes();
+        if (paramType_.size() == 1) {
+            if (_args[0] instanceof DisplayableStruct) {
+                stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+            } else {
+                stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
+            }
+        } else {
+            StringList values_ = new StringList();
+            if (_args[1] instanceof ArrayStruct) {
+                for (Struct e: ((ArrayStruct)_args[1]).getInstance()) {
+                    if (e instanceof DisplayableStruct) {
+                        values_.add(((DisplayableStruct)e).getDisplayedString(_cont).getInstance());
+                    } else {
+                        values_.add(StringList.concat("<",_args[0].getClassName(_cont),"...>"));
+                    }
+                }
+                if (_args[0] instanceof StringStruct) {
+                    stringAppFile_ = (StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_.toArray()));
+                } else {
+                    stringAppFile_ = _cont.getStandards().getNullString();
+                }
+            } else {
+                if (_args[0] instanceof DisplayableStruct) {
+                    stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+                } else {
+                    stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
+                }
+
+            }
+        }
+        return stringAppFile_;
+    }
     public String getAliasRunnable() {
         return aliasRunnable;
     }
@@ -573,4 +740,35 @@ public class LgNamesUtils extends LgNames implements LgAdv {
     public void setAliasGetAtomic(String _aliasGetAtomic) {
         aliasGetAtomic = _aliasGetAtomic;
     }
+	public String getAliasPrint() {
+		return aliasPrint;
+	}
+	public void setAliasPrint(String _aliasPrint) {
+		aliasPrint = _aliasPrint;
+	}
+	public String getAliasFile() {
+		return aliasFile;
+	}
+	public void setAliasFile(String _aliasFile) {
+		aliasFile = _aliasFile;
+	}
+	public String getAliasRead() {
+		return aliasRead;
+	}
+	public void setAliasRead(String _aliasRead) {
+		aliasRead = _aliasRead;
+	}
+	public String getAliasWrite() {
+		return aliasWrite;
+	}
+	public void setAliasWrite(String _aliasWrite) {
+		aliasWrite = _aliasWrite;
+	}
+	public String getAliasAppendToFile() {
+		return aliasAppendToFile;
+	}
+	public void setAliasAppendToFile(String _aliasAppendToFile) {
+		aliasAppendToFile = _aliasAppendToFile;
+	}
+
 }

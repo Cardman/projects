@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 
 import code.resources.ResourceFiles;
@@ -16,13 +17,12 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
     private static final String LINE_RETURN = "\n";
-    private static final String EMPTY_STRING = Constants.EMPTY_STRING;
+    private static final String EMPTY_STRING = "";
     private static final char INVALID_CHARACTER = 65533;
 
     private StreamTextFile() {
@@ -280,15 +280,30 @@ public final class StreamTextFile {
         }
     }
 
-    public static void saveTextFile(String _nomFichier, String _text) {
+    public static boolean saveTextFile(String _nomFichier, String _text) {
         try {
             FileWriter fw_ = new FileWriter(new File(_nomFichier));
             BufferedWriter bw_ = new BufferedWriter(fw_);
             bw_.write(_text);
             bw_.close();
             fw_.close();
-        } catch (RuntimeException _0) {
-        } catch (IOException _0) {
+            return true;
+        } catch (Exception _0) {
+            return false;
+        }
+    }
+    public static boolean logToFile(String _nomFichier, String _text) {
+        try {
+            FileWriter fw = new FileWriter(_nomFichier, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.println(_text);
+            out.close();
+            bw.close();
+            fw.close();
+            return true;
+        } catch (Exception _0) {
+            return false;
         }
     }
 }

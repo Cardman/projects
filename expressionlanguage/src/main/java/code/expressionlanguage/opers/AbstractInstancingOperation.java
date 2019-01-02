@@ -1,9 +1,9 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.util.NatTreeMap;
 
-public abstract class AbstractInstancingOperation extends InvokingOperation {
+public abstract class AbstractInstancingOperation extends ReflectableInvokingOperation {
 
     public AbstractInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

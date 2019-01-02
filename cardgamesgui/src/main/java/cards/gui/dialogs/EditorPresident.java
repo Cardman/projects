@@ -26,6 +26,7 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.ConfirmDialog;
+import code.gui.ConstFiles;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -36,7 +37,6 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.ConstFiles;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorpresident";
@@ -306,7 +306,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)AbMonteCarlo.randomInt(nombreDeJoueurs_);
+            donneur_=(byte)AbMonteCarlo.randomLong(nombreDeJoueurs_);
         }
         DealPresident donne_=new DealPresident(mains_,donneur_);
         partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Numbers<Byte>());

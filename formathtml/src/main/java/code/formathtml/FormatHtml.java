@@ -1,14 +1,13 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.errors.custom.UnknownClassName;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -18,10 +17,12 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.formathtml.exec.ExecInvokingOperation;
 import code.formathtml.util.ActionNext;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanElement;
@@ -37,6 +38,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.ParentElement;
 import code.formathtml.util.ReadWriteHtml;
+import code.formathtml.util.StringMapObjectStruct;
 import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
@@ -294,11 +296,11 @@ public final class FormatHtml {
         }
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        StringMapObject forms_ = (StringMapObject) ExtractObject.getForms(_conf, bean_).getInstance();
+        StringMapObject forms_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, bean_)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
-        StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
+        StringMapObject formsMap_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, _mainBean)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -321,7 +323,7 @@ public final class FormatHtml {
         Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,PACKAGE_BLOCK_TAG))) {
@@ -338,7 +340,7 @@ public final class FormatHtml {
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(false);
                 String searchedClass_ = StringList.concat(package_,DOT,className_);
-                if (bean_ == null || bean_.isNull()) {
+                if (bean_ == null || bean_ == NullStruct.NULL_VALUE) {
                     _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                     return;
                 }
@@ -560,7 +562,7 @@ public final class FormatHtml {
         ip_.setBeanName(_beanName);
         ip_.setPrefix(_conf.getPrefix());
         Element r_ = _docOrig.getDocumentElement();
-        if (bean_ != null && !bean_.isNull()) {
+        if (bean_ != null && bean_ != NullStruct.NULL_VALUE) {
             ip_.setGlobalArgumentStruct(bean_, _conf);
         }
         _conf.addPage(ip_);
@@ -736,7 +738,7 @@ public final class FormatHtml {
 
     static void throwException(Configuration _conf) {
         Element catchElt_ = null;
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         Struct custCause_ = context_.getException();
         while (!_conf.noPages()) {
@@ -781,16 +783,13 @@ public final class FormatHtml {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
-                    Mapping mapping_ = new Mapping();
                     String excepClass_ = lgNames_.getStructClassName(custCause_, context_);
                     if (excepClass_ == null) {
                         catchElt_ = e;
                         try_.setVisitedCatch(i_);
                         break;
                     }
-                    mapping_.setArg(excepClass_);
-                    mapping_.setParam(name_);
-                    if (Templates.isCorrect(mapping_, context_)) {
+                    if (Templates.isCorrectExecute(excepClass_,name_, context_)) {
                         catchElt_ = e;
                         try_.setVisitedCatch(i_);
                         break;
@@ -1159,7 +1158,7 @@ public final class FormatHtml {
             }
             boolean enter_ = false;
             if (value_ == null) {
-                if (arg_.getStruct().isNull()) {
+                if (arg_.getStruct() == NullStruct.NULL_VALUE) {
                     enter_ = true;
                 }
             } else {
@@ -1465,7 +1464,7 @@ public final class FormatHtml {
             rwLoc_.setWrite(currentNode_);
             rwLoc_.setRead(newElt_.getRoot().getFirstChild());
             newIp_.setReadWrite(rwLoc_);
-            if (newBean_ != null && !newBean_.isNull()) {
+            if (newBean_ != null && newBean_ != NullStruct.NULL_VALUE) {
                 newIp_.setGlobalArgumentStruct(newBean_, _conf);
             }
             _conf.addPage(newIp_);
@@ -1785,7 +1784,7 @@ public final class FormatHtml {
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
         Struct struct_ = null;
         String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         if (!numExpr_.isEmpty()) {
             expression_ = numExpr_;
@@ -1802,14 +1801,14 @@ public final class FormatHtml {
                 return vi_;
             }
             if (className_.isEmpty()) {
-                ExtractObject.checkNullPointer(_conf, struct_.getInstance());
+                ExtractObject.checkNullPointer(_conf, struct_);
                 if (_conf.getContext().getException() != null) {
                     VariableInformation vi_ = new VariableInformation();
                     vi_.setClassName(className_);
                     vi_.setStruct(struct_);
                     return vi_;
                 }
-                className_ = lgNames_.getStructClassName(struct_, _conf.toContextEl());
+                className_ = lgNames_.getStructClassName(struct_, _conf.getContext());
             } else {
                 String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
                 if (res_.isEmpty()) {
@@ -2001,11 +2000,11 @@ public final class FormatHtml {
     static LocalVariable tryToCreateVariable(Configuration _conf, ImportingPage _ip, String _className, Struct _object) {
         ClassArgumentMatching clMatch_ = new ClassArgumentMatching(_className);
         LgNames lgNames_ = _conf.getStandards();
-        if (clMatch_.isPrimitive(_conf.toContextEl())) {
+        if (clMatch_.isPrimitive(_conf.getContext())) {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            if (_object == null || _object.isNull()) {
+            if (_object == null || _object == NullStruct.NULL_VALUE) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(EMPTY_STRING);
                 mapping_.setParam(_className);
@@ -2026,8 +2025,8 @@ public final class FormatHtml {
             }
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
-            String type_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.toContextEl())) {
+            String type_ = lgNames_.getStructClassName(_object, _conf.getContext());
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.getContext())) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(type_);
                 mapping_.setParam(lgNames_.getAliasDouble());
@@ -2065,7 +2064,7 @@ public final class FormatHtml {
                     return loc_;
                 }
             } else {
-                if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.toContextEl()) == 0) {
+                if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.getContext()) == 0) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
                     mapping_.setParam(_className);
@@ -2092,8 +2091,8 @@ public final class FormatHtml {
             return loc_;
         }
         String param_ = _className;
-        String arg_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.toContextEl())) {
+        String arg_ = lgNames_.getStructClassName(_object, _conf.getContext());
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.getContext())) {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
             loc_.setStruct(_object);
@@ -2117,7 +2116,7 @@ public final class FormatHtml {
         return loc_;
     }
     static void checkClass(Configuration _conf, ImportingPage _ip, String _class, Struct _object) {
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.toContextEl())) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(EMPTY_STRING);
             mapping_.setParam(_class);
@@ -2133,13 +2132,13 @@ public final class FormatHtml {
             _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
             return;
         }
-        if (_object.isNull()) {
+        if (_object == NullStruct.NULL_VALUE) {
             return;
         }
         _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
         _ip.setLookForAttrValue(true);
         _ip.setOffset(0);
-        ContextEl context_ = _conf.toContextEl();
+        ContextEl context_ = _conf.getContext();
         LgNames lgNames_ = _conf.getStandards();
         String argClassName_ = lgNames_.getStructClassName(_object, context_);
         if (!PrimitiveTypeUtil.isPrimitive(_class, context_)) {
@@ -2147,7 +2146,7 @@ public final class FormatHtml {
             mapping_.setArg(argClassName_);
             String paramName_ = _conf.getLastPage().getPageEl().formatVarType(_class, context_);
             mapping_.setParam(paramName_);
-            if (!Templates.isCorrect(mapping_, context_)) {
+            if (!Templates.isCorrectExecute(argClassName_, paramName_, context_)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
@@ -2161,8 +2160,8 @@ public final class FormatHtml {
                 return;
             }
         } else {
-            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.toContextEl()) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
+            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.getContext()) > 0) {
+                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.getContext()) == 0) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
                     mapping_.setParam(_class);
@@ -2922,7 +2921,7 @@ public final class FormatHtml {
                 return;
             }
             obj_ = lv_.getContainer();
-            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            ExtractObject.checkNullPointer(_conf, obj_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -2981,7 +2980,7 @@ public final class FormatHtml {
                 obj_ = getBean(_conf, _ip.getBeanName());
                 end_ = name_;
             }
-            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
+            ExtractObject.checkNullPointer(_conf, obj_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -3446,7 +3445,7 @@ public final class FormatHtml {
                         return;
                     }
                 }
-                if (o_ == null || o_.isNull()) {
+                if (o_ == null || o_ == NullStruct.NULL_VALUE) {
                     _tag.removeAttribute(CHECKED);
                 } else {
                     String strObj_ = ExtractObject.getStringKey(_conf, o_);
@@ -3593,7 +3592,7 @@ public final class FormatHtml {
         if (_conf.getContext().getException() != null) {
             return;
         }
-        if (o_.isNull()) {
+        if (o_ == NullStruct.NULL_VALUE) {
             o_ = new StringStruct(EMPTY_STRING);
         }
         //TODO converter
@@ -3615,10 +3614,10 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
-                _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_.getInstance());
-            } else if (o_.getInstance() instanceof Boolean) {
-                if ((Boolean) o_.getInstance()) {
+            if (o_ == NullStruct.NULL_VALUE) {
+                _tag.setAttribute(ATTRIBUTE_VALUE, null);
+            } else if (o_ instanceof BooleanStruct) {
+                if (((BooleanStruct) o_).getInstance()) {
                     _tag.setAttribute(CHECKED, CHECKED);
                 } else {
                     _tag.removeAttribute(CHECKED);
@@ -3737,7 +3736,7 @@ public final class FormatHtml {
         if (_conf.getContext().getException() != null) {
             return;
         }
-        if (returnedObject_.isNull()) {
+        if (returnedObject_ == NullStruct.NULL_VALUE) {
             _elt.removeAttribute(_attrName);
             return;
         }
@@ -3767,7 +3766,7 @@ public final class FormatHtml {
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                if (o_.isNull()) {
+                if (o_ == NullStruct.NULL_VALUE) {
                     returnedVarValue_ = null;
                 } else {
                     Struct it_ = ExtractObject.iterator(_conf, o_);
@@ -4042,7 +4041,7 @@ public final class FormatHtml {
             String _default, Document _docSelect, Element _docElementSelect, String _className) {
         StringList names_ = new StringList();
         if (!_className.isEmpty()) {
-            ContextEl cont_ = _conf.toContextEl();
+            ContextEl cont_ = _conf.getContext();
             names_ = _conf.getStandards().getDefaultValues(cont_, _className, _default);
         } else {
             names_ = new StringList(_default);
@@ -4063,7 +4062,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            ExtractObject.checkNullPointer(_conf, entry_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4071,7 +4070,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
+            if (o_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
@@ -4140,7 +4139,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            ExtractObject.checkNullPointer(_conf, entry_);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4148,7 +4147,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (o_.isNull()) {
+            if (o_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
@@ -4477,8 +4476,8 @@ public final class FormatHtml {
             if (iterator_ != null) {
                 lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
-            	LongStruct l_ = new LongStruct(_l.getIndex());
-                lv_.setStruct(InvokingOperation.getElement(lv_.getContainer(),l_, _conf));
+                LongStruct l_ = new LongStruct(_l.getIndex());
+                lv_.setStruct(ExecInvokingOperation.getElement(lv_.getContainer(),l_, _conf));
             }
             if (_conf.getContext().getException() != null) {
                 return;
@@ -4520,8 +4519,8 @@ public final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
-            Number element_ = (Number) lv_.getStruct().getInstance();
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()).getInstance());
+            Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
+            lv_.setStruct(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4654,7 +4653,7 @@ public final class FormatHtml {
         boolean iterationNb_ = false;
         long stepValue_ = 0;
         long fromValue_ = 0;
-        Object realFromValue_ = 0;
+        long realFromValue_ = 0;
         String primLong_ = _conf.getStandards().getAliasPrimLong();
         if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             String listAttr_ = currentForNode_.getAttribute(ATTRIBUTE_LIST);
@@ -4665,7 +4664,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (container_.isNull()) {
+            if (container_ == NullStruct.NULL_VALUE) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
                 _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                 return;
@@ -4680,7 +4679,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (container_.isNull()) {
+            if (container_ == NullStruct.NULL_VALUE) {
                 _conf.getContext().setException(new ErrorStruct(_conf, _conf.getStandards().getAliasNullPe()));
                 return;
             }
@@ -4697,9 +4696,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argFrom_.isIntegerType(_conf.toContextEl())) {
+            if (!argFrom_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argFrom_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argFrom_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4720,9 +4719,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argTo_.isIntegerType(_conf.toContextEl())) {
+            if (!argTo_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argTo_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argTo_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4743,9 +4742,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argStep_.isIntegerType(_conf.toContextEl())) {
+            if (!argStep_.isIntegerType(_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(argStep_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(argStep_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -4759,10 +4758,10 @@ public final class FormatHtml {
                 _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                 return;
             }
-            realFromValue_ = argFrom_.getObject();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.toContextEl()).getInstance();
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argTo_.getObject(), _conf.toContextEl()).getInstance();
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(primLong_, argStep_.getObject(), _conf.toContextEl()).getInstance();
+            realFromValue_ = argFrom_.getLong();
+            fromValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.getContext())).getInstance().longValue();
+            long toValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.getContext())).getInstance().longValue();
+            stepValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.getContext())).getInstance().longValue();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4849,13 +4848,13 @@ public final class FormatHtml {
         if (finished_) {
             return;
         }
-        Object int_ = null;
+        long int_ = 0;
         Struct elt_ = null;
         if (iterationNb_) {
             int_ = realFromValue_;
-        } else if (container_.isArray()) {
-        	IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
-            elt_ = InvokingOperation.getElement(container_, i_, _conf);
+        } else if (container_ instanceof ArrayStruct) {
+            IntStruct i_ = new IntStruct(CustList.FIRST_INDEX);
+            elt_ = ExecInvokingOperation.getElement(container_, i_, _conf);
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }
@@ -4908,7 +4907,7 @@ public final class FormatHtml {
             className_ = rest_;
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
-            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()).getInstance());
+            lv_.setStruct(PrimitiveTypeUtil.convert(className_, int_, _conf.getContext()));
             lv_.setStep(stepValue_);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {

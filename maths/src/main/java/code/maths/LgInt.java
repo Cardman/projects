@@ -279,14 +279,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             return r_;
         }
         EqList<LgInt> quot_ = new EqList<LgInt>();
-        PairEq<LgInt,LgInt> qr_ = new PairEq<LgInt,LgInt>();
+        QuotModLgInt qr_;
         boolean greater_ = strGreater(this, _b);
         if(greater_) {
             qr_=divisionEuclidienneGeneralise(_b);
         } else {
             qr_=_b.divisionEuclidienneGeneralise(this);
         }
-        LgInt rem_=qr_.getSecond();
+        LgInt rem_=qr_.getMod();
         if(rem_.isZero()) {
             if(greater_) {
                 r_.getFirst().setFirst(zero());
@@ -302,13 +302,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         LgInt a_=new LgInt(this);
         LgInt b_=_b;
-        quot_.add(0, qr_.getFirst());
+        quot_.add(0, qr_.getQuot());
         while(!rem_.isZero()) {
             a_=b_;
             b_=rem_;
             qr_=a_.divisionEuclidienneGeneralise(b_);
-            quot_.add(0, qr_.getFirst());
-            rem_=qr_.getSecond();
+            quot_.add(0, qr_.getQuot());
+            rem_=qr_.getMod();
         }
         r_.getFirst().setFirst(one());
         r_.getFirst().setSecond(quot_.get(1));
@@ -352,12 +352,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             p_.setFirst(two_);
             p_.setSecond(zero());
             while (true) {
-                PairEq<LgInt,LgInt> qr_=copy_.divisionEuclidienneGeneralise(two_);
-                if(!qr_.getSecond().isZeroOrLt()) {
+                QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(two_);
+                if(!qr_.getMod().isZeroOrLt()) {
                     break;
                 }
                 p_.getSecond().increment();
-                copy_=qr_.getFirst();
+                copy_=qr_.getQuot();
             }
             divs_.add(p_);
         }
@@ -375,8 +375,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if(LgInt.strGreater(init_, rootAbs_)) {
                 break;
             }
-            PairEq<LgInt,LgInt> qr_=abs_.divisionEuclidienneGeneralise(init_);
-            if(qr_.getSecond().isZero()) {
+            QuotModLgInt qr_=abs_.divisionEuclidienneGeneralise(init_);
+            if(qr_.getMod().isZero()) {
                 divs_.add(init_);
             }
             init_.increment();
@@ -1067,12 +1067,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         grDigits = copieAutre_.grDigits;
     }
 
-    private PairEq<Numbers<Long>, Numbers<Long>> divisionEuclidienne(LgInt _autre) {
-        PairEq<Numbers<Long>, Numbers<Long>> quotientReste_ = new PairEq<Numbers<Long>, Numbers<Long>>();
+    private QuotMod divisionEuclidienne(LgInt _autre) {
+        QuotMod quotientReste_ = new QuotMod();
         if (plusPetitQue(_autre)) {
-            quotientReste_.setFirst(new Numbers<Long>());
-            quotientReste_.getFirst().add(0l);
-            quotientReste_.setSecond(new Numbers<Long>(grDigits));
+            quotientReste_.setQuot(new Numbers<Long>());
+            quotientReste_.getQuot().add(0l);
+            quotientReste_.setMod(new Numbers<Long>(grDigits));
             return quotientReste_;
         }
         int taille_ = grDigits.size();
@@ -1143,8 +1143,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             indiceChiffre_++;
         }
-        quotientReste_.setFirst(chiffresQuotient_);
-        quotientReste_.setSecond(reste_.grDigits);
+        quotientReste_.setQuot(chiffresQuotient_);
+        quotientReste_.setMod(reste_.grDigits);
         return quotientReste_;
     }
 
@@ -1286,9 +1286,24 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (signum != _two.signum) {
             return false;
         }
-        return grDigits.eq(_two.grDigits);
+        return eq(grDigits,_two.grDigits);
     }
 
+
+    private static boolean eq(Numbers<Long> _f, Numbers<Long> _s) {
+        int len_ = _f.size();
+        if (_s.size() != len_) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            long e_ = _f.get(i);
+            long i_ = _s.get(i);
+            if (e_ != i_) {
+                return false;
+            }
+        }
+        return true;
+    }
     LgInt multiplyBy(long _autre) {
         LgInt resultat_ = LgInt.zero();
         if (_autre == 0L) {
@@ -1429,12 +1444,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     @return le reste de la division euclidienne de la valeur absolue de l'entier courant par la base (i.e., 10<sup>0</sup>)
     */
-    public long remainByBase() {
+    long remainByBase() {
         return grDigits.last();
-    }
-
-    public long remainByBaseWithSign() {
-        return signumToLong() * grDigits.last();
     }
 
     /**
@@ -1450,7 +1461,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return l'entier courant modifie
     */
     public void divideBy(LgInt _autre) {
-        affect(divisionEuclidienneGeneralise(_autre).getFirst());
+        affect(divisionEuclidienneGeneralise(_autre).getQuot());
     }
 
     /**
@@ -1466,7 +1477,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return l'entier courant modifie
     */
     public void remainBy(LgInt _autre) {
-        affect(divisionEuclidienneGeneralise(_autre).getSecond());
+        affect(divisionEuclidienneGeneralise(_autre).getMod());
     }
 
     /**
@@ -1566,7 +1577,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         if (!sameSignum(_autre)) {
             //numbers which have not a same signum
-            if (grDigits.eq(_autre.grDigits)) {
+            if (eq(grDigits,_autre.grDigits)) {
                 //opposite numbers
                 affectZero();
                 return;
@@ -1590,33 +1601,33 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return;
     }
 
-    private PairEq<LgInt, LgInt> divisionEuclidienneGeneralise(LgInt _autre) {
-        PairEq<LgInt, LgInt> quotientReste_ = new PairEq<LgInt, LgInt>();
+    private QuotModLgInt divisionEuclidienneGeneralise(LgInt _autre) {
+        QuotModLgInt quotientReste_ = new QuotModLgInt();
         LgInt absolu_ = absNb();
         LgInt autreAbsolu_ = _autre.absNb();
-        PairEq<Numbers<Long>, Numbers<Long>> quotientRestePositif_;
+        QuotMod quotientRestePositif_;
         quotientRestePositif_ = absolu_.divisionEuclidienne(autreAbsolu_);
-        quotientReste_.setFirst(new LgInt(quotientRestePositif_.getFirst(), SIGNE_POSITIF));
-        quotientReste_.setSecond(new LgInt(quotientRestePositif_.getSecond(), SIGNE_POSITIF));
+        quotientReste_.setQuot(new LgInt(quotientRestePositif_.getQuot(), SIGNE_POSITIF));
+        quotientReste_.setMod(new LgInt(quotientRestePositif_.getMod(), SIGNE_POSITIF));
         if (isZeroOrGt()) {
-            LgInt int_ = quotientReste_.getFirst();
+            LgInt int_ = quotientReste_.getQuot();
             if (!int_.isZero()) {
                 int_.signum = _autre.signum;
             }
             return quotientReste_;
         }
         if (_autre.isZeroOrGt()) {
-            if (!quotientReste_.getSecond().isZero()) {
-                quotientReste_.setFirst(minus(minusOne(), quotientReste_.getFirst()));
-                quotientReste_.setSecond(minus(_autre, quotientReste_.getSecond()));
+            if (!quotientReste_.getMod().isZero()) {
+                quotientReste_.setQuot(minus(minusOne(), quotientReste_.getQuot()));
+                quotientReste_.setMod(minus(_autre, quotientReste_.getMod()));
             } else {
-                quotientReste_.getFirst().changeSignum();
+                quotientReste_.getQuot().changeSignum();
             }
             return quotientReste_;
         }
-        if (!quotientReste_.getSecond().isZero()) {
-            quotientReste_.getFirst().increment();
-            quotientReste_.setSecond(minus(_autre.opposNb(), quotientReste_.getSecond()));
+        if (!quotientReste_.getMod().isZero()) {
+            quotientReste_.getQuot().increment();
+            quotientReste_.setMod(minus(_autre.opposNb(), quotientReste_.getMod()));
         }
         return quotientReste_;
     }

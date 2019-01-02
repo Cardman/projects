@@ -55,7 +55,7 @@ final class HtmlRequest {
         StringList varNames_ = new StringList();
         for (Argument a: _args) {
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(a.getObjectClassName(_conf.toContextEl()));
+            locVar_.setClassName(a.getObjectClassName(_conf.getContext()));
             locVar_.setStruct(a.getStruct());
             String locName_ = ip_.getNextTempVar();
             varNames_.add(StringList.concat(locName_,GET_LOC_VAR));
@@ -75,17 +75,17 @@ final class HtmlRequest {
             Struct _attribute,
             Numbers<Long> _indexes) {
         Struct obj_ = _nodeContainer.getStruct();
-        if (obj_.isNull()) {
+        if (obj_ == NullStruct.NULL_VALUE) {
             String err_ = _conf.getStandards().getAliasNullPe();
             ContextEl context_ = _conf.getContext();
             context_.setException(new ErrorStruct(_conf,err_));
             return;
         }
         long index_ = _nodeContainer.getIndex();
-        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute.getInstance(), _indexes);
+        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute, _indexes);
         if (index_ >= 0) {
             boolean key_ = _nodeContainer.isKey();
-            ContextEl context_ = _conf.toContextEl();
+            ContextEl context_ = _conf.getContext();
             ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
             if (res_.getError() != null) {
                 String err_ = res_.getError();
@@ -134,13 +134,13 @@ final class HtmlRequest {
             }
             ImportingPage ip_ = _conf.getLastPage();
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.toContextEl()));
+            lv_.setClassName(lgNames_.getStructClassName(obj_, _conf.getContext()));
             lv_.setStruct(obj_);
             String nameVar_ = ip_.getNextTempVar();
             ip_.putLocalVar(nameVar_, lv_);
             String nameValue_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.toContextEl()));
+            lv_.setClassName(lgNames_.getStructClassName(_attribute, _conf.getContext()));
             lv_.setStruct(_attribute);
             ip_.putLocalVar(nameValue_, lv_);
             String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
@@ -162,7 +162,7 @@ final class HtmlRequest {
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
-            locVar_.setStruct(StdStruct.wrapStd(chg_, _conf.toContextEl()));
+            locVar_.setStruct(StdStruct.wrapStd(chg_, _conf.getContext()));
             ip_.putLocalVar(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);
@@ -175,7 +175,7 @@ final class HtmlRequest {
         }
     }
     private static ValueChangeEvent calculateChange(NodeContainer _nodeContainer,
-            Object _attribute,
+            Struct _attribute,
             Numbers<Long> _indexes) {
         String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
         if (!varMethod_.isEmpty()) {
@@ -185,6 +185,6 @@ final class HtmlRequest {
         if (method_.isEmpty()) {
             return null;
         }
-        return new ValueChangeEvent(_indexes, _nodeContainer.getTypedField(), _attribute);
+        return new ValueChangeEvent(_indexes, _nodeContainer.getTypedStruct(), _attribute);
     }
 }

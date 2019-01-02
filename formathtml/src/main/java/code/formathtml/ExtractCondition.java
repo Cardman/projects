@@ -1,8 +1,11 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.sml.Element;
@@ -104,11 +107,11 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(IS_NOT_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Object obj_ = ElRenderUtil.processEl(isNotNull_, 0, _conf).getObject();
+            Struct obj_ = ElRenderUtil.processEl(isNotNull_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            boolean b_ = obj_ != null;
+            boolean b_ = obj_ != NullStruct.NULL_VALUE;
             if (!b_) {
                 return_ = false;
             }
@@ -117,11 +120,11 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(IS_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Object obj_ = ElRenderUtil.processEl(isNull_, 0, _conf).getObject();
+            Struct obj_ = ElRenderUtil.processEl(isNull_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            boolean b_ = obj_ == null;
+            boolean b_ = obj_ == NullStruct.NULL_VALUE;
             if (!b_) {
                 return_ = false;
             }
@@ -130,11 +133,7 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(NUMBER_EXPRESSION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Boolean b_ = (Boolean) ExtractObject.evaluateMathExpression(_ip, _conf, true, mathExpr_).getInstance();
-            if (_conf.getContext().getException() != null) {
-                return false;
-            }
-            ExtractObject.checkNullPointer(_conf, b_);
+            Boolean b_ = ((BooleanStruct) ExtractObject.evaluateMathExpression(_ip, _conf, true, mathExpr_)).getInstance();
             if (_conf.getContext().getException() != null) {
                 return false;
             }
@@ -146,11 +145,11 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(ATTRIBUTE_REF_EQ);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Object argTwo_ = ElRenderUtil.processEl(refEq_, 0, _conf).getObject();
+            Struct argTwo_ = ElRenderUtil.processEl(refEq_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            return (Boolean) argTwo_;
+            return ((BooleanStruct) argTwo_).getInstance();
         }
         if (return_ && !condition_.isEmpty()) {
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
@@ -160,10 +159,10 @@ final class ExtractCondition {
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            Object o_ = a_.getObject();
-            if (!(o_ instanceof Boolean)) {
+            Struct o_ = a_.getStruct();
+            if (!(o_ instanceof BooleanStruct)) {
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(a_.getObjectClassName(_conf.toContextEl()));
+                mapping_.setArg(a_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimBoolean());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
@@ -177,7 +176,7 @@ final class ExtractCondition {
                 _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                 return false;
             }
-            Boolean b_ = (Boolean) o_;
+            Boolean b_ = ((BooleanStruct) o_).getInstance();
             if (!b_) {
                 return_ = false;
             }

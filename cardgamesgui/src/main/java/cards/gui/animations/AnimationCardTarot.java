@@ -4,8 +4,8 @@ import javax.swing.SwingUtilities;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
+import code.gui.ThreadUtil;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -30,7 +30,7 @@ public final class AnimationCardTarot extends Thread {
             long delaiPli_;
             if(!container.getParametres().getAttentePlisClic()) {
                 delaiPli_=container.getParametres().getDelaiAttentePlis();
-                Constants.sleep(delaiPli_);
+                ThreadUtil.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
                 container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
@@ -45,7 +45,7 @@ public final class AnimationCardTarot extends Thread {
                     break;
                 }
                 long delaiPli_=container.getParametres().getDelaiAttentePlis();
-                Constants.sleep(delaiPli_);
+                ThreadUtil.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
@@ -59,7 +59,7 @@ public final class AnimationCardTarot extends Thread {
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
                 break;
             }
-            Constants.sleep(delaiCarte_);
+            ThreadUtil.sleep(delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             container.jouerTarot(player_,pseudos_.get(player_),partie_.premierTour());
             container.pause();

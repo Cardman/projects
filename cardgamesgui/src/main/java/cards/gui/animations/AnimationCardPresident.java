@@ -5,8 +5,8 @@ import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -43,7 +43,7 @@ public final class AnimationCardPresident extends Thread {
 //                    break;
 //                }
                 long delaiPli_=container.getParametres().getDelaiAttentePlis();
-                Constants.sleep(delaiPli_);
+                ThreadUtil.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
@@ -68,7 +68,7 @@ public final class AnimationCardPresident extends Thread {
             if (player_ == DealPresident.NUMERO_UTILISATEUR) {
                 break;
             }
-            Constants.sleep(delaiCarte_);
+            ThreadUtil.sleep(delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             container.jouerPresident(player_,pseudos_.get(player_));
             container.pause();

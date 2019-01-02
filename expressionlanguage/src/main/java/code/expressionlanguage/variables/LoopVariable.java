@@ -1,26 +1,9 @@
 package code.expressionlanguage.variables;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class LoopVariable {
-
-    private static final String AS = " as ";
-
-    private static final String STEP = "step";
-
-    private static final String CONTAINER = "container";
-
-    private static final String ELEMENT = "element";
-
-    private static final String INDEX = "index";
-
-    private static final String SEP_INFO = "\n";
-
-    private static final String SEP_KEY_VAL = ":";
 
     private long index;
 
@@ -44,21 +27,6 @@ public final class LoopVariable {
         finalVariable = _finalVariable;
     }
 
-    public String getInfos(ContextEl _context) {
-        StringBuilder lv_ = new StringBuilder(INDEX).append(SEP_KEY_VAL).append(index).append(AS).append(indexClassName).append(SEP_INFO);
-        lv_.append(ELEMENT).append(AS).append(className).append(SEP_INFO);
-        lv_.append(STEP).append(SEP_KEY_VAL).append(step);
-        lv_.append(SEP_INFO);
-        if (container == null) {
-            lv_.append(CONTAINER).append(SEP_KEY_VAL);
-        } else {
-            LgNames stds_ = _context.getStandards();
-            lv_.append(CONTAINER).append(SEP_KEY_VAL).append(stds_.getStructClassName(container, _context));
-        }
-        lv_.append(SEP_INFO);
-        return lv_.toString();
-    }
-
     public long getIndex() {
         return index;
     }
@@ -73,17 +41,10 @@ public final class LoopVariable {
 
     public void setStruct(Struct _element) {
         element = _element;
-        if (element == null) {
-            element = NullStruct.NULL_VALUE;
-        }
     }
 
     public void setElement(Long _element) {
         element = new LongStruct(_element);
-    }
-
-    public void setElement(Number _element) {
-        element = NumberStruct.wrapNb(_element);
     }
 
     public long getStep() {
@@ -100,9 +61,6 @@ public final class LoopVariable {
 
     public void setContainer(Struct _container) {
         container = _container;
-        if (_container == null) {
-            container = NullStruct.NULL_VALUE;
-        }
     }
 
     public String getClassName() {
@@ -110,9 +68,6 @@ public final class LoopVariable {
     }
 
     public void setClassName(String _className) {
-        if (_className.isEmpty()) {
-            return;
-        }
         className = _className;
     }
 
@@ -121,9 +76,6 @@ public final class LoopVariable {
     }
 
     public void setIndexClassName(String _indexClassName) {
-        if (_indexClassName.isEmpty()) {
-            return;
-        }
         indexClassName = _indexClassName;
     }
 }

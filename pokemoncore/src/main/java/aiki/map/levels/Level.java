@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;

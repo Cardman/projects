@@ -13,9 +13,9 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
@@ -35,6 +35,7 @@ import code.formathtml.classes.SimpleDataBase;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.sml.DocumentBuilder;
@@ -8728,7 +8729,7 @@ public class NavigationTest {
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
-            _conf.getBeans().put(e.getKey(), (Bean) e.getValue().getInstance());
+            _conf.getBeans().put(e.getKey(), ((BeanStruct) e.getValue()).getInstance());
         }
     }
 
@@ -8744,7 +8745,6 @@ public class NavigationTest {
         Navigation nav_ = new Navigation();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
@@ -8757,7 +8757,6 @@ public class NavigationTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);

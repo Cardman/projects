@@ -1,8 +1,8 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorStatisticTr;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.EnumList;

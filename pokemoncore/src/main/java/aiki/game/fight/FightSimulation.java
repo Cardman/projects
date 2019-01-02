@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.NameLevel;
@@ -1332,8 +1332,8 @@ public class FightSimulation {
             if (k.getSecond() == null) {
                 continue;
             }
-            if (Numbers.eq(k.getFirst(), nextKey_.getFirst())) {
-                if (Numbers.eq(k.getSecond(), nextKey_.getSecond())) {
+            if (Numbers.eq(k.getFirst().byteValue(), nextKey_.getFirst().byteValue())) {
+                if (Numbers.eq(k.getSecond().byteValue(), nextKey_.getSecond().byteValue())) {
                     betweenFights_ = false;
                 }
             }

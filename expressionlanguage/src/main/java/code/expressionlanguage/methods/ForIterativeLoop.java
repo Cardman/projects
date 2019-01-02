@@ -3,28 +3,27 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OffsetBooleanInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.files.OffsetBooleanInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -34,7 +33,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class ForIterativeLoop extends BracedStack implements ForLoop {
@@ -63,11 +61,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     private final boolean eq;
     private int eqOffset;
 
-    private CustList<OperationNode> opInit;
+    private CustList<ExecOperationNode> opInit;
 
-    private CustList<OperationNode> opExp;
+    private CustList<ExecOperationNode> opExp;
 
-    private CustList<OperationNode> opStep;
+    private CustList<ExecOperationNode> opStep;
 
     public ForIterativeLoop(ContextEl _importingPage,
             BracedBlock _m,
@@ -181,6 +179,15 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     @Override
+    public void reduce(ContextEl _context) {
+        ExecOperationNode i_ = opInit.last();
+        opInit = ElUtil.getReducedNodes(i_);
+        ExecOperationNode e_ = opExp.last();
+        opExp = ElUtil.getReducedNodes(e_);
+        ExecOperationNode s_ = opStep.last();
+        opStep = ElUtil.getReducedNodes(s_);
+    }
+    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -226,74 +233,17 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
-        if (!StringList.isWord(variableName)) {
+        if (!_cont.isValidSingleToken(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
-        }
-        if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        Options opt_ = _cont.getOptions();
-        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(getFile().getFileName());
-                b_.setIndexFile(variableNameOffset);
-                b_.setVarName(variableName);
-                _cont.getClasses().addError(b_);
-            }
-        }
-        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (_cont.getAnalyzing().containsLocalVar(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getAnalyzing().containsCatchVar(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getParameters().contains(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opInit.isEmpty()) {
-            return;
-        }
-        OperationNode initEl_ = opInit.last();
+        ExecOperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
@@ -307,10 +257,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opExp.isEmpty()) {
-            return;
-        }
-        OperationNode expressionEl_ = opExp.last();
+        ExecOperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
@@ -324,10 +271,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opStep.isEmpty()) {
-            return;
-        }
-        OperationNode stepEl_ = opStep.last();
+        ExecOperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());
@@ -338,12 +282,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setIndexFile(stepOffset);
             _cont.getClasses().addError(cast_);
         }
-        if (getFirstChild() != null) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setClassName(cl_);
-            lv_.setIndexClassName(classIndexName);
-            _cont.getAnalyzing().putVar(variableName, lv_);
-        }
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setClassName(cl_);
+        lv_.setIndexClassName(classIndexName);
+        _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
     @Override
@@ -429,12 +371,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         for (EntryCust<String,Assignment> e: res_.entryList()) {
             vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
         }
         CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getVariables().getVal(_root);
+        varsRes_ = vars_.getLastVariablesOrEmpty();
         if (vars_.getVariablesRoot().isEmpty()) {
             for (StringMap<Assignment> s: varsRes_) {
                 StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
@@ -455,7 +397,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             }
         }
         CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         if (vars_.getMutableLoopRoot().isEmpty()) {
             for (StringMap<Assignment> s: mutableRes_) {
                 StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
@@ -482,11 +424,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            return;
-        }
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -660,20 +597,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         return out_;
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -746,7 +669,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
-        ip_.setCurrentBlock(null);
         ip_.clearCurrentEls();
         String prLong_ = stds_.getAliasPrimLong();
         fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).getInstance().longValue();
@@ -790,9 +712,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         boolean finished_ = false;
         length_ = nbMaxIterations_;
         if (length_ == CustList.SIZE_EMPTY) {
-            finished_ = true;
-        }
-        if (getFirstChild() == null) {
             finished_ = true;
         }
         LoopBlockStack l_ = new LoopBlockStack();

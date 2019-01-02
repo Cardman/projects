@@ -1,6 +1,6 @@
 package aiki.beans.pokemon.evolutions;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.EvolutionMove;
 import code.util.StringList;

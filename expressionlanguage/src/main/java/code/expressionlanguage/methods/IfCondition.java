@@ -2,12 +2,11 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -18,7 +17,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class IfCondition extends Condition implements BlockCondition, IncrCurrentGroup {
+public final class IfCondition extends Condition implements BlockCondition {
 
     private String label;
     private int labelOffset;
@@ -51,12 +50,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         labelOffset = _labelOffset;
     }
 
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
@@ -77,14 +70,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         if (canBeIncrementedCurGroup()) {
             return;
         }
@@ -102,17 +87,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean abr_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -131,7 +112,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -145,7 +126,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public boolean accessibleForNext() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

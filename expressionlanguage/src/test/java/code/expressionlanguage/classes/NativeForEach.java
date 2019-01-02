@@ -2,8 +2,8 @@ package code.expressionlanguage.classes;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;

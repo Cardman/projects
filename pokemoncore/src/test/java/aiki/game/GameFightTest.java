@@ -1,11 +1,11 @@
 package aiki.game;
-import static aiki.EquallablePkUtil.assertEq;
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.ImageHeroKey;
+import aiki.db.ImageHeroKey;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;

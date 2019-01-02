@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -41,12 +42,12 @@ public final class InitializationLgNames {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames);
+        ExecutingOptions exec_ = new ExecutingOptions();
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, exec_, kw_, _lgNames,4);
         return out_;
     }
     public static BeanLgNames initStandards(ContextEl _cont) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
-        lgNames_.setContext(_cont);
         _cont.setStandards(lgNames_);
         lgNames_.setSelectedBoolean("sb");
         lgNames_.setAliasRate("java.lang.Long");
@@ -189,7 +190,10 @@ public final class InitializationLgNames {
         _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("values");
+        _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasResources("java.lang.Resources");
+        _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("java.lang.$invokeTaget");
         _lgNames.setAliasClassNotFoundError("java.lang.$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
@@ -242,6 +246,9 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("$name");
+        _lgNames.setAliasEnumOrdinal("$ordinal");
+        _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasSetOldString("setOldString");
@@ -312,13 +319,13 @@ public final class InitializationLgNames {
         _lgNames.setAliasBitShiftRight("bitShiftRight");
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setAliasRandom("random");
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");
     }
     public static void initAdvStandards(ContextEl _cont) {
         CustLgNames lgNames_ = new CustLgNames();
-        lgNames_.setContext(_cont);
         basicStandards(lgNames_);
         lgNames_.setAliasMath("$math");
         lgNames_.build();

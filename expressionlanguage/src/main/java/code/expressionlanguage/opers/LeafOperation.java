@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -12,7 +13,7 @@ import code.util.StringMap;
 
 public abstract class LeafOperation extends OperationNode {
 
-    LeafOperation(int _indexInEl, int _indexChild, MethodOperation _m,
+    protected LeafOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
@@ -20,6 +21,10 @@ public abstract class LeafOperation extends OperationNode {
         analyzeAssignmentAfter(_conf, false);
     }
 
+    @Override
+    public final CustList<Operable> getChildrenOperable() {
+        return new CustList<Operable>();
+    }
     public void analyzeAssignmentAfter(Analyzable _conf, boolean _bool) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);

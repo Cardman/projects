@@ -8,12 +8,12 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecFctOperation;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -24,8 +24,8 @@ public class AnalyzedOperationNodesTest {
     private static final String MY_GENE_CLASS = "myimpl.MyGeneClass";
     @Test
     public void processEl37Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo($null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo($null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -39,8 +39,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl38Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo((java.lang.Object)$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo((java.lang.Object)$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -54,8 +54,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl40Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1L)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1L)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -70,8 +70,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl41Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -86,8 +86,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl42Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0D)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0D)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -102,8 +102,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl43Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0d)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0d)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -118,8 +118,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl44Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0F)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0F)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -127,15 +127,15 @@ public class AnalyzedOperationNodesTest {
         assertEq("getOverridenThree", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("$double", params_.first());
+        assertEq("java.lang.Double", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
 
     @Test
     public void processEl45Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0f)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0f)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -149,8 +149,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl111Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour($null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour($null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -164,8 +164,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl113Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1L)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1L)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -180,8 +180,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl114Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -196,8 +196,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl115Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1L)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1L)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -212,8 +212,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl116Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -228,8 +228,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl117Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1L)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1L)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -244,8 +244,8 @@ public class AnalyzedOperationNodesTest {
 
     @Test
     public void processEl118Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -259,8 +259,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl119Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -275,8 +275,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl120Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1L)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1L)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -291,8 +291,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl121Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1D)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1D)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -307,8 +307,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl122Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight(1,2)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight(1,2)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -323,8 +323,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl123Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -339,11 +339,11 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl124Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", MY_CLASS, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -354,8 +354,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl125Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", MY_CLASS, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyIntTwo", cid_.getClassName());
@@ -370,24 +370,24 @@ public class AnalyzedOperationNodesTest {
     @Test
     public void processEl126Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl127Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
@@ -402,8 +402,8 @@ public class AnalyzedOperationNodesTest {
     
     @Test
     public void processEl128Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getSampleVararg($vararg($int))", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getSampleVararg($vararg($int))", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -413,29 +413,30 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl129Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl130Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
@@ -450,24 +451,24 @@ public class AnalyzedOperationNodesTest {
     @Test
     public void processEl131Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("#V", params_.first());
+        assertEq("#U", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl132Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
@@ -481,8 +482,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl133Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($int[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($int[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -492,13 +493,14 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     
     @Test
     public void processEl134Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($long[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($long[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -508,12 +510,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl135Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($int[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($int[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -523,12 +526,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl136Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($long[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($long[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -542,8 +546,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl137Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($int[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($int[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -554,12 +558,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl138Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($long[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($long[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -570,12 +575,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("[$long", params_.last());
         assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl139Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -585,12 +591,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl140Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -600,12 +607,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl141Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -615,12 +623,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl142Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -630,12 +639,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl143Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -645,12 +655,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl144Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -660,12 +671,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl145Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6l)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6l)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -676,12 +688,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl146Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -692,12 +705,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl147Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5l,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5l,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -707,12 +721,13 @@ public class AnalyzedOperationNodesTest {
         assertEq(1, params_.size());
         assertEq("$long", params_.first());
         assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl148Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -724,12 +739,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.get(1));
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl149Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5l,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5l,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -740,12 +756,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl150Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4,5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4,5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -757,12 +774,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.get(1));
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl151Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4l,5l,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4l,5l,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -773,12 +791,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$long", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl152Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -789,12 +808,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl153Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5l,6)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5l,6)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -806,12 +826,13 @@ public class AnalyzedOperationNodesTest {
         assertEq("$long", params_.get(1));
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(2, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
     public void processEl154Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4,($int[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4,($int[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -822,13 +843,14 @@ public class AnalyzedOperationNodesTest {
         assertEq("$int", params_.first());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     
     @Test
     public void processEl155Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4I,($long[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4I,($long[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -839,13 +861,14 @@ public class AnalyzedOperationNodesTest {
         assertEq("java.lang.Integer", params_.first());
         assertEq("$long", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
 
     @Test
     public void processEl156Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleThree(1)", "myvar", MY_CLASS, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleThree(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MySuperOne", cid_.getClassName());
@@ -859,8 +882,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl157Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFour(1)", "myvar", MY_CLASS, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFour(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MySuperOne", cid_.getClassName());
@@ -874,11 +897,11 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl158Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFive(1)", "myvar", MY_CLASS, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFive(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("myimpl.MyIntTwo", cid_.getClassName());
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleFive", id_.getName());
         StringList params_ = id_.getParametersTypes();
@@ -889,8 +912,8 @@ public class AnalyzedOperationNodesTest {
     }
     @Test
     public void processEl159Test() {
-        CustList<OperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven((java.lang.Integer)4,(java.lang.Integer[])$null)", "composite", COMPOSITE, false);
-        FctOperation fct_ = getFct(opers_);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven((java.lang.Integer)4,(java.lang.Integer[])$null)", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq(COMPOSITE, cid_.getClassName());
@@ -901,6 +924,66 @@ public class AnalyzedOperationNodesTest {
         assertEq("java.lang.Integer", params_.first());
         assertEq("java.lang.Number", params_.last());
         assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl160Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSix(1)", "myvar", MY_CLASS, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("myimpl.MyIntOne", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("sampleSix", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.first());
+        assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl161Test() {
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE, false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq(COMPOSITE, cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("getOvVarargEleven", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(2, params_.size());
+        assertEq("$int", params_.first());
+        assertEq("java.lang.Integer", params_.last());
+        assertTrue(id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl162Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
+        xml_.append(" $public $normal $int get(String i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?>");
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("pkg.ExTwo", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("get", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("java.lang.String", params_.last());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -913,34 +996,132 @@ public class AnalyzedOperationNodesTest {
         analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, true);
     }
 
-    private static FctOperation getFct(CustList<OperationNode> _f) {
-        for (OperationNode o: _f) {
-            if (o instanceof FctOperation) {
-                return (FctOperation) o;
+    @Test
+    public void processEl3FailTest() {
+        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
+        analyzeIndirectLocalVarsParam("myvar.sampleFour((W[])$null)", "W","myvar", g_, true);
+    }
+    @Test
+    public void processEl4FailTest() {
+        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
+        analyzeIndirectLocalVarsParam("myvar.sampleFour((W)$null,(W)$null)", "W","myvar", g_, true);
+    }
+    @Test
+    public void processEl5FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven()", "composite", COMPOSITE, true);
+    }
+    @Test
+    public void processEl6FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer))", "composite", COMPOSITE, true);
+    }
+    @Test
+    public void processEl7FailTest() {
+        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),$firstopt(0i))", "composite", COMPOSITE, true);
+    }
+
+    @Test
+    public void processEl8FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl10FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExTwo<?,?>");
+        analyzeIndirectLocalVars("myvar.get($null,$null)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static $int b:\n");
+        xml_.append(" $static $int c:\n");
+        xml_.append(" $static $int d:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = b < c < d:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl12FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = :\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
+        for (ExecOperationNode o: _f) {
+            if (o instanceof ExecFctOperation) {
+                return (ExecFctOperation) o;
             }
         }
         return null;
     }
-    private static CustList<OperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
+        return analyzeIndirectLocalVars(_el, _var, _className, file(), _mustFail);
+    }
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
-        files_.put("pkg/Ex", file());
+        files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         f_ = (FieldBlock) f_.getNextSibling();
-        CustList<OperationNode> list_ = f_.getOpValue();
+        CustList<ExecOperationNode> list_ = f_.getOpValue();
         return list_;
     }
-    private static CustList<OperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
+        return analyzeIndirectLocalVarsParam(_el, _param, _var, _className, file(), _mustFail);
+    }
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, String _file, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param,_var));
-        files_.put("pkg/Ex", file());
+        files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         f_ = (FieldBlock) f_.getNextSibling();
-        CustList<OperationNode> list_ = f_.getOpValue();
+        CustList<ExecOperationNode> list_ = f_.getOpValue();
         return list_;
     }
     private static String addonFileStaticResult(String _el, String _type, String _param, String _var) {
@@ -1258,6 +1439,7 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $int sample($int p):\n");
         str_.append("    $long sampleTwo($int p):\n");
         str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
+        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $class myimpl.MySuperOne {\n");
         str_.append("    $public $final $int sampleThree($int p){$return 0:}\n");
@@ -1269,6 +1451,7 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $normal $long sampleThree($int p){$return 0:}\n");
         str_.append("    $long sampleFour($int p):\n");
         str_.append("    $normal $int sampleFive($int p){$return 0:}\n");
+        str_.append("    $normal $int sampleSix($int... p){$return 0:}\n");
         str_.append("}\n");
         str_.append("$public $abstract $class myimpl.MyGeneClass<#T> : MyGeneIntOne<#T> : MyGeneIntTwo<#T> {\n");
         str_.append("\n");
@@ -1277,12 +1460,14 @@ public class AnalyzedOperationNodesTest {
         str_.append("    $int sample(#U p):\n");
         str_.append("    $long sampleTwo(#U p):\n");
         str_.append("    $long sampleThree(#U p):\n");
+        str_.append("    $long sampleFour(#U... p):\n");
         str_.append("    $long sampleThree(java.lang.Object p):\n");
         str_.append("}\n");
         str_.append("$public $interface myimpl.MyGeneIntTwo<#V> {\n");
         str_.append("    $int sample(#V p):\n");
         str_.append("    $int sampleTwo(#V p):\n");
         str_.append("    $long sampleThree(#V p):\n");
+        str_.append("    $long sampleFour(#V... p):\n");
         str_.append("    $long sampleThree(java.lang.Object p):\n");
         str_.append("}\n");
         return str_.toString();
@@ -1290,7 +1475,6 @@ public class AnalyzedOperationNodesTest {
     private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);

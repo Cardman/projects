@@ -250,6 +250,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -1116,7 +1117,7 @@ public final class PokemonStandards extends BeanLgNames {
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
-        Object instance_ = _instance.getInstance();
+        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.getResultAbilitiesBean(_cont, _classField, _instance);
         }
@@ -1470,7 +1471,7 @@ public final class PokemonStandards extends BeanLgNames {
 
     @Override
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
-        Object instance_ = _instance.getInstance();
+        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _value);
         }
@@ -1551,7 +1552,7 @@ public final class PokemonStandards extends BeanLgNames {
 
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Object instance_ = _instance.getInstance();
+        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.invokeMethodAbilitiesBean(_cont, _instance, _method, _args);
         }
@@ -2904,7 +2905,7 @@ public final class PokemonStandards extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Object instance_ = _instance.getInstance();
+        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof Gender) {
             res_.setResult(new StringStruct(((Gender)instance_).name()));
             return res_;
@@ -2970,7 +2971,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        ActivityOfMove instance_ = (ActivityOfMove) _instance.getInstance();
+        ActivityOfMove instance_ = (ActivityOfMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_ENABLED)) {
@@ -2988,7 +2989,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodMoveTarget(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        MoveTarget instance_ = (MoveTarget) _instance.getInstance();
+        MoveTarget instance_ = (MoveTarget) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MOVE)) {
@@ -3002,7 +3003,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodTargetCoords(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        TargetCoords instance_ = (TargetCoords) _instance.getInstance();
+        TargetCoords instance_ = (TargetCoords) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_POSITION)) {
@@ -3012,7 +3013,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodUsesOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        UsesOfMove instance_ = (UsesOfMove) _instance.getInstance();
+        UsesOfMove instance_ = (UsesOfMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_CURRENT)) {
@@ -3026,7 +3027,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodCopiedMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        CopiedMove instance_ = (CopiedMove) _instance.getInstance();
+        CopiedMove instance_ = (CopiedMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MOVE)) {
@@ -3040,7 +3041,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodMoveTeamPosition(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        MoveTeamPosition instance_ = (MoveTeamPosition) _instance.getInstance();
+        MoveTeamPosition instance_ = (MoveTeamPosition) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MOVE)) {
@@ -3050,7 +3051,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodAffectedMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        AffectedMove instance_ = (AffectedMove) _instance.getInstance();
+        AffectedMove instance_ = (AffectedMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MOVE)) {
@@ -3064,7 +3065,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodStacksOfUses(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        StacksOfUses instance_ = (StacksOfUses) _instance.getInstance();
+        StacksOfUses instance_ = (StacksOfUses) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_NB_ROUNDS)) {
@@ -3082,7 +3083,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodAnticipation(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Anticipation instance_ = (Anticipation) _instance.getInstance();
+        Anticipation instance_ = (Anticipation) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_TARGET_POSITION)) {
@@ -3104,7 +3105,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Rate instance_ = (Rate) _instance.getInstance();
+        Rate instance_ = (Rate) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_ZERO)) {
@@ -3122,7 +3123,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodTypeDamageBoost(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        TypeDamageBoost instance_ = (TypeDamageBoost) _instance.getInstance();
+        TypeDamageBoost instance_ = (TypeDamageBoost) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_BOOST)) {
@@ -3132,7 +3133,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodEfficiencyRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EfficiencyRate instance_ = (EfficiencyRate) _instance.getInstance();
+        EfficiencyRate instance_ = (EfficiencyRate) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_EFF)) {
@@ -3146,7 +3147,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodBoostHpRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        BoostHpRate instance_ = (BoostHpRate) _instance.getInstance();
+        BoostHpRate instance_ = (BoostHpRate) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_HP_RATE)) {
@@ -3161,7 +3162,7 @@ public final class PokemonStandards extends BeanLgNames {
     }
     public static ResultErrorStd invokeMethodPkTrainer(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        PkTrainer instance_ = (PkTrainer) _instance.getInstance();
+        PkTrainer instance_ = (PkTrainer) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_LEVEL)) {
@@ -3179,7 +3180,7 @@ public final class PokemonStandards extends BeanLgNames {
         return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodPokemon(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Pokemon instance_ = (Pokemon) _instance.getInstance();
+        Pokemon instance_ = (Pokemon) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_ITEM)) {
@@ -3190,7 +3191,7 @@ public final class PokemonStandards extends BeanLgNames {
     }
     public static ResultErrorStd invokeMethodAreaApparition(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        AreaApparition instance_ = (AreaApparition) _instance.getInstance();
+        AreaApparition instance_ = (AreaApparition) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_AVG_NB_STEPS)) {
@@ -3208,7 +3209,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodWildPk(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        WildPk instance_ = (WildPk) _instance.getInstance();
+        WildPk instance_ = (WildPk) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_LEVEL)) {
@@ -3222,7 +3223,7 @@ public final class PokemonStandards extends BeanLgNames {
         return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodPlace(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Place instance_ = (Place) _instance.getInstance();
+        Place instance_ = (Place) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_NAME)) {
@@ -3232,7 +3233,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodTypesDuo(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        TypesDuo instance_ = (TypesDuo) _instance.getInstance();
+        TypesDuo instance_ = (TypesDuo) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_DAMAGE_TYPE)) {
@@ -3246,7 +3247,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodCategoryMult(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        CategoryMult instance_ = (CategoryMult) _instance.getInstance();
+        CategoryMult instance_ = (CategoryMult) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_CATEGORY)) {
@@ -3260,7 +3261,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodLevelMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        LevelMove instance_ = (LevelMove) _instance.getInstance();
+        LevelMove instance_ = (LevelMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_LEVEL)) {
@@ -3274,7 +3275,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodPokemonPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        PokemonPlayer instance_ = (PokemonPlayer) _instance.getInstance();
+        PokemonPlayer instance_ = (PokemonPlayer) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
@@ -3288,7 +3289,7 @@ public final class PokemonStandards extends BeanLgNames {
         return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
     }
     public static ResultErrorStd invokeMethodEffectPartnerStatus(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EffectPartnerStatus instance_ = (EffectPartnerStatus) _instance.getInstance();
+        EffectPartnerStatus instance_ = (EffectPartnerStatus) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_RESTORED_HP_RATE_LOVED_ALLY)) {
@@ -3306,7 +3307,7 @@ public final class PokemonStandards extends BeanLgNames {
         return res_;
     }
     public static ResultErrorStd invokeMethodTrainerPlaceNames(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        TrainerPlaceNames instance_ = (TrainerPlaceNames) _instance.getInstance();
+        TrainerPlaceNames instance_ = (TrainerPlaceNames) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_TRAINER)) {

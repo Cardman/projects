@@ -1,5 +1,5 @@
 package aiki.network.sml;
-import aiki.ExchangedData;
+import aiki.db.ExchangedData;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.Bye;
 import aiki.network.stream.CheckCompatibility;

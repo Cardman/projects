@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.HealingHp;
@@ -241,7 +241,7 @@ final class FightRules {
         //increasing
         int nbPl_ = places_.size();
         for(byte i=CustList.SECOND_INDEX;i<nbPl_;i++){
-            if(Numbers.eq(places_.get(i - 1),places_.get(i))){
+            if(Numbers.eq(places_.get(i - 1).byteValue(),places_.get(i).byteValue())){
                 _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_PLACE, Long.toString(places_.get(i)));
                 error_ = true;
             }

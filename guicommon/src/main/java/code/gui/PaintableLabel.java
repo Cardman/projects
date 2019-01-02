@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -12,9 +13,11 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
-public abstract class PaintableLabel extends CustComponent implements Paintable{
+public abstract class PaintableLabel extends CustComponent {
 
-    private JLabel label;
+    private JLabel label = new JLabel();
+
+    public abstract void paintComponent(Graphics _g);
 
     public void validate() {
         label.validate();
@@ -130,10 +133,6 @@ public abstract class PaintableLabel extends CustComponent implements Paintable{
 
     public Dimension getPreferredSize() {
         return label.getPreferredSize();
-    }
-
-    public PaintableLabel() {
-        label = new JLabel();
     }
 
     public boolean isVisible() {

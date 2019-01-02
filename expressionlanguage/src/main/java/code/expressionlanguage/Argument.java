@@ -1,7 +1,9 @@
 package code.expressionlanguage;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
@@ -45,9 +47,6 @@ public final class Argument {
 
     public void setStruct(Struct _object) {
         object = _object;
-        if (object == null) {
-            object = NullStruct.NULL_VALUE;
-        }
     }
 
     public static boolean isNullValue(Argument _arg) {
@@ -61,6 +60,9 @@ public final class Argument {
         return object == NullStruct.NULL_VALUE;
     }
 
+    public String getString() {
+        return ((CharSequenceStruct)object).getInstance().toString();
+    }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();
     }
@@ -73,8 +75,11 @@ public final class Argument {
     public int getInt() {
         return ((NumberStruct)object).getInstance().intValue();
     }
-    public Object getObject() {
-        return object.getInstance();
+    public boolean isTrue() {
+        return ((BooleanStruct)object).getInstance();
+    }
+    public boolean isFalse() {
+        return !((BooleanStruct)object).getInstance();
     }
 
     public void setObject(Character _object) {
@@ -103,21 +108,6 @@ public final class Argument {
     }
     public void setObject(Double _object) {
         object = new DoubleStruct(_object);
-    }
-    public void setObject(Number _object) {
-        if (_object instanceof Byte) {
-            setObject((Byte)_object);
-        } else if (_object instanceof Short) {
-            setObject((Short)_object);
-        } else if (_object instanceof Integer) {
-            setObject((Integer)_object);
-        } else if (_object instanceof Long) {
-            setObject((Long)_object);
-        } else if (_object instanceof Float) {
-            setObject((Float)_object);
-        } else {
-            setObject((Double)_object);
-        }
     }
 
     private ClassArgumentMatching getArgClass(ContextEl _context) {

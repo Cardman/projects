@@ -3,12 +3,12 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.EmptyTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -21,30 +21,11 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class DoWhileCondition extends Condition implements IncrNextGroup {
+public final class DoWhileCondition extends Condition {
 
     public DoWhileCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_importingPage, _m, _condition, _offset);
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
     }
 
     @Override
@@ -75,7 +56,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

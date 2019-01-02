@@ -1,24 +1,20 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.Line;
+import code.expressionlanguage.opers.exec.ExecAbstractInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
@@ -69,9 +65,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
                 if (!((Line)f_).getExp().isEmpty()) {
-                    OperationNode root_ = ((Line)f_).getExp().last();
-                    if (root_ instanceof InterfaceInvokingConstructor) {
-                        AbstractInvokingConstructor ctor_ = (AbstractInvokingConstructor) root_;
+                    ExecOperationNode root_ = ((Line)f_).getExp().last();
+                    if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                        ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
                         ConstructorId cid_ = ctor_.getConstId();
                         if (cid_ != null) {
                             String cl_ = cid_.getName();
@@ -94,8 +90,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     } else {
                         if (!((Line)f_).getExp().isEmpty()) {
                             //the case ((Line)f_).getExp().isEmpty() leads already to an error
-                            OperationNode root_ = ((Line)f_).getExp().last();
-                            if (!(root_ instanceof AbstractInvokingConstructor)) {
+                            ExecOperationNode root_ = ((Line)f_).getExp().last();
+                            if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
                                 //error
                                 BadConstructorCall call_ = new BadConstructorCall();
                                 call_.setFileName(curLine_.getFile().getFileName());
@@ -109,9 +105,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 }
                 if (n_ instanceof Line){
                     if (!((Line)n_).getExp().isEmpty()) {
-                        OperationNode root_ = ((Line)n_).getExp().last();
-                        if (root_ instanceof InterfaceInvokingConstructor) {
-                            AbstractInvokingConstructor ctor_ = (AbstractInvokingConstructor) root_;
+                        ExecOperationNode root_ = ((Line)n_).getExp().last();
+                        if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                            ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
                             ConstructorId cid_ = ctor_.getConstId();
                             if (cid_ != null) {
                                 String cl_ = cid_.getName();
@@ -152,61 +148,6 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             }
         }
     
-    }
-
-    @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = getOffsetOper();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
-
-        Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
-        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
-        String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
-        String base_ = gl_;
-        gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
-        CustList<Argument> firstArgs_;
-        String calledCtor_ = base_;
-        String cl_ = getConstId().getName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
-        String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
-        String lastType_ = getLastType();
-        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
-        int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
-        calledCtor_ = superClassBase_;
-        String calledCtorTemp_ = superClass_;
-        StringList params_ = new StringList();
-        String classFormat_ = calledCtor_;
-        classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
-        if (classFormat_ == null) {
-            _conf.setException(new ErrorStruct(_conf,cast_));
-            Argument a_ = new Argument();
-            return a_;
-        }
-        int j_ = 0;
-        for (String c: ctorId_.getParametersTypes()) {
-            String c_ = c;
-            c_ = Templates.quickFormat(classFormat_, c_, _conf);
-            if (j_ + 1 == ctorId_.getParametersTypes().size() && ctorId_.isVararg()) {
-                c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-            }
-            params_.add(c_);
-            j_++;
-        }
-        processArgs(_conf, firstArgs_, params_);
-        if (_conf.getContextEl().hasException()) {
-            Argument a_ = new Argument();
-            return a_;
-        }
-        _conf.getContextEl().setCallCtor(new CustomFoundConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER));
-        return Argument.createVoid();
     }
 
 }

@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.pokemon.NameLevel;
 import aiki.game.params.Difficulty;

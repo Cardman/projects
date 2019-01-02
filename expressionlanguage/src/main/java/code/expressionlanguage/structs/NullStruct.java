@@ -2,8 +2,6 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
 public final class NullStruct implements DisplayableStruct, ExportableStringStruct {
 
@@ -15,10 +13,6 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return true;
-    }
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
@@ -29,15 +23,7 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
     public StringStruct exportValue() {
         return new StringStruct(";");
     }
-    @Override
-    public Object getInstance() {
-        return null;
-    }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -49,8 +35,4 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
         return _other == NULL_VALUE;
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

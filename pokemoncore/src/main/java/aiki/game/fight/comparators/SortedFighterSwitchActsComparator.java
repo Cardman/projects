@@ -1,5 +1,5 @@
 package aiki.game.fight.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.TeamPosition;

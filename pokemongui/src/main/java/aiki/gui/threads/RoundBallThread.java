@@ -3,7 +3,7 @@ import javax.swing.SwingUtilities;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.util.consts.Constants;
+import code.gui.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -21,7 +21,7 @@ public final class RoundBallThread extends RoundThread {
     public void run() {
         getBattle().initBall();
         while (getBattle().isKeepAnimation()) {
-            Constants.sleep(5l);
+            ThreadUtil.sleep(5l);
             getBattle().moveBall(ball);
         }
         getFacade().endRoundFightSuccessBall();

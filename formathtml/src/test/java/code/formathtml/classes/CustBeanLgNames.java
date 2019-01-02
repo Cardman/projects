@@ -1,7 +1,7 @@
 package code.formathtml.classes;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
@@ -838,7 +839,10 @@ public final class CustBeanLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Object instance_ =  _instance.getInstance();
+        Object instance_ = null;
+        if (_instance != NullStruct.NULL_VALUE) {
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
+        }
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
@@ -1110,8 +1114,8 @@ public final class CustBeanLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Object instance_ =  _instance.getInstance();
-        Object value_ =  _value.getInstance();
+        Object instance_ =  ((RealInstanceStruct)_instance).getInstance();
+        Object value_ =  ((RealInstanceStruct)_value).getInstance();
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
@@ -1297,7 +1301,10 @@ public final class CustBeanLgNames extends BeanLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
 
-        Object instance_ =  _instance.getInstance();
+        Object instance_ = null;
+        if (!_method.getConstraints().isStaticMethod()) {
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
+        }
         String className_ = _method.getClassName();
         String methodName_ = _method.getConstraints().getName();
         if (StringList.quickEq(className_,TYPE_STRING_LIST)) {
@@ -1882,7 +1889,7 @@ public final class CustBeanLgNames extends BeanLgNames {
             Object[] adapt_ = new Object[_str.length];
             int i_ = CustList.FIRST_INDEX;
             for (Struct s: _str) {
-                adapt_[i_] = s.getInstance();
+                adapt_[i_] = ((RealInstanceStruct) s).getInstance();
                 i_++;
             }
             return adapt_;
@@ -2010,21 +2017,21 @@ public final class CustBeanLgNames extends BeanLgNames {
             Struct _element, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(NullStruct.NULL_VALUE);
-        if (_struct.getInstance() instanceof StringList) {
-            ((StringList)_struct.getInstance()).set(_index, (String) _element.getInstance());
+        if (((RealInstanceStruct)_struct).getInstance() instanceof StringList) {
+            ((StringList)((RealInstanceStruct)_struct).getInstance()).set(_index, (String) ((RealInstanceStruct)_element).getInstance());
             return res_;
         }
-        if (_struct.getInstance() instanceof NatTreeMapStringInteger) {
+        if (((RealInstanceStruct)_struct).getInstance() instanceof NatTreeMapStringInteger) {
             if (_key) {
-                ((NatTreeMapStringInteger)_struct.getInstance()).setKey(_index, (String) _element.getInstance());
-                ((NatTreeMapStringInteger)_struct.getInstance()).applyChanges();
+                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setKey(_index, (String) ((RealInstanceStruct)_element).getInstance());
+                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).applyChanges();
                 return res_;
             }
-            ((NatTreeMapStringInteger)_struct.getInstance()).setValue(_index, (Integer) _element.getInstance());
+            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, (Integer) ((RealInstanceStruct)_element).getInstance());
             return res_;
         }
-        if (_struct.getInstance() instanceof Ints) {
-            ((Ints)_struct.getInstance()).set(_index, (Integer) _element.getInstance());
+        if (((RealInstanceStruct)_struct).getInstance() instanceof Ints) {
+            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, (Integer) ((RealInstanceStruct)_element).getInstance());
             return res_;
         }
         return res_;
@@ -2032,8 +2039,8 @@ public final class CustBeanLgNames extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance.getInstance() instanceof EnumNumber) {
-            res_.setResult(new StringStruct(((EnumNumber)_instance.getInstance()).name()));
+        if (((RealInstanceStruct)_instance).getInstance() instanceof EnumNumber) {
+            res_.setResult(new StringStruct(((EnumNumber)((RealInstanceStruct)_instance).getInstance()).name()));
             return res_;
         }
         return res_;

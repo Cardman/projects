@@ -1,6 +1,6 @@
 package aiki.beans.items;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.items.HealingStatus;
 import code.util.StringList;
 import code.util.StringMap;

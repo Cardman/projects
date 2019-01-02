@@ -15,9 +15,6 @@ public interface GeneMethod extends GeneFunction {
     MethodId getQuickFormattedId(String _genericClass, ContextEl _context);
     MethodId getFormattedId(String _genericClass, ContextEl _context);
 
-
-    boolean isConcreteInstanceDerivableMethod();
-
     boolean isConcreteMethod();
 
     boolean isStaticMethod();

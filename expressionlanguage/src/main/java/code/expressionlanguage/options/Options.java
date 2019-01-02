@@ -1,6 +1,6 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.variables.VariableSuffix;
 
 public final class Options {
 
@@ -9,7 +9,6 @@ public final class Options {
     private boolean varTypeFirst = true;
     private boolean upperLong;
     private boolean endLineSemiColumn = true;
-    private boolean specialEnumsMethods = true;
     private boolean allParametersSort = true;
     private boolean singleInnerParts;
 
@@ -64,12 +63,7 @@ public final class Options {
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
         endLineSemiColumn = _endLineSemiColumn;
     }
-    public boolean isSpecialEnumsMethods() {
-        return specialEnumsMethods;
-    }
-    public void setSpecialEnumsMethods(boolean _specialEnumsMethods) {
-        specialEnumsMethods = _specialEnumsMethods;
-    }
+
     public boolean isAllParametersSort() {
         return allParametersSort;
     }

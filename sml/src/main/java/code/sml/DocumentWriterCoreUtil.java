@@ -3,7 +3,6 @@ package code.sml;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -140,7 +139,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setListListByte(EqList<Numbers<Byte>> _object, String _fieldName, Document _document) {
+    public static Element setListListByte(CustList<Numbers<Byte>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("ql");
         setFieldName(elt_, _fieldName);
         for (Numbers<Byte> s: _object) {

@@ -1,8 +1,8 @@
 package code.expressionlanguage.calls;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.util.CustomFoundBlock;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
@@ -13,7 +13,7 @@ import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.util.IdMap;
 
-public final class FieldInitPageEl extends AbstractPageEl {
+public final class FieldInitPageEl extends AbstractPageEl implements WithElPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -27,7 +27,6 @@ public final class FieldInitPageEl extends AbstractPageEl {
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
-            setCurrentBlock(en_);
             ((WithEl)en_).processEl(_context);
             return;
         }
@@ -71,7 +70,6 @@ public final class FieldInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         setNullReadWrite();
     }

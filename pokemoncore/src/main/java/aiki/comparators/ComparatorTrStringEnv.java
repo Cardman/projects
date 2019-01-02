@@ -1,5 +1,5 @@
 package aiki.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.util.EnumMap;
 import code.util.ints.Comparing;

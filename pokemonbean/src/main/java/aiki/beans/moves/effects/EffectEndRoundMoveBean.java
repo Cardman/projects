@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectEndRound;
 import code.util.NatStringTreeMap;
 import code.util.StringList;

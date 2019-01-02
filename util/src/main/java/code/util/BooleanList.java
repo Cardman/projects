@@ -2,7 +2,7 @@ package code.util;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class BooleanList extends AbEqList<Boolean> implements Equallable<BooleanList> {
+public final class BooleanList extends CustList<Boolean> implements Equallable<BooleanList> {
 
     public BooleanList() {
     }
@@ -23,11 +23,7 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
         return containsObj(_char);
     }
 
-    @Override
     public int indexOfObj(Boolean _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
-        }
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             Boolean e_ = get(i);
@@ -38,24 +34,6 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
         return INDEX_NOT_FOUND_ELT;
     }
 
-//    public Numbers<Integer> indexesOfObj(Boolean _element) {
-//        if (_element == null) {
-//            return indexesOfNull();
-//        }
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            Boolean e_ = get(i);
-//            if (e_ == null) {
-//                continue;
-//            }
-//            if (e_ == _element) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
     @Override
     public boolean eq(BooleanList _g) {
         if (_g == null) {
@@ -75,7 +53,6 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
         return true;
     }
 
-    @Override
     public BooleanList subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }
@@ -86,5 +63,23 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
             return new BooleanList();
         }
         return new BooleanList(super.sub(_from, _to));
+    }
+    public Numbers<Integer> indexesOfObj(boolean _element) {
+        Numbers<Integer> indexes_;
+        indexes_ = new Numbers<Integer>();
+        int i_ = FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_element, i_);
+            if (found_ == INDEX_NOT_FOUND_ELT) {
+                break;
+            }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
+
+    public boolean containsObj(boolean _b) {
+        return indexOfObj(_b, FIRST_INDEX) > -1;
     }
 }

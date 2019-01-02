@@ -2,12 +2,11 @@ package code.formathtml.util;
 
 import code.bean.Bean;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
 
-public final class BeanStruct implements Struct {
+public final class BeanStruct implements RealInstanceStruct {
 
     private Bean bean;
 
@@ -18,10 +17,6 @@ public final class BeanStruct implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
-    }
-    @Override
-    public boolean isNull() {
-        return false;
     }
 
     @Override
@@ -39,14 +34,5 @@ public final class BeanStruct implements Struct {
         return bean;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
 }

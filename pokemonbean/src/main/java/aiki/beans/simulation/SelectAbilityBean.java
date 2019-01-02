@@ -1,7 +1,7 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
 

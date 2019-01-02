@@ -1,14 +1,13 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 
-public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
+public final class DefaultCondition extends SwitchPartBlock {
 
     public DefaultCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -26,23 +25,20 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
+        } else {
+            Block first_ = b_.getFirstChild();
+            while (first_ != this) {
+                if (first_ instanceof DefaultCondition) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                    break;
+                }
+                first_ = first_.getNextSibling();
+            }
         }
         buildEmptyEl(_cont);
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return true;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return true;
     }
 
     @Override
@@ -52,34 +48,13 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
         sw_.setCurentVisitedBlock(this);
         if (sw_.isEntered()) {
-            if (!hasChildNodes()) {
-                if (sw_.getLastVisitedBlock() == this) {
-                    sw_.setFinished(true);
-                    rw_.setBlock(sw_.getBlock());
-                    return;
-                }
-                rw_.setBlock(getNextSibling());
-                return;
-            }
             rw_.setBlock(getFirstChild());
             return;
         }
         ip_.setGlobalOffset(getOffset().getOffsetTrim());
         ip_.setOffset(0);
-        if (hasChildNodes()) {
-            sw_.setEntered(true);
-        } else {
-            if (sw_.getLastVisitedBlock() != this) {
-                sw_.setEntered(true);
-                rw_.setBlock(getNextSibling());
-                return;
-            }
-            sw_.setFinished(true);
-            rw_.setBlock(sw_.getBlock());
-            return;
-        }
+        sw_.setEntered(true);
         rw_.setBlock(getFirstChild());
-        return;
     }
 
     @Override
@@ -93,11 +68,5 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
         } else {
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 }

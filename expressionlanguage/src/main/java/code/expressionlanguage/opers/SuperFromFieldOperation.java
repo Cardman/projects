@@ -1,10 +1,10 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -43,7 +43,7 @@ public final class SuperFromFieldOperation extends
             mapping_.put(t.getName(), t.getConstraints());
         }
         map_.setMapping(mapping_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setIndexFile(_conf.getCurrentLocationIndex());

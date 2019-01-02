@@ -1,31 +1,21 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class ValuesOperation extends LeafOperation {
+public final class ValuesOperation extends VariableLeafOperation {
 
     private String className;
     private int argOffset;
@@ -91,76 +81,10 @@ public final class ValuesOperation extends LeafOperation {
         analyzeNotBoolAssignmentAfter(_conf);
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
+    public String getClassName() {
+        return className;
     }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public int getArgOffset() {
+        return argOffset;
     }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument argres_ = getCommonArgument(_conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getCommonArgument(_conf);
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        Argument argRes_ = argres_;
-        setSimpleArgument(argRes_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
-        PossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-        }
-        return arg_;
-    }
-    Argument getCommonArgument(ExecutableCode _conf) {
-        return InvokingOperation.getEnumValues(className, _conf);
-    }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public final boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
 }

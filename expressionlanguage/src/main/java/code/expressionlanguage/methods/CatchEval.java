@@ -2,15 +2,12 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
@@ -59,9 +56,6 @@ public final class CatchEval extends AbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (getFirstChild() == null) {
-            buildEmptyEl(_cont);
-        }
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
@@ -70,76 +64,12 @@ public final class CatchEval extends AbstractCatchEval {
             _cont.getClasses().addError(d_);
             return;
         }
-        if (!StringList.isWord(variableName)) {
+        if (!_cont.isValidSingleToken(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
-        }
-        if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        Options opt_ = _cont.getOptions();
-        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(getFile().getFileName());
-                b_.setIndexFile(variableNameOffset);
-                b_.setVarName(variableName);
-                _cont.getClasses().addError(b_);
-            }
-        }
-        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (_cont.getAnalyzing().containsLocalVar(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getAnalyzing().containsVar(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-            if (_cont.getParameters().contains(variableName)) {
-                DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableNameOffset);
-                _cont.getClasses().addError(d_);
-            }
-        }
-        if (getFirstChild() == null) {
-            return;
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);
@@ -167,6 +97,9 @@ public final class CatchEval extends AbstractCatchEval {
         while (!(p_ instanceof TryEval)) {
             if (p_ instanceof CatchEval) {
                 classes_.add(((CatchEval)p_).importedClassName);
+            }
+            if (p_ == null) {
+                break;
             }
             p_ = p_.getPreviousSibling();
         }

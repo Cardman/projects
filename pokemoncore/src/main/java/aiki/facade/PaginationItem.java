@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorItem;
+import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import aiki.game.player.Inventory;
 import aiki.map.pokemon.CriteriaForSearchingItem;
@@ -14,18 +14,15 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.FieldCustComparator;
-import code.util.pagination.Pagination;
 
 public final class PaginationItem extends
-        Pagination<SortingItem, String, CriteriaForSearchingItem> {
+        Pagination<SortingItem, String> {
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<Integer> cmpPrice = new FieldComparator<Integer>();
+    private LongFieldComparator cmpPrice = new LongFieldComparator();
 
-    private FieldComparator<String> cmpDescription = new FieldComparator<String>();
+    private StringFieldComparator cmpDescription = new StringFieldComparator();
 
     private FieldCustComparator<LgInt> cmpNumber = new FieldCustComparator<LgInt>();
 
@@ -42,8 +39,10 @@ public final class PaginationItem extends
 
     private EqList<SortingItem> rendered = new EqList<SortingItem>();
 
+    private CriteriaForSearchingItem criteria;
+
     public PaginationItem() {
-        super(new CriteriaForSearchingItem());
+        criteria = new CriteriaForSearchingItem();
     }
 
     public void setInventory(Inventory _inventory) {
@@ -116,6 +115,10 @@ public final class PaginationItem extends
     }
 
     @Override
+    public CriteriaForSearchingItem getCriteria() {
+        return criteria;
+    }
+    @Override
     protected boolean sortable() {
         Numbers<Integer> priorities_;
         priorities_ = new Numbers<Integer>();
@@ -176,27 +179,27 @@ public final class PaginationItem extends
         items = items_;
     }
 
-    public FieldComparator<String> getCmpName() {
+    public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
-    public void setCmpName(FieldComparator<String> _cmpName) {
+    public void setCmpName(StringFieldComparator _cmpName) {
         cmpName = _cmpName;
     }
 
-    public FieldComparator<Integer> getCmpPrice() {
+    public LongFieldComparator getCmpPrice() {
         return cmpPrice;
     }
 
-    public void setCmpPrice(FieldComparator<Integer> _cmpPrice) {
+    public void setCmpPrice(LongFieldComparator _cmpPrice) {
         cmpPrice = _cmpPrice;
     }
 
-    public FieldComparator<String> getCmpDescription() {
+    public StringFieldComparator getCmpDescription() {
         return cmpDescription;
     }
 
-    public void setCmpDescription(FieldComparator<String> _cmpDescription) {
+    public void setCmpDescription(StringFieldComparator _cmpDescription) {
         cmpDescription = _cmpDescription;
     }
 

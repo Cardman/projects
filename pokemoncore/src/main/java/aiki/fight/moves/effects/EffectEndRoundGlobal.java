@@ -2,7 +2,7 @@
  */
 package aiki.fight.moves.effects;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
 

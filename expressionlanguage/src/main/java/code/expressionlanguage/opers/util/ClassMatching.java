@@ -1,8 +1,8 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
@@ -28,7 +28,7 @@ public final class ClassMatching {
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());
         map_.setParam(className);
-        return Templates.isGenericCorrect(map_, _context);
+        return Templates.isCorrectOrNumbers(map_, _context);
     }
 
     public boolean isPrimitive(LgNames _context) {

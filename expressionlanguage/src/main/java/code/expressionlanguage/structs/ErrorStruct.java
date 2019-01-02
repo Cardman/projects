@@ -3,9 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.util.CollCapacity;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class ErrorStruct implements DisplayableStruct {
@@ -26,17 +24,9 @@ public final class ErrorStruct implements DisplayableStruct {
         className = _className;
         message = _message;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     public ArrayStruct getStack() {
         return stack;
-    }
-    @Override
-    public boolean isArray() {
-        return false;
     }
 
     @Override
@@ -54,15 +44,6 @@ public final class ErrorStruct implements DisplayableStruct {
         return this == _other;
     }
 
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
     public String getClassName() {
         return className;
     }

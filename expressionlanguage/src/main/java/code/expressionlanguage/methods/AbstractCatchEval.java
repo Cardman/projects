@@ -2,11 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -15,8 +14,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public abstract class AbstractCatchEval extends BracedStack implements Eval,
-        IncrCurrentGroup, IncrNextGroup {
+public abstract class AbstractCatchEval extends BracedStack implements Eval {
 
     public AbstractCatchEval(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -44,10 +42,15 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
         group_.add(this);
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
             group_.add(p_);
             p_ = p_.getPreviousSibling();
         }
-        group_.add(p_);
+        if (p_ != null) {
+            group_.add(p_);
+        }
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {
@@ -139,20 +142,9 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
         assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
     }
 
-    @Override
-    final boolean canBeIncrementedNextGroup() {
-        return true;
-    }
-
-    @Override
     final boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
-    }
-
-    @Override
-    final boolean canBeLastOfBlockGroup() {
-        return true;
     }
 
     @Override
@@ -168,12 +160,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
             ts_.setCurrentBlock(this);
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public final ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
     @Override

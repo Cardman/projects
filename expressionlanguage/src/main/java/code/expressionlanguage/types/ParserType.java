@@ -2,7 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.NatTreeMap;

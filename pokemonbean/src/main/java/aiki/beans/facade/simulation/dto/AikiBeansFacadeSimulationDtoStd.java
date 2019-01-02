@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
@@ -100,7 +101,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd getResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvLine instance_ = (EvLine) _instance.getInstance();
+        EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,EV)) {
             res_.setResult(new ShortStruct(instance_.getEv()));
@@ -110,7 +111,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd getResultPokemonPlayerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonPlayerDto instance_ = (PokemonPlayerDto) _instance.getInstance();
+        PokemonPlayerDto instance_ = (PokemonPlayerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -120,7 +121,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd getResultPokemonTrainerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTrainerDto instance_ = (PokemonTrainerDto) _instance.getInstance();
+        PokemonTrainerDto instance_ = (PokemonTrainerDto) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -130,7 +131,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd getResultRadioLineMove(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        RadioLineMove instance_ = (RadioLineMove) _instance.getInstance();
+        RadioLineMove instance_ = (RadioLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -140,7 +141,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd getResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectLineMove instance_ = (SelectLineMove) _instance.getInstance();
+        SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SELECTED)) {
             res_.setResult(new BooleanStruct(instance_.getSelected()));
@@ -150,8 +151,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EvLine instance_ = (EvLine) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,EV)) {
             instance_.setEv((Short) value_);
@@ -162,8 +163,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectLineMove instance_ = (SelectLineMove) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SELECTED)) {
             instance_.setSelected((Boolean) value_);

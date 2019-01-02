@@ -1,8 +1,8 @@
 package aiki.beans.game;
-import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
@@ -11,6 +11,7 @@ import aiki.game.fight.Fighter;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.bean.Bean;
+import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -18,7 +19,6 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class PokemonPlayerBean extends Bean {
     private String name;

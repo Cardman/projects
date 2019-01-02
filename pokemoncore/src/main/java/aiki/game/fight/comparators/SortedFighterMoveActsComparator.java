@@ -1,5 +1,5 @@
 package aiki.game.fight.comparators;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;

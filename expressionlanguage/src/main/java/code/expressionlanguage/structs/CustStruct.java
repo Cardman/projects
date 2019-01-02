@@ -21,10 +21,6 @@ public final class CustStruct implements FieldableStruct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -52,11 +48,6 @@ public final class CustStruct implements FieldableStruct {
     }
 
     @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
     public ObjectMap<ClassField,Struct> getFields() {
         return fields;
     }
@@ -66,8 +57,4 @@ public final class CustStruct implements FieldableStruct {
         return className;
     }
 
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 }

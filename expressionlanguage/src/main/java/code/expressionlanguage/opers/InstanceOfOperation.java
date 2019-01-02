@@ -1,19 +1,11 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
@@ -56,52 +48,15 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         analyzeStdAssignmentAfter(_conf);
     }
 
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf);
+    public String getClassName() {
+        return className;
     }
 
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument argres_ = getArgument( arguments_, _conf);
-        setSimpleArgument(argres_, _conf, _nodes);
-        return argres_;
+    public int getOffset() {
+        return offset;
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        LgNames stds_ = _conf.getStandards();
-        Argument objArg_ = _arguments.first();
-        if (objArg_.isNull()) {
-            Argument arg_ = new Argument();
-            arg_.setObject(false);
-            return arg_;
-        }
-        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
-        PageEl page_ = _conf.getOperationPageEl();
-        String str_ = page_.formatVarType(className, _conf);
-        if (!correctTemplate) {
-            className_ = Templates.getIdFromAllTypes(className_);
-            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(false, str_, className_, _conf);
-            Argument arg_ = new Argument();
-            arg_.setObject(res_);
-            return arg_;
-        }
-        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
-        Argument arg_ = new Argument();
-        arg_.setObject(res_);
-        return arg_;
+    public boolean isCorrectTemplate() {
+        return correctTemplate;
     }
 }

@@ -4,8 +4,6 @@ import code.expressionlanguage.methods.BracedBlock;
 
 public interface RemovableVars {
 
-    String getInfos();
-
     void removeVarAndLoop(AbstractPageEl _ip);
 
     BracedBlock getBlock();

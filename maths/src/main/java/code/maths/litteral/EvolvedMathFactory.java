@@ -1,8 +1,6 @@
 package code.maths.litteral;
 import code.maths.LgInt;
-import code.maths.MathList;
 import code.maths.Rate;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
@@ -54,29 +52,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     @Override
     public Boolean evaluateDirectlyBoolean(String _booleanExp) {
         return (Boolean) MathUtil.processEl(_booleanExp, 0, false, new StringMap<String>()).getObject();
-    }
-
-    @Override
-    public String toString(Object _gotArg) {
-        if (_gotArg instanceof Boolean) {
-            if ((Boolean) _gotArg) {
-                return getTrueString();
-            }
-            return getFalseString();
-        }
-        if (_gotArg instanceof MathList) {
-            return ((MathList)_gotArg).escapedList();
-        }
-        if (_gotArg instanceof LgInt) {
-            return ((LgInt)_gotArg).toNumberString();
-        }
-        if (_gotArg instanceof Rate) {
-            return ((Rate)_gotArg).toNumberString();
-        }
-        if (_gotArg instanceof Number) {
-            return Numbers.toString((Number) _gotArg);
-        }
-        return "";
     }
 
     @Override

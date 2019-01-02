@@ -1,8 +1,8 @@
 package aiki.beans.items;
-import aiki.DataBase;
 import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;

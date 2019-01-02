@@ -3,9 +3,10 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.ForIterativeLoop;
-import code.expressionlanguage.methods.ForMutableIterativeLoop;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -26,83 +27,66 @@ public class AssignedVariables {
     private CustList<StringMap<SimpleAssignment>> variablesRoot = new CustList<StringMap<SimpleAssignment>>();
     private CustList<StringMap<SimpleAssignment>> mutableLoopRoot = new CustList<StringMap<SimpleAssignment>>();
     private StringMap<SimpleAssignment> fieldsRoot = new StringMap<SimpleAssignment>();
-    public void initVars() {
-        variablesRootBefore.add(new StringMap<AssignmentBefore>());
-        variablesRoot.add(new StringMap<SimpleAssignment>());
-        mutableLoopRootBefore.add(new StringMap<AssignmentBefore>());
-        mutableLoopRoot.add(new StringMap<SimpleAssignment>());
-    }
-    public IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>> getVariablesBefore(Block _filter, boolean _all) {
+
+    public IdList<AffectationOperation> getVariablesBefore(Block _filter, boolean _all) {
         if (_all) {
-            return variablesBefore;
-        }
-        IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>> out_;
-        out_ = new IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>>();
-        if (_filter instanceof ForMutableIterativeLoop) {
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpExp()) {
-                out_.put(o, variablesBefore.getVal(o));
-            }
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpStep()) {
-                out_.put(o, variablesBefore.getVal(o));
-            }
-            return out_;
+            return filter(variablesBefore.getKeys());
         }
         if (_filter instanceof ForIterativeLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
         if (_filter instanceof ForEachLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
-        return variablesBefore;
+        return filter(variablesBefore.getKeys());
     }
-    public IdMap<OperationNode, StringMap<AssignmentBefore>> getFieldsBefore(Block _filter, boolean _all) {
+    public IdList<AffectationOperation> getFieldsBefore(Block _filter, boolean _all) {
         if (_all) {
-            return fieldsBefore;
-        }
-        IdMap<OperationNode, StringMap<AssignmentBefore>> out_;
-        out_ = new IdMap<OperationNode, StringMap<AssignmentBefore>>();
-        if (_filter instanceof ForMutableIterativeLoop) {
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpExp()) {
-                out_.put(o, fieldsBefore.getVal(o));
-            }
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpStep()) {
-                out_.put(o, fieldsBefore.getVal(o));
-            }
-            return out_;
+            return filter(fieldsBefore.getKeys());
         }
         if (_filter instanceof ForIterativeLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
         if (_filter instanceof ForEachLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
-        return fieldsBefore;
+        return filter(fieldsBefore.getKeys());
     }
-    public IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>> getMutableLoopBefore(Block _filter, boolean _all) {
+    public IdList<AffectationOperation> getMutableLoopBefore(Block _filter, boolean _all) {
         if (_all) {
-            return mutableLoopBefore;
-        }
-        IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>> out_;
-        out_ = new IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>>();
-        if (_filter instanceof ForMutableIterativeLoop) {
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpExp()) {
-                out_.put(o, mutableLoopBefore.getVal(o));
-            }
-            for (OperationNode o:((ForMutableIterativeLoop)_filter).getOpStep()) {
-                out_.put(o, mutableLoopBefore.getVal(o));
-            }
-            return out_;
+            return filter(mutableLoopBefore.getKeys());
         }
         if (_filter instanceof ForIterativeLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
         if (_filter instanceof ForEachLoop) {
-            return out_;
+            return new IdList<AffectationOperation>();
         }
-        return mutableLoopBefore;
+        return filter(mutableLoopBefore.getKeys());
+    }
+    private IdList<AffectationOperation> filter(IdList<OperationNode> _ops) {
+        IdList<AffectationOperation> out_ = new IdList<AffectationOperation>();
+        for (OperationNode o: _ops) {
+            if (o instanceof AffectationOperation) {
+                out_.add((AffectationOperation) o);
+            }
+        }
+        return out_;
+    }
+    public CustList<StringMap<Assignment>> getLastVariablesOrEmpty() {
+        if (variables.isEmpty()) {
+            return new CustList<StringMap<Assignment>>();
+        }
+        return variables.lastValue();
     }
     public IdMap<OperationNode, CustList<StringMap<Assignment>>> getVariables() {
         return variables;
+    }
+    public StringMap<Assignment> getLastFieldsOrEmpty() {
+        if (fields.isEmpty()) {
+            return new StringMap<Assignment>();
+        }
+        return fields.lastValue();
     }
     public IdMap<OperationNode, StringMap<Assignment>> getFields() {
         return fields;
@@ -127,6 +111,12 @@ public class AssignedVariables {
     }
     public IdMap<OperationNode, CustList<StringMap<AssignmentBefore>>> getMutableLoopBefore() {
         return mutableLoopBefore;
+    }
+    public CustList<StringMap<Assignment>> getLastMutableLoopOrEmpty() {
+        if (mutableLoop.isEmpty()) {
+            return new CustList<StringMap<Assignment>>();
+        }
+        return mutableLoop.lastValue();
     }
     public IdMap<OperationNode, CustList<StringMap<Assignment>>> getMutableLoop() {
         return mutableLoop;

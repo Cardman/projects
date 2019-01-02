@@ -3,10 +3,10 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -20,9 +20,9 @@ public abstract class ProcessMethodCommon {
     protected static final String ARR_ARR_CUST = "[[pkg.ExThree";
     protected static final String NUMBERS = "code.expressionlanguage.classes.Ints";
     protected static final String CUST = NUMBERS;
-    protected static final String INTEGER = "$int";
+    protected static final String INTEGER = "java.lang.Integer";
     protected static final String STRING = "java.lang.String";
-    protected static final String BOOLEAN = "$boolean";
+    protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static void initializeClass(String _class, ContextEl _cont) {
 //        ProcessMethod.initializeClass(_class, _cont);
@@ -84,7 +84,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -97,7 +96,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextElIntern() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSingleInnerParts(true);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
@@ -114,6 +112,17 @@ public abstract class ProcessMethodCommon {
         ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
+    protected static ContextEl contextFrElDefault() {
+        Options opt_ = new Options();
+        ContextEl ct_ = InitializationLgNames.buildStdOne("fr", opt_);
+        return ct_;
+    }
+    protected static ContextEl contextFrElDefaultInternType() {
+        Options opt_ = new Options();
+        opt_.setSingleInnerParts(true);
+        ContextEl ct_ = InitializationLgNames.buildStdOne("fr", opt_);
+        return ct_;
+    }
     protected static ContextEl contextElDefault(int... _m) {
         Options opt_ = new Options();
         ContextEl ct_;
@@ -127,7 +136,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(boolean _multAff, boolean _eqPlus,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -140,7 +148,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {
@@ -153,7 +160,6 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl contextEl(VariableSuffix _suf,boolean _multAff, boolean _eqPlus,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(_suf);
         ContextEl ct_;
         if (_m.length == 0) {

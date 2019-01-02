@@ -1,17 +1,15 @@
 package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassCategory;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -282,15 +280,6 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         return new StringList(superInterfaces);
     }
 
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
@@ -307,16 +296,6 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
             return false;
         }
         return StringList.quickEq(name, info_.name);
-    }
-
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
     }
 
     @Override

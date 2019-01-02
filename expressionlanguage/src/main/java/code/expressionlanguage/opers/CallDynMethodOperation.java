@@ -1,41 +1,25 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.calls.util.CustomReflectMethod;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadNumberArgMethod;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class CallDynMethodOperation extends InvokingOperation {
+public final class CallDynMethodOperation extends ReflectableInvokingOperation {
 
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
     }
 
     @Override
@@ -108,7 +92,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 m_.setArg(a_);
                 m_.setParam(p_);
                 m_.setMapping(map_);
-                if (!Templates.isCorrect(m_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(m_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(m_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -125,74 +109,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
             ret_ = stds_.getAliasObject();
         }
         setResultClass(new ClassArgumentMatching(ret_));
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = prepareCallDyn(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = prepareCallDyn(previous_, arguments_, _conf);
-        }
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
-        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
-        Argument res_;
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else if (method_ != null) {
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
-        } else if (ref_ != null) {
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument res_ = prepareCallDyn(previous_, arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
 }

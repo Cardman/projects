@@ -40,8 +40,8 @@ public abstract class CustComponent {
         }
     }
     private static void paint(CustComponent _cust) {
-        if (_cust instanceof Paintable) {
-            Paintable p_ = (Paintable) _cust;
+        if (_cust instanceof PaintableLabel) {
+            PaintableLabel p_ = (PaintableLabel) _cust;
             int w_ = _cust.getWidth();
             int h_ = _cust.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);

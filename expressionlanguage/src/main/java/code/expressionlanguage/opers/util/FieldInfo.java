@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Templates;
 
 public final class FieldInfo {
     private final String declaringClass;

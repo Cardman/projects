@@ -1,6 +1,6 @@
 package aiki.beans.facade.comparators;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

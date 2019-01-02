@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import code.gui.ThreadUtil;
 import code.util.CustList;
-import code.util.consts.Constants;
 
 public final class AnimatedImage extends Thread {
 
@@ -31,7 +31,7 @@ public final class AnimatedImage extends Thread {
         int i = 0;
         while (animated.get()) {
             label.setIcon(new ImageIcon(images.get(i)));
-            Constants.sleep(delay);
+            ThreadUtil.sleep(delay);
             i++;
             if (i >= images.size()) {
                 i = 0;

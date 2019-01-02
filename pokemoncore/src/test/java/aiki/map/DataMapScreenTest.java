@@ -1,11 +1,11 @@
 package aiki.map;
-import static aiki.EquallablePkUtil.assertEq;
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.enums.Direction;

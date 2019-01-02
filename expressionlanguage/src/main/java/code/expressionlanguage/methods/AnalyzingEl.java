@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.IdList;
@@ -91,7 +91,7 @@ public final class AnalyzingEl {
         mapping.setArg(_arg);
     }
     public boolean isCorrectMapping(Analyzable _an) {
-        return Templates.isCorrect(mapping, _an);
+        return Templates.isCorrectOrNumbers(mapping, _an);
     }
 
     public IdMap<BreakBlock, BreakableBlock> getBreakables() {

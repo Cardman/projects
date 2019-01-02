@@ -20,6 +20,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -946,7 +947,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultAddPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        AddPokemonBean instance_ = (AddPokemonBean) _instance.getInstance();
+        AddPokemonBean instance_ = (AddPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,NAME_PK)) {
             res_.setResult(new StringStruct(instance_.getNamePk()));
@@ -1009,7 +1010,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultEditPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EditPokemonBean instance_ = (EditPokemonBean) _instance.getInstance();
+        EditPokemonBean instance_ = (EditPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,LEVEL)) {
             res_.setResult(new ShortStruct(instance_.getLevel()));
@@ -1056,7 +1057,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultEditPokemonMovesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) _instance.getInstance();
+        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -1095,7 +1096,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultEditTrainerPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) _instance.getInstance();
+        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MOVES)) {
             res_.setResult(new StdStruct(instance_.getMoves(),std_.getCustList()));
@@ -1126,7 +1127,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultSelectAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectAbilityBean instance_ = (SelectAbilityBean) _instance.getInstance();
+        SelectAbilityBean instance_ = (SelectAbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
             res_.setResult(new StringStruct(instance_.getTypedAbility()));
@@ -1141,7 +1142,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultSelectItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectItemBean instance_ = (SelectItemBean) _instance.getInstance();
+        SelectItemBean instance_ = (SelectItemBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -1164,7 +1165,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultSelectPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectPokemonBean instance_ = (SelectPokemonBean) _instance.getInstance();
+        SelectPokemonBean instance_ = (SelectPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             res_.setResult(new StringStruct(instance_.getTypedName()));
@@ -1203,7 +1204,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultSimulationBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SimulationBean instance_ = (SimulationBean) _instance.getInstance();
+        SimulationBean instance_ = (SimulationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
             res_.setResult(new StdStruct(instance_.getWinPointsFight(),std_.getCustMap()));
@@ -1446,7 +1447,7 @@ public final class AikiBeansSimulationStd {
     public static ResultErrorStd getResultSimulationLevelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        SimulationLevelBean instance_ = (SimulationLevelBean) _instance.getInstance();
+        SimulationLevelBean instance_ = (SimulationLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,POSSIBLE_MULTI_LAYER)) {
             res_.setResult(new BooleanStruct(instance_.getPossibleMultiLayer()));
@@ -1488,8 +1489,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultAddPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        AddPokemonBean instance_ = (AddPokemonBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        AddPokemonBean instance_ = (AddPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,ABILITY)) {
             instance_.setAbility((String) value_);
@@ -1540,8 +1541,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultEditPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EditPokemonBean instance_ = (EditPokemonBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        EditPokemonBean instance_ = (EditPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,EXPERIENCE)) {
             instance_.setExperience((Rate) value_);
@@ -1572,8 +1573,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultEditPokemonMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName((String) value_);
@@ -1604,8 +1605,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultEditTrainerPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,GENDER)) {
             instance_.setGender((Gender) value_);
@@ -1626,8 +1627,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultSelectAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectAbilityBean instance_ = (SelectAbilityBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        SelectAbilityBean instance_ = (SelectAbilityBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
             instance_.setTypedAbility((String) value_);
@@ -1638,8 +1639,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultSelectItemBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectItemBean instance_ = (SelectItemBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        SelectItemBean instance_ = (SelectItemBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName((String) value_);
@@ -1660,8 +1661,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultSelectPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SelectPokemonBean instance_ = (SelectPokemonBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        SelectPokemonBean instance_ = (SelectPokemonBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
             instance_.setTypedName((String) value_);
@@ -1697,8 +1698,8 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd setResultSimulationBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
         ResultErrorStd res_ = new ResultErrorStd();
-        SimulationBean instance_ = (SimulationBean) _instance.getInstance();
-        Object value_ = _value.getInstance();
+        SimulationBean instance_ = (SimulationBean) ((RealInstanceStruct)_instance).getInstance();
+        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
             instance_.setDiffWinningExpPtsFight((DifficultyWinPointsFight) value_);
@@ -1883,7 +1884,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodAddPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        AddPokemonBean instance_ = (AddPokemonBean) _instance.getInstance();
+        AddPokemonBean instance_ = (AddPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -1911,7 +1912,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEditPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EditPokemonBean instance_ = (EditPokemonBean) _instance.getInstance();
+        EditPokemonBean instance_ = (EditPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -1950,7 +1951,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEditPokemonMovesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) _instance.getInstance();
+        EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -1969,7 +1970,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodEditTrainerPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) _instance.getInstance();
+        EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -2016,7 +2017,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSelectAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SelectAbilityBean instance_ = (SelectAbilityBean) _instance.getInstance();
+        SelectAbilityBean instance_ = (SelectAbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -2038,7 +2039,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSelectItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SelectItemBean instance_ = (SelectItemBean) _instance.getInstance();
+        SelectItemBean instance_ = (SelectItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -2064,7 +2065,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSelectPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SelectPokemonBean instance_ = (SelectPokemonBean) _instance.getInstance();
+        SelectPokemonBean instance_ = (SelectPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {
@@ -2087,7 +2088,7 @@ public final class AikiBeansSimulationStd {
     }
     public static ResultErrorStd invokeMethodSimulationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        SimulationBean instance_ = (SimulationBean) _instance.getInstance();
+        SimulationBean instance_ = (SimulationBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_REAL_STEP_NUMBER)) {
@@ -2525,7 +2526,7 @@ public final class AikiBeansSimulationStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodSimulationLevelBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        SimulationLevelBean instance_ = (SimulationLevelBean) _instance.getInstance();
+        SimulationLevelBean instance_ = (SimulationLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CANCEL)) {

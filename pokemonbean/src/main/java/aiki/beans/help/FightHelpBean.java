@@ -1,9 +1,9 @@
 package aiki.beans.help;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
@@ -42,6 +42,7 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
@@ -55,7 +56,6 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
 import code.util.ints.Listable;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class FightHelpBean extends CommonBean {
 

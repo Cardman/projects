@@ -9,6 +9,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -56,18 +58,18 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(5, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(4, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
+        assertEq(4, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(6, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(7, (Number)field_.getInstance());
+        assertEq(7, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -111,15 +113,15 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(5, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(4, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
+        assertEq(4, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
+        assertEq(6, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -164,18 +166,18 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(5, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(4, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
+        assertEq(4, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(6, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(7, (Number)field_.getInstance());
+        assertEq(7, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -205,9 +207,9 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(8, (Number)field_.getInstance());
+        assertEq(8, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -238,9 +240,9 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(8, (Number)field_.getInstance());
+        assertEq(8, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -272,12 +274,12 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(2, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(8, (Number)field_.getInstance());
+        assertEq(8, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -308,12 +310,12 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(2, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(8, (Number)field_.getInstance());
+        assertEq(8, ((NumberStruct)field_).getInstance());
     }
 
     @Test
@@ -347,12 +349,12 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(2, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(24, (Number)field_.getInstance());
+        assertEq(24, ((NumberStruct)field_).getInstance());
     }
     @Test
     public void instanceArgument17Test() {
@@ -395,18 +397,18 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(5, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(4, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
+        assertEq(4, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
-        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(6, ((NumberStruct)field_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(7, (Number)field_.getInstance());
+        assertEq(7, ((NumberStruct)field_).getInstance());
     }
     @Test
     public void instanceArgument1FailTest() {

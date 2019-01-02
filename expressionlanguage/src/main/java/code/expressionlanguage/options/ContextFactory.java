@@ -3,22 +3,32 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.Initializer;
+import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class ContextFactory {
 
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
-            Options _options, LgNames _undefinedLgNames, StringMap<String> _files) {
-        ContextEl context_ = buildDefKw(_lang, _lock, _init, _options, _undefinedLgNames);
-        Classes.validateAll(_files, context_);
+            Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
+        ContextEl context_ = buildDefKw(_lang, _lock, _init, _options, _exec,_undefinedLgNames, _tabWidth);
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        for (EntryCust<String, String> e: _files.entryList()) {
+        	if (!e.getKey().startsWith("src/")) {
+        		continue;
+        	}
+        	srcFiles_.addEntry(e.getKey(), e.getValue());
+        }
+        context_.getClasses().addResources(_files);
+        Classes.validateAll(srcFiles_, context_);
         return context_;
     }
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
-            Options _options, LgNames _undefinedLgNames) {
+            Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 
         KeyWords kwl_ = km_.getKeyWords(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -28,17 +38,25 @@ public final class ContextFactory {
         } else {
             return null;
         }
-        return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames);
+        return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options,_exec, kwl_, _undefinedLgNames, _tabWidth);
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files) {
-        ContextEl context_ = build(_stack, _lock, _init, _options, _definedKw, _definedLgNames);
-        Classes.validateAll(_files, context_);
+            Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth) {
+        ContextEl context_ = build(_stack, _lock, _init, _options,_exec,_definedKw, _definedLgNames, _tabWidth);
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        for (EntryCust<String, String> e: _files.entryList()) {
+        	if (!e.getKey().startsWith("src/")) {
+        		continue;
+        	}
+        	srcFiles_.addEntry(e.getKey(), e.getValue());
+        }
+        context_.getClasses().addResources(_files);
+        Classes.validateAll(srcFiles_, context_);
         return context_;
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options, KeyWords _definedKw, LgNames _definedLgNames) {
-        ContextEl contextEl_ = new ContextEl(_stack, _lock, _init, _options, _definedKw);
+            Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
+        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
         contextEl_.setStandards(_definedLgNames);
         StringList keyWords_ = _definedKw.allKeyWords();
         _definedKw.validateKeyWordContents(contextEl_, keyWords_);

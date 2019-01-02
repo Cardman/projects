@@ -54,9 +54,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     public String getDeclaringType() {
         return getOwner().getFullName();
     }
-    public String getPrettyString() {
-        return StringList.concat(getDeclaringType(),".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
-    }
 
     @Override
     public String getSignature() {
@@ -92,20 +89,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
             pTypes_.add(n_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public boolean isConcreteInstanceDerivableMethod() {
-        if (isStaticMethod()) {
-            return false;
-        }
-        if (isFinalMethod()) {
-            return false;
-        }
-        if (isAbstractMethod()) {
-            return false;
-        }
-        return true;
     }
 
     @Override

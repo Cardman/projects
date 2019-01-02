@@ -7,6 +7,4 @@ public interface MathFactory {
 
     Boolean evaluateDirectlyBoolean(String _booleanExp);
 
-    String toString(Object _gotArg);
-
 }

@@ -1,8 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -84,32 +82,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return importsOffset;
     }
 
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String _fileName) {
         fileName = _fileName;
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 }

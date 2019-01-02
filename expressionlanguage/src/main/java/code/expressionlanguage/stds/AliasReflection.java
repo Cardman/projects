@@ -3,15 +3,15 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ClassNameCmp;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperatorCmp;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -818,7 +818,7 @@ public final class AliasReflection {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                result_.setResult(new BooleanStruct(Templates.isCorrect(mapping_, _cont)));
+                result_.setResult(new BooleanStruct(Templates.isCorrectOrNumbers(mapping_, _cont)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
@@ -828,7 +828,7 @@ public final class AliasReflection {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
-                result_.setResult(new BooleanStruct(Templates.isCorrect(mapping_, _cont)));
+                result_.setResult(new BooleanStruct(Templates.isCorrectOrNumbers(mapping_, _cont)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
@@ -924,9 +924,9 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
                 Classes classesInfo_ = _cont.getClasses();
-                for (EntryCust<String, RootBlock> c: classesInfo_.getClassesBodies().entryList()) {
-                    String k_ = c.getKey();
-                    RootBlock clblock_ = c.getValue();
+                for (RootBlock c: classesInfo_.getClassBodies()) {
+                    RootBlock clblock_ = c;
+                    String k_ = c.getFullName();
                     String forName_ = Templates.getGenericString(k_, _cont);
                     classes_.add(Classes.getClassMetaInfo(clblock_, forName_, _cont));
                 }
@@ -1368,7 +1368,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                Struct out_ = InvokingOperation.getElement(inst_, (NumberStruct)args_[1], _cont);
+                Struct out_ = ExecInvokingOperation.getElement(inst_, (NumberStruct)args_[1], _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }
@@ -1378,7 +1378,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
                 Struct value_ = args_[2];
-                InvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont, false);
+                ExecInvokingOperation.setElement(inst_, (NumberStruct)args_[1], value_, _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }

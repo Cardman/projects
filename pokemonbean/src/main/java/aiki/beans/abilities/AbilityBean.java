@@ -1,5 +1,4 @@
 package aiki.beans.abilities;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStatisticCategory;
 import aiki.beans.facade.comparators.ComparatorStatisticType;
@@ -8,6 +7,7 @@ import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.beans.facade.comparators.ComparatorWeatherType;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;

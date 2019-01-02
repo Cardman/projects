@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
-import aiki.DataBase;
 import aiki.comments.Comment;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;

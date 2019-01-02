@@ -1,7 +1,7 @@
 package aiki.beans.moves;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;

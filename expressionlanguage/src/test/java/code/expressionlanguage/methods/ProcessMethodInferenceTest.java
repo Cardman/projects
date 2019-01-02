@@ -10,6 +10,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -41,7 +43,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument2Test() {
@@ -70,7 +72,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument3Test() {
@@ -102,7 +104,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument4Test() {
@@ -137,7 +139,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument5Test() {
@@ -173,7 +175,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument6Test() {
@@ -209,7 +211,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument7Test() {
@@ -250,7 +252,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument8Test() {
@@ -290,7 +292,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument9Test() {
@@ -330,7 +332,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument10Test() {
@@ -370,7 +372,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument11Test() {
@@ -396,7 +398,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument12Test() {
@@ -423,7 +425,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -452,7 +454,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(24, (Number)ret_.getObject());
+        assertEq(24, ret_.getNumber());
     }
     @Test
     public void calculateArgument14Test() {
@@ -485,9 +487,9 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, (Number)field_.getInstance());
+        assertEq(6, ((NumberStruct)field_).getInstance());
     }
     @Test
     public void calculateArgument15Test() {
@@ -516,7 +518,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument16Test() {
@@ -542,7 +544,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument17Test() {
@@ -564,9 +566,51 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(24, (Number)ret_.getObject());
+        assertEq(24, ret_.getNumber());
+    }
+
+    @Test
+    public void calculateArgument18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int var(){\n");
+        xml_.append("  var t=8;\n");
+        xml_.append("  t+=5;\n");
+        xml_.append("  return 1i+(int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("var");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int var(){\n");
+        xml_.append("  final var t=8;\n");
+        xml_.append("  return 1i+(int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("var");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(9, ret_.getNumber());
     }
     @Test
     public void calculateArgument1FailTest() {

@@ -126,7 +126,83 @@ public class MatrixTest {
         assertEq(Rate.zero(), res_.cell(2, 0));
         assertEq(Rate.zero(), res_.cell(2, 1));
     }
-
+    @Test
+    public void rank1Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        assertEq(2, mat_.rank());
+    }
+    @Test
+    public void rank2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.rank());
+    }
+    @Test
+    public void rank3Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.rank());
+    }
+    @Test
+    public void rank4Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.rank());
+    }
+    @Test
+    public void rank5Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(0, mat_.rank());
+    }
+    @Test
+    public void rank6Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(0, mat_.rank());
+    }
     @Test
     public void det1Test() {
         Matrix mat_ = new Matrix();

@@ -64,9 +64,4 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
     public void setFinished(boolean _finished) {
         finished = _finished;
     }
-    @Override
-    public String getInfos() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

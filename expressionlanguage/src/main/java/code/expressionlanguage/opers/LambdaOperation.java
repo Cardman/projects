@@ -3,13 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.custom.AbstractMethod;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
@@ -20,9 +14,13 @@ import code.expressionlanguage.errors.custom.UndefinedMethodError;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.errors.custom.VarargError;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -34,19 +32,13 @@ import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.LambdaConstructorStruct;
-import code.expressionlanguage.structs.LambdaFieldStruct;
-import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
+public final class LambdaOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
@@ -475,7 +467,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         map_.setMapping(maps_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -852,7 +844,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!Templates.isCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -910,7 +902,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
                 mapping_.setMapping(map_);
-                if (!Templates.isCorrect(mapping_, _conf)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -971,7 +963,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         map_.setMapping(maps_);
-        if (!Templates.isCorrect(map_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -1011,7 +1003,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             mapping_.setArg(arg_);
             mapping_.setParam(out_);
             mapping_.setMapping(maps_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
+            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
@@ -1237,95 +1229,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         analyzeNotBoolAssignmentAfter(_conf);
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        Argument arg_ = new Argument();
-        String clArg_ = getResultClass().getNames().first();
-        String ownerType_ = foundClass;
-        ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
-        clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);
-        if (realId == null && method == null) {
-            String formatType_ = _conf.getOperationPageEl().formatVarType(returnFieldType, _conf);
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
-            l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
-        }
-        if (method == null) {
-            LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
-            l_.setInstanceCall(_previous);
-            arg_.setStruct(l_);
-            return arg_;
-        }
-        MethodId id_ = method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
-        l_.setInstanceCall(_previous);
-        arg_.setStruct(l_);
-        return arg_;
-    }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
     public final void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;
     }
@@ -1366,4 +1269,57 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     public final void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
     }
+
+    public boolean isIntermediate() {
+        return intermediate;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public ClassMethodId getMethod() {
+        return method;
+    }
+
+    public String getFoundClass() {
+        return foundClass;
+    }
+
+    public int getAncestor() {
+        return ancestor;
+    }
+
+    public boolean isShiftArgument() {
+        return shiftArgument;
+    }
+
+    public boolean isPolymorph() {
+        return polymorph;
+    }
+
+    public boolean isAbstractMethod() {
+        return abstractMethod;
+    }
+
+    public ConstructorId getRealId() {
+        return realId;
+    }
+
+    public ClassField getFieldId() {
+        return fieldId;
+    }
+
+    public boolean isAffField() {
+        return affField;
+    }
+
+    public String getReturnFieldType() {
+        return returnFieldType;
+    }
+    
 }

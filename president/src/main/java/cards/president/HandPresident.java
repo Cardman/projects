@@ -139,7 +139,7 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
     @return la carte aleatoire choisie*/
     CardPresident tirerUneCarteAleatoire() {
 //        return jouer((int)Math.floor(total()*MonteCarlo.randomDouble()));
-        return jouer(AbMonteCarlo.randomInt(total()));
+        return jouer((int) AbMonteCarlo.randomLong(total()));
         //0<=total()*Math.random()<total()
         //Donc 0<=Math.floor(total()*Math.random())<Math.floor(total())=total()
     }

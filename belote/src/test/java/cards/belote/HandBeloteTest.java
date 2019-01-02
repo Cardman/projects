@@ -1,6 +1,6 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class HandBeloteTest {
         resAtt_.ajouter(CardBelote.HEART_1);
         resAtt_.ajouter(CardBelote.HEART_10);
         resAtt_.ajouter(CardBelote.HEART_KING);
-        assertNotEquals(resAtt_, main_);
+        assertNotSame(resAtt_, main_);
         main_.trierUnicolore(true);
         assertEq(resAtt_, main_);
         resAtt_ = new HandBelote(Order.SUIT);

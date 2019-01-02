@@ -13,12 +13,13 @@ import code.gui.FolderOpenDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
+import code.gui.ThreadUtil;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class MainWindow extends GroupFrame {
 
@@ -141,7 +142,7 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        Constants.exit();
+        ThreadUtil.exit();
     }
 
     @Override

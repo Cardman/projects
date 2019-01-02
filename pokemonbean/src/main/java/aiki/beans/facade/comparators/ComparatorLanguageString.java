@@ -1,6 +1,6 @@
 package aiki.beans.facade.comparators;
-import aiki.DataBase;
 import aiki.beans.help.LanguageElementStringKey;
+import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

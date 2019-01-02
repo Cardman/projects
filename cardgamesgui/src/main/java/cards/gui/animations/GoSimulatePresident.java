@@ -20,13 +20,13 @@ import cards.president.enumerations.Playing;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ThreadInvoker;
+import code.gui.ThreadUtil;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**Thread safe class*/
 public final class GoSimulatePresident extends Thread implements GoSimulate {
@@ -62,7 +62,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         String lg_ = container.getOwner().getLanguageKey();
         GamePresident partie_=partiePresidentSimulee();
         partie_.setChargementSimulation(100);
-        Constants.sleep(500);
+        ThreadUtil.sleep(500);
         String event_;
         event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
@@ -72,7 +72,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         int noDeal_ = CustList.FIRST_INDEX;
         int maxDeals_ = partie_.getDealTricks().size();
         StringList nicknames_=pseudosSimuleePresident();
-        EqList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
+        CustList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
         while (noDeal_ < maxDeals_) {
             noDeal = noDeal_;
             if(container.isArretDemo()) {
@@ -177,7 +177,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                container.tapisPresident().setStatus(lastStatus_.getVal(-1), nextPlayer_.getVal(-1));
 //                container.tapisPresident().repaintValidate();
                 for (HandPresident h: t_) {
-                    Constants.sleep(1000);
+                    ThreadUtil.sleep(1000);
                     container.pause();
                     ThreadInvoker.invokeNow(new SettingPresidentHand(container, h));
 //                    container.tapisPresident().setTalonPresident(h);
@@ -214,7 +214,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                container.ajouterTexteDansZone(event_);
 //                container.ajouterTexteDansZone(StringList.simpleFormat(mess_, nicknames_.get(ramasseur_))+ContainerPresident.RETURN_LINE_CHAR);
 //                container.ajouterTexteDansZone(ContainerPresident.EMPTY+ContainerPresident.RETURN_LINE_CHAR);
-                Constants.sleep(2000);
+                ThreadUtil.sleep(2000);
             }
 //            int noTrick_ = CustList.FIRST_INDEX;
 //            for (TrickPresident t: partie_.getDealTricks().get(noDeal_)) {
@@ -226,14 +226,14 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                noTrick_ ++;
 //            }
             ThreadInvoker.invokeNow(new EndSimulation(this));
-            Constants.sleep(2000);
+            ThreadUtil.sleep(2000);
             noDeal_ ++;
         }
     }
 
     void displayGivenCardsWinner(int _noDeal) {
         GamePresident partie_=partiePresidentSimulee();
-        EqList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
+        CustList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
         NumberMap<Byte,HandPresident> switchedCards_ = partie_.getSwitchedCardsDeals().get(_noDeal);
         Numbers<Byte> ranksBef_ = ranks_.get(_noDeal - 1);
         Numbers<Byte> losers_ = GamePresident.getLoosers(ranksBef_, partie_.nombresCartesEchangesMax());
@@ -249,7 +249,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 
     void displayGivenCardsLoser(int _noDeal) {
         GamePresident partie_=partiePresidentSimulee();
-        EqList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
+        CustList<Numbers<Byte>> ranks_ = partie_.getRanksDeals();
         NumberMap<Byte,HandPresident> switchedCards_ = partie_.getSwitchedCardsDeals().get(_noDeal);
         Numbers<Byte> ranksBef_ = ranks_.get(_noDeal - 1);
         Numbers<Byte> losers_ = GamePresident.getLoosers(ranksBef_, partie_.nombresCartesEchangesMax());

@@ -1,8 +1,10 @@
 package code.expressionlanguage.methods.util;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;
@@ -12,7 +14,6 @@ import code.expressionlanguage.methods.NullCatchEval;
 import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -21,7 +22,6 @@ public final class LocalThrowing implements CallingFinally {
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
-        LgNames lgNames_ = _conf.getStandards();
         AbstractCatchEval catchElt_ = null;
         while (!_conf.isEmptyPages()) {
             Struct custCause_ = _conf.getException();
@@ -62,9 +62,9 @@ public final class LocalThrowing implements CallingFinally {
                             n_ = n_.getNextSibling();
                             continue;
                         }
-                        String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
                         name_ = bkIp_.formatVarType(name_, _conf);
-                        if (Templates.isCorrectExecute(excepClass_, name_ , _conf)) {
+                        Argument arg_ = new Argument(custCause_);
+                        if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;
@@ -80,24 +80,20 @@ public final class LocalThrowing implements CallingFinally {
                     n_ = n_.getNextSibling();
                 }
                 if (catchElt_ != null) {
-                    Block catchElement_ = catchElt_;
+                    AbstractCatchEval catchElement_ = catchElt_;
                     try_.setCalling(null);
                     _conf.setException(null);
                     bkIp_.clearCurrentEls();
                     Block childCatch_ = catchElement_.getFirstChild();
-                    if (childCatch_ != null) {
-                        if (catchElement_ instanceof CatchEval) {
-                            CatchEval c_ = (CatchEval) catchElement_;
-                            String var_ = c_.getVariableName();
-                            LocalVariable lv_ = new LocalVariable();
-                            lv_.setStruct(custCause_);
-                            lv_.setClassName(c_.getImportedClassName());
-                            bkIp_.getCatchVars().put(var_, lv_);
-                        }
-                        bkIp_.getReadWrite().setBlock(childCatch_);
-                        return;
+                    if (catchElement_ instanceof CatchEval) {
+                        CatchEval c_ = (CatchEval) catchElement_;
+                        String var_ = c_.getVariableName();
+                        LocalVariable lv_ = new LocalVariable();
+                        lv_.setStruct(custCause_);
+                        lv_.setClassName(c_.getImportedClassName());
+                        bkIp_.getCatchVars().put(var_, lv_);
                     }
-                    bkIp_.getReadWrite().setBlock(catchElement_);
+                    bkIp_.getReadWrite().setBlock(childCatch_);
                     return;
                 }
                 if (addFinallyClause_) {

@@ -41,9 +41,4 @@ public class SimpleMathFactory implements MathFactory {
         return or_;
     }
 
-    @Override
-    public String toString(Object _gotArg) {
-        return String.valueOf(_gotArg);
-    }
-
 }

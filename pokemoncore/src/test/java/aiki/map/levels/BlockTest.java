@@ -1,10 +1,10 @@
 package aiki.map.levels;
-import static aiki.EquallablePkUtil.assertEq;
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;

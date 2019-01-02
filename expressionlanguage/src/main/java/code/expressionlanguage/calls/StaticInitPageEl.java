@@ -1,9 +1,9 @@
 package code.expressionlanguage.calls;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.util.CustomFoundBlock;
+import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InitBlock;
@@ -14,10 +14,10 @@ import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.util.IdMap;
 
-public final class StaticInitPageEl extends AbstractPageEl {
+public final class StaticInitPageEl extends AbstractPageEl implements WithElPageEl {
 
     private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
@@ -32,13 +32,13 @@ public final class StaticInitPageEl extends AbstractPageEl {
             String gene_ = ((UniqueRootedBlock) root_).getImportedDirectGenericSuperClass();
             String superClass_ = Templates.getIdFromAllTypes(gene_);
             if (classes_.getClassBody(superClass_) != null) {
-                if (InvokingOperation.hasToExit(_context, superClass_)) {
+                if (ExecInvokingOperation.hasToExit(_context, superClass_)) {
                     return false;
                 }
             }
         }
         for (String i: root_.getStaticInitImportedInterfaces()) {
-            if (InvokingOperation.hasToExit(_context, i)) {
+            if (ExecInvokingOperation.hasToExit(_context, i)) {
                 return false;
             }
         }
@@ -49,7 +49,6 @@ public final class StaticInitPageEl extends AbstractPageEl {
         ReadWrite rw_ = getReadWrite();
         Block en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
-            setCurrentBlock(en_);
             ((WithEl)en_).processEl(_context);
             return;
         }
@@ -97,7 +96,6 @@ public final class StaticInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
 
-    @Override
     public void endRoot(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         String curClass_ = getGlobalClass();

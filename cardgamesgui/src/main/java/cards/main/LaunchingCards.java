@@ -15,6 +15,7 @@ import cards.president.RulesPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
+import code.gui.ConstFiles;
 import code.gui.LoadLanguage;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
@@ -25,7 +26,6 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 /**
     le lancement du logiciel*/
 public class LaunchingCards extends SoftApplicationCore {

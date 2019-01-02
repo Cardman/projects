@@ -2,15 +2,12 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.VarargError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 
 public final class FirstOptOperation extends AbstractUnaryOperation {
@@ -34,25 +31,13 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (!(m_ instanceof InvokingOperation)) {
+        if (!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        InvokingOperation parent_ = (InvokingOperation)m_;
-        if (!parent_.isCallMethodCtor(_conf)) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (isFirstChild()) {
@@ -62,7 +47,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         OperationNode child_ = getFirstChild();
@@ -87,32 +71,12 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setSimpleArgumentAna(arguments_.first(), _conf);
     }
 
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf, _nodes);
-        return argres_;
-    }
-
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         return _arguments.first();
+    }
+
+    public int getOffset() {
+        return offset;
     }
 }

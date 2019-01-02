@@ -1,8 +1,9 @@
 package code.util.ints;
 import code.util.Numbers;
 
-public interface Listable<T> extends Iterable<T>, SimpleIterable , Countable, SimpleList {
+public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, SimpleList {
 
+    Iterable<T> getList();
     Listable<T> getReverse();
 
     void add(T _e);

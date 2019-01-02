@@ -1,6 +1,6 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -86,7 +86,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.SPADE_9);
         game.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
@@ -104,7 +104,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.DIAMOND_8);
         game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         assertTrue(!game.memeEquipe(game.getEntameur(),player_));
         hand_ = game.getDistribution().main(player_);
@@ -121,7 +121,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.DIAMOND_8);
         game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         assertTrue(!game.memeEquipe(game.getEntameur(),player_));
         hand_ = game.getDistribution().main(player_);
@@ -138,7 +138,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.DIAMOND_8);
         game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         assertTrue(!game.memeEquipe(game.getEntameur(),player_));
         hand_ = game.getDistribution().main(player_);
@@ -155,7 +155,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game.getDistribution().jouer(game.getEntameur(),CardBelote.DIAMOND_8);
         game.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
-        assertNotEquals(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
+        assertNotSame(game.couleurAtout(), game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
         assertTrue(!game.memeEquipe(game.getEntameur(),player_));
         hand_ = game.getDistribution().main(player_);

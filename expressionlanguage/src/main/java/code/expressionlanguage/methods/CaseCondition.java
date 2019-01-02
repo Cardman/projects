@@ -2,36 +2,33 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Delimiters;
-import code.expressionlanguage.ElResolver;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.instr.ElResolver;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class CaseCondition extends SwitchPartBlock implements IncrCurrentGroup, IncrNextGroup {
+public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
-    private CustList<OperationNode> opValue;
-    private boolean possibleSkipNexts;
+    private CustList<ExecOperationNode> opValue;
 
     private int valueOffset;
 
@@ -55,19 +52,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
     }
 
     @Override
-    boolean isAlwaysExitable() {
-        return getFirstChild() == null || !isPossibleSkipNexts();
-    }
-
-    boolean isPossibleSkipNexts() {
-        return possibleSkipNexts;
-    }
-
-    void setPossibleSkipNexts(boolean _possibleSkipNexts) {
-        possibleSkipNexts = _possibleSkipNexts;
-    }
-
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -81,6 +65,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
+            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
@@ -110,16 +95,16 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);
                     op_.setOrder(0);
-                    opValue = new CustList<OperationNode>();
-                    opValue.add(op_);
+                    opValue = new CustList<ExecOperationNode>();
+                    opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _cont));
                     defaultAssignmentAfter(_cont, op_);
+                    checkDuplicateEnumCase(_cont);
                     return;
                 }
                 opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-                if (opValue.isEmpty()) {
-                    return;
-                }
-                if (Argument.isNullValue(opValue.last().getArgument())) {
+                Argument a_ = opValue.last().getArgument();
+                if (Argument.isNullValue(a_)) {
+                    checkDuplicateCase(_cont, a_);
                     return;
                 }
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -131,61 +116,78 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
             }
         }
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opValue.isEmpty()) {
-            return;
-        }
-        if (opValue.last().isVoidArg(_cont)) {
+        ExecOperationNode op_ = opValue.last();
+        ClassArgumentMatching resCase_ = op_.getResultClass();
+        if (resCase_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
         }
-        if (opValue.last().getArgument() == null) {
+        Argument arg_ = op_.getArgument();
+        if (arg_ == null) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
+        } else {
+            checkDuplicateCase(_cont, arg_);
         }
-        ClassArgumentMatching resCase_ = opValue.last().getResultClass();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.setType(opValue.last().getResultClass());
+            un_.setType(resCase_);
             _cont.getClasses().addError(un_);
         }
     }
 
-    public ClassField getFieldId() {
-        OperationNode last_ = opValue.last();
-        if (!(last_ instanceof SettableAbstractFieldOperation)) {
-            DotOperation d_ = (DotOperation) last_;
-            last_ = d_.getFirstChild().getNextSibling();
-            return ((SettableAbstractFieldOperation)last_).getFieldId();
-        }
-        return ((SettableAbstractFieldOperation)last_).getFieldId();
-    }
-    public CustList<OperationNode> getOpValue() {
+    public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
+    private void checkDuplicateCase(ContextEl _cont, Argument _arg) {
+        BracedBlock par_ = getParent();
+        Block first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof CaseCondition) {
+                CaseCondition c_ = (CaseCondition) first_;
+                ExecOperationNode curOp_ = c_.opValue.last();
+                Argument a_ = curOp_.getArgument();
+                if (a_ != null) {
+                    if (_arg.getStruct().sameReference(a_.getStruct())) {
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                        break;
+                    }
+                }
+            }
+            first_ = first_.getNextSibling();
+        }
     }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return true;
+    private void checkDuplicateEnumCase(ContextEl _cont) {
+        BracedBlock par_ = getParent();
+        Block first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof CaseCondition) {
+                CaseCondition c_ = (CaseCondition) first_;
+                String v_ = c_.value.trim();
+                if (StringList.quickEq(v_, value.trim())) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                    break;
+                }
+                
+            }
+            first_ = first_.getNextSibling();
+        }
     }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
@@ -193,34 +195,13 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
         sw_.setCurentVisitedBlock(this);
         if (sw_.isEntered()) {
-            if (!hasChildNodes()) {
-                if (sw_.getLastVisitedBlock() == this) {
-                    sw_.setFinished(true);
-                    rw_.setBlock(sw_.getBlock());
-                    return;
-                }
-                rw_.setBlock(getNextSibling());
-                return;
-            }
             rw_.setBlock(getFirstChild());
             return;
         }
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
-        if (hasChildNodes()) {
-            sw_.setEntered(true);
-        } else {
-            if (sw_.getLastVisitedBlock() != this) {
-                sw_.setEntered(true);
-                rw_.setBlock(getNextSibling());
-                return;
-            }
-            sw_.setFinished(true);
-            rw_.setBlock(sw_.getBlock());
-            return;
-        }
+        sw_.setEntered(true);
         rw_.setBlock(getFirstChild());
-        return;
     }
 
     @Override
@@ -234,11 +215,5 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
         } else {
             rw_.setBlock(getNextSibling());
         }
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getValueEl();
     }
 }

@@ -5,12 +5,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.ObjectMap;
 
-public final class StdStruct implements Struct {
+public final class StdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -41,12 +40,6 @@ public final class StdStruct implements Struct {
         return new StdStruct(_instance, _className);
     }
 
-
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
     @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof StdStruct)) {
@@ -69,13 +62,4 @@ public final class StdStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return className.startsWith(PrimitiveTypeUtil.ARR_CLASS);
-    }
 }

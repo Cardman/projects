@@ -1,6 +1,6 @@
 package aiki.map.levels;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;

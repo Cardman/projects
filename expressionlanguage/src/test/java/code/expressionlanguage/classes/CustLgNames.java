@@ -1,14 +1,14 @@
 package code.expressionlanguage.classes;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -28,6 +28,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -70,9 +71,9 @@ public final class CustLgNames extends LgNames {
     private String iteratorVar;
     private String hasNextVar;
     private String nextVar;
-    private CustList<OperationNode> expsIterator;
-    private CustList<OperationNode> expsHasNext;
-    private CustList<OperationNode> expsNext;
+    private CustList<ExecOperationNode> expsIterator;
+    private CustList<ExecOperationNode> expsHasNext;
+    private CustList<ExecOperationNode> expsNext;
     private String aliasSimpleIteratorType = "code.util.SimpleItr";
     private String aliasSimpleIterableType = "code.util.ints.SimpleIterable";
     private String aliasCountable = "code.util.ints.Countable";
@@ -319,13 +320,13 @@ public final class CustLgNames extends LgNames {
     public String getNextVar() {
         return nextVar;
     }
-    public CustList<OperationNode> getExpsIterator() {
+    public CustList<ExecOperationNode> getExpsIterator() {
         return expsIterator;
     }
-    public CustList<OperationNode> getExpsHasNext() {
+    public CustList<ExecOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
-    public CustList<OperationNode> getExpsNext() {
+    public CustList<ExecOperationNode> getExpsNext() {
         return expsNext;
     }
     @Override
@@ -370,7 +371,7 @@ public final class CustLgNames extends LgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
-        Object instance_ = _instance.getInstance();
+        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         ResultErrorStd res_ = new ResultErrorStd();
         if (instance_ instanceof Countable) {
             String name_ = _method.getConstraints().getName();
@@ -387,7 +388,7 @@ public final class CustLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleIterable) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof SimpleIterable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, aliasSimpleIterator)) {
                 String typeInst_ = getStructClassName(_instance, _cont);
@@ -396,7 +397,7 @@ public final class CustLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleItr) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof SimpleItr) {
             String name_ = _method.getConstraints().getName();
             return prIterator(_cont, name_, _instance);
         }
@@ -568,7 +569,7 @@ public final class CustLgNames extends LgNames {
     }
     ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Object instance_ = _struct.getInstance();
+        Object instance_ = ((RealInstanceStruct) _struct).getInstance();
         LgNames lgNames_ = _cont.getStandards();
         if (StringList.quickEq(_name, lgNames_.getAliasNext())) {
             Object resObj_ = ((SimpleItr)instance_).next();
@@ -615,14 +616,14 @@ public final class CustLgNames extends LgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
             if (StringList.quickEq(fieldName_, aliasCompositeField)) {
-                BeanOne cpt_ = (BeanOne) _instance.getInstance();
+                BeanOne cpt_ = (BeanOne) ((RealInstanceStruct)_instance).getInstance();
                 res_.setResult(StdStruct.newInstance(cpt_.getComposite(), aliasComposite));
                 return res_;
             }
@@ -642,8 +643,8 @@ public final class CustLgNames extends LgNames {
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) _instance.getInstance();
-                cpt_.setInteger((Integer) _value.getInstance());
+                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
+                cpt_.setInteger(((NumberStruct) _value).getInstance().intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

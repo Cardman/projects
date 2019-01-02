@@ -40,7 +40,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -73,7 +73,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument3Test() {
@@ -105,7 +105,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument4Test() {
@@ -142,7 +142,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument5Test() {
@@ -179,7 +179,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument6Test() {
@@ -216,7 +216,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument7Test() {
@@ -253,7 +253,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument8Test() {
@@ -290,7 +290,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument9Test() {
@@ -331,7 +331,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument10Test() {
@@ -372,7 +372,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument11Test() {
@@ -409,7 +409,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument12Test() {
@@ -449,7 +449,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument13Test() {
@@ -489,7 +489,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument14Test() {
@@ -533,7 +533,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument15Test() {
@@ -580,7 +580,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument16Test() {
@@ -617,7 +617,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument17Test() {
@@ -658,7 +658,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument18Test() {
@@ -698,7 +698,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument19Test() {
@@ -741,7 +741,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument20Test() {
@@ -783,7 +783,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument21Test() {
@@ -828,7 +828,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument22Test() {
@@ -869,7 +869,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument23Test() {
@@ -914,7 +914,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument24Test() {
@@ -959,7 +959,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument25Test() {
@@ -1010,7 +1010,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument26Test() {
@@ -1067,7 +1067,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument27Test() {
@@ -1154,7 +1154,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument28Test() {
@@ -1205,7 +1205,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument29Test() {
@@ -1248,7 +1248,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument30Test() {
@@ -1319,7 +1319,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument31Test() {
@@ -1350,7 +1350,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument32Test() {
@@ -1381,7 +1381,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument33Test() {
@@ -1408,7 +1408,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument34Test() {
@@ -1440,7 +1440,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument35Test() {
@@ -1471,7 +1471,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument36Test() {
@@ -1501,7 +1501,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument37Test() {
@@ -1536,7 +1536,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument38Test() {
@@ -1574,7 +1574,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", ret_.getString());
     }
     @Test
     public void calculateArgument39Test() {
@@ -1613,7 +1613,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))", ret_.getString());
     }
     @Test
     public void calculateArgument40Test() {
@@ -1652,7 +1652,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))", ret_.getString());
     }
     @Test
     public void calculateArgument41Test() {
@@ -1694,7 +1694,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))", ret_.getString());
     }
     @Test
     public void calculateArgument42Test() {
@@ -1736,7 +1736,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))", ret_.getString());
     }
     @Test
     public void calculateArgument43Test() {
@@ -1778,7 +1778,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", ret_.getString());
     }
     @Test
     public void calculateArgument44Test() {
@@ -1819,7 +1819,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))", ret_.getString());
     }
     @Test
     public void calculateArgument45Test() {
@@ -1860,7 +1860,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))", ret_.getString());
     }
     @Test
     public void calculateArgument46Test() {
@@ -1901,7 +1901,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", ret_.getString());
     }
 
     @Test
@@ -1934,7 +1934,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument48Test() {
@@ -1973,7 +1973,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))", ret_.getString());
     }
     @Test
     public void calculateArgument49Test() {
@@ -2012,7 +2012,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))", ret_.getString());
     }
     @Test
     public void calculateArgument50Test() {
@@ -2051,7 +2051,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", ret_.getString());
     }
     @Test
     public void calculateArgument51Test() {
@@ -2092,7 +2092,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument52Test() {
@@ -2132,7 +2132,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument53Test() {
@@ -2172,7 +2172,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument54Test() {
@@ -2206,7 +2206,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument55Test() {
@@ -2239,7 +2239,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument56Test() {
@@ -2275,7 +2275,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument57Test() {
@@ -2314,7 +2314,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument58Test() {
@@ -2350,7 +2350,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
 
     @Test
@@ -2380,7 +2380,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument60Test() {
@@ -2421,7 +2421,722 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", ret_.getString());
+    }
+    @Test
+    public void calculateArgument61Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotTwo info()@MyAnnotTwo(infoInt=3c):\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $char infoInt()2c:\n");
+        xml_.append(" $boolean[] infoIntTwo(){$false}:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4c))\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr;.[0i]:\n");
+        xml_.append("  $return $static($Annotation).getString(a;.):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", ret_.getString());
+    }
+    @Test
+    public void calculateArgument62Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr;.[0i]:\n");
+        xml_.append("  $return $static($Annotation).getString(a;.):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("@pkg.MyAnnot()", ret_.getString());
+    }
+    @Test
+    public void calculateArgument63Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument64Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredMethods()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument65Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument66Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" Ex(){}\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredConstructors()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument67Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public Ex(@MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) $int p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $class(Ex).getDeclaredConstructors()[0i].getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 1i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $Annotation[] arr = arrs;.[0i]:\n");
+        xml_.append("  $if (arr;.length != 2i){\n");
+        xml_.append("   $return 5i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 4i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr;.[0i]:\n");
+        xml_.append("  $int info = a;.infoIntOne():\n");
+        xml_.append("  $if (info;. != 1i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[1i]) != $class(MyAnnotTwo)){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnotTwo b = $(MyAnnotTwo)arr;.[1i]:\n");
+        xml_.append("  info;. = b;.infoIntTwo():\n");
+        xml_.append("  $if (info;. != 3i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument68Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ pkg.Ex(@MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $Class.getOperators()[0].getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 1i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $Annotation[] arr = arrs;.[0i]:\n");
+        xml_.append("  $if (arr;.length != 2i){\n");
+        xml_.append("   $return 5i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 4i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr;.[0i]:\n");
+        xml_.append("  $int info = a;.infoIntOne():\n");
+        xml_.append("  $if (info;. != 1i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[1i]) != $class(MyAnnotTwo)){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnotTwo b = $(MyAnnotTwo)arr;.[1i]:\n");
+        xml_.append("  info;. = b;.infoIntTwo():\n");
+        xml_.append("  $if (info;. != 3i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument69Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot\n");
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $Class.getOperators()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument70Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Integer).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument71Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$operator- pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $Class.getOperators()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument72Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Integer).getDeclaredMethods()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument73Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Integer).getDeclaredConstructors()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument74Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Integer).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ pkg.Ex(@MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $class(Ex).getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 0i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$operator- pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $Class.getOperators()[0].getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 1i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (arrs;.[0].length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$operator- pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $class(Integer).getDeclaredConstructors()[0].getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 0i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoIntTwo()4i:\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$operator- pkg.Ex(pkg.Ex p){\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arrs = $class(Integer).getDeclaredMethods()[0].getAnnotationsParameters():\n");
+        xml_.append("  $if (arrs;.length != 0i){\n");
+        xml_.append("   $return 6i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int info=0i:\n");
+        xml_.append(" $int infoInt()1i:\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(2i)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  java.lang.Object arr = $class(MyAnnot).getDeclaredMethods()[0i].getDefaultValue():\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class(java.lang.Integer)){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  java.lang.Integer a = $(java.lang.Integer)arr;.:\n");
+        xml_.append("  $if (a;. != 1i){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" catching:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument81Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" $static $final Integer stInfo = $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int[] info():\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" @MyAnnot(info={MyClass.stInfo})\n");
+        xml_.append(" catching:\n");
+        xml_.append(" $public $static $void catching(){\n");
+        xml_.append("  $class(Ex).getDeclaredFields()[0].getAnnotations():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
     }
     @Test
     public void calculateArgument1FailTest() {

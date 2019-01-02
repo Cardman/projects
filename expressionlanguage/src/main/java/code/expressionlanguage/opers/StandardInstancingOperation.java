@@ -2,27 +2,20 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.errors.custom.BadAccessConstructor;
+import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -31,7 +24,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -62,15 +54,6 @@ public final class StandardInstancingOperation extends
         fieldName = _fieldName;
     }
 
-    public boolean initStaticClass(Analyzable _an) {
-        return isCallMethodCtor(_an);
-    }
-
-    @Override
-    boolean isCallMethodCtor(Analyzable _an) {
-        return true;
-    }
-
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -82,13 +65,7 @@ public final class StandardInstancingOperation extends
         String className_ = methodName.trim().substring(newKeyWord_.length());
         className_ = className_.trim();
         String realClassName_ = className_;
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
@@ -106,7 +83,6 @@ public final class StandardInstancingOperation extends
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
-        arg_.setCheckOnlyNullPe(true);
         if (arg_ == null || arg_.isUndefined() || arg_.isArray()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
@@ -197,23 +173,18 @@ public final class StandardInstancingOperation extends
     void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
+        Classes classes_ = _conf.getClasses();
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            classes_.addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -224,9 +195,23 @@ public final class StandardInstancingOperation extends
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
+            classes_.addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
+        }
+        String glClass_ = _conf.getGlobalClass();
+        if (classes_.isCustomType(base_)) {
+            String curClassBase_ = null;
+            if (glClass_ != null) {
+                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
+            }
+            if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
+                BadAccessClass badAccess_ = new BadAccessClass();
+                badAccess_.setId(base_);
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
+                badAccess_.setFileName(_conf.getCurrentFileName());
+                classes_.addError(badAccess_);
+            }
         }
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
@@ -296,20 +281,6 @@ public final class StandardInstancingOperation extends
             lastType = constId.getParametersTypes().last();
         }
         unwrapArgsFct(filter_, constId, naturalVararg, lastType, _firstArgs, _conf);
-        String glClass_ = _conf.getGlobalClass();
-        CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
-        String curClassBase_ = null;
-        if (glClass_ != null) {
-            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        }
-        if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
-            GeneConstructor ctr_ = ctors_.first();
-            BadAccessConstructor access_ = new BadAccessConstructor();
-            access_.setId(ctr_.getId());
-            access_.setFileName(_conf.getCurrentFileName());
-            access_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(access_);
-        }
         possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst() && g_.isStaticType();
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
@@ -328,17 +299,6 @@ public final class StandardInstancingOperation extends
             return;
         }
         if (_conf.getClasses().isCustomType(cl_)) {
-            return;
-        }
-        boolean proc_ = false;
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(cl_, _conf)) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasString())) {
-            proc_ = true;
-        } else if (StringList.quickEq(cl_, _conf.getStandards().getAliasMath())) {
-            proc_ = true;
-        }
-        if (!proc_) {
             return;
         }
         String lastType_ = lastType;
@@ -364,96 +324,37 @@ public final class StandardInstancingOperation extends
         setSimpleArgumentAna(arg_, _conf);
     }
 
-    @Override
+
+    public boolean isPossibleInitClass() {
+        return possibleInitClass;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
     public ConstructorId getConstId() {
-        return null;
+        return constId;
     }
 
-    @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(_nodes.getVal(o).getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument res_ = getArgument(previous_, arguments_, _conf);
-        if (_conf.callsOrException()) {
-            return res_;
-        }
-        setSimpleArgument(res_, _conf, _nodes);
-        return res_;
-    }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        Argument res_;
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_;
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(res_, _conf);
+    public String getClassName() {
+        return className;
     }
 
-    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
-            ExecutableCode _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_;
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className, _conf);
-        if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(className_);
-            if (InvokingOperation.hasToExit(_conf, base_)) {
-                return Argument.createVoid();
-            }
-        }
-        String lastType_ = Templates.quickFormat(className_, lastType, _conf);
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public int getBlockIndex() {
+        return blockIndex;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
+
+    public String getLastType() {
+        return lastType;
     }
 
 }

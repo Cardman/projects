@@ -6,14 +6,13 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class ExtractFromResources {
     static final String RETURN_LINE = "\n";
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
     private static final String LINE_RETURN = "\n";
-    private static final String EMPTY_STRING = Constants.EMPTY_STRING;
+    private static final String EMPTY_STRING = "";
     private static final String TAB = "\t";
     private static final String EQUALS = "=";
     private static final String BEFORE_LINE_RETURN = "\r\n";

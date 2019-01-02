@@ -114,10 +114,10 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
-        assertEq((long)1,(long)nbs_.getMinimum());
+        assertEq(1,(long)nbs_.getMinimum());
         nbs_ = new Numbers<Integer>();
         nbs_.add(1);
-        assertEq((long)1,(long)nbs_.getMinimum());
+        assertEq(1,(long)nbs_.getMinimum());
         nbs_ = new Numbers<Integer>();
         assertNull(nbs_.getMinimum());
     }
@@ -126,10 +126,10 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
-        assertEq((long)3,(long)nbs_.getMaximum());
+        assertEq(3,(long)nbs_.getMaximum());
         nbs_ = new Numbers<Integer>();
         nbs_.add(3);
-        assertEq((long)3,(long)nbs_.getMaximum());
+        assertEq(3,(long)nbs_.getMaximum());
         nbs_ = new Numbers<Integer>();
         assertNull(nbs_.getMaximum());
     }
@@ -160,7 +160,7 @@ public class NumbersTest {
         nbs_.add(2);
         nbs_.add(3);
         nbs_.add(4);
-        EqList<Numbers<Integer>> indexes_;
+        CustList<Numbers<Integer>> indexes_;
         indexes_ = nbs_.getAllIndexes();
         assertEq(24,indexes_.size());
         assertEq(3, indexes_.get(0).size());

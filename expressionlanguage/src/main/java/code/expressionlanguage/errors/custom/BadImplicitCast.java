@@ -1,6 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
-import code.expressionlanguage.Mapping;
+import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.methods.Classes;
 import code.util.EntryCust;
 import code.util.StringList;

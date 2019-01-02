@@ -1,9 +1,9 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
@@ -92,7 +92,7 @@ public class EditPokemonMovesBean extends CommonBean {
         if (player) {
             if (availableMovesOnly) {
                 String namePk_ = (String) getForms().getVal(POKEMON_NAME_EDIT);
-                short level_ = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
+                short level_ = ((Number) getForms().getVal(POKEMON_LEVEL_EDIT)).shortValue();
                 set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
             } else {
                 set_.addAllElts(data_.getMoves().getKeys());

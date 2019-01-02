@@ -7,11 +7,11 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -143,9 +143,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -191,9 +191,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(0, map_.size());
@@ -238,9 +238,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -273,9 +273,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -307,9 +307,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -341,9 +341,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -381,9 +381,9 @@ public class RootBlockTest {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -436,9 +436,9 @@ public class RootBlockTest {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -479,9 +479,9 @@ public class RootBlockTest {
         files_.put("pkg/Int2", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
     }
     @Test
@@ -502,9 +502,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -536,9 +536,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -574,9 +574,9 @@ public class RootBlockTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -632,9 +632,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(!classes_.isEmptyErrors());
     }
     @Test
@@ -653,9 +653,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
     }
     @Test
@@ -676,9 +676,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -710,9 +710,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
     }
     @Test
@@ -739,9 +739,9 @@ public class RootBlockTest {
         files_.put("pkgtwo/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkgtwo.ExThree").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -780,9 +780,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList()));
@@ -840,9 +840,9 @@ public class RootBlockTest {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -888,9 +888,9 @@ public class RootBlockTest {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -924,9 +924,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(0, map_.size());
@@ -968,9 +968,9 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
@@ -1024,9 +1024,9 @@ public class RootBlockTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateOverridingInherit(cont_);
+        classes_.validateOverridingInherit(cont_, false);
         assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
@@ -1047,7 +1047,7 @@ public class RootBlockTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         MethodId geneId_;
@@ -1102,7 +1102,7 @@ public class RootBlockTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        classes_.validateIds(cont_);
+        classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         MethodId geneId_;
@@ -1145,12 +1145,11 @@ public class RootBlockTest {
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1159,12 +1158,11 @@ public class RootBlockTest {
     private static ContextEl failValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());

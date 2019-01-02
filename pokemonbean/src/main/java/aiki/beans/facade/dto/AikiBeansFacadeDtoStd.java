@@ -11,6 +11,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -138,7 +139,7 @@ public final class AikiBeansFacadeDtoStd {
     }
     public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        ItemLine instance_ = (ItemLine) _instance.getInstance();
+        ItemLine instance_ = (ItemLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -156,7 +157,7 @@ public final class AikiBeansFacadeDtoStd {
     }
     public static ResultErrorStd getResultMoveLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        MoveLine instance_ = (MoveLine) _instance.getInstance();
+        MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -179,7 +180,7 @@ public final class AikiBeansFacadeDtoStd {
     public static ResultErrorStd getResultPokemonLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        PokemonLine instance_ = (PokemonLine) _instance.getInstance();
+        PokemonLine instance_ = (PokemonLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DISPLAY_NAME)) {
             res_.setResult(new StringStruct(instance_.getDisplayName()));
@@ -197,7 +198,7 @@ public final class AikiBeansFacadeDtoStd {
     }
     public static ResultErrorStd invokeMethodMoveLine(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        MoveLine instance_ = (MoveLine) _instance.getInstance();
+        MoveLine instance_ = (MoveLine) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_DAMAGE_MOVE)) {

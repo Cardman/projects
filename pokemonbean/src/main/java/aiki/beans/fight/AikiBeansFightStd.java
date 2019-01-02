@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -397,7 +398,7 @@ public final class AikiBeansFightStd {
     public static ResultErrorStd getResultFightBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        FightBean instance_ = (FightBean) _instance.getInstance();
+        FightBean instance_ = (FightBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MULT)) {
             res_.setResult(new ByteStruct(instance_.getMult()));
@@ -424,7 +425,7 @@ public final class AikiBeansFightStd {
     public static ResultErrorStd getResultFightCalculationBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        FightCalculationBean instance_ = (FightCalculationBean) _instance.getInstance();
+        FightCalculationBean instance_ = (FightCalculationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SORTED_FIGHTERS)) {
             res_.setResult(new StdStruct(instance_.getSortedFighters(),std_.getCustList()));
@@ -451,7 +452,7 @@ public final class AikiBeansFightStd {
     public static ResultErrorStd getResultFighterBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        FighterBean instance_ = (FighterBean) _instance.getInstance();
+        FighterBean instance_ = (FighterBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,NAME)) {
             res_.setResult(new StringStruct(instance_.getName()));
@@ -694,7 +695,7 @@ public final class AikiBeansFightStd {
     public static ResultErrorStd getResultTeamBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
-        TeamBean instance_ = (TeamBean) _instance.getInstance();
+        TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
             res_.setResult(new BooleanStruct(instance_.getFoeTeam()));
@@ -731,7 +732,7 @@ public final class AikiBeansFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodFightBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        FightBean instance_ = (FightBean) _instance.getInstance();
+        FightBean instance_ = (FightBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,CLICK_PLAYER)) {
@@ -749,7 +750,7 @@ public final class AikiBeansFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodFightCalculationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        FightCalculationBean instance_ = (FightCalculationBean) _instance.getInstance();
+        FightCalculationBean instance_ = (FightCalculationBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_FIGHTER)) {
@@ -803,7 +804,7 @@ public final class AikiBeansFightStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodFighterBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        FighterBean instance_ = (FighterBean) _instance.getInstance();
+        FighterBean instance_ = (FighterBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,IS_BACK_SUBST)) {
@@ -862,7 +863,7 @@ public final class AikiBeansFightStd {
     }
     public static ResultErrorStd invokeMethodTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
-        TeamBean instance_ = (TeamBean) _instance.getInstance();
+        TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MEMBERS)) {

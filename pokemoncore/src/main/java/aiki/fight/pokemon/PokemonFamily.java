@@ -1,5 +1,5 @@
 package aiki.fight.pokemon;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import code.util.EqList;
 import code.util.StringList;
 

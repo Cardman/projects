@@ -2,13 +2,12 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -18,7 +17,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class ElseIfCondition extends Condition implements BlockCondition, IncrCurrentGroup, IncrNextGroup {
+public final class ElseIfCondition extends Condition implements BlockCondition {
 
     public ElseIfCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -36,12 +35,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         }
         return ((IfCondition)p_).getLabel();
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return true;
-    }
 
-    @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
@@ -51,7 +45,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean abr_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -100,14 +94,6 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
@@ -149,13 +135,8 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
     @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
-
-    @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -169,7 +150,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     }
     @Override
     public boolean accessibleForNext() {
-        OperationNode op_ = getRoot();
+        ExecOperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

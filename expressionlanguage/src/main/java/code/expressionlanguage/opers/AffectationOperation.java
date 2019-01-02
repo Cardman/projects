@@ -2,28 +2,23 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
-import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
@@ -32,16 +27,14 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class AffectationOperation extends MethodOperation {
+public final class AffectationOperation extends ReflectableOpering {
 
     private SettableElResult settable;
 
-    private boolean convertNumber;
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -169,47 +162,39 @@ public final class AffectationOperation extends MethodOperation {
                 long valueUnwrapped_ = value_.longValue();
                 if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primChar_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primShort_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(primInt_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(byte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(char_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(short_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
                 if (first_.containsStr(int_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    convertNumber = true;
                     return;
                 }
             }
         }
-        if (!Templates.isCorrect(mapping_, _conf)) {
+        if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -243,6 +228,9 @@ public final class AffectationOperation extends MethodOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        if (vars_ instanceof AssignedBooleanLoopVariables) {
+            ((AssignedBooleanLoopVariables)vars_).add(this, _conf);
+        }
         OperationNode firstChild_ = (OperationNode) settable;
         OperationNode lastChild_ = getChildrenNodes().last();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
@@ -328,26 +316,6 @@ public final class AffectationOperation extends MethodOperation {
             fromCurClass_ = cst_.isFromCurrentClass(_conf);
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
-//            String fieldName_ = "";
-//            if (cl_ != null) {
-//                fieldName_ = cl_.getFieldName();
-//            }
-//            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-//                if (fromCurClass_ && StringList.quickEq(fieldName_, e.getKey()) && ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-//                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-//                    if (meta_ != null && meta_.isFinalField()) {
-//                        //error if final field
-//                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
-//                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-//                        un_.setFileName(_conf.getCurrentFileName());
-//                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-//                        _conf.getClasses().addError(un_);
-//                    }
-//                }
-//                boolean ass_ = StringList.quickEq(fieldName_, e.getKey()) || e.getValue().isAssignedAfter();
-//                boolean unass_ = !StringList.quickEq(fieldName_,e.getKey()) && e.getValue().isUnassignedAfter();
-//                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
-//            }
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
                 FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
@@ -387,70 +355,25 @@ public final class AffectationOperation extends MethodOperation {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        Block block_ = _conf.getCurrentBlock();
-        if (!(block_ instanceof FieldBlock)) {
-            return;
-        }
-        FieldBlock fieldBlock_ = (FieldBlock) block_;
-        if (!fieldBlock_.isStaticField()) {
-            return;
-        }
-        if (!fieldBlock_.isFinalField()) {
-            return;
-        }
-        if (!(settable instanceof StandardFieldOperation)) {
+        if (!ElUtil.isDeclaringField(settable, _conf)) {
             return;
         }
         StandardFieldOperation fieldRef_ = (StandardFieldOperation) settable;
-        if (!ElUtil.isDeclaringField(fieldRef_, _conf)) {
-            return;
-        }
         OperationNode lastChild_ = getFirstChild().getNextSibling();
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
         if (id_ == null) {
             return;
         }
-        SortedClassField sort_ = _conf.getCurrentInitizedField();
+        if (!_conf.isGearConst()) {
+            return;
+        }
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
-        if (sort_ != null) {
-            sort_.setStruct(str_);
-        }
         _conf.getClasses().initializeStaticField(id_, str_);
-        setArguments(value_);
+        setSimpleArgument(value_);
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_, convertNumber);
-        OperationNode op_ = (OperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = _nodes.getVal(right_).getArgument();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_, convertNumber);
-        if (_conf.calls()) {
-            return arg_;
-        }
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
 }

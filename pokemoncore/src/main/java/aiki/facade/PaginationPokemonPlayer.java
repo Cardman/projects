@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorPokemonPlayer;
+import aiki.db.DataBase;
 import aiki.map.pokemon.CriteriaForSearchingPokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
@@ -13,25 +13,22 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.pagination.EnumFieldComparator;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class PaginationPokemonPlayer
         extends
-        Pagination<SortingPokemonPlayer, PokemonPlayer, CriteriaForSearchingPokemon> {
+        Pagination<SortingPokemonPlayer, PokemonPlayer> {
 
-    private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();
+    private LongFieldComparator cmpLevel = new LongFieldComparator();
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
-    private FieldComparator<String> cmpAbility = new FieldComparator<String>();
+    private StringFieldComparator cmpAbility = new StringFieldComparator();
 
-    private FieldComparator<String> cmpItem = new FieldComparator<String>();
+    private StringFieldComparator cmpItem = new StringFieldComparator();
 
     private EnumFieldComparator<Gender> cmpGender = new EnumFieldComparator<Gender>();
 
-    private FieldComparator<Short> cmpPossEvos = new FieldComparator<Short>();
+    private LongFieldComparator cmpPossEvos = new LongFieldComparator();
 
     private DataBase data;
 
@@ -50,8 +47,10 @@ public final class PaginationPokemonPlayer
 
     private EqList<SortingPokemonPlayer> rendered = new EqList<SortingPokemonPlayer>();
 
+    private CriteriaForSearchingPokemon criteria;
+
     public PaginationPokemonPlayer() {
-        super(new CriteriaForSearchingPokemon());
+        criteria = new CriteriaForSearchingPokemon();
     }
 
     public void setTranslation(DataBase _data, String _language) {
@@ -148,6 +147,10 @@ public final class PaginationPokemonPlayer
     }
 
     @Override
+    public CriteriaForSearchingPokemon getCriteria() {
+        return criteria;
+    }
+    @Override
     public boolean sortable() {
         Numbers<Integer> priorities_;
         priorities_ = new Numbers<Integer>();
@@ -219,35 +222,35 @@ public final class PaginationPokemonPlayer
         pokemon = eggs_;
     }
 
-    public FieldComparator<Short> getCmpLevel() {
+    public LongFieldComparator getCmpLevel() {
         return cmpLevel;
     }
 
-    public void setCmpLevel(FieldComparator<Short> _cmpLevel) {
+    public void setCmpLevel(LongFieldComparator _cmpLevel) {
         cmpLevel = _cmpLevel;
     }
 
-    public FieldComparator<String> getCmpName() {
+    public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
-    public void setCmpName(FieldComparator<String> _cmpName) {
+    public void setCmpName(StringFieldComparator _cmpName) {
         cmpName = _cmpName;
     }
 
-    public FieldComparator<String> getCmpAbility() {
+    public StringFieldComparator getCmpAbility() {
         return cmpAbility;
     }
 
-    public void setCmpAbility(FieldComparator<String> _cmpAbility) {
+    public void setCmpAbility(StringFieldComparator _cmpAbility) {
         cmpAbility = _cmpAbility;
     }
 
-    public FieldComparator<String> getCmpItem() {
+    public StringFieldComparator getCmpItem() {
         return cmpItem;
     }
 
-    public void setCmpItem(FieldComparator<String> _cmpItem) {
+    public void setCmpItem(StringFieldComparator _cmpItem) {
         cmpItem = _cmpItem;
     }
 
@@ -259,11 +262,11 @@ public final class PaginationPokemonPlayer
         cmpGender = _cmpGender;
     }
 
-    public FieldComparator<Short> getCmpPossEvos() {
+    public LongFieldComparator getCmpPossEvos() {
         return cmpPossEvos;
     }
 
-    public void setCmpPossEvos(FieldComparator<Short> _cmpPossEvos) {
+    public void setCmpPossEvos(LongFieldComparator _cmpPossEvos) {
         cmpPossEvos = _cmpPossEvos;
     }
 

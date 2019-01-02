@@ -1,6 +1,6 @@
 package aiki.map.characters;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.characters.enums.SellType;
 import code.util.Numbers;
 import code.util.StringList;

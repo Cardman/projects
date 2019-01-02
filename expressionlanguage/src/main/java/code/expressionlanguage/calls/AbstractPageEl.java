@@ -2,10 +2,10 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.util.ParentStackBlock;
+import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -20,9 +20,6 @@ public abstract class AbstractPageEl extends PageEl {
     private ReadWrite readWrite;
     private Block blockRoot;
 
-    /**Only used while throwing exception*/
-    private Block currentBlock;
-
     private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
 
     private CustList<ExpressionLanguage> currentEls = new CustList<ExpressionLanguage>();
@@ -32,8 +29,6 @@ public abstract class AbstractPageEl extends PageEl {
     private int globalOffset;
 
     private int translatedOffset;
-
-    private int tabWidth;
 
     private int offset;
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
@@ -73,13 +68,12 @@ public abstract class AbstractPageEl extends PageEl {
 
     public abstract boolean checkCondition(ContextEl _context);
 
-    public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, int _indexProcess) {
+    public ExpressionLanguage getCurrentEl(ContextEl _context, WithNotEmptyEl _block, int _index, int _indexProcess) {
         ExpressionLanguage el_;
         if (_index < currentEls.size()) {
             el_ = currentEls.get(_index);
         } else {
             el_ = _block.getEl(_context, _indexProcess);
-            setCurrentBlock(_block);
             currentEls.add(el_);
         }
         return el_;
@@ -128,21 +122,7 @@ public abstract class AbstractPageEl extends PageEl {
     public void setFinallyToProcess(boolean _finallyToProcess) {
         finallyToProcess = _finallyToProcess;
     }
-    public Block getCurrentBlock() {
-        return currentBlock;
-    }
 
-    public void setCurrentBlock(Block _currentBlock) {
-        currentBlock = _currentBlock;
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
-    }
     public void clearCurrentEls() {
         currentEls.clear();
     }
@@ -178,9 +158,6 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public abstract void tryProcessEl(ContextEl _context);
-    public abstract ParentStackBlock getNextBlock(Block _block, ContextEl _context);
-    public abstract void postBlock(ContextEl _context);
-    public abstract void endRoot(ContextEl _context);
 
     public Block getBlockRoot() {
         return blockRoot;

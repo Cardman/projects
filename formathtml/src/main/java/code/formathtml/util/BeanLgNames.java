@@ -5,11 +5,11 @@ import code.bean.translator.Translator;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -27,6 +27,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
@@ -34,6 +35,8 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
+import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -101,9 +104,9 @@ public abstract class BeanLgNames extends LgNames {
     private String aliasSize;
     private String aliasSimpleIterator;
 
-    private CustList<OperationNode> expsIterator;
-    private CustList<OperationNode> expsHasNext;
-    private CustList<OperationNode> expsNext;
+    private CustList<ExecOperationNode> expsIterator;
+    private CustList<ExecOperationNode> expsHasNext;
+    private CustList<ExecOperationNode> expsNext;
     public void buildBeans() {
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
@@ -315,20 +318,21 @@ public abstract class BeanLgNames extends LgNames {
     public String getNextVar() {
         return nextVar;
     }
-    public CustList<OperationNode> getExpsIterator() {
+    public CustList<ExecOperationNode> getExpsIterator() {
         return expsIterator;
     }
-    public CustList<OperationNode> getExpsHasNext() {
+    public CustList<ExecOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
-    public CustList<OperationNode> getExpsNext() {
+    public CustList<ExecOperationNode> getExpsNext() {
         return expsNext;
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), _args);
+        BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
+        Object[] argsObj_ = adaptedArgs(list_, b_, _args);
         return getOtherResult(_cont, _method, argsObj_);
     }
 
@@ -341,28 +345,32 @@ public abstract class BeanLgNames extends LgNames {
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), _args);
-        if (_instance.getInstance() instanceof Displayable) {
-            BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
+        BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
+        Object[] argsObj_ = adaptedArgs(list_, b_, _args);
+        Object instance_ = null;
+        if (!_method.getConstraints().isStaticMethod()) {
+            instance_ = ((RealInstanceStruct)_instance).getInstance();
+        }
+        if (instance_ instanceof Displayable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, b_.getAliasDisplay()) || StringList.quickEq(name_, b_.getAliasToString())) {
-                res_.setResult(new StringStruct(((Displayable)_instance.getInstance()).display()));
+                res_.setResult(new StringStruct(((Displayable)instance_).display()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof Bean) {
+        if (instance_ instanceof Bean) {
             if (StringList.quickEq(_method.getConstraints().getName(), BEFORE_DISPLAYING)) {
-                ((Bean)_instance.getInstance()).beforeDisplaying();
+                ((Bean)instance_).beforeDisplaying();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_DATA_BASE)) {
-                ((Bean)_instance.getInstance()).setDataBase(argsObj_[0]);
+                ((Bean)instance_).setDataBase(argsObj_[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_DATA_BASE)) {
-                Object db_ = ((Bean)_instance.getInstance()).getDataBase();
+                Object db_ = ((Bean)instance_).getDataBase();
                 if (getAliasDataBase() != null) {
                     res_.setResult(StdStruct.wrapStd(db_, _cont, getAliasDataBase()));
                     return res_;
@@ -371,37 +379,36 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_FORMS)) {
-                StringMapObject resMap_ = ((Bean)_instance.getInstance()).getForms();
+                StringMapObject resMap_ = ((Bean)instance_).getForms();
                 res_.setResult(new StringMapObjectStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_FORMS)) {
-                ((Bean)_instance.getInstance()).setForms(((StringMapObjectStruct)_args[0]).getInstance());
+                ((Bean)instance_).setForms(((StringMapObjectStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_LANGUAGE)) {
-                String resMap_ = ((Bean)_instance.getInstance()).getLanguage();
+                String resMap_ = ((Bean)instance_).getLanguage();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_LANGUAGE)) {
-                ((Bean)_instance.getInstance()).setLanguage(((StringStruct) _args[0]).getInstance());
+                ((Bean)instance_).setLanguage(((StringStruct) _args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCOPE)) {
-                String resMap_ = ((Bean)_instance.getInstance()).getScope();
+                String resMap_ = ((Bean)instance_).getScope();
                 res_.setResult(new StringStruct(resMap_));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_SCOPE)) {
-                ((Bean)_instance.getInstance()).setScope(((StringStruct) _args[0]).getInstance());
+                ((Bean)instance_).setScope(((StringStruct) _args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
         }
-        Object instance_ = _instance.getInstance();
         if (instance_ instanceof Countable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, getAliasIsEmpty())) {
@@ -417,7 +424,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleIterable) {
+        if (instance_ instanceof SimpleIterable) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, getAliasSimpleIterator())) {
                 String typeInst_ = getStructClassName(_instance, _cont);
@@ -426,17 +433,17 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SimpleItr) {
+        if (instance_ instanceof SimpleItr) {
             String name_ = _method.getConstraints().getName();
             return prIterator(_cont, name_, _instance);
         }
-        if (_instance.getInstance() instanceof SimpleEntries) {
-            SimpleIterable db_ = ((SimpleEntries)_instance.getInstance()).entries();
+        if (instance_ instanceof SimpleEntries) {
+            SimpleIterable db_ = ((SimpleEntries)instance_).entries();
             res_.setResult(new StdStruct(db_, custEntries));
             return res_;
         }
-        if (_instance.getInstance() instanceof SimpleEntry) {
-            SimpleEntry db_ = (SimpleEntry)_instance.getInstance();
+        if (instance_ instanceof SimpleEntry) {
+            SimpleEntry db_ = (SimpleEntry)instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), GET_KEY)) {
                 Object key_ = db_.getKey();
                 res_.setResult(StdStruct.wrapStd(key_, _cont));
@@ -448,16 +455,14 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ValueChangeEvent) {
-            ValueChangeEvent db_ = (ValueChangeEvent)_instance.getInstance();
+        if (instance_ instanceof ValueChangeEvent) {
+            ValueChangeEvent db_ = (ValueChangeEvent)instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NEW_VALUE)) {
-                Object key_ = db_.getNewValue();
-                res_.setResult(StdStruct.wrapStd(key_, _cont,getStructClassName(key_, _cont)));
+                res_.setResult(db_.getNewValue());
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_OLD_VALUE)) {
-                Object value_ = db_.getOldValue();
-                res_.setResult(StdStruct.wrapStd(value_, _cont, getStructClassName(value_, _cont)));
+                res_.setResult(db_.getOldValue());
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_INDEXES)) {
@@ -466,8 +471,8 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof Validator) {
-            Validator validator_ = (Validator) _instance.getInstance();
+        if (instance_ instanceof Validator) {
+            Validator validator_ = (Validator) instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), VALIDATE)) {
                 Message message_ = validator_.validate(argsObj_[0], argsObj_[1], argsObj_[2]);
                 if (message_ == null) {
@@ -482,7 +487,7 @@ public abstract class BeanLgNames extends LgNames {
     }
     ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Object instance_ = _struct.getInstance();
+        Object instance_ = ((StdStruct) _struct).getInstance();
         LgNames lgNames_ = _cont.getStandards();
         if (StringList.quickEq(_name, lgNames_.getAliasNext())) {
             Object resObj_ = ((SimpleItr)instance_).next();
@@ -492,8 +497,8 @@ public abstract class BeanLgNames extends LgNames {
         result_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
         return result_;
     }
-    @Override
-    public String getOtherStructClassName(Object _struct, ContextEl _context) {
+
+    public final String getOtherStructClassName(Object _struct, ContextEl _context) {
         String cl_ = getOtherBeanStructClassName(_struct, _context);
         if (!StringList.quickEq(cl_, getAliasObject())) {
             return cl_;
@@ -682,10 +687,12 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Object r_ = _instance.getInstance();
-        if (r_ instanceof SelectedBoolean) {
-            res_.setResult(new StringStruct(((SelectedBoolean)_instance.getInstance()).name()));
-            return res_;
+        if (_instance instanceof StdStruct) {
+            Object r_ = ((StdStruct) _instance).getInstance();
+            if (r_ instanceof SelectedBoolean) {
+                res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
+                return res_;
+            }
         }
         if (_instance instanceof StringStruct) {
             res_.setResult(_instance);
@@ -704,12 +711,12 @@ public abstract class BeanLgNames extends LgNames {
             ClassMethodId _method, Object... _args) {
         return new ResultErrorStd();
     }
-    static Object[] adaptedArgs(StringList _params,LgNames _stds,Struct... _args) {
+    static Object[] adaptedArgs(StringList _params,BeanLgNames _stds,Struct... _args) {
         int len_ = _params.size();
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
             Struct argStruct_ = _args[i];
-            if (argStruct_.isNull()) {
+            if (argStruct_ == NullStruct.NULL_VALUE) {
                 continue;
             }
             if (argStruct_ instanceof ArrayStruct) {
@@ -790,7 +797,7 @@ public abstract class BeanLgNames extends LgNames {
                     String[] adapt_ = new String[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (String) s.getInstance();
+                        adapt_[i_] = ((CharSequenceStruct)s).getInstance().toString();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -800,7 +807,7 @@ public abstract class BeanLgNames extends LgNames {
                     Replacement[] adapt_ = new Replacement[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (Replacement) s.getInstance();
+                        adapt_[i_] = ((ReplacementStruct) s).getInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -810,7 +817,7 @@ public abstract class BeanLgNames extends LgNames {
                     boolean[] adapt_ = new boolean[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = (Boolean) s.getInstance();
+                        adapt_[i_] = ((BooleanStruct) s).getInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -836,10 +843,14 @@ public abstract class BeanLgNames extends LgNames {
                     }
                 }
             } else {
-                args_[i] = argStruct_.getInstance();
+                args_[i] = ((RealInstanceStruct)argStruct_).getInstance();
             }
         }
         return args_;
+    }
+
+    public Object getOtherArguments(Struct[] _str, String _base) {
+        return null;
     }
     public String getAliasRate() {
         return aliasRate;

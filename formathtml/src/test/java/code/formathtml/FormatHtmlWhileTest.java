@@ -6,8 +6,8 @@ import org.junit.Test;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
@@ -240,7 +240,6 @@ public class FormatHtmlWhileTest {
         Configuration conf_ = new Configuration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
-        opt_.setSpecialEnumsMethods(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);

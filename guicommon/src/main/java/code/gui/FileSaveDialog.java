@@ -15,7 +15,6 @@ import code.stream.StreamTextFile;
 import code.util.CharList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.filesavedialog";

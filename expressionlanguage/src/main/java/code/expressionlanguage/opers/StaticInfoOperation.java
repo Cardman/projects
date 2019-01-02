@@ -2,52 +2,22 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.BadAccessClass;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class StaticInfoOperation extends LeafOperation {
+public final class StaticInfoOperation extends VariableLeafOperation implements ReductibleOperable {
 
     private String className;
 
     public StaticInfoOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-    }
-
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
     }
 
     @Override
@@ -84,15 +54,7 @@ public final class StaticInfoOperation extends LeafOperation {
         className = classStr_;
         setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
     }
-    @Override
-    public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        if (className.contains(Templates.PREFIX_VAR_TYPE)) {
-            return;
-        }
-        Argument a_ = new Argument();
-        a_.setStruct(_conf.getExtendedClassMetaInfo(className));
-        setSimpleArgumentAna(a_, _conf);
-    }
+
     @Override
     public void tryCalculateNode(Analyzable _conf) {
         if (className.contains(Templates.PREFIX_VAR_TYPE)) {
@@ -106,26 +68,8 @@ public final class StaticInfoOperation extends LeafOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
     }
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
-        setSimpleArgument(a_, _conf);
-    }
 
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument a_ = new Argument();
-        String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-        a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
+    public String getClassName() {
+        return className;
     }
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
 }

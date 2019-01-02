@@ -80,7 +80,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     public void setRandomDealer(RulesTarot _regles) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getRepartition().getNombreJoueurs() * MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomInt(_regles.getRepartition().getNombreJoueurs());
+        dealer = (byte)AbMonteCarlo.randomLong(_regles.getRepartition().getNombreJoueurs());
     }
 
     /**

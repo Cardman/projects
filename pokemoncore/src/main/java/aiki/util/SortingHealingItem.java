@@ -1,11 +1,11 @@
 package aiki.util;
+import aiki.facade.Sorting;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Cmp;
-import code.util.pagination.Sorting;
 
 public final class SortingHealingItem implements Sorting,Cmp<SortingHealingItem> {
 

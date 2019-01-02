@@ -1,23 +1,20 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
-public abstract class MethodOperation extends OperationNode {
+public abstract class MethodOperation extends OperationNode implements ReductibleOperable {
 
     private OperationNode firstChild;
 
@@ -27,29 +24,6 @@ public abstract class MethodOperation extends OperationNode {
         super(_index, _indexChild, _m, _op);
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
-    }
-    @Override
-    public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public final boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
     }
 
     public final void tryAnalyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
@@ -200,13 +174,7 @@ public abstract class MethodOperation extends OperationNode {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: children_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
+        CustList<OperationNode> filter_ = ElUtil.filterInvoking(children_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
@@ -267,16 +235,6 @@ public abstract class MethodOperation extends OperationNode {
         vars_.getMutableLoop().put(this, mutableAfter_);
     }
     @Override
-    public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
-        CustList<OperationNode> children_ = getChildrenNodes();
-        for (OperationNode o: children_) {
-            if (o.getArgument() == null) {
-                return;
-            }
-        }
-        quickCalculate(_conf);
-    }
-    @Override
     public void tryCalculateNode(Analyzable _conf) {
         CustList<OperationNode> children_ = getChildrenNodes();
         for (OperationNode o: children_) {
@@ -304,12 +262,27 @@ public abstract class MethodOperation extends OperationNode {
             child_ = sibling_;
         }
     }
-    public final CustList<OperationNode> getChildrenNodes() {
-        CustList<OperationNode> chidren_ = new CustList<OperationNode>();
-        for (OperationNode o: ElUtil.getDirectChildren(this)) {
-            chidren_.add(o);
+
+    @Override
+    public final CustList<Operable> getChildrenOperable() {
+        CustList<Operable> list_ = new CustList<Operable>();
+        OperationNode firstChild_ = getFirstChild();
+        OperationNode elt_ = firstChild_;
+        while (elt_ != null) {
+            list_.add(elt_);
+            elt_ = elt_.getNextSibling();
         }
-        return chidren_;
+        return list_;
+    }
+    public final CustList<OperationNode> getChildrenNodes() {
+        CustList<OperationNode> list_ = new CustList<OperationNode>();
+        OperationNode firstChild_ = getFirstChild();
+        OperationNode elt_ = firstChild_;
+        while (elt_ != null) {
+            list_.add(elt_);
+            elt_ = elt_.getNextSibling();
+        }
+        return list_;
     }
 
     abstract void calculateChildren();

@@ -1,19 +1,17 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup {
+public final class TryEval extends BracedStack implements Eval {
 
 
     private String label;
@@ -57,14 +55,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     @Override
     public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
@@ -75,20 +65,10 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
             }
         }
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
 
-    @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override
@@ -114,12 +94,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(getNextSibling());
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
     }
 
     @Override

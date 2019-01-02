@@ -1,8 +1,8 @@
 package aiki.util;
+import aiki.facade.Sorting;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Cmp;
-import code.util.pagination.Sorting;
 
 
 public final class SortingEgg implements Sorting,Cmp<SortingEgg> {

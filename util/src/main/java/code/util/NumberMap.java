@@ -49,12 +49,12 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
         for (EntryCust<K, V> e: getList()) {
             s_.add(e.getValue());
         }
-//        return new CustList<>(super.values());
         return s_;
     }
     public void retainKeys(Numbers<K> _keys) {
         for (K k: getKeys()) {
-            if (!_keys.containsObj(k)) {
+            long lg_ = k.longValue();
+            if (!_keys.containsObj(lg_)) {
                 removeKey(k);
             }
         }

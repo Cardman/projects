@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -660,7 +660,7 @@ final class FightArtificialIntelligence {
             free_.add(i);
         }
         Numbers<Byte> values_ = new Numbers<Byte>(_fight.getFirstPositFoeFighters().values());
-        values_.removeAllNb(Fighter.BACK);
+        values_.removeAllLong(Fighter.BACK);
         free_.removeAllElements(values_);
         int nbSubst_ = remplacantsPotentiels_.size();
         for(int i = nbSubst_; i < nbPksKo_; i++){

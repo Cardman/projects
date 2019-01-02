@@ -13,7 +13,32 @@ import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
-
+    @Test
+    public void calculateArgument1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t:\n");
+        xml_.append("  t;.=\"8\":\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(\"8\"){\n");
+        xml_.append("    t;.=\"10\":\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("110", ret_.getString());
+    }
     @Test
     public void calculateArgument2Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -38,7 +63,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(11, (Number)ret_.getObject());
+        assertEq(11, ret_.getNumber());
     }
 
     @Test
@@ -66,7 +91,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
 
 
@@ -95,7 +120,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
 
     @Test
@@ -123,7 +148,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
     @Test
@@ -154,7 +179,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(22, (Number)ret_.getObject());
+        assertEq(22, ret_.getNumber());
     }
 
     @Test
@@ -183,7 +208,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
 
@@ -213,7 +238,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
 
     @Test
@@ -243,7 +268,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
 
     @Test
@@ -274,7 +299,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
 
     @Test
@@ -303,7 +328,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
 
 
@@ -335,7 +360,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
 
     @Test
@@ -364,7 +389,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
 
     @Test
@@ -396,7 +421,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
 
     @Test
@@ -423,7 +448,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument45Test() {
@@ -452,7 +477,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
 
     @Test
@@ -482,7 +507,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
 
     @Test
@@ -507,7 +532,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument66Test() {
@@ -535,7 +560,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument67Test() {
@@ -563,7 +588,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
     @Test
     public void calculateArgument68Test() {
@@ -592,7 +617,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
     @Test
     public void calculateArgument69Test() {
@@ -621,7 +646,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, (Number)ret_.getObject());
+        assertEq(1, ret_.getNumber());
     }
     @Test
     public void calculateArgument70Test() {
@@ -652,7 +677,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculateArgument71Test() {
@@ -687,7 +712,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
     @Test
     public void calculateArgument72Test() {
@@ -722,7 +747,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
     @Test
     public void calculateArgument73Test() {
@@ -774,7 +799,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
+        assertEq(2, ret_.getNumber());
     }
     @Test
     public void calculateArgument74Test() {
@@ -826,7 +851,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculateArgument75Test() {
@@ -858,7 +883,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculateArgument76Test() {
@@ -891,7 +916,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(13, (Number)ret_.getObject());
+        assertEq(13, ret_.getNumber());
     }
     @Test
     public void calculateArgument77Test() {
@@ -923,7 +948,42 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17, (Number)ret_.getObject());
+        assertEq(17, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmethCall(){\n");
+        xml_.append("  $return 9i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  $long i:\n");
+        xml_.append("  i;.=9:\n");
+        xml_.append("  $switch(exmethCall())label{\n");
+        xml_.append("   $default{\n");
+        xml_.append("    t;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("   $case(10):\n");
+        xml_.append("   $case(8){\n");
+        xml_.append("    t;.=16:\n");
+        xml_.append("    $break label:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(17, ret_.getNumber());
     }
     @Test
     public void calculateArgumentFailTest() {
@@ -944,6 +1004,110 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(8):\n");
+        xml_.append("   $case(8){\n");
+        xml_.append("    t;.=10:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument3FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(8):\n");
+        xml_.append("   $case(8){\n");
+        xml_.append("    t;.=10:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument4FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t:\n");
+        xml_.append("  t;.=\"8\":\n");
+        xml_.append("  $case(\"8\"){\n");
+        xml_.append("   t;.=\"10\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument5FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $default:\n");
+        xml_.append("   $default{\n");
+        xml_.append("    t;.=10:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument6FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t:\n");
+        xml_.append("  t;.=\"8\":\n");
+        xml_.append("  $default{\n");
+        xml_.append("   t;.=\"10\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

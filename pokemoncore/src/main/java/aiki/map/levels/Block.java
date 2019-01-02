@@ -1,5 +1,5 @@
 package aiki.map.levels;
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;

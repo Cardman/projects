@@ -1,5 +1,5 @@
 package aiki.map.pokemon;
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 public interface UsablePokemon {
 

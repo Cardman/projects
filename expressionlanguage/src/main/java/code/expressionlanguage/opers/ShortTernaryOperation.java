@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.util.NatTreeMap;
 
 public final class ShortTernaryOperation extends AbstractTernaryOperation {

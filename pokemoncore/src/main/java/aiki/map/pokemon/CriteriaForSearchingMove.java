@@ -1,10 +1,10 @@
 package aiki.map.pokemon;
-import aiki.DataBase;
+import aiki.db.DataBase;
+import aiki.facade.CriteriaForSearching;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.StringList;
-import code.util.pagination.CriteriaForSearching;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 

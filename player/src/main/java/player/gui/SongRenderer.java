@@ -18,6 +18,7 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
 
     public SongRenderer() {
         addMouseListener(this);
+        setDefaultSize();
     }
 
     public SongRenderer(StringList _songs) {
@@ -42,6 +43,9 @@ public class SongRenderer extends PaintableLabel implements MouseListener {
             }
         }
         setPreferredSize(new Dimension(w_, f_.getHeight() * songs.size()));
+    }
+    public void setDefaultSize() {
+        setSize(new Dimension(100, 60));
     }
 
     @Override

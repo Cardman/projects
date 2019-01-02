@@ -2,10 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -53,21 +53,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

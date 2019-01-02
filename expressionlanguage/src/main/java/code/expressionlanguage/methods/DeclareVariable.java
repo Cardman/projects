@@ -2,12 +2,11 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetBooleanInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.files.OffsetBooleanInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -78,18 +77,15 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         buildEmptyEl(_an);
     }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+        String formatted_ = ip_.formatVarType(importedClassName, _cont);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(importedClassName);
+            lv_.setClassName(formatted_);
             lv_.setStruct(struct_);
             ip_.putLocalVar(v, lv_);
         }
@@ -104,9 +100,4 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         return finalVariableOffset;
     }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
-    }
 }

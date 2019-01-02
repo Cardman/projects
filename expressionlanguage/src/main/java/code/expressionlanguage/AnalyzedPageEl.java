@@ -5,8 +5,6 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CollCapacity;
@@ -36,13 +34,10 @@ public final class AnalyzedPageEl {
 
     private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
 
-    private CustList<OperationNode> textualSortedOperations = new CustList<OperationNode>();
-
     private boolean enabledInternVars;
 
     private String readUrl;
 
-    private int tabWidth;
     private int offset;
 
     private boolean staticContext;
@@ -69,7 +64,6 @@ public final class AnalyzedPageEl {
     private AnalyzingEl analysisAss;
     private boolean annotAnalysis;
     private String lookLocalClass = "";
-    private SortedClassField currentInitizedField;
     private boolean okNumOp;
     private Numbers<Integer> currentBadIndexes = new Numbers<Integer>();
     public void setTranslatedOffset(int _translatedOffset) {
@@ -348,14 +342,6 @@ public final class AnalyzedPageEl {
         readUrl = _readUrl;
     }
 
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
-    }
-
     public int getOffset() {
         return offset;
     }
@@ -447,9 +433,6 @@ public final class AnalyzedPageEl {
     public AssignedVariablesBlock getAssignedVariables() {
         return assignedVariables;
     }
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return textualSortedOperations;
-    }
 
     public boolean isGearConst() {
         return gearConst;
@@ -519,14 +502,6 @@ public final class AnalyzedPageEl {
     }
     public void setLookLocalClass(String _lookLocalClass) {
         lookLocalClass = _lookLocalClass;
-    }
-
-    public SortedClassField getCurrentInitizedField() {
-        return currentInitizedField;
-    }
-
-    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
-        currentInitizedField = _currentInitizedField;
     }
 
     public boolean isOkNumOp() {

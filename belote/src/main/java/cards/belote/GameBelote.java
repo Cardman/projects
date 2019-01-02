@@ -6370,8 +6370,8 @@ public final class GameBelote {
         }
         return true;
     }
-    public EqList<Numbers<Byte>> playersBelongingToSameTeam() {
-        EqList<Numbers<Byte>> teams_ = new EqList<Numbers<Byte>>();
+    public CustList<Numbers<Byte>> playersBelongingToSameTeam() {
+        CustList<Numbers<Byte>> teams_ = new CustList<Numbers<Byte>>();
         Numbers<Byte> takerTeam_ = partenaires(taker);
         takerTeam_.add(taker);
         teams_.add(takerTeam_);

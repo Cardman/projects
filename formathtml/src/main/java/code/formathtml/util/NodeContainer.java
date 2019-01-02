@@ -2,7 +2,6 @@ package code.formathtml.util;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -55,14 +54,6 @@ public class NodeContainer {
         if (typedField == null) {
             typedField = NullStruct.NULL_VALUE;
         }
-    }
-
-    public Object getTypedField() {
-        return typedField.getInstance();
-    }
-
-    public void setTypedField(Number _typedField) {
-        typedField = NumberStruct.wrapNb(_typedField);
     }
 
     public void setTypedField(String _typedField) {

@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
-import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;

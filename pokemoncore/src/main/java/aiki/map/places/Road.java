@@ -1,6 +1,6 @@
 package aiki.map.places;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;

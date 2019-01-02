@@ -5,8 +5,8 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
+import code.gui.ThreadUtil;
 import code.util.CustList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -51,7 +51,7 @@ public final class Painting extends Thread {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(facade, false);
-            Constants.sleep(pause);
+            ThreadUtil.sleep(pause);
             scene.repaint();
             if (facade.isChangeToFightScene()) {
                 SwingUtilities.invokeLater(new SetFightPanel(window));
@@ -66,14 +66,14 @@ public final class Painting extends Thread {
                 scene.keepTiles();
                 facade.changeCamera();
                 scene.load(facade, false);
-                Constants.sleep(pause * 5);
+                ThreadUtil.sleep(pause * 5);
                 scene.repaint();
             } else {
                 facade.changeCamera(dir);
                 scene.load(facade, false);
                 for (int i = CustList.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
-                    Constants.sleep(pause);
+                    ThreadUtil.sleep(pause);
                     scene.repaint();
                 }
             }
@@ -84,7 +84,7 @@ public final class Painting extends Thread {
             facade.changeCamera();
             scene.load(facade, false);
             scene.setDelta(0, false);
-            Constants.sleep(pause);
+            ThreadUtil.sleep(pause);
             scene.repaint();
             SwingUtilities.invokeLater(new SetInteractionScene(window));
             return;
@@ -93,7 +93,7 @@ public final class Painting extends Thread {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(facade, false);
-            Constants.sleep(pause);
+            ThreadUtil.sleep(pause);
             scene.repaint();
             SwingUtilities.invokeLater(new SetInteractionScene(window));
             return;
@@ -102,7 +102,7 @@ public final class Painting extends Thread {
         scene.load(facade, false);
         for (int i = CustList.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
-            Constants.sleep(pause);
+            ThreadUtil.sleep(pause);
             scene.repaint();
         }
         SwingUtilities.invokeLater(new SetInteractionScene(window));

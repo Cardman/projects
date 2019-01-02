@@ -2,19 +2,18 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.TypeOwnersDepends;
+import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -87,7 +86,7 @@ public interface Analyzable {
     boolean isMerged();
     Struct getInternGlobal();
     String getInternGlobalClass();
-    boolean isInternGlobal();
+
 
     void setMerged(boolean _merged);
 
@@ -99,7 +98,6 @@ public interface Analyzable {
     AnalyzedPageEl getAnalyzing();
     Numbers<Integer> getCurrentBadIndexes();
     Block getCurrentBlock();
-    CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
 
@@ -118,13 +116,8 @@ public interface Analyzable {
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
     String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
 
-    boolean isDirectImport();
-
-    void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
     StringList getVariablesNames();
-    SortedClassField getCurrentInitizedField();
-    void setCurrentInitizedField(SortedClassField _field);
 
     boolean isAssignedStaticFields();
 
@@ -144,4 +137,7 @@ public interface Analyzable {
     void setOkNumOp(boolean _okNumOp);
     KeyWords getKeyWords();
     void setKeyWords(KeyWords _keyWords);
+    boolean isValidSingleToken(String _id);
+    boolean isValidToken(String _id);
+    void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);
 }

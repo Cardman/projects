@@ -1,6 +1,6 @@
 package aiki.fight.moves.effects;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 

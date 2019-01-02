@@ -292,7 +292,10 @@ public final class KeyWordsMap {
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasErrorInitClass("$core.DefErrorClass");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("values");
+        _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasResources("$core.Resources");
+        _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$core.InvokeTarget");
         _lgNames.setAliasClassNotFoundError("$core.ClassNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
@@ -345,6 +348,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("name");
+        _lgNames.setAliasEnumOrdinal("ordinal");
+        _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasSetOldString("setOldString");
@@ -415,6 +421,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBitShiftRight("bitShiftRight");
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setAliasRandom("random");
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");
@@ -440,7 +447,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasEnums("$coeur.Enums");
         _lgNames.setAliasReplacement("$coeur.Remplacement");
         _lgNames.setAliasStore("$coeur.MauvaisStockage");
-        _lgNames.setAliasNullPe("$coeur.ObjectNul");
+        _lgNames.setAliasNullPe("$coeur.ObjetNul");
         _lgNames.setAliasBadEncode("$coeur.MauvaisEncodage");
         _lgNames.setAliasBadIndex("$coeur.MauvaisIndice");
         _lgNames.setAliasBadSize("$coeur.TailleNegative");
@@ -469,7 +476,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasCharacter("$coeur.Caractere");
         _lgNames.setAliasInteger("$coeur.Entier4");
         _lgNames.setAliasLong("$coeur.Entier8");
-        _lgNames.setAliasFloat("$coeur.Floattant");
+        _lgNames.setAliasFloat("$coeur.Flottant");
         _lgNames.setAliasDouble("$coeur.Double");
         _lgNames.setAliasNumber("$coeur.Nombre");
         _lgNames.setAliasParseBoolean("parseBooleen");
@@ -515,7 +522,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasContains("contient");
         _lgNames.setAliasEndsWith("terminePar");
         _lgNames.setAliasStartsWith("commencePar");
-        _lgNames.setAliasIndexOf("indexDe");
+        _lgNames.setAliasIndexOf("indiceDe");
         _lgNames.setAliasFormat("formatter");
         _lgNames.setAliasGetBytes("valOctets");
         _lgNames.setAliasIsEmpty("estVide");
@@ -540,7 +547,10 @@ public final class KeyWordsMap {
         _lgNames.setAliasTrimToSize("trimmerTaille");
         _lgNames.setAliasErrorInitClass("$coeur.ErrorDefClasse");
         _lgNames.setAliasClone("clone");
-        _lgNames.setAliasValues("valeurs");
+        _lgNames.setAliasReadResources("lireContenu");
+        _lgNames.setAliasReadResourcesNames("lireNoms");
+        _lgNames.setAliasResources("$coeur.Ressources");
+        _lgNames.setAliasEnumValues("valeurs");
         _lgNames.setAliasInvokeTarget("$coeur.InvoqueCible");
         _lgNames.setAliasClassNotFoundError("$coeur.ClasseNonTrouve");
         _lgNames.setAliasGetVariableOwner("valVariablePoss");
@@ -593,6 +603,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetSecond("valDeuxieme");
         _lgNames.setAliasName("nom");
         _lgNames.setAliasOrdinal("ordinal");
+        _lgNames.setAliasEnumName("nom");
+        _lgNames.setAliasEnumOrdinal("ordinal");
+        _lgNames.setAliasEnumPredValueOf("valeurDe");
         _lgNames.setAliasGetOldString("valChaineAvant");
         _lgNames.setAliasGetNewString("valChaineApres");
         _lgNames.setAliasSetOldString("majChaineAvant");
@@ -663,6 +676,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBitShiftRight("binGlisserDroite");
         _lgNames.setAliasRotateLeft("rotGauche");
         _lgNames.setAliasRotateRight("rotDroite");
+        _lgNames.setAliasRandom("alea");
         _lgNames.setFalseString("faux");
         _lgNames.setTrueString("vrai");
         _lgNames.setNullString("");

@@ -17,6 +17,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
+import code.gui.ThreadUtil;
 import code.gui.events.QuittingEvent;
 import code.util.CustList;
 import code.util.StringList;
@@ -80,7 +81,7 @@ public final class MainWindow extends GroupFrame {
             return;
         }
         writeCoords();
-        Constants.exit();
+        ThreadUtil.exit();
     }
     @Override
     public boolean canChangeLanguage() {

@@ -1,10 +1,11 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -78,8 +79,7 @@ public final class OrOperation extends QuickOperation {
         vars_.getMutableLoop().put(this, mutableAfter_);
     }
     @Override
-    boolean absorbingValue() {
-        return true;
+    public BooleanStruct absorbingStruct() {
+        return new BooleanStruct(true);
     }
-
 }

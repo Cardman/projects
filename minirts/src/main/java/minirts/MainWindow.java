@@ -30,8 +30,8 @@ import minirts.rts.Facade;
 import code.gui.GroupFrame;
 import code.gui.Panel;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
-import code.util.opers.BaseSixtyFourUtil;
 
 public final class MainWindow extends GroupFrame {
 

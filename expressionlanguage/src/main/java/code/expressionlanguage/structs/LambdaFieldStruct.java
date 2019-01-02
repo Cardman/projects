@@ -3,7 +3,6 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
 public class LambdaFieldStruct implements Struct {
 
@@ -60,15 +59,6 @@ public class LambdaFieldStruct implements Struct {
     public String getReturnFieldType() {
         return returnFieldType;
     }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-
-    @Override
-    public boolean isArray() {
-        return false;
-    }
 
     @Override
     public Struct getParent() {
@@ -83,16 +73,6 @@ public class LambdaFieldStruct implements Struct {
     @Override
     public boolean sameReference(Struct _other) {
         return this == _other;
-    }
-
-    @Override
-    public Object getInstance() {
-        return null;
-    }
-
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return null;
     }
 
 }

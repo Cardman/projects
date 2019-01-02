@@ -1,6 +1,6 @@
 package aiki.fight.status;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 

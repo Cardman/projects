@@ -17,6 +17,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -363,8 +364,8 @@ public final class TarotStandards extends BeanLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (_instance.getInstance() instanceof DetailsResultsTarotBean) {
-            DetailsResultsTarotBean instance_ = (DetailsResultsTarotBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsTarotBean) {
+            DetailsResultsTarotBean instance_ = (DetailsResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, RATE)) {
                 res_.setResult(new IntStruct(instance_.getRate()));
                 return res_;
@@ -426,8 +427,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SumDeclaringPlayer) {
-            SumDeclaringPlayer instance_ = (SumDeclaringPlayer) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof SumDeclaringPlayer) {
+            SumDeclaringPlayer instance_ = (SumDeclaringPlayer) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, SUM)) {
                 res_.setResult(new IntStruct(instance_.getSum()));
                 return res_;
@@ -449,8 +450,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ScoresPlayers) {
-            ScoresPlayers instance_ = (ScoresPlayers) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof ScoresPlayers) {
+            ScoresPlayers instance_ = (ScoresPlayers) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, SUM)) {
                 res_.setResult(new StdStruct(instance_.getRate(),TYPE_RATE));
                 return res_;
@@ -464,8 +465,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof RankingPlayerVariantGame) {
-            RankingPlayerVariantGame instance_ = (RankingPlayerVariantGame) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof RankingPlayerVariantGame) {
+            RankingPlayerVariantGame instance_ = (RankingPlayerVariantGame) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
@@ -491,8 +492,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof PointsPlayerVariantGame) {
-            PointsPlayerVariantGame instance_ = (PointsPlayerVariantGame) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof PointsPlayerVariantGame) {
+            PointsPlayerVariantGame instance_ = (PointsPlayerVariantGame) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
@@ -518,8 +519,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof BonusesPlayers) {
-            BonusesPlayers instance_ = (BonusesPlayers) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof BonusesPlayers) {
+            BonusesPlayers instance_ = (BonusesPlayers) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NICKNAME)) {
                 res_.setResult(new StringStruct(instance_.getNickname()));
                 return res_;
@@ -529,8 +530,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ResultsTarotBean) {
-            ResultsTarotBean instance_ = (ResultsTarotBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsTarotBean) {
+            ResultsTarotBean instance_ = (ResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NUMBER_OUDLERS_TAKER)) {
                 res_.setResult(new ByteStruct(instance_.getNumberOudlersTaker()));
                 return res_;
@@ -596,8 +597,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof LineDeal) {
-            LineDeal instance_ = (LineDeal) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
+            LineDeal instance_ = (LineDeal) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(instance_.getNumber()));
                 return res_;
@@ -607,8 +608,8 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof RulesTarotBean) {
-            RulesTarotBean instance_ = (RulesTarotBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesTarotBean) {
+            RulesTarotBean instance_ = (RulesTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
@@ -648,26 +649,26 @@ public final class TarotStandards extends BeanLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance.getInstance() instanceof TarotBean) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof TarotBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
-                res_.setResult(new BooleanStruct(((TarotBean)_instance.getInstance()).playClassicGame()));
+                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_VARIANT_MODE_GAME)) {
-                res_.setResult(new BooleanStruct(((TarotBean)_instance.getInstance()).playVariantModeGame()));
+                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new StdStruct(((TarotBean)_instance.getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new StdStruct(((TarotBean)_instance.getInstance()).getScores(), getCustList()));
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ResultsTarotBean) {
-            ResultsTarotBean instance_ = (ResultsTarotBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsTarotBean) {
+            ResultsTarotBean instance_ = (ResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(_method.getConstraints().getName(), WIN)) {
                 res_.setResult(new BooleanStruct(instance_.win()));
                 return res_;

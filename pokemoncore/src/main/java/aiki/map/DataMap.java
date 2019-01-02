@@ -1,7 +1,7 @@
 package aiki.map;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorMiniMapCoords;
+import aiki.db.DataBase;
 import aiki.fight.items.EvolvingItem;
 import aiki.fight.items.EvolvingStone;
 import aiki.fight.items.Item;

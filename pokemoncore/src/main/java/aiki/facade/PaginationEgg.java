@@ -1,7 +1,7 @@
 package aiki.facade;
 
-import aiki.DataBase;
 import aiki.comparators.ComparatorEgg;
+import aiki.db.DataBase;
 import aiki.map.pokemon.CriteriaForSearchingEgg;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.UsablePokemon;
@@ -11,15 +11,13 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.pagination.FieldComparator;
-import code.util.pagination.Pagination;
 
 public final class PaginationEgg extends
-        Pagination<SortingEgg, Egg, CriteriaForSearchingEgg> {
+        Pagination<SortingEgg, Egg> {
 
-    private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
+    private LongFieldComparator cmpSteps = new LongFieldComparator();
 
-    private FieldComparator<String> cmpName = new FieldComparator<String>();
+    private StringFieldComparator cmpName = new StringFieldComparator();
 
     private StringMap<String> translatedPokemon;
 
@@ -30,8 +28,10 @@ public final class PaginationEgg extends
 
     private EqList<SortingEgg> rendered = new EqList<SortingEgg>();
 
+    private CriteriaForSearchingEgg criteria;
+
     public PaginationEgg() {
-        super(new CriteriaForSearchingEgg());
+        criteria = new CriteriaForSearchingEgg();
     }
 
     public void setTranslation(DataBase _data, String _language) {
@@ -84,6 +84,10 @@ public final class PaginationEgg extends
     }
 
     @Override
+    public CriteriaForSearchingEgg getCriteria() {
+        return criteria;
+    }
+    @Override
     public boolean sortable() {
         Numbers<Integer> priorities_;
         priorities_ = new Numbers<Integer>();
@@ -126,19 +130,19 @@ public final class PaginationEgg extends
         eggs = eggs_;
     }
 
-    public FieldComparator<Integer> getCmpSteps() {
+    public LongFieldComparator getCmpSteps() {
         return cmpSteps;
     }
 
-    public void setCmpSteps(FieldComparator<Integer> _cmpSteps) {
+    public void setCmpSteps(LongFieldComparator _cmpSteps) {
         cmpSteps = _cmpSteps;
     }
 
-    public FieldComparator<String> getCmpName() {
+    public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
-    public void setCmpName(FieldComparator<String> _cmpName) {
+    public void setCmpName(StringFieldComparator _cmpName) {
         cmpName = _cmpName;
     }
 

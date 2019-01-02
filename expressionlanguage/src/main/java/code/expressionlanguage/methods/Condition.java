@@ -2,26 +2,26 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
-public abstract class Condition extends BracedStack implements StackableBlockGroup {
+public abstract class Condition extends BracedStack implements WithNotEmptyEl {
 
     private String condition;
 
     private int conditionOffset;
 
-    private CustList<OperationNode> opCondition;
+    private CustList<ExecOperationNode> opCondition;
 
     public Condition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
@@ -47,10 +47,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opCondition.isEmpty()) {
-            return;
-        }
-        OperationNode elCondition_ = opCondition.last();
+        ExecOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -63,13 +60,19 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         buildConditions(_cont);
     }
 
+    @Override
+    public void reduce(ContextEl _context) {
+        ExecOperationNode r_ = opCondition.last();
+        opCondition = ElUtil.getReducedNodes(r_);
+    }
+
     public final ExpressionLanguage getElCondition() {
         return new ExpressionLanguage(opCondition);
     }
-    public OperationNode getRoot() {
+    public ExecOperationNode getRoot() {
         return getOpCondition().last();
     }
-    public CustList<OperationNode> getOpCondition() {
+    public CustList<ExecOperationNode> getOpCondition() {
         return opCondition;
     }
 

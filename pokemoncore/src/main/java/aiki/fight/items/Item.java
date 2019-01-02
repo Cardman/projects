@@ -1,6 +1,6 @@
 package aiki.fight.items;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 
 
 public abstract class Item {

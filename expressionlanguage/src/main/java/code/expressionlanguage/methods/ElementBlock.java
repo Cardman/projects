@@ -3,15 +3,15 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -22,6 +22,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -37,13 +38,16 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private String importedClassName;
 
-    private CustList<OperationNode> opValue;
+    private CustList<ExecOperationNode> opValue;
 
     private int fieldNameOffest;
 
     private int valueOffest;
 
     private int trOffset;
+    private StringList annotations = new StringList();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public ElementBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _fieldName,
@@ -191,6 +195,38 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         page_.setTranslatedOffset(0);
     }
     @Override
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public void reduce(ContextEl _context) {
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+        ExecOperationNode r_ = opValue.last();
+        opValue = ElUtil.getReducedNodes(r_);
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
@@ -199,10 +235,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
         as_.put(fieldName, Assignment.assignClassic(true, false));
-    }
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

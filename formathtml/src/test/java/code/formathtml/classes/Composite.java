@@ -1,4 +1,5 @@
 package code.formathtml.classes;
+import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.StringList;
 import code.util.StringMap;
@@ -60,12 +61,12 @@ public class Composite implements Displayable {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        getStrings().add(StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString()));
+        getStrings().add(StringList.concat(((NumberStruct)_changing.getNewValue()).getInstance().toString()," ",((NumberStruct)_changing.getOldValue()).getInstance().toString()));
         changing = _changing;
     }
 
     public String getValue(ValueChangeEvent _changing) {
-        return StringList.concat(((Integer)_changing.getNewValue()).toString()," ",((Integer)_changing.getOldValue()).toString());
+        return StringList.concat(((NumberStruct)_changing.getNewValue()).getInstance().toString()," ",((NumberStruct)_changing.getOldValue()).getInstance().toString());
     }
 
     public ValueChangeEvent getChanging() {

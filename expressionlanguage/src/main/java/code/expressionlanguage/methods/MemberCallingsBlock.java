@@ -3,18 +3,24 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.DeadCodeMethod;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
+public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock, AnnotableBlock {
+    private StringList annotations = new StringList();
+    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     MemberCallingsBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -63,6 +69,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
         while (true) {
             _cont.getAnalyzing().setCurrentBlock(en_);
+            if (en_ instanceof BracedBlock && en_.getFirstChild() == null) {
+                if (!(en_ instanceof SwitchBlock) && !(en_ instanceof DoWhileCondition)) {
+                    OffsetsBlock off_ = en_.getOffset();
+                    EmptyInstruction empty_ = new EmptyInstruction(_cont, (BracedBlock) en_, off_);
+                    ((BracedBlock)en_).appendChild(empty_);
+                }
+            }
             en_.setAssignmentBefore(_cont, anEl_);
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
@@ -169,22 +182,37 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return null;
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
+    @Override
+    public void reduce(ContextEl _context) {
+        CustList<CustList<ExecOperationNode>> annotationsOps_;
+        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
+        for (CustList<ExecOperationNode> a: annotationsOps) {
+            ExecOperationNode r_ = a.last();
+            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+        }
+        annotationsOps = annotationsOps_;
+    }
+    @Override
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    @Override
+    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+        return annotationsOps;
+    }
+    @Override
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
     }
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
-        Block prev_ = getPreviousSibling();
-        BracedBlock br_ = getParent();
-        if (prev_ == null || _anEl.getRoot() == this) {
-            if (_anEl.getRoot() == this || _anEl.isReachable(br_)) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else {
-            super.reach(_an, _anEl);
-        }
+        _anEl.reach(this);
     }
 }

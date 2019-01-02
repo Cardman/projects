@@ -9,18 +9,10 @@ final class ArrayAnnotPart extends ParentAnnotPart {
 
     private ArrayStruct array;
 
-    public ArrayStruct getArray() {
-        return array;
-    }
-
-    public void setArray(ArrayStruct _array) {
+    void setArray(ArrayStruct _array) {
         array = _array;
     }
 
-    @Override
-    ArrayStruct getInstance() {
-        return array;
-    }
     @Override
     String getBegin() {
         return "{";

@@ -35,7 +35,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument2Test() {
@@ -62,7 +62,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(240, (Number)ret_.getObject());
+        assertEq(240, ret_.getNumber());
     }
     @Test
     public void calculateArgument3Test() {
@@ -86,7 +86,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(26, (Number)ret_.getObject());
+        assertEq(26, ret_.getNumber());
     }
     @Test
     public void calculateArgument4Test() {
@@ -113,7 +113,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument5Test() {
@@ -140,7 +140,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument6Test() {
@@ -167,7 +167,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument7Test() {
@@ -200,7 +200,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument8Test() {
@@ -224,7 +224,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument9Test() {
@@ -248,7 +248,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument10Test() {
@@ -273,7 +273,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument11Test() {
@@ -300,7 +300,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument12Test() {
@@ -328,7 +328,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(14, (Number)ret_.getObject());
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void calculateArgument13Test() {
@@ -357,7 +357,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(14, (Number)ret_.getObject());
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void calculateArgument14Test() {
@@ -386,7 +386,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument15Test() {
@@ -412,7 +412,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(50, (Number)ret_.getObject());
+        assertEq(50, ret_.getNumber());
     }
     @Test
     public void calculateArgument16Test() {
@@ -443,7 +443,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(7, (Number)ret_.getObject());
+        assertEq(7, ret_.getNumber());
     }
     @Test
     public void calculateArgument17Test() {
@@ -468,7 +468,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(14, (Number)ret_.getObject());
+        assertEq(14, ret_.getNumber());
     }
     @Test
     public void calculateArgument18Test() {
@@ -492,7 +492,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(10, (Number)ret_.getObject());
+        assertEq(10, ret_.getNumber());
     }
     @Test
     public void calculateArgument19Test() {
@@ -516,7 +516,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument20Test() {
@@ -540,7 +540,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(0, (Number)ret_.getObject());
+        assertEq(0, ret_.getNumber());
     }
     @Test
     public void calculateArgument21Test() {
@@ -564,7 +564,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(26, (Number)ret_.getObject());
+        assertEq(26, ret_.getNumber());
     }
     @Test
     public void calculateArgument22Test() {
@@ -591,7 +591,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(7, (Number)ret_.getObject());
+        assertEq(7, ret_.getNumber());
     }
     @Test
     public void calculateArgument1FailTest() {
@@ -752,6 +752,46 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append("    i;=u;.:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=i;+j;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $final $int u:\n");
+        xml_.append("  $for($int i=4i:i;>0i:i;--,u;.=1i){\n");
+        xml_.append("   t;.+=i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument10FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $final $int u:\n");
+        xml_.append("  $for($int i=4i:(u;.=1i)>0i:i;--){\n");
+        xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
         xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");

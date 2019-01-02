@@ -2,13 +2,13 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.OffsetAccessInfo;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.UnassignedFinalField;
+import code.expressionlanguage.files.OffsetAccessInfo;
+import code.expressionlanguage.files.OffsetStringInfo;
+import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -94,32 +94,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return implicitCallSuper;
     }
 
-    public Block getFirstBlockAfterOtherConstr() {
-        Block ch_ = getFirstChild();
-        if (implicitConstr()) {
-            return ch_;
-        }
-        //the constructor has a line as first block which call an other constructor
-        return ch_.getNextSibling();
-    }
-
     public ConstructorId getConstIdSameClass() {
         return constIdSameClass;
-    }
-
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
     }
 
     @Override

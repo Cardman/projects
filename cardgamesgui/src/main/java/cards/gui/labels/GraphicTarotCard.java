@@ -15,12 +15,12 @@ import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class GraphicTarotCard extends PaintableLabel {
     static final String DEFAULT="Default";

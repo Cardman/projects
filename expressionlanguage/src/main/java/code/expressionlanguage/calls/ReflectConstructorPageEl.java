@@ -2,9 +2,9 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -21,27 +21,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     public boolean checkCondition(ContextEl _context) {
         ConstructorMetaInfo method_ = (ConstructorMetaInfo) getGlobalArgument().getStruct();
         String className_ = method_.getClassName();
-        if (className_.startsWith(Templates.SUB_TYPE)) {
-            LgNames stds_ = _context.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(_context,null_));
-            return false;
-        }
-        if (className_.startsWith(Templates.SUP_TYPE)) {
-            LgNames stds_ = _context.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(_context,null_));
-            return false;
-        }
-        if (className_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            LgNames stds_ = _context.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(_context,null_));
-            return false;
-        }
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         boolean static_ = type_.isStaticType();
@@ -62,7 +41,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (static_ && InvokingOperation.hasToExit(_context, res_)) {
+            if (static_ && ExecInvokingOperation.hasToExit(_context, res_)) {
                 setWrapException(true);
                 return false;
             }
@@ -106,7 +85,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = InvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
+            Argument arg_ = ExecInvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

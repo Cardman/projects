@@ -18,7 +18,7 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         super(_elements);
     }
 
-    
+
     public EnumList(CollCapacity _capacity) {
         super(_capacity);
     }
@@ -52,12 +52,22 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         groups_.add(group_);
         return groups_;
     }
-
+    public Numbers<Integer> indexesOfObj(T _element) {
+        Numbers<Integer> indexes_;
+        indexes_ = new Numbers<Integer>();
+        int i_ = FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_element, i_);
+            if (found_ == INDEX_NOT_FOUND_ELT) {
+                break;
+            }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
     @Override
     public int indexOfObj(T _element, int _from) {
-//        if (_element == null) {
-//            return indexOfNull(_from);
-//        }
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             T e_ = get(i);
@@ -68,55 +78,31 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         return INDEX_NOT_FOUND_ELT;
     }
 
-//    @Override
-//    public Numbers<Integer> indexesOfObj(T _element) {
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            T e_ = get(i);
-//            if (_element == e_) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
-
-//    @Override
-//    public void removeDuplicates() {
-//        int i_ = CustList.FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_ + 1;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (get(i_) == get(j_)) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
-
-//    public boolean contains(T _element) {
-//        return indexOfObj(_element) != CustList.INDEX_NOT_FOUND_ELT;
-//    }
-
-//    @Override
-//    public EnumList<T> mid(int _beginIndex, int _nbElements) {
-//        return new EnumList<T>(sub(_beginIndex, _beginIndex+_nbElements));
-//    }
     @Override
     public EnumList<T> subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }
 
+
+    public void removeDuplicates()  {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            T e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
+        }
+    }
     @Override
     public EnumList<T> sub(int _from, int _to) {
         if (_from > _to) {
@@ -143,4 +129,5 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         }
         return true;
     }
+
 }

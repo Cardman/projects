@@ -12,7 +12,7 @@ public class MyStrangeTranslator extends Translator {
 
     @Override
     public String getString(String _pattern, Object _conf,
-            Bean _object, Object _value) {
+            Bean _object, String _value) {
         ((Configuration)_conf).getContext().setException(NullStruct.NULL_VALUE);
         return "";
     }

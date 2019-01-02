@@ -1,4 +1,6 @@
 package code.expressionlanguage;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
 import code.expressionlanguage.calls.BlockPageEl;
@@ -27,16 +29,21 @@ import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.calls.util.NotInitializedFields;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.TypeOwnersDepends;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.inherits.ClassInheritsDeps;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.inherits.TypeOwnersDepends;
+import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
@@ -54,13 +61,11 @@ import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -68,8 +73,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -84,10 +88,8 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -96,6 +98,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -106,29 +109,26 @@ import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.SortedGraph;
-import code.util.ints.MathFactory;
 
-public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
+public abstract class ContextEl implements ExecutableCode {
 
+    protected static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
     private static final String EMPTY_PREFIX = "";
-    private static final int DEFAULT_TAB_WIDTH = 4;
-
-    private MathFactory mathFactory;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
-
-    private String filesConfName;
 
     private int stackOverFlow;
 
     private Options options;
 
+    private ExecutingOptions executing;
+
     private Struct exception;
 
     private Struct memoryError;
 
-    private LocalThrowing throwing = new LocalThrowing();
+    private LocalThrowing throwing;
 
     private CustomFoundAnnotation callAnnot;
     private CustomFoundConstructor callCtor;
@@ -142,8 +142,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private NotInitializedClass initClass;
 
-    private Struct parent;
-
     private LgNames standards;
 
     private AnalyzedPageEl analyzing;
@@ -152,61 +150,34 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
-    private String html;
-
-    private ContextEl parentThread;
-
-    private CustList<ContextEl> children = new CustList<ContextEl>();
-
-    private String className = "";
-    private ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
-    private Initializer init;
-    private String name;
-    private int ordinal;
     private KeyWords keyWords;
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
+    private AtomicBoolean interrupt;
 
-    public ContextEl() {
-        this(CustList.INDEX_NOT_FOUND_ELT);
+    public ContextEl(LgNames _stds, int _tabWitdth) {
+        this(CustList.INDEX_NOT_FOUND_ELT, _stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow) {
-        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer(), new Options(), new KeyWords());
-    }
-    public ContextEl(DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
-        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init, _options,_keyWords);
+    public ContextEl(int _stackOverFlow, LgNames _stds, int _tabWitdth) {
+        this(_stackOverFlow, new DefaultLockingClass(), new Options(), new ExecutingOptions(),new KeyWords(),_stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
-        options = _options;
-        stackOverFlow = _stackOverFlow;
-        init = _init;
-        keyWords = _keyWords;
-        classes = new Classes();
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, ExecutingOptions _exec,KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+        this();
+        setOptions(_options);
+        setExecuting(_exec);
+        setStackOverFlow(_stackOverFlow);
+        setStandards(_stds);
+        setTabWidth(_tabWitdth);
+        setKeyWords(_keyWords);
+        setClasses(new Classes());
+        setThrowing(new LocalThrowing());
+        setInterrupt(_exec.getInterrupt());
         classes.setLocks(_lock);
     }
-    public ContextEl(ContextEl _context, String _className,
-            String _name, int _ordinal,
-            ObjectMap<ClassField,Struct> _fields, Struct _parent) {
-        parentThread = _context;
-        name = _name;
-        ordinal = _ordinal;
-        classes = _context.classes;
-        options = _context.options;
-        standards = _context.standards;
-        tabWidth = _context.tabWidth;
-        stackOverFlow = _context.stackOverFlow;
-        filesConfName = _context.filesConfName;
-        memoryError = _context.memoryError;
-        className = _className;
-        fields = _fields;
-        parent = _parent;
-        init = _context.init;
-        keyWords = _context.keyWords;
-        sensibleFields = _context.sensibleFields;
-        _context.children.add(this);
+    protected ContextEl() {
     }
     public boolean isSensibleField(String _clName) {
         if (!initEnums) {
@@ -226,9 +197,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return false;
         }
         return sensibleFields.containsObj(_array);
-    }
-    public IdList<Struct> getSensibleFields() {
-        return sensibleFields;
     }
     public void addSensibleField(String _fc, Struct _container) {
         if (!initEnums) {
@@ -315,7 +283,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public void setInitEnums(boolean _initEnums) {
         initEnums = _initEnums;
     }
-    public void resetInitEnums() {
+    public AtomicBoolean getInterrupt() {
+		return interrupt;
+	}
+	public void setInterrupt(AtomicBoolean _interrupt) {
+		interrupt = _interrupt;
+	}
+	public void interrupt() {
+		interrupt.set(true);
+	}
+	public void resetInitEnums() {
         failInit = false;
         exception = null;
         sensibleFields.clear();
@@ -329,28 +306,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return "";
     }
-    public ContextEl getParentThread() {
-        return parentThread;
-    }
-    @Override
-    public Struct getParent() {
-        return parent;
-    }
-    @Override
-    public void run() {
-        String run_ = init.getRunTask(standards);
-        String runnable_ = init.getInterfaceTask(standards);
-        MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList(), false);
-        GeneType type_ = classes.getClassBody(runnable_);
-        String base_ = Templates.getIdFromAllTypes(className);
-        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, this).getVal(base_);
-        Argument arg_ = new Argument();
-        arg_.setStruct(this);
-        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
-    }
     public boolean processException() {
         if (exception != null) {
-            throwing.removeBlockFinally(this);
+            getThrowing().removeBlockFinally(this);
             if (exception != null) {
                 return false;
             }
@@ -396,7 +354,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return null;
         }
         if (exception != null) {
-            throwing.removeBlockFinally(this);
+            getThrowing().removeBlockFinally(this);
         }
         return null;
     }
@@ -423,12 +381,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public AbstractPageEl createInstancingClass(String _class) {
         setInitClass(null);
-//        classes.preInitializeStaticFields(_class, this);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
-        page_.setTabWidth(tabWidth);
         Argument argGl_ = new Argument();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -455,13 +411,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args) {
         setCallMethod(null);
-        MethodPageEl pageLoc_ = new MethodPageEl();
-        pageLoc_.setTabWidth(tabWidth);
+        MethodPageEl pageLoc_ = new MethodPageEl(this);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         MethodId id_ = _method;
         NamedFunctionBlock methodLoc_;
-        if (!StringList.isWord(id_.getName())) {
+        if (!StringList.isDollarWord(id_.getName())) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, id_).first();
         } else {
             methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
@@ -510,8 +465,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         String fieldName_ = _call.getFieldName();
         int ordinal_ = _call.getChildIndex();
-        argGl_.setStruct(init.processInit(this, str_, _class, fieldName_, ordinal_));
-        page_.setTabWidth(tabWidth);
+        argGl_.setStruct(getInit().processInit(this, str_, _class, fieldName_, ordinal_));
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -547,8 +501,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         page_ = new NewAnnotationPageEl();
         page_.setArgs(_args);
         page_.setNames(_id);
-        argGl_.setStruct(init.processInitAnnot(this, _class));
-        page_.setTabWidth(tabWidth);
+        argGl_.setStruct(getInit().processInitAnnot(this, _class));
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -574,7 +527,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             page_ = new CurrentInstancingPageEl();
         }
         argGl_.setStruct(global_.getStruct());
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
@@ -604,7 +556,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         ReadWrite rw_ = new ReadWrite();
@@ -625,7 +576,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         setFoundBlock(null);
         FileBlock file_ = getFile(_class);
         BlockPageEl page_ = new BlockPageEl();
-        page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
         ReadWrite rw_ = new ReadWrite();
@@ -640,9 +590,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ReflectingType r_ = _e.getReflect();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        return createReflectMethod(gl_, args_, r_);
+        boolean l_ = _e.isLambda();
+        return createReflectMethod(gl_, args_, r_, l_);
     }
-    public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect) {
+    public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect, boolean _lambda) {
         setReflectMethod(null);
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
@@ -659,7 +610,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             pageLoc_ = new ReflectAnnotationPageEl();
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
         }
-        pageLoc_.setTabWidth(tabWidth);
+        pageLoc_.setLambda(_lambda);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setArguments(_args);
         ReadWrite rwLoc_ = new ReadWrite();
@@ -677,52 +628,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return file_;
     }
-    @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return className;
-    }
-    @Override
-    public ObjectMap<ClassField, Struct> getFields() {
-        return fields;
-    }
-    @Override
-    public Object getInstance() {
-        return this;
-    }
-    @Override
-    public boolean isArray() {
-        return false;
-    }
-    @Override
-    public boolean isNull() {
-        return false;
-    }
-    @Override
-    public String getClassName() {
-        return className;
-    }
-
-    @Override
-    public Struct getStruct(ClassField _classField) {
-        return fields.getVal(_classField);
-    }
-
-    @Override
-    public void setStruct(ClassField _classField, Struct _value) {
-        for (EntryCust<ClassField, Struct> e: fields.entryList()) {
-            if (e.getKey().eq(_classField)) {
-                e.setValue(_value);
-                return;
-            }
-        }
-    }
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
-    public void initError() {
-        memoryError = new ErrorStruct(this, standards.getAliasError());
-    }
+    public abstract void initError();
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
         if (!classes.isCustomType(_name)) {
@@ -844,6 +750,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public static CustList<GeneConstructor> getConstructorBlocks(GeneType _element) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof ConstructorBlock) {
@@ -859,6 +768,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof MethodBlock) {
@@ -877,6 +789,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public static CustList<GeneField> getFieldBlocks(GeneType _element) {
         CustList<GeneField> methods_ = new CustList<GeneField>();
+        if (_element == null) {
+            return methods_;
+        }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof InfoBlock) {
@@ -907,16 +822,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         options = _options;
     }
 
+    public int getStackOverFlow() {
+        return stackOverFlow;
+    }
     public void setStackOverFlow(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
-    }
-
-    public MathFactory getMathFactory() {
-        return mathFactory;
-    }
-
-    public void setMathFactory(MathFactory _mathFactory) {
-        mathFactory = _mathFactory;
     }
 
     public int getTabWidth() {
@@ -925,14 +835,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
-    }
-
-    public String getFilesConfName() {
-        return filesConfName;
-    }
-
-    public void setFilesConfName(String _filesConfName) {
-        filesConfName = _filesConfName;
     }
 
     @Override
@@ -964,7 +866,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public void addPage(AbstractPageEl _page) {
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
-        if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
+        if (getStackOverFlow() >= CustList.FIRST_INDEX && getStackOverFlow() <= importing.size()) {
             exception = new ErrorStruct(this,sof_);
         } else {
             importing.add(_page);
@@ -998,14 +900,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public AbstractPageEl getLastPage() {
         return importing.last();
-    }
-
-    public String getHtml() {
-        return html;
-    }
-
-    public void setHtml(String _html) {
-        html = _html;
     }
 
     @Override
@@ -1097,10 +991,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.isGearConst();
     }
 
-    public void setGearConst(boolean _gearConst) {
-        analyzing.setGearConst(_gearConst);
-    }
-
     public boolean callsOrException() {
         if (calls()) {
             return true;
@@ -1108,7 +998,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (failInit) {
             return true;
         }
-        return exception != null;
+        return hasException();
     }
 
     public boolean calls() {
@@ -1140,7 +1030,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return hasException();
     }
     public boolean hasException() {
-        return exception != null;
+        return exception != null && !interrupt.get();
     }
     public boolean isFailInit() {
         return failInit;
@@ -1152,6 +1042,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public LocalThrowing getThrowing() {
         return throwing;
+    }
+    public void setThrowing(LocalThrowing _throwing) {
+        throwing = _throwing;
     }
     
     public CustomFoundConstructor getCallCtor() {
@@ -1214,13 +1107,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return memoryError;
     }
 
-    public Initializer getInit() {
-        return init;
+    public void setMemoryError(Struct _memoryError) {
+        memoryError = _memoryError;
     }
-
-    public void setInit(Initializer _init) {
-        init = _init;
-    }
+    public abstract Initializer getInit();
 
     @Override
     public int getCurrentChildTypeIndex() {
@@ -1230,16 +1120,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setCurrentChildTypeIndex(int _index) {
         analyzing.setIndexChildType(_index);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getOrdinal() {
-        return ordinal;
     }
 
     @Override
@@ -1278,11 +1158,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public CustList<OperationNode> getTextualSortedOperations() {
-        return analyzing.getTextualSortedOperations();
-    }
-
-    @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return analyzing.getLocalVars();
     }
@@ -1316,11 +1191,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public boolean isEnabledInternVars() {
         return analyzing.isEnabledInternVars();
-    }
-
-    @Override
-    public boolean isInternGlobal() {
-        return false;
     }
 
     @Override
@@ -1426,7 +1296,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
@@ -1483,7 +1352,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
         if (resType_.trim().isEmpty()) {
@@ -1570,7 +1438,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
-        setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
         if (resType_.trim().isEmpty()) {
@@ -1586,10 +1453,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         SortedGraph<ClassInheritsDeps> gr_;
         gr_ = new SortedGraph<ClassInheritsDeps>();
         EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
-        for (RootBlock b: classes.getClassBodies()) {
-            if (b.getFile().isPredefined() != _predefined) {
-                continue;
-            }
+        for (RootBlock b: classes.getClassBodies(_predefined)) {
             StringList deps_ = b.getDepends(this);
             if (deps_ == null) {
                 return null;
@@ -1648,7 +1512,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
-        setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true);
         if (resType_.trim().isEmpty()) {
@@ -1682,7 +1545,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
-        setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
         String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false);
         if (resType_.trim().isEmpty()) {
@@ -2441,7 +2303,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
         ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
-        if (!StringList.isWord(_method.trim())) {
+        if (!StringList.isDollarWord(_method.trim())) {
             return methods_;
         }
         AccessingImportingBlock type_ = _rooted.getImporting();
@@ -2633,7 +2495,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _method, Block _rooted) {
         ObjectMap<ClassField,Integer> methods_ = new ObjectMap<ClassField,Integer>();
-        if (!StringList.isWord(_method.trim())) {
+        if (!StringList.isDollarWord(_method.trim())) {
             return methods_;
         }
         int import_ = 1;
@@ -2923,16 +2785,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isDirectImport() {
-        return analyzing.isDirectImport();
-    }
-
-    @Override
-    public void setDirectImport(boolean _directImport) {
-        analyzing.setDirectImport(_directImport);
-    }
-
-    @Override
     public StringList getAvailableVariables() {
         if (analyzing == null) {
             return new StringList();
@@ -3041,16 +2893,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public SortedClassField getCurrentInitizedField() {
-        return analyzing.getCurrentInitizedField();
-    }
-
-    @Override
-    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
-        analyzing.setCurrentInitizedField(_currentInitizedField);
-    }
-
-    @Override
     public boolean isOkNumOp() {
         return analyzing.isOkNumOp();
     }
@@ -3078,5 +2920,75 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setKeyWords(KeyWords _keyWords) {
         keyWords = _keyWords;
+    }
+
+    public ExecutingOptions getExecuting() {
+		return executing;
+	}
+
+	public void setExecuting(ExecutingOptions _executing) {
+		executing = _executing;
+	}
+
+	@Override
+    public boolean isValidSingleToken(String _id) {
+        if (!isValidToken(_id)) {
+            return false;
+        }
+        if (options.getSuffixVar() != VariableSuffix.DISTINCT) {
+            if (containsLocalVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsCatchVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsMutableLoopVar(_id)) {
+                return false;
+            }
+            if (analyzing.containsVar(_id)) {
+                return false;
+            }
+            if (getParameters().contains(_id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public boolean isValidToken(String _id) {
+        Block b_ = getCurrentBlock();
+        if (b_ != null) {
+            boolean pred_ = b_.getFile().isPredefined();
+            if (pred_) {
+                if (!StringList.isDollarWord(_id)) {
+                    return false;
+                }
+            } else {
+                if (!StringList.isWord(_id)) {
+                    return false;
+                }
+            }
+        } else if (!StringList.isWord(_id)) {
+            return false;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(_id, this)) {
+            return false;
+        }
+        if (keyWords.isKeyWordNotVar(_id)) {
+            return false;
+        }
+        if (StringList.quickEq(_id, standards.getAliasVoid())) {
+            return false;
+        }
+        if (options.getSuffixVar() == VariableSuffix.NONE) {
+            if (isDigit(_id.charAt(0))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
     }
 }

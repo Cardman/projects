@@ -2,52 +2,40 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.errors.custom.UndefinedVariableError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
+public final class MutableLoopVariableOperation extends VariableLeafOperation implements SettableElResult {
 
     private boolean variable;
-
-    private boolean excVar;
 
     private boolean catString;
 
     private String variableName = EMPTY_STRING;
+    private int off;
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        int relativeOff_ = _op.getOffset();
+        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
     }
 
     @Override
@@ -70,72 +58,12 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
-            if (!StringList.isWord(str_)) {
+            if (!_conf.isValidSingleToken(str_)) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
                 b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
-            }
-            if (_conf.getKeyWords().isKeyWordNotVar(str_)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            if (StringList.quickEq(str_, _conf.getStandards().getAliasVoid())) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                b_.setIndexFile(page_.getTraceIndex());
-                b_.setVarName(str_);
-                _conf.getClasses().addError(b_);
-            }
-            Options opt_ = _conf.getOptions();
-            if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                if (!str_.isEmpty() && ContextEl.isDigit(str_.charAt(0))) {
-                    BadVariableName b_ = new BadVariableName();
-                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(page_.getTraceIndex());
-                    b_.setVarName(str_);
-                    _conf.getClasses().addError(b_);
-                }
-            }
-            if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-                if (_conf.getAnalyzing().containsCatchVar(str_)) {
-                    BadVariableName b_ = new BadVariableName();
-                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(page_.getTraceIndex());
-                    b_.setVarName(str_);
-                    _conf.getClasses().addError(b_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
-                if (_conf.getAnalyzing().containsLocalVar(str_)) {
-                    BadVariableName b_ = new BadVariableName();
-                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(page_.getTraceIndex());
-                    b_.setVarName(str_);
-                    _conf.getClasses().addError(b_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
-                if (_conf.getParameters().contains(str_)) {
-                    BadVariableName b_ = new BadVariableName();
-                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(page_.getTraceIndex());
-                    b_.setVarName(str_);
-                    _conf.getClasses().addError(b_);
-                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
-                    return;
-                }
             }
             String c_ = _conf.getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -158,13 +86,11 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putMutableLoopVar(str_, lv_);
             _conf.getVariablesNames().add(str_);
-            excVar = true;
-        }
-        variableName = str_;
-        if (excVar) {
+            variableName = str_;
             setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
             return;
         }
+        variableName = str_;
         LoopVariable locVar_ = _conf.getMutableLoopVar(variableName);
         if (locVar_ != null) {
             String c_ = locVar_.getClassName();
@@ -268,73 +194,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (_conf.hasExceptionOrFailInit()) {
-            return arg_;
-        }
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf, _nodes);
-        } else {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
     public void setVariable(boolean _variable) {
         variable = _variable;
     }
@@ -348,200 +207,20 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public boolean resultCanBeSet() {
         return variable;
     }
-    Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
-        if (resultCanBeSet()) {
-            return Argument.createVoid();
-        }
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
-    }
-
-    @Override
-    public Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, boolean _convert) {
-        Argument arg_ = getCommonSetting(_conf, _right,_convert);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-
-    @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
-        Argument arg_ = getCommonSetting(_conf, _right,_convert);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
-        Argument a_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
-        Argument a_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(locVar_.getStruct());
-        if (!Templates.checkObject(formattedClassVar_, _right, _convert, _conf)) {
-            return Argument.createVoid();
-        }
-        locVar_.setStruct(_right.getStruct());
-        return _right;
-    }
-    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
-        Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
-        return res_;
-    }
-    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(_store);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
-        Argument res_;
-        res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
-        if (_post) {
-            return left_;
-        }
-        return res_;
-    }
 
     public String getVariableName() {
         return variableName;
     }
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+    public int getOff() {
+        return off;
     }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
+
+    public boolean isVariable() {
+        return variable;
     }
-    @Override
-    public Argument endCalculate(ContextEl _conf,
-            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
-        setSimpleArgument(out_, _conf, _nodes);
-        return out_;
+
+    public boolean isCatString() {
+        return catString;
     }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = _right;
-        if (_post) {
-            out_ = _stored;
-        }
-        setSimpleArgument(out_, _conf);
-        return out_;
-    }
+    
 }

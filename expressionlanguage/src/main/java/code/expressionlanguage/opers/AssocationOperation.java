@@ -2,19 +2,15 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -37,7 +33,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     @Override
     public void preAnalyze(Analyzable _conf) {
-        if (!StringList.isWord(fieldName.trim())) {
+        if (!StringList.isDollarWord(fieldName.trim())) {
             BadFieldName err_ = new BadFieldName();
             err_.setName(fieldName.trim());
             err_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -94,7 +90,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             setResultClass(new ClassArgumentMatching(objCl_));
             return;
         }
-        if (!StringList.isWord(fieldName)) {
+        if (!StringList.isDollarWord(fieldName)) {
             setResultClass(new ClassArgumentMatching(objCl_));
             return;
         }
@@ -113,20 +109,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        Argument arg_ = _nodes.getVal(getFirstChild()).getArgument();
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

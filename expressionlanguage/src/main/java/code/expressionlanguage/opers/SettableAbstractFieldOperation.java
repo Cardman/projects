@@ -2,20 +2,14 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -25,18 +19,12 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -121,7 +109,6 @@ public abstract class SettableAbstractFieldOperation extends
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
-            getPreviousResultClass().setCheckOnlyNullPe(true);
         }
     }
 
@@ -151,29 +138,6 @@ public abstract class SettableAbstractFieldOperation extends
     public final boolean isStaticAccess() {
         return staticAccess;
     }
-    @Override
-    final Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        off_ += getIndexInEl()+getOperations().getDelimiter().getIndexBegin();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
-        boolean staticField_ = fieldMetaInfo.isStaticField();
-        if (resultCanBeSet()) {
-            return Argument.createVoid();
-        }
-        Argument previous_ = new Argument();
-        if (!staticField_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        }
-        if (_conf.getContextEl().hasException()) {
-            return Argument.createVoid();
-        }
-        return InvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
-    }
-    
     public final ClassField getFieldId() {
         if (fieldMetaInfo == null) {
             return null;
@@ -217,40 +181,7 @@ public abstract class SettableAbstractFieldOperation extends
     }
 
     @Override
-    public final void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-        if (fieldMetaInfo != null && fieldMetaInfo.isStaticField()) {
-            ClassField fieldId_ = fieldMetaInfo.getClassField();
-            int index_ = _list.indexOfObj(new SortedClassField(fieldId_));
-            if (index_ < 0) {
-                ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-                if (res_.getResult() != null) {
-                    Argument arg_ = Argument.createVoid();
-                    arg_.setStruct(res_.getResult());
-                    setSimpleArgumentAna(arg_,_conf);
-                }
-                return;
-            }
-            SortedClassField found_ = _list.get(index_);
-            if (ElUtil.isDeclaringField(this, _conf)) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(found_.getStruct());
-                setArguments(arg_);
-                return;
-            }
-            if (found_.isOk()) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(found_.getStruct());
-                setSimpleArgumentAna(arg_,_conf);
-            }
-        }
-    }
-
-    @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (isCalculated()) {
-            return;
-        }
         if (fieldMetaInfo == null) {
             return;
         }
@@ -270,7 +201,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (_conf.isGearConst() && ElUtil.isDeclaringField(this, _conf) && fieldMetaInfo.isFinalField()) {
             Argument arg_ = Argument.createVoid();
-            setArguments(arg_);
+            setSimpleArgument(arg_);
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
@@ -293,7 +224,7 @@ public abstract class SettableAbstractFieldOperation extends
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
             if (arg_.getStruct() instanceof BooleanStruct) {
-            	Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
+                Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
                 //boolean constant assignment
                 for (StringMap<AssignmentBefore> s: assB_) {
                     StringMap<Assignment> sm_ = new StringMap<Assignment>();
@@ -451,441 +382,14 @@ public abstract class SettableAbstractFieldOperation extends
         vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);
     }
-    @Override
-    public final Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, boolean _convert) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
-        if (_conf.callsOrException()) {
-            return arg_;
-        }
-        setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
+    public boolean isVariable() {
+        return variable;
     }
-    @Override
-    public final void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            arg_ = getCommonSetting(previous_, _conf, _right,_convert);
-        }
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
+    public boolean isCatString() {
+        return catString;
     }
-    @Override
-    public final Argument calculateCompoundSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument current_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
-        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
+    public int getAnc() {
+        return anc;
     }
-    @Override
-    public final void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument current_ = getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
-        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-    }
-    @Override
-    public final Argument calculateSemiSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument current_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
-        Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        if (!_conf.hasExceptionOrFailInit()) {
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-        return arg_;
-    }
-    @Override
-    public final void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument previous_;
-        if (isIntermediateDottedOperation()) {
-            previous_ = getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument current_ = getArgument();
-        Struct store_;
-        if (current_ != null) {
-            store_ = current_.getStruct();
-        } else {
-            store_ = NullStruct.NULL_VALUE;
-        }
-        Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        setSimpleArgument(arg_, _conf);
-        
-    }
-    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right, boolean _convert) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        off_ += getIndexInEl()+getOperations().getDelimiter().getIndexBegin();
-        String fieldType_ = fieldMetaInfo.getRealType();
-        boolean isStatic_ = fieldMetaInfo.isStaticField();
-        boolean isFinal_ = fieldMetaInfo.isFinalField();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
-        Argument previous_ = new Argument();
-        if (!isStatic_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        }
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return Argument.createVoid();
-        }
-        //Come from code directly so constant static fields can be initialized here
-        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_, _convert);
-    }
-    final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument left_ = new Argument();
-        Argument res_;
-
-        String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            if (classes_.isCustomType(className_)) {
-                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-                    _conf.getContextEl().failInitEnums();
-                    return _right;
-                }
-                classes_.initializeStaticField(fieldId_, res_.getStruct());
-                Argument a_ = res_;
-                return a_;
-            }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return res_;
-            }
-            Argument a_ = res_;
-            return a_;
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        if (previous_.getStruct() instanceof FieldableStruct) {
-            if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
-                _conf.getContextEl().failInitEnums();
-                return _right;
-            }
-            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-            Argument a_ = res_;
-            return a_;
-        }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
-            return res_;
-        }
-        Argument a_ = res_;
-        return a_;
-    }
-    final Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument left_ = new Argument();
-        Argument res_;
-
-        String fieldType_;
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            fieldType_ = fieldMetaInfo.getRealType();
-            left_.setStruct(_store);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-            res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return res_;
-            }
-            if (classes_.isCustomType(className_)) {
-                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-                    _conf.getContextEl().failInitEnums();
-                    return res_;
-                }
-                classes_.initializeStaticField(fieldId_, res_.getStruct());
-                Argument a_ = res_;
-                if (_post) {
-                    return left_;
-                }
-                return a_;
-            }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return res_;
-            }
-            Argument a_ = res_;
-            if (_post) {
-                return left_;
-            }
-            return a_;
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        left_.setStruct(_store);
-        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
-        res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        if (previous_.getStruct() instanceof FieldableStruct) {
-            if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
-                _conf.getContextEl().failInitEnums();
-                return res_;
-            }
-            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-            if (_post) {
-                return left_;
-            }
-            Argument a_ = res_;
-            return a_;
-        }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
-            return res_;
-        }
-        Argument a_ = res_;
-        if (_post) {
-            return left_;
-        }
-        return a_;
-    }
-
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ContextEl _conf,
-            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
-            Argument _stored, Argument _right) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            if (classes_.isCustomType(className_)) {
-                if (_conf.isSensibleField(fieldId_.getClassName())) {
-                    _conf.failInitEnums();
-                    return _right;
-                }
-                classes_.initializeStaticField(fieldId_, _right.getStruct());
-                Argument a_ = _right;
-                if (_post) {
-                    a_ = _stored;
-                }
-                setSimpleArgument(a_, _conf, _nodes);
-                return a_;
-            }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return _right;
-            }
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        Argument previousNode_;
-        if (isIntermediateDottedOperation()) {
-            previousNode_ = _nodes.getVal(this).getPreviousArgument();
-        } else {
-            previousNode_ = _conf.getLastPage().getGlobalArgument();
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        if (previous_.getStruct() instanceof FieldableStruct) {
-            if (_conf.isContainedSensibleFields(previous_.getStruct())) {
-                _conf.failInitEnums();
-                return _right;
-            }
-            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
-            return _right;
-        }
-        Argument a_ = _right;
-        if (_post) {
-            a_ = _stored;
-        }
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        if (fieldMetaInfo.isStaticField()) {
-            if (classes_.isCustomType(className_)) {
-                classes_.initializeStaticField(fieldId_, _right.getStruct());
-                Argument a_ = _right;
-                if (_post) {
-                    a_ = _stored;
-                }
-                setSimpleArgument(a_, _conf);
-                return a_;
-            }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return _right;
-            }
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
-            setSimpleArgument(a_, _conf);
-            return a_;
-        }
-        Argument previousNode_;
-        if (isIntermediateDottedOperation()) {
-            previousNode_ = getPreviousArgument();
-        } else {
-            previousNode_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        Argument previous_ = new Argument();
-        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
-        if (previous_.getStruct() instanceof FieldableStruct) {
-            ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
-            Argument a_ = _right;
-            if (_post) {
-                a_ = _stored;
-            }
-            setSimpleArgument(a_, _conf);
-            return a_;
-        }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
-            return _right;
-        }
-        Argument a_ = _right;
-        if (_post) {
-            a_ = _stored;
-        }
-        setSimpleArgument(a_, _conf);
-        return a_;
-    }
+    
 }

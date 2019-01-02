@@ -11,6 +11,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.StdStruct;
@@ -47,7 +48,7 @@ public final class AikiBeansFacadeMapDtoStd {
     }
     public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        PlaceIndex instance_ = (PlaceIndex) _instance.getInstance();
+        PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
             res_.setResult(new IntStruct(instance_.getIndex()));
@@ -56,7 +57,7 @@ public final class AikiBeansFacadeMapDtoStd {
         return res_;
     }
     public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        PlaceIndex instance_ = (PlaceIndex) _instance.getInstance();
+        PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_PLACE)) {

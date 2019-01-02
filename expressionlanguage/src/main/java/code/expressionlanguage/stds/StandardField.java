@@ -51,10 +51,6 @@ public final class StandardField implements GeneField {
         return AccessEnum.PUBLIC;
     }
 
-    public String getPrettyString(String _className) {
-        return StringList.concat(_className," ",className," ",fieldName);
-    }
-
     @Override
     public GeneType belong() {
         return owner;

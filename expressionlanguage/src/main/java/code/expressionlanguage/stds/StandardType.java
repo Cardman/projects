@@ -111,25 +111,6 @@ public abstract class StandardType implements GeneType {
     public StringMap<TypeVar> getParamTypesMap() {
         return new StringMap<TypeVar>();
     }
-    public String getPrettyString() {
-        StringBuilder str_ = new StringBuilder();
-        str_.append(getFullName());
-        str_.append("\n");
-        for (StandardField f: fields.values()) {
-            str_.append(f.getPrettyString(getFullName()));
-            str_.append("\n");
-        }
-        str_.append("\n");
-        for (StandardConstructor c: constructors) {
-            str_.append(c.getPrettyString(getFullName()));
-            str_.append("\n");
-        }
-        for (StandardMethod m: methods.values()) {
-            str_.append(m.getPrettyString());
-            str_.append("\n");
-        }
-        return str_.toString();
-    }
     public StringMap<StandardField> getFields() {
         return fields;
     }

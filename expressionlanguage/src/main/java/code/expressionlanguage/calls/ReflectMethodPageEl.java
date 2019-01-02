@@ -2,7 +2,7 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -23,7 +23,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (method_.isStatic()) {
-                if (InvokingOperation.hasToExit(_context, method_.getClassName())) {
+                if (ExecInvokingOperation.hasToExit(_context, method_.getClassName())) {
                     setWrapException(true);
                     return false;
                 }
@@ -47,12 +47,13 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
-            if (method_.isPolymorph() && !method_.isStatic() && !method_.getClassName().startsWith("[")) {
+            String className_ = method_.getClassName();
+            if (method_.isPolymorph() && !method_.isStatic() && !className_.startsWith("[")) {
                 Struct instance_ = getArguments().first().getStruct();
-                ClassMethodId clId_ = new ClassMethodId(method_.getClassName(), method_.getRealId());
-                methodToCall = InvokingOperation.polymorph(_context, instance_, clId_);
+                ClassMethodId clId_ = new ClassMethodId(className_, method_.getRealId());
+                methodToCall = ExecInvokingOperation.polymorph(_context, instance_, clId_);
             } else {
-                methodToCall = new ClassMethodId(method_.getClassName(), method_.getRealId());
+                methodToCall = new ClassMethodId(className_, method_.getRealId());
             }
         }
         if (!calledMethod) {
@@ -86,7 +87,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 return false;
             }
             setWrapException(false);
-            Argument arg_ = InvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1);
+            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;

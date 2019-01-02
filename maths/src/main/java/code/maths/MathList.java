@@ -1,5 +1,5 @@
 package code.maths;
-import code.util.AbEqList;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
@@ -7,7 +7,7 @@ import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class MathList extends AbEqList<String> implements Equallable<MathList>, Displayable {
+public final class MathList extends CustList<String> implements Equallable<MathList>, Displayable {
 
     private static final String EMPTY_STRING = "";
     private static final String SEP =  ";";
@@ -36,10 +36,21 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
     public void removeAllElements(MathList _c) {
         for (String s: _c) {
             if (containsObj(s)) {
-                //_list.containsObj(s)
                 removeAllObj(s);
             }
         }
+    }
+    public void removeAllObj(String _obj) {
+        while (containsObj(_obj)) {
+            removeObj(_obj);
+        }
+    }
+    public void removeObj(String _obj) {
+        int index_ = indexOfObj(_obj);
+        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+            return;
+        }
+        removeAt(index_);
     }
     public void sort() {
         sortElts(new NaturalComparator());
@@ -48,7 +59,6 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         MathList list_ = new MathList();
         for (String s: _list) {
             if (containsObj(s)) {
-                //_list.containsObj(s)
                 list_.add(s);
             }
         }
@@ -62,67 +72,42 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         }
         return true;
     }
-    @Override
-    public int indexOfObj(String _element, int _from) {
-        if (_element == null) {
-            return indexOfNull(_from);
+    public boolean containsObj(String _obj) {
+      return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
+  }
+    public void removeDuplicates() {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            String e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
         }
+    }
+    public int indexOfObj(String _obj) {
+        return indexOfObj(_obj,FIRST_INDEX);
+    }
+    public int indexOfObj(String _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             String e_ = get(i);
-            if (e_ == null) {
-                continue;
-            }
             if (StringList.quickEq(_element, e_)) {
                 return i;
             }
         }
         return INDEX_NOT_FOUND_ELT;
     }
-//    @Override
-//    public Numbers<Integer> indexesOfObj(String _element) {
-//        if (_element == null) {
-//            return indexesOfNull();
-//        }
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            String e_ = get(i);
-//            if (e_ == null) {
-//                continue;
-//            }
-//            if (StringList.eq(_element, e_)) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
-//    @Override
-//    public int indexOfObj(String _element) {
-//        if (_element == null) {
-//            int i_ = FIRST_INDEX;
-//            for (String e:this) {
-//                if (e == null) {
-//                    return i_;
-//                }
-//                i_++;
-//            }
-//            return INDEX_NOT_FOUND_ELT;
-//        }
-//        int i_ = FIRST_INDEX;
-//        for (String e:this) {
-//            if (e == null) {
-//                i_++;
-//                continue;
-//            }
-//            if (StringList.eq(_element, e)) {
-//                return i_;
-//            }
-//            i_++;
-//        }
-//        return INDEX_NOT_FOUND_ELT;
-//    }
+
     public String escapedList() {
         StringBuilder str_ = new StringBuilder(String.valueOf(StringList.LEFT_BRACE));
         String end_ = String.valueOf(StringList.RIGHT_BRACE);
@@ -183,7 +168,6 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         return cone_.eq(ctwo_);
     }
 
-    @Override
     public MathList subAbEq(int _from, int _to) {
         return sub(_from, _to);
     }

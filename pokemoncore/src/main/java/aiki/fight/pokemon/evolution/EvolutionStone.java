@@ -1,6 +1,6 @@
 package aiki.fight.pokemon.evolution;
 
-import aiki.DataBase;
+import aiki.db.DataBase;
 import aiki.fight.items.EvolvingStone;
 import aiki.fight.pokemon.PokemonData;
 

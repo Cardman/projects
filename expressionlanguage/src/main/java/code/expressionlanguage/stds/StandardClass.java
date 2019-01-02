@@ -1,8 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -48,18 +48,6 @@ public final class StandardClass extends StandardType implements GeneClass {
     public boolean isAbstractType() {
         return abstractType;
     }
-    public StringList getAllSuperClasses(LgNames _context) {
-        String current_ = getFullName();
-        String objectAlias_ = _context.getAliasObject();
-        StringList superClasses_ = new StringList();
-        while (!StringList.quickEq(current_, objectAlias_)) {
-            StandardClass r_ = (StandardClass) _context.getStandards().getVal(current_);
-            String superClass_ = r_.getSuperClass();
-            superClasses_.add(superClass_);
-            current_ = superClass_;
-        }
-        return superClasses_;
-    }
     @Override
     public StringList getDirectSuperClasses() {
         return new StringList(superClass);
@@ -76,15 +64,6 @@ public final class StandardClass extends StandardType implements GeneClass {
     @Override
     public boolean mustImplement() {
         return !isAbstractType();
-    }
-    public StringList getAllInterfaces(LgNames _conf) {
-        StringList superClasses_ = new StringList();
-        for (String s: getAllSuperTypes(_conf)) {
-            if (_conf.getStandards().getVal(s) instanceof StandardInterface) {
-                superClasses_.add(s);
-            }
-        }
-        return superClasses_;
     }
     @Override
     public StringList getAllSuperClasses() {

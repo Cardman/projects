@@ -15,6 +15,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
@@ -237,42 +238,42 @@ public final class BeloteStandards extends BeanLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
-        if (_instance.getInstance() instanceof DetailsResultsBeloteBean) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
             if (StringList.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(new StdStruct(((DetailsResultsBeloteBean)_instance.getInstance()).getDeclaring(), getCustList()));
+                res_.setResult(new StdStruct(((DetailsResultsBeloteBean)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), getCustList()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof SumDeclaringPlayer) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof SumDeclaringPlayer) {
             if (StringList.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(new StdStruct(((SumDeclaringPlayer)_instance.getInstance()).getDeclaring(), getCustList()));
+                res_.setResult(new StdStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SUM)) {
-                res_.setResult(new IntStruct(((SumDeclaringPlayer)_instance.getInstance()).getSum()));
+                res_.setResult(new IntStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getSum()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, NICKNAME)) {
-                res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getNickname()));
+                res_.setResult(new StringStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getNickname()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, STATUT)) {
-                res_.setResult(new StringStruct(((SumDeclaringPlayer)_instance.getInstance()).getStatut()));
+                res_.setResult(new StringStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getStatut()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof DeclaringPlayerValue) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof DeclaringPlayerValue) {
             if (StringList.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(new StringStruct(((DeclaringPlayerValue)_instance.getInstance()).getDeclaring()));
+                res_.setResult(new StringStruct(((DeclaringPlayerValue)((RealInstanceStruct)_instance).getInstance()).getDeclaring()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, VALUE)) {
-                res_.setResult(new IntStruct(((DeclaringPlayerValue)_instance.getInstance()).getValue()));
+                res_.setResult(new IntStruct(((DeclaringPlayerValue)((RealInstanceStruct)_instance).getInstance()).getValue()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, POINTS_ATTAQUE_SANS_PRIME)) {
                 res_.setResult(new IntStruct(instance_.getPointsAttaqueSansPrime()));
                 return res_;
@@ -318,8 +319,8 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof LineDeal) {
-            LineDeal instance_ = (LineDeal) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof LineDeal) {
+            LineDeal instance_ = (LineDeal) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, NUMBER)) {
                 res_.setResult(new IntStruct(instance_.getNumber()));
                 return res_;
@@ -329,8 +330,8 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof RulesBeloteBean) {
-            RulesBeloteBean instance_ = (RulesBeloteBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof RulesBeloteBean) {
+            RulesBeloteBean instance_ = (RulesBeloteBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, CARTES_BATTUES)) {
                 res_.setResult(new StringStruct(instance_.getCartesBattues()));
                 return res_;
@@ -389,22 +390,22 @@ public final class BeloteStandards extends BeanLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance.getInstance() instanceof BeloteBean) {
+        if (((RealInstanceStruct)_instance).getInstance() instanceof BeloteBean) {
             if (StringList.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
-                res_.setResult(new BooleanStruct(((BeloteBean)_instance.getInstance()).playGame()));
+                res_.setResult(new BooleanStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).playGame()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new StdStruct(((BeloteBean)_instance.getInstance()).getNicknames(), getCustList()));
+                res_.setResult(new StdStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new StdStruct(((BeloteBean)_instance.getInstance()).getScores(), getCustList()));
+                res_.setResult(new StdStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
                 return res_;
             }
         }
-        if (_instance.getInstance() instanceof ResultsBeloteBean) {
-            ResultsBeloteBean instance_ = (ResultsBeloteBean) _instance.getInstance();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsBeloteBean) {
+            ResultsBeloteBean instance_ = (ResultsBeloteBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(_method.getConstraints().getName(), WIN)) {
                 res_.setResult(new BooleanStruct(instance_.win()));
                 return res_;

@@ -3,22 +3,16 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.errors.custom.VarargError;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
-import code.util.EqList;
-import code.util.IdMap;
 import code.util.StringList;
 
-public final class IdFctOperation extends LeafOperation {
+public final class IdFctOperation extends ConstLeafOperation {
 
     private String className;
     private int offset;
@@ -55,25 +49,13 @@ public final class IdFctOperation extends LeafOperation {
             }
         }
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
-        if (!(m_ instanceof InvokingOperation)) {
+        if (!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        InvokingOperation parent_ = (InvokingOperation) m_;
-        if (!parent_.isCallMethodCtor(_conf)) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
-            varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (!isFirstChild()) {
@@ -83,13 +65,13 @@ public final class IdFctOperation extends LeafOperation {
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
             return;
         }
         if (argsRes_ == null) {
             return;
         }
         method = new ClassMethodId(cl_, argsRes_);
+        setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
     private MethodId resolveArguments(int _from,Analyzable _conf, String _fromType, String _name,boolean _static, StringList _params){
@@ -125,40 +107,6 @@ public final class IdFctOperation extends LeafOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-    }
-
-    @Override
-    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
-        return Argument.createVoid();
-    }
-
-    @Override
-    public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        return true;
-    }
-
-    @Override
-    public boolean isCalculated() {
-        return true;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
     }
 
     public ClassMethodId getMethod() {

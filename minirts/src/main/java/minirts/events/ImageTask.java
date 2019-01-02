@@ -18,10 +18,10 @@ import javax.imageio.ImageIO;
 
 import minirts.MainWindow;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.images.BaseSixtyFourUtil;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.opers.BaseSixtyFourUtil;
 
 public class ImageTask implements ActionListener {
 

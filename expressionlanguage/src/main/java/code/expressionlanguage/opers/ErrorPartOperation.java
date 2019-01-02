@@ -1,25 +1,15 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.errors.custom.EmptyPartError;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SortedClassField;
-import code.util.EqList;
 
-public final class ErrorPartOperation extends AbstractFieldOperation {
+public final class ErrorPartOperation extends ConstLeafOperation {
 
     public ErrorPartOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-    }
-
-    @Override
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        return null;
     }
 
     @Override
@@ -39,15 +29,6 @@ public final class ErrorPartOperation extends AbstractFieldOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void tryCalculateNode(ContextEl _conf,
-            EqList<SortedClassField> _list, SortedClassField _current) {
-    }
-
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {    
     }
 
 }

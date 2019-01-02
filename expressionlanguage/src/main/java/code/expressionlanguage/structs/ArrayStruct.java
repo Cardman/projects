@@ -1,10 +1,8 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.ObjectMap;
 
-public final class ArrayStruct implements Struct {
+public final class ArrayStruct implements RealInstanceStruct {
 
     private final Struct[] instance;
 
@@ -20,10 +18,6 @@ public final class ArrayStruct implements Struct {
         return NullStruct.NULL_VALUE;
     }
 
-    @Override
-    public boolean isNull() {
-        return false;
-    }
 
     @Override
     public boolean sameReference(Struct _other) {
@@ -44,13 +38,4 @@ public final class ArrayStruct implements Struct {
         return instance;
     }
 
-    @Override
-    public ObjectMap<ClassField,Struct> getFields() {
-        return null;
-    }
-
-    @Override
-    public boolean isArray() {
-        return true;
-    }
 }

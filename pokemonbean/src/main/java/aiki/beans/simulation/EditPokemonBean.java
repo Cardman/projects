@@ -1,11 +1,11 @@
 package aiki.beans.simulation;
-import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorStatistic;
 import aiki.beans.facade.simulation.dto.EvLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.DamagingMoveData;
@@ -45,13 +45,13 @@ public class EditPokemonBean extends CommonBean {
             }
         }
         namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
-        level = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
+        level = ((Number) getForms().getVal(POKEMON_LEVEL_EDIT)).shortValue();
         experience = (Rate) getForms().getVal(POKEMON_EXPERIENCE);
-        happiness = (Short) getForms().getVal(POKEMON_HAPPINESS);
+        happiness = ((Number) getForms().getVal(POKEMON_HAPPINESS)).shortValue();
         item = (String) getForms().getVal(ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv((Short) getForms().getVal(StringList.concat(POKEMON_EV_VAR,s.name())));
+            ev_.setEv(((Number) getForms().getVal(StringList.concat(POKEMON_EV_VAR,s.name()))).shortValue());
             ev.put(s, ev_);
         }
         remainingHp = (Rate) getForms().getVal(POKEMON_HP);

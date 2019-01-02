@@ -1,18 +1,16 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.calls.WithElPageEl;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadLabelName;
 import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.errors.custom.UnassignedInfered;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.util.ParentStackBlock;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -21,11 +19,10 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class Block extends Blockable {
+public abstract class Block {
     public static final String EQ = "=";
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
@@ -62,9 +59,6 @@ public abstract class Block extends Blockable {
 
     private OffsetsBlock offset;
 
-    private StringList annotations = new StringList();
-    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     Block(BracedBlock _m, OffsetsBlock _offset) {
         parent = _m;
@@ -126,7 +120,7 @@ public abstract class Block extends Blockable {
     }
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         for (EntryCust<String,Assignment> e: res_.entryList()) {
             vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
         }
@@ -138,7 +132,7 @@ public abstract class Block extends Blockable {
             }
         }
         CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getVariables().getVal(_root);
+        varsRes_ = vars_.getLastVariablesOrEmpty();
         for (StringMap<Assignment> s: varsRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -147,7 +141,7 @@ public abstract class Block extends Blockable {
             vars_.getVariablesRoot().add(sm_);
         }
         CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         for (StringMap<Assignment> s: mutableRes_) {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -242,15 +236,8 @@ public abstract class Block extends Blockable {
         return new AssignedVariables();
     }
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
-        BracedBlock br_ = getParent();
         Block prev_ = getPreviousSibling();
-        if (prev_ == null || this == _anEl.getRoot()) {
-            if (this == _anEl.getRoot() || _anEl.isReachable(br_) && br_.accessibleCondition()) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-        } else if (_anEl.canCompleteNormallyGroup(prev_)) {
+        if (_anEl.canCompleteNormallyGroup(prev_)) {
             _anEl.reach(this);
         } else {
             _anEl.unreach(this);
@@ -337,9 +324,9 @@ public abstract class Block extends Blockable {
 
     public final void processBlock(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ParentStackBlock parElt_ = ip_.getNextBlock(this, _conf);
+        ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this, _conf);
         if (parElt_ == null) {
-            ip_.postBlock(_conf);
+            ((WithElPageEl)ip_).postBlock(_conf);
             return;
         }
         BracedBlock par_ = parElt_.getElement();
@@ -354,16 +341,6 @@ public abstract class Block extends Blockable {
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
 
-    public abstract ExpressionLanguage getEl(ContextEl _context, int _indexProcess);
-
-    @Override
-    boolean canCallSuperThis() {
-        return false;
-    }
-    @Override
-    boolean isAlwaysExitable() {
-        return false;
-    }
     public final FunctionBlock getFunction() {
         Block b_ = this;
         while (b_ != null) {
@@ -402,10 +379,6 @@ public abstract class Block extends Blockable {
         return null;
     }
 
-    abstract boolean canBeIncrementedNextGroup();
-    abstract boolean canBeIncrementedCurGroup();
-    abstract boolean canBeLastOfBlockGroup();
-
     public final Block getPreviousSibling() {
         return previousSibling;
     }
@@ -423,25 +396,5 @@ public abstract class Block extends Blockable {
 
     public final BracedBlock getParent() {
         return parent;
-    }
-
-    public void buildAnnotations(ContextEl _context) {
-        annotationsOps = new CustList<CustList<OperationNode>>();
-        for (String a: annotations) {
-            Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
-        }
-    }
-    public StringList getAnnotations() {
-        return annotations;
-    }
-    public CustList<CustList<OperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
-    public Numbers<Integer> getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
-    public final boolean hasChildNodes() {
-        return getFirstChild() != null;
     }
 }

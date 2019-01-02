@@ -1,10 +1,10 @@
 package code.formathtml.render;
 
+import code.images.BaseSixtyFourUtil;
 import code.sml.Element;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.opers.BaseSixtyFourUtil;
 
 public final class MetaAnimatedImage extends MetaImage {
 

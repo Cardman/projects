@@ -3,9 +3,8 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -423,46 +422,15 @@ public final class AliasCharSequence {
         params_ = new StringList(aliasString);
         method_ = new StandardMethod(aliasSetNewString, params_, aliasVoid_, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_, false, std_);
+        constructors_.add(ctor_);
+        params_ = new StringList(aliasCharSequence,aliasCharSequence);
+        ctor_ = new StandardConstructor(params_, false, std_);
+        constructors_.add(ctor_);
         standards_.put(aliasReplacement, std_);
     }
 
-    public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = LgNames.getObjects(_args);
-        String type_ = _method.getName();
-        LgNames lgNames_ = _cont.getStandards();
-        String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String replType_ = lgNames_.getAliasReplacement();
-        result_ = newInstanceStd(_cont, _method, _args);
-        if (result_.getResult() != null) {
-            return result_;
-        }
-        if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            return result_;
-        }
-        if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.instantiate(result_);
-            return result_;
-        }
-        if (StringList.quickEq(type_, stringBuilderType_)) {
-            StringBuilderStruct.instantiate(_cont, result_, _method, args_);
-            return result_;
-        }
-        return result_;
-    }
-    public static ResultErrorStd newInstanceStd(Analyzable _cont, ConstructorId _method, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = LgNames.getObjects(_args);
-        LgNames lgNames_ = _cont.getStandards();
-        String type_ = _method.getName();
-        String stringType_ = lgNames_.getAliasString();
-        if (StringList.quickEq(type_, stringType_)) {
-            StringStruct.instantiate(_cont, result_, _method, args_);
-            return result_;
-        }
-        return result_;
-    }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         result_ = invokeStdMethod(_cont, _method, _struct, _args);
