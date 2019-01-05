@@ -5,6 +5,6 @@ un interpréteur CDM, un lecteur de chansons, un convertisseur d'images, un mini
 Pour le moment, des projets anciens non maintenus sont encore présents.
 
 This repository permits to store cards games (tarot, belote, president), a role player game of Pokemon type (with a new one called Aikifly for peole who know),
-an interpreter CDM, a songs player, an images coverter, a mini game Real Time Strategy (as demo).
+an interpreter CDM, a songs player, an image converter, a mini game Real Time Strategy (as demo).
 
 For now, old projects non maintained are still present.
