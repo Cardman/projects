@@ -1,10 +1,9 @@
 package code.sml;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static code.sml.EquallableRowColUtil.assertEq;
-
-import org.junit.Test;
 
 @SuppressWarnings("static-method")
 public class ReaderTest {

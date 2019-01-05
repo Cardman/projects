@@ -1,14 +1,14 @@
 package code.music.core;
-import java.math.BigDecimal;
-import java.math.MathContext;
-
-import jm.constants.Pitches;
-import jm.music.data.Note;
 import code.music.enums.Gamme;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
+import jm.constants.Pitches;
+import jm.music.data.Note;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
 

@@ -1,31 +1,11 @@
 package code.util;
-import static code.util.EquallableExUtil.assertEq;
-
+import code.util.classestest.IntegerComparator;
 import org.junit.Test;
 
-import code.util.classestest.IntegerComparator;
+import static code.util.EquallableExUtil.assertEq;
 
 @SuppressWarnings("static-method")
 public class ListTest {
-
-//    @Test
-//    public void removeDuplicates1Test() {
-//        CustList<String> strings_ = new CustList<String>();
-//        strings_.add("myStringOne");
-//        strings_.add("myStringTwo");
-//        strings_.removeDuplicates();
-//        assertEq(2,strings_.size());
-//        assertEq("myStringOne",strings_.first());
-//        assertEq("myStringTwo",strings_.get(1));
-//        strings_ = new CustList<String>();
-//        strings_.add("myStringOne");
-//        strings_.add("myStringTwo");
-//        strings_.add("myStringOne");
-//        strings_.removeDuplicates();
-//        assertEq(2,strings_.size());
-//        assertEq("myStringOne",strings_.first());
-//        assertEq("myStringTwo",strings_.get(1));
-//    }
 
     @Test
     public void getGroupsSameCompare1Test() {

@@ -1,10 +1,7 @@
 package code.sml;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-
-import org.junit.Test;
-
 import code.util.CharList;
+import org.junit.Test;
 
 @SuppressWarnings("static-method")
 public class TransformationsTest {

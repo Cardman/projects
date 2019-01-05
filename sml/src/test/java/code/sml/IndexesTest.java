@@ -1,12 +1,11 @@
 package code.sml;
 
-import static code.sml.EquallableRowColUtil.assertEq;
-
-import org.junit.Test;
-
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.sml.EquallableRowColUtil.assertEq;
 
 @SuppressWarnings("static-method")
 public class IndexesTest {
