@@ -1,9 +1,8 @@
 package code.sml;
 
-import org.junit.Assert;
-
 import code.util.Numbers;
 import code.util.StringList;
+import org.junit.Assert;
 
 public final class EquallableRowColUtil {
 

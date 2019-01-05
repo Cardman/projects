@@ -1,17 +1,12 @@
 package code.resources;
 
+import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ImageIcon;
 
 public final class ResourceFiles {
     public static final String SEPARATEUR = "/";
@@ -140,7 +135,7 @@ public final class ResourceFiles {
         ClassLoader classLoader_;
         classLoader_ = ClassLoader.getSystemClassLoader();
         URL url_ = classLoader_.getResource(_file);
-        URLConnection connect_ = null;
+        URLConnection connect_;
         InputStream inputStream_ = null;
         BufferedInputStream buff_ = null;
         try {
@@ -179,9 +174,8 @@ public final class ResourceFiles {
         }
     }
     /**
-    @param lignes_
-    @param _saut
-    @param in_
+    @param _saut line return
+    @param _br reader
     @return
     @throws IOException
     */
