@@ -2,6 +2,7 @@ package code.sml;
 
 import code.util.CharList;
 import org.junit.Test;
+import static code.sml.EquallableRowColUtil.assertEq;
 
 @SuppressWarnings("static-method")
 public class TransformationsTest {

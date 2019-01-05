@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static code.sml.EquallableRowColUtil.assertEq;
 
 @SuppressWarnings("static-method")
 public class ReaderTest {
