@@ -195,7 +195,7 @@ public final class AliasCharSequence {
         method_ = new StandardMethod(aliasToString_, params_, aliasString, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasCharSequence, std_);
-        
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -432,7 +432,7 @@ public final class AliasCharSequence {
     }
 
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
+        ResultErrorStd result_;
         result_ = invokeStdMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;

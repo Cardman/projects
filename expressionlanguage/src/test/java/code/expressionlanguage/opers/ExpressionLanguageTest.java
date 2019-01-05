@@ -1,13 +1,5 @@
 package code.expressionlanguage.opers;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -21,20 +13,17 @@ import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 public class ExpressionLanguageTest {
 
@@ -515,7 +504,7 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate(" 2.0 + $static($math). quot( -8l, 3l) + 3.0");
         assertEq(2L, arg_.getNumber());
     }
-    
+
     @Test
     public void processEl135Test() {
         Argument arg_ = directCalculate("1 + 2 ");
@@ -1111,379 +1100,479 @@ public class ExpressionLanguageTest {
         boolean isTrue_ = arg_.isTrue();
         assertTrue(isTrue_);
     }
+    @Test
+    public void processEl375Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf(\"y\")");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl376Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf(\"y\",1)");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl377Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf(\"y\",2)");
+      assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl378Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf(\"a\")");
+      assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl379Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf('y')");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl380Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf('y',1)");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl381Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf('y',2)");
+      assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl382Test() {
+      Argument arg_ = directCalculate("\"my_string\".indexOf('a')");
+      assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl383Test() {
+      Argument arg_ = directCalculate("\"my_string\".lastIndexOf(\"y\")");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl384Test() {
+      Argument arg_ = directCalculate("\"my_string\".lastIndexOf(\"y\",1)");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl385Test() {
+      Argument arg_ = directCalculate("\"my_string\".lastIndexOf(\"y\",2)");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl386Test() {
+      Argument arg_ = directCalculate("\"my_string\".lastIndexOf(\"a\")");
+      assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl387Test() {
+      Argument arg_ = directCalculate("\"my_string\".lastIndexOf('y')");
+      assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl388Test() {
+        Argument arg_ = directCalculate("\"my_string\".lastIndexOf('y',1)");
+        assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl389Test() {
+        Argument arg_ = directCalculate("\"my_string\".lastIndexOf('y',2)");
+        assertEq(1, arg_.getNumber());
+    }
+    @Test
+    public void processEl390Test() {
+        Argument arg_ = directCalculate("\"my_string\".lastIndexOf('a')");
+        assertEq(-1, arg_.getNumber());
+    }
+    @Test
+    public void processEl391Test() {
+        Argument arg_ = directCalculate("\"my_string\".replace('a','t')");
+        assertEq("my_string", arg_.getString());
+    }
+  @Test
+  public void processEl392Test() {
+    Argument arg_ = directCalculate("\"my_string\".replace('_','t')");
+    assertEq("mytstring", arg_.getString());
+  }
+  @Test
+  public void processEl393Test() {
+    Argument arg_ = directCalculate("\"my_string\".replace(\"a\",\"t\")");
+    assertEq("my_string", arg_.getString());
+  }
+  @Test
+  public void processEl394Test() {
+    Argument arg_ = directCalculate("\"my_string\".replace(\"_\",\"t\")");
+    assertEq("mytstring", arg_.getString());
+  }
     private static Argument directCalculate(String _el) {
-        ContextEl c_ = analyze(_el);
-        addImportingPage(c_);
-        return calculatePrepareStaticResult(c_,false);
-    }
-    private static Struct directCalculateExc(String _el) {
-        ContextEl c_ = analyze(_el);
-        addImportingPage(c_);
-        calculatePrepareStaticResult(c_,true);
-        return c_.getException();
-    }
+          ContextEl c_ = analyze(_el);
+          addImportingPage(c_);
+          return calculatePrepareStaticResult(c_,false);
+      }
+      private static Struct directCalculateExc(String _el) {
+          ContextEl c_ = analyze(_el);
+          addImportingPage(c_);
+          calculatePrepareStaticResult(c_,true);
+          return c_.getException();
+      }
 
-    private static ContextEl analyze(String _el) {
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", file());
-        files_.put("pkg/ExTwo", addonFileStaticResult(_el));
-        return contextEl(files_);
-    }
-    private static Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", file());
-        ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
-        LocalVariable lv_ = new LocalVariable();
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getAnalyzing().initLocalVars();
-        cont_.getAnalyzing().putLocalVar(_var, lv_);
-        cont_.getAnalyzing().setGlobalClass(_className);
-        Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
-        addImportingPage(cont_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getLastPage().putLocalVar(_var, lv_);
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        cont_.setGlobalClass(_className);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
-        
-    }
-    private static Argument calculateIndirectLoopVars(String _el, String _var, String _className) {
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", file());
-        ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
-        LoopVariable lv_ = new LoopVariable();
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getAnalyzing().initVars();
-        cont_.getAnalyzing().putVar(_var, lv_);
-        cont_.getAnalyzing().setGlobalClass(_className);
-        Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
-        addImportingPage(cont_);
-        lv_ = new LoopVariable();
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getLastPage().getVars().put(_var, lv_);
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        cont_.setGlobalClass(_className);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
-        
-    }
-    private static Argument calculateIndirect(String _el, String _className) {
-        String var_ = "temp";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", file());
-        ContextEl cont_ = contextEl(files_);
-        cont_.setAnalyzing(new AnalyzedPageEl());
-        LocalVariable lv_ = new LocalVariable();
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getAnalyzing().initLocalVars();
-        cont_.getAnalyzing().putLocalVar(var_, lv_);
-        cont_.getAnalyzing().setGlobalClass(_className);
-        String form_ = StringList.concat(var_,";.",_el);
-        Calculation calc_ = Calculation.staticCalculation(true);
-        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
-        addImportingPage(cont_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(fresh_);
-        lv_.setClassName(_className);
-        cont_.getLastPage().putLocalVar(var_, lv_);
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        cont_.setGlobalClass(_className);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return el_.calculateMember(cont_);
-    }
-    private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
-        RootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
-        _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
-        FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
-        ExpressionLanguage el_ = f_.getValueEl();
-        Argument arg_ = el_.calculateMember(_context);
-        if (!_exc) {
-            assertNull(_context.getException());
-        } else {
-            assertNotNull(_context.getException());
-        }
-        return arg_;
-    }
-    private static String addonFileStaticResult(String _el) {
-        StringBuilder str_ = new StringBuilder();
-        str_.append("$public $class code.formathtml.classes.Apply {\n");
-        str_.append(" $public $static $final java.lang.Object result = ");
-        str_.append(_el);
-        str_.append(":\n");
-        str_.append("}");
-        return str_.toString();
-    }
-    private static String file() {
-        StringBuilder str_ = new StringBuilder();
-        str_.append("$public $class code.formathtml.classes.InheritedComposite : Composite {\n");
-        str_.append("\n");
-        str_.append("}\n");
-        str_.append("\n");
-        str_.append("$public $class code.formathtml.classes.Composite {\n");
-        str_.append("\n");
-        str_.append("    $public $int integer:\n");
-        str_.append("\n");
-        str_.append("    $public java.lang.Integer objInteger:\n");
-        str_.append("\n");
-        str_.append("    $public CompositeSec composite = $new CompositeSec():\n");
-        str_.append("\n");
-        str_.append("    $public $int privateInt:\n");
-        str_.append("\n");
-        str_.append("    $public code.util.StringList strings:\n");
-        str_.append("\n");
-        str_.append("    $public java.lang.String string:\n");
-        str_.append("\n");
-        str_.append("    $public $char myChar = 't':\n");
-        str_.append("\n");
-        str_.append("    $public $boolean displayed = $true:\n");
-        str_.append("\n");
-        str_.append("    $public() {\n");
-        str_.append("        $this(0i):\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $private($int _privateInt) {\n");
-        str_.append("        privateInt = _privateInt;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public(java.lang.String..._strings) {\n");
-        str_.append("        strings = $new code.util.StringList(_strings;.;):\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public($int _param, java.lang.String..._strings) {\n");
-        str_.append("        privateInt = _param;.;:\n");
-        str_.append("        strings = $new code.util.StringList(_strings;.;):\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal CompositeSec getComposite() {\n");
-        str_.append("        $return composite:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int getInteger() {\n");
-        str_.append("        $return integer:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setInteger($int _integer) {\n");
-        str_.append("        integer = _integer;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal java.lang.Integer getObjInteger() {\n");
-        str_.append("        $return objInteger:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int getPrivateInt() {\n");
-        str_.append("        $return privateInt:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setPrivateInt($int _privateInt) {\n");
-        str_.append("        privateInt = _privateInt;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int summum($int _other) {\n");
-        str_.append("        $return integer + _other;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int sum(java.lang.Long _other) {\n");
-        str_.append("        $return integer + _other;.;intValue():\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int sum(java.lang.Long _other, java.lang.Long _otherTwo) {\n");
-        str_.append("        $return integer + _other;.;intValue() + _otherTwo;.;intValue():\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.String _string) {\n");
-        str_.append("        $return \"one\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Object _string) {\n");
-        str_.append("        $return \"two\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Boolean _string) {\n");
-        str_.append("        $return \"three\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.String _string) {\n");
-        str_.append("        $return \"one\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.Object _string) {\n");
-        str_.append("        $return \"two\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Double _double) {\n");
-        str_.append("        $return \"Double\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenThree($double _double) {\n");
-        str_.append("        $return \"double\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenThree($long _double) {\n");
-        str_.append("        $return \"long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFour(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFour($long _double) {\n");
-        str_.append("        $return \"long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFive(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFive($double _double) {\n");
-        str_.append("        $return \"double\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Long _double) {\n");
-        str_.append("        $return \"Long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenSix($long _double) {\n");
-        str_.append("        $return \"long\":\n");
-        str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Double _double) {\n");
-        str_.append("        $return \"Double\":\n");
-        str_.append("    }\n");
-        str_.append("    $package $normal $int sum() {\n");
-        str_.append("        $return integer + privateInt:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal java.lang.String getStringElt($int _ind) {\n");
-        str_.append("        $return strings.get(_ind;.;):\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal code.util.StringList getStrings() {\n");
-        str_.append("        $return strings:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setStrings(code.util.StringList _strings) {\n");
-        str_.append("        strings = _strings;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("\n");
-        str_.append("    $public $normal java.lang.String internMethod() {\n");
-        str_.append("        $return \"sample\":\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $package $normal java.lang.String privateMethod() {\n");
-        str_.append("        $return \"sample\":\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal java.lang.String getString() {\n");
-        str_.append("        $return string:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setString(java.lang.String _string) {\n");
-        str_.append("        string = _string;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $char getMyChar() {\n");
-        str_.append("        $return myChar:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setMyChar($char _myChar) {\n");
-        str_.append("        myChar = _myChar;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $boolean isDisplayed() {\n");
-        str_.append("        $return displayed:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setDisplayed($boolean _displayed) {\n");
-        str_.append("        displayed = _displayed;.;:\n");
-        str_.append("    }\n");
-        str_.append("}\n");
-        str_.append("\n");
-        str_.append("$public $class code.formathtml.classes.CompositeSec {\n");
-        str_.append("\n");
-        str_.append("    $public $int integer:\n");
-        str_.append("\n");
-        str_.append("    $public $normal $int getInteger() {\n");
-        str_.append("        $return integer:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setInteger($int _integer) {\n");
-        str_.append("        integer = _integer;.;:\n");
-        str_.append("    }\n");
-        str_.append("}\n");
-        str_.append("\n");
-        str_.append("\n");
-        str_.append("$public $class code.formathtml.classes.BeanOne {\n");
-        str_.append("\n");
-        str_.append("    $public Composite composite = $new Composite():\n");
-        str_.append("\n");
-        str_.append("    $public() {\n");
-        str_.append("        composite.setStrings($new code.util.StringList()):\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("\n");
-        str_.append("    $public $normal Composite getComposite() {\n");
-        str_.append("        $return composite:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("}\n");
-        return str_.toString();
-    }
-    private static Argument simpleCaculateEl(String _el, ContextEl _context) {
-        return caculateEl(_el, _context, true);
-    }
-    private static Argument caculateEl(String _el, ContextEl _context, boolean _static) {
-        _context.setAnalyzing(new AnalyzedPageEl());
-        if (!_context.isEmptyPages()) {
-            _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
-            _context.getAnalyzing().setLocalVars(_context.getLastPage().getLocalVars());
-            _context.getAnalyzing().setVars(_context.getLastPage().getVars());
-            _context.getAnalyzing().setCatchVars(_context.getLastPage().getCatchVars());
-            _context.getAnalyzing().getParameters().putAllMap(_context.getLastPage().getParameters());
-        } else {
-            _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
-            addImportingPage(_context);
-        }
-        return caculateCustEl(_el, _context, _static);
-    }
-    private static Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
-        Calculation calc_ = Calculation.staticCalculation(_static);
-        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
-        _context.setAnalyzing(null);
-        ExpressionLanguage el_ = new ExpressionLanguage(ops_);
-        return el_.calculateMember(_context);
-    }
-    private static void addImportingPage(ContextEl _conf) {
-        _conf.addPage(new MethodPageEl(_conf));
-    }
-    private static void addBean(ContextEl _conf, Composite _bean, String _beanClass) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));
-        _conf.setGlobalClass(_beanClass);
-    }
+      private static ContextEl analyze(String _el) {
+          StringMap<String> files_ = new StringMap<String>();
+          files_.put("pkg/Ex", file());
+          files_.put("pkg/ExTwo", addonFileStaticResult(_el));
+          return contextEl(files_);
+      }
+      private static Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
+          StringMap<String> files_ = new StringMap<String>();
+          files_.put("pkg/Ex", file());
+          ContextEl cont_ = contextEl(files_);
+          cont_.setAnalyzing(new AnalyzedPageEl());
+          LocalVariable lv_ = new LocalVariable();
+          Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getAnalyzing().initLocalVars();
+          cont_.getAnalyzing().putLocalVar(_var, lv_);
+          cont_.getAnalyzing().setGlobalClass(_className);
+          Calculation calc_ = Calculation.staticCalculation(true);
+          CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+          addImportingPage(cont_);
+          lv_ = new LocalVariable();
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getLastPage().putLocalVar(_var, lv_);
+          cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+          cont_.setGlobalClass(_className);
+          ExpressionLanguage el_ = new ExpressionLanguage(list_);
+          return el_.calculateMember(cont_);
 
-    private static ContextEl contextEl() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        return cont_;
-    }
-    private static ContextEl contextEl(StringMap<String> _files) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        return cont_;
-    }
+      }
+      private static Argument calculateIndirectLoopVars(String _el, String _var, String _className) {
+          StringMap<String> files_ = new StringMap<String>();
+          files_.put("pkg/Ex", file());
+          ContextEl cont_ = contextEl(files_);
+          cont_.setAnalyzing(new AnalyzedPageEl());
+          LoopVariable lv_ = new LoopVariable();
+          Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getAnalyzing().initVars();
+          cont_.getAnalyzing().putVar(_var, lv_);
+          cont_.getAnalyzing().setGlobalClass(_className);
+          Calculation calc_ = Calculation.staticCalculation(true);
+          CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(_el, cont_, calc_);
+          addImportingPage(cont_);
+          lv_ = new LoopVariable();
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getLastPage().getVars().put(_var, lv_);
+          cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+          cont_.setGlobalClass(_className);
+          ExpressionLanguage el_ = new ExpressionLanguage(list_);
+          return el_.calculateMember(cont_);
+
+      }
+      private static Argument calculateIndirect(String _el, String _className) {
+          String var_ = "temp";
+          StringMap<String> files_ = new StringMap<String>();
+          files_.put("pkg/Ex", file());
+          ContextEl cont_ = contextEl(files_);
+          cont_.setAnalyzing(new AnalyzedPageEl());
+          LocalVariable lv_ = new LocalVariable();
+          Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getAnalyzing().initLocalVars();
+          cont_.getAnalyzing().putLocalVar(var_, lv_);
+          cont_.getAnalyzing().setGlobalClass(_className);
+          String form_ = StringList.concat(var_,";.",_el);
+          Calculation calc_ = Calculation.staticCalculation(true);
+          CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperations(form_, cont_, calc_);
+          addImportingPage(cont_);
+          lv_ = new LocalVariable();
+          lv_.setStruct(fresh_);
+          lv_.setClassName(_className);
+          cont_.getLastPage().putLocalVar(var_, lv_);
+          cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+          cont_.setGlobalClass(_className);
+          ExpressionLanguage el_ = new ExpressionLanguage(list_);
+          return el_.calculateMember(cont_);
+      }
+      private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
+          RootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
+          _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
+          FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
+          ExpressionLanguage el_ = f_.getValueEl();
+          Argument arg_ = el_.calculateMember(_context);
+          if (!_exc) {
+              assertNull(_context.getException());
+          } else {
+              assertNotNull(_context.getException());
+          }
+          return arg_;
+      }
+      private static String addonFileStaticResult(String _el) {
+          StringBuilder str_ = new StringBuilder();
+          str_.append("$public $class code.formathtml.classes.Apply {\n");
+          str_.append(" $public $static $final java.lang.Object result = ");
+          str_.append(_el);
+          str_.append(":\n");
+          str_.append("}");
+          return str_.toString();
+      }
+      private static String file() {
+          StringBuilder str_ = new StringBuilder();
+          str_.append("$public $class code.formathtml.classes.InheritedComposite : Composite {\n");
+          str_.append("\n");
+          str_.append("}\n");
+          str_.append("\n");
+          str_.append("$public $class code.formathtml.classes.Composite {\n");
+          str_.append("\n");
+          str_.append("    $public $int integer:\n");
+          str_.append("\n");
+          str_.append("    $public java.lang.Integer objInteger:\n");
+          str_.append("\n");
+          str_.append("    $public CompositeSec composite = $new CompositeSec():\n");
+          str_.append("\n");
+          str_.append("    $public $int privateInt:\n");
+          str_.append("\n");
+          str_.append("    $public code.util.StringList strings:\n");
+          str_.append("\n");
+          str_.append("    $public java.lang.String string:\n");
+          str_.append("\n");
+          str_.append("    $public $char myChar = 't':\n");
+          str_.append("\n");
+          str_.append("    $public $boolean displayed = $true:\n");
+          str_.append("\n");
+          str_.append("    $public() {\n");
+          str_.append("        $this(0i):\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $private($int _privateInt) {\n");
+          str_.append("        privateInt = _privateInt;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public(java.lang.String..._strings) {\n");
+          str_.append("        strings = $new code.util.StringList(_strings;.;):\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public($int _param, java.lang.String..._strings) {\n");
+          str_.append("        privateInt = _param;.;:\n");
+          str_.append("        strings = $new code.util.StringList(_strings;.;):\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal CompositeSec getComposite() {\n");
+          str_.append("        $return composite:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int getInteger() {\n");
+          str_.append("        $return integer:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setInteger($int _integer) {\n");
+          str_.append("        integer = _integer;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal java.lang.Integer getObjInteger() {\n");
+          str_.append("        $return objInteger:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int getPrivateInt() {\n");
+          str_.append("        $return privateInt:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setPrivateInt($int _privateInt) {\n");
+          str_.append("        privateInt = _privateInt;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int summum($int _other) {\n");
+          str_.append("        $return integer + _other;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int sum(java.lang.Long _other) {\n");
+          str_.append("        $return integer + _other;.;intValue():\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int sum(java.lang.Long _other, java.lang.Long _otherTwo) {\n");
+          str_.append("        $return integer + _other;.;intValue() + _otherTwo;.;intValue():\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.String _string) {\n");
+          str_.append("        $return \"one\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Object _string) {\n");
+          str_.append("        $return \"two\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenOne(java.lang.Boolean _string) {\n");
+          str_.append("        $return \"three\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.String _string) {\n");
+          str_.append("        $return \"one\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenTwo(java.lang.Object _string) {\n");
+          str_.append("        $return \"two\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Double _double) {\n");
+          str_.append("        $return \"Double\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenThree(java.lang.Long _double) {\n");
+          str_.append("        $return \"Long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenThree($double _double) {\n");
+          str_.append("        $return \"double\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenThree($long _double) {\n");
+          str_.append("        $return \"long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenFour(java.lang.Long _double) {\n");
+          str_.append("        $return \"Long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenFour($long _double) {\n");
+          str_.append("        $return \"long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenFive(java.lang.Long _double) {\n");
+          str_.append("        $return \"Long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenFive($double _double) {\n");
+          str_.append("        $return \"double\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Long _double) {\n");
+          str_.append("        $return \"Long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenSix($long _double) {\n");
+          str_.append("        $return \"long\":\n");
+          str_.append("    }\n");
+          str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Double _double) {\n");
+          str_.append("        $return \"Double\":\n");
+          str_.append("    }\n");
+          str_.append("    $package $normal $int sum() {\n");
+          str_.append("        $return integer + privateInt:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal java.lang.String getStringElt($int _ind) {\n");
+          str_.append("        $return strings.get(_ind;.;):\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal code.util.StringList getStrings() {\n");
+          str_.append("        $return strings:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setStrings(code.util.StringList _strings) {\n");
+          str_.append("        strings = _strings;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("\n");
+          str_.append("    $public $normal java.lang.String internMethod() {\n");
+          str_.append("        $return \"sample\":\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $package $normal java.lang.String privateMethod() {\n");
+          str_.append("        $return \"sample\":\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal java.lang.String getString() {\n");
+          str_.append("        $return string:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setString(java.lang.String _string) {\n");
+          str_.append("        string = _string;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $char getMyChar() {\n");
+          str_.append("        $return myChar:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setMyChar($char _myChar) {\n");
+          str_.append("        myChar = _myChar;.;:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $boolean isDisplayed() {\n");
+          str_.append("        $return displayed:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setDisplayed($boolean _displayed) {\n");
+          str_.append("        displayed = _displayed;.;:\n");
+          str_.append("    }\n");
+          str_.append("}\n");
+          str_.append("\n");
+          str_.append("$public $class code.formathtml.classes.CompositeSec {\n");
+          str_.append("\n");
+          str_.append("    $public $int integer:\n");
+          str_.append("\n");
+          str_.append("    $public $normal $int getInteger() {\n");
+          str_.append("        $return integer:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("    $public $normal $void setInteger($int _integer) {\n");
+          str_.append("        integer = _integer;.;:\n");
+          str_.append("    }\n");
+          str_.append("}\n");
+          str_.append("\n");
+          str_.append("\n");
+          str_.append("$public $class code.formathtml.classes.BeanOne {\n");
+          str_.append("\n");
+          str_.append("    $public Composite composite = $new Composite():\n");
+          str_.append("\n");
+          str_.append("    $public() {\n");
+          str_.append("        composite.setStrings($new code.util.StringList()):\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("\n");
+          str_.append("    $public $normal Composite getComposite() {\n");
+          str_.append("        $return composite:\n");
+          str_.append("    }\n");
+          str_.append("\n");
+          str_.append("}\n");
+          return str_.toString();
+      }
+      private static Argument simpleCaculateEl(String _el, ContextEl _context) {
+          return caculateEl(_el, _context, true);
+      }
+      private static Argument caculateEl(String _el, ContextEl _context, boolean _static) {
+          _context.setAnalyzing(new AnalyzedPageEl());
+          if (!_context.isEmptyPages()) {
+              _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
+              _context.getAnalyzing().setLocalVars(_context.getLastPage().getLocalVars());
+              _context.getAnalyzing().setVars(_context.getLastPage().getVars());
+              _context.getAnalyzing().setCatchVars(_context.getLastPage().getCatchVars());
+              _context.getAnalyzing().getParameters().putAllMap(_context.getLastPage().getParameters());
+          } else {
+              _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
+              addImportingPage(_context);
+          }
+          return caculateCustEl(_el, _context, _static);
+      }
+      private static Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
+          Calculation calc_ = Calculation.staticCalculation(_static);
+          CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
+          _context.setAnalyzing(null);
+          ExpressionLanguage el_ = new ExpressionLanguage(ops_);
+          return el_.calculateMember(_context);
+      }
+      private static void addImportingPage(ContextEl _conf) {
+          _conf.addPage(new MethodPageEl(_conf));
+      }
+      private static void addBean(ContextEl _conf, Composite _bean, String _beanClass) {
+          _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));
+          _conf.setGlobalClass(_beanClass);
+      }
+
+      private static ContextEl contextEl() {
+          StringBuilder xml_ = new StringBuilder();
+          xml_.append("$public $class pkg.Ex {}\n");
+          StringMap<String> files_ = new StringMap<String>();
+          files_.put("pkg/Ex", xml_.toString());
+          Options opt_ = new Options();
+          opt_.setEndLineSemiColumn(false);
+          opt_.setSuffixVar(VariableSuffix.DISTINCT);
+          ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+          Classes.validateAll(files_, cont_);
+          assertTrue(cont_.getClasses().isEmptyErrors());
+          return cont_;
+      }
+      private static ContextEl contextEl(StringMap<String> _files) {
+          Options opt_ = new Options();
+          opt_.setEndLineSemiColumn(false);
+          opt_.setSuffixVar(VariableSuffix.DISTINCT);
+          ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+          Classes.validateAll(_files, cont_);
+          assertTrue(cont_.getClasses().isEmptyErrors());
+          return cont_;
+      }
 }
