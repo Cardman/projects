@@ -114,7 +114,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                                 cl_ = Templates.getIdFromAllTypes(cl_);
                                 if (!previousInts_.isEmpty()) {
                                     String sup_ = previousInts_.last();
-                                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, cl_, sup_, _conf)) {
+                                    if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
                                         BadInheritedClass undef_;
                                         undef_ = new BadInheritedClass();
                                         undef_.setClassName(cl_);
@@ -136,7 +136,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 cl_ = Templates.getIdFromAllTypes(cl_);
                 if (!previousInts_.isEmpty()) {
                     String sup_ = previousInts_.last();
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, cl_, sup_, _conf)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
                         BadInheritedClass undef_;
                         undef_ = new BadInheritedClass();
                         undef_.setClassName(cl_);

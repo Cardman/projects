@@ -50,7 +50,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         labelOffset = _labelOffset;
     }
 
-    boolean canBeIncrementedCurGroup() {
+    private boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
@@ -157,10 +157,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         IfBlockStack if_ = new IfBlockStack();
         if_.setLastBlock(this);
         Block n_ = getNextSibling();
-        while (true) {
-            if (!(n_ instanceof ElseIfCondition) && !(n_ instanceof ElseCondition)) {
-                break;
-            }
+        while (n_ instanceof ElseIfCondition || n_ instanceof ElseCondition) {
             if_.setLastBlock((BracedBlock) n_);
             n_ = n_.getNextSibling();
         }

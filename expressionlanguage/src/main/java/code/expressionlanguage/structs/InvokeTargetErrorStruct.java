@@ -1,31 +1,35 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 
-public final class InvokeTargetErrorStruct implements Struct {
+public final class InvokeTargetErrorStruct implements ErroneousStruct {
+
+    private final ArrayStruct stack;
 
     private final Struct cause;
     private final String message;
 
-    public InvokeTargetErrorStruct() {
-        this("");
+    public InvokeTargetErrorStruct(Struct _cause, ExecutableCode _cont) {
+        this("", _cause, _cont);
     }
 
-    public InvokeTargetErrorStruct(Struct _cause) {
-        this("", _cause);
-    }
-
-    public InvokeTargetErrorStruct(String _message) {
-        this(_message, NullStruct.NULL_VALUE);
-    }
-
-    public InvokeTargetErrorStruct(String _message, Struct _cause) {
+    private InvokeTargetErrorStruct(String _message, Struct _cause, ExecutableCode _cont) {
         message = _message;
         cause = _cause;
+        ContextEl cont_ = _cont.getContextEl();
+        stack = StackTraceElementStruct.newStackTraceElementArray(cont_);
     }
 
-    public String getMessage() {
-        return message;
+    @Override
+    public ArrayStruct getStack() {
+        return stack;
+    }
+
+    @Override
+    public StringStruct getMessage() {
+        return new StringStruct(message);
     }
 
     @Override
@@ -48,5 +52,8 @@ public final class InvokeTargetErrorStruct implements Struct {
         return this == _other;
     }
 
-
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(message);
+    }
 }

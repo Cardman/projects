@@ -77,7 +77,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             return;
         }
         if (!convertNumber_) {
-            indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf));
+            indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_,  _conf));
         }
         class_ = PrimitiveTypeUtil.getQuickComponentType(class_);
         setResultClass(class_);

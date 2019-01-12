@@ -218,11 +218,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 ClassArgumentMatching arg_ = filter_.first().getResultClass();
                 String paramName_ = fieldsTypes_.getValue(0);
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
                     //ERROR
                     if (param_.isArray()) {
                         ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(false, c_, arg_, _conf)) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
                             fieldNames.put(fieldsTypes_.getKey(0), paramName_);
                             setResultClass(new ClassArgumentMatching(className));
                             return;
@@ -287,10 +287,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 String paramName_ = f.getValue();
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 ClassArgumentMatching arg_ = e.getValue();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
                     if (param_.isArray()) {
                         ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(false, c_, arg_, _conf)) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
                             fieldNames.put(e.getKey(), paramName_);
                             continue;
                         }

@@ -144,7 +144,7 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
             _conf.getClasses().addError(cast_);
             return;
         }
-        ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf);
+        ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
         if (!isString_) {
             elt_.getResultClass().setUnwrapObject(unwrapped_);
             right_.getResultClass().setUnwrapObject(unwrapped_);

@@ -911,7 +911,7 @@ public final class Templates {
         str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
-            String param_ = PrimitiveTypeUtil.toWrapper(_param, true, stds_);
+            String param_ = PrimitiveTypeUtil.toWrapper(_param, stds_);
             if (!Templates.isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
             }
@@ -1011,7 +1011,7 @@ public final class Templates {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
             String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
-            param_ = PrimitiveTypeUtil.toWrapper(param_, true, stds_);
+            param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
             }
@@ -1100,7 +1100,7 @@ public final class Templates {
                     return prims_.getVal(b).getAllPrimSuperType(_context).containsStr(pName_);
                 }
                 if (PrimitiveTypeUtil.isWrapper(b, _context)) {
-                    String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, true, stds_);
+                    String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, stds_);
                     String pName_ = p_.getName();
                     return prims_.getVal(aPrim_).getAllSuperType(_context).containsStr(pName_);
                 }
@@ -1110,7 +1110,7 @@ public final class Templates {
         if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
             StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
             String aName_ = a_.getName();
-            ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, true, _context);
+            ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, _context);
             String pName_ = pPrim_.getName();
             return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
         }
@@ -1158,7 +1158,7 @@ public final class Templates {
                     for (Matching m: matchs_) {
                         String a_ = m.getArg();
                         String p_ = m.getParam();
-                        MappingPairs m_ = getSimpleMapping(noWrapper_, a_,p_,generalMapping_, _context);
+                        MappingPairs m_ = getSimpleMapping(a_,p_,generalMapping_, _context);
                         noWrapper_ = true;
                         if (m_ == null) {
                             okTree_ = false;
@@ -1224,7 +1224,7 @@ public final class Templates {
             for (Matching m: matchs_) {
                 String a_ = m.getArg();
                 String p_ = m.getParam();
-                MappingPairs m_ = getExecutingCorrect(noWrapper_,a_,p_, _context);
+                MappingPairs m_ = getExecutingCorrect(a_,p_, _context);
                 if (m_ == null) {
                     okTree_ = false;
                     break;
@@ -1270,7 +1270,7 @@ public final class Templates {
         }
         return true;
     }
-    private static MappingPairs getSimpleMapping(boolean _noWrapper, String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
+    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
@@ -1311,7 +1311,7 @@ public final class Templates {
             boolean inh_ = false;
             for (String a: bounds_) {
                 String base_ = getIdFromAllTypes(a);
-                if (PrimitiveTypeUtil.canBeUseAsArgument(_noWrapper, baseParam_, base_, _context)) {
+                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
                     inh_ = true;
                     break;
                 }
@@ -1377,7 +1377,7 @@ public final class Templates {
         }
         return newMappingPairs(generic_, typesParam_);
     }
-    private static MappingPairs getExecutingCorrect(boolean _noWrapper, String _arg, String _param, Analyzable _context) {
+    private static MappingPairs getExecutingCorrect(String _arg, String _param, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
@@ -1387,7 +1387,7 @@ public final class Templates {
         String baseArrayArg_ = dArg_.getComponent();
         if (typesParam_.size() == 1) {
             String base_ = getIdFromAllTypes(baseArg_);
-            if (PrimitiveTypeUtil.canBeUseAsArgument(_noWrapper, baseParam_, base_, _context)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
                 MappingPairs m_ = new MappingPairs();
                 return m_;
             }

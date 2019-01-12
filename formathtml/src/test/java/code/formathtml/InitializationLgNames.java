@@ -90,7 +90,6 @@ public final class InitializationLgNames {
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
         _lgNames.setAliasGetMessage("getMessage");
-        _lgNames.setAliasCustomError("java.lang.$customError");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");

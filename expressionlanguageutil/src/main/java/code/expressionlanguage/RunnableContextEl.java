@@ -24,14 +24,14 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
     private CustInitializer custInit;
     private Struct parent;
 
-    private String className = "";
+    private String className;
 
-    private ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
+    private ObjectMap<ClassField, Struct> fields;
 
     private String name;
     private int ordinal;
 
-    public RunnableContextEl(ContextEl _context, String _className,
+    RunnableContextEl(ContextEl _context, String _className,
             String _name, int _ordinal,
             ObjectMap<ClassField,Struct> _fields, Struct _parent) {
         setClasses(_context.getClasses());

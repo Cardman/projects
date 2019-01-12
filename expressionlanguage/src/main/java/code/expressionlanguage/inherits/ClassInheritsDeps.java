@@ -9,8 +9,6 @@ public class ClassInheritsDeps implements SortedEdge<ClassInheritsDeps> {
 
     private final String classField;
 
-    private boolean ok = true;
-
     public ClassInheritsDeps(String _classField) {
         classField = _classField;
     }
@@ -34,7 +32,4 @@ public class ClassInheritsDeps implements SortedEdge<ClassInheritsDeps> {
         return classField;
     }
 
-    public boolean isOk() {
-        return ok;
-    }
 }

@@ -6,7 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.util.CollCapacity;
 import code.util.StringList;
 
-public final class ErrorStruct implements DisplayableStruct {
+public final class ErrorStruct implements ErroneousStruct {
 
     private final ArrayStruct stack;
 
@@ -25,6 +25,7 @@ public final class ErrorStruct implements DisplayableStruct {
         message = _message;
     }
 
+    @Override
     public ArrayStruct getStack() {
         return stack;
     }
@@ -53,7 +54,7 @@ public final class ErrorStruct implements DisplayableStruct {
         return new StringStruct(getStringRep());
     }
 
-    String getStringRep() {
+    private String getStringRep() {
         Struct[] calls_ = stack.getInstance();
         StringList str_ = new StringList(new CollCapacity(calls_.length+2));
         str_.add(className);

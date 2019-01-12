@@ -76,7 +76,6 @@ public final class InitializationLgNames {
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
         _lgNames.setAliasGetMessage("getMessage");
-        _lgNames.setAliasCustomError("java.lang.$customError");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
 //        _lgNames.setAliasDivisionZero("$divZero");
@@ -87,7 +86,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasMod("mod");
         _lgNames.setAliasQuot("quot");
         _lgNames.setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");
-        _lgNames.setAliasNbFormat("badFormat");
+        _lgNames.setAliasNbFormat("java.lang.badFormat");
         _lgNames.setAliasPrimBoolean("$boolean");
         _lgNames.setAliasPrimByte("$byte");
         _lgNames.setAliasPrimShort("$short");

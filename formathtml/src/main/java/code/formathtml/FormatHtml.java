@@ -362,7 +362,7 @@ public final class FormatHtml {
                     _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                     return;
                 }
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, res_, lgNames_.getStructClassName(bean_, context_), context_)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(res_, lgNames_.getStructClassName(bean_, context_), context_)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(lgNames_.getStructClassName(bean_, context_));
                     mapping_.setParam(res_);
@@ -2043,9 +2043,9 @@ public final class FormatHtml {
                 loc_.setStruct(_object);
                 return loc_;
             }
-            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(type_, true, _conf.getStandards());
+            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(type_, _conf.getStandards());
             if (StringList.quickEq(typeNameArg_, lgNames_.getAliasPrimBoolean())) {
-                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(_className, true, _conf.getStandards());
+                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(_className, _conf.getStandards());
                 if (!StringList.quickEq(typeNameParam_, lgNames_.getAliasPrimBoolean())) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
@@ -2092,7 +2092,7 @@ public final class FormatHtml {
         }
         String param_ = _className;
         String arg_ = lgNames_.getStructClassName(_object, _conf.getContext());
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.getContext())) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf.getContext())) {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
             loc_.setStruct(_object);
@@ -2178,7 +2178,7 @@ public final class FormatHtml {
                     return;
                 }
             } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(argClassName_, true,_conf.getStandards());
+                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(argClassName_, _conf.getStandards());
                 if (!StringList.quickEq(typeNameArg_, context_.getStandards().getAliasPrimBoolean())) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);

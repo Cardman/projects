@@ -16,7 +16,7 @@ import code.util.StringMap;
 
 public abstract class AbstractCatchEval extends BracedStack implements Eval {
 
-    public AbstractCatchEval(ContextEl _importingPage,
+    protected AbstractCatchEval(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
         super(_importingPage, _m, _offset);
     }
@@ -129,8 +129,8 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        StringMap<SimpleAssignment> after_;
+        CustList<StringMap<SimpleAssignment>> afterVars_;
         after_ =buildAssFieldsAfterTry(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterTry(prev_, _an, _anEl);
@@ -142,7 +142,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
     }
 
-    final boolean canBeIncrementedCurGroup() {
+    private boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
     }

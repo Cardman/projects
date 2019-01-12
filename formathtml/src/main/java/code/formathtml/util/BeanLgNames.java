@@ -827,7 +827,7 @@ public abstract class BeanLgNames extends LgNames {
                 continue;
             }
             String p_ = _params.get(i);
-            String pType_ = PrimitiveTypeUtil.toPrimitive(p_, true, _stds);
+            String pType_ = PrimitiveTypeUtil.toPrimitive(p_, _stds);
             if (argStruct_ instanceof NumberStruct) {
                 if (argStruct_ instanceof CharStruct) {
                     if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {

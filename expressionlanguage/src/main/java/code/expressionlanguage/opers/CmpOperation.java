@@ -109,8 +109,8 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
-        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true, _conf);
-        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true, _conf);
+        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
+        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
         if (classFirst_.isPrimitive(_conf)) {
             if (classSecond_.isPrimitive(_conf)) {
                 chidren_.first().getResultClass().setUnwrapObject(classFirst_);

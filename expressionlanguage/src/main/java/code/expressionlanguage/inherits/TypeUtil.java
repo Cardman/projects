@@ -50,9 +50,9 @@ public final class TypeUtil {
             StandardType s_ = s.getValue();
             if (s_ instanceof StandardClass) {
                 s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllSuperClasses(_context));
-                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllInterfaces());
+                s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
             } else {
-                s_.getAllSuperTypes().addAllElts(((StandardInterface)s_).getAllSuperClasses());
+                s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
             }
         }
     }
@@ -116,7 +116,7 @@ public final class TypeUtil {
                     if (rs_ == null) {
                         continue;
                     }
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, sub_, sup_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
                         BadInheritedClass undef_;
                         undef_ = new BadInheritedClass();
                         undef_.setClassName(sub_);
@@ -527,7 +527,7 @@ public final class TypeUtil {
         String baseClassFound_ = _type.getFullName();
         for (GeneType c: _conf.getClassBodies()) {
             String name_ = c.getFullName();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, name_, _conf)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
                 continue;
             }
             if (!c.mustImplement()) {
@@ -546,7 +546,7 @@ public final class TypeUtil {
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
             boolean foundConcrete_ = false;
             for (String s: allBaseClasses_) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, s, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }
                 GeneClass r_ = (GeneClass) _conf.getClassBody(s);
@@ -611,7 +611,7 @@ public final class TypeUtil {
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
             for (String s: subClassBlock_.getAllInterfaces()) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, s, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }
                 GeneType r_ = _conf.getClassBody(s);
@@ -635,7 +635,7 @@ public final class TypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, baseSuperType_, _conf)) {
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, baseSuperType_, _conf)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);

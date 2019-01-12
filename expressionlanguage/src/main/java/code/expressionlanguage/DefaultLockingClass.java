@@ -39,7 +39,7 @@ public class DefaultLockingClass {
             }
         }
     }
-    public final StringList getAlwayasInit() {
+    final StringList getAlwayasInit() {
         return alwayasInit;
     }
     public final void initClass(String _className) {
@@ -68,7 +68,7 @@ public class DefaultLockingClass {
             if (pageEl_ instanceof AbstractReflectPageEl) {
                 AbstractReflectPageEl p_ = (AbstractReflectPageEl) pageEl_;
                 if (p_.isWrapException()) {
-                    InvokeTargetErrorStruct causing_ = new InvokeTargetErrorStruct(_cause);
+                    InvokeTargetErrorStruct causing_ = new InvokeTargetErrorStruct(_cause,_context);
                     _context.setException(causing_);
                     return;
                 }
@@ -77,7 +77,7 @@ public class DefaultLockingClass {
         }
         String curClass_ = pageEl_.getGlobalClass();
         errorClass(_context, curClass_);
-        CausingErrorStruct causing_ = new CausingErrorStruct(_cause);
+        CausingErrorStruct causing_ = new CausingErrorStruct(_cause,_context);
         _context.setException(causing_);
     }
     public void errorClass(ContextEl _context, String _className) {

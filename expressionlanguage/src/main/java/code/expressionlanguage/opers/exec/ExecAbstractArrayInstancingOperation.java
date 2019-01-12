@@ -13,7 +13,7 @@ public abstract class ExecAbstractArrayInstancingOperation extends ExecAbstractI
 
     private String className;
 
-    public ExecAbstractArrayInstancingOperation(AbstractArrayInstancingOperation _abs) {
+    protected ExecAbstractArrayInstancingOperation(AbstractArrayInstancingOperation _abs) {
         super(_abs);
         methodName = _abs.getMethodName();
         className = _abs.getClassName();

@@ -38,8 +38,8 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public final class PrimitiveTypeUtil {
-    public static final String NO_SUB_CLASS = "";
     public static final String ARR_CLASS = "[";
+    private static final String NO_SUB_CLASS = "";
     private static final byte DOUBLE_CASTING = 7;
     private static final byte FLOAT_CASTING = 6;
     private static final byte LONG_CASTING = 5;
@@ -60,24 +60,24 @@ public final class PrimitiveTypeUtil {
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching first_ = new ClassArgumentMatching(_first);
         ClassArgumentMatching second_ = new ClassArgumentMatching(_second);
-        if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(toWrapper(first_, true, stds_).getNames(), second_.getNames())) {
+        if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(toWrapper(first_, stds_).getNames(), second_.getNames())) {
             return new ResultTernary(_first, false, true);
         }
-        if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(toWrapper(second_, true, stds_).getNames(), first_.getNames())) {
+        if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(toWrapper(second_, stds_).getNames(), first_.getNames())) {
             return new ResultTernary(_second, true, false);
         }
         if (_first.containsStr(NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
             return new ResultTernary(_second, false, false);
         }
         if (_first.containsStr(NO_SUB_CLASS)) {
-            StringList w_ = toWrapper(second_, true, stds_).getNames();
+            StringList w_ = toWrapper(second_, stds_).getNames();
             return new ResultTernary(w_, false, false);
         }
         if (_second.containsStr(NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
             return new ResultTernary(_first, false, false);
         }
         if (_second.containsStr(NO_SUB_CLASS)) {
-            StringList w_ = toWrapper(first_, true, stds_).getNames();
+            StringList w_ = toWrapper(first_, stds_).getNames();
             return new ResultTernary(w_, false, false);
         }
         if (isPrimitiveOrWrapper(first_, _conf) && isPrimitiveOrWrapper(second_, _conf)) {
@@ -142,10 +142,10 @@ public final class PrimitiveTypeUtil {
             StringList prOne_ = new StringList();
             StringList prTwo_ = new StringList();
             for (String c: _first) {
-                prOne_.add(toPrimitive(c, true, stds_));
+                prOne_.add(toPrimitive(c, stds_));
             }
             for (String c: _second) {
-                prTwo_.add(toPrimitive(c, true, stds_));
+                prTwo_.add(toPrimitive(c, stds_));
             }
             StringList superTypesFirst_ = getSuperTypesSet(prOne_, _vars, _conf);
             StringList superTypesSecond_ = getSuperTypesSet(prTwo_, _vars, _conf);
@@ -226,7 +226,7 @@ public final class PrimitiveTypeUtil {
                 continue;
             }
             if (StringList.quickEq(base_, bool_)) {
-                String w_ = PrimitiveTypeUtil.toWrapper(base_, true, stds_);
+                String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
                 GeneType g_ = _conf.getClassBody(w_);
                 superTypes_.add(getPrettyArrayType(w_, d_));
                 for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
@@ -242,7 +242,7 @@ public final class PrimitiveTypeUtil {
                 for (ClassArgumentMatching s: PrimitiveTypeUtil.getAllSuperTypes(c_, _conf)) {
                     for (String p: s.getNames()) {
                         superTypes_.add(getPrettyArrayType(p, d_));
-                        String w_ = PrimitiveTypeUtil.toWrapper(p, true, stds_);
+                        String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
                         GeneType g_ = _conf.getClassBody(w_);
                         superTypes_.add(getPrettyArrayType(w_, d_));
                         for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
@@ -337,7 +337,7 @@ public final class PrimitiveTypeUtil {
     public static boolean isWrapper(String _className, Analyzable _context) {
         return isWrapper(_className, _context.getStandards());
     }
-    static boolean isWrapper(String _className, LgNames _stds) {
+    private static boolean isWrapper(String _className, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             String wrap_ = e.getValue().getWrapper();
             if (StringList.quickEq(wrap_, _className)) {
@@ -483,10 +483,9 @@ public final class PrimitiveTypeUtil {
     /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
         int d_ = 0;
-        String className_ = _className;
-        String comp_ = getQuickComponentType(className_);
+        String comp_ = getQuickComponentType(_className);
         if (comp_ == null) {
-            return new DimComp(d_, className_);
+            return new DimComp(d_, _className);
         }
         d_++;
         while (true) {
@@ -499,7 +498,7 @@ public final class PrimitiveTypeUtil {
         }
     }
 
-    static boolean isArrayAssignable(String _arrArg, String _arrParam, Analyzable _classes) {
+    private static boolean isArrayAssignable(String _arrArg, String _arrParam, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         LgNames stds_ = _classes.getStandards();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
@@ -598,11 +597,11 @@ public final class PrimitiveTypeUtil {
         return convertObject(new ClassArgumentMatching(_match), _obj, _stds);
     }
 
-    public static boolean canBeUseAsArgument(boolean _noWrapper, ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {
+    public static boolean canBeUseAsArgument(ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {
         for (String p: _param.getNames()) {
             boolean ok_ = false;
             for (String a: _arg.getNames()) {
-                if (canBeUseAsArgument(_noWrapper, p,a,_context)) {
+                if (canBeUseAsArgument(p,a,_context)) {
                     ok_ = true;
                     break;
                 }
@@ -613,10 +612,7 @@ public final class PrimitiveTypeUtil {
         }
         return true;
     }
-    static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
-        return canBeUseAsArgument(false, _param, _arg, _context);
-    }
-    public static boolean canBeUseAsArgument(boolean _noWrapper,String _param, String _arg, Analyzable _context) {
+    public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasVoid())) {
             return false;
@@ -631,13 +627,13 @@ public final class PrimitiveTypeUtil {
         if (StringList.quickEq(_arg, stds_.getAliasVoid())) {
             return false;
         }
-        AssignableFrom a_ = isAssignableFromCust(_noWrapper, _param, _arg, _context);
+        AssignableFrom a_ = isAssignableFromCust(_param, _arg, _context);
         if (a_ == AssignableFrom.YES) {
             return true;
         }
         return false;
     }
-    static AssignableFrom isAssignableFromCust(boolean _exec, String _param,String _arg, Analyzable _classes) {
+    private static AssignableFrom isAssignableFromCust(String _param, String _arg, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         LgNames stds_ = _classes.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasObject())) {
@@ -684,7 +680,7 @@ public final class PrimitiveTypeUtil {
         if (clParBl_ != null) {
             return AssignableFrom.NO;
         }
-        if (LgNames.canBeUseAsArgument(_exec, _param, _arg, _classes)) {
+        if (LgNames.canBeUseAsArgument(_param, _arg, _classes)) {
             return AssignableFrom.YES;
         }
         return AssignableFrom.NO;
@@ -716,7 +712,7 @@ public final class PrimitiveTypeUtil {
         return getOrderClass(_class, _context.getStandards());
     }
     private static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching class_ = toPrimitive(_class, true, _stds);
+        ClassArgumentMatching class_ = toPrimitive(_class, _stds);
         if (class_.matchClass(_stds.getAliasPrimDouble())) {
             return DOUBLE_CASTING;
         }
@@ -744,7 +740,7 @@ public final class PrimitiveTypeUtil {
         return getIntOrderClass(_class, _context.getStandards());
     }
     private static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching class_ = toPrimitive(_class, true, _stds);
+        ClassArgumentMatching class_ = toPrimitive(_class, _stds);
         if (class_.matchClass(_stds.getAliasPrimLong())) {
             return LONG_CASTING;
         }
@@ -783,7 +779,7 @@ public final class PrimitiveTypeUtil {
         return isPureNumberClass(_class, _context.getStandards());
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching out_ = toPrimitive(_class, true, _stds);
+        ClassArgumentMatching out_ = toPrimitive(_class, _stds);
         if (out_.matchClass(_stds.getAliasPrimDouble())) {
             return true;
         }
@@ -809,15 +805,15 @@ public final class PrimitiveTypeUtil {
     }
     private static ClassMatching toPrimitive(ClassMatching _class, LgNames _stds) {
         String cl_ = _class.getClassName();
-        return new ClassMatching(toPrimitive(cl_, true, _stds)); 
+        return new ClassMatching(toPrimitive(cl_, _stds));
     }
     public static ClassMatching toPrimitive(ClassMatching _class, Analyzable _context) {
         return toPrimitive(_class, _context.getStandards());
     }
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, Analyzable _context) {
-        return toPrimitive(_class, _id, _context.getStandards());
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, Analyzable _context) {
+        return toPrimitive(_class, _context.getStandards());
     }
-    private static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
+    private static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, LgNames _stds) {
         for (String w: _class.getNames()) {
             for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
                 if (StringList.quickEq(e.getValue().getWrapper(), w)) {
@@ -825,23 +821,17 @@ public final class PrimitiveTypeUtil {
                 }
             }
         }
-        if (_id) {
-            return _class;
-        }
-        return null;
+        return _class;
     }
-    public static String toPrimitive(String _class, boolean _id, LgNames _stds) {
+    public static String toPrimitive(String _class, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
             }
         }
-        if (_id) {
-            return _class;
-        }
-        return null;
+        return _class;
     }
-    private static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
+    private static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, LgNames _stds) {
         for (String w: _class.getNames()) {
             for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
                 if (StringList.quickEq(e.getKey(), w)) {
@@ -849,21 +839,15 @@ public final class PrimitiveTypeUtil {
                 }
             }
         }
-        if (_id) {
-            return _class;
-        }
-        return null;
+        return _class;
     }
-    static String toWrapper(String _class, boolean _id, LgNames _stds) {
+    static String toWrapper(String _class, LgNames _stds) {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getKey(), _class)) {
                 return e.getValue().getWrapper();
             }
         }
-        if (_id) {
-            return _class;
-        }
-        return null;
+        return _class;
     }
     public static Struct defaultClass(String _element, Analyzable _context) {
         if (isPrimitive(_element, _context)) {
@@ -888,7 +872,7 @@ public final class PrimitiveTypeUtil {
         return defaultValue(_class, _context.getStandards());
     }
 
-    static Struct defaultValue(String _class, LgNames _stds) {
+    private static Struct defaultValue(String _class, LgNames _stds) {
         if (isPrimitive(_class, _stds)) {
             if (StringList.quickEq(_class, _stds.getAliasPrimBoolean())) {
                 return new BooleanStruct(false);
@@ -900,9 +884,9 @@ public final class PrimitiveTypeUtil {
     public static Struct convert(String _toClass, long _arg, ContextEl _context) {
         return convert(_toClass, _arg, _context.getStandards());
     }
-    static Struct convert(String _toClass, long _arg, LgNames _stds) {
+    private static Struct convert(String _toClass, long _arg, LgNames _stds) {
         ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
-        ClassArgumentMatching prim_ = toPrimitive(class_, true, _stds);
+        ClassArgumentMatching prim_ = toPrimitive(class_, _stds);
         if (prim_.matchClass(_stds.getAliasPrimDouble())) {
             return new DoubleStruct(_arg);
         }
@@ -929,8 +913,8 @@ public final class PrimitiveTypeUtil {
     public static boolean isIntegerType(ClassArgumentMatching _class, ContextEl _context) {
         return isIntegerType(_class, _context.getStandards());
     }
-    static boolean isIntegerType(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching prim_ = toPrimitive(_class, true, _stds);
+    private static boolean isIntegerType(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching prim_ = toPrimitive(_class, _stds);
         if (prim_.matchClass(_stds.getAliasPrimLong())) {
             return true;
         }

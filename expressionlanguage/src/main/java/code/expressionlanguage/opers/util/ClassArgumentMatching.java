@@ -38,7 +38,7 @@ public final class ClassArgumentMatching {
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
         String bytePr_ = stds_.getAliasPrimByte();
-        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(this, true, _context);
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(this, _context);
         if (prim_.matchClass(intPr_)) {
             return true;
         }
@@ -59,16 +59,8 @@ public final class ClassArgumentMatching {
         }
         return false;
     }
-    public boolean matchClass(ClassArgumentMatching _class) {
-        return StringList.equalsSet(className, _class.getNames());
-    }
     public boolean matchVoid(Analyzable _classes) {
         LgNames stds_ = _classes.getStandards();
-        StringList l_ = new StringList(stds_.getAliasVoid());
-        return StringList.equalsSet(className, l_);
-    }
-    public boolean matchVoid(LgNames _classes) {
-        LgNames stds_ = _classes;
         StringList l_ = new StringList(stds_.getAliasVoid());
         return StringList.equalsSet(className, l_);
     }
@@ -116,7 +108,7 @@ public final class ClassArgumentMatching {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         for (String b: className) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(false, aliasBoolean_, b, _context)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, b, _context)) {
                 return true;
             }
         }

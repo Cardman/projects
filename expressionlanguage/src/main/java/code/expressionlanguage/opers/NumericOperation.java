@@ -71,7 +71,7 @@ public abstract class NumericOperation extends ReflectableOpering implements Sym
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
-        return PrimitiveTypeUtil.toPrimitive(arg_, true, _cont);
+        return PrimitiveTypeUtil.toPrimitive(arg_, _cont);
     }
 
     @Override

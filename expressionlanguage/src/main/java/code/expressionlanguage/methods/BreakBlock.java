@@ -116,7 +116,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        RemovableVars stack_ = null;
+        RemovableVars stack_;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_ instanceof BreakableBlockStack) {

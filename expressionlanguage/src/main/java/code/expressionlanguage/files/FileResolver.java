@@ -2749,7 +2749,7 @@ public final class FileResolver {
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isDollarWordChar(ch_)) {
-                        if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
+                        if (nextPart_.trim().startsWith(String.valueOf(BEGIN_CALLING))) {
                             break;
                         }
                     }

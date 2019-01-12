@@ -18,7 +18,7 @@ public final class ExecDimensionArrayInstancing extends
         ExecAbstractArrayInstancingOperation {
     private int countArrayDims;
 
-    public ExecDimensionArrayInstancing(DimensionArrayInstancing _d) {
+    protected ExecDimensionArrayInstancing(DimensionArrayInstancing _d) {
         super(_d);
         countArrayDims = _d.getCountArrayDims();
     }
@@ -85,8 +85,7 @@ public final class ExecDimensionArrayInstancing extends
             int dim_ = n_.getInstance().intValue();
             if (dim_ < 0) {
                 _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
-                Argument a_ = new Argument();
-                return a_;
+                return Argument.createVoid();
             }
             args_[i_] = dim_;
             i_++;

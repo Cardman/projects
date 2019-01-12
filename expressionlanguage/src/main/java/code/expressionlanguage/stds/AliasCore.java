@@ -19,7 +19,6 @@ public final class AliasCore {
     private String aliasEnums;
     private String aliasError;
     private String aliasGetMessage;
-    private String aliasCustomError;
     private String aliasBadSize;
     private String aliasDivisionZero;
     private String aliasCast;
@@ -136,12 +135,6 @@ public final class AliasCore {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasCustomError, fields_, constructors_, methods_, aliasObject, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasCustomError, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(_lgNames.getAliasEnum());
         method_ = new StandardMethod(aliasName, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
@@ -204,14 +197,6 @@ public final class AliasCore {
 
     public void setAliasGetMessage(String _aliasGetMessage) {
         aliasGetMessage = _aliasGetMessage;
-    }
-
-    public String getAliasCustomError() {
-        return aliasCustomError;
-    }
-
-    public void setAliasCustomError(String _aliasCustomError) {
-        aliasCustomError = _aliasCustomError;
     }
 
     public String getAliasBadSize() {

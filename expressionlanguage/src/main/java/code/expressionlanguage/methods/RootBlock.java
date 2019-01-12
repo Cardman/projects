@@ -797,7 +797,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (m.getValue().size() > 1) {
                         for (String s: m.getValue()) {
                             MethodId id_ = defs_.getVal(s);
-                            _context.getClasses();
                             MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                             IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                             err_.setFileName(getFile().getFileName());
@@ -817,7 +816,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    _context.getClasses();
                     MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFile().getFileName());
@@ -832,7 +830,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    _context.getClasses();
                     MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFile().getFileName());
@@ -864,7 +861,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (m.getValue().size() > 1) {
                     for (String s: m.getValue()) {
                         MethodId id_ = defs_.getVal(s);
-                        _context.getClasses();
                         MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                         IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                         err_.setFileName(getFile().getFileName());
@@ -885,7 +881,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                _context.getClasses();
                 MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFile().getFileName());
@@ -900,7 +895,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                _context.getClasses();
                 MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFile().getFileName());
@@ -1027,7 +1021,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         String baseClassFound_ = getFullName();
         for (RootBlock c: classes_.getClassBodies()) {
             String name_ = c.getFullName();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, name_, _conf)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
                 continue;
             }
             if (!c.mustImplement()) {
@@ -1044,7 +1038,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             StringList allBaseClasses_ = new StringList(name_);
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
             for (String s: allBaseClasses_) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, s, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }
                 UniqueRootedBlock r_ = (UniqueRootedBlock) classes_.getClassBody(s);

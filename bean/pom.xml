@@ -29,7 +29,6 @@
 							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
 							<failsOnError>true</failsOnError>
-							<linkXRef>false</linkXRef>
 						</configuration>
 						<goals>
 							<goal>check</goal>
@@ -37,36 +36,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-checkstyle-plugin
-										</artifactId>
-										<versionRange>
-											[2.11,)
-										</versionRange>
-										<goals>
-											<goal>check</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
 		</plugins>
 	</build>
 	<dependencies>

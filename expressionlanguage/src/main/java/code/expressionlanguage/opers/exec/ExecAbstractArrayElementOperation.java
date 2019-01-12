@@ -16,7 +16,7 @@ import code.util.StringList;
 public abstract class ExecAbstractArrayElementOperation extends
         ExecAbstractArrayInstancingOperation {
 
-    public ExecAbstractArrayElementOperation(AbstractArrayElementOperation _abs) {
+    protected ExecAbstractArrayElementOperation(AbstractArrayElementOperation _abs) {
         super(_abs);
     }
 
@@ -32,9 +32,6 @@ public abstract class ExecAbstractArrayElementOperation extends
             arguments_.add(o.getArgument());
         }
         int nbCh_ = chidren_.size();
-        int[] args_;
-        args_ = new int[CustList.ONE_ELEMENT];
-        args_[CustList.FIRST_INDEX] = chidren_.size();
         Argument a_ = new Argument();
 
         Numbers<Integer> dims_;
@@ -62,10 +59,6 @@ public abstract class ExecAbstractArrayElementOperation extends
         className_ = page_.formatVarType(cl_, _conf);
 
         int nbCh_ = _arguments.size();
-        int[] args_;
-
-        args_ = new int[CustList.ONE_ELEMENT];
-        args_[CustList.FIRST_INDEX] = _arguments.size();
         Argument a_ = new Argument();
 
         Numbers<Integer> dims_;

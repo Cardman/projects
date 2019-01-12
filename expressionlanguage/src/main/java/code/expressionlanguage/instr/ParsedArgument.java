@@ -279,7 +279,7 @@ public final class ParsedArgument {
             }
             long value_ = lg_;
             if (suffix_ == 'I' || suffix_ == 'i') {
-                if (value_ >= Integer.MAX_VALUE + 1l) {
+                if (value_ >= Integer.MAX_VALUE + 1L) {
                     while (value_ >= 0) {
                         value_ -= Integer.MAX_VALUE;
                         value_ --;
@@ -294,7 +294,7 @@ public final class ParsedArgument {
                 return out_;
             }
             if (suffix_ == 'S' || suffix_ == 's') {
-                if (value_ >= Short.MAX_VALUE + 1l) {
+                if (value_ >= Short.MAX_VALUE + 1L) {
                     while (value_ >= 0) {
                         value_ -= Short.MAX_VALUE;
                         value_ --;
@@ -308,7 +308,7 @@ public final class ParsedArgument {
                 out_.object = new ShortStruct((short) value_);
                 return out_;
             }
-            if (value_ >= Byte.MAX_VALUE + 1l) {
+            if (value_ >= Byte.MAX_VALUE + 1L) {
                 while (value_ >= 0) {
                     value_ -= Byte.MAX_VALUE;
                     value_ --;

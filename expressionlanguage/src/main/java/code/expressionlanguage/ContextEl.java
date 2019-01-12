@@ -706,13 +706,10 @@ public abstract class ContextEl implements ExecutableCode {
             return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
         }
         ClassCategory cat_ = ClassCategory.CLASS;
-        if (_type instanceof StandardInterface) {
-            cat_ = ClassCategory.INTERFACE;
-        }
         boolean abs_ = _type.isAbstractType();
         boolean final_ = _type.isFinalType();
         String superClass_ = ((StandardClass) _type).getSuperClass(this);
-        StringList superInterfaces_ = ((StandardClass) _type).getDirectInterfaces();
+        StringList superInterfaces_ = _type.getDirectInterfaces();
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
     }
     @Override

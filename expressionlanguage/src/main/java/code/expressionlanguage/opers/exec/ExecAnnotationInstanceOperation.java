@@ -21,10 +21,10 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     private String methodName;
 
     private String className;
-    private StringMap<String> fieldNames = new StringMap<String>();
+    private StringMap<String> fieldNames;
     private boolean array;
 
-    public ExecAnnotationInstanceOperation(
+    protected ExecAnnotationInstanceOperation(
             AnnotationInstanceOperation _ann) {
         super(_ann);
         possibleInitClass = _ann.isPossibleInitClass();
@@ -45,22 +45,18 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf);
+        Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
 
-    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
+    Argument getArgument(CustList<Argument> _arguments,
             ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         if (array) {
             int nbCh_ = chidren_.size();
-            int[] args_;
-            args_ = new int[CustList.ONE_ELEMENT];
-            args_[CustList.FIRST_INDEX] = chidren_.size();
             Argument a_ = new Argument();
             Numbers<Integer> dims_;
             dims_ = new Numbers<Integer>();

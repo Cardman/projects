@@ -463,10 +463,7 @@ public final class Classes {
             return list_;
         }
         c_ = f_;
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
+        while (c_ != null) {
             list_.add(c_);
             c_ = getNext(c_, _root);
         }
@@ -576,7 +573,7 @@ public final class Classes {
                 if (!(s_ instanceof RootBlock)) {
                     continue;
                 }
-                if (((RootBlock)s_).isStaticType()) {
+                if (s_.isStaticType()) {
                     continue;
                 }
                 allDirectSuperTypes_.add(s_.getFullName());
@@ -1483,7 +1480,7 @@ public final class Classes {
             if (r_.getAccess() == AccessEnum.PROTECTED) {
                 boolean okRoot_ = false;
                 if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, ownerName_, idRoot_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
                         okRoot_ = true;
                     }
                 }
@@ -1492,7 +1489,7 @@ public final class Classes {
                 }
                 boolean okGl_ = false;
                 if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, ownerName_, idGl_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idGl_, _context)) {
                         okGl_ = true;
                     }
                 }
@@ -1543,7 +1540,7 @@ public final class Classes {
         GeneType root_ = _context.getClassBody(baseClass_);
         GeneType belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(false, belong_.getFullName(), baseClass_, _context)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
                 return true;
             }
             if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
@@ -1913,7 +1910,7 @@ public final class Classes {
         }
         if (!_predefined) {
             for (OperatorBlock o : getOperators()) {
-                ((AnnotableBlock)o).buildAnnotations(_context);
+                o.buildAnnotations(_context);
             }
         }
         //init annotations here

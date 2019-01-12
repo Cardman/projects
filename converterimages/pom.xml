@@ -36,7 +36,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.11</version>
@@ -49,35 +49,13 @@
 							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
 							<failsOnError>true</failsOnError>
-							<linkXRef>false</linkXRef>
 						</configuration>
 						<goals>
 							<goal>check</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin> -->
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
-					<execution>
-						<id>unpack-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>unpack-dependencies</goal>
-						</goals>
-						<configuration>
-							<includes>**/*.properties,**/*.txt,**/*.html,**/*.xml,**/*.css</includes>
-							<excludes>**/*.class</excludes>
-							<outputDirectory>${basedir}/test</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>true</overWriteSnapshots>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.2</version>
@@ -111,7 +89,6 @@
 								<mainClass>converterimages.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
-							<!-- <icon>resources_pk/pokemon.ico</icon> -->
 							<jre>
 								<path>jdk</path>
 								<opts>

@@ -298,7 +298,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 if (_conf.getContextEl().isFailInit()) {
                     return true;
                 }
-                CausingErrorStruct causing_ = new CausingErrorStruct(_className);
+                CausingErrorStruct causing_ = new CausingErrorStruct(_className,_conf);
                 _conf.setException(causing_);
                 return true;
             }
@@ -503,7 +503,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 a_.setStruct(copy_);
                 return a_;
             }
-            if (PrimitiveTypeUtil.canBeUseAsArgument(false, aliasAnnotation_, clName_, _conf)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotation_, clName_, _conf)) {
                 FieldableStruct f_ = (FieldableStruct) _previous.getStruct();
                 Struct ret_ = f_.getStruct(new ClassField(clName_, _methodId.getName()));
                 Argument a_ = new Argument();
@@ -522,7 +522,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, aliasAnnotated_, _classNameFound, _conf)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotated_, _classNameFound, _conf)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
                 _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
                 Argument a_ = new Argument();
@@ -1102,7 +1102,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
         String base_ = Templates.getIdFromAllTypes(argClassName_);
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, _className, base_, _conf)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_className, base_, _conf)) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
             return arg_;
         }
@@ -1181,7 +1181,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         String classNameFound_ = _className;
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, base_, _conf)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
             return Argument.createVoid();
         }

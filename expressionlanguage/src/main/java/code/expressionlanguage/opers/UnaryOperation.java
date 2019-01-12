@@ -53,9 +53,9 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             InvokingOperation.unwrapArgsFct(children_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
             return;
         }
-        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
+        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, _conf);
         if (child_ instanceof ConstantOperation) {
-            Argument arg_ = ((ConstantOperation) child_).getArgument();
+            Argument arg_ = child_.getArgument();
             Struct instance_ = arg_.getStruct();
             if (instance_ instanceof ByteStruct) {
                 clMatch_.setUnwrapObject(cl_);

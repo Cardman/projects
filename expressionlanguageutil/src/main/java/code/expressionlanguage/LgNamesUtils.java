@@ -342,8 +342,7 @@ public class LgNamesUtils extends LgNames {
             	CustInitializer cust_ = (CustInitializer) _cont.getInit();
                 String dtPart_ = cust_.getCurrentTreadIdDate();
                 if (dtPart_ == null) {
-                	String main_ = _cont.getExecuting().getMainThread();
-                    dtPart_ = main_;
+                    dtPart_ = _cont.getExecuting().getMainThread();
                 }
                 log(dtPart_, _cont, _instance, _method, _args);
                 ResultErrorStd out_ = new ResultErrorStd();

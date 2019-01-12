@@ -135,7 +135,7 @@ public final class CaseCondition extends SwitchPartBlock {
         } else {
             checkDuplicateCase(_cont, arg_);
         }
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, resSwitch_, resCase_, _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);

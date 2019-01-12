@@ -149,7 +149,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                         for (CustList<ExecOperationNode> b: a) {
                             ClassArgumentMatching arg_ = b.last().getResultClass();
-                            if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _context)) {
+                            if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
                                 filter_.add(b);
                             }
                         }
@@ -160,7 +160,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                     for (CustList<ExecOperationNode> a: annotations) {
                         ClassArgumentMatching arg_ = a.last().getResultClass();
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _context)) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
                             filter_.add(a);
                         }
                     }

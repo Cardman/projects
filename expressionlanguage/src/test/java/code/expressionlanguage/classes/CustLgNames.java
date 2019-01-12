@@ -67,7 +67,6 @@ public final class CustLgNames extends LgNames {
     private String aliasGetOverridenSix = "getOverridenSix";
     private String aliasSetPrivateInt = "setPrivateInt";
     private String aliasGetPrivateInt = "getPrivateInt";
-    private String aliasGetInteger = "getInteger";
     private String iteratorVar;
     private String hasNextVar;
     private String nextVar;
@@ -76,7 +75,6 @@ public final class CustLgNames extends LgNames {
     private CustList<ExecOperationNode> expsNext;
     private String aliasSimpleIteratorType = "code.util.SimpleItr";
     private String aliasSimpleIterableType = "code.util.ints.SimpleIterable";
-    private String aliasCountable = "code.util.ints.Countable";
 
     private String aliasGet = "get";
     private String aliasSimpleIterator = "iterator";
@@ -207,6 +205,7 @@ public final class CustLgNames extends LgNames {
         method_ = new StandardMethod(aliasGetPrivateInt, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        String aliasGetInteger = "getInteger";
         method_ = new StandardMethod(aliasGetInteger, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         //aliasGetOverridenOne
@@ -257,6 +256,7 @@ public final class CustLgNames extends LgNames {
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasSimpleIterableType, stdi_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        String aliasCountable = "code.util.ints.Countable";
         stdi_ = new StandardInterface(aliasCountable, methods_, params_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSize, params_, getAliasPrimInteger(), false, MethodModifier.ABSTRACT,stdi_);

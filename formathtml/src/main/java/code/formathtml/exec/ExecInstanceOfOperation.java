@@ -46,7 +46,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         String str_ = page_.formatVarType(className, _conf);
         if (!correctTemplate) {
             className_ = Templates.getIdFromAllTypes(className_);
-            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(false, str_, className_, _conf);
+            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, _conf);
             Argument arg_ = new Argument();
             arg_.setObject(res_);
             return arg_;

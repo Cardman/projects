@@ -244,7 +244,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         ExecOperationNode initEl_ = opInit.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, initEl_.getResultClass(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -258,7 +258,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         ExecOperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, expressionEl_.getResultClass(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -272,7 +272,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         ExecOperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(false, elementClass_, stepEl_.getResultClass(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());
             mapping_.setParam(elementClass_);

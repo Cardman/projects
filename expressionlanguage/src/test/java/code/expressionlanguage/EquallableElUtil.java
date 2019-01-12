@@ -20,12 +20,11 @@ public final class EquallableElUtil {
 
     public static void assertEq(char _expected, Character _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Character.toString(_expected),DIFF,_result.toString()), _expected == _result.charValue());
+        Assert.assertEquals(StringList.concat(Character.toString(_expected),DIFF,_result.toString()),_expected,_result.charValue());
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Boolean.toString(_expected),DIFF,Boolean.toString(_result)), _expected == _result);
+        Assert.assertEquals(StringList.concat(Boolean.toString(_expected),DIFF,Boolean.toString(_result)),_expected,_result);
     }
 
     public static void assertEq(String _expected, String _result) {

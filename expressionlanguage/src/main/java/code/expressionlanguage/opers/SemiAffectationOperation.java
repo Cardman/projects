@@ -104,7 +104,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             _conf.getClasses().addError(cast_);
             return;
         }
-        clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf));
+        clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf));
     }
 
     @Override

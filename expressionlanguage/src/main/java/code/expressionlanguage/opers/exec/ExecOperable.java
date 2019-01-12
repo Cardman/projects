@@ -4,5 +4,5 @@ import code.expressionlanguage.Argument;
 
 public interface ExecOperable {
 
-    public Argument getArgument();
+    Argument getArgument();
 }

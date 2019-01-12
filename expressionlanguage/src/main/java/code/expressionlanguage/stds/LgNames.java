@@ -25,23 +25,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.ReplacementStruct;
-import code.expressionlanguage.structs.ResourcesStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.SimpleObjectStruct;
-import code.expressionlanguage.structs.StringBuilderStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
@@ -171,7 +155,6 @@ public abstract class LgNames {
         list_.add(getAliasObjectsUtil());
         list_.add(getAliasResources());
         list_.add(getAliasClassNotFoundError());
-        list_.add(getAliasCustomError());
         list_.add(getAliasErrorInitClass());
         list_.add(getAliasInvokeTarget());
         list_.add(getAliasMath());
@@ -185,6 +168,7 @@ public abstract class LgNames {
         list_.add(getAliasSof());
         list_.add(getAliasReplacement());
         list_.add(getAliasNullPe());
+        list_.add(getAliasNbFormat());
         list_.add(getAliasBoolean());
         list_.add(getAliasByte());
         list_.add(getAliasCharSequence());
@@ -803,14 +787,14 @@ public abstract class LgNames {
         _cont.setAnalyzing(null);
     }
 
-    public static boolean canBeUseAsArgument(boolean _exec, String _param, String _arg, Analyzable _context) {
+    public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         String aliasVoid_ = stds_.getAliasVoid();
         if (StringList.quickEq(_param, aliasVoid_)) {
             return false;
         }
-        ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
         if (_arg == null || _arg.isEmpty()) {
+            ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
             if (param_.isPrimitive(_context)) {
                 return false;
             }
@@ -826,8 +810,8 @@ public abstract class LgNames {
         if (a_ == AssignableFrom.NO) {
             return false;
         }
-
-        ClassArgumentMatching arg_ = new ClassArgumentMatching(_arg);
+        //Here, one of the parameters types names base array is not a reference type
+        //So one of the parameters types names base array is a primitive type
         DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String objAlias_ = stds_.getAliasObject();
@@ -840,17 +824,10 @@ public abstract class LgNames {
         if (paramComp_.getDim() != argComp_.getDim()) {
             return false;
         }
-        boolean array_ = paramComp_.getDim() > 0;
-        String paramName_ = paramComp_.getComponent();
-        String argName_ = argComp_.getComponent();
-        param_ = new ClassArgumentMatching(paramComp_.getComponent());
+        ClassArgumentMatching arg_;
         arg_ = new ClassArgumentMatching(argComp_.getComponent());
         if (StringList.quickEq(paramComp_.getComponent(),argComp_.getComponent())) {
             return true;
-        }
-        String aliasPrimBool_ = stds_.getAliasPrimBoolean();
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(arg_, _context)) {
-            return false;
         }
         if (arg_.isPrimitive(_context)) {
             String pName_ = paramComp_.getComponent();
@@ -859,31 +836,10 @@ public abstract class LgNames {
             if (pr_.getAllSuperType(_context).containsStr(pName_)) {
                 return true;
             }
-            return false;
-        }
-        if (_exec || !param_.isPrimitive(_context)) {
-            return false;
-        }
-        if (!array_) {
-            if (StringList.quickEq(argName_, aliasPrimBool_)) {
-                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(paramName_, true, stds_);
-                if (!StringList.quickEq(typeNameParam_, aliasPrimBool_)) {
-                    return false;
-                }
-                return true;
-            }
-            String pName_ = paramComp_.getComponent();
-            String name_ = argComp_.getComponent();
-            name_ = PrimitiveTypeUtil.toPrimitive(name_, true, stds_);
-            PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(name_);
-            if (pr_.getAllSuperType(_context).containsStr(pName_)) {
-                return true;
-            }
-            return false;
         }
         return false;
     }
-    static AssignableFrom isAssignableFromCust(String _param,String _arg, LgNames _context) {
+    private static AssignableFrom isAssignableFromCust(String _param,String _arg, LgNames _context) {
         String aliasObject_ = _context.getAliasObject();
         if (StringList.quickEq(_param, aliasObject_)) {
             return AssignableFrom.YES;
@@ -917,7 +873,7 @@ public abstract class LgNames {
         }
         return AssignableFrom.MAYBE;
     }
-    static boolean isArrayAssignable(String _arrArg, String _arrParam, LgNames _context) {
+    private static boolean isArrayAssignable(String _arrArg, String _arrParam, LgNames _context) {
         String aliasObject_ = _context.getAliasObject();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
         String a_ = dArg_.getComponent();
@@ -944,7 +900,7 @@ public abstract class LgNames {
     public void buildOther() {
     }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
+        ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
@@ -974,7 +930,7 @@ public abstract class LgNames {
         }
         if (StringList.quickEq(type_, replType_)
                 || StringList.quickEq(type_, stringBuilderType_)) {
-            AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
+            result_ = AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
             return result_;
         }
         if (StringList.quickEq(type_, lgNames_.getAliasEnums())) {
@@ -1061,7 +1017,7 @@ public abstract class LgNames {
             return AliasStackTraceElement.invokeMethod(c_, _method, _struct, _args);
         }
         if (StringList.quickEq(type_, lgNames_.getAliasError())) {
-            ErrorStruct err_ = (ErrorStruct) _struct;
+            ErroneousStruct err_ = (ErroneousStruct) _struct;
             if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
                 result_.setResult(err_.getStack());
                 return result_;
@@ -1110,7 +1066,7 @@ public abstract class LgNames {
         boolean positive_ = _nb.isPositive();
         Long expNb_;
         if (exp_.length() == 0) {
-            expNb_ = 0l;
+            expNb_ = 0L;
         } else {
             expNb_ = parseLongTen(exp_.toString());
         }
@@ -2403,12 +2359,6 @@ public abstract class LgNames {
     }
     public void setAliasGetMessage(String _aliasGetMessage) {
         coreNames.setAliasGetMessage(_aliasGetMessage);
-    }
-    public String getAliasCustomError() {
-        return coreNames.getAliasCustomError();
-    }
-    public void setAliasCustomError(String _aliasCustomError) {
-        coreNames.setAliasCustomError(_aliasCustomError);
     }
     public String getAliasBadSize() {
         return coreNames.getAliasBadSize();

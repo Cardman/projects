@@ -111,7 +111,7 @@ public abstract class ExecNumericOperation extends ExecReflectableOpering {
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
-        return PrimitiveTypeUtil.toPrimitive(arg_, true, _cont);
+        return PrimitiveTypeUtil.toPrimitive(arg_, _cont);
     }
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _an);

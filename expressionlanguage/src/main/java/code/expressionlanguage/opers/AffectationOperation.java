@@ -210,7 +210,7 @@ public final class AffectationOperation extends ReflectableOpering {
         OperationNode root_ = _operation.getFirstChild();
         SettableElResult elt_ = null;
         while (root_ instanceof IdOperation) {
-            root_ = ((IdOperation)root_).getFirstChild();
+            root_ = root_.getFirstChild();
         }
         if (!(root_ instanceof DotOperation)) {
             if (root_ instanceof SettableElResult) {

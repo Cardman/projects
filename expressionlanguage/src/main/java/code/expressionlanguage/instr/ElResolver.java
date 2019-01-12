@@ -445,7 +445,6 @@ public final class ElResolver {
                                 }
                             }
                             next_++;
-                            continue;
                         }
                         if (nbOpened_ > 0) {
                             d_.setBadOffset(next_);
@@ -2148,7 +2147,7 @@ public final class ElResolver {
         String id_ = allparts_.toString();
         String dot_ = String.valueOf(DOT_VAR);
         StringList candidates_ = new StringList();
-        if (!opt_.isSingleInnerParts() && id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
+        if (!opt_.isSingleInnerParts() && !id_.contains(StringList.concat(dot_, dot_))) {
             int idLen_ = id_.length();
             for (int i = 0; i < idLen_; i++) {
                 char sep_ = id_.charAt(i);
@@ -3513,9 +3512,8 @@ public final class ElResolver {
         return j_;
     }
 
-    private static int indexAfterPossibleCast(Analyzable _conf, boolean _ctor,String _string, int _from, int _max, Delimiters _d) {
+    private static int indexAfterPossibleCast(Analyzable _conf, boolean _ctor,String _string, int _from, int _len, Delimiters _d) {
         int i_ = _from;
-        int len_ = _max;
         int indexParRight_ = _string.indexOf(PAR_RIGHT, i_+1);
         Delimiters d_ = _d;
         Options opt_ = _conf.getOptions();
@@ -3576,7 +3574,7 @@ public final class ElResolver {
                 }
             }
             int k_ = indexParRight_+1;
-            while (k_ < len_) {
+            while (k_ < _len) {
                 char locChar_ = _string.charAt(k_);
                 if (Character.isWhitespace(locChar_)) {
                     k_++;
@@ -3800,7 +3798,7 @@ public final class ElResolver {
       return isField(_conf, gl_, _ctor, word_);
     }
     private static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
-        boolean field_ = false;
+        boolean field_;
         boolean stCtx_ = _conf.isStaticContext() || _ctor;
         if (_fromClass != null) {
             field_ = true;

@@ -1954,7 +1954,7 @@ public abstract class OperationNode implements Operable {
                 toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
                 toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
             } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true, context_);
+                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, context_);
                 if (clMatch_.isPrimitive(context_)) {
                     if (onePrimExcl_) {
                         return CustList.SWAP_SORT;
@@ -2013,7 +2013,7 @@ public abstract class OperationNode implements Operable {
         String baseTypeOne_ = Templates.getIdFromAllTypes(glClassOne_);
         String baseTypeTwo_ = Templates.getIdFromAllTypes(glClassTwo_);
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeTwo_, baseTypeOne_, context_)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
                 return CustList.SWAP_SORT;
             }
             return CustList.NO_SWAP_SORT;
@@ -2028,10 +2028,10 @@ public abstract class OperationNode implements Operable {
         if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeOne_, baseTypeTwo_, context_)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
             return CustList.SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeTwo_, baseTypeOne_, context_)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
         //inherits types if static methods

@@ -12,7 +12,7 @@ import code.util.StringList;
 public abstract class AbstractArrayElementOperation extends
         AbstractArrayInstancingOperation {
 
-    public AbstractArrayElementOperation(int _index, int _indexChild,
+    protected AbstractArrayElementOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -32,9 +32,6 @@ public abstract class AbstractArrayElementOperation extends
             arguments_.add(o.getArgument());
         }
         int nbCh_ = chidren_.size();
-        int[] args_;
-        args_ = new int[CustList.ONE_ELEMENT];
-        args_[CustList.FIRST_INDEX] = chidren_.size();
         Argument a_ = new Argument();
 
         Numbers<Integer> dims_;
