@@ -31,10 +31,11 @@ public class DefaultInitializer implements Initializer {
         ObjectMap<ClassField,Struct> fields_;
         fields_ = new ObjectMap<ClassField,Struct>();
         for (String c: allClasses_) {
-            RootBlock clMetaLoc_ = classes_.getClassBody(c);
-            if (clMetaLoc_ == null) {
+            String formatted_ = Templates.getFullTypeByBases(_className,c,_context);
+            if (formatted_ == null) {
                 continue;
             }
+            RootBlock clMetaLoc_ = classes_.getClassBody(c);
             for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
@@ -45,6 +46,7 @@ public class DefaultInitializer implements Initializer {
                 }
                 Struct str_ = f_.getDefaultValue();
                 String fieldDeclClass_ = f_.getImportedClassName();
+                fieldDeclClass_ = Templates.quickFormat(formatted_,fieldDeclClass_,_context);
                 for (String f: f_.getFieldName()) {
                     ClassField key_ = new ClassField(c, f);
                     if (str_ != null) {
@@ -115,7 +117,7 @@ public class DefaultInitializer implements Initializer {
         }
         return true;
     }
-    void addPage(ContextEl _conf, AbstractPageEl _page) {
+    private void addPage(ContextEl _conf, AbstractPageEl _page) {
         _conf.addPage(_page);
         if (_conf.hasException()) {
             _conf.getThrowing().removeBlockFinally(_conf);

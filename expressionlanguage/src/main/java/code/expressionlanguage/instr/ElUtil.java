@@ -120,7 +120,7 @@ public final class ElUtil {
     }
 
 
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,ContextEl _context) {
+    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         Block currentBlock_ = _context.getCurrentBlock();
         if (currentBlock_ != null && !_context.isAnnotAnalysis() && !_context.isGearConst()) {
@@ -456,7 +456,7 @@ public final class ElUtil {
         }
         return checkFinal_;
     }
-    public static boolean stepForLoop(Analyzable _conf) {
+    private static boolean stepForLoop(Analyzable _conf) {
         if (_conf.getCurrentBlock() instanceof ForMutableIterativeLoop) {
             if (_conf.getForLoopPartState() == ForLoopPart.STEP) {
                 return true;
@@ -465,7 +465,7 @@ public final class ElUtil {
         return false;
     }
 
-    static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
+    private static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
         int fr_ = _el.getIndex();
@@ -542,10 +542,7 @@ public final class ElUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_, _an);
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
                 ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _an);
@@ -610,10 +607,7 @@ public final class ElUtil {
     public static CustList<ExecOperationNode> getReducedNodes(ExecOperationNode _root) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         ExecOperationNode current_ = _root;
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        while (current_ != null) {
             ExecOperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
                 if (current_.getArgument() == null) {
