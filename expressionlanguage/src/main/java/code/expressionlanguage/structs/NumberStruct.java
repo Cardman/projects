@@ -125,7 +125,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     str_.append(((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
     str_.append(((DisplayableStruct)_args[1]).getDisplayedString(_cont).getInstance());
     _res.setResult(new StringStruct(str_.toString()));
-    return;
   }
 
   public static void instantiate(Analyzable _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {

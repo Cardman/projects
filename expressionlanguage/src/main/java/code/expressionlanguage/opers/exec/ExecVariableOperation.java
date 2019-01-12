@@ -19,7 +19,7 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
 
     private boolean catString;
 
-    private String variableName = EMPTY_STRING;
+    private String variableName;
 
     private int off;
 

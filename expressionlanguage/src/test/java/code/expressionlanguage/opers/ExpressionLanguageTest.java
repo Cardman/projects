@@ -1060,7 +1060,7 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate("0.5d*2l");
         NumberStruct res_ = (NumberStruct) arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertEq(1d, ((DoubleStruct)res_).getInstance());
+        assertEq(1d, res_.getInstance());
     }
     @Test
     public void processEl372Test() {

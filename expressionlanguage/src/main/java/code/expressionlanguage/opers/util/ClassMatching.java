@@ -3,7 +3,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
 

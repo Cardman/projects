@@ -21,7 +21,7 @@ public final class ExecSuperFctOperation extends ExecReflectableInvokingOperatio
 
     private boolean staticMethod;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
     private int naturalVararg = -1;
     private int anc;

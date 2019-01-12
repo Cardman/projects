@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.inherits.Mapping;

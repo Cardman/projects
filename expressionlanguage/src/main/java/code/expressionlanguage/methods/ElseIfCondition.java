@@ -17,6 +17,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public final class ElseIfCondition extends Condition implements BlockCondition {
 
     public ElseIfCondition(ContextEl _importingPage,

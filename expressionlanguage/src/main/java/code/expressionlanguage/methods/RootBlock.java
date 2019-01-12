@@ -579,7 +579,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     idMethods_.add(id_);
                 }
                 if (method_ instanceof AnnotationMethodBlock) {
-                    String id_ = ((AnnotationMethodBlock) method_).getName();
+                    String id_ = method_.getName();
                     for (String m: idsAnnotMethods_) {
                         if (StringList.quickEq(m,id_)) {
                             int r_ = method_.getOffset().getOffsetTrim();

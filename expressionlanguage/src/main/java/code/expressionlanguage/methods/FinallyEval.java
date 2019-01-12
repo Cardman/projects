@@ -14,6 +14,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public final class FinallyEval extends BracedStack implements Eval {
 
     public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
@@ -37,6 +38,7 @@ public final class FinallyEval extends BracedStack implements Eval {
         buildEmptyEl(_cont);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);

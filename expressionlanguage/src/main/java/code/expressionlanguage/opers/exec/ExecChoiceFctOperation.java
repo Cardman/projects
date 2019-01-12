@@ -24,9 +24,9 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
 
     private boolean staticMethod;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
     private int anc;
     public ExecChoiceFctOperation(ChoiceFctOperation _choice) {
         super(_choice);

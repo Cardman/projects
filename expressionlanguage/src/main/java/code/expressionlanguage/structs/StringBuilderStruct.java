@@ -111,7 +111,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
-            one_.replace((NumberStruct)_args[0], (NumberStruct)_args[1], (CharSequenceStruct) _args[2], _cont, _res);
+            one_.replace((NumberStruct)_args[0], (NumberStruct)_args[1], _args[2], _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReverse())) {

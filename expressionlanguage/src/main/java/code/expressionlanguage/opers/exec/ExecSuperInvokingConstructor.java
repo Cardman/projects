@@ -31,7 +31,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         CustList<Argument> firstArgs_;
-        String calledCtorTemp_ = gl_;
+        String calledCtorTemp_;
         String superClass_ = Templates.quickFormat(gl_, unique_.getImportedDirectGenericSuperClass(), _conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);

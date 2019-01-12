@@ -68,7 +68,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                     for (OperatorBlock m: _context.getClasses().getOperators()) {
                         if (m.getId().eq(mid_)) {
-                            annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
+                            annotationsParams= m.getAnnotationsOpsParams();
                         }
                     }
                 } else {
@@ -113,7 +113,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
                 for (OperatorBlock m: _context.getClasses().getOperators()) {
                     if (m.getId().eq(mid_)) {
-                        annotations=((AnnotableBlock)m).getAnnotationsOps();
+                        annotations= m.getAnnotationsOps();
                     }
                 }
             } else {

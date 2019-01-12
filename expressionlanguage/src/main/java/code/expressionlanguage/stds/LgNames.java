@@ -1060,7 +1060,7 @@ public abstract class LgNames {
             }
             return Double.NEGATIVE_INFINITY;
         }
-        long expNbLong_ = expNb_.longValue();
+        long expNbLong_ = expNb_;
         if (_nb.getBase() == 16) {
             StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
             merged_.append(int_);
@@ -1168,7 +1168,7 @@ public abstract class LgNames {
         if (-expNbLong_ >= int_.length()) {
             StringBuilder number_ = new StringBuilder(int_);
             number_.append(dec_);
-            int nbLeadingZeros_ = 0;
+            int nbLeadingZeros_;
             StringBuilder decCopy_ = new StringBuilder();
             int index_ = 0;
             while (index_ < number_.length()) {
@@ -1813,10 +1813,10 @@ public abstract class LgNames {
         if (int_ == null) {
             return null;
         }
-        if (int_.longValue() < Byte.MIN_VALUE) {
+        if (int_ < Byte.MIN_VALUE) {
             return null;
         }
-        if (int_.longValue() > Byte.MAX_VALUE) {
+        if (int_ > Byte.MAX_VALUE) {
             return null;
         }
         return int_.byteValue();
@@ -1826,10 +1826,10 @@ public abstract class LgNames {
         if (int_ == null) {
             return null;
         }
-        if (int_.longValue() < Short.MIN_VALUE) {
+        if (int_ < Short.MIN_VALUE) {
             return null;
         }
-        if (int_.longValue() > Short.MAX_VALUE) {
+        if (int_ > Short.MAX_VALUE) {
             return null;
         }
         return int_.shortValue();
@@ -1839,10 +1839,10 @@ public abstract class LgNames {
         if (int_ == null) {
             return null;
         }
-        if (int_.longValue() < Integer.MIN_VALUE) {
+        if (int_ < Integer.MIN_VALUE) {
             return null;
         }
-        if (int_.longValue() > Integer.MAX_VALUE) {
+        if (int_ > Integer.MAX_VALUE) {
             return null;
         }
         return int_.intValue();

@@ -38,7 +38,7 @@ public abstract class QuickOperation extends ReflectableOpering {
         if (!(v_ instanceof BooleanStruct)) {
             return;
         }
-        if (((BooleanStruct)v_).sameReference(_abs)) {
+        if (v_.sameReference(_abs)) {
             _to.setSimpleArgumentAna(f_, _conf);
             return;
         }

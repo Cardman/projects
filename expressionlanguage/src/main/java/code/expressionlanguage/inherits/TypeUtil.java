@@ -37,6 +37,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public final class TypeUtil {
 
     private TypeUtil() {
@@ -49,7 +50,7 @@ public final class TypeUtil {
         for (EntryCust<String, StandardType> s: _context.getStandards().getStandards().entryList()) {
             StandardType s_ = s.getValue();
             if (s_ instanceof StandardClass) {
-                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllSuperClasses());
+                s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
                 s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
             } else {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());

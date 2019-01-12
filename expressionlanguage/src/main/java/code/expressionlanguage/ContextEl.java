@@ -110,6 +110,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.SortedGraph;
 
+@SuppressWarnings("ALL")
 public abstract class ContextEl implements ExecutableCode {
 
     protected static final int DEFAULT_TAB_WIDTH = 4;
@@ -1024,6 +1025,9 @@ public abstract class ContextEl implements ExecutableCode {
     public void setException(Struct _exception) {
         exception = _exception;
     }
+    public void interrupt() {
+        interrupt.set(true);
+    }
     public LocalThrowing getThrowing() {
         return throwing;
     }
@@ -1173,6 +1177,7 @@ public abstract class ContextEl implements ExecutableCode {
     public String getInternGlobalClass() {
         return null;
     }
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public String resolveAccessibleIdType(String _in) {
         Block bl_ = getCurrentBlock();
@@ -1211,6 +1216,7 @@ public abstract class ContextEl implements ExecutableCode {
                 return EMPTY_TYPE;
             }
             res_ = id_;
+            //noinspection UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment
             b_ = classes.getClassBody(id_);
         }
         for (String i: inners_.mid(1)) {

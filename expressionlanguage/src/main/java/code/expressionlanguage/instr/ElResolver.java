@@ -20,6 +20,7 @@ import code.util.Numbers;
 import code.util.StringList;
 
 
+@SuppressWarnings("ALL")
 public final class ElResolver {
 
     public static final int BAD_PRIO = -1;

@@ -3,8 +3,10 @@ package code.expressionlanguage.opers.util.annotation;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.util.CustList;
 
+@SuppressWarnings("ALL")
 public final class ExportAnnotationUtil {
 
+    @SuppressWarnings("UnusedAssignment")
     public static String exportAnnotation(FieldableStruct _str) {
         StringBuilder out_ = new StringBuilder();
         CustList<CustList<StackObject>> elts_;

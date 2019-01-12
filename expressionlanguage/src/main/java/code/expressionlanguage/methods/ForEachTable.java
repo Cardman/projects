@@ -250,11 +250,20 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        boolean static_ = true;
+        if (f_ != null) {
+            static_ = f_.isStaticContext();
+        }
+        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
+        if (f_ == null) {
+            importedClassNameFirst = _cont.getStandards().getAliasObject();
+            importedClassNameSecond = _cont.getStandards().getAliasObject();
+            return;
+        }
         if (_types.size() == 1) {
             KeyWords keyWords_ = _cont.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -374,7 +383,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -387,25 +395,6 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
-        }
-        if (firstChild_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            StringMap<SimpleAssignment> fieldsAfter_;
-            fieldsAfter_ = buildAssListFieldAfterLoop(_an, _anEl);
-            varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
-            CustList<StringMap<SimpleAssignment>> varsAfter_;
-            varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
-            varsWhile_.getVariablesRoot().clear();
-            varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-            CustList<StringMap<SimpleAssignment>> mutableAfter_;
-            mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
-            varsWhile_.getMutableLoopRoot().clear();
-            varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
-            return;
         }
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
@@ -601,9 +590,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_cont.callsOrException()) {
             return;
         }
-        Struct iterStr_ = null;
+        Struct iterStr_;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
-        boolean finished_ = false;
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
         LocalVariable locVar_ = new LocalVariable();
@@ -619,7 +607,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         iterStr_ = arg_.getStruct();
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setIndex(-1);
-        l_.setFinished(finished_);
+        l_.setFinished(false);
         l_.setBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
@@ -639,6 +627,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         lv_.setIndexClassName(classIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
+        boolean finished_ = false;
         if (iterStr_ != null) {
             Boolean has_ = iteratorHasNext(_cont);
             if (has_ == null) {

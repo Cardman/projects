@@ -8,12 +8,14 @@ import code.expressionlanguage.opers.InterfaceInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 
+@SuppressWarnings("ALL")
 public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvokingConstructor {
 
     public ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int) {
         super(_int);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();

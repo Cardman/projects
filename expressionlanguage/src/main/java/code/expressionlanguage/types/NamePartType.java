@@ -661,7 +661,6 @@ final class NamePartType extends LeafPartType {
             }
         }
         _an.getCurrentBadIndexes().add(getIndexInType());
-        return;
     }
 
     @Override

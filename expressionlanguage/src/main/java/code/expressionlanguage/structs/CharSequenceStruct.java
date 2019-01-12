@@ -218,7 +218,6 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
             _res.setResult(getDisplayedString(_cont));
-            return;
         }
     }
     private void length(ResultErrorStd _res) {

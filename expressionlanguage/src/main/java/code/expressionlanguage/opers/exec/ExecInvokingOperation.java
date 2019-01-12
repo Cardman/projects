@@ -544,7 +544,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     return Argument.createVoid();
                 }
                 className_ = res_;
-                String first_ = className_;
+                String first_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
                 if (type_ instanceof RootBlock) {
                     CustList<RootBlock> needRoot_;

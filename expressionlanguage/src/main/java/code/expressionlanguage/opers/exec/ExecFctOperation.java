@@ -18,6 +18,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
+@SuppressWarnings("ALL")
 public final class ExecFctOperation extends ExecReflectableInvokingOperation {
 
     private String methodName;
@@ -28,7 +29,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
 
     private boolean staticChoiceMethod;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
     private int naturalVararg = -1;
 

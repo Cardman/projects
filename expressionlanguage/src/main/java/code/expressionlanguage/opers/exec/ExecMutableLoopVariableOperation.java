@@ -18,7 +18,7 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
 
     private boolean catString;
 
-    private String variableName = EMPTY_STRING;
+    private String variableName;
 
     private int off;
 

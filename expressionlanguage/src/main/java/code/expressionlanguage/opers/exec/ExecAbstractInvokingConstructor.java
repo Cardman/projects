@@ -14,9 +14,9 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
     private String methodName;
     private ConstructorId constId;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
     private int offsetOper;
     public ExecAbstractInvokingConstructor(AbstractInvokingConstructor _abs) {
         super(_abs);

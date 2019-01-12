@@ -19,14 +19,18 @@ public final class ExecDotOperation extends ExecReflectableOpering {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode o_ = chidren_.last();
         Argument a_ = getArgument(_nodes,o_);
-        boolean simple_ = false;
+        boolean simple_;
         if (getParent() instanceof ExecSemiAffectationOperation) {
             simple_ = false;
         } else if (getParent() instanceof ExecAffectationOperation) {
             ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
             if (aff_.getSettable() == chidren_.last()) {
                 simple_ = true;
+            } else {
+                simple_ = false;
             }
+        } else {
+            simple_ = false;
         }
         if (simple_) {
             setQuickSimpleArgument(a_, _conf, _nodes);

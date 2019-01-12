@@ -13,7 +13,6 @@ import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
-import code.expressionlanguage.opers.AbstractTernaryOperation;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DeclaringOperation;
@@ -26,7 +25,6 @@ import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.PreAnalyzableOperation;
-import code.expressionlanguage.opers.QuickOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StandardFieldOperation;
@@ -47,7 +45,6 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -114,7 +111,7 @@ public final class ElUtil {
             ((StandardInstancingOperation)op_).setFieldName(fieldName_);
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
-        return getExecutableNodes(all_, _conf);
+        return getExecutableNodes(all_);
     }
 
 
@@ -419,7 +416,7 @@ public final class ElUtil {
         if (stepForLoop(_conf)) {
             return true;
         }
-        boolean checkFinal_ = false;
+        boolean checkFinal_;
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.isAssignedStaticFields()) {
@@ -433,8 +430,8 @@ public final class ElUtil {
                     checkFinal_ = false;
                 } else if (!_ass.contains(cl_.getFieldName())) {
                     checkFinal_ = false;
-                } else if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
-                    checkFinal_ = true;
+                } else {
+                    checkFinal_ = !_ass.getVal(cl_.getFieldName()).isUnassignedAfter();
                 }
             }
         } else if (!fromCurClass_) {
@@ -444,8 +441,8 @@ public final class ElUtil {
                 checkFinal_ = false;
             } else if (!_ass.contains(cl_.getFieldName())) {
                 checkFinal_ = false;
-            } else if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
-                checkFinal_ = true;
+            } else {
+                checkFinal_ = !_ass.getVal(cl_.getFieldName()).isUnassignedAfter();
             }
         }
         return checkFinal_;
@@ -529,7 +526,7 @@ public final class ElUtil {
             ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
     }
-    public static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list, Analyzable _an) {
+    private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;

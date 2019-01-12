@@ -222,10 +222,18 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        boolean static_ = true;
+        if (f_ != null) {
+            static_ = f_.isStaticContext();
+        }
+        opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
+        if (f_ == null) {
+            importedClassName = _cont.getStandards().getAliasObject();
+            return;
+        }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());

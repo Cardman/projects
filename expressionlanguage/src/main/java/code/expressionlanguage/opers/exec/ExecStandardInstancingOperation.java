@@ -26,7 +26,7 @@ public final class ExecStandardInstancingOperation extends
 
     private String className;
 
-    private String fieldName = EMPTY_STRING;
+    private String fieldName;
     private int blockIndex = -1;
 
     private int naturalVararg = -1;

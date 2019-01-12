@@ -100,7 +100,7 @@ public abstract class ExecOperationNode implements Operable {
 
     private int indexInEl;
 
-    private int order = CustList.INDEX_NOT_FOUND_ELT;
+    private int order;
 
     private final int indexChild;
 

@@ -15,6 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public final class ElseCondition extends BracedStack implements BlockCondition {
 
     public ElseCondition(ContextEl _importingPage,

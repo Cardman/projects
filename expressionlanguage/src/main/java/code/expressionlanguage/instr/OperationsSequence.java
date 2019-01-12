@@ -41,7 +41,7 @@ public final class OperationsSequence {
         offset = _offset;
     }
 
-    public void setupValues(String _string, boolean _is, boolean _annot, boolean _instance, Numbers<Integer> _nb, Numbers<Integer> _esc) {
+    public void setupValues(String _string, boolean _is, boolean _instance, Numbers<Integer> _nb, Numbers<Integer> _esc) {
         values = new NatTreeMap<Integer,String>();
         instance = _instance;
         if (operators.isEmpty()) {

@@ -57,6 +57,7 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 
+@SuppressWarnings("ALL")
 public final class FileResolver {
 
     private static final char INHERIT = ':';

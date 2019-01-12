@@ -7,6 +7,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public final class AliasNumber {
     private String aliasCompareTo;
     private String aliasCompare;
@@ -53,13 +54,16 @@ public final class AliasNumber {
     private String aliasForDigit;
     private String aliasGetDirectionality;
     private String aliasGetType;
+    @SuppressWarnings("UnusedAssignment")
     public void build(LgNames _lgNames) {
         StringMap<StandardField> fields_;
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
         ObjectMap<MethodId, StandardMethod> methods_;
+        //noinspection UnusedAssignment,UnusedAssignment,UnusedAssignment
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        //noinspection UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         StandardType std_;

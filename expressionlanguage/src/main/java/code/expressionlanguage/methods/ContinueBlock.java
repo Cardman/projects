@@ -106,7 +106,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        Loop loop_ = null;
+        Loop loop_;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_ instanceof LoopBlockStack) {

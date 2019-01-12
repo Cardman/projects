@@ -318,8 +318,7 @@ public abstract class Block {
         BracedBlock par_ = parElt_.getElement();
         if (par_ == null) {
             ReadWrite rw_ = ip_.getReadWrite();
-            Block n_ = null;
-            n_ = getNextSibling();
+            Block n_ = getNextSibling();
             rw_.setBlock(n_);
             return;
         }
@@ -344,7 +343,7 @@ public abstract class Block {
         }
         return (FileBlock) b_;
     }
-    public final RootBlock getRooted() {
+    protected final RootBlock getRooted() {
         Block b_ = this;
         while (b_ != null) {
             if (b_ instanceof RootBlock) {

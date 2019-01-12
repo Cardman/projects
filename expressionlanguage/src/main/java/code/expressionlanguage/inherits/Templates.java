@@ -360,7 +360,7 @@ public final class Templates {
             }
         }
         int i_ = CustList.FIRST_INDEX;
-        EqList<StringList> boundsAll_ = null;
+        EqList<StringList> boundsAll_;
         GeneType r_ = _context.getClassBody(className_);
         boundsAll_ = new EqList<StringList>();
         for (TypeVar t:r_.getParamTypesMapValues()) {

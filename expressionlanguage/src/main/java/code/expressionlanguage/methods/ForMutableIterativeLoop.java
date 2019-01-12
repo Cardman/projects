@@ -162,15 +162,15 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         importedClassName = _importedClassName;
     }
 
-    public ExpressionLanguage getInitEl() {
+    private ExpressionLanguage getInitEl() {
         return new ExpressionLanguage(opInit);
     }
 
-    public ExpressionLanguage getExpressionEl() {
+    private ExpressionLanguage getExpressionEl() {
         return new ExpressionLanguage(opExp);
     }
 
-    public ExpressionLanguage getStepEl() {
+    private ExpressionLanguage getStepEl() {
         return new ExpressionLanguage(opStep);
     }
 
@@ -304,7 +304,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         } else {
             _cont.setMerged(false);
         }
-        
+        boolean static_ = true;
+        if (f_ != null) {
+            static_ = f_.isStaticContext();
+        }
         _cont.getVariablesNames().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
@@ -312,7 +315,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         if (init.trim().isEmpty()) {
             opInit = new CustList<ExecOperationNode>();
         } else {
-            opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+            opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
         }
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
@@ -325,7 +328,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         if (expression.trim().isEmpty()) {
             opExp = new CustList<ExecOperationNode>();
         } else {
-            opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+            opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
         }
         if (!opExp.isEmpty()) {
             ExecOperationNode elCondition_ = opExp.last();
@@ -510,10 +513,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         _an.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
         _an.getLocalVariables().last().clear();
+        boolean static_ = true;
+        if (f_ != null) {
+            static_ = f_.isStaticContext();
+        }
         if (step.trim().isEmpty()) {
             opStep = new CustList<ExecOperationNode>();
         } else {
-            opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(f_.isStaticContext()));
+            opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(static_));
         }
         _an.setMerged(false);
         StringMap<AssignmentBefore> fieldsHypot_;
@@ -542,7 +549,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    private StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -568,7 +575,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    private CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -608,7 +615,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    private CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();

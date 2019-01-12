@@ -79,7 +79,7 @@ public final class ParsedArgument {
                 } else {
                     out_.type = longType_;
                 }
-                out_.object = new LongStruct(longValue_.longValue());
+                out_.object = new LongStruct(longValue_);
                 return out_;
             }
             if (suffix_ == 'I' || suffix_ == 'i') {
@@ -146,7 +146,7 @@ public final class ParsedArgument {
                 } else {
                     out_.type = longType_;
                 }
-                out_.object = new LongStruct(longValue_.longValue());
+                out_.object = new LongStruct(longValue_);
                 return out_;
             }
             if (suffix_ == 'I' || suffix_ == 'i') {
@@ -225,7 +225,7 @@ public final class ParsedArgument {
                 } else {
                     out_.type = longType_;
                 }
-                out_.object = new LongStruct(longValue_.longValue());
+                out_.object = new LongStruct(longValue_);
                 return out_;
             }
             if (suffix_ == 'C' || suffix_ == 'c') {
@@ -333,11 +333,11 @@ public final class ParsedArgument {
             } else {
                 out_.type = longType_;
             }
-            out_.object = new LongStruct(longValue_.longValue());
+            out_.object = new LongStruct(longValue_);
             return out_;
         }
         if (suffix_ == 'I' || suffix_ == 'i') {
-            if (!checkedLongBounds(longValue_.longValue(), Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+            if (!checkedLongBounds(longValue_, Integer.MIN_VALUE, Integer.MAX_VALUE)) {
                 return out_;
             }
             if (suffix_ == 'i') {
@@ -349,7 +349,7 @@ public final class ParsedArgument {
             return out_;
         }
         if (suffix_ == 'S' || suffix_ == 's') {
-            if (!checkedLongBounds(longValue_.longValue(), Short.MIN_VALUE, Short.MAX_VALUE)) {
+            if (!checkedLongBounds(longValue_, Short.MIN_VALUE, Short.MAX_VALUE)) {
                 return out_;
             }
             if (suffix_ == 's') {
@@ -361,7 +361,7 @@ public final class ParsedArgument {
             return out_;
         }
         if (suffix_ == 'B' || suffix_ == 'b') {
-            if (!checkedLongBounds(longValue_.longValue(), Byte.MIN_VALUE, Byte.MAX_VALUE)) {
+            if (!checkedLongBounds(longValue_, Byte.MIN_VALUE, Byte.MAX_VALUE)) {
                 return out_;
             }
             if (suffix_ == 'b') {
@@ -372,7 +372,7 @@ public final class ParsedArgument {
             out_.object = new ByteStruct(longValue_.byteValue());
             return out_;
         }
-        if (!checkedLongBounds(longValue_.longValue(), Character.MIN_VALUE, Character.MAX_VALUE)) {
+        if (!checkedLongBounds(longValue_, Character.MIN_VALUE, Character.MAX_VALUE)) {
             return out_;
         }
         if (suffix_ == 'c') {

@@ -9,7 +9,6 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public interface GeneType extends AccessibleBlock {
 

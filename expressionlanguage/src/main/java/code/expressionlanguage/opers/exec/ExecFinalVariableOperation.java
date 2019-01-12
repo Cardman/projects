@@ -18,7 +18,7 @@ import code.util.IdMap;
 
 public final class ExecFinalVariableOperation extends ExecVariableLeafOperation {
 
-    private String variableName = EMPTY_STRING;
+    private String variableName;
     private int off;
     private ConstType type;
 

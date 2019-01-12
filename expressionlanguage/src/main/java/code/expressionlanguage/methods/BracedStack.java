@@ -28,6 +28,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
+@SuppressWarnings("ALL")
 public abstract class BracedStack extends BracedBlock {
 
     BracedStack(ContextEl _importingPage,

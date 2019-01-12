@@ -337,7 +337,6 @@ public final class StringStruct extends CharSequenceStruct {
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
             replaceMultiple(_args[0], lgNames_, _res);
-            return;
         }
     }
     private void length(ResultErrorStd _res) {

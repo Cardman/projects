@@ -5135,10 +5135,10 @@ public final class FileResolverTest {
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
-        StringList annots_ = ((ElementBlock)field_).getAnnotations();
+        StringList annots_ = field_.getAnnotations();
         assertEq(1, annots_.size());
         assertEq("@MyAnnot", annots_.first());
-        Numbers<Integer> annotsInd_ = ((ElementBlock)field_).getAnnotationsIndexes();
+        Numbers<Integer> annotsInd_ = field_.getAnnotationsIndexes();
         assertEq(1, annotsInd_.size());
         assertEq(126, annotsInd_.first());
         assertEq(135, ((ElementBlock) child_).getFieldNameOffset());

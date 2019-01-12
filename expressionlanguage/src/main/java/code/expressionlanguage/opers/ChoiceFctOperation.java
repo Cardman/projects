@@ -45,7 +45,7 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String trimMeth_ = methodName.trim();
+        String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();

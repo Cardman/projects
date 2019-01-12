@@ -240,7 +240,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        boolean static_ = true;
+        if (f_ != null) {
+            static_ = f_.isStaticContext();
+        }
+        opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -254,7 +258,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -268,7 +272,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
-        opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
@@ -620,7 +624,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         ip_.getReadWrite().setBlock(getFirstChild());
-        return;
     }
 
     void processLoop(ContextEl _conf) {

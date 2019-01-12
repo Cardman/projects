@@ -157,7 +157,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String type_ = _conf.resolveCorrectType(_fromType, !staticFlag_);
                 str_ = resolveCorrectTypes(_conf, !staticFlag_, _fromType);
                 String cl_ = Templates.getIdFromAllTypes(type_);
-                argsRes_ = resolveArguments(i_+1, _conf, cl_, EMPTY_STRING, staticFlag_, _args);
+                argsRes_ = resolveArguments(i_+1, _conf, cl_, staticFlag_, _args);
                 if (argsRes_ == null) {
                     return;
                 }
@@ -177,7 +177,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 }
             } else {
                 str_ = resolveCorrectTypes(_conf, true, _fromType);
-                argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, _args);
+                argsRes_ = resolveArguments(i_, _conf, _args);
                 if (argsRes_ == null) {
                     return;
                 }
@@ -282,7 +282,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
-                argsRes_ = resolveArguments(4, _conf, cl_, EMPTY_STRING, true, _args);
+                argsRes_ = resolveArguments(4, _conf, cl_, true, _args);
                 if (argsRes_ == null) {
                     return;
                 }
@@ -290,7 +290,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 StringList params_ = argsRes_.getParametersTypes();
                 feed_ = new ClassMethodId(cl_, new MethodId(true, name_, params_, varargFct_));
             } else {
-                argsRes_ = resolveArguments(2, _conf, EMPTY_STRING, false, _args);
+                argsRes_ = resolveArguments(2, _conf, _args);
                 if (argsRes_ == null) {
                     return;
                 }
@@ -367,7 +367,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
-            argsRes_ = resolveArguments(i_+1, _conf, cl_, EMPTY_STRING, stCtx_, _args);
+            argsRes_ = resolveArguments(i_+1, _conf, cl_, stCtx_, _args);
             if (argsRes_ == null) {
                 return;
             }
@@ -388,7 +388,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         } else {
             stCtx_ = false;
             str_ = resolveCorrectTypes(_conf, true, _fromType);
-            argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, _args);
+            argsRes_ = resolveArguments(i_, _conf, _args);
             if (argsRes_ == null) {
                 return;
             }
@@ -498,7 +498,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(abs_);
-                return;
             }
         }
     }
@@ -521,7 +520,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
             String type_ = _conf.resolveCorrectType(_fromType, true);
             String cl_ = Templates.getIdFromAllTypes(type_);
-            argsRes_ = resolveArguments(3, _conf, cl_, EMPTY_STRING, false, _args);
+            argsRes_ = resolveArguments(3, _conf, cl_, false, _args);
             if (argsRes_ == null) {
                 return;
             }
@@ -541,7 +540,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
         } else {
             int i_ = 2;
-            argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, _args);
+            argsRes_ = resolveArguments(i_, _conf, _args);
             if (argsRes_ == null) {
                 return;
             }
@@ -1018,7 +1017,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         String operator_ = _args.get(1).trim();
         if (!isIntermediateDottedOperation()) {
             int i_ = 2;
-            MethodId argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, _args);
+            MethodId argsRes_ = resolveArguments(i_, _conf, _args);
             if (argsRes_ == null) {
                 return;
             }
@@ -1042,7 +1041,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             return;
         }
         int i_ = 2;
-        MethodId argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, _args);
+        MethodId argsRes_ = resolveArguments(i_, _conf, _args);
         if (argsRes_ == null) {
             return;
         }
@@ -1112,7 +1111,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         fct_.append(Templates.TEMPLATE_END);
         setResultClass(new ClassArgumentMatching(fct_.toString()));
     }
-    private MethodId resolveArguments(int _from,Analyzable _conf, String _fromType, String _name,boolean _static, StringList _params){
+    private MethodId resolveArguments(int _from, Analyzable _conf, String _fromType, boolean _static, StringList _params){
         StringList out_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();
@@ -1139,9 +1138,9 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             arg_ = _conf.resolveCorrectAccessibleType(type_, _fromType);
             out_.add(arg_);
         }
-        return new MethodId(_static, _name, out_, vararg_ != -1);
+        return new MethodId(_static, OperationNode.EMPTY_STRING, out_, vararg_ != -1);
     }
-    private MethodId resolveArguments(int _from,Analyzable _conf, String _name,boolean _static, StringList _params){
+    private MethodId resolveArguments(int _from, Analyzable _conf, StringList _params){
         StringList out_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();
@@ -1173,7 +1172,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
             out_.add(arg_);
         }
-        return new MethodId(_static, _name, out_, vararg_ != -1);
+        return new MethodId(false, OperationNode.EMPTY_STRING, out_, vararg_ != -1);
     }
     private static StringList resolveCorrectTypes(Analyzable _an, boolean _exact, String _type) {
         String type_ = _an.resolveCorrectType(_type, _exact);

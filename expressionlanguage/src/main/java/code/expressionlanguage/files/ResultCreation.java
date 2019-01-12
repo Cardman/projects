@@ -1,7 +1,5 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.ImportingBlock;
-
 public abstract class ResultCreation {
 
     private int nextIndex;

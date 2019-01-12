@@ -642,7 +642,7 @@ public abstract class OperationNode implements Operable {
         for (int i = 0; i <= maxAnc_; i++) {
             StringList subClasses_ = new StringList();
             for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
-                if (e.getValue().intValue() != i) {
+                if (e.getValue() != i) {
                     continue;
                 }
                 subClasses_.add(e.getKey().getClassName());
@@ -679,7 +679,7 @@ public abstract class OperationNode implements Operable {
             for (int i = maxLoc_; i <= max_; i++) {
                 StringList subClasses_ = new StringList();
                 for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
-                    if (e.getValue().intValue() != i) {
+                    if (e.getValue() != i) {
                         continue;
                     }
                     subClasses_.add(e.getKey().getClassName());

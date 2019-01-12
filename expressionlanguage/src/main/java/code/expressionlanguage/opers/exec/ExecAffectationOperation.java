@@ -27,7 +27,7 @@ public final class ExecAffectationOperation extends ExecReflectableOpering {
         ExecOperationNode root_ = _operation.getFirstChild();
         ExecSettableElResult elt_ = null;
         while (root_ instanceof ExecIdOperation) {
-            root_ = ((ExecIdOperation)root_).getFirstChild();
+            root_ = root_.getFirstChild();
         }
         if (!(root_ instanceof ExecDotOperation)) {
             if (root_ instanceof ExecSettableElResult) {

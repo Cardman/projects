@@ -23,7 +23,7 @@ import code.util.StringMap;
 
 public final class InferArrayInstancing extends AbstractArrayElementOperation {
 
-    public InferArrayInstancing(int _index, int _indexChild,
+    InferArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -79,10 +79,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         } else if (m_ == null && cur_ instanceof InfoBlock) {
             InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
             type_ = i_.getImportedClassName();
-        } else if (!(m_ instanceof AffectationOperation)) {
-            //ERROR
-            type_ = EMPTY_STRING;
-        } else {
+        } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
             if (s_ != null) {
