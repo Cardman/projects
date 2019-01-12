@@ -26,10 +26,6 @@ public final class AnnotationBlock extends RootBlock {
     public boolean isStaticType() {
         return true;
     }
-    @Override
-    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
-        return new StringList(getDirectSuperTypes());
-    }
 
     @Override
     public StringList getDirectGenericSuperTypes(Analyzable _classes) {

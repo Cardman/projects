@@ -21,8 +21,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
-        Argument arg_ = _previous;
-        Struct inst_ = arg_.getStruct();
+        Struct inst_ = _previous.getStruct();
         if (inst_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) inst_;
             a_ = new Argument();
@@ -32,7 +31,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
+        String argCl_ = _previous.getObjectClassName(_conf.getContextEl());
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));

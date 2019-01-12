@@ -26,11 +26,6 @@ public final class ErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public ArrayStruct getStack() {
-        return stack;
-    }
-
-    @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
@@ -64,6 +59,13 @@ public final class ErrorStruct implements ErroneousStruct {
         }
         return str_.join("\n");
     }
+
+    @Override
+    public Struct getStack() {
+        return stack;
+    }
+
+    @Override
     public Struct getMessage() {
         return new StringStruct(message);
     }

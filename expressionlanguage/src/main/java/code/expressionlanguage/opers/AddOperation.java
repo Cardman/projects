@@ -24,14 +24,6 @@ public final class AddOperation extends NumericOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static NumberStruct addOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
-        return NumberStruct.calculateSum(_arg, new IntStruct(1), _cont, _cl);
-    }
-
-    static NumberStruct removeOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
-        return NumberStruct.calculateDiff(_arg, new IntStruct(1), _cont, _cl);
-    }
-
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
         if (!catString) {

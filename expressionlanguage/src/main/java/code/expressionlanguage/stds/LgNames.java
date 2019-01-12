@@ -35,15 +35,7 @@ import code.util.StringMap;
 
 public abstract class LgNames {
     protected static final int DEFAULT_RADIX = 10;
-    protected static final String EMPTY_STRING = "";
-    protected static final String RETURN_LINE = "\n";
-    protected static final String SPACE = " ";
 
-    protected static final char PAR_LEFT = '(';
-    protected static final char SEP_ARG = ',';
-    protected static final char PAR_RIGHT = ')';
-    protected static final String DOT = ".";
-    protected static final String VARARG_SUFFIX = "...";
     protected static final String LOC_VAR = ".";
 
     protected static final String PARS = "()";
@@ -795,10 +787,7 @@ public abstract class LgNames {
         }
         if (_arg == null || _arg.isEmpty()) {
             ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
-            if (param_.isPrimitive(_context)) {
-                return false;
-            }
-            return true;
+            return !param_.isPrimitive(_context);
         }
         if (StringList.quickEq(_arg, aliasVoid_)) {
             return false;
@@ -816,10 +805,7 @@ public abstract class LgNames {
         DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String objAlias_ = stds_.getAliasObject();
         if (StringList.quickEq(paramComp_.getComponent(), objAlias_)) {
-            if (paramComp_.getDim() > argComp_.getDim()) {
-                return false;
-            }
-            return true;
+            return paramComp_.getDim() <= argComp_.getDim();
         }
         if (paramComp_.getDim() != argComp_.getDim()) {
             return false;
@@ -833,9 +819,7 @@ public abstract class LgNames {
             String pName_ = paramComp_.getComponent();
             String name_ = argComp_.getComponent();
             PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(name_);
-            if (pr_.getAllSuperType(_context).containsStr(pName_)) {
-                return true;
-            }
+            return pr_.getAllSuperType(_context).containsStr(pName_);
         }
         return false;
     }
@@ -880,10 +864,7 @@ public abstract class LgNames {
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
         String className_ = dPar_.getComponent();
         if (StringList.quickEq(className_, aliasObject_)) {
-            if (dPar_.getDim() > dArg_.getDim()) {
-                return false;
-            }
-            return true;
+            return dPar_.getDim() <= dArg_.getDim();
         }
         if (dPar_.getDim() != dArg_.getDim()) {
             return false;
@@ -892,10 +873,7 @@ public abstract class LgNames {
         if (clArgBl_.getAllSuperTypes(_context).containsObj(className_)) {
             return true;
         }
-        if (StringList.quickEq(className_, a_)) {
-            return true;
-        }
-        return false;
+        return StringList.quickEq(className_, a_);
     }
     public void buildOther() {
     }
@@ -1014,7 +992,7 @@ public abstract class LgNames {
         }
         if (StringList.quickEq(type_, lgNames_.getAliasStackTraceElement())) {
             ContextEl c_ = _cont.getContextEl();
-            return AliasStackTraceElement.invokeMethod(c_, _method, _struct, _args);
+            return AliasStackTraceElement.invokeMethod(c_, _method, _struct);
         }
         if (StringList.quickEq(type_, lgNames_.getAliasError())) {
             ErroneousStruct err_ = (ErroneousStruct) _struct;
@@ -1030,7 +1008,7 @@ public abstract class LgNames {
             return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
-            return AliasMath.invokeStdMethod(_cont, _method, _struct, _args);
+            return AliasMath.invokeStdMethod(_cont, _method, _args);
         }
         if (StringList.quickEq(type_, booleanType_)
                 || StringList.quickEq(type_, charType_)
@@ -1429,19 +1407,6 @@ public abstract class LgNames {
         }
         return s_;
     }
-    public static long toLong(boolean[] _bits, long _max, boolean _strNeg) {
-        long s_ = 0;
-        for (int i = 1; i < 64; i++) {
-            s_ *= 2;
-            if (_bits[i]) {
-                s_++;
-            }
-        }
-        if (_strNeg) {
-            return s_ - _max - 1;
-        }
-        return s_;
-    }
 
     public static boolean[] parseLongSixteenToBits(String _string) {
         StringBuilder str_;
@@ -1468,8 +1433,7 @@ public abstract class LgNames {
                 ch_ = ch_ - 'A' + 'a';
             }
             i_++;
-            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-            int t_ = digit_;
+            int t_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
             int k_ = 3;
             for (int j = 0; j < 4; j++) {
                 if (t_ % 2 == 1) {
@@ -1503,8 +1467,7 @@ public abstract class LgNames {
         while (i_ < max_) {
             int ch_ = str_.charAt(i_);
             i_++;
-            int digit_ = ch_ - '0';
-            int t_ = digit_;
+            int t_ = ch_ - '0';
             int k_ = 2;
             for (int j = 0; j < 3; j++) {
                 if (t_ % 2 == 1) {
@@ -1740,55 +1703,7 @@ public abstract class LgNames {
         }
         return -result_;
     }
-    public static boolean isValidDouble(String _nb) {
-        int to_ = _nb.length() - 1;
-        int i_ = 0;
-        if (!ContextEl.isDigit(_nb.charAt(i_))) {
-            if (_nb.charAt(i_) != MINUS_CHAR) {
-                if (_nb.charAt(i_) != DOT_VAR) {
-                    return false;
-                }
-            }
-            i_++;
-            if (_nb.charAt(i_) == DOT_VAR) {
-                i_++;
-            }
-        }
-        if (i_ <= to_) {
-            if (!ContextEl.isDigit(_nb.charAt(i_))) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-        int nbDots_ = 0;
-        boolean exp_ = false;
-        while (i_ <= to_) {
-            char cur_ = _nb.charAt(i_);
-            if (!ContextEl.isDigit(cur_)) {
-                if (Character.isLetter(cur_)) {
-                    if (cur_ == EXP || cur_ == EXP_UPP) {
-                        exp_ = true;
-                        i_++;
-                        continue;
-                    }
-                    return false;
-                }
-                if (cur_ == MINUS_CHAR && exp_) {
-                    i_++;
-                    continue;
-                }
-                if (cur_ != DOT_VAR || nbDots_ > 0) {
-                    return false;
-                }
-                nbDots_++;
-                i_++;
-                continue;
-            }
-            i_++;
-        }
-        return true;
-    }
+
     public static Double parseDouble(String _nb) {
         NumberInfos infos_ = trySplitDouble(_nb);
         if (infos_ == null) {
@@ -2283,8 +2198,7 @@ public abstract class LgNames {
     }
 
     public String getStructClassName(Struct _struct, ContextEl _context) {
-        String w_ = _struct.getClassName(_context);
-        return w_;
+        return _struct.getClassName(_context);
     }
     
     public StringMap<StandardType> getStandards() {
@@ -2499,9 +2413,7 @@ public abstract class LgNames {
     public void setAliasValueOf(String _aliasValueOf) {
         nbAlias.setAliasValueOf(_aliasValueOf);
     }
-    public String getAliasMaxValueField() {
-        return nbAlias.getAliasMaxValueField();
-    }
+
     public void setAliasMaxValueField(String _aliasMaxValueField) {
         nbAlias.setAliasMaxValueField(_aliasMaxValueField);
     }
@@ -3456,9 +3368,7 @@ public abstract class LgNames {
             String _aliasGetGenericTypeArguments) {
         reflect.setAliasGetGenericTypeArguments(_aliasGetGenericTypeArguments);
     }
-    public String getAliasGetFieldType() {
-        return reflect.getAliasGetType();
-    }
+
     public void setAliasGetFieldType(String _aliasGetGenericType) {
         reflect.setAliasGetType(_aliasGetGenericType);
     }
@@ -3807,17 +3717,11 @@ public abstract class LgNames {
     public StringList getPredefinedClasses() {
         return predefinedClasses;
     }
-    public void setPredefinedClasses(StringList _predefinedClasses) {
-        predefinedClasses = _predefinedClasses;
-    }
+
     public StringList getPredefinedInterfacesInitOrder() {
         return predefinedInterfacesInitOrder;
     }
-    public void setPredefinedInterfacesInitOrder(
-            StringList _predefinedInterfacesInitOrder) {
-        predefinedInterfacesInitOrder = _predefinedInterfacesInitOrder;
-    }
-    
+
     public String getTrueString() {
         return trueString;
     }

@@ -93,9 +93,7 @@ abstract class PartType {
     public StringList getTypeNames() {
         return typeNames;
     }
-    public boolean isStoppedDepends() {
-        return typeNames == null;
-    }
+
     public void stopDepends() {
         typeNames = null;
     }

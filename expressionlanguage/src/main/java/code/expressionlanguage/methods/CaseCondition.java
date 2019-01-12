@@ -47,10 +47,6 @@ public final class CaseCondition extends SwitchPartBlock {
         return value;
     }
 
-    public ExpressionLanguage getValueEl() {
-        return new ExpressionLanguage(opValue);
-    }
-
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
@@ -96,7 +92,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     op_.tryAnalyzeAssignmentAfter(_cont);
                     op_.setOrder(0);
                     opValue = new CustList<ExecOperationNode>();
-                    opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _cont));
+                    opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
                     defaultAssignmentAfter(_cont, op_);
                     checkDuplicateEnumCase(_cont);
                     return;

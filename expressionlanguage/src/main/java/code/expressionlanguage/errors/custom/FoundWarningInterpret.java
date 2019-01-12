@@ -31,16 +31,8 @@ public abstract class FoundWarningInterpret {
         return str_.toString();
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
     public void setFileName(String _fileName) {
         fileName = _fileName;
-    }
-
-    public int getIndexFile() {
-        return indexFile;
     }
 
     public void setIndexFile(int _indexFile) {

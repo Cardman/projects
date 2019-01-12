@@ -12,10 +12,6 @@ public final class BadConstructorCall extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,Integer.toString(localOffset));
     }
 
-    public int getLocalOffset() {
-        return localOffset;
-    }
-
     public void setLocalOffset(int _localOffset) {
         localOffset = _localOffset;
     }

@@ -69,8 +69,7 @@ public final class ElUtil {
             return _right.getArgument();
         }
         _right.finish();
-        Argument arg_ = _right.getArgument();
-        return arg_;
+        return _right.getArgument();
     }
 
 
@@ -97,7 +96,7 @@ public final class ElUtil {
                 currentBlock_.defaultAssignmentAfter(_conf, e_);
             }
             e_.setOrder(0);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_, _conf));
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
@@ -115,8 +114,7 @@ public final class ElUtil {
             ((StandardInstancingOperation)op_).setFieldName(fieldName_);
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
-        CustList<ExecOperationNode> out_ = getExecutableNodes(all_, _conf);
-        return out_;
+        return getExecutableNodes(all_, _conf);
     }
 
 
@@ -382,9 +380,7 @@ public final class ElUtil {
                 }
             }
             if (par_.getParent() instanceof DeclaringOperation) {
-                if (_var == par_.getFirstChild()) {
-                    return true;
-                }
+                return _var == par_.getFirstChild();
             }
         }
         return false;
@@ -403,9 +399,7 @@ public final class ElUtil {
                 }
             }
             if (_par.getParent() instanceof DeclaringOperation) {
-                if (null == _par.getFirstChild()) {
-                    return true;
-                }
+                return null == _par.getFirstChild();
             }
         }
         return false;
@@ -458,9 +452,7 @@ public final class ElUtil {
     }
     private static boolean stepForLoop(Analyzable _conf) {
         if (_conf.getCurrentBlock() instanceof ForMutableIterativeLoop) {
-            if (_conf.getForLoopPartState() == ForLoopPart.STEP) {
-                return true;
-            }
+            return _conf.getForLoopPartState() == ForLoopPart.STEP;
         }
         return false;
     }
@@ -541,11 +533,11 @@ public final class ElUtil {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_, _an);
+        ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
-                ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _an);
+                ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -564,7 +556,7 @@ public final class ElUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_, _an);
+                    ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof DotOperation) {
@@ -638,28 +630,5 @@ public final class ElUtil {
             }
         }
         return out_;
-    }
-    public static int getNextIndex(OperationNode _operation, Struct _value) {
-        int index_ = _operation.getIndexChild();
-        MethodOperation par_ = _operation.getParent();
-        if (par_ instanceof QuickOperation) {
-            QuickOperation q_ = (QuickOperation) par_;
-            BooleanStruct bs_ = q_.absorbingStruct();
-            if (bs_.sameReference(_value)) {
-                return par_.getOrder();
-            }
-        }
-        if (par_ instanceof AbstractTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0) {
-                BooleanStruct bs_ = new BooleanStruct(false);
-                if (bs_.sameReference(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
-                }
-            }
-        }
-        return _operation.getOrder() + 1;
     }
 }

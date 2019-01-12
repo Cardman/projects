@@ -57,7 +57,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -111,7 +111,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -167,7 +167,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -223,7 +223,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -281,7 +281,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -342,7 +342,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -404,7 +404,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -472,7 +472,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -536,7 +536,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -593,7 +593,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -654,7 +654,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -722,7 +722,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -782,7 +782,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -839,7 +839,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
-        initializeClass("pkg.ExTwo", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -871,7 +871,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
-        initializeClass("pkg.ExTwo", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -906,7 +906,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExOne");
-        initializeClass("pkg.ExOne", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExOne", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -936,7 +936,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -969,7 +969,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1018,7 +1018,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1066,7 +1066,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1114,7 +1114,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1157,7 +1157,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1197,7 +1197,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1245,7 +1245,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -1288,7 +1288,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
@@ -1328,7 +1328,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        initializeClass("pkgtwo.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -1368,7 +1368,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        initializeClass("pkgtwo.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -1411,7 +1411,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1445,7 +1445,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1478,7 +1478,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1513,7 +1513,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1548,7 +1548,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1592,7 +1592,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1636,7 +1636,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1684,7 +1684,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1729,7 +1729,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1788,7 +1788,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1847,7 +1847,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        initializeClass("pkg.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1886,7 +1886,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        initializeClass("pkgtwo.ExThree", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -1942,7 +1942,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2017,7 +2017,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2092,7 +2092,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2167,7 +2167,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
@@ -2235,7 +2235,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2284,7 +2284,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2333,7 +2333,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2393,7 +2393,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2453,7 +2453,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2518,7 +2518,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2545,7 +2545,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2580,7 +2580,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2602,7 +2602,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2646,7 +2646,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2671,7 +2671,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");
@@ -2687,7 +2687,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        initializeClass("pkg.ExThree", cont_);
+
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -2696,7 +2696,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");
@@ -2721,7 +2721,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        initializeClass("pkg.ExThree", cont_);
+
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct field_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
@@ -2773,7 +2773,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2844,7 +2844,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2866,7 +2866,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2913,7 +2913,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -2964,7 +2964,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -3012,7 +3012,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -3075,7 +3075,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument2FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance:\n");
@@ -3105,7 +3105,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");

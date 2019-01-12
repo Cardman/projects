@@ -16,16 +16,8 @@ public final class MissingReturnMethod extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),message_,SEP_KEY_VAL,id,SEP_INFO);
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String _id) {
         id = _id;
-    }
-
-    public String getReturning() {
-        return returning;
     }
 
     public void setReturning(String _returning) {

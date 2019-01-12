@@ -14,13 +14,12 @@ public final class ExecCallDynMethodOperation extends ExecReflectableInvokingOpe
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_= getPreviousArg(this, _nodes, _conf);
         Argument res_ = prepareCallDyn(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
 
 }

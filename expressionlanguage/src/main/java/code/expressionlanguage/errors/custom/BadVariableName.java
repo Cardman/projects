@@ -14,10 +14,6 @@ public final class BadVariableName extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,varName,SEP_INFO);
     }
 
-    public String getVarName() {
-        return varName;
-    }
-
     public void setVarName(String _className) {
         varName = _className;
     }

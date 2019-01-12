@@ -18,18 +18,16 @@ public final class ExecCatOperation extends ExecNumericOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode o_ = chidren_.first();
         Argument a_ = getArgument(_nodes,o_);
         o_ = chidren_.last();
         Argument c_ = getArgument(_nodes,o_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
-        Argument r_ = localSumDiff(a_, c_, _conf);
-        a_ = r_;
+        a_ = localSumDiff(a_, c_, _conf);
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
     @Override
     public void quickCalculate(Analyzable _conf) {

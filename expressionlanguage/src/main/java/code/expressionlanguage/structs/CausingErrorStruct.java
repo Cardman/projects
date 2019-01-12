@@ -27,11 +27,6 @@ public final class CausingErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public ArrayStruct getStack() {
-        return stack;
-    }
-
-    @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
@@ -49,12 +44,18 @@ public final class CausingErrorStruct implements ErroneousStruct {
         return this == _other;
     }
 
-    public StringStruct getMessage() {
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
         return new StringStruct(message);
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public Struct getStack() {
+        return stack;
+    }
+
+    @Override
+    public Struct getMessage() {
         return new StringStruct(message);
     }
 }

@@ -24,10 +24,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     MemberCallingsBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
     }
 
-    @Override
     public final void buildFctInstructions(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (!(getParent() instanceof RootBlock) && !(this instanceof OperatorBlock)) {
@@ -127,7 +126,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             }
             en_.abrupt(_cont, anEl_);
             if (en_ instanceof BracedBlock) {
-                ((BracedBlock)en_).abruptGroup(_cont, anEl_);
+                ((BracedBlock)en_).abruptGroup(anEl_);
             }
             en_.setAssignmentAfter(_cont, anEl_);
             if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getRealLabel().isEmpty()) {
@@ -143,7 +142,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 par_ = en_.getParent();
                 _cont.getAnalyzing().setCurrentBlock(par_);
                 par_.abrupt(_cont, anEl_);
-                par_.abruptGroup(_cont, anEl_);
+                par_.abruptGroup(anEl_);
                 par_.setAssignmentAfter(_cont, anEl_);
                 if (par_ == this) {
                     return;

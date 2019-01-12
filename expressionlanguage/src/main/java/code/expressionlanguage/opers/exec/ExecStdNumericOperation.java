@@ -18,8 +18,8 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
         oper = _n.getOp();
     }
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode o_ = chidren_.first();
         Argument a_ = getArgument(_nodes,o_);
@@ -30,7 +30,6 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
         r_ = calculateOper(a_, oper, c_, _conf);
         a_ = r_;
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _an);

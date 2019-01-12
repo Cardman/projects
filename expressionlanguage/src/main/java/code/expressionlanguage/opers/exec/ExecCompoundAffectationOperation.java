@@ -24,12 +24,10 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
     public void setup() {
         settable = ExecAffectationOperation.tryGetSettable(this);
     }
-    public ExecSettableElResult getSettable() {
-        return settable;
-    }
+
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<ExecOperationNode> list_ = getChildrenNodes();
         ExecOperationNode right_ = list_.last();
         Argument rightArg_ = getArgument(_nodes,right_);
@@ -45,18 +43,17 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
             MethodId id_ = classMethodId.getConstraints();
             ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0);
             ExecInvokingOperation.callOperator(_conf, classNameFound_, id_, firstArgs_);
-            return Argument.createVoid();
+            Argument.createVoid();
+            return;
         }
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
+    public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

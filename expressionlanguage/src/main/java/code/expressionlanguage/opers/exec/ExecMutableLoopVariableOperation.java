@@ -31,18 +31,16 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
         if (resultCanBeSet()) {
             setQuickSimpleArgument(arg_, _conf, _nodes);
         } else {
             setSimpleArgument(arg_, _conf, _nodes);
         }
-        return arg_;
     }
 
-    @Override
     public boolean resultCanBeSet() {
         return variable;
     }
@@ -135,9 +133,6 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public String getVariableName() {
-        return variableName;
-    }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         return endCalculate(_conf, _nodes, false, null, _right);

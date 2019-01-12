@@ -52,15 +52,12 @@ public abstract class StandardType implements GeneType {
         }
         return _fullName.substring(0, indexDot_);
     }
-    /** Copy the list*/
-    public abstract StringList getDirectSuperClasses(Analyzable _classes);
 
     @Override
     public GeneType getOuter() {
         return this;
     }
-    /** Copy the list*/
-    public abstract StringList getDirectSuperClasses();
+
     public abstract StringList getDirectSuperTypes();
 
     public abstract StringList getDirectInterfaces();
@@ -82,13 +79,11 @@ public abstract class StandardType implements GeneType {
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
-                String baseType_ = c;
-                StandardType stdType_ = _classes.getStandards().getVal(baseType_);
+                StandardType stdType_ = _classes.getStandards().getVal(c);
                 StringList superTypes_ = stdType_.getDirectSuperTypes();
                 for (String t: superTypes_) {
-                    String format_ = t;
-                    list_.add(format_);
-                    next_.add(format_);
+                    list_.add(t);
+                    next_.add(t);
                 }
             }
             if (next_.isEmpty()) {
@@ -107,10 +102,7 @@ public abstract class StandardType implements GeneType {
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();
     }
-    @Override
-    public StringMap<TypeVar> getParamTypesMap() {
-        return new StringMap<TypeVar>();
-    }
+
     public StringMap<StandardField> getFields() {
         return fields;
     }
@@ -119,7 +111,6 @@ public abstract class StandardType implements GeneType {
         return allOverridingMethods;
     }
 
-    @Override
     public final String getName() {
         return name;
     }
@@ -132,11 +123,6 @@ public abstract class StandardType implements GeneType {
     @Override
     public final AccessEnum getAccess() {
         return AccessEnum.PUBLIC;
-    }
-
-    @Override
-    public final String getFullDefinition() {
-        return getFullName();
     }
 
     @Override

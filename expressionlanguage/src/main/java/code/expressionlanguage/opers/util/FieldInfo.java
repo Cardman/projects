@@ -31,10 +31,9 @@ public final class FieldInfo {
         }
         return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
     }
-    public static FieldInfo newFieldMetaInfo(String _name,String _declaringClass, String _type,
-            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont) {
-        String formattedType_ = _type;
-        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
+    public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
+                                             boolean _staticField, boolean _finalField, boolean _enumField) {
+        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _enumField);
     }
     public ClassField getClassField() {
         return classField;

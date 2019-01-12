@@ -8,7 +8,7 @@ public abstract class AbruptBlock extends Leaf {
 
     AbruptBlock(ContextEl _importingPage, BracedBlock _m,
             OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
     }
 
     @Override

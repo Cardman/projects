@@ -27,8 +27,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         if (classMethodId != null) {
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add((ExecOperationNode) settable);
@@ -39,20 +39,19 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             MethodId id_ = classMethodId.getConstraints();
             ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0);
             ExecInvokingOperation.callOperator(_conf, classNameFound_, id_, firstArgs_);
-            return Argument.createVoid();
+            Argument.createVoid();
+            return;
         }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf,
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
+    public void endCalculate(ContextEl _conf,
+                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {

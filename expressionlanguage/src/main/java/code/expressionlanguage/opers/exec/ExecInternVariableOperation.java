@@ -18,14 +18,13 @@ public final class ExecInternVariableOperation extends ExecLeafOperation impleme
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         LocalVariable locVar_ = ip_.getInternVars().getVal(variableName);
         Argument a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
 }

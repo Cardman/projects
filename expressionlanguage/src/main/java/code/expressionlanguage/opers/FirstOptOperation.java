@@ -71,11 +71,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setSimpleArgumentAna(arguments_.first(), _conf);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        return _arguments.first();
-    }
-
     public int getOffset() {
         return offset;
     }

@@ -4,7 +4,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 
 public interface FunctionBlock {
 
-    void buildFctInstructions(ContextEl _cont);
     boolean isStaticContext();
 
     OffsetsBlock getOffset();

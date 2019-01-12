@@ -41,7 +41,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
         }
@@ -89,7 +89,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        assignWhenTrue(_an, _anEl);
+        assignWhenTrue(_an);
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

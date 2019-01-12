@@ -338,7 +338,7 @@ public final class PartTypeUtil {
         }
         return root_.getAnalyzedType();
     }
-    public static String processPrettyType(String _input,ExecutableCode _an) {
+    public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
         Numbers<Integer> indexes_ = ParserType.getIndexesExec(_input);
         AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);

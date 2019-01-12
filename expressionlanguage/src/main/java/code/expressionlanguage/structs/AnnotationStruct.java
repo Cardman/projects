@@ -24,9 +24,6 @@ public final class AnnotationStruct implements FieldableStruct {
         return NullStruct.NULL_VALUE;
     }
 
-    public String toAnnotationString() {
-        return ExportAnnotationUtil.exportAnnotation(this);
-    }
     @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof AnnotationStruct)) {

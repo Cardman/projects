@@ -15,10 +15,6 @@ public final class UnexpectedTypeError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),TYPE,SEP_KEY_VAL,type,SEP_INFO);
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setType(String _type) {
         type = _type;
     }

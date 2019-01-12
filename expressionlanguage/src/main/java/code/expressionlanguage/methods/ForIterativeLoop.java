@@ -136,12 +136,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         return eqOffset;
     }
 
-    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
 
-    @Override
     public String getClassName() {
         return className;
     }
@@ -448,9 +446,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
@@ -788,7 +786,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
             _anEl.completeAbruptGroup(this);
         }

@@ -319,7 +319,6 @@ public final class ElResolver {
         return d_;
     }
     private static void processAfterInstuctionKeyWord(String _string,Delimiters _d, ResultAfterInstKeyWord _out, Analyzable _conf) {
-        Delimiters d_ = _d;
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -350,16 +349,16 @@ public final class ElResolver {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
             if (indexParRight_ + 1 >= len_) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
-            d_.getDelCast().add(i_);
-            d_.getDelCast().add(indexParRight_);
-            d_.getDelCastExtract().add(EMPTY_STRING);
+            _d.getDelCast().add(i_);
+            _d.getDelCast().add(indexParRight_);
+            _d.getDelCastExtract().add(EMPTY_STRING);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -368,11 +367,11 @@ public final class ElResolver {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
-            d_.getDelVararg().add(i_);
-            d_.getDelVararg().add(indexParRight_);
+            _d.getDelVararg().add(i_);
+            _d.getDelVararg().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -381,11 +380,11 @@ public final class ElResolver {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
-            d_.getDelClass().add(i_);
-            d_.getDelClass().add(indexParRight_);
+            _d.getDelClass().add(i_);
+            _d.getDelClass().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -396,7 +395,7 @@ public final class ElResolver {
                 //instanceof
                 if (i_ <= 0 || StringList.isDollarWordChar(_string.charAt(i_-1))) {
                     //error
-                    d_.setBadOffset(i_-1);
+                    _d.setBadOffset(i_-1);
                     return;
                 }
                 while (next_ < len_) {
@@ -447,7 +446,7 @@ public final class ElResolver {
                             next_++;
                         }
                         if (nbOpened_ > 0) {
-                            d_.setBadOffset(next_);
+                            _d.setBadOffset(next_);
                             return;
                         }
                     }
@@ -483,14 +482,14 @@ public final class ElResolver {
                         }
                     }
                 }
-                d_.getAllowedOperatorsIndexes().add(i_);
-                d_.getDelInstanceof().add(i_);
-                d_.getDelInstanceof().add(next_);
+                _d.getAllowedOperatorsIndexes().add(i_);
+                _d.getDelInstanceof().add(i_);
+                _d.getDelInstanceof().add(next_);
                 i_ = next_;
                 _out.setNextIndex(i_);
                 return;
             }
-            d_.setBadOffset(next_);
+            _d.setBadOffset(next_);
             return;
         }
         if (ContextEl.startsWithKeyWord(sub_, keyWordNew_)) {
@@ -510,7 +509,7 @@ public final class ElResolver {
                     continue;
                 }
                 if (curLoc_ == PAR_LEFT) {
-                    d_.getCallings().add(j_);
+                    _d.getCallings().add(j_);
                     break;
                 }
                 if (curLoc_ == ANN_ARR_LEFT) {
@@ -524,7 +523,7 @@ public final class ElResolver {
                 j_++;
             }
             if (j_ >= len_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             i_ = j_;
@@ -536,11 +535,11 @@ public final class ElResolver {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
-            d_.getDelLambda().add(i_);
-            d_.getDelLambda().add(indexParRight_);
+            _d.getDelLambda().add(i_);
+            _d.getDelLambda().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -550,11 +549,11 @@ public final class ElResolver {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                d_.setBadOffset(len_);
+                _d.setBadOffset(len_);
                 return;
             }
-            d_.getDelIds().add(i_);
-            d_.getDelIds().add(indexParRight_);
+            _d.getDelIds().add(i_);
+            _d.getDelIds().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -568,17 +567,17 @@ public final class ElResolver {
                     break;
                 }
                 if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
-                    d_.setBadOffset(afterStatic_);
+                    _d.setBadOffset(afterStatic_);
                     return;
                 }
                 afterStatic_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             if (afterStatic_ + 1 >= len_) {
-                d_.setBadOffset(afterStatic_);
+                _d.setBadOffset(afterStatic_);
                 return;
             }
             while (afterStatic_ < len_) {
@@ -589,25 +588,25 @@ public final class ElResolver {
             }
             afterStatic_++;
             if (afterStatic_ + 1 >= len_) {
-                d_.setBadOffset(afterStatic_);
+                _d.setBadOffset(afterStatic_);
                 return;
             }
             while (afterStatic_ < len_) {
                 if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
                     if (_string.charAt(afterStatic_) == DOT_VAR) {
-                        d_.getDelKeyWordStatic().add(i_);
-                        d_.getDelKeyWordStatic().add(afterStatic_);
-                        d_.getDelKeyWordStaticExtract().add(EMPTY_STRING);
+                        _d.getDelKeyWordStatic().add(i_);
+                        _d.getDelKeyWordStatic().add(afterStatic_);
+                        _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
                         i_ = afterStatic_;
                         break;
                     }
-                    d_.setBadOffset(afterStatic_);
+                    _d.setBadOffset(afterStatic_);
                     return;
                 }
                 afterStatic_++;
             }
             if (afterStatic_ >= len_) {
-                d_.setBadOffset(afterStatic_);
+                _d.setBadOffset(afterStatic_);
                 return;
             }
             _out.setNextIndex(i_);
@@ -623,17 +622,17 @@ public final class ElResolver {
                 }
                 if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
                     if (_string.charAt(afterSuper_) != PAR_LEFT) {
-                        d_.setBadOffset(afterSuper_);
+                        _d.setBadOffset(afterSuper_);
                         return;
                     }
                     _out.setCallCtor(true);
-                    d_.getCallings().add(afterSuper_);
+                    _d.getCallings().add(afterSuper_);
                     break;
                 }
                 afterSuper_++;
             }
             if (afterSuper_ + 1 >= len_) {
-                d_.setBadOffset(afterSuper_);
+                _d.setBadOffset(afterSuper_);
                 return;
             }
             if (!foundHat_) {
@@ -654,14 +653,14 @@ public final class ElResolver {
             }
             if (afterSuper_ < len_) {
                 if (_string.charAt(afterSuper_) != PAR_LEFT) {
-                    d_.getDelKeyWordSuper().add(i_);
-                    d_.getDelKeyWordSuper().add(afterSuper_);
+                    _d.getDelKeyWordSuper().add(i_);
+                    _d.getDelKeyWordSuper().add(afterSuper_);
                 } else {
-                    d_.getCallings().add(afterSuper_);
+                    _d.getCallings().add(afterSuper_);
                 }
             } else {
-                d_.getDelKeyWordSuper().add(i_);
-                d_.getDelKeyWordSuper().add(afterSuper_);
+                _d.getDelKeyWordSuper().add(i_);
+                _d.getDelKeyWordSuper().add(afterSuper_);
             }
             i_ = afterSuper_;
             _out.setNextIndex(i_);
@@ -676,17 +675,17 @@ public final class ElResolver {
                     break;
                 }
                 if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
-                    d_.setBadOffset(afterClassChoice_);
+                    _d.setBadOffset(afterClassChoice_);
                     return;
                 }
                 afterClassChoice_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             while (afterClassChoice_ < len_) {
@@ -696,7 +695,7 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             afterClassChoice_++;
@@ -717,27 +716,27 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (!pass_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             if (afterClassChoice_ >= len_) {
                 //field
-                d_.getDelKeyWordClassChoice().add(i_);
-                d_.getDelKeyWordClassChoice().add(afterClassChoice_);
+                _d.getDelKeyWordClassChoice().add(i_);
+                _d.getDelKeyWordClassChoice().add(afterClassChoice_);
                 i_ = afterClassChoice_;
                 _out.setNextIndex(i_);
                 return;
             }
             if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
                 //fct
-                d_.getCallings().add(afterClassChoice_);
+                _d.getCallings().add(afterClassChoice_);
                 i_ = afterClassChoice_;
                 _out.setNextIndex(i_);
                 return;
             }
             //field
-            d_.getDelKeyWordClassChoice().add(i_);
-            d_.getDelKeyWordClassChoice().add(afterClassChoice_);
+            _d.getDelKeyWordClassChoice().add(i_);
+            _d.getDelKeyWordClassChoice().add(afterClassChoice_);
             i_ = afterClassChoice_;
             _out.setNextIndex(i_);
             return;
@@ -751,17 +750,17 @@ public final class ElResolver {
                     break;
                 }
                 if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
-                    d_.setBadOffset(afterClassChoice_);
+                    _d.setBadOffset(afterClassChoice_);
                     return;
                 }
                 afterClassChoice_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             while (afterClassChoice_ < len_) {
@@ -771,7 +770,7 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             afterClassChoice_++;
@@ -792,27 +791,27 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (!pass_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             if (afterClassChoice_ >= len_) {
                 //field
-                d_.getDelKeyWordSuperAccess().add(i_);
-                d_.getDelKeyWordSuperAccess().add(afterClassChoice_);
+                _d.getDelKeyWordSuperAccess().add(i_);
+                _d.getDelKeyWordSuperAccess().add(afterClassChoice_);
                 i_ = afterClassChoice_;
                 _out.setNextIndex(i_);
                 return;
             }
             if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
                 //fct
-                d_.getCallings().add(afterClassChoice_);
+                _d.getCallings().add(afterClassChoice_);
                 i_ = afterClassChoice_;
                 _out.setNextIndex(i_);
                 return;
             }
             //field
-            d_.getDelKeyWordSuperAccess().add(i_);
-            d_.getDelKeyWordSuperAccess().add(afterClassChoice_);
+            _d.getDelKeyWordSuperAccess().add(i_);
+            _d.getDelKeyWordSuperAccess().add(afterClassChoice_);
             i_ = afterClassChoice_;
             _out.setNextIndex(i_);
             return;
@@ -826,17 +825,17 @@ public final class ElResolver {
                     break;
                 }
                 if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
-                    d_.setBadOffset(afterClassChoice_);
+                    _d.setBadOffset(afterClassChoice_);
                     return;
                 }
                 afterClassChoice_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             while (afterClassChoice_ < len_) {
@@ -846,7 +845,7 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             afterClassChoice_++;
@@ -867,22 +866,22 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (!pass_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             if (afterClassChoice_ >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
                 //fct
-                d_.getCallings().add(afterClassChoice_);
+                _d.getCallings().add(afterClassChoice_);
                 i_ = afterClassChoice_;
                 _out.setNextIndex(i_);
                 return;
             }
             //field
-            d_.setBadOffset(afterClassChoice_);
+            _d.setBadOffset(afterClassChoice_);
             return;
         }
         if (ContextEl.startsWithKeyWord(sub_, keyWordInterfaces_)) {
@@ -894,17 +893,17 @@ public final class ElResolver {
                     break;
                 }
                 if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
-                    d_.setBadOffset(afterClassChoice_);
+                    _d.setBadOffset(afterClassChoice_);
                     return;
                 }
                 afterClassChoice_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(len_ - 1);
+                _d.setBadOffset(len_ - 1);
                 return;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             while (afterClassChoice_ < len_) {
@@ -914,7 +913,7 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (afterClassChoice_ + 1 >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             afterClassChoice_++;
@@ -926,16 +925,16 @@ public final class ElResolver {
                 afterClassChoice_++;
             }
             if (afterClassChoice_ >= len_) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             char loc_ = _string.charAt(afterClassChoice_);
             if (loc_ != PAR_LEFT) {
-                d_.setBadOffset(afterClassChoice_);
+                _d.setBadOffset(afterClassChoice_);
                 return;
             }
             _out.setCallCtor(true);
-            d_.getCallings().add(afterClassChoice_);
+            _d.getCallings().add(afterClassChoice_);
             i_ = afterClassChoice_;
             _out.setNextIndex(i_);
             return;
@@ -955,11 +954,11 @@ public final class ElResolver {
                 afterSuper_++;
             }
             if (!foundHat_) {
-                d_.setBadOffset(afterSuper_);
+                _d.setBadOffset(afterSuper_);
                 return;
             }
             if (afterSuper_ + 1 >= len_) {
-                d_.setBadOffset(afterSuper_);
+                _d.setBadOffset(afterSuper_);
                 return;
             }
             afterSuper_++;
@@ -974,9 +973,9 @@ public final class ElResolver {
                 afterSuper_++;
             }
             if (afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT) {
-                d_.getCallings().add(afterSuper_);
+                _d.getCallings().add(afterSuper_);
             } else {
-                d_.setBadOffset(afterSuper_);
+                _d.setBadOffset(afterSuper_);
                 return;
             }
             i_ = afterSuper_;
@@ -994,7 +993,7 @@ public final class ElResolver {
             }
             if (afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT) {
                 _out.setCallCtor(true);
-                d_.getCallings().add(afterSuper_);
+                _d.getCallings().add(afterSuper_);
             }
             i_ = afterSuper_;
             _out.setNextIndex(i_);
@@ -1021,13 +1020,13 @@ public final class ElResolver {
         }
         for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordValueOf_,keyWordValues_)) {
             if (ContextEl.startsWithKeyWord(sub_, s)) {
-                int index_ = processPredefinedMethod(_string, i_, s, len_);
+                int index_ = processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {
-                    d_.setBadOffset(-index_);
+                    _d.setBadOffset(-index_);
                     return;
                 }
                 foundValue_ = true;
-                d_.getCallings().add(index_);
+                _d.getCallings().add(index_);
                 i_ = index_;
                 break;
             }
@@ -1039,7 +1038,6 @@ public final class ElResolver {
         _conf.processInternKeyWord(_string, i_, _out);
     }
     private static void processWords(String _string,Delimiters _d, ResultAfterDoubleDotted _out,Analyzable _an) {
-        Delimiters d_ = _d;
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         int lastDoubleDot_ = _out.getLastDoubleDot();
@@ -1055,12 +1053,12 @@ public final class ElResolver {
             NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false, opt_);
             int nextIndex_ = res_.getNextIndex();
             if (nextIndex_ < 0) {
-                d_.setBadOffset(-nextIndex_);
+                _d.setBadOffset(-nextIndex_);
                 return;
             }
-            d_.getNbInfos().add(res_.getInfos());
-            d_.getDelNumbers().add(i_);
-            d_.getDelNumbers().add(nextIndex_);
+            _d.getNbInfos().add(res_.getInfos());
+            _d.getDelNumbers().add(i_);
+            _d.getDelNumbers().add(nextIndex_);
             _out.setNextIndex(nextIndex_);
             return;
         }
@@ -1070,11 +1068,11 @@ public final class ElResolver {
             if (!StringList.isDollarWordChar(locChar_)) {
                 if (locChar_ != Templates.PREFIX_VAR_TYPE_CHAR) {
                     if (locChar_ == DELIMITER_CHAR) {
-                        d_.setBadOffset(i_);
+                        _d.setBadOffset(i_);
                         return;
                     }
                     if (locChar_ == DELIMITER_STRING) {
-                        d_.setBadOffset(i_);
+                        _d.setBadOffset(i_);
                         return;
                     }
                     int bk_ = i_;
@@ -1122,10 +1120,10 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_FIELD.length());
                         info_.setName(word_);
                         i_ += GET_FIELD.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                         tolerateDot_ = true;
                     } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-                        d_.setBadOffset(i_+2);
+                        _d.setBadOffset(i_+2);
                         return;
                     } else {
                         type_ = ConstType.LOOP_INDEX;
@@ -1134,7 +1132,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_INDEX.length());
                         info_.setName(word_);
                         i_ += GET_INDEX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
                     if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
@@ -1144,7 +1142,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_CATCH_VAR.length());
                         info_.setName(_string.substring(beginWord_, i_));
                         i_ += GET_CATCH_VAR.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == suffix_) {
                         type_ = ConstType.PARAM;
                         info_.setKind(type_);
@@ -1152,7 +1150,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_PARAM.length());
                         info_.setName(word_);
                         i_ += GET_PARAM.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else {
                         type_ = ConstType.LOC_VAR;
                         info_.setKind(type_);
@@ -1160,7 +1158,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_LOC_VAR.length());
                         info_.setName(word_);
                         i_ += GET_LOC_VAR.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 } else {
                     type_ = ConstType.LOOP_VAR;
@@ -1169,7 +1167,7 @@ public final class ElResolver {
                     info_.setLastChar(i_ + GET_ATTRIBUTE.length());
                     info_.setName(word_);
                     i_ += GET_ATTRIBUTE.length();
-                    d_.getVariables().add(info_);
+                    _d.getVariables().add(info_);
                 }
             } else {
                 other_ = true;
@@ -1184,10 +1182,10 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_FIELD.length());
                         info_.setName(word_);
                         i_ += GET_FIELD.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                         tolerateDot_ = true;
                     } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-                        d_.setBadOffset(i_+2);
+                        _d.setBadOffset(i_+2);
                         return;
                     } else {
                         type_ = ConstType.LOOP_INDEX;
@@ -1196,7 +1194,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+GET_INDEX.length());
                         info_.setName(word_);
                         i_ += GET_INDEX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
@@ -1207,7 +1205,7 @@ public final class ElResolver {
                             info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                             info_.setName(word_);
                             i_ += SIMPLE_SIFFIX.length();
-                            d_.getVariables().add(info_);
+                            _d.getVariables().add(info_);
                             tolerateDot_ = true;
                         } else {
                             other_ = true;
@@ -1219,7 +1217,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.getAnalyzing().containsCatchVar(word_)) {
                         type_ = ConstType.CATCH_VAR;
                         info_.setKind(type_);
@@ -1227,7 +1225,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.containsMutableLoopVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
@@ -1235,7 +1233,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.getAnalyzing().containsVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
@@ -1243,7 +1241,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else {
                         type_ = ConstType.LOC_VAR;
                         info_.setKind(type_);
@@ -1251,7 +1249,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 }
             } else {
@@ -1266,7 +1264,7 @@ public final class ElResolver {
                     info_.setLastChar(i_+GET_INDEX.length());
                     info_.setName(word_);
                     i_ += GET_INDEX.length();
-                    d_.getVariables().add(info_);
+                    _d.getVariables().add(info_);
                     tolerateDot_ = true;
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
@@ -1277,7 +1275,7 @@ public final class ElResolver {
                             info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                             info_.setName(word_);
                             i_ += SIMPLE_SIFFIX.length();
-                            d_.getVariables().add(info_);
+                            _d.getVariables().add(info_);
                             tolerateDot_ = true;
                         } else {
                              other_ = true;
@@ -1289,7 +1287,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.getAnalyzing().containsCatchVar(word_)) {
                         type_ = ConstType.CATCH_VAR;
                         info_.setKind(type_);
@@ -1297,7 +1295,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.containsMutableLoopVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
@@ -1305,7 +1303,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.getAnalyzing().containsVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
@@ -1313,7 +1311,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else if (_an.getAnalyzing().containsLocalVar(word_)) {
                         type_ = ConstType.LOC_VAR;
                         info_.setKind(type_);
@@ -1321,7 +1319,7 @@ public final class ElResolver {
                         info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     } else {
                         type_ = ConstType.CUST_FIELD;
                         info_.setKind(type_);
@@ -1329,7 +1327,7 @@ public final class ElResolver {
                         info_.setLastChar(i_+SIMPLE_SIFFIX.length());
                         info_.setName(word_);
                         i_ += SIMPLE_SIFFIX.length();
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 }
             } else {
@@ -1345,7 +1343,7 @@ public final class ElResolver {
                     info_.setFirstChar(beginWord_);
                     info_.setLastChar(i_);
                     info_.setName(word_);
-                    d_.getVariables().add(info_);
+                    _d.getVariables().add(info_);
                 } else {
                     other_ = true;
                 }
@@ -1355,35 +1353,35 @@ public final class ElResolver {
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                d_.getVariables().add(info_);
+                _d.getVariables().add(info_);
             } else if (_an.getAnalyzing().containsCatchVar(word_)) {
                 type_ = ConstType.CATCH_VAR;
                 info_.setKind(type_);
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                d_.getVariables().add(info_);
+                _d.getVariables().add(info_);
             } else if (_an.containsMutableLoopVar(word_)) {
                 type_ = ConstType.LOOP_VAR;
                 info_.setKind(type_);
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                d_.getVariables().add(info_);
+                _d.getVariables().add(info_);
             } else if (_an.getAnalyzing().containsVar(word_)) {
                 type_ = ConstType.LOOP_VAR;
                 info_.setKind(type_);
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                d_.getVariables().add(info_);
+                _d.getVariables().add(info_);
             } else if (_an.getAnalyzing().containsLocalVar(word_)) {
                 type_ = ConstType.LOC_VAR;
                 info_.setKind(type_);
                 info_.setFirstChar(beginWord_);
                 info_.setLastChar(i_);
                 info_.setName(word_);
-                d_.getVariables().add(info_);
+                _d.getVariables().add(info_);
             } else {
                 other_ = true;
             }
@@ -1408,10 +1406,10 @@ public final class ElResolver {
                     break;
                 }
                 int prIndex_ = -1;
-                if (!d_.getVariables().isEmpty()) {
-                    VariableInfo vi_ = d_.getVariables().last();
+                if (!_d.getVariables().isEmpty()) {
+                    VariableInfo vi_ = _d.getVariables().last();
                     if (vi_.getKind() == ConstType.WORD) {
-                        Numbers<Integer> indexes_ = d_.getAllowedOperatorsIndexes();
+                        Numbers<Integer> indexes_ = _d.getAllowedOperatorsIndexes();
                         if (!indexes_.isEmpty()) {
                             int lastOp_ = indexes_.last();
                             if (lastOp_ == prChar_ && _string.charAt(lastOp_) == DOT_VAR) {
@@ -1422,10 +1420,10 @@ public final class ElResolver {
                         prIndex_ = prChar_ + 1;
                     }
                 }
-                if (!d_.getVariables().isEmpty() && d_.getVariables().last().getLastChar() == prIndex_) {
-                    d_.getVariables().add(info_);
+                if (!_d.getVariables().isEmpty() && _d.getVariables().last().getLastChar() == prIndex_) {
+                    _d.getVariables().add(info_);
                 } else if (!look_.isEmpty()) {
-                    d_.getVariables().add(info_);
+                    _d.getVariables().add(info_);
                 } else {
                     //if the field exist then look for an imported type (without templates) then a complete type
                     if (prev_.endsWith(StringList.concat(dot_,dot_))) {
@@ -1467,19 +1465,19 @@ public final class ElResolver {
                         String id_ = allparts_.toString();
                         String typeRes_ = _an.resolveCorrectTypeWithoutErrors(id_, false);
                         if (!typeRes_.isEmpty()) {
-                            d_.getDelKeyWordStatic().add(lastDoubleDot_);
+                            _d.getDelKeyWordStatic().add(lastDoubleDot_);
                             int next_;
                             next_ = j_;
-                            d_.getDelKeyWordStatic().add(next_);
-                            d_.getDelKeyWordStaticExtract().add(typeRes_);
+                            _d.getDelKeyWordStatic().add(next_);
+                            _d.getDelKeyWordStaticExtract().add(typeRes_);
                             i_ = next_;
                         } else {
-                            d_.getVariables().add(info_);
+                            _d.getVariables().add(info_);
                         }
                     } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
-                        i_ = processFieldsStaticAccess(_an, ctorCall_, _string, beginWord_, word_, i_, d_, aff_);
+                        i_ = processFieldsStaticAccess(_an, ctorCall_, _string, beginWord_, word_, i_, _d);
                     } else {
-                        d_.getVariables().add(info_);
+                        _d.getVariables().add(info_);
                     }
                 }
             } else {
@@ -1487,12 +1485,12 @@ public final class ElResolver {
                 while (_string.charAt(j_) != PAR_LEFT) {
                     j_++;
                 }
-                d_.getCallings().add(j_);
+                _d.getCallings().add(j_);
             }
         }
         String nextPart_ = _string.substring(i_).trim();
         if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == suffix_)) {
-            d_.setBadOffset(i_);
+            _d.setBadOffset(i_);
             return;
         }
         _out.setNextIndex(i_);
@@ -1512,8 +1510,6 @@ public final class ElResolver {
         int i_ = _out.getDoubleDotted().getNextIndex();
         int lastDoubleDot_ = _out.getDoubleDotted().getLastDoubleDot();
         boolean beginOrEnd_ = _out.isBeginOrEnd();
-        boolean ctorCall_ = _ctorCall;
-        int beginIndex_ = _beginIndex;
         Options opt_ = _conf.getOptions();
         KeyWords keyWords_ = _conf.getKeyWords();
         int nbChars_ = _out.getNbChars();
@@ -1664,7 +1660,7 @@ public final class ElResolver {
             _out.setBeginOrEnd(beginOrEnd_);
         }
         if (curChar_ == PAR_LEFT) {
-            int j_ = indexAfterPossibleCast(_conf, ctorCall_, _string, i_, len_, _dout);
+            int j_ = indexAfterPossibleCast(_conf, _ctorCall, _string, i_, len_, _dout);
             if (j_ > i_) {
                 i_ = j_;
                 _out.getDoubleDotted().setNextIndex(i_);
@@ -1770,7 +1766,7 @@ public final class ElResolver {
             if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != PLUS_CHAR) {
                 escapeOpers_ = true;
             }
-            if (beginIndex_ == i_) {
+            if (_beginIndex == i_) {
                 addOp_ = false;
             }
         }
@@ -1778,7 +1774,7 @@ public final class ElResolver {
             if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != MINUS_CHAR) {
                 escapeOpers_ = true;
             }
-            if (beginIndex_ == i_) {
+            if (_beginIndex == i_) {
                 addOp_ = false;
             }
         }
@@ -1814,7 +1810,7 @@ public final class ElResolver {
         }
         if (curChar_ == NEG_BOOL_CHAR) {
             escapeOpers_ = true;
-            if (beginIndex_ == i_) {
+            if (_beginIndex == i_) {
                 addOp_ = false;
             }
         }
@@ -1894,7 +1890,7 @@ public final class ElResolver {
                 }
                 if (curLoc_ == PAR_LEFT) {
                     int before_ = _dout.getDelCastExtract().size();
-                    int k_ = indexAfterPossibleCast(_conf, ctorCall_, _string, j_, len_, _dout);
+                    int k_ = indexAfterPossibleCast(_conf, _ctorCall, _string, j_, len_, _dout);
                     int after_ = _dout.getDelCastExtract().size();
                     j_ = k_;
                     if (before_ != after_) {
@@ -1947,8 +1943,7 @@ public final class ElResolver {
         i_++;
         _out.getDoubleDotted().setNextIndex(i_);
     }
-    private static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor,String _string, int _from, String _word, int _to,Delimiters _d, boolean _aff) {
-        Delimiters d_ = _d;
+    private static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
         int i_ = _from;
         int len_ = _string.length();
         String glClass_ = _conf.getGlobalClass();
@@ -1960,7 +1955,7 @@ public final class ElResolver {
             infoLoc_.setFirstChar(_from);
             infoLoc_.setLastChar(_to);
             infoLoc_.setName(_word);
-            d_.getVariables().add(infoLoc_);
+            _d.getVariables().add(infoLoc_);
             return _to;
         }
         Numbers<Integer> indexes_ = new Numbers<Integer>();
@@ -2128,9 +2123,9 @@ public final class ElResolver {
             if (_conf.getClassBody(start_) == null) {
                 return n_;
             }
-            d_.getDelKeyWordStatic().add(i_);
-            d_.getDelKeyWordStatic().add(n_);
-            d_.getDelKeyWordStaticExtract().add(start_);
+            _d.getDelKeyWordStatic().add(i_);
+            _d.getDelKeyWordStatic().add(n_);
+            _d.getDelKeyWordStaticExtract().add(start_);
             return n_;
         }
         StringBuilder allparts_ = new StringBuilder();
@@ -2161,9 +2156,9 @@ public final class ElResolver {
                 String tr_ = ContextEl.removeDottedSpaces(c);
                 if (_conf.getClassBody(tr_) != null) {
                     int n_ = indexes_.get(index_);
-                    d_.getDelKeyWordStatic().add(i_);
-                    d_.getDelKeyWordStatic().add(n_);
-                    d_.getDelKeyWordStaticExtract().add(tr_);
+                    _d.getDelKeyWordStatic().add(i_);
+                    _d.getDelKeyWordStatic().add(n_);
+                    _d.getDelKeyWordStaticExtract().add(tr_);
                     i_ = n_;
                     found_ = true;
                     break;
@@ -2176,17 +2171,17 @@ public final class ElResolver {
         }
         String tr_ = ContextEl.removeDottedSpaces(id_);
         if (_conf.getClassBody(tr_) != null) {
-            d_.getDelKeyWordStatic().add(i_);
-            d_.getDelKeyWordStatic().add(k_);
-            d_.getDelKeyWordStaticExtract().add(tr_);
+            _d.getDelKeyWordStatic().add(i_);
+            _d.getDelKeyWordStatic().add(k_);
+            _d.getDelKeyWordStaticExtract().add(tr_);
             return k_;
         }
         String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
         if (!typeRes_.isEmpty()) {
-            d_.getDelKeyWordStatic().add(i_);
+            _d.getDelKeyWordStatic().add(i_);
             i_ = k_;
-            d_.getDelKeyWordStatic().add(i_);
-            d_.getDelKeyWordStaticExtract().add(typeRes_);
+            _d.getDelKeyWordStatic().add(i_);
+            _d.getDelKeyWordStaticExtract().add(typeRes_);
             return i_;
         }
         int index_ = 0;
@@ -2194,9 +2189,9 @@ public final class ElResolver {
             tr_ = _conf.resolveCorrectTypeWithoutErrors(c,false);
             if (!tr_.isEmpty()) {
                 int n_ = indexes_.get(index_);
-                d_.getDelKeyWordStatic().add(i_);
-                d_.getDelKeyWordStatic().add(n_);
-                d_.getDelKeyWordStaticExtract().add(tr_);
+                _d.getDelKeyWordStatic().add(i_);
+                _d.getDelKeyWordStatic().add(n_);
+                _d.getDelKeyWordStaticExtract().add(tr_);
                 return n_;
             }
             index_++;
@@ -2207,7 +2202,6 @@ public final class ElResolver {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         int unicode_ = _infos.getUnicode();
-        int len_ = _max;
         char curChar_ = _string.charAt(i_);
         boolean escapedMeta_ = _infos.isEscape();
         IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
@@ -2219,7 +2213,7 @@ public final class ElResolver {
         infos_.setPart(_infos.isPart());
         if (_delimiter == DELIMITER_TEXT) {
             if (curChar_ == DELIMITER_TEXT) {
-                if (i_ + 1 >= len_ ||_string.charAt(i_ + 1) != DELIMITER_TEXT) {
+                if (i_ + 1 >= _max ||_string.charAt(i_ + 1) != DELIMITER_TEXT) {
                     infos_.setPart(false);
                     i_++;
                     infos_.setIndex(i_);
@@ -2252,7 +2246,7 @@ public final class ElResolver {
         }
         if (!escapedMeta_) {
             if (curChar_ == ESCAPE_META_CHAR) {
-                if (i_ + 1 >= len_) {
+                if (i_ + 1 >= _max) {
                     infos_.setIndex(-i_);
                     return infos_;
                 }
@@ -2355,7 +2349,7 @@ public final class ElResolver {
             return infos_;
         }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.substring(i_).startsWith(unicodeStr_) || i_ + unicodeStr_.length() + UNICODE_SIZE > len_) {
+        if (!_string.substring(i_).startsWith(unicodeStr_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             infos_.setIndex(-i_);
             return infos_;
         }
@@ -2365,7 +2359,7 @@ public final class ElResolver {
         infos_.setIndex(i_);
         return infos_;
     }
-    private static int processPredefinedMethod(String _string, int _i, String _name, int _max) {
+    private static int processPredefinedMethod(String _string, int _i, String _name) {
         int afterSuper_ = _i + _name.length();
         int index_ = _string.indexOf(PAR_LEFT,afterSuper_);
         if (index_ < 0) {
@@ -2470,12 +2464,11 @@ public final class ElResolver {
             }
         }
         nbInfos_.setBase(base_);
-        int len_ = _max;
         int j_ = start_ + 1;
         boolean dot_ = false;
         boolean exp_ = false;
         int iExp_ = j_;
-        while (j_ < len_) {
+        while (j_ < _max) {
             char current_ = _string.charAt(j_);
             if (!StringList.isDollarWordChar(current_)) {
                 if (current_ == DOT_VAR) {
@@ -2483,7 +2476,7 @@ public final class ElResolver {
                         output_.setNextIndex(-j_);
                         return output_;
                     }
-                    if (j_ + 1 < len_ && Character.isWhitespace(_string.charAt(j_ + 1))) {
+                    if (j_ + 1 < _max && Character.isWhitespace(_string.charAt(j_ + 1))) {
                         String nextPart_ = _string.substring(j_ + 1).trim();
                         if (nextPart_.isEmpty()) {
                             if (base_ == 10) {
@@ -2500,7 +2493,7 @@ public final class ElResolver {
                             return output_;
                         }
                     }
-                    if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
+                    if (j_ + 1 < _max && _string.charAt(j_ + 1) == DOT_VAR) {
                         output_.setNextIndex(-(j_ + 1));
                         return output_;
                     }
@@ -2519,7 +2512,7 @@ public final class ElResolver {
                 isExp_ = sub_.startsWith(binExp_);
             }
             if (isExp_) {
-                if (j_ + off_ < len_ && Character.isWhitespace(_string.charAt(j_ + off_))) {
+                if (j_ + off_ < _max && Character.isWhitespace(_string.charAt(j_ + off_))) {
                     output_.setNextIndex(-(j_ + off_));
                     return output_;
                 }
@@ -2554,7 +2547,7 @@ public final class ElResolver {
             } else {
                 if (!isDigit(current_, base_) && Character.isLetter(current_)) {
                     if (sub_.startsWith(hexPre_)) {
-                        if (j_ + 1 < len_) {
+                        if (j_ + 1 < _max) {
                             current_ = _string.charAt(j_ + 1);
                             j_+=hexPre_.length();
                         }
@@ -2587,7 +2580,7 @@ public final class ElResolver {
             }
             j_++;
         }
-        if (j_ + 1 >= len_ && dot_) {
+        if (j_ + 1 >= _max && dot_) {
             nbInfos_.setDotted(true);
             nbInfos_.setSuffix(DOUBLE);
             output_.setNextIndex(j_ + 1);
@@ -2629,11 +2622,11 @@ public final class ElResolver {
             if (exp_) {
                 j_+=off_;
                 //_string.charAt(j_) == EXP
-                processExp(_key, _opt, j_, len_, _string, output_);
+                processExp(_key, j_, _max, _string, output_);
                 return output_;
             }
             j_++;
-            while (j_ < len_) {
+            while (j_ < _max) {
                 char curChar_ = _string.charAt(j_);
                 if (!isDigit(curChar_, base_) && curChar_ != NB_INTERN_SP) {
                     break;
@@ -2641,7 +2634,7 @@ public final class ElResolver {
                 decPart_.append(curChar_);
                 j_++;
             }
-            if (j_ >= len_) {
+            if (j_ >= _max) {
                 output_.setNextIndex(j_);
                 return output_;
             }
@@ -2655,7 +2648,7 @@ public final class ElResolver {
                 exp_ = sub_.startsWith(binExp_);
             }
             if (exp_) {
-                processExp(_key, _opt, j_, len_, _string, output_);
+                processExp(_key, j_, _max, _string, output_);
                 return output_;
             }
             if (base_ != 10) {
@@ -2682,13 +2675,13 @@ public final class ElResolver {
             output_.setNextIndex(j_);
             return output_;
         }
-        if (iExp_ + 1 >= len_ && exp_) {
+        if (iExp_ + 1 >= _max && exp_) {
             output_.setNextIndex(-j_);
             return output_;
         }
         if (exp_) {
             //_string.charAt(iExp_) == EXP
-            processExp(_key, _opt, iExp_, len_, _string, output_);
+            processExp(_key, iExp_, _max, _string, output_);
             return output_;
         }
         if (!_seenDot) {
@@ -2731,9 +2724,8 @@ public final class ElResolver {
         }
         return ok_;
     }
-    private static void processExp(KeyWords _key, Options _opt,int _start, int _max, String _string, NumberInfosOutput _output) {
+    private static void processExp(KeyWords _key, int _start, int _max, String _string, NumberInfosOutput _output) {
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
-        int len_ = _max;
         int j_ = _start;
         j_++;
         if (_string.charAt(j_) == MINUS_CHAR) {
@@ -2744,7 +2736,7 @@ public final class ElResolver {
             _output.setNextIndex(-j_);
             return;
         }
-        while (j_ < len_) {
+        while (j_ < _max) {
             if (!ContextEl.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
                 break;
             }
@@ -2756,7 +2748,7 @@ public final class ElResolver {
             _output.setNextIndex(-j_);
             return;
         }
-        if (j_ < len_ && Character.isLetter(_string.charAt(j_))) {
+        if (j_ < _max && Character.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ == null) {
                 if (StringList.isDollarWordChar(_string.charAt(j_))) {
@@ -2784,10 +2776,7 @@ public final class ElResolver {
         if (ContextEl.isDigit(n_)) {
             return false;
         }
-        if (n_ == DOT_VAR) {
-            return false;
-        }
-        return true;
+        return n_ != DOT_VAR;
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
             Analyzable _conf, Delimiters _d) {
@@ -3213,7 +3202,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_, true, instance_, laterIndexesDouble_, escapings_);
+        op_.setupValues(_string, is_, instance_, laterIndexesDouble_, escapings_);
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);
         return op_;
@@ -3513,9 +3502,7 @@ public final class ElResolver {
     }
 
     private static int indexAfterPossibleCast(Analyzable _conf, boolean _ctor,String _string, int _from, int _len, Delimiters _d) {
-        int i_ = _from;
-        int indexParRight_ = _string.indexOf(PAR_RIGHT, i_+1);
-        Delimiters d_ = _d;
+        int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
         Options opt_ = _conf.getOptions();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -3523,21 +3510,21 @@ public final class ElResolver {
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThis_ = keyWords_.getKeyWordThis();
         if (indexParRight_ < 0) {
-            return i_;
+            return _from;
         }
-        if (d_.getCallings().containsObj(i_)) {
-            return i_;
+        if (_d.getCallings().containsObj(_from)) {
+            return _from;
         }
 
-        String sub_ = _string.substring(i_ + 1, indexParRight_);
+        String sub_ = _string.substring(_from + 1, indexParRight_);
         String subTrim_ = sub_.trim();
         int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
         if (subTrim_.startsWith(ARR) && arrRight_ > -1) {
-            _d.getDelLoopVars().add(i_);
+            _d.getDelLoopVars().add(_from);
             _d.getDelLoopVars().add(indexParRight_);
             return indexParRight_ + 1;
         }
-        int j_ = i_ + 1;
+        int j_ = _from + 1;
         while (true) {
             char locChar_ = _string.charAt(j_);
             if (!Character.isWhitespace(locChar_)) {
@@ -3745,9 +3732,9 @@ public final class ElResolver {
             if (type_) {
                 String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
                 if (!typeRes_.isEmpty()) {
-                    d_.getDelCast().add(i_);
-                    d_.getDelCast().add(indexParRight_);
-                    d_.getDelCastExtract().add(typeRes_);
+                    _d.getDelCast().add(_from);
+                    _d.getDelCast().add(indexParRight_);
+                    _d.getDelCastExtract().add(typeRes_);
                     return indexParRight_ + 1;
                 }
                 cast_ = false;
@@ -3762,13 +3749,13 @@ public final class ElResolver {
         if (cast_) {
             String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
             if (!typeRes_.isEmpty()) {
-                d_.getDelCast().add(i_);
-                d_.getDelCast().add(indexParRight_);
-                d_.getDelCastExtract().add(typeRes_);
+                _d.getDelCast().add(_from);
+                _d.getDelCast().add(indexParRight_);
+                _d.getDelCastExtract().add(typeRes_);
                 return indexParRight_ + 1;
             }
         }
-        return i_;
+        return _from;
     }
     private static boolean isFieldOrVariable(Analyzable _conf, boolean _ctor, StringList _parts, String _partToAdd) {
        if (!_parts.isEmpty()) {

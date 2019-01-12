@@ -36,20 +36,19 @@ public final class SuperFieldOperation extends
     }
 
     @Override
-    String getFieldName(Analyzable _conf) {
+    String getFieldName() {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
-        return str_;
+        return originalStr_.trim();
     }
 
     @Override
-    boolean isBaseAccess(Analyzable _an) {
+    boolean isBaseAccess() {
         return false;
     }
 
     @Override
-    boolean isSuperAccess(Analyzable _an) {
+    boolean isSuperAccess() {
         return true;
     }
 

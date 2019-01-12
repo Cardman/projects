@@ -26,10 +26,7 @@ public final class ClassFormattedMethodId implements Equallable<ClassFormattedMe
         if (!StringList.quickEq(className, _g.className)) {
             return false;
         }
-        if (!constraints.eq(_g.constraints)) {
-            return false;
-        }
-        return true;
+        return constraints.eq(_g.constraints);
     }
 
 }

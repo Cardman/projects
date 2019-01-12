@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -44,7 +43,7 @@ public final class AliasStackTraceElement {
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
     }
 
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();

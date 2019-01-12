@@ -56,8 +56,8 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         int max_ = chidren_.size();
@@ -70,7 +70,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         } else {
             setSimpleArgument(a_, _conf, _nodes);
         }
-        return a_;
     }
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -93,28 +92,10 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         return a_;
     }
 
-    Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        Argument a_ = new Argument();
-        for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
-            NumberStruct o_ = (NumberStruct)chidren_.get(i).getArgument().getStruct();
-            int indexEl_ = chidren_.get(i).getIndexInEl();
-            setRelativeOffsetPossibleLastPage(indexEl_, _conf);
-            array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
-            if (_conf.getContextEl().hasException()) {
-                return a_;
-            }
-        }
-        a_.setStruct(array_);
-        return a_;
-    }
     static void setCheckedElement(Struct _array,NumberStruct _index, Argument _element, ExecutableCode _conf) {
         ExecInvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
     }
 
-    @Override
     public boolean resultCanBeSet() {
         return variable;
     }

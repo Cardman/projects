@@ -8,10 +8,6 @@ public class CustBigInt implements Displayable {
 
     private BigInteger val;
 
-    public CustBigInt(BigInteger _val) {
-        val = _val;
-    }
-
     @Override
     public String display() {
         return val.toString();

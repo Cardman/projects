@@ -95,7 +95,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
             String _packageName, OffsetAccessInfo _access, String _templateDef,
             NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
         categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = _name.trim();
@@ -219,17 +219,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return imports;
     }
 
-    @Override
     public Numbers<Integer> getImportsOffset() {
         return importsOffset;
-    }
-
-    public int getCategoryOffset() {
-        return categoryOffset;
-    }
-
-    public int getAccessOffset() {
-        return accessOffset;
     }
 
     public NatTreeMap<Integer, String> getRowColDirectSuperTypes() {
@@ -247,7 +238,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public StringList getImportedDirectBaseSuperTypes() {
         return importedDirectBaseSuperTypes;
     }
-    public final AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
+    public final AccessEnum getMaximumAccessConstructors() {
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof ConstructorBlock) {
@@ -329,22 +320,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
-    public int getIndex(String _varType) {
-        int len_ = paramTypes.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (StringList.quickEq(paramTypes.get(i).getName(), _varType)) {
-                return i;
-            }
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
-    }
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return paramTypesMap.values();
-    }
-    @Override
-    public StringMap<TypeVar> getParamTypesMap() {
-        return paramTypesMap;
     }
 
     @Override
@@ -414,7 +392,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return generic_.toString();
     }
 
-    @Override
     public String getFullDefinition() {
         return StringList.concat(getFullName(),getTemplateDef());
     }
@@ -423,7 +400,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return templateDef;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -844,7 +820,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     public final void checkCompatibility(ContextEl _context) {
-        ObjectMap<MethodId, ClassMethodId> localSignatures_ = TypeUtil.getLocalSignatures(this,_context);
+        ObjectMap<MethodId, ClassMethodId> localSignatures_ = TypeUtil.getLocalSignatures(this);
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
@@ -937,13 +913,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         if (concreteClass_) {
             for (GeneMethod b: Classes.getMethodBlocks(this)) {
-                GeneMethod mDer_ = b;
-                MethodId idFor_ = mDer_.getId();
-                if (mDer_.isAbstractMethod()) {
+                MethodId idFor_ = b.getId();
+                if (b.isAbstractMethod()) {
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFile().getFileName());
-                    err_.setIndexFile(((MethodBlock)mDer_).getNameOffset());
+                    err_.setIndexFile(((MethodBlock) b).getNameOffset());
                     err_.setSgn(idFor_.getSignature());
                     err_.setClassName(getFullName());
                     classesRef_.addError(err_);
@@ -1444,14 +1419,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return false;
     }
 
-    public String getRealName() {
-        return realName;
-    }
-
-    public String getRealPackageName() {
-        return realPackageName;
-    }
-
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
     }
@@ -1459,7 +1426,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
     }
     @Override
-    public boolean canAccessClass(String _class, Analyzable _analyzable) {
-        return Classes.canAccessClass(getFullName(), _class, _analyzable);
+    public boolean isTypeHidden(String _class, Analyzable _analyzable) {
+        return !Classes.canAccessClass(getFullName(), _class, _analyzable);
     }
 }

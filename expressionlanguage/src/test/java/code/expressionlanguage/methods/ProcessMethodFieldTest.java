@@ -24,7 +24,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -72,7 +72,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -123,7 +123,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -177,7 +177,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -232,7 +232,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -289,7 +289,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -349,7 +349,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{\n");
@@ -470,7 +470,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -552,7 +552,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -635,7 +635,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -721,7 +721,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -808,7 +808,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -868,7 +868,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false,12);
+        ContextEl cont_ = contextEl(12);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -953,7 +953,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1041,7 +1041,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1061,7 +1061,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1112,7 +1112,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1164,7 +1164,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1221,7 +1221,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1283,7 +1283,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1390,7 +1390,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false,2);
+        ContextEl cont_ = contextEl(2);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1411,7 +1411,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1458,7 +1458,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1506,7 +1506,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.ExTwo {\n");
@@ -1554,7 +1554,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1587,7 +1587,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1620,7 +1620,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1652,7 +1652,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1684,7 +1684,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1719,7 +1719,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");

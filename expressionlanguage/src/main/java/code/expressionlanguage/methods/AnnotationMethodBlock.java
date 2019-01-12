@@ -67,7 +67,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return false;
     }
 
-    @Override
     public MethodModifier getModifier() {
         return MethodModifier.ABSTRACT;
     }
@@ -77,14 +76,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return new MethodId(false, getName(), new StringList(), false);
     }
 
-    @Override
     public String getDeclaringType() {
         return getRooted().getFullName();
-    }
-
-    @Override
-    public MethodId getFormattedId(String _genericClass, ContextEl _context) {
-        return getId();
     }
 
     @Override
@@ -149,11 +142,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public boolean isConcreteMethod() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticMethod() {
         return false;
     }
@@ -168,7 +156,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return true;
     }
 
-    @Override
     public boolean isNormalMethod() {
         return false;
     }

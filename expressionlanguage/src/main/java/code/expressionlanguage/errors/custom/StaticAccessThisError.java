@@ -14,10 +14,6 @@ public final class StaticAccessThisError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,className);
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public void setClassName(String _className) {
         className = _className;
     }

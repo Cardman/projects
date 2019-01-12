@@ -44,10 +44,6 @@ public final class ExecStandardInstancingOperation extends
         lastType = _s.getLastType();
     }
 
-    public void setFieldName(String _fieldName) {
-        fieldName = _fieldName;
-    }
-
     @Override
     public void quickCalculate(Analyzable _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
@@ -86,13 +82,12 @@ public final class ExecStandardInstancingOperation extends
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
     Argument getArgument(Argument _previous,CustList<Argument> _arguments,
             ExecutableCode _conf) {

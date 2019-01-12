@@ -62,138 +62,62 @@ public final class Delimiters {
         return delKeyWordSuper;
     }
 
-    public void setDelKeyWordSuper(Numbers<Integer> _delKeyWordSuper) {
-        delKeyWordSuper = _delKeyWordSuper;
-    }
-
     public Numbers<Integer> getDelKeyWordSuperAccess() {
         return delKeyWordSuperAccess;
-    }
-
-    public void setDelKeyWordSuperAccess(Numbers<Integer> _delKeyWordSuperAccess) {
-        delKeyWordSuperAccess = _delKeyWordSuperAccess;
     }
 
     public Numbers<Integer> getDelKeyWordClassChoice() {
         return delKeyWordClassChoice;
     }
 
-    public void setDelKeyWordClassChoice(Numbers<Integer> _delKeyWordClassChoice) {
-        delKeyWordClassChoice = _delKeyWordClassChoice;
-    }
-
     public Numbers<Integer> getDelKeyWordStatic() {
         return delKeyWordStatic;
-    }
-
-    public void setDelKeyWordStatic(Numbers<Integer> _delKeyWordStatic) {
-        delKeyWordStatic = _delKeyWordStatic;
     }
 
     public StringList getDelKeyWordStaticExtract() {
         return delKeyWordStaticExtract;
     }
 
-    public void setDelKeyWordStaticExtract(StringList _delKeyWordStaticExtract) {
-        delKeyWordStaticExtract = _delKeyWordStaticExtract;
-    }
-
     public Numbers<Integer> getDelCast() {
         return delCast;
-    }
-
-    public void setDelCast(Numbers<Integer> _delCast) {
-        delCast = _delCast;
     }
 
     public StringList getDelCastExtract() {
         return delCastExtract;
     }
 
-    public void setDelCastExtract(StringList _delCastExtract) {
-        delCastExtract = _delCastExtract;
-    }
-
     public Numbers<Integer> getDelInstanceof() {
         return delInstanceof;
-    }
-
-    public void setDelInstanceof(Numbers<Integer> _delInstanceof) {
-        delInstanceof = _delInstanceof;
     }
 
     public Numbers<Integer> getDelLambda() {
         return delLambda;
     }
 
-    public void setDelLambda(Numbers<Integer> _delLambda) {
-        delLambda = _delLambda;
-    }
-
     public Numbers<Integer> getDelIds() {
         return delIds;
-    }
-
-    public void setDelIds(Numbers<Integer> _delIds) {
-        delIds = _delIds;
     }
 
     public Numbers<Integer> getDelLoopVars() {
         return delLoopVars;
     }
 
-    public void setDelLoopVars(Numbers<Integer> _delLoopVars) {
-        delLoopVars = _delLoopVars;
-    }
-
     public Numbers<Integer> getDelVararg() {
         return delVararg;
-    }
-
-    public void setDelVararg(Numbers<Integer> _delVararg) {
-        delVararg = _delVararg;
     }
 
     public Numbers<Integer> getDelClass() {
         return delClass;
     }
 
-    public void setDelClass(Numbers<Integer> _delClass) {
-        delClass = _delClass;
-    }
-
     public Numbers<Integer> getDelSimpleAnnotations() {
         return delSimpleAnnotations;
-    }
-
-    public void setDelSimpleAnnotations(Numbers<Integer> _delSimpleAnnotations) {
-        delSimpleAnnotations = _delSimpleAnnotations;
     }
 
     public Numbers<Integer> getCallings() {
         return callings;
     }
 
-    public void setCallings(Numbers<Integer> _callings) {
-        callings = _callings;
-    }
-
-    public int getFirstPrintableChar() {
-        return firstPrintableChar;
-    }
-    public void setFirstPrintableChar(int _firstPrintableChar) {
-        firstPrintableChar = _firstPrintableChar;
-    }
-
-    public int getAbsoluteOffset() {
-        return absoluteOffset;
-    }
-    public void setAbsoluteOffset(int _absoluteOffset) {
-        absoluteOffset = _absoluteOffset;
-    }
-    public int getChildOffest() {
-        return childOffest;
-    }
     public void setChildOffest(int _childOffest) {
         childOffest = _childOffest;
     }
@@ -242,16 +166,8 @@ public final class Delimiters {
         return dimsAddonIndexes;
     }
 
-    public void setDimsAddonIndexes(Numbers<Integer> _dimsAddonIndexes) {
-        dimsAddonIndexes = _dimsAddonIndexes;
-    }
-
     public Numbers<Integer> getEscapings() {
         return escapings;
-    }
-
-    public void setEscapings(Numbers<Integer> _escapings) {
-        escapings = _escapings;
     }
 
 }

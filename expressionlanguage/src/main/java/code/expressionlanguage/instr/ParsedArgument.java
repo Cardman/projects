@@ -388,10 +388,7 @@ public final class ParsedArgument {
         if (_value < _min) {
             return false;
         }
-        if (_value > _max) {
-            return false;
-        }
-        return true;
+        return _value <= _max;
     }
 
 
@@ -400,10 +397,7 @@ public final class ParsedArgument {
         if (value_ < _min) {
             return false;
         }
-        if (value_ > _max) {
-            return false;
-        }
-        return true;
+        return !(value_ > _max);
     }
 
     public Struct getStruct() {

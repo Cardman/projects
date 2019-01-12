@@ -101,48 +101,9 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         classIndexNameOffset = _classIndex.getOffset();
     }
 
-    public String getLabel() {
-        return label;
-    }
-
     @Override
     public String getRealLabel() {
         return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
-    public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
-    }
-
-    public int getClassNameOffsetFirst() {
-        return classNameOffsetFirst;
-    }
-
-    public int getVariableNameOffsetFirst() {
-        return variableNameOffsetFirst;
-    }
-
-    public int getClassNameOffsetSecond() {
-        return classNameOffsetSecond;
-    }
-
-    public int getVariableNameOffsetSecond() {
-        return variableNameOffsetSecond;
-    }
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
-    public String getClassIndexName() {
-        return classIndexName;
-    }
-
-    public String getExpression() {
-        return expression;
     }
 
     public ExpressionLanguage getEl() {
@@ -179,12 +140,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
-    public String getImportedClassNameFirst() {
-        return importedClassNameFirst;
-    }
-    public String getImportedClassNameSecond() {
-        return importedClassNameSecond;
-    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         buildEl(_cont);
@@ -415,9 +371,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
         buildConditions(_cont);
     }
-    public CustList<ExecOperationNode> getOpList() {
-        return opList;
-    }
+
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
@@ -464,9 +418,9 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
@@ -619,7 +573,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
 
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
             _anEl.completeAbruptGroup(this);
         }
@@ -852,8 +806,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_conf.callsOrException()) {
             return null;
         }
-        boolean hasNext_ = ((BooleanStruct) arg_.getStruct()).getInstance();
-        return hasNext_;
+        return ((BooleanStruct) arg_.getStruct()).getInstance();
     }
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {

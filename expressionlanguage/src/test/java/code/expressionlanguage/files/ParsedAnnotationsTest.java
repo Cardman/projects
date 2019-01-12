@@ -4,8 +4,6 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 
 import org.junit.Test;
 
-import code.expressionlanguage.files.ParsedAnnotations;
-
 public final class ParsedAnnotationsTest {
 
     @Test

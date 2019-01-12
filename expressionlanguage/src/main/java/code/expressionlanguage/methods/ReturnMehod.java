@@ -208,7 +208,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        while (!ip_.noBlock()) {
+        while (ip_.hasBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
             ip_.setFinallyToProcess(false);
             bl_.removeVarAndLoop(ip_);
@@ -217,7 +217,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
                 return;
             }
         }
-        ((ReturnablePageEl) ip_).postReturn(_conf);
+        ((ReturnablePageEl) ip_).postReturn();
     }
 
     @Override

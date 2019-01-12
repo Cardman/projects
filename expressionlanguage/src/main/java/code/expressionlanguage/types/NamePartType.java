@@ -52,9 +52,8 @@ final class NamePartType extends LeafPartType {
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
-                InnerPartType par_ = i_;
-                if (par_.isRemovedBefore()) {
-                    String anaType_ = getFoundInnerDepends(_an, _index, _dels, _rooted, _exact);
+                if (i_.isRemovedBefore()) {
+                    String anaType_ = getFoundInnerDepends(_an, _index, _dels, _rooted);
                     if (anaType_ != null) {
                         return;
                     }
@@ -92,7 +91,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (!_rooted.canAccessClass(type_, _an)) {
+            if (_rooted.isTypeHidden(type_, _an)) {
                 _an.getCurrentBadIndexes().add(getIndexInType());
             }
             setAnalyzedType(type_);
@@ -144,7 +143,7 @@ final class NamePartType extends LeafPartType {
             //1 full name
             //2 inner from all super type (like ..Type when other option)
             if (parCur_ == null || parCur_.getPreviousSibling() == null) {
-                String anaType_ = getFoundInnerDepends(_an, _index, _dels, _rooted, _exact);
+                String anaType_ = getFoundInnerDepends(_an, _index, _dels, _rooted);
                 if (anaType_ != null) {
                     return;
                 }
@@ -159,7 +158,7 @@ final class NamePartType extends LeafPartType {
             out_ = _an.getStandards().getAliasObject();
             stopDepends();
         }
-        if (!_rooted.canAccessClass(out_, _an)) {
+        if (_rooted.isTypeHidden(out_, _an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             out_ = _an.getStandards().getAliasObject();
             stopDepends();
@@ -167,8 +166,8 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(out_);
     }
     private String getFoundInnerDepends(Analyzable _an,
-            int _index, CustList<NatTreeMap<Integer, String>> _dels,
-            RootBlock _rooted, boolean _exact) {
+                                        int _index, CustList<NatTreeMap<Integer, String>> _dels,
+                                        RootBlock _rooted) {
         InnerPartType i_ = null;
         int sizeDels_ = -1;
         int indexDels_ = -1;
@@ -189,15 +188,14 @@ final class NamePartType extends LeafPartType {
             }
         }
         String type_ = getTypeName();
-        RootBlock c = _rooted;
         StringList allAncestors_ = new StringList();
-        RootBlock p_ = c.getParentType();
+        RootBlock p_ = _rooted.getParentType();
         StringList deps_ = new StringList();
         while (p_ != null) {
             allAncestors_.add(p_.getFullName());
             p_ = p_.getParentType();
         }
-        int ancestorIndex_ = c.getAncestorsIndexes().get(_index);
+        int ancestorIndex_ = _rooted.getAncestorsIndexes().get(_index);
         if (i_ == null || i_.getParent() == null) {
             if (ancestorIndex_ != -1) {
                 String a_ = allAncestors_.get(ancestorIndex_);
@@ -265,9 +263,8 @@ final class NamePartType extends LeafPartType {
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
-                InnerPartType par_ = i_;
-                if (par_.isRemovedBefore()) {
-                    if (isMethodFound(_an, _index, _dels, _globalType, _rooted, _exact, _protected)) {
+                if (i_.isRemovedBefore()) {
+                    if (isMethodFound(_an, _index, _dels, _globalType, _rooted, _exact)) {
                         return;
                     }
                     return;
@@ -315,7 +312,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (!_rooted.canAccessClass(type_, _an)) {
+            if (_rooted.isTypeHidden(type_, _an)) {
                 _an.getCurrentBadIndexes().add(getIndexInType());
                 return;
             }
@@ -361,7 +358,7 @@ final class NamePartType extends LeafPartType {
         //_an.lookupImportMemberType(type_, _rooted,true);
         if (_an.getOptions().isSingleInnerParts()) {
             if (parCur_ == null || parCur_.getPreviousSibling() == null) {
-                if (isMethodFound(_an, _index, _dels, _globalType, _rooted, _exact, _protected)) {
+                if (isMethodFound(_an, _index, _dels, _globalType, _rooted, _exact)) {
                     return;
                 }
                 return;
@@ -372,16 +369,15 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
-        if (!_rooted.canAccessClass(out_, _an)) {
+        if (_rooted.isTypeHidden(out_, _an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
         setAnalyzedType(out_);
     }
     private boolean isMethodFound(Analyzable _an, int _index,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            RootBlock _rooted, boolean _exact,
-            boolean _protected) {
+                                  CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+                                  RootBlock _rooted, boolean _exact) {
         InnerPartType i_ = null;
         int sizeDels_ = -1;
         int indexDels_ = -1;
@@ -401,11 +397,10 @@ final class NamePartType extends LeafPartType {
             }
         }
         String type_ = getTypeName();
-        RootBlock c = _rooted;
         StringMap<String> allPossibleDirectSuperTypes_ = new StringMap<String>();
         CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
         StringList allAncestors_ = new StringList();
-        RootBlock p_ = c.getParentType();
+        RootBlock p_ = _rooted.getParentType();
         Classes classes_ = _an.getClasses();
         while (p_ != null) {
             allAncestors_.add(p_.getFullName());
@@ -415,7 +410,7 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return false;
         }
-        int ancestorIndex_ = c.getAncestorsIndexes().get(_index);
+        int ancestorIndex_ = _rooted.getAncestorsIndexes().get(_index);
         if (i_ == null || i_.getParent() == null) {
             if (ancestorIndex_ != -1) {
                 String a_ = allAncestors_.get(ancestorIndex_);
@@ -497,8 +492,7 @@ final class NamePartType extends LeafPartType {
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
-                InnerPartType par_ = i_;
-                if (par_.isRemovedBefore()) {
+                if (i_.isRemovedBefore()) {
                     tryAnalyzeInnerParts(_an, _globalType, _rooted, _exact,
                             true);
                     return;
@@ -546,7 +540,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (!_rooted.canAccessClass(type_, _an)) {
+            if (_rooted.isTypeHidden(type_, _an)) {
                 _an.getCurrentBadIndexes().add(getIndexInType());
                 return;
             }
@@ -602,7 +596,7 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
-        if (!_rooted.canAccessClass(out_, _an)) {
+        if (_rooted.isTypeHidden(out_, _an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }

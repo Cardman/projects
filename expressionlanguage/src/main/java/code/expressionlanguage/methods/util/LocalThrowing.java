@@ -23,10 +23,10 @@ public final class LocalThrowing implements CallingFinally {
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         AbstractCatchEval catchElt_ = null;
-        while (!_conf.isEmptyPages()) {
+        while (_conf.hasPages()) {
             Struct custCause_ = _conf.getException();
             AbstractPageEl bkIp_ = _conf.getLastPage();
-            while (!bkIp_.noBlock()) {
+            while (bkIp_.hasBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
                 if (!(bl_ instanceof TryBlockStack)) {
                     bl_.removeVarAndLoop(bkIp_);
@@ -80,13 +80,12 @@ public final class LocalThrowing implements CallingFinally {
                     n_ = n_.getNextSibling();
                 }
                 if (catchElt_ != null) {
-                    AbstractCatchEval catchElement_ = catchElt_;
                     try_.setCalling(null);
                     _conf.setException(null);
                     bkIp_.clearCurrentEls();
-                    Block childCatch_ = catchElement_.getFirstChild();
-                    if (catchElement_ instanceof CatchEval) {
-                        CatchEval c_ = (CatchEval) catchElement_;
+                    Block childCatch_ = catchElt_.getFirstChild();
+                    if (catchElt_ instanceof CatchEval) {
+                        CatchEval c_ = (CatchEval) catchElt_;
                         String var_ = c_.getVariableName();
                         LocalVariable lv_ = new LocalVariable();
                         lv_.setStruct(custCause_);

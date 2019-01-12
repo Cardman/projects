@@ -22,7 +22,7 @@ public final class ExecEqOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode opOne_ = chidren_.first();
         ExecOperationNode opTwo_ = chidren_.last();
@@ -39,7 +39,6 @@ public final class ExecEqOperation extends ExecReflectableOpering {
         }
         Argument arg_ = new Argument(new BooleanStruct(b_));
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
     @Override

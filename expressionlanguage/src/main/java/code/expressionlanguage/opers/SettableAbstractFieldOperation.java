@@ -61,9 +61,9 @@ public abstract class SettableAbstractFieldOperation extends
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        String fieldName_ = getFieldName(_conf);
-        boolean baseAccess_ = isBaseAccess(_conf);
-        boolean superAccess_ = isSuperAccess(_conf);
+        String fieldName_ = getFieldName();
+        boolean baseAccess_ = isBaseAccess();
+        boolean superAccess_ = isSuperAccess();
         boolean affect_ = false;
         if (getParent() instanceof DotOperation && isIntermediateDottedOperation()) {
             if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
@@ -113,9 +113,9 @@ public abstract class SettableAbstractFieldOperation extends
     }
 
     abstract ClassArgumentMatching getFrom(Analyzable _an);
-    abstract String getFieldName(Analyzable _an);
-    abstract boolean isBaseAccess(Analyzable _an);
-    abstract boolean isSuperAccess(Analyzable _an);
+    abstract String getFieldName();
+    abstract boolean isBaseAccess();
+    abstract boolean isSuperAccess();
     @Override
     public final boolean resultCanBeSet() {
         return variable;

@@ -6,7 +6,6 @@ public final class ResultTypeCreation extends ResultCreation {
 
     private RootBlock type;
 
-    @Override
     public RootBlock getType() {
         return type;
     }

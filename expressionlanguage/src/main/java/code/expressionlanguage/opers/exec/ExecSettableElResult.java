@@ -8,9 +8,6 @@ import code.util.IdMap;
 
 public interface ExecSettableElResult extends ExecOperable {
 
-    boolean resultCanBeSet();
-    ClassArgumentMatching getResultClass();
-
     Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right);
 

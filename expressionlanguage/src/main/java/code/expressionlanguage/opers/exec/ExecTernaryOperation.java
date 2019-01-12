@@ -50,12 +50,11 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
     final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);

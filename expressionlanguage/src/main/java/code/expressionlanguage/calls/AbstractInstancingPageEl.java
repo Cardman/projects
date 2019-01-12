@@ -29,22 +29,6 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
 
     private boolean firstField;
 
-    public Argument getArgument() {
-        return argument;
-    }
-
-    public void setArgument(Argument _argument) {
-        argument = _argument;
-    }
-
-    public boolean isCalledImplicitConstructor() {
-        return calledImplicitConstructor;
-    }
-
-    public void setCalledImplicitConstructor(boolean _calledImplicitConstructor) {
-        calledImplicitConstructor = _calledImplicitConstructor;
-    }
-
     public boolean isFirstField() {
         return firstField;
     }
@@ -61,10 +45,10 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
             ((WithEl)en_).processEl(_context);
             return;
         }
-        endRoot(_context);
+        endRoot();
     }
     @Override
-    public ParentStackBlock getNextBlock(Block _bl,ContextEl _conf) {
+    public ParentStackBlock getNextBlock(Block _bl) {
         ParentStackBlock parElt_;
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
@@ -72,7 +56,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         } else {
             BracedBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (!noBlock()) {
+            if (hasBlock()) {
                 parElt_ =  new ParentStackBlock(n_);
             } else {
                 //directly at the root => last element in the block root
@@ -150,11 +134,11 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         exitFromConstructor();
     }
 
-    public void endRoot(ContextEl _context) {
+    public void endRoot() {
         exitFromConstructor();
     }
     @Override
-    public void postReturn(ContextEl _context) {
+    public void postReturn() {
         setNullReadWrite();
     }
 }

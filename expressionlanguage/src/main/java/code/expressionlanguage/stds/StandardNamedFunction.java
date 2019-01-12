@@ -35,7 +35,6 @@ public abstract class StandardNamedFunction implements GeneFunction {
         return name;
     }
 
-    @Override
     public StringList getImportedParametersTypes() {
         return new StringList(parametersTypes);
     }

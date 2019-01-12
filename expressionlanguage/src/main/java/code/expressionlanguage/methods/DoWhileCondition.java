@@ -49,7 +49,7 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         Loop previous_ = (Loop) getPreviousSibling();
         boolean abr_ = true;
         Block last_ = getPreviousSibling().getFirstChild();
@@ -113,12 +113,12 @@ public final class DoWhileCondition extends Condition {
         varsDo_ = id_.getVal(dBlock_);
         AssignedBooleanVariables varsWhile_;
         varsWhile_ = (AssignedBooleanVariables) id_.getVal(this);
-        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
+        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an);
         varsDo_.getFieldsRootBefore().putAllMap(fieldsHypot_);
-        varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
+        varsHypot_ = buildAssListLocVarInvalHypot(_an);
         varsDo_.getVariablesRootBefore().clear();
         varsDo_.getVariablesRootBefore().addAllElts(varsHypot_);
-        mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
+        mutableHypot_ = buildAssListMutableLoopInvalHypot(_an);
         varsDo_.getMutableLoopRootBefore().clear();
         varsDo_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -130,9 +130,9 @@ public final class DoWhileCondition extends Condition {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        processFinalFields(_an, _anEl, allDesc_, varsDo_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsDo_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsDo_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsDo_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsDo_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsDo_, mutableHypot_);
 
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
@@ -147,7 +147,7 @@ public final class DoWhileCondition extends Condition {
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
@@ -157,7 +157,7 @@ public final class DoWhileCondition extends Condition {
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
         return invalidateHypothesis(list_, end_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
@@ -176,7 +176,7 @@ public final class DoWhileCondition extends Condition {
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;

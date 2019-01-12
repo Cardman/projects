@@ -49,7 +49,7 @@ public final class TypeUtil {
         for (EntryCust<String, StandardType> s: _context.getStandards().getStandards().entryList()) {
             StandardType s_ = s.getValue();
             if (s_ instanceof StandardClass) {
-                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllSuperClasses(_context));
+                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllSuperClasses());
                 s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
             } else {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
@@ -60,16 +60,15 @@ public final class TypeUtil {
     public static void checkInterfaces(ContextEl _context, StringList _types, boolean _predefined) {
         Classes classes_ = _context.getClasses();
         for (RootBlock c: classes_.getClassBodies(_predefined)) {
-            RootBlock bl_ = c;
-            _context.getAnalyzing().setCurrentBlock(bl_);
-            _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
+            _context.getAnalyzing().setCurrentBlock(c);
+            _context.getAnalyzing().setGlobalClass(c.getGenericString());
             String d_ = c.getFile().getFileName();
-            StringList ints_ = bl_.getStaticInitInterfaces();
+            StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
             for (int i = 0; i < len_; i++) {
-                int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
+                int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                _context.getAnalyzing().setCurrentBlock(bl_);
+                _context.getAnalyzing().setCurrentBlock(c);
                 _context.getAnalyzing().setOffset(offset_);
                 base_ = _context.resolveAccessibleIdType(base_);
                 RootBlock r_ = classes_.getClassBody(base_);
@@ -85,20 +84,19 @@ public final class TypeUtil {
                 if (!(r_ instanceof InterfaceBlock)) {
                     BadInheritedClass enum_;
                     enum_ = new BadInheritedClass();
-                    String n_ = base_;
-                    enum_.setClassName(n_);
+                    enum_.setClassName(base_);
                     enum_.setFileName(d_);
                     enum_.setIndexFile(_context.getCurrentLocationIndex());
                     classes_.addError(enum_);
                 } else {
-                    bl_.getStaticInitImportedInterfaces().add(base_);
+                    c.getStaticInitImportedInterfaces().add(base_);
                 }
             }
             for (int i = 0; i < len_; i++) {
                 String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                int offsetSup_ = bl_.getStaticInitInterfacesOffset().get(i);
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
+                int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
+                _context.getAnalyzing().setCurrentBlock(c);
+                _context.getAnalyzing().setGlobalClass(c.getGenericString());
                 _context.getAnalyzing().setOffset(offsetSup_);
                 sup_ = _context.resolveAccessibleIdType(sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
@@ -107,9 +105,9 @@ public final class TypeUtil {
                 }
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
-                    int offsetSub_ = bl_.getStaticInitInterfacesOffset().get(j);
-                    _context.getAnalyzing().setCurrentBlock(bl_);
-                    _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
+                    int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
+                    _context.getAnalyzing().setCurrentBlock(c);
+                    _context.getAnalyzing().setGlobalClass(c.getGenericString());
                     _context.getAnalyzing().setOffset(offsetSub_);
                     sub_ = _context.resolveAccessibleIdType(sub_);
                     rs_ = classes_.getClassBody(sub_);
@@ -121,7 +119,7 @@ public final class TypeUtil {
                         undef_ = new BadInheritedClass();
                         undef_.setClassName(sub_);
                         undef_.setFileName(d_);
-                        int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
+                        int offset_ = c.getStaticInitInterfacesOffset().get(j);
                         undef_.setIndexFile(offset_);
                         classes_.addError(undef_);
                     }
@@ -835,7 +833,7 @@ public final class TypeUtil {
         }
         return map_;
     }
-    public static ObjectMap<MethodId, ClassMethodId> getLocalSignatures(GeneType _type, ContextEl _classes) {
+    public static ObjectMap<MethodId, ClassMethodId> getLocalSignatures(GeneType _type) {
         ObjectMap<MethodId, ClassMethodId> map_;
         map_ = new ObjectMap<MethodId, ClassMethodId>();
         for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {

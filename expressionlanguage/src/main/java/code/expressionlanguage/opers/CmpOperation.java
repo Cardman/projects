@@ -201,12 +201,11 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
     }
     public static Argument calculateCommonNb(Argument _one, Argument _two, String _op) {
         boolean complement_ = false;
-        String op_ = _op;
-        String useOp_ = op_;
-        if (StringList.quickEq(op_, LOWER_EQ)) {
+        String useOp_ = _op;
+        if (StringList.quickEq(_op, LOWER_EQ)) {
             complement_ = true;
             useOp_ = GREATER;
-        } else if (StringList.quickEq(op_, GREATER_EQ)) {
+        } else if (StringList.quickEq(_op, GREATER_EQ)) {
             complement_ = true;
             useOp_ = LOWER;
         }

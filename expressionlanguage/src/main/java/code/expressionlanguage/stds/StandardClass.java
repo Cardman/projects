@@ -48,10 +48,7 @@ public final class StandardClass extends StandardType implements GeneClass {
     public boolean isAbstractType() {
         return abstractType;
     }
-    @Override
-    public StringList getDirectSuperClasses() {
-        return new StringList(superClass);
-    }
+
     @Override
     public StringList getDirectSuperTypes() {
         StringList superTypes_ = new StringList();
@@ -75,21 +72,8 @@ public final class StandardClass extends StandardType implements GeneClass {
     }
 
     @Override
-    public StringList getDirectSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        String superClass_ = getSuperClass(_classes);
-        classes_.add(superClass_);
-        return classes_;
-    }
-
-    @Override
     public StringList getAllInterfaces() {
         return allInterfaces;
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
-        return new StringList(getDirectSuperTypes());
     }
 
     @Override
@@ -118,7 +102,4 @@ public final class StandardClass extends StandardType implements GeneClass {
         return interfaces_;
     }
 
-    public StringList getAllSuperClasses(Analyzable _classes) {
-        return allSuperClasses;
-    }
 }

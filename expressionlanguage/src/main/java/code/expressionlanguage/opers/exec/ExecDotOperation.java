@@ -15,7 +15,7 @@ public final class ExecDotOperation extends ExecReflectableOpering {
 
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode o_ = chidren_.last();
         Argument a_ = getArgument(_nodes,o_);
@@ -33,7 +33,6 @@ public final class ExecDotOperation extends ExecReflectableOpering {
         } else {
             setSimpleArgument(a_, _conf, _nodes);
         }
-        return a_;
     }
     @Override
     public void quickCalculate(Analyzable _conf) {

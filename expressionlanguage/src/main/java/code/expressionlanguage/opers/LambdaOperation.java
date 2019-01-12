@@ -594,15 +594,13 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             StringList params_ = fid_.getParametersTypes();
             if (fid_.isVararg()) {
                 for (String p: params_.mid(0, params_.size() - 1)) {
-                    String p_ = p;
-                    parts_.add(p_);
+                    parts_.add(p);
                 }
                 String p_ = params_.last();
                 parts_.add(PrimitiveTypeUtil.getPrettyArrayType(p_));
             } else {
                 for (String p: params_) {
-                    String p_ = p;
-                    parts_.add(p_);
+                    parts_.add(p);
                 }
             }
             foundClass = cl_;
@@ -748,15 +746,13 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         StringList params_ = fid_.getParametersTypes();
         if (fid_.isVararg()) {
             for (String p: params_.mid(0, params_.size() - 1)) {
-                String p_ = p;
-                parts_.add(p_);
+                parts_.add(p);
             }
             String p_ = params_.last();
             parts_.add(PrimitiveTypeUtil.getPrettyArrayType(p_));
         } else {
             for (String p: params_) {
-                String p_ = p;
-                parts_.add(p_);
+                parts_.add(p);
             }
         }
         parts_.add(cl_);
@@ -1199,15 +1195,13 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         }
         if (id_.isVararg()) {
             for (String p: params_.mid(start_, params_.size() - 1)) {
-                String p_ = p;
-                paramsReturn_.add(p_);
+                paramsReturn_.add(p);
             }
             String p_ = params_.last();
             paramsReturn_.add(PrimitiveTypeUtil.getPrettyArrayType(p_));
         } else {
             for (String p: params_.mid(start_)) {
-                String p_ = p;
-                paramsReturn_.add(p_);
+                paramsReturn_.add(p);
             }
         }
         paramsReturn_.add(returnType_);
@@ -1251,11 +1245,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
-        setPreviousResultClass(_previousResultClass, false);
-    }
-
-    @Override
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
         setStaticAccess(_staticAccess);
@@ -1272,14 +1261,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
 
     public boolean isIntermediate() {
         return intermediate;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
     public ClassMethodId getMethod() {

@@ -118,12 +118,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         return expressionOffset;
     }
 
-    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
 
-    @Override
     public String getClassName() {
         return className;
     }
@@ -358,9 +356,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
-    public CustList<ExecOperationNode> getOpList() {
-        return opList;
-    }
+
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
@@ -387,9 +383,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
@@ -542,7 +538,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
 
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
             _anEl.completeAbruptGroup(this);
         }
@@ -708,8 +704,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         if (_conf.callsOrException()) {
             return null;
         }
-        boolean hasNext_ = ((BooleanStruct) arg_.getStruct()).getInstance();
-        return hasNext_;
+        return ((BooleanStruct) arg_.getStruct()).getInstance();
     }
 
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,

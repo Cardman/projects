@@ -38,7 +38,6 @@ public final class Templates {
     public static final String TEMPLATE_BEGIN = "<";
     public static final char EXTENDS_DEF = ':';
     public static final char SEP_BOUNDS = '&';
-    public static final String SEP_CLASS = ".";
     public static final char SEP_CLASS_CHAR = '.';
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char SUB_TYPE_CHAR = '?';
@@ -1019,7 +1018,7 @@ public final class Templates {
         return ErrorType.NOTHING;
     }
     public static Struct gearErrorWhenIndex(Struct _array, Struct _index, ExecutableCode _context) {
-        ErrorType err_ = Templates.getErrorWhenIndex(_array, _index, _context);
+        ErrorType err_ = Templates.getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
             Number nb_ = ((NumberStruct)_index).getInstance();
@@ -1055,7 +1054,7 @@ public final class Templates {
         _context.setException(new ErrorStruct(_context,cast_));
         return NullStruct.NULL_VALUE;
     }
-    public static ErrorType getErrorWhenIndex(Struct _array, Struct _index, Analyzable _context) {
+    public static ErrorType getErrorWhenIndex(Struct _array, Struct _index) {
         if (_array == NullStruct.NULL_VALUE) {
             return ErrorType.NPE;
         }
@@ -1265,10 +1264,7 @@ public final class Templates {
                 break;
             }
         }
-        if (!okTree_) {
-            return false;
-        }
-        return true;
+        return okTree_;
     }
     private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
@@ -1283,8 +1279,7 @@ public final class Templates {
         map_.setMapping(_inherit);
         if (baseArrayParam_.startsWith(PREFIX_VAR_TYPE)) {
             if (_arg.isEmpty()) {
-                MappingPairs m_ = new MappingPairs();
-                return m_;
+                return new MappingPairs();
             }
             if (!baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
                 return null;
@@ -1293,8 +1288,7 @@ public final class Templates {
                 return null;
             }
             if (map_.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
-                MappingPairs m_ = new MappingPairs();
-                return m_;
+                return new MappingPairs();
             }
             return null;
         }
@@ -1319,8 +1313,7 @@ public final class Templates {
             if (!inh_) {
                 return null;
             }
-            MappingPairs m_ = new MappingPairs();
-            return m_;
+            return new MappingPairs();
         }
         if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_, _context)) {
             return null;
@@ -1388,8 +1381,7 @@ public final class Templates {
         if (typesParam_.size() == 1) {
             String base_ = getIdFromAllTypes(baseArg_);
             if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
-                MappingPairs m_ = new MappingPairs();
-                return m_;
+                return new MappingPairs();
             }
             return null;
         }

@@ -19,24 +19,12 @@ public class BadReturnTypeInherit extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),for_,SEP_INFO);
     }
 
-    public String getReturnType() {
-        return returnType;
-    }
-
     public void setReturnType(String _returnType) {
         returnType = _returnType;
     }
 
-    public MethodId getMethod() {
-        return method;
-    }
-
     public void setMethod(MethodId _method) {
         method = _method;
-    }
-
-    public String getParentClass() {
-        return parentClass;
     }
 
     public void setParentClass(String _parentClass) {

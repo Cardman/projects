@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -3854,8 +3852,7 @@ public class TemplatesTest {
     }
     private static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne("en", opt_);
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
@@ -3876,7 +3873,6 @@ public class TemplatesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        return cont_;
+        return InitializationLgNames.buildStdOne(opt_);
     }
 }

@@ -15,7 +15,7 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = getArgument(_nodes,chidren_.first());
         BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
@@ -25,7 +25,6 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
         Argument a_ = new Argument();
         a_.setObject(b_);
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
     @Override

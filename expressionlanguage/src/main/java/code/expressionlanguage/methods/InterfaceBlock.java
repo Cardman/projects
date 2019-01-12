@@ -34,11 +34,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
-        return new StringList(getDirectSuperTypes());
-    }
-
-    @Override
     public StringList getDirectGenericSuperTypes(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         interfaces_.addAllElts(importedDirectSuperInterfaces);

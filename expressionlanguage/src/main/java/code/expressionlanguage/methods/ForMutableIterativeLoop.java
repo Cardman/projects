@@ -130,12 +130,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         return stepOffset;
     }
 
-    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
 
-    @Override
     public String getClassName() {
         return className;
     }
@@ -162,17 +160,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     public void setImportedClassName(String _importedClassName) {
         importedClassName = _importedClassName;
-    }
-    public CustList<ExecOperationNode> getOpInit() {
-        return opInit;
-    }
-
-    public CustList<ExecOperationNode> getOpExp() {
-        return opExp;
-    }
-
-    public CustList<ExecOperationNode> getOpStep() {
-        return opStep;
     }
 
     public ExpressionLanguage getInitEl() {
@@ -279,7 +266,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        assignWhenTrue(_an, _anEl);
+        assignWhenTrue(_an);
     }
     @Override
     protected AssignedBooleanVariables buildNewAssignedVariable() {
@@ -540,9 +527,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
@@ -930,7 +917,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         return accessible_;
     }
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         boolean abr_ = true;
         boolean proc_ = true;
         if (!opExp.isEmpty()) {

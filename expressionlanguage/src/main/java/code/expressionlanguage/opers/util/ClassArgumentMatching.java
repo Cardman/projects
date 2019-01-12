@@ -45,10 +45,7 @@ public final class ClassArgumentMatching {
         if (prim_.matchClass(shortPr_)) {
             return true;
         }
-        if (prim_.matchClass(bytePr_)) {
-            return true;
-        }
-        return false;
+        return prim_.matchClass(bytePr_);
     }
 
     public boolean isArray() {
@@ -76,15 +73,6 @@ public final class ClassArgumentMatching {
 
     public boolean isVariable() {
         return className.containsStr("");
-    }
-
-    public boolean isPrimitive(LgNames _context) {
-        for (String b: className) {
-            if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean isPrimitive(Analyzable _context) {

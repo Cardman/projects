@@ -14,10 +14,6 @@ public final class VarargError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,BAD_VAR_ARG_SYNTAX,methodName);
     }
 
-    public String getMethodName() {
-        return methodName;
-    }
-
     public void setMethodName(String _methodName) {
         methodName = _methodName;
     }

@@ -18,7 +18,7 @@ public final class ParsedAnnotations {
     private String after = "";
     private int index;
     private int instructionLocation;
-    private int beforeAnnot;
+
     public ParsedAnnotations(String _instruction, int _instructionLocation) {
         instruction = _instruction;
         instructionLocation = _instructionLocation;
@@ -151,7 +151,7 @@ public final class ParsedAnnotations {
                 annotation_.delete(0, annotation_.length());
             }
             if (nbPars_ == 0 && cur_ == ANNOT) {
-                annotationsIndexes.add(beforeAnnot + j_ + instructionLocation);
+                annotationsIndexes.add(j_ + instructionLocation);
             }
             annotation_.append(cur_);
             j_++;
@@ -167,10 +167,7 @@ public final class ParsedAnnotations {
         if (_char == '.') {
             return true;
         }
-        if (_char == BEGIN_CALLING) {
-            return true;
-        }
-        return false;
+        return _char == BEGIN_CALLING;
     }
     public Numbers<Integer> getAnnotationsIndexes() {
         return annotationsIndexes;

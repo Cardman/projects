@@ -15,7 +15,4 @@ public enum ConstType {
     ConstType(boolean _variable){
         variable = _variable;
     }
-    public boolean isVariable() {
-        return variable;
-    }
 }

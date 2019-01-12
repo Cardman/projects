@@ -55,7 +55,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -108,7 +108,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -164,7 +164,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -218,7 +218,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -274,7 +274,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -331,7 +331,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -389,7 +389,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -449,7 +449,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -512,7 +512,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -566,7 +566,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -621,7 +621,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -671,7 +671,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -729,7 +729,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -789,7 +789,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -848,7 +848,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -907,7 +907,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -961,7 +961,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1025,7 +1025,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1085,7 +1085,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1146,7 +1146,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1182,7 +1182,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1235,7 +1235,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1288,7 +1288,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1341,7 +1341,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1394,7 +1394,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1447,7 +1447,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1500,7 +1500,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1553,7 +1553,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1606,7 +1606,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1664,7 +1664,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1722,7 +1722,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1782,7 +1782,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1842,7 +1842,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1905,7 +1905,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1965,7 +1965,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2025,7 +2025,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2081,7 +2081,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2143,7 +2143,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2187,7 +2187,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2233,7 +2233,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2277,7 +2277,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2325,7 +2325,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2373,7 +2373,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2429,7 +2429,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2485,7 +2485,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2541,7 +2541,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2590,7 +2590,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2646,7 +2646,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2662,7 +2662,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" $public $static ..Inner field = $new..Inner():\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2682,7 +2682,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2704,7 +2704,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2762,7 +2762,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2822,7 +2822,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2845,7 +2845,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2864,7 +2864,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2883,7 +2883,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2900,7 +2900,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2919,7 +2919,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
@@ -2967,7 +2967,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3019,7 +3019,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3066,7 +3066,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();

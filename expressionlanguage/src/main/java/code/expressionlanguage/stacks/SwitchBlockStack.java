@@ -15,7 +15,6 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
         return block;
     }
 
-    @Override
     public void setBlock(BracedBlock _block) {
         block = _block;
     }

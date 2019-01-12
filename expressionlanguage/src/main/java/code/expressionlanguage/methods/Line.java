@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -30,7 +29,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
 
     public Line(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _left, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();
     }
@@ -68,10 +67,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
         opExp = ElUtil.getReducedNodes(r_);
     }
 
-    @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-    }
-
     public CustList<ExecOperationNode> getExp() {
         return opExp;
     }
@@ -97,10 +92,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
             return false;
         }
         ExecInterfaceInvokingConstructor int_ = (ExecInterfaceInvokingConstructor) last_;
-        if (int_.getConstId() == null) {
-            return false;
-        }
-        return true;
+        return int_.getConstId() != null;
     }
 
     public boolean isCallThis() {

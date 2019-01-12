@@ -23,24 +23,11 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class Block {
-    public static final String EQ = "=";
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
-    public static final String SHIFT_LEFT_EQ = "<<=";
-    public static final String SHIFT_RIGHT_EQ = ">>=";
-    public static final String SHIFT_LOG_LEFT_EQ = "<<<=";
-    public static final String SHIFT_LOG_RIGHT_EQ = ">>>=";
-    public static final String ROTATE_LEFT_EQ = "<<<<=";
-    public static final String ROTATE_RIGHT_EQ = ">>>>=";
     public static final String XOR_EQ = "^=";
     public static final String PLUS_EQ = "+=";
-    public static final String MINUS_EQ = "-=";
-    public static final String MULT_EQ = "*=";
-    public static final String DIV_EQ = "/=";
-    public static final String MOD_EQ = "%=";
-    public static final String EQ_PLUS = "=+";
     public static final String INCR = "++";
-    public static final String DECR = "--";
 
     protected static final String VARARG = "...";
 
@@ -48,7 +35,6 @@ public abstract class Block {
 
     protected static final String PAR_LEFT = "(";
     protected static final String PAR_RIGHT = ")";
-    protected static final String RETURN_LINE = "\n";
     protected static final String EMPTY_STRING = "";
 
     private BracedBlock parent;
@@ -324,7 +310,7 @@ public abstract class Block {
 
     public final void processBlock(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this, _conf);
+        ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this);
         if (parElt_ == null) {
             ((WithElPageEl)ip_).postBlock(_conf);
             return;

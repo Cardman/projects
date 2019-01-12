@@ -136,11 +136,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
-        setPreviousResultClass(_previousResultClass, false);
-    }
-
-    @Override
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
     }

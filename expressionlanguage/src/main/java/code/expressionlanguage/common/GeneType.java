@@ -22,7 +22,6 @@ public interface GeneType extends AccessibleBlock {
     boolean isAbstractType();
     boolean withoutInstance();
 
-    StringMap<TypeVar> getParamTypesMap();
     CustList<TypeVar> getParamTypesMapValues();
 
     CustList<TypeVar> getParamTypes();
@@ -31,16 +30,12 @@ public interface GeneType extends AccessibleBlock {
     boolean mustImplement();
     String getGenericString();
 
-    String getFullDefinition();
-
-    String getName();
-
     String getPackageName();
 
     ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
 
     String getFullName();
-    StringList getDirectGenericSuperTypesBuild(Analyzable _classes);
+
     StringList getDirectGenericSuperTypes(Analyzable _classes);
     StringList getAllGenericSuperTypes(Analyzable _classes);
 }

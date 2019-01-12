@@ -8,8 +8,6 @@ public abstract class ResultCreation {
 
     private boolean ok;
 
-    public abstract ImportingBlock getType();
-
     public int getNextIndex() {
         return nextIndex;
     }

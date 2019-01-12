@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public abstract class Leaf extends Block implements WithEl {
 
-    Leaf(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
+    Leaf(BracedBlock _m, OffsetsBlock _offset) {
         super(_m, _offset);
     }
 

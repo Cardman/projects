@@ -38,10 +38,6 @@ public class LambdaFieldStruct implements Struct {
         instanceCall = _instanceCall;
     }
 
-    public String getFormClassName() {
-        return formClassName;
-    }
-
     public ClassField getFid() {
         return fid;
     }

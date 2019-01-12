@@ -32,7 +32,7 @@ public abstract class BracedStack extends BracedBlock {
 
     BracedStack(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
     }
     
     protected void buildConditions(ContextEl _cont) {
@@ -106,7 +106,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         id_.put(firstChild_, assBl_);
     }
-    protected void assignWhenTrue(Analyzable _an, AnalyzingEl _anEl) {
+    protected void assignWhenTrue(Analyzable _an) {
         Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
@@ -139,10 +139,10 @@ public abstract class BracedStack extends BracedBlock {
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
-    protected void processFinalFields(Analyzable _an,AnalyzingEl _anEl,
-            IdMap<Block, AssignedVariables> _allDesc,
-            AssignedVariables _root,
-            StringMap<AssignmentBefore> _fields) {
+    protected void processFinalFields(Analyzable _an,
+                                      IdMap<Block, AssignedVariables> _allDesc,
+                                      AssignedVariables _root,
+                                      StringMap<AssignmentBefore> _fields) {
         AssignedVariables vars_;
         for (EntryCust<String,AssignmentBefore> e: _fields.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -168,10 +168,10 @@ public abstract class BracedStack extends BracedBlock {
         }
     }
     
-    protected void processFinalVars(Analyzable _an,AnalyzingEl _anEl,
-            IdMap<Block, AssignedVariables> _allDesc,
-            AssignedVariables _root,
-            CustList<StringMap<AssignmentBefore>> _fields) {
+    protected void processFinalVars(Analyzable _an,
+                                    IdMap<Block, AssignedVariables> _allDesc,
+                                    AssignedVariables _root,
+                                    CustList<StringMap<AssignmentBefore>> _fields) {
         AssignedVariables vars_;
         int index_ = 0;
         for (StringMap<AssignmentBefore> s: _fields) {
@@ -200,10 +200,10 @@ public abstract class BracedStack extends BracedBlock {
         
     }
 
-    protected void processFinalMutableLoop(Analyzable _an,AnalyzingEl _anEl,
-            IdMap<Block, AssignedVariables> _allDesc,
-            AssignedVariables _root,
-            CustList<StringMap<AssignmentBefore>> _fields) {
+    protected void processFinalMutableLoop(Analyzable _an,
+                                           IdMap<Block, AssignedVariables> _allDesc,
+                                           AssignedVariables _root,
+                                           CustList<StringMap<AssignmentBefore>> _fields) {
         AssignedVariables vars_;
         int index_ = 0;
         for (StringMap<AssignmentBefore> s: _fields) {

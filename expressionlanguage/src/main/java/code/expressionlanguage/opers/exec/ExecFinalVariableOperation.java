@@ -29,11 +29,10 @@ public final class ExecFinalVariableOperation extends ExecVariableLeafOperation 
         variableName = _f.getVariableName();
     }
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
     Argument getCommonArgument(ExecutableCode _conf) {
         Argument a_;

@@ -38,10 +38,6 @@ public final class ArgumentsGroup {
         ambigous = _ambigous;
     }
 
-    public String getGlobalClass() {
-        return globalClass;
-    }
-
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
     }
@@ -50,13 +46,4 @@ public final class ArgumentsGroup {
         return arguments.get(_index);
     }
 
-    public ClassArgumentMatching[] getArgumentsArray() {
-        int len_ = arguments.size();
-        ClassArgumentMatching[] args_;
-        args_ = new ClassArgumentMatching[len_];
-        for (int i = 0; i < len_; i++) {
-            args_[i] = arguments.get(i);
-        }
-        return args_;
-    }
 }

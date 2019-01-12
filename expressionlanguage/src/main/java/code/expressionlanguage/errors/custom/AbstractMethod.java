@@ -19,16 +19,8 @@ public final class AbstractMethod extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,className,SEP_CLASS_METHOD,sgn,SEP_INFO);
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public void setClassName(String _className) {
         className = _className;
-    }
-
-    public String getSgn() {
-        return sgn;
     }
 
     public void setSgn(String _sgn) {

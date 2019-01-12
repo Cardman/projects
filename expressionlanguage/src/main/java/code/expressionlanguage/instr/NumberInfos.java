@@ -36,10 +36,6 @@ public final class NumberInfos {
         intPart = _intPart;
     }
 
-    public boolean isDotted() {
-        return dotted;
-    }
-
     public void setDotted(boolean _dotted) {
         dotted = _dotted;
     }
@@ -68,16 +64,8 @@ public final class NumberInfos {
         suffix = _suffix;
     }
 
-    public int getFirstPrintable() {
-        return firstPrintable;
-    }
-
     public void setFirstPrintable(int _firstPrintable) {
         firstPrintable = _firstPrintable;
-    }
-
-    public int getFirstDigit() {
-        return firstDigit;
     }
 
     public void setFirstDigit(int _firstDigit) {

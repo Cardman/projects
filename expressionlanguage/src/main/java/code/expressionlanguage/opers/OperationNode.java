@@ -56,46 +56,21 @@ import code.util.StringMap;
 
 public abstract class OperationNode implements Operable {
 
-    protected static final char ESCAPE_META_CHAR = '\\';
-    protected static final char DELIMITER_CHAR = 39;
-    protected static final char DELIMITER_STRING = 34;
-    protected static final char ARR_LEFT = '[';
-    protected static final char ARR_RIGHT = ']';
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
-    protected static final String PAR_RIGHT_STR = ")";
-    protected static final char SEP_ARG = ',';
-    protected static final char FIRST_VAR_ARG = '?';
     protected static final char DOT_VAR = '.';
-    protected static final char MIN_ENCODE_DIGIT = '0';
-    protected static final char MAX_ENCODE_DIGIT = '9';
-    protected static final char MIN_ENCODE_LOW_LETTER = 'a';
-    protected static final char MAX_ENCODE_LOW_LETTER = 'f';
-    protected static final char MIN_ENCODE_UPP_LETTER = 'A';
-    protected static final char MAX_ENCODE_UPP_LETTER = 'F';
     protected static final String VAR_ARG = "$vararg";
     protected static final String FIRST_OPT = "$firstopt";
 
-    protected static final String FCT = "(";
     protected static final char ARR_ANNOT = '{';
     protected static final String ARR = "[";
-
-    protected static final String ARR_DYN = "[]";
-
-    protected static final String DOT = ".";
 
     protected static final String NEG_BOOL = "!";
     protected static final String NEG_BOOL_BIN = "~";
 
-    protected static final String UNARY_PLUS = "+";
-
-    protected static final String UNARY_MINUS = "-";
-
     protected static final String MULT = "*";
 
     protected static final String DIV = "/";
-
-    protected static final String MOD = "%";
 
     protected static final String PLUS = "+";
 
@@ -118,13 +93,7 @@ public abstract class OperationNode implements Operable {
 
     protected static final String DIFF = "!=";
 
-    protected static final String AND = "&";
-
-    protected static final String OR = "|";
     protected static final String EMPTY_STRING = "";
-    protected static final String RETURN_LINE = "\n";
-    protected static final String SPACE = " ";
-    protected static final String RETURN_TAB = "\n\t";
 
     protected static final String VARARG_SUFFIX = "...";
     protected static final String AROBASE = "@";
@@ -501,8 +470,7 @@ public abstract class OperationNode implements Operable {
                 return resIns_;
             }
         }
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import,_aff);
-        return resSt_;
+        return getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import,_aff);
     }
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         StringMap<String> clCurNames_ = new StringMap<String>();
@@ -558,10 +526,10 @@ public abstract class OperationNode implements Operable {
                 }
             }
             String baseLoc_ = clCurNamesBase_.getVal(s);
-            if (!Classes.canAccessField(baseLoc_, s, _name, _cont)) {
+            if (Classes.isHiddenField(baseLoc_, s, _name, _cont)) {
                 continue;
             }
-            if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
+            if (Classes.isHiddenField(curClassBase_, s, _name, _cont)) {
                 continue;
             }
             String formatted_;
@@ -635,10 +603,10 @@ public abstract class OperationNode implements Operable {
                         }
                     }
                     String basLoc_ = clCurNamesBase_.getVal(s);
-                    if (!Classes.canAccessField(basLoc_, s, _name, _cont)) {
+                    if (Classes.isHiddenField(basLoc_, s, _name, _cont)) {
                         continue;
                     }
-                    if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
+                    if (Classes.isHiddenField(curClassBase_, s, _name, _cont)) {
                         continue;
                     }
                     if (!keepInstance_ && !_static) {
@@ -856,7 +824,7 @@ public abstract class OperationNode implements Operable {
     boolean _staticContext, StringList _classes, String _name,
     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId, _argsClass);
+        methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         ClassMethodIdReturn res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
         if (res_.isFoundMethod()) {
             return res_;
@@ -912,8 +880,7 @@ public abstract class OperationNode implements Operable {
     }
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
-        ClassMethodIdReturn res_ = getCustResult(_cont, -1, ops_, _op, _argsClass);
-        return res_;
+        return getCustResult(_cont, -1, ops_, _op, _argsClass);
     }
     static ObjectNotNullMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
         String objType_ = _cont.getStandards().getAliasObject();
@@ -923,14 +890,13 @@ public abstract class OperationNode implements Operable {
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();
             ParametersGroup p_ = new ParametersGroup();
-            MethodId realId_ = id_;
-            for (String c: realId_.getParametersTypes()) {
+            for (String c: id_.getParametersTypes()) {
                 p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(objType_);
             mloc_.setStatic(true);
-            mloc_.setConstraints(realId_);
+            mloc_.setConstraints(id_);
             mloc_.setParameters(p_);
             mloc_.setReturnType(ret_);
             ClassMethodId clId_ = new ClassMethodId(objType_, id_);
@@ -939,8 +905,8 @@ public abstract class OperationNode implements Operable {
         return methods_;
     }
     private static ObjectNotNullMap<ClassMethodId, MethodInfo>
-    getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, int _varargOnly, boolean _accessFromSuper,
-        boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
+    getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, boolean _accessFromSuper,
+                                boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId) {
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneType> roots_ = new CustList<GeneType>();
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
@@ -997,14 +963,13 @@ public abstract class OperationNode implements Operable {
                     }
                     String returnType_ = e.getImportedReturnType();
                     ParametersGroup p_ = new ParametersGroup();
-                    MethodId realId_ = id_;
-                    for (String c: realId_.getParametersTypes()) {
+                    for (String c: id_.getParametersTypes()) {
                         p_.add(new ClassMatching(c));
                     }
                     MethodInfo mloc_ = new MethodInfo();
                     mloc_.setClassName(t);
                     mloc_.setStatic(true);
-                    mloc_.setConstraints(realId_);
+                    mloc_.setConstraints(id_);
                     mloc_.setParameters(p_);
                     mloc_.setReturnType(returnType_);
                     ClassMethodId clId_ = new ClassMethodId(t, id_);
@@ -1080,14 +1045,13 @@ public abstract class OperationNode implements Operable {
                     }
                     String returnType_ = e.getImportedReturnType();
                     ParametersGroup p_ = new ParametersGroup();
-                    MethodId realId_ = id_;
-                    for (String c: realId_.getParametersTypes()) {
+                    for (String c: id_.getParametersTypes()) {
                         p_.add(new ClassMatching(c));
                     }
                     MethodInfo mloc_ = new MethodInfo();
                     mloc_.setClassName(cl_);
                     mloc_.setStatic(true);
-                    mloc_.setConstraints(realId_);
+                    mloc_.setConstraints(id_);
                     mloc_.setParameters(p_);
                     mloc_.setReturnType(returnType_);
                     mloc_.setAncestor(anc_);
@@ -1141,8 +1105,7 @@ public abstract class OperationNode implements Operable {
                             continue;
                         }
                         ParametersGroup p_ = new ParametersGroup();
-                        MethodId realId_ = id_;
-                        for (String c: realId_.getParametersTypes()) {
+                        for (String c: id_.getParametersTypes()) {
                             p_.add(new ClassMatching(c));
                         }
                         MethodInfo mloc_ = new MethodInfo();
@@ -1150,7 +1113,7 @@ public abstract class OperationNode implements Operable {
                         mloc_.setStatic(false);
                         mloc_.setAbstractMethod(sup_.isAbstractMethod());
                         mloc_.setFinalMethod(sup_.isFinalMethod());
-                        mloc_.setConstraints(realId_);
+                        mloc_.setConstraints(id_);
                         mloc_.setParameters(p_);
                         mloc_.setReturnType(ret_);
                         ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
@@ -1206,8 +1169,7 @@ public abstract class OperationNode implements Operable {
                                 continue;
                             }
                             ParametersGroup p_ = new ParametersGroup();
-                            MethodId realId_ = id_;
-                            for (String c: realId_.getParametersTypes()) {
+                            for (String c: id_.getParametersTypes()) {
                                 p_.add(new ClassMatching(c));
                             }
                             MethodInfo mloc_ = new MethodInfo();
@@ -1215,7 +1177,7 @@ public abstract class OperationNode implements Operable {
                             mloc_.setStatic(false);
                             mloc_.setAbstractMethod(sup_.isAbstractMethod());
                             mloc_.setFinalMethod(sup_.isFinalMethod());
-                            mloc_.setConstraints(realId_);
+                            mloc_.setConstraints(id_);
                             mloc_.setParameters(p_);
                             mloc_.setReturnType(ret_);
                             mloc_.setAncestor(anc_);
@@ -1243,15 +1205,14 @@ public abstract class OperationNode implements Operable {
                 GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
                 String returnType_ = method_.getImportedReturnType();
                 ParametersGroup p_ = new ParametersGroup();
-                MethodId realId_ = id_;
-                for (String c: realId_.getParametersTypes()) {
+                for (String c: id_.getParametersTypes()) {
                     p_.add(new ClassMatching(c));
                 }
                 MethodInfo mloc_ = new MethodInfo();
                 mloc_.setImported(e.getValue());
                 mloc_.setClassName(clName_);
                 mloc_.setStatic(true);
-                mloc_.setConstraints(realId_);
+                mloc_.setConstraints(id_);
                 mloc_.setParameters(p_);
                 mloc_.setReturnType(returnType_);
                 methods_.add(m, mloc_);
@@ -1326,8 +1287,7 @@ public abstract class OperationNode implements Operable {
             signatures_.add(mi_);
         }
         if (signatures_.isEmpty()) {
-            ClassMethodIdReturn res_ = new ClassMethodIdReturn(false);
-            return res_;
+            return new ClassMethodIdReturn(false);
         }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
@@ -1342,15 +1302,13 @@ public abstract class OperationNode implements Operable {
         MethodInfo found_ = sortFct(signatures_, gr_);
         if (gr_.isAmbigous()) {
             _conf.setAmbigous(true);
-            ClassMethodIdReturn res_ = new ClassMethodIdReturn(false);
-            return res_;
+            return new ClassMethodIdReturn(false);
         }
         MethodId constraints_ = found_.getConstraints();
         String baseClassName_ = found_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = found_.getFormatted();
-        String realClass_ = baseClassName_;
-        res_.setId(new ClassMethodId(realClass_, id_));
+        res_.setId(new ClassMethodId(baseClassName_, id_));
         if (_varargOnly == -1 && found_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
         }
@@ -1820,10 +1778,7 @@ public abstract class OperationNode implements Operable {
         ClassMatching one_;
         ClassMatching two_;
         if (_paramFctOne == null) {
-            if (_paramFctTwo != null) {
-                return false;
-            }
-            return true;
+            return _paramFctTwo == null;
         }
         if (_paramFctTwo == null) {
             return true;
@@ -1833,10 +1788,7 @@ public abstract class OperationNode implements Operable {
         if (one_.matchClass(two_)) {
             return true;
         }
-        if (!two_.isAssignableFrom(one_, _map, _ana)) {
-            return false;
-        }
-        return true;
+        return two_.isAssignableFrom(one_, _map, _ana);
     }
 
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
@@ -2113,10 +2065,6 @@ public abstract class OperationNode implements Operable {
 
     public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-    }
-
-    public final PossibleIntermediateDotted getSiblingSet() {
-        return siblingSet;
     }
 
     public final void setSiblingSet(PossibleIntermediateDotted _siblingSet) {

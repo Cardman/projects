@@ -36,28 +36,12 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return getId().getSignature();
     }
 
-    @Override
     public MethodModifier getModifier() {
         return MethodModifier.STATIC;
     }
 
-    @Override
     public String getDeclaringType() {
         return EMPTY_STRING;
-    }
-
-    @Override
-    public MethodId getFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
-            pTypes_.add(formatted_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -88,11 +72,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    public boolean isConcreteMethod() {
-        return isNormalMethod() || isFinalMethod();
-    }
-
-    @Override
     public boolean isStaticMethod() {
         return true;
     }
@@ -107,7 +86,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return false;
     }
 
-    @Override
     public boolean isNormalMethod() {
         return false;
     }
@@ -141,13 +119,12 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public StringList getImports() {
         return imports;
     }
-    @Override
     public Numbers<Integer> getImportsOffset() {
         return importsOffset;
     }
     @Override
-    public boolean canAccessClass(String _type, Analyzable _analyzable) {
-        return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
+    public boolean isTypeHidden(String _type, Analyzable _analyzable) {
+        return _analyzable.getClassBody(_type).getAccess() != AccessEnum.PUBLIC;
     }
 
     @Override

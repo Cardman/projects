@@ -12,10 +12,6 @@ public class BadOperandsNumber extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes), SEP_INFO, Integer.toString(operandsNumber));
     }
 
-    public int getOperandsNumber() {
-        return operandsNumber;
-    }
-
     public void setOperandsNumber(int _operandsNumber) {
         operandsNumber = _operandsNumber;
     }

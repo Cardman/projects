@@ -111,19 +111,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         setSimpleArgumentAna(out_, _conf);
     }
 
-    Argument getArgument(ExecutableCode _conf,
-            Argument _in) {
-        Argument out_ = new Argument();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String oper_ = getOperations().getOperators().firstValue();
-        ClassArgumentMatching to_ = getResultClass();
-        if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, to_));
-        } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, to_));
-        }
-        return out_;
-    }
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

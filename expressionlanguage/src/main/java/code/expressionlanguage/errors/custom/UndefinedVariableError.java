@@ -14,10 +14,6 @@ public final class UndefinedVariableError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,id,SEP_INFO);
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String _id) {
         id = _id;
     }

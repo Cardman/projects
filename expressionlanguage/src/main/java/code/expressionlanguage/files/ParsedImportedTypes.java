@@ -20,14 +20,14 @@ public final class ParsedImportedTypes {
             return;
         }
         foundBrace = true;
-        nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
+        nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
         int indexImport_ = 0;
         int len_ = _fullFile.length();
         StringBuilder str_ = new StringBuilder();
         while (nextIndex < len_) {
             char currentChar_ = _fullFile.charAt(nextIndex);
             if (currentChar_ == END_BLOCK) {
-                nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
+                nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
                 break;
             }
             if (currentChar_ == END_IMPORTS) {
@@ -42,7 +42,7 @@ public final class ParsedImportedTypes {
                 }
                 str_.append(currentChar_);
             }
-            nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
+            nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
         }
         int bk_ = nextIndex;
         nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
@@ -58,9 +58,7 @@ public final class ParsedImportedTypes {
         }
         ok = true;
     }
-    public boolean isFoundBrace() {
-        return foundBrace;
-    }
+
     public boolean isOk() {
         return ok;
     }
@@ -72,9 +70,6 @@ public final class ParsedImportedTypes {
     }
     public int getNextIndex() {
         return nextIndex;
-    }
-    public void setNextIndex(int _nextIndex) {
-        nextIndex = _nextIndex;
     }
 
 }

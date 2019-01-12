@@ -2,21 +2,12 @@ package code.expressionlanguage.errors.custom;
 
 import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
-import code.util.ints.Listable;
 
 public class ErrorList extends CustList<FoundErrorInterpret> {
 
     private static final String SEP_INFO = "\n\n";
 
     public ErrorList() {
-    }
-
-    public ErrorList(FoundErrorInterpret... _elements) {
-        super(_elements);
-    }
-
-    public ErrorList(Listable<FoundErrorInterpret> _c) {
-        super(_c);
     }
 
     public String display(Classes _classes) {

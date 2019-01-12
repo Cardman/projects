@@ -19,16 +19,8 @@ public final class FinalMethod extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,className,SEP_CLASS_METHOD,id.getSignature(),SEP_INFO);
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public void setClassName(String _className) {
         className = _className;
-    }
-
-    public MethodId getId() {
-        return id;
     }
 
     public void setId(MethodId _id) {

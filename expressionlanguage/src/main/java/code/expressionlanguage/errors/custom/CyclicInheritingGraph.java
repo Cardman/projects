@@ -21,10 +21,6 @@ public final class CyclicInheritingGraph extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,cycle_.join(";"),SEP_INFO);
     }
 
-    public EqList<ConstructorEdge> getClassName() {
-        return className;
-    }
-
     public void setClassName(EqList<ConstructorEdge> _className) {
         className = _className;
     }

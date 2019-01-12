@@ -7,7 +7,7 @@ public final class EmptyInstruction extends Leaf {
 
     public EmptyInstruction(ContextEl _importingPage, BracedBlock _m,
             OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
     }
 
     @Override

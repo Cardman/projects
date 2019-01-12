@@ -1,10 +1,9 @@
 package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 
 public interface ReturnablePageEl {
 
-    void postReturn(ContextEl _context);
+    void postReturn();
     void setReturnedArgument(Argument _arg);
 }

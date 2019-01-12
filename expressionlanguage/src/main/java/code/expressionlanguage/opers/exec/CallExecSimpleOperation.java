@@ -7,5 +7,5 @@ import code.util.IdMap;
 
 public interface CallExecSimpleOperation extends ExecOperable {
 
-    Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right);
+    void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right);
 }

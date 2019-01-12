@@ -24,16 +24,12 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static void initializeClass(String _class, ContextEl _cont) {
-//        ProcessMethod.initializeClass(_class, _cont);
-    }
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
         MethodBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
-            Argument a_ = new Argument();
-            return a_;
+            return new Argument();
         }
         Argument argGlLoc_ = new Argument();
         return ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont);
@@ -45,14 +41,6 @@ public abstract class ProcessMethodCommon {
             cl_.add(c);
         }
         return new MethodId(true, _name, cl_);
-    }
-
-    protected static MethodId getMethodId(String _name, boolean _vararg, String..._classNames) {
-        StringList cl_ = new StringList();
-        for (String c: _classNames) {
-            cl_.add(c);
-        }
-        return new MethodId(true, _name, cl_, _vararg);
     }
 
     protected static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
@@ -74,13 +62,6 @@ public abstract class ProcessMethodCommon {
         return new ConstructorId(_name, cl_, false);
     }
 
-    protected static ConstructorId getConstructorId(String _name, boolean _vararg, String..._classNames) {
-        StringList cl_ = new StringList();
-        for (String c: _classNames) {
-            cl_.add(c);
-        }
-        return new ConstructorId(_name, cl_, _vararg);
-    }
     protected static ContextEl contextEl(int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
@@ -93,36 +74,17 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
-    protected static ContextEl contextElIntern() {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSingleInnerParts(true);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
-    }
+
     protected static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne("en", opt_);
     }
     protected static ContextEl contextEnElDefaultInternType() {
         Options opt_ = new Options();
         opt_.setSingleInnerParts(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne("en", opt_);
     }
-    protected static ContextEl contextFrElDefault() {
-        Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("fr", opt_);
-        return ct_;
-    }
-    protected static ContextEl contextFrElDefaultInternType() {
-        Options opt_ = new Options();
-        opt_.setSingleInnerParts(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("fr", opt_);
-        return ct_;
-    }
+
     protected static ContextEl contextElDefault(int... _m) {
         Options opt_ = new Options();
         ContextEl ct_;
@@ -133,31 +95,7 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
-    protected static ContextEl contextEl(boolean _multAff, boolean _eqPlus,int... _m) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
     protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(_suf);
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextEl(VariableSuffix _suf,boolean _multAff, boolean _eqPlus,int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(_suf);

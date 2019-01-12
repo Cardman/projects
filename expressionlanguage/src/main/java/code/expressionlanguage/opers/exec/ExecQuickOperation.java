@@ -22,21 +22,20 @@ public abstract class ExecQuickOperation extends ExecReflectableOpering {
         QuickOperation.tryGetResult(_conf, this, abs_);
     }
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode first_ = chidren_.first();
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (absorbingStruct().sameReference(abs_)) {
             setQuickSimpleArgument(f_, _conf, _nodes);
-            return f_;
+            return;
         }
         ExecOperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = getArgument(_nodes,last_);
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
     public abstract BooleanStruct absorbingStruct();

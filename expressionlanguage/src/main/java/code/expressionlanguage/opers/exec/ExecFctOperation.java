@@ -46,12 +46,11 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
 
     @Override
@@ -116,8 +115,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                Argument a_ = new Argument();
-                return a_;
+                return new Argument();
             }
             if (prev_.getStruct() instanceof ArrayStruct) {
                 int offLoc_ = -1;

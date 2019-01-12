@@ -38,16 +38,8 @@ public final class IfCondition extends Condition implements BlockCondition {
         return label;
     }
 
-    public void setLabel(String _label) {
-        label = _label;
-    }
-
     public int getLabelOffset() {
         return labelOffset;
-    }
-
-    public void setLabelOffset(int _labelOffset) {
-        labelOffset = _labelOffset;
     }
 
     private boolean canBeIncrementedCurGroup() {
@@ -57,7 +49,7 @@ public final class IfCondition extends Condition implements BlockCondition {
 
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        assignWhenTrue(_an, _anEl);
+        assignWhenTrue(_an);
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
@@ -89,7 +81,7 @@ public final class IfCondition extends Condition implements BlockCondition {
     }
 
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
         }
@@ -142,7 +134,7 @@ public final class IfCondition extends Condition implements BlockCondition {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (!ip_.noBlock()) {
+        if (ip_.hasBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_.getBlock() == this) {
                 ip_.removeLastBlock();

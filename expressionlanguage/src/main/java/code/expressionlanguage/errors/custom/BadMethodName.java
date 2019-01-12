@@ -14,10 +14,6 @@ public final class BadMethodName extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,name,SEP_INFO);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String _name) {
         name = _name;
     }

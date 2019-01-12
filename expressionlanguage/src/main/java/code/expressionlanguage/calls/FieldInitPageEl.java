@@ -52,10 +52,10 @@ public final class FieldInitPageEl extends AbstractPageEl implements WithElPageE
             en_.processBlock(_context);
             return;
         }
-        endRoot(_context);
+        endRoot();
     }
     @Override
-    public ParentStackBlock getNextBlock(Block _bl,ContextEl _conf) {
+    public ParentStackBlock getNextBlock(Block _bl) {
         ParentStackBlock parElt_;
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
@@ -70,7 +70,7 @@ public final class FieldInitPageEl extends AbstractPageEl implements WithElPageE
         setNullReadWrite();
     }
 
-    public void endRoot(ContextEl _context) {
+    public void endRoot() {
         setNullReadWrite();
     }
 

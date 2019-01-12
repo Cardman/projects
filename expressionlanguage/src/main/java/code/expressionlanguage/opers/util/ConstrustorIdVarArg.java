@@ -36,10 +36,6 @@ public final class ConstrustorIdVarArg {
         varArgToCall = _varArgToCall;
     }
 
-    public GeneConstructor getCtor() {
-        return ctor;
-    }
-
     public void setCtor(GeneConstructor _ctor) {
         ctor = _ctor;
     }

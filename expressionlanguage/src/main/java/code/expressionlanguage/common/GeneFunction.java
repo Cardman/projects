@@ -13,5 +13,4 @@ public interface GeneFunction extends AccessibleBlock {
 
     String getName();
     Identifiable getId();
-    StringList getImportedParametersTypes();
 }

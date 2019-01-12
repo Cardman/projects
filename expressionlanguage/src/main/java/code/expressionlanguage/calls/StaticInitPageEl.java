@@ -77,7 +77,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
         endRoot(_context);
     }
     @Override
-    public ParentStackBlock getNextBlock(Block _bl,ContextEl _conf) {
+    public ParentStackBlock getNextBlock(Block _bl) {
         ParentStackBlock parElt_;
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {

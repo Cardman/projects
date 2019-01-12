@@ -82,7 +82,7 @@ public interface Analyzable {
     FieldInfo getFieldInfo(ClassField _classField);
     CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
     int getCurrentChildTypeIndex();
-    void setCurrentChildTypeIndex(int _index);
+
     boolean isMerged();
     Struct getInternGlobal();
     String getInternGlobalClass();

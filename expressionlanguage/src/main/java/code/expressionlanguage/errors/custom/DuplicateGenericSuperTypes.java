@@ -19,10 +19,6 @@ public class DuplicateGenericSuperTypes extends FoundErrorInterpret {
         return str_.toString();
     }
 
-    public StringList getGenericSuperTypes() {
-        return genericSuperTypes;
-    }
-
     public void setGenericSuperTypes(StringList _genericSuperTypes) {
         genericSuperTypes = _genericSuperTypes;
     }

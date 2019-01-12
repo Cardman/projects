@@ -87,14 +87,6 @@ public abstract class ExecOperationNode implements Operable {
 
     protected static final String PLUS = "+";
 
-    protected static final String LOWER_EQ = "<=";
-
-    protected static final String LOWER = "<";
-
-    protected static final String GREATER_EQ = ">=";
-
-    protected static final String GREATER = ">";
-
     protected static final String DIFF = "!=";
 
     protected static final String EMPTY_STRING = "";
@@ -139,7 +131,7 @@ public abstract class ExecOperationNode implements Operable {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static Operable createExecOperationNode(OperationNode _anaNode,Analyzable _conf) {
+    public static Operable createExecOperationNode(OperationNode _anaNode) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -294,8 +286,7 @@ public abstract class ExecOperationNode implements Operable {
                 return new ExecErrorParentOperation(n_);
             }
             if (n_.getClassMethodId() != null) {
-                ExecCustNumericOperation exec_ = new ExecCustNumericOperation(n_);
-                return exec_;
+                return new ExecCustNumericOperation(n_);
             }
         }
         if (_anaNode instanceof UnaryBinOperation) {
@@ -444,7 +435,7 @@ public abstract class ExecOperationNode implements Operable {
         return out_;
     }
 
-    private void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+    private void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
         if (_cont.callsOrException()) {
             return;
         }
@@ -517,9 +508,7 @@ public abstract class ExecOperationNode implements Operable {
                 }
             }
             if (par_.getParent() instanceof ExecDeclaringOperation) {
-                if (_var == par_.getFirstChild()) {
-                    return true;
-                }
+                return _var == par_.getFirstChild();
             }
         }
         return false;
@@ -555,7 +544,7 @@ public abstract class ExecOperationNode implements Operable {
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         setQuickSimpleArgument(_argument, _conf, _nodes);
-        setNextSiblingsArg(_argument, _conf, _nodes);
+        setNextSiblingsArg(_argument, _conf);
     }
 
     protected final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

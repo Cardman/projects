@@ -57,7 +57,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 allGenericSuperClasses_.add(s);
             }
         }
-        StringList classNames_ = allGenericSuperClasses_;
         String fullName_ = getFullName();
         for (String b: getImportedDirectSuperTypes()) {
             String id_ = Templates.getIdFromAllTypes(b);
@@ -65,7 +64,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             if (!(bBl_ instanceof ClassBlock)) {
                 continue;
             }
-            AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
+            AccessEnum acc_ = bBl_.getMaximumAccessConstructors();
             if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
                 continue;
             }
@@ -88,7 +87,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
         String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
-        classes_.addAllElts(classNames_);
+        classes_.addAllElts(allGenericSuperClasses_);
         LgNames stds_ = _context.getStandards();
         String void_ = stds_.getAliasVoid();
         for (String s: getAllGenericInterfaces(_context)) {
@@ -146,11 +145,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 }
             }
         }
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
-        return new StringList(getDirectSuperTypes());
     }
 
     @Override

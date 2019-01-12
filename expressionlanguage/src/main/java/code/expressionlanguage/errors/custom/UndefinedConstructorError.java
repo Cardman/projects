@@ -17,10 +17,6 @@ public final class UndefinedConstructorError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className,".",id.getSignature(),SEP_INFO);
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public void setClassName(String _className) {
         className = _className;
     }

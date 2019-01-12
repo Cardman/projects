@@ -18,24 +18,12 @@ public final class BadNumberArgMethod extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),message_,SEP_INFO);
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String _id) {
         id = _id;
     }
 
-    public int getNbTypes() {
-        return nbTypes;
-    }
-
     public void setNbTypes(int _nbTypes) {
         nbTypes = _nbTypes;
-    }
-
-    public int getNbVars() {
-        return nbVars;
     }
 
     public void setNbVars(int _nbVars) {

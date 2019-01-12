@@ -683,7 +683,4 @@ public final class KeyWordsMap {
     public KeyWords getKeyWords(String _lg) {
         return keyWords.getVal(_lg);
     }
-    public StringMap<KeyWords> getKeyWords() {
-        return keyWords;
-    }
 }

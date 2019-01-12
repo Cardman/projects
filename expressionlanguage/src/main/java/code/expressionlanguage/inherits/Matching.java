@@ -33,9 +33,6 @@ public final class Matching implements Equallable<Matching> {
         if (!StringList.quickEq(arg, _g.arg)) {
             return false;
         }
-        if (!StringList.quickEq(param, _g.param)) {
-            return false;
-        }
-        return true;
+        return StringList.quickEq(param, _g.param);
     }
 }

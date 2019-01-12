@@ -42,20 +42,12 @@ public abstract class AbstractPageEl extends PageEl {
         return _context.processException();
     }
 
-    public void addToOffset(int _offset) {
-        offset += _offset;
-    }
-
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
 
     public void setGlobalOffset(int _globalOffset) {
         globalOffset = _globalOffset;
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
     public void setOffset(int _offset) {
@@ -79,17 +71,13 @@ public abstract class AbstractPageEl extends PageEl {
         return el_;
     }
 
-    public boolean noBlock() {
-        return blockStacks.isEmpty();
-    }
-
-    public int nbBlocks() {
-        return blockStacks.size();
+    public boolean hasBlock() {
+        return !blockStacks.isEmpty();
     }
 
     public LoopBlockStack getLastLoopIfPossible() {
         LoopBlockStack c_ = null;
-        if (!noBlock() && getLastStack() instanceof LoopBlockStack) {
+        if (hasBlock() && getLastStack() instanceof LoopBlockStack) {
             c_ = (LoopBlockStack) getLastStack();
         }
         return c_;
@@ -105,14 +93,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void removeLastBlock() {
         blockStacks.removeLast();
-    }
-
-    public CustList<RemovableVars> getBlockStacks() {
-        return blockStacks;
-    }
-
-    public void setBlockStacks(CustList<RemovableVars> _blockStacks) {
-        blockStacks = _blockStacks;
     }
 
     public boolean isFinallyToProcess() {

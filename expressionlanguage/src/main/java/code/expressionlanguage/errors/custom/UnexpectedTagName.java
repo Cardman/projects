@@ -15,10 +15,6 @@ public final class UnexpectedTagName extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),TAG,SEP_KEY_VAL,foundTag,SEP_INFO);
     }
 
-    public String getFoundTag() {
-        return foundTag;
-    }
-
     public void setFoundTag(String _foundTag) {
         foundTag = _foundTag;
     }

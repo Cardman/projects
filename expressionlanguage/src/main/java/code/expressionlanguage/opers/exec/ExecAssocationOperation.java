@@ -21,16 +21,12 @@ public final class ExecAssocationOperation extends ExecAbstractUnaryOperation {
         Argument arg_ = getFirstChild().getArgument();
         setSimpleArgumentAna(arg_, _conf);
     }
-    public String getFieldName() {
-        return fieldName;
-    }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument arg_ = getArgument(_nodes,getFirstChild());
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

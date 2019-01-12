@@ -14,10 +14,6 @@ public class BadFormatNumber extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,BAD_FORMAT_NUMBER,SEP_KEY_VAL,number);
     }
 
-    public String getNumber() {
-        return number;
-    }
-
     public void setNumber(String _number) {
         number = _number;
     }

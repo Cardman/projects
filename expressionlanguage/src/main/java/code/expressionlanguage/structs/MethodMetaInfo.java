@@ -97,9 +97,7 @@ public final class MethodMetaInfo implements Struct {
     public boolean isPrivate() {
         return access == AccessEnum.PRIVATE;
     }
-    public MethodModifier getModifier() {
-        return modifier;
-    }
+
     public String getReturnType() {
         return returnType;
     }

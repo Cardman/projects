@@ -64,7 +64,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             BracedBlock _m, OffsetAccessInfo _access,
             OffsetBooleanInfo _static, OffsetBooleanInfo _final,
             StringList _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+        super(_m, _offset);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         staticField = _static.isInfo();
@@ -247,9 +247,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public Numbers<Integer> getAnnotationsIndexes() {
         return annotationsIndexes;
-    }
-    @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
     public EqList<ClassField> getStaticConstantDependencies(Analyzable _an, String _name) {

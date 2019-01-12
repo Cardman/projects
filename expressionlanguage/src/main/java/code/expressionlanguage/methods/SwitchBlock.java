@@ -246,7 +246,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (!ip_.noBlock()) {
+        if (ip_.hasBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_.getBlock() == this) {
                 ip_.removeLastBlock();

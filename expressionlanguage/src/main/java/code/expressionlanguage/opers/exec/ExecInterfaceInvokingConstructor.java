@@ -34,9 +34,8 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
-        String calledCtorTemp_ = superClass_;
-        checkParameters(_conf, calledCtorTemp_, ctorId_, null, firstArgs_, 0);
-        callCtor(_conf, calledCtorTemp_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER);
+        checkParameters(_conf, superClass_, ctorId_, null, firstArgs_, 0);
+        callCtor(_conf, superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 

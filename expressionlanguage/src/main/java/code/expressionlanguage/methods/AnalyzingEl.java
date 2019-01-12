@@ -30,7 +30,6 @@ public final class AnalyzingEl {
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
     private IdMap<ReturnMehod, StringMap<SimpleAssignment>> assignments = new IdMap<ReturnMehod, StringMap<SimpleAssignment>>();
-    private StringMap<SimpleAssignment> assignmentsCalling = new StringMap<SimpleAssignment>();
     private Mapping mapping;
     private MemberCallingsBlock root;
 
@@ -44,21 +43,6 @@ public final class AnalyzingEl {
 
     public Boolean canCompleteNormally(Block _reach) {
         return canCompleteNormally.getVal(_reach);
-    }
-
-    public Boolean canCompleteStrictNormally(Block _reach) {
-        Block child_ = _reach.getFirstChild();
-        if (child_ == null) {
-            return canCompleteNormally.getVal(_reach);
-        }
-        while (true) {
-            Block next_ = child_.getNextSibling();
-            if (next_ == null) {
-                break;
-            }
-            child_ = next_;
-        }
-        return canCompleteNormallyGroup.getVal(child_);
     }
 
     public Boolean canCompleteNormallyGroup(Block _reach) {
@@ -148,10 +132,6 @@ public final class AnalyzingEl {
 
     public IdMap<ReturnMehod, StringMap<SimpleAssignment>> getAssignments() {
         return assignments;
-    }
-
-    public StringMap<SimpleAssignment> getAssignmentsCalling() {
-        return assignmentsCalling;
     }
 
     public MemberCallingsBlock getRoot() {

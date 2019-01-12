@@ -44,7 +44,7 @@ public final class WhileCondition extends Condition implements Loop {
 
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        assignWhenTrue(_an, _anEl);
+        assignWhenTrue(_an);
     }
 
     @Override
@@ -73,9 +73,9 @@ public final class WhileCondition extends Condition implements Loop {
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
+        processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
@@ -297,7 +297,7 @@ public final class WhileCondition extends Condition implements Loop {
         return accessible_;
     }
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         boolean abr_ = true;
         ExecOperationNode op_ = getRoot();
         boolean proc_ = true;

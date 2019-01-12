@@ -28,13 +28,12 @@ public final class ExecStaticInfoOperation extends ExecVariableLeafOperation imp
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument a_ = new Argument();
         String classStr_ = _conf.getOperationPageEl().formatVarType(className, _conf);
         a_.setStruct(_conf.getExtendedClassMetaInfo(classStr_));
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
 }

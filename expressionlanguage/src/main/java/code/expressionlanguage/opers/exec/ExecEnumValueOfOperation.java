@@ -19,13 +19,12 @@ public final class ExecEnumValueOfOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         ExecOperationNode first_ = getFirstChild();
         Argument a_ = getArgument(_nodes,first_);
         Argument arg_ = getCommonArgument(a_, _conf);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);

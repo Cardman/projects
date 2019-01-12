@@ -14,7 +14,6 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
         return block;
     }
 
-    @Override
     public void setBlock(BracedBlock _block) {
         block = _block;
     }

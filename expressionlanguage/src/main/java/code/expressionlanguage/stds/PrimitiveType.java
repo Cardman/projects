@@ -25,9 +25,6 @@ public final class PrimitiveType {
         nb = _nb;
     }
 
-    public String getName() {
-        return name;
-    }
     public String getWrapper() {
         return wrapper;
     }

@@ -59,7 +59,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return getId().getSignature();
     }
 
-    @Override
     public MethodModifier getModifier() {
         if (abstractMethod) {
             return MethodModifier.ABSTRACT;
@@ -73,25 +72,10 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return MethodModifier.NORMAL;
     }
 
-    @Override
     public String getDeclaringType() {
         return declaringType;
     }
 
-    @Override
-    public MethodId getFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
-            pTypes_.add(formatted_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
-    }
-    
     public MethodId getWildCardFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
@@ -136,7 +120,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-    @Override
     public boolean isConcreteMethod() {
         return isNormalMethod() || isFinalMethod();
     }
@@ -156,7 +139,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return abstractMethod;
     }
 
-    @Override
     public boolean isNormalMethod() {
         return normalMethod;
     }

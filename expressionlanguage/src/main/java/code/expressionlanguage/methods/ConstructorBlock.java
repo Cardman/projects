@@ -119,7 +119,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return (RootBlock) getParent();
     }
 
-    @Override
     public String getDeclaringType() {
         RootBlock clBlock_ = (RootBlock) getParent();
         return clBlock_.getFullName();

@@ -145,10 +145,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
             }
             Argument argRem_ = new Argument();
-            String g_ = _lastType;
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
-            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
@@ -160,8 +159,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
-        CustList<Argument> firstArgs_ = new CustList<Argument>(_nodes);
-        return firstArgs_;
+        return new CustList<Argument>(_nodes);
     }
     static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
@@ -348,11 +346,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     @Override
     public final ClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
-    }
-
-    @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
-        setPreviousResultClass(_previousResultClass, false);
     }
 
     @Override

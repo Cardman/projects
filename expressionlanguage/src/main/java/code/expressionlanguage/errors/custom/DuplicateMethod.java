@@ -14,10 +14,6 @@ public final class DuplicateMethod extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,id.getSignature(),SEP_INFO);
     }
 
-    public MethodId getId() {
-        return id;
-    }
-
     public void setId(MethodId _id) {
         id = _id;
     }

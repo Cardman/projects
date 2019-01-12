@@ -1,6 +1,5 @@
 package code.expressionlanguage.classes;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
@@ -53,7 +52,7 @@ public final class StdStruct implements RealInstanceStruct {
     public static StdStruct newInstance(SimpleItr _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
-    public static Struct wrapStd(Object _element, ContextEl _context) {
+    public static Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -99,9 +98,6 @@ public final class StdStruct implements RealInstanceStruct {
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
-        return className;
-    }
-    public String getClassName() {
         return className;
     }
 

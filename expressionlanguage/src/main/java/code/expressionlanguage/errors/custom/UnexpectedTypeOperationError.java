@@ -14,10 +14,6 @@ public final class UnexpectedTypeOperationError extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,operands.join(";"),SEP_INFO,expectedResult);
     }
 
-    public StringList getOperands() {
-        return operands;
-    }
-
     public void setOperands(StringList _operands) {
         operands = _operands;
     }
@@ -27,9 +23,6 @@ public final class UnexpectedTypeOperationError extends FoundErrorInterpret {
         for (ClassArgumentMatching c: _operands) {
             operands.add(c.getName());
         }
-    }
-    public String getExpectedResult() {
-        return expectedResult;
     }
 
     public void setExpectedResult(String _expectedResult) {

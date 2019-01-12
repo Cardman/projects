@@ -49,12 +49,11 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getCommonArgument(previous_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
 
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
@@ -83,13 +82,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         return arg_;
     }
 
-    public final void setStaticAccess(boolean _staticAccess) {
-        staticAccess = _staticAccess;
-    }
-
-    public final boolean isStaticAccess() {
-        return staticAccess;
-    }
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;

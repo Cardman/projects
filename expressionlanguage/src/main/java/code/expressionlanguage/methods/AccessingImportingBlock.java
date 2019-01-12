@@ -5,7 +5,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.util.CustList;
 
 public interface AccessingImportingBlock extends ImportingBlock {
-    boolean canAccessClass(String _class, Analyzable _analyzable);
+    boolean isTypeHidden(String _class, Analyzable _analyzable);
     FileBlock getFile();
 
     CustList<TypeVar> getParamTypesMapValues();

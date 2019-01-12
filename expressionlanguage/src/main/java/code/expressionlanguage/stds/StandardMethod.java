@@ -45,12 +45,10 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return modifier == MethodModifier.ABSTRACT;
     }
 
-    @Override
     public boolean isNormalMethod() {
         return modifier == MethodModifier.NORMAL;
     }
 
-    @Override
     public String getDeclaringType() {
         return getOwner().getFullName();
     }
@@ -60,22 +58,8 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return getId().getSignature();
     }
 
-    @Override
     public MethodModifier getModifier() {
         return modifier;
-    }
-
-    @Override
-    public MethodId getFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            pTypes_.add(n_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -91,8 +75,4 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-    @Override
-    public boolean isConcreteMethod() {
-        return isNormalMethod() || isFinalMethod();
-    }
 }

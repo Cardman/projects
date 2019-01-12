@@ -44,20 +44,12 @@ public final class Options {
         return varTypeFirst;
     }
 
-    public void setVarTypeFirst(boolean _varTypeFirst) {
-        varTypeFirst = _varTypeFirst;
-    }
-
     public boolean isUpperLong() {
         return upperLong;
     }
 
     public void setUpperLong(boolean _upperLong) {
         upperLong = _upperLong;
-    }
-
-    public boolean isEndLineSemiColumn() {
-        return endLineSemiColumn;
     }
 
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
@@ -67,9 +59,7 @@ public final class Options {
     public boolean isAllParametersSort() {
         return allParametersSort;
     }
-    public void setAllParametersSort(boolean _allParametersSort) {
-        allParametersSort = _allParametersSort;
-    }
+
     public boolean isSingleInnerParts() {
         return singleInnerParts;
     }

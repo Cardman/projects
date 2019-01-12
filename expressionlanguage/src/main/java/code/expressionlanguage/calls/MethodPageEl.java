@@ -16,8 +16,7 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
     public MethodPageEl(ContextEl _context) {
         Block root_ = getBlockRoot();
         Argument global_ = getGlobalArgument();
-        Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _context);
-        returnedArgument = arg_;
+        returnedArgument = PrimitiveTypeUtil.defaultValue(root_, global_, _context);
     }
     public Argument getReturnedArgument() {
         return returnedArgument;
@@ -40,10 +39,10 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
             ((WithEl)en_).processEl(_context);
             return;
         }
-        endRoot(_context);
+        endRoot();
     }
     @Override
-    public ParentStackBlock getNextBlock(Block _bl,ContextEl _conf) {
+    public ParentStackBlock getNextBlock(Block _bl) {
         ParentStackBlock parElt_;
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
@@ -51,7 +50,7 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
         } else {
             BracedBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (!noBlock()) {
+            if (hasBlock()) {
                 parElt_ =  new ParentStackBlock(n_);
             } else {
                 //directly at the root => last element in the block root
@@ -66,11 +65,11 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
     }
 
     @Override
-    public void postReturn(ContextEl _context) {
+    public void postReturn() {
         setNullReadWrite();
     }
 
-    public void endRoot(ContextEl _context) {
+    public void endRoot() {
         setNullReadWrite();
     }
 

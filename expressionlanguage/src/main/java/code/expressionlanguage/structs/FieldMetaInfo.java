@@ -65,9 +65,6 @@ public final class FieldMetaInfo implements Struct {
     public String getType() {
         return type;
     }
-    public boolean isEnumElement() {
-        return enumElement;
-    }
 
 
     @Override

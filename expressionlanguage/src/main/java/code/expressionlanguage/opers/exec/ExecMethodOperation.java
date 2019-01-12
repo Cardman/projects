@@ -43,8 +43,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
     @Override
     public final CustList<Operable> getChildrenOperable() {
         CustList<Operable> list_ = new CustList<Operable>();
-        ExecOperationNode firstChild_ = getFirstChild();
-        ExecOperationNode elt_ = firstChild_;
+        ExecOperationNode elt_ = getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();
@@ -53,8 +52,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
     }
     public final CustList<ExecOperationNode> getChildrenNodes() {
         CustList<ExecOperationNode> list_ = new CustList<ExecOperationNode>();
-        ExecOperationNode firstChild_ = getFirstChild();
-        ExecOperationNode elt_ = firstChild_;
+        ExecOperationNode elt_ = getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();

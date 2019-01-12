@@ -278,9 +278,6 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
-    public SettableElResult getSettable() {
-        return settable;
-    }
 
     public String getOper() {
         return oper;

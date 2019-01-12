@@ -274,7 +274,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Classes classes_ = _conf.getClasses();
         String idClass_ = Templates.getIdFromAllTypes(_className);
         ContextEl cont_ = _conf.getContextEl();
-        if (!cont_.isEmptyPages()) {
+        if (cont_.hasPages()) {
             String curClass_ = cont_.getLastPage().getGlobalClass();
             if (curClass_ != null) {
                 curClass_ = Templates.getIdFromAllTypes(curClass_);

@@ -26,12 +26,11 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument argres_ = getArgument( arguments_, _conf);
         setSimpleArgument(argres_, _conf, _nodes);
-        return argres_;
     }
 
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {

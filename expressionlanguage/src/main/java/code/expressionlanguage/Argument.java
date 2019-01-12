@@ -37,8 +37,7 @@ public final class Argument {
     }
 
     public static Argument createVoid() {
-        Argument void_ = new Argument();
-        return void_;
+        return new Argument();
     }
 
     public Struct getStruct() {
@@ -66,9 +65,7 @@ public final class Argument {
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();
     }
-    public double getDouble() {
-        return ((NumberStruct)object).getInstance().doubleValue();
-    }
+
     public long getLong() {
         return ((NumberStruct)object).getInstance().longValue();
     }
@@ -91,23 +88,9 @@ public final class Argument {
     public void setObject(String _object) {
         object = new StringStruct(_object);
     }
-    public void setObject(Byte _object) {
-        object = new ByteStruct(_object);
-    }
-    public void setObject(Short _object) {
-        object = new ShortStruct(_object);
-    }
+
     public void setObject(Integer _object) {
         object = new IntStruct(_object);
-    }
-    public void setObject(Long _object) {
-        object = new LongStruct(_object);
-    }
-    public void setObject(Float _object) {
-        object = new FloatStruct(_object);
-    }
-    public void setObject(Double _object) {
-        object = new DoubleStruct(_object);
     }
 
     private ClassArgumentMatching getArgClass(ContextEl _context) {

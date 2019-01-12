@@ -39,9 +39,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
     public void setNames(StringMap<String> _names) {
         names = _names;
     }
-    public CustList<Argument> getArgs() {
-        return args;
-    }
+
     public void setArgs(CustList<Argument> _args) {
         args = _args;
     }

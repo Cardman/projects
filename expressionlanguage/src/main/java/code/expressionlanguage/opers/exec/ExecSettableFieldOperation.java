@@ -36,7 +36,6 @@ public final class ExecSettableFieldOperation extends
         anc = _s.getAnc();
     }
 
-    @Override
     public final boolean resultCanBeSet() {
         return variable;
     }
@@ -66,10 +65,6 @@ public final class ExecSettableFieldOperation extends
             return null;
         }
         return fieldMetaInfo.getClassField();
-    }
-
-    public final FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
     }
 
     @Override
@@ -176,8 +171,7 @@ public final class ExecSettableFieldOperation extends
                     return _right;
                 }
                 classes_.initializeStaticField(fieldId_, res_.getStruct());
-                Argument a_ = res_;
-                return a_;
+                return res_;
             }
             Argument previous_ = new Argument();
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
@@ -193,8 +187,7 @@ public final class ExecSettableFieldOperation extends
                 return _right;
             }
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
-            Argument a_ = res_;
-            return a_;
+            return res_;
         }
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
@@ -211,8 +204,7 @@ public final class ExecSettableFieldOperation extends
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
-        Argument a_ = res_;
-        return a_;
+        return res_;
     }
     final Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
         int off_ = getOff();

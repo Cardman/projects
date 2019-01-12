@@ -11,9 +11,6 @@ public final class BadIndexInParser extends FoundErrorInterpret {
     public String display(Classes _classes) {
         return StringList.concat(super.display(_classes)," at ",Integer.toString(index));
     }
-    public int getIndex() {
-        return index;
-    }
 
     public void setIndex(int _index) {
         index = _index;

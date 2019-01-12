@@ -10,7 +10,6 @@ import org.junit.Test;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AnnotationBlock;

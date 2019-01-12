@@ -21,7 +21,6 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
         return block;
     }
 
-    @Override
     public void setBlock(BracedBlock _block) {
         block = _block;
     }
@@ -54,10 +53,6 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
     @Override
     public void removeVarAndLoop(AbstractPageEl _ip) {
         currentBlock.processToFinally(_ip, this);
-    }
-
-    public boolean isFinished() {
-        return finished;
     }
 
     @Override

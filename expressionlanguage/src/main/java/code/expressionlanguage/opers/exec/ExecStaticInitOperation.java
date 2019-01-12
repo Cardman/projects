@@ -16,15 +16,14 @@ public final class ExecStaticInitOperation extends ExecVariableLeafOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
             String className_ = getResultClass().getNames().first();
             ExecInvokingOperation.hasToExit(_conf, className_);
         }
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

@@ -23,11 +23,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
         superInterfaces = _superInterfaces;
     }
 
-    public StringList getSuperInterfaces() {
-        return superInterfaces;
-    }
-
-    @Override
     public StringList getDirectSuperClasses() {
         return getDirectInterfaces();
     }
@@ -57,7 +52,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
         return allSuperTypes;
     }
 
-    @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
@@ -82,11 +76,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     @Override
     public StringList getAllInterfaces() {
         return getAllSuperClasses();
-    }
-
-    @Override
-    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
-        return new StringList(getDirectSuperTypes());
     }
 
     @Override

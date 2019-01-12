@@ -69,13 +69,12 @@ public final class ExecAffectationOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         ExecOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes, right_);
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

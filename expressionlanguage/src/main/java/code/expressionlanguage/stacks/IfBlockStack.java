@@ -16,7 +16,6 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
         return block;
     }
 
-    @Override
     public void setBlock(BracedBlock _block) {
         block = _block;
     }
@@ -37,10 +36,6 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
         BracedBlock cur_ = getCurrentVisitedBlock();
         cur_.removeLocalVars(_ip);
         _ip.removeLastBlock();
-    }
-
-    public boolean isFinished() {
-        return finished;
     }
 
     @Override

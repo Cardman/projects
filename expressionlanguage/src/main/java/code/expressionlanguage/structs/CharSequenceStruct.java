@@ -209,7 +209,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-            eq(_args[0], lgNames_, _res);
+            eq(_args[0], _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasFormat())) {
@@ -537,7 +537,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
         _res.setResult(arr_);
     }
-    private void eq(Struct _sep, LgNames _stds,ResultErrorStd _res) {
+    private void eq(Struct _sep, ResultErrorStd _res) {
         _res.setResult(new BooleanStruct(sameReference(_sep)));
     }
     private void format(Struct _seps, LgNames _stds,ResultErrorStd _res) {

@@ -71,7 +71,7 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         finalType = true;
     }
 
-    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
+    public ClassMetaInfo(String _name, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
         name = _name;
         upperBounds.addAllElts(_upperBounds);
         lowerBounds.addAllElts(_lowerBounds);
@@ -184,7 +184,7 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         StringList lowerBounds_ = new StringList();
         for (TypeVar b: vars_) {
             String pref_ = StringList.concat(Templates.PREFIX_VAR_TYPE, b.getName());
-            list_.add(new ClassMetaInfo(pref_, _cont, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
+            list_.add(new ClassMetaInfo(pref_, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }
         return list_;
     }
@@ -224,9 +224,7 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     public boolean isTypePrimitive() {
         return category == ClassCategory.PRIMITIVE;
     }
-    public boolean isTypeVoid() {
-        return category == ClassCategory.VOID;
-    }
+
     public boolean isTypeVariable() {
         return category == ClassCategory.VARIABLE;
     }
@@ -247,10 +245,6 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
 
     public String getTypeOwner() {
         return typeOwner;
-    }
-
-    public ClassCategory getCategory() {
-        return category;
     }
 
     public StringMap<FieldMetaInfo> getFieldsInfos() {

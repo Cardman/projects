@@ -63,10 +63,6 @@ public final class ConstructorMetaInfo implements Struct {
         return formClassName;
     }
 
-    public AccessEnum getAccess() {
-        return access;
-    }
-
     public ConstructorId getFid() {
         return fid;
     }

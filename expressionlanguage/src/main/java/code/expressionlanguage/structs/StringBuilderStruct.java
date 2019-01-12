@@ -75,7 +75,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasCapacity())) {
-            one_.capacity(_cont, _res);
+            one_.capacity(_res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasClear())) {
@@ -430,7 +430,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void capacity(ExecutableCode _an, ResultErrorStd _out) {
+    private void capacity(ResultErrorStd _out) {
         _out.setResult(new IntStruct(instance.capacity()));
     }
 

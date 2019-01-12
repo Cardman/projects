@@ -128,7 +128,7 @@ public final class FileResolver {
                     commentedSingleLine_ = false;
                     enabledSpaces_.setCheckTabs(true);
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (commentedMultiLine_) {
@@ -142,13 +142,13 @@ public final class FileResolver {
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedMultiLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         previousChar_ = nextChar_;
                         continue;
                     }
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (_file.indexOf(keyWordPublic_, i_) == i_) {
@@ -207,16 +207,16 @@ public final class FileResolver {
                 if (nextChar_ == BEGIN_COMMENT) {
                     commentedSingleLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     previousChar_ = nextChar_;
                     continue;
                 }
                 if (nextChar_ == SECOND_COMMENT) {
                     commentedMultiLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     previousChar_ = nextChar_;
                     continue;
                 }
@@ -242,7 +242,7 @@ public final class FileResolver {
                 }
             }
             previousChar_ = currentChar_;
-            i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+            i_ = incrementRowCol(i_, _file, enabledSpaces_);
         }
         if (i_ >= len_) {
             badIndexes_.add(i_);
@@ -266,7 +266,7 @@ public final class FileResolver {
         }
         while (true) {
             input_.setNextIndex(i_);
-            ResultCreation res_ = createType(_context, _fileName, _file, input_, importedTypes_);
+            ResultCreation res_ = createType(_context, _file, input_);
             badIndexes_ = input_.getBadIndexes();
             if (!res_.isOk()) {
                 for (int i: badIndexes_) {
@@ -296,7 +296,7 @@ public final class FileResolver {
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 cls_.addError(d_);
                             }
-                            cls_.processBracedClass(cur_, _predefined, _context);
+                            cls_.processBracedClass(cur_, _context);
                         }
                         Block fc_ = c_.getFirstChild();
                         if (fc_ != null) {
@@ -327,7 +327,7 @@ public final class FileResolver {
                         }
                     }
                 } else {
-                    cls_.processBracedClass(r_, _predefined, _context);
+                    cls_.processBracedClass(r_, _context);
                 }
             }
             if (res_ instanceof ResultOperatorCreation) {
@@ -345,7 +345,7 @@ public final class FileResolver {
                         commentedSingleLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
                     }
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
                 if (commentedMultiLine_) {
@@ -359,13 +359,13 @@ public final class FileResolver {
                         if (nextChar_ == BEGIN_COMMENT) {
                             commentedMultiLine_ = false;
                             enabledSpaces_.setCheckTabs(true);
-                            i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                            i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                            i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                            i_ = incrementRowCol(i_, _file, enabledSpaces_);
                             previousChar_ = nextChar_;
                             continue;
                         }
                     }
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
                 if (StringList.isDollarWordChar(currentChar_)) {
@@ -391,16 +391,16 @@ public final class FileResolver {
                     if (nextChar_ == BEGIN_COMMENT) {
                         commentedSingleLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         previousChar_ = nextChar_;
                         continue;
                     }
                     if (nextChar_ == SECOND_COMMENT) {
                         commentedMultiLine_ = true;
                         enabledSpaces_.setCheckTabs(false);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         previousChar_ = nextChar_;
                         continue;
                     }
@@ -420,7 +420,7 @@ public final class FileResolver {
                     allowedComments_ = true;
                 }
                 previousChar_ = currentChar_;
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
             }
             if (!hasNext_) {
                 for (int i: badIndexes_) {
@@ -434,7 +434,7 @@ public final class FileResolver {
             input_.setNextIndex(i_);
         }
     }
-    private static ResultCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, StringList _import) {
+    private static ResultCreation createType(ContextEl _context, String _file, InputTypeCreation _input) {
         Options options_ = _context.getOptions();
         KeyWords keyWords_ = _context.getKeyWords();
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
@@ -529,7 +529,7 @@ public final class FileResolver {
                     break;
                 }
                 symbol_.append(currentChar_);
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, enabledSpaces_);
+                nextIndex_ = incrementRowCol(nextIndex_, _file, enabledSpaces_);
             }
             int bk_ = nextIndex_;
             nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, enabledSpaces_);
@@ -561,14 +561,13 @@ public final class FileResolver {
             }
             out_ = new ResultOperatorCreation();
             int until_ = untilOperator(nextIndex_, _file, tabWidth_, enabledSpaces_);
-            String header_ = _file.substring(nextIndex_, until_);
-            String info_ = header_;
+            String info_ = _file.substring(nextIndex_, until_);
             int typeOffset_ = nextIndex_;
             int paramOffest_;
             String declaringType_ = EMPTY_STRING;
             String afterModifier_ = info_;
             info_ = afterModifier_.trim();
-            declaringType_ = getDeclaringTypeOper(info_, options_);
+            declaringType_ = getDeclaringTypeOper(info_);
             int declTypeLen_ = declaringType_.length();
             String afterType_ = info_.substring(declTypeLen_);
             info_ = afterType_.trim();
@@ -601,7 +600,7 @@ public final class FileResolver {
                 annotationsIndexesParams_.add(annotationsIndexesParam_);
                 annotationsParams_.add(annotationsParam_);
                 offestsTypes_.add(paramOffest_);
-                String paramType_ = getDeclaringParamType(info_, options_);
+                String paramType_ = getDeclaringParamType(info_);
                 parametersType_.add(paramType_.trim());
                 String afterParamType_ = info_.substring(paramType_.length());
                 info_ = afterParamType_.trim();
@@ -635,7 +634,7 @@ public final class FileResolver {
             ((OperatorBlock)currentParent_).getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
             braces_.add(until_);
-            nextIndex_ = incrementRowCol(until_, _file, tabWidth_, enabledSpaces_);
+            nextIndex_ = incrementRowCol(until_, _file, enabledSpaces_);
         } else {
             out_ = new ResultTypeCreation();
             char currentChar_ = _file.charAt(nextIndex_);
@@ -785,7 +784,7 @@ public final class FileResolver {
                     }
                     str_.delete(0, str_.length());
                     foundInherit_ = true;
-                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, enabledSpaces_);
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, enabledSpaces_);
                     inheritIndex_ = nextIndex_;
                     continue;
                 }
@@ -802,7 +801,7 @@ public final class FileResolver {
                 if (foundInherit_) {
                     str_.append(currentChar_);
                 }
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, enabledSpaces_);
+                nextIndex_ = incrementRowCol(nextIndex_, _file, enabledSpaces_);
             }
             if (foundInherit_) {
                 superTypes_.put(inheritIndex_, str_.toString());
@@ -813,7 +812,7 @@ public final class FileResolver {
                 return out_;
             }
             currentChar_ = _file.charAt(nextIndex_);
-            nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, enabledSpaces_);
+            nextIndex_ = incrementRowCol(nextIndex_, _file, enabledSpaces_);
             RootBlock typeBlock_;
             String tempDef_ = templateDef_.toString();
             String typeName_ = typeNamePref_.toString();
@@ -851,13 +850,11 @@ public final class FileResolver {
     private static ResultCreation processOuterTypeBody(ContextEl _context, InputTypeCreation _input, int _nextIndex,
             String _file, BracedBlock _currentParent, Numbers<Integer> _braces, boolean _enabledEnum, ResultCreation _out) {
         int len_ = _file.length();
-        int nextIndex_ = _nextIndex;
         Options options_ = _context.getOptions();
         KeyWords keyWords_ = _context.getKeyWords();
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
         String keyWordReturn_ = keyWords_.getKeyWordReturn();
-        ResultCreation out_ = _out;
         boolean allowedComments_ = false;
         IdMap<SwitchPartBlock, Boolean> bracedSwitchPart_ = new IdMap<SwitchPartBlock, Boolean>();
         StringBuilder instruction_ = new StringBuilder();
@@ -872,7 +869,6 @@ public final class FileResolver {
         boolean constString_ = false;
         boolean constText_ = false;
         boolean declType_ = false;
-        Numbers<Integer> braces_ = _braces;
         BracedBlock currentParent_ = _currentParent;
 
         int i_ = _nextIndex;
@@ -892,7 +888,7 @@ public final class FileResolver {
                     enabledSpaces_.setCheckTabs(true);
                     instruction_.delete(0, instruction_.length());
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (commentedMultiLine_) {
@@ -907,12 +903,12 @@ public final class FileResolver {
                         commentedMultiLine_ = false;
                         enabledSpaces_.setCheckTabs(true);
                         instruction_.delete(0, instruction_.length());
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         continue;
                     }
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (constChar_) {
@@ -924,18 +920,18 @@ public final class FileResolver {
                         break;
                     }
                     instruction_.append(_file.charAt(i_+1));
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
                 if (currentChar_ == DEL_CHAR) {
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constChar_ = false;
                     allowedComments_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (constString_) {
@@ -947,18 +943,18 @@ public final class FileResolver {
                         break;
                     }
                     instruction_.append(_file.charAt(i_+1));
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
                 if (currentChar_ == DEL_STRING) {
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     constString_ = false;
                     allowedComments_ = false;
                     enabledSpaces_.setCheckTabs(true);
                     continue;
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (constText_) {
@@ -970,18 +966,18 @@ public final class FileResolver {
                 }
                 if(currentChar_ == DEL_TEXT) {
                     if (_file.charAt(i_ + 1) != DEL_TEXT) {
-                        i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                        i_ = incrementRowCol(i_, _file, enabledSpaces_);
                         constText_ = false;
                         allowedComments_ = false;
                         enabledSpaces_.setCheckTabs(true);
                         continue;
                     }
                     instruction_.append(_file.charAt(i_+1));
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (!enabledSpaces_.isOk()) {
@@ -1004,8 +1000,8 @@ public final class FileResolver {
                     }
                     commentedSingleLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
                 if (nextChar_ == SECOND_COMMENT) {
@@ -1016,8 +1012,8 @@ public final class FileResolver {
                     }
                     commentedMultiLine_ = true;
                     enabledSpaces_.setCheckTabs(false);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, enabledSpaces_);
                     continue;
                 }
             }
@@ -1028,7 +1024,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
                 constChar_ = true;
                 enabledSpaces_.setCheckTabs(false);
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (currentChar_ == DEL_STRING) {
@@ -1038,7 +1034,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
                 constString_ = true;
                 enabledSpaces_.setCheckTabs(false);
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             if (currentChar_ == DEL_TEXT) {
@@ -1048,7 +1044,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
                 constText_ = true;
                 enabledSpaces_.setCheckTabs(false);
-                i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+                i_ = incrementRowCol(i_, _file, enabledSpaces_);
                 continue;
             }
             boolean endInstruction_ = false;
@@ -1140,18 +1136,18 @@ public final class FileResolver {
             }
             if (currentChar_ == BEGIN_BLOCK) {
                 if (endInstruction_) {
-                    braces_.add(i_);
+                    _braces.add(i_);
                 } else {
                     parentheses_.add(i_);
                 }
             }
             if (currentChar_ == END_BLOCK) {
                 if (endInstruction_) {
-                    if (braces_.isEmpty()) {
+                    if (_braces.isEmpty()) {
                         badIndexes_.add(i_);
                         break;
                     }
-                    braces_.removeLast();
+                    _braces.removeLast();
                 } else {
                     if (parentheses_.isEmpty()) {
                         badIndexes_.add(i_);
@@ -1161,9 +1157,9 @@ public final class FileResolver {
                 }
             }
             if (endInstruction_) {
-                after_ = processInstruction(_context, _input, currentChar_, currentParent_, out_, bracedSwitchPart_, braces_, instructionLocation_, instruction_, _file, declType_, i_, nextIndex_, len_, enableByEndLine_);
+                after_ = processInstruction(_context, _input, currentChar_, currentParent_, _out, bracedSwitchPart_, _braces, instructionLocation_, instruction_, _file, declType_, i_, _nextIndex, len_, enableByEndLine_);
                 if (after_ == null) {
-                    return out_;
+                    return _out;
                 }
                 enableByEndLine_ = after_.isEnabledEnumHeader();
                 currentParent_ = after_.getParent();
@@ -1204,39 +1200,33 @@ public final class FileResolver {
                     }
                 }
             }
-            if (braces_.isEmpty() && currentChar_ == END_BLOCK) {
+            if (_braces.isEmpty() && currentChar_ == END_BLOCK) {
                 okType_ = true;
                 break;
             }
-            i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+            i_ = incrementRowCol(i_, _file, enabledSpaces_);
         }
         if (okType_) {
-            i_ = incrementRowCol(i_, _file, tabWidth_, enabledSpaces_);
+            i_ = incrementRowCol(i_, _file, enabledSpaces_);
         }
-        out_.setNextIndex(i_);
-        out_.setOk(okType_);
-        return out_;
+        _out.setNextIndex(i_);
+        _out.setOk(okType_);
+        return _out;
     }
     private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
             BracedBlock _currentParent, ResultCreation _out, IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, Numbers<Integer> _braces,
             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, int _len, boolean _enabledEnum) {
-        char currentChar_ = _currentChar;
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         int tabWidth_ = _context.getTabWidth();
-        Numbers<Integer> braces_ = _braces;
-        StringBuilder instruction_ = _instruction;
-        IdMap<SwitchPartBlock, Boolean> bracedSwitchPart_ = _bracedSwitchPart;
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
         Numbers<Integer> badIndexes_ = _input.getBadIndexes();
         Options options_ = _context.getOptions();
         BracedBlock currentParent_ = _currentParent;
         int instructionLocation_ = _instructionLocation;
         int i_ = _i;
-        int nextIndex_ = _nextIndex;
         Block br_ = null;
         char endLine_ = _context.getOptions().getEndLine();
         char suffix_ = _context.getOptions().getSuffix();
-        int len_ = _len;
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
@@ -1263,11 +1253,11 @@ public final class FileResolver {
                 StringList annotations_ = new StringList();
                 if (declType_) {
                     RootBlock built_ = processTypeHeader(_context, _input, true,
-                            _out, _file,
+                            _file,
                             instructionLocation_, instructionRealLocation_,
                             found_, enabledSpaces_,
-                            currentParent_, len_, trimmedInstruction_,
-                            AccessEnum.PUBLIC, typeOffset_);
+                            currentParent_, _len, trimmedInstruction_,
+                            AccessEnum.PUBLIC);
                     if (built_ == null) {
                         return null;
                     }
@@ -1304,7 +1294,7 @@ public final class FileResolver {
                         meth_ = false;
                         typeOffset_ += deltaFinal_;
                     }
-                    String declaringType_ = getDeclaringTypeBlock(found_,options_);
+                    String declaringType_ = getDeclaringTypeBlock(found_);
                     found_ = found_.substring(declaringType_.length());
                     String realFound_ = found_;
                     found_ = found_.trim();
@@ -1328,12 +1318,11 @@ public final class FileResolver {
                         meth_ = false;
                     }
                     if (!meth_) {
-                        String afterType_ = realFound_;
                         StringList fieldNames_ = new StringList();
                         int j_ = 0;
-                        int lenAfterType_ = afterType_.length();
+                        int lenAfterType_ = realFound_.length();
                         while (j_ < lenAfterType_) {
-                            String sub_ = afterType_.substring(j_);
+                            String sub_ = realFound_.substring(j_);
                             int next_ = getIndex(sub_, ',');
                             String foundField_;
                             if (next_ >= 0) {
@@ -1358,7 +1347,7 @@ public final class FileResolver {
                             }
                             j_+=next_+1;
                         }
-                        int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.trim().length() + typeOffset_;
+                        int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(realFound_) +declaringType_.trim().length() + typeOffset_;
                         br_ = new FieldBlock(_context, currentParent_,
                                 new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                 new OffsetBooleanInfo(-1, true),
@@ -1391,17 +1380,17 @@ public final class FileResolver {
                 }
             } else {
                 //implicit static block
-                if (currentChar_ != END_BLOCK) {
+                if (_currentChar != END_BLOCK) {
                     br_ = new StaticBlock(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                     currentParent_.appendChild(br_);
                 }
             }
-            if (currentChar_ == END_BLOCK) {
+            if (_currentChar == END_BLOCK) {
                 if (!trimmedInstruction_.isEmpty()) {
-                    badIndexes_.add(nextIndex_);
+                    badIndexes_.add(_nextIndex);
                 }
                 currentParent_ = currentParent_.getParent();
-            } else if (currentChar_ != endLine_ && br_ instanceof BracedBlock) {
+            } else if (_currentChar != endLine_ && br_ instanceof BracedBlock) {
                 currentParent_ = (BracedBlock) br_;
             }
         } else if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
@@ -1453,14 +1442,14 @@ public final class FileResolver {
                 ((AnnotableBlock) br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                 currentParent_.appendChild(br_);
             }
-            if (currentChar_ == END_BLOCK) {
+            if (_currentChar == END_BLOCK) {
                 currentParent_ = currentParent_.getParent();
             }
-            if (currentChar_ == endLine_ || currentChar_ == END_BLOCK) {
+            if (_currentChar == endLine_ || _currentChar == END_BLOCK) {
                 enableByEndLine_ = false;
             }
-        } else if (currentChar_ != END_BLOCK) {
-            Block bl_ = processInstructionBlock(_context, _input, _file, bracedSwitchPart_, instructionLocation_, instructionRealLocation_, i_, currentParent_, trimmedInstruction_);
+        } else if (_currentChar != END_BLOCK) {
+            Block bl_ = processInstructionBlock(_context, _file, _bracedSwitchPart, instructionLocation_, instructionRealLocation_, i_, currentParent_, trimmedInstruction_);
             if (bl_ == null) {
                 int trFound_ = StringList.getFirstPrintableCharIndex(found_);
                 int accessOffest_ = trFound_ + i_ - found_.length();
@@ -1469,11 +1458,11 @@ public final class FileResolver {
                     if (declType_) {
                         //Inner types
                         RootBlock built_ = processTypeHeader(_context, _input, false,
-                                _out, _file,
+                                _file,
                                 instructionLocation_, instructionRealLocation_,
                                 found_, enabledSpaces_,
-                                currentParent_, len_, trimmedInstruction_,
-                                AccessEnum.PACKAGE, accessOffest_);
+                                currentParent_, _len, trimmedInstruction_,
+                                AccessEnum.PACKAGE);
                         if (built_ == null) {
                             return null;
                         }
@@ -1482,11 +1471,10 @@ public final class FileResolver {
                         }
                         br_ = built_;
                     } else {
-                        br_ = processTypeMember(_context, _input, _file, instruction_, instructionLocation_, i_, currentParent_);
+                        br_ = processTypeMember(_context, _instruction, instructionLocation_, i_, currentParent_);
                     }
                 } else {
                     int affectOffset_ = -1;
-                    int typeOffset_ = instructionRealLocation_;
                     int afterDeclareOffset_ = -1;
                     boolean finalLocalVar_ = ContextEl.startsWithKeyWord(trimmedInstruction_, keyWordFinal_);
                     int delta_ = 0;
@@ -1503,12 +1491,12 @@ public final class FileResolver {
                     String info_;
                     int realTypeOffset_;
                     if (finalLocalVar_) {
-                        realTypeOffset_ = typeOffset_ + deltaAfter_;
+                        realTypeOffset_ = instructionRealLocation_ + deltaAfter_;
                     } else {
                         realTypeOffset_ = instructionLocation_;
                     }
                     if (typeDeclaring_) {
-                        int varNameOffset_ = typeOffset_ + delta_;
+                        int varNameOffset_ = instructionRealLocation_ + delta_;
                         varNameOffset_ += declaringType_.length();
                         info_ = found_.substring(declaringType_.length());
                         varNameOffset_ += StringList.getFirstPrintableCharIndex(info_);
@@ -1521,7 +1509,7 @@ public final class FileResolver {
                     }
                     String inst_ = info_;
                     if (typeDeclaring_) {
-                        br_ = new DeclareVariable(false,_context, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        br_ = new DeclareVariable(_context, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                         inst_ = info_;
                     }
@@ -1535,7 +1523,7 @@ public final class FileResolver {
             boolean emptySwitchPart_ = false;
             if (options_.getSuffixVar() == VariableSuffix.NONE) {
                 if (currentParent_ instanceof SwitchBlock) {
-                    if (currentChar_ == suffix_) {
+                    if (_currentChar == suffix_) {
                         String next_ = _file.substring(i_ + 1).trim();
                         if (next_.indexOf(BEGIN_BLOCK, 0) == 0) {
                             switchPart_ = true;
@@ -1555,9 +1543,9 @@ public final class FileResolver {
             if (!emptySwitchPart_) {
                 if (switchPart_) {
                     i_ = skipWhitespace(i_ + 1, _file, tabWidth_, enabledSpaces_);
-                    braces_.add(i_);
+                    _braces.add(i_);
                     currentParent_ = (BracedBlock) br_;
-                } else if (currentChar_ != endLine_ && br_ instanceof BracedBlock) {
+                } else if (_currentChar != endLine_ && br_ instanceof BracedBlock) {
                     currentParent_ = (BracedBlock) br_;
                 }
             }
@@ -1565,17 +1553,17 @@ public final class FileResolver {
             //currentChar_ == END_BLOCK
             if (options_.getSuffixVar() == VariableSuffix.NONE) {
                 if (currentParent_ instanceof SwitchPartBlock) {
-                    if (!bracedSwitchPart_.getVal((SwitchPartBlock) currentParent_)) {
+                    if (!_bracedSwitchPart.getVal((SwitchPartBlock) currentParent_)) {
                         currentParent_ = currentParent_.getParent();
                     }
                 }
             }
             if (!trimmedInstruction_.isEmpty()) {
-                badIndexes_.add(nextIndex_);
+                badIndexes_.add(_nextIndex);
             }
             currentParent_ = currentParent_.getParent();
         }
-        instruction_.delete(0, instruction_.length());
+        _instruction.delete(0, _instruction.length());
         after_.setIndex(i_);
         after_.setParent(currentParent_);
         after_.setEnabledEnumHeader(enableByEndLine_);
@@ -1584,17 +1572,16 @@ public final class FileResolver {
         return after_;
     }
     private static RootBlock processTypeHeader(ContextEl _context, InputTypeCreation _input,
-            boolean _defStatic, ResultCreation _out, String _file,
-            int _instructionLocation, int _instructionRealLocation, String _found,
-            EnablingSpaces _enLoc, 
-            BracedBlock _currentParent, int _len, String _trimmedInstruction,
-            AccessEnum _defAccess, int _typeOffset) {
+                                               boolean _defStatic, String _file,
+                                               int _instructionLocation, int _instructionRealLocation, String _found,
+                                               EnablingSpaces _enLoc,
+                                               BracedBlock _currentParent, int _len, String _trimmedInstruction,
+                                               AccessEnum _defAccess) {
         //Inner types
         KeyWords keyWords_ = _context.getKeyWords();
         AccessEnum accessFct_ = _defAccess;
         String word_ = EMPTY_STRING;
-        String found_ = _found;
-        int trFound_ = StringList.getFirstPrintableCharIndex(found_);
+        int trFound_ = StringList.getFirstPrintableCharIndex(_found);
         String keyWordPackage_ = keyWords_.getKeyWordPackage();
         String keyWordPrivate_ = keyWords_.getKeyWordPrivate();
         String keyWordProtected_ = keyWords_.getKeyWordProtected();
@@ -1602,7 +1589,6 @@ public final class FileResolver {
         String trimmedInstruction_ = _trimmedInstruction;
         Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
         StringList annotations_ = new StringList();
-        int instructionRealLocation_ = _instructionRealLocation;
         int typeOffset_ = _instructionLocation;
         if (trimmedInstruction_.charAt(0) == ANNOT) {
             ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionLocation);
@@ -1638,10 +1624,7 @@ public final class FileResolver {
         enLoc_.setOk(_enLoc.isOk());
         enLoc_.setOnlySpacesLine(_enLoc.isOnlySpacesLine());
         enLoc_.setTabWidth(_enLoc.getTabWidth());
-        BracedBlock currentParent_ = _currentParent;
-        int len_ = _len;
         int tabWidth_ = _context.getTabWidth();
-        int instructionLocation_ = _instructionLocation;
         Numbers<Integer> badIndexes_ = _input.getBadIndexes();
         boolean staticType_ = _defStatic;
         boolean abstractType_ = false;
@@ -1762,7 +1745,7 @@ public final class FileResolver {
         boolean foundInherit_ = false;
         int beginDefinition_ = locIndex_;
         int inheritIndex_ = -1;
-        while (locIndex_ < len_) {
+        while (locIndex_ < _len) {
             char locChar_ = _file.charAt(locIndex_);
             if (!enLoc_.isOk()) {
                 //ERROR
@@ -1793,7 +1776,7 @@ public final class FileResolver {
                 }
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
-                locIndex_ = incrementRowCol(locIndex_, _file, tabWidth_, enLoc_);
+                locIndex_ = incrementRowCol(locIndex_, _file, enLoc_);
                 inheritIndex_ = locIndex_;
                 continue;
             }
@@ -1809,17 +1792,17 @@ public final class FileResolver {
             if (foundInherit_) {
                 str_.append(locChar_);
             }
-            locIndex_ = incrementRowCol(locIndex_, _file, tabWidth_, enLoc_);
+            locIndex_ = incrementRowCol(locIndex_, _file, enLoc_);
         }
         if (foundInherit_) {
             superTypes_.put(inheritIndex_, str_.toString());
         }
         if (!ok_) {
             //ERROR
-            badIndexes_.add(len_ - 1);
+            badIndexes_.add(_len - 1);
             return null;
         }
-        locIndex_ = incrementRowCol(locIndex_, _file, tabWidth_, enLoc_);
+        locIndex_ = incrementRowCol(locIndex_, _file, enLoc_);
         RootBlock typeBlock_;
         String tempDef_ = templateDef_.toString();
         String typeName_ = typeNamePref_.toString();
@@ -1834,13 +1817,13 @@ public final class FileResolver {
         }
 
         if (StringList.quickEq(type_, keyWordEnum_)) {
-            typeBlock_ = new EnumBlock(_context, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
+            typeBlock_ = new EnumBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
         } else if (StringList.quickEq(type_, keyWordClass_)) {
-            typeBlock_ = new ClassBlock(_context, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_), tempDef_, superTypes_, finalType_, abstractType_, staticType_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
+            typeBlock_ = new ClassBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_), tempDef_, superTypes_, finalType_, abstractType_, staticType_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
         } else if (StringList.quickEq(type_, keyWordInterface_)) {
-            typeBlock_ = new InterfaceBlock(_context, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, staticType_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
+            typeBlock_ = new InterfaceBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, staticType_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
         } else {
-            typeBlock_ = new AnnotationBlock(_context, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
+            typeBlock_ = new AnnotationBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
         }
         typeBlock_.getImports().addAllElts(importedTypes_);
         typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
@@ -1849,16 +1832,13 @@ public final class FileResolver {
         typeBlock_.getAnnotations().addAllElts(annotations_);
         typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
         BracedBlock br_ = typeBlock_;
-        currentParent_.appendChild(br_);
+        _currentParent.appendChild(br_);
         return typeBlock_;
     }
-    private static Block processTypeMember(ContextEl _context, InputTypeCreation _input, String _file,
-            StringBuilder _instruction, int _instructionLocation, int _i, BracedBlock _currentParent) {
-        BracedBlock currentParent_ = _currentParent;
-        int i_ = _i;
+    private static Block processTypeMember(ContextEl _context,
+                                           StringBuilder _instruction, int _instructionLocation, int _i, BracedBlock _currentParent) {
         int instructionLocation_ = _instructionLocation;
-        StringBuilder instruction_ = _instruction;
-        String found_ = instruction_.toString();
+        String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
         if (!trimmedInstruction_.isEmpty()) {
@@ -1869,7 +1849,7 @@ public final class FileResolver {
         AccessEnum accessFct_ = AccessEnum.PACKAGE;
         String word_ = EMPTY_STRING;
         int trFound_ = StringList.getFirstPrintableCharIndex(found_);
-        int accessOffest_ = trFound_ + i_ - found_.length();
+        int accessOffest_ = trFound_ + _i - found_.length();
         Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
         StringList annotations_ = new StringList();
         int deltaAccess_ = 0;
@@ -1889,7 +1869,7 @@ public final class FileResolver {
             annotations_ = par_.getAnnotations();
             trimmedInstruction_ = par_.getAfter();
             accessOffest_ = par_.getIndex();
-            deltaAccess_ = accessOffest_ - (trFound_ + i_ - found_.length());
+            deltaAccess_ = accessOffest_ - (trFound_ + _i - found_.length());
         }
         if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordPrivate_)) {
             accessFct_ = AccessEnum.PRIVATE;
@@ -1929,7 +1909,7 @@ public final class FileResolver {
             if (trimmedAfterAccess_.startsWith("(")) {
                 ctor_ = true;
             } else {
-                String name_ = ((RootBlock)currentParent_).getName();
+                String name_ = ((RootBlock) _currentParent).getName();
                 if (ContextEl.startsWithKeyWord(trimmedAfterAccess_,name_)){
                     String after_ = trimmedAfterAccess_.substring(name_.length()).trim();
                     if (after_.startsWith("(")) {
@@ -1967,7 +1947,7 @@ public final class FileResolver {
                 int delta_ = StringList.getFirstPrintableCharIndex(sub_);
                 infoModifiers_ = sub_.substring(delta_);
             }
-            String typeStr_ = getDeclaringTypeBlock(infoModifiers_,options_);
+            String typeStr_ = getDeclaringTypeBlock(infoModifiers_);
             infoModifiers_ = infoModifiers_.substring(typeStr_.length());
             int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
             infoModifiers_ = infoModifiers_.substring(first_);
@@ -1992,7 +1972,7 @@ public final class FileResolver {
             }
         }
         if (meth_||ctor_) {
-            if (currentParent_ instanceof InterfaceBlock) {
+            if (_currentParent instanceof InterfaceBlock) {
                 if (word_.isEmpty()) {
                     accessFct_ = AccessEnum.PUBLIC;
                 }
@@ -2026,7 +2006,7 @@ public final class FileResolver {
                 String afterModifier_ = info_.substring((prefModifier_).length());
                 typeOffset_ = modifierOffest_ + prefModifier_.length();
                 if (modifier_.isEmpty()) {
-                    if (currentParent_ instanceof InterfaceBlock) {
+                    if (_currentParent instanceof InterfaceBlock) {
                         modifier_ = keyWordAbstract_;
                     } else {
                         modifier_ = keyWordNormal_;
@@ -2034,7 +2014,7 @@ public final class FileResolver {
                 }
                 typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
                 info_ = afterModifier_.trim();
-                declaringType_ = getDeclaringTypeBlock(info_,options_);
+                declaringType_ = getDeclaringTypeBlock(info_);
                 String afterType_ = info_.substring(declaringType_.length());
                 methodNameOffest_ = typeOffset_ + declaringType_.length();
                 methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
@@ -2080,7 +2060,7 @@ public final class FileResolver {
                 annotationsIndexesParams_.add(annotationsIndexesParam_);
                 annotationsParams_.add(annotationsParam_);
                 offestsTypes_.add(paramOffest_);
-                String paramType_ = getDeclaringParamType(info_, options_);
+                String paramType_ = getDeclaringParamType(info_);
                 parametersType_.add(paramType_.trim());
                 String afterParamType_ = info_.substring(paramType_.length());
                 info_ = afterParamType_.trim();
@@ -2106,15 +2086,15 @@ public final class FileResolver {
                 paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
             }
             if (meth_) {
-                br_ = new MethodBlock(_context, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new MethodBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             } else {
-                br_ = new ConstructorBlock(_context, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new ConstructorBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             }
             ((NamedFunctionBlock)br_).getAnnotationsParams().addAllElts(annotationsParams_);
             ((NamedFunctionBlock)br_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
             ((NamedFunctionBlock)br_).getAnnotations().addAllElts(annotations_);
             ((NamedFunctionBlock)br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-            currentParent_.appendChild(br_);
+            _currentParent.appendChild(br_);
         } else {
 
             //fields
@@ -2127,7 +2107,7 @@ public final class FileResolver {
             boolean static_ = false;
             boolean final_ = false;
             if (ContextEl.startsWithKeyWord(info_, keyWordStatic_)) {
-                staticOffest_ = i_ - found_.length() + delta_;
+                staticOffest_ = _i - found_.length() + delta_;
                 static_ = true;
                 String afterStatic_ = info_.substring(keyWordStatic_.length());
                 delta_ += keyWordStatic_.length();
@@ -2135,15 +2115,15 @@ public final class FileResolver {
                 info_ = afterStatic_.trim();
             }
             if (ContextEl.startsWithKeyWord(info_,keyWordFinal_)) {
-                finalOffest_ = i_ - found_.length() + delta_;
+                finalOffest_ = _i - found_.length() + delta_;
                 final_ = true;
                 String afterFinal_ = info_.substring(keyWordFinal_.length());
                 delta_ += keyWordFinal_.length();
                 delta_ += StringList.getFirstPrintableCharIndex(afterFinal_);
                 info_ = afterFinal_.trim();
             }
-            int typeOffest_ = i_ - found_.length() + delta_;
-            String declaringType_ = getDeclaringTypeBlock(info_,options_);
+            int typeOffest_ = _i - found_.length() + delta_;
+            String declaringType_ = getDeclaringTypeBlock(info_);
             String afterType_ = info_.substring(declaringType_.length());
             StringList fieldNames_ = new StringList();
             int j_ = 0;
@@ -2175,7 +2155,7 @@ public final class FileResolver {
                 j_+=next_+1;
             }
             int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
-            br_ = new FieldBlock(_context, currentParent_,
+            br_ = new FieldBlock(_context, _currentParent,
                     new OffsetAccessInfo(accessOffest_, accessFct_),
                     new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_),
                     fieldNames_, new OffsetStringInfo(typeOffest_,declaringType_.trim()),
@@ -2183,21 +2163,15 @@ public final class FileResolver {
                     new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             ((FieldBlock)br_).getAnnotations().addAllElts(annotations_);
             ((FieldBlock)br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-            currentParent_.appendChild(br_);
+            _currentParent.appendChild(br_);
         }
         return br_;
     }
-    private static Block processInstructionBlock(ContextEl _context, InputTypeCreation _input, String _file,
-            IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart,int _instructionLocation,
-            int _instructionRealLocation, int _i,BracedBlock _currentParent, String _trimmedInstruction) {
-        String trimmedInstruction_ = _trimmedInstruction;
-        IdMap<SwitchPartBlock, Boolean> bracedSwitchPart_ = _bracedSwitchPart;
+    private static Block processInstructionBlock(ContextEl _context, String _file,
+                                                 IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, int _instructionLocation,
+                                                 int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction) {
         char endLine_ = _context.getOptions().getEndLine();
         char suffix_ = _context.getOptions().getSuffix();
-        int instructionLocation_ = _instructionLocation;
-        int instructionRealLocation_ = _instructionRealLocation;
-        int i_ = _i;
-        BracedBlock currentParent_ = _currentParent;
         Options options_ = _context.getOptions();
         KeyWords keyWords_ = _context.getKeyWords();
         String keyWordBreak_ = keyWords_.getKeyWordBreak();
@@ -2221,47 +2195,47 @@ public final class FileResolver {
         String keyWordTry_ = keyWords_.getKeyWordTry();
         String keyWordWhile_ = keyWords_.getKeyWordWhile();
         Block br_ = null;
-        if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordBreak_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordBreak_.length());
+        if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordBreak_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordBreak_.length());
             String label_ = exp_.trim();
-            int conditionOffest_ = instructionLocation_ + keyWordBreak_.length();
+            int conditionOffest_ = _instructionLocation + keyWordBreak_.length();
             int lastPar_ = StringList.getFirstPrintableCharIndex(exp_);
             if (!exp_.isEmpty()) {
                 lastPar_--;
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
-            br_ = new BreakBlock(_context, currentParent_, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordContinue_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordContinue_.length());
+            br_ = new BreakBlock(_context, _currentParent, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordContinue_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordContinue_.length());
             String label_ = exp_.trim();
-            int conditionOffest_ = instructionLocation_ + keyWordContinue_.length();
+            int conditionOffest_ = _instructionLocation + keyWordContinue_.length();
             int lastPar_ = StringList.getFirstPrintableCharIndex(exp_);
             if (!exp_.isEmpty()) {
                 lastPar_--;
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
-            br_ = new ContinueBlock(_context, currentParent_, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordReturn_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordReturn_.length());
-            int expressionOffest_ = instructionLocation_ + keyWordReturn_.length();
+            br_ = new ContinueBlock(_context, _currentParent, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordReturn_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordReturn_.length());
+            int expressionOffest_ = _instructionLocation + keyWordReturn_.length();
             if (!exp_.trim().isEmpty()) {
                 expressionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             }
-            br_ = new ReturnMehod(_context, currentParent_, new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordThrow_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordThrow_.length());
-            int expressionOffest_ = instructionLocation_ + keyWordThrow_.length();
+            br_ = new ReturnMehod(_context, _currentParent, new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordThrow_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordThrow_.length());
+            int expressionOffest_ = _instructionLocation + keyWordThrow_.length();
             if (!exp_.trim().isEmpty()) {
                 expressionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             }
-            br_ = new Throwing(_context, currentParent_, new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordCase_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordCase_.length());
-            int valueOffest_ = instructionLocation_ + keyWordCase_.length();
+            br_ = new Throwing(_context, _currentParent, new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordCase_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordCase_.length());
+            int valueOffest_ = _instructionLocation + keyWordCase_.length();
             int indexLeftPar_ = exp_.indexOf(BEGIN_CALLING);
             if (indexLeftPar_ > -1) {
                 valueOffest_ += indexLeftPar_ + 1;
@@ -2271,27 +2245,27 @@ public final class FileResolver {
                 valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             }
             CaseCondition caseCond_ = new CaseCondition(_context,
-                    currentParent_, new OffsetStringInfo(valueOffest_, exp_.trim()),
-                    new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    _currentParent, new OffsetStringInfo(valueOffest_, exp_.trim()),
+                    new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             //if next after i starts with brace or not
-            bracedSwitchPart_.put(caseCond_, _file.substring(i_+1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
+            _bracedSwitchPart.put(caseCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
             br_ = caseCond_;
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordDefault_)) {
-            DefaultCondition defCond_ = new DefaultCondition(_context, currentParent_,
-                    new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            bracedSwitchPart_.put(defCond_, _file.substring(i_+1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordDefault_)) {
+            DefaultCondition defCond_ = new DefaultCondition(_context, _currentParent,
+                    new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _bracedSwitchPart.put(defCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
             br_ = defCond_;
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordWhile_)) {
-            Block child_ = currentParent_.getFirstChild();
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordWhile_)) {
+            Block child_ = _currentParent.getFirstChild();
             if (child_ != null) {
                 while (child_.getNextSibling() != null) {
                     child_ = child_.getNextSibling();
                 }
             }
-            String exp_ = trimmedInstruction_.substring(keyWordWhile_.length());
-            int conditionOffest_ = instructionLocation_ + keyWordWhile_.length();
+            String exp_ = _trimmedInstruction.substring(keyWordWhile_.length());
+            int conditionOffest_ = _instructionLocation + keyWordWhile_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
@@ -2299,35 +2273,35 @@ public final class FileResolver {
             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, lastPar_);
             conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             if (child_ instanceof DoBlock) {
-                br_ = new DoWhileCondition(_context, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new DoWhileCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
                 label_ = label_.substring(lastPar_ + 1);
                 if (!label_.isEmpty()) {
                     labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                 }
-                br_ = new WhileCondition(_context, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));    
+                br_ = new WhileCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordCatch_)) {
-            String info_ = trimmedInstruction_.substring(keyWordCatch_.length());
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordCatch_)) {
+            String info_ = _trimmedInstruction.substring(keyWordCatch_.length());
             int leftPar_ = info_.indexOf(BEGIN_CALLING);
             if (leftPar_ > -1) {
-                int typeOffset_ = instructionLocation_ + leftPar_+1;
+                int typeOffset_ = _instructionLocation + leftPar_+1;
                 info_ = info_.substring(leftPar_+1);
-                String declaringType_ = getDeclaringTypeBlock(info_,options_);
+                String declaringType_ = getDeclaringTypeBlock(info_);
                 typeOffset_ += StringList.getFirstPrintableCharIndex(declaringType_);
                 int variableOffset_ = typeOffset_ + declaringType_.length();
                 info_ = info_.substring(declaringType_.length());
                 variableOffset_ += StringList.getFirstPrintableCharIndex(info_);
                 String variable_ = info_.substring(0, info_.indexOf(END_CALLING));
-                br_ = new CatchEval(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(variableOffset_,variable_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new CatchEval(_context, _currentParent, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(variableOffset_,variable_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
-                br_ = new NullCatchEval(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new NullCatchEval(_context, _currentParent, new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordIf_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordIf_.length());
-            int conditionOffest_ = instructionLocation_ + keyWordIf_.length();
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordIf_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordIf_.length());
+            int conditionOffest_ = _instructionLocation + keyWordIf_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
@@ -2338,67 +2312,67 @@ public final class FileResolver {
             if (!label_.isEmpty()) {
                 labelOff_ += StringList.getFirstPrintableCharIndex(label_);
             }
-            br_ = new IfCondition(_context, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordElseif_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordElseif_.length());
-            int conditionOffest_ = instructionLocation_ + keyWordElseif_.length();
+            br_ = new IfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordElseif_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordElseif_.length());
+            int conditionOffest_ = _instructionLocation + keyWordElseif_.length();
             conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
             conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-            br_ = new ElseIfCondition(_context, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordElse_)) {
-            String afterElse_ = trimmedInstruction_.substring(keyWordElse_.length());
+            br_ = new ElseIfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordElse_)) {
+            String afterElse_ = _trimmedInstruction.substring(keyWordElse_.length());
             String exp_ = afterElse_.trim();
             if (ContextEl.startsWithKeyWord(exp_,keyWordIf_)) {
                 int firstPr_ = StringList.getFirstPrintableCharIndex(afterElse_);
                 exp_ = exp_.substring(keyWordIf_.length());
-                int conditionOffest_ = instructionLocation_;
+                int conditionOffest_ = _instructionLocation;
                 conditionOffest_ += keyWordElse_.length();
                 conditionOffest_ += firstPr_;
                 conditionOffest_ += keyWordIf_.length();
                 conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
                 exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
                 conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-                br_ = new ElseIfCondition(_context, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                currentParent_.appendChild(br_);
+                br_ = new ElseIfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                _currentParent.appendChild(br_);
             } else {
-                br_ = new ElseCondition(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                currentParent_.appendChild(br_);
+                br_ = new ElseCondition(_context, _currentParent, new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                _currentParent.appendChild(br_);
             }
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordDo_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordDo_.length());
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordDo_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordDo_.length());
             String label_ = exp_.trim();
-            int conditionOffest_ = instructionLocation_ + keyWordDo_.length();
+            int conditionOffest_ = _instructionLocation + keyWordDo_.length();
             int lastPar_ = StringList.getFirstPrintableCharIndex(exp_);
             if (!exp_.isEmpty()) {
                 lastPar_--;
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
-            br_ = new DoBlock(_context, currentParent_, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordFinally_)) {
-            br_ = new FinallyEval(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordTry_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordTry_.length());
+            br_ = new DoBlock(_context, _currentParent, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordFinally_)) {
+            br_ = new FinallyEval(_context, _currentParent, new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordTry_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordTry_.length());
             String label_ = exp_.trim();
-            int conditionOffest_ = instructionLocation_ + keyWordTry_.length();
+            int conditionOffest_ = _instructionLocation + keyWordTry_.length();
             int lastPar_ = StringList.getFirstPrintableCharIndex(exp_);
             if (!exp_.isEmpty()) {
                 lastPar_--;
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
-            br_ = new TryEval(_context, currentParent_, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordForeach_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordForeach_.length());
-            int indexClassOffest_ = instructionLocation_ + keyWordForeach_.length();
+            br_ = new TryEval(_context, _currentParent, new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordForeach_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordForeach_.length());
+            int indexClassOffest_ = _instructionLocation + keyWordForeach_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = indexClassOffest_ + lastPar_+ 1;
             String label_ = exp_;
-            int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+            int typeOffset_ = _instructionLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
             if (!exp_.trim().isEmpty()) {
                 indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
             }
@@ -2411,7 +2385,7 @@ public final class FileResolver {
             String afterIndex_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
             typeOffset_ += StringList.getFirstPrintableCharIndex(afterIndex_);
             exp_ = afterIndex_;
-            String declaringType_ = getDeclaringTypeBlock(exp_,options_);
+            String declaringType_ = getDeclaringTypeBlock(exp_);
             int varOffset_ = typeOffset_ + declaringType_.length();
             exp_ = exp_.substring(declaringType_.length());
             String variable_ = exp_.substring(0, exp_.indexOf(FOR_BLOCKS));
@@ -2427,29 +2401,29 @@ public final class FileResolver {
             String variableName_ = variable_.trim();
             LgNames stds_ = _context.getStandards();
             if (StringList.isDollarWord(variableName_)) {
-                br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                br_ = stds_.newForeachLoop(_context, _currentParent, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
                 int nextIndexVar_ = getIndex(variableName_, ',');
                 String firstVar_ = variableName_.substring(0, nextIndexVar_);
                 String afterFirst_ = variableName_.substring(nextIndexVar_+1);
-                String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
                 String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
-                br_ = new ForEachTable(_context, currentParent_,
+                br_ = new ForEachTable(_context, _currentParent,
                         new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                         new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordIter_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordIter_.length());
-            int indexClassOffest_ = instructionLocation_ + keyWordIter_.length();
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordIter_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordIter_.length());
+            int indexClassOffest_ = _instructionLocation + keyWordIter_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = indexClassOffest_ + lastPar_+ 1;
             String label_ = exp_;
-            int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+            int typeOffset_ = _instructionLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
             if (!exp_.trim().isEmpty()) {
                 indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
             }
@@ -2459,7 +2433,7 @@ public final class FileResolver {
                 exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
             }
             exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1, exp_.lastIndexOf(END_CALLING));
-            String declaringType_ = getDeclaringTypeBlock(exp_,options_);
+            String declaringType_ = getDeclaringTypeBlock(exp_);
             typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
             int varOffset_ = typeOffset_ + declaringType_.length();
             exp_ = exp_.substring(declaringType_.length());
@@ -2490,17 +2464,17 @@ public final class FileResolver {
             if (!label_.isEmpty()) {
                 labelOff_ += StringList.getFirstPrintableCharIndex(label_);
             }
-            br_ = new ForIterativeLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_,declaringType_.trim()), new OffsetStringInfo(varOffset_,variable_.trim()),
+            br_ = new ForIterativeLoop(_context, _currentParent, new OffsetStringInfo(typeOffset_,declaringType_.trim()), new OffsetStringInfo(varOffset_,variable_.trim()),
                     new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetBooleanInfo(expOff_, eq_) , new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
-                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordFor_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordFor_.length());
-            int indexClassOffest_ = instructionLocation_ + keyWordFor_.length();
+                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordFor_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordFor_.length());
+            int indexClassOffest_ = _instructionLocation + keyWordFor_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = indexClassOffest_ + lastPar_+ 1;
             String label_ = exp_;
-            int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+            int typeOffset_ = _instructionLocation + _trimmedInstruction.indexOf(BEGIN_CALLING) + 1;
             if (!exp_.trim().isEmpty()) {
                 indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
             }
@@ -2546,22 +2520,22 @@ public final class FileResolver {
                     LgNames stds_ = _context.getStandards();
                     String variableName_ = init_.trim();
                     if (StringList.isDollarWord(variableName_)) {
-                        br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                        br_ = stds_.newForeachLoop(_context, _currentParent, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     } else {
                         int nextIndexVar_ = getIndex(variableName_, ',');
                         String firstVar_ = variableName_.substring(0, nextIndexVar_);
                         String afterFirst_ = variableName_.substring(nextIndexVar_+1);
-                        String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                        String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
                         String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
-                        br_ = new ForEachTable(_context, currentParent_,
+                        br_ = new ForEachTable(_context, _currentParent,
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                 new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     }
-                    currentParent_.appendChild(br_);
+                    _currentParent.appendChild(br_);
                     ok_ = true;
                 }
             }
@@ -2585,22 +2559,22 @@ public final class FileResolver {
                     LgNames stds_ = _context.getStandards();
                     String variableName_ = init_.trim();
                     if (StringList.isDollarWord(variableName_)) {
-                        br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                        br_ = stds_.newForeachLoop(_context, _currentParent, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     } else {
                         int nextIndexVar_ = getIndex(variableName_, ',');
                         String firstVar_ = variableName_.substring(0, nextIndexVar_);
                         String afterFirst_ = variableName_.substring(nextIndexVar_+1);
-                        String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                        String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
                         String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
-                        br_ = new ForEachTable(_context, currentParent_,
+                        br_ = new ForEachTable(_context, _currentParent,
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                 new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     }
-                    currentParent_.appendChild(br_);
+                    _currentParent.appendChild(br_);
                 } else {
                     String to_ = exp_.substring(0, nextElt_);
                     toOff_ += StringList.getFirstPrintableCharIndex(to_);
@@ -2613,17 +2587,17 @@ public final class FileResolver {
                     if (!label_.isEmpty()) {
                         labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                     }
-                    br_ = new ForMutableIterativeLoop(_context, currentParent_,
+                    br_ = new ForMutableIterativeLoop(_context, _currentParent,
                             new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
                             new OffsetStringInfo(typeOffset_,declaringType_.trim()),
                             new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
-                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                    currentParent_.appendChild(br_);
+                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                    _currentParent.appendChild(br_);
                 }
             }
-        } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordSwitch_)) {
-            String exp_ = trimmedInstruction_.substring(keyWordSwitch_.length());
-            int valueOffest_ = instructionLocation_ + keyWordSwitch_.length();
+        } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordSwitch_)) {
+            String exp_ = _trimmedInstruction.substring(keyWordSwitch_.length());
+            int valueOffest_ = _instructionLocation + keyWordSwitch_.length();
             int lastPar_ = exp_.lastIndexOf(END_CALLING);
             int labelOff_ = valueOffest_ + lastPar_+ 1;
             valueOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
@@ -2634,14 +2608,14 @@ public final class FileResolver {
             if (!label_.isEmpty()) {
                 labelOff_ += StringList.getFirstPrintableCharIndex(label_);
             }
-            br_ = new SwitchBlock(_context, currentParent_, new OffsetStringInfo(valueOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (StringList.quickEq(trimmedInstruction_, keyWordStatic_)) {
-            br_ = new StaticBlock(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
-        } else if (trimmedInstruction_.isEmpty()) {
-            br_ = new InstanceBlock(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-            currentParent_.appendChild(br_);
+            br_ = new SwitchBlock(_context, _currentParent, new OffsetStringInfo(valueOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (StringList.quickEq(_trimmedInstruction, keyWordStatic_)) {
+            br_ = new StaticBlock(_context, _currentParent, new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
+        } else if (_trimmedInstruction.isEmpty()) {
+            br_ = new InstanceBlock(_context, _currentParent, new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            _currentParent.appendChild(br_);
         }
         //Not an error
         return br_;
@@ -2656,12 +2630,9 @@ public final class FileResolver {
         if (StringList.quickEq(_key, _keyWords.getKeyWordInterface()))  {
             return true;
         }
-        if (StringList.quickEq(_key, _keyWords.getKeyWordAnnotation()))  {
-            return true;
-        }
-        return false;
+        return StringList.quickEq(_key, _keyWords.getKeyWordAnnotation());
     }
-    private static String getDeclaringParamType(String _found, Options _options) {
+    private static String getDeclaringParamType(String _found) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         boolean typeDeclaring_ = false;
@@ -2736,7 +2707,7 @@ public final class FileResolver {
         }
         return EMPTY_STRING;
     }
-    private static String getDeclaringTypeOper(String _found, Options _options) {
+    private static String getDeclaringTypeOper(String _found) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         StringBuilder declTypeName_ = new StringBuilder();
@@ -2883,12 +2854,9 @@ public final class FileResolver {
         if (_char == '^') {
             return true;
         }
-        if (_char == '~') {
-            return true;
-        }
-        return false;
+        return _char == '~';
     }
-    private static String getDeclaringTypeBlock(String _found, Options _options) {
+    private static String getDeclaringTypeBlock(String _found) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         StringBuilder declTypeName_ = new StringBuilder();
@@ -3272,12 +3240,12 @@ public final class FileResolver {
     private static int incrementRowCol(int _index, int _delta,String _file, int _tabWidth, EnablingSpaces _enabling) {
         int index_ = _index;
         for (int i = 0; i < _delta; i++) {
-            index_ = incrementRowCol(index_, _file, _tabWidth, _enabling);
+            index_ = incrementRowCol(index_, _file, _enabling);
         }
         return index_;
     }
 
-    static int incrementRowCol(int _index, String _file, int _tabWidth, EnablingSpaces _enabling) {
+    static int incrementRowCol(int _index, String _file, EnablingSpaces _enabling) {
         updateAllowedSpaces(_index, _file, _enabling);
         return _index+1;
     }
@@ -3360,44 +3328,44 @@ public final class FileResolver {
             char locChar_ = _file.charAt(i_);
             if (localConstChar_) {
                 if (locChar_ == ESCAPE) {
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
                     continue;
                 }
                 if (locChar_ == DEL_CHAR) {
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
                     localConstChar_ = false;
                     continue;
                 }
-                i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                i_=incrementRowCol(i_, _file, _enabledSpaces);
                 continue;
             }
             if (localConstString_) {
                 if (locChar_ == ESCAPE) {
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
                     continue;
                 }
                 if (locChar_ == DEL_STRING) {
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
                     localConstString_ = false;
                     continue;
                 }
-                i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                i_=incrementRowCol(i_, _file, _enabledSpaces);
                 continue;
             }
             if (localConstText_) {
                 if (locChar_ == DEL_TEXT) {
                     if (i_ + 1 < len_) {
                         if (_file.charAt(i_ + 1) != DEL_TEXT) {
-                            i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                            i_=incrementRowCol(i_, _file, _enabledSpaces);
                             localConstText_ = false;
                             continue;
                         }
                     }
-                    i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _enabledSpaces);
                 }
-                i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+                i_=incrementRowCol(i_, _file, _enabledSpaces);
                 continue;
             }
             if (localCallings_.isEmpty() && locChar_ == BEGIN_BLOCK) {
@@ -3430,7 +3398,7 @@ public final class FileResolver {
             if (locChar_ == END_ARRAY) {
                 localCallings_.removeLast();
             }
-            i_=incrementRowCol(i_, _file, _tabWidth, _enabledSpaces);
+            i_=incrementRowCol(i_, _file, _enabledSpaces);
         }
         return -1;
     }
@@ -3446,7 +3414,7 @@ public final class FileResolver {
             if (!Character.isWhitespace(currentChar_)) {
                 break;
             }
-            nextIndex_ = incrementRowCol(nextIndex_, _file, _tabWidth, _enabledSpaces);
+            nextIndex_ = incrementRowCol(nextIndex_, _file, _enabledSpaces);
         }
         return nextIndex_;
     }

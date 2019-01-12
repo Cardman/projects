@@ -837,7 +837,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
                 String nameCl_ = ((ClassMetaInfo)_struct).getName();
-                result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_, _cont)));
+                result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
@@ -925,10 +925,9 @@ public final class AliasReflection {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
                 Classes classesInfo_ = _cont.getClasses();
                 for (RootBlock c: classesInfo_.getClassBodies()) {
-                    RootBlock clblock_ = c;
                     String k_ = c.getFullName();
                     String forName_ = Templates.getGenericString(k_, _cont);
-                    classes_.add(Classes.getClassMetaInfo(clblock_, forName_, _cont));
+                    classes_.add(Classes.getClassMetaInfo(c, forName_, _cont));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                     String k_ = c.getKey();
@@ -992,8 +991,7 @@ public final class AliasReflection {
                     if (classesNames_.isEmpty() && !vararg_) {
                         String ret_ = cl_.getName();
                         AccessEnum acc_ = cl_.getAccess();
-                        String decl_ = ret_;
-                        candidates_.add(new ConstructorMetaInfo(instClassName_, acc_, idToSearch_, ret_, idToSearch_, ret_,decl_));
+                        candidates_.add(new ConstructorMetaInfo(instClassName_, acc_, idToSearch_, ret_, idToSearch_, ret_, ret_));
                     }
                 }
                 Struct[] ctorsArr_ = new Struct[candidates_.size()];
@@ -1015,10 +1013,8 @@ public final class AliasReflection {
                     if (cl_.isTypeArray()) {
                         String instClassName_ = cl_.getName();
                         MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
-                        String ret_ = instClassName_;
                         AccessEnum acc_ = AccessEnum.PUBLIC;
                         String formatRet_;
-                        MethodId fid_ = id_;
                         String idCl_ = Templates.getIdFromAllTypes(instClassName_);
                         String formCl_;
                         if (Templates.correctNbParameters(instClassName_, _cont)) {
@@ -1029,7 +1025,7 @@ public final class AliasReflection {
                             formCl_ = idCl_;
                         }
                         Struct[] methodsArr_ = new Struct[1];
-                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, fid_, formatRet_, formCl_);
+                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, instClassName_, id_, formatRet_, formCl_);
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
                         return result_;
@@ -1060,10 +1056,8 @@ public final class AliasReflection {
                     }
                     String instClassName_ = cl_.getName();
                     MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
-                    String ret_ = instClassName_;
                     AccessEnum acc_ = AccessEnum.PUBLIC;
                     String formatRet_;
-                    MethodId fid_ = id_;
                     String idCl_ = Templates.getIdFromAllTypes(instClassName_);
                     String formCl_;
                     if (Templates.correctNbParameters(instClassName_, _cont)) {
@@ -1074,7 +1068,7 @@ public final class AliasReflection {
                         formCl_ = idCl_;
                     }
                     Struct[] methodsArr_ = new Struct[1];
-                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, fid_, formatRet_, formCl_);
+                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, instClassName_, id_, formatRet_, formCl_);
                     ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                     result_.setResult(str_);
                     return result_;

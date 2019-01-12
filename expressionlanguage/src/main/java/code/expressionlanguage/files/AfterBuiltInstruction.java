@@ -29,10 +29,6 @@ public final class AfterBuiltInstruction {
         parent = _parent;
     }
 
-    public Block getBlock() {
-        return block;
-    }
-
     public void setBlock(Block _block) {
         block = _block;
     }

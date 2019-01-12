@@ -20,13 +20,12 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode op_ = chidren_.first();
         Argument arg_ = getArgument(_nodes,op_);
         Argument a_ = getArgument(_conf, arg_);
         setSimpleArgument(a_, _conf, _nodes);
-        return a_;
     }
 
     @Override

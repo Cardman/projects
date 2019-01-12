@@ -78,11 +78,7 @@ public final class AnalyzedPageEl {
         return globalOffset + offset + translatedOffset;
     }
 
-    public void addToOffset(int _offset) {
-        offset += _offset;
-    }
-
-    public String getNextTempVar(Classes _classes) {
+    public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
         while (internVars.getKeys().containsStr(StringList.concatNbs(Classes.TEMP_PREFIX, i_))) {
             i_++;
@@ -147,10 +143,6 @@ public final class AnalyzedPageEl {
     public void setVars(StringMap<LoopVariable> _localVars) {
         vars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
         vars.add(_localVars);
-    }
-
-    public CustList<StringMap<LoopVariable>> getMutableLoopVars() {
-        return mutableVars;
     }
 
     public void initMutableLoopVars() {
@@ -236,23 +228,6 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public void setMutableLoopVars(StringMap<LoopVariable> _localVars) {
-        mutableVars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
-        mutableVars.add(_localVars);
-        mutableLocalVarsInfers = new CustList<StringList>();
-        mutableLocalVarsInfers.add(new StringList());
-    }
-
-    public void setMutableLoopVars(CustList<StringMap<LoopVariable>> _localVars) {
-        mutableVars = _localVars;
-    }
-    public CustList<StringList> getMutableLocalVarsInfers() {
-        return mutableLocalVarsInfers;
-    }
-    public void setMutableLocalVarsInfers(
-            CustList<StringList> _mutableLocalVarsInfers) {
-        mutableLocalVarsInfers = _mutableLocalVarsInfers;
-    }
     public boolean containsLocalVar(String _key) {
         for (StringMap<LocalVariable> m: localVars) {
             if (m.contains(_key)) {
@@ -283,10 +258,6 @@ public final class AnalyzedPageEl {
         localVars.add(_localVars);
         localVarsInfers = new CustList<StringList>();
         localVarsInfers.add(new StringList());
-    }
-
-    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
-        localVars = _localVars;
     }
 
     public void setCatchVars(StringMap<LocalVariable> _localVars) {
@@ -327,18 +298,6 @@ public final class AnalyzedPageEl {
         return parameters;
     }
 
-    public void setParameters(StringMap<LocalVariable> _parameters) {
-        parameters = _parameters;
-    }
-
-    public String getReadUrl() {
-        return readUrl;
-    }
-
-    public void setReadUrl(String _readUrl) {
-        readUrl = _readUrl;
-    }
-
     public int getOffset() {
         return offset;
     }
@@ -371,30 +330,6 @@ public final class AnalyzedPageEl {
         ambigous = _ambigous;
     }
 
-    public boolean isDirectImport() {
-        return directImport;
-    }
-
-    public void setDirectImport(boolean _directImport) {
-        directImport = _directImport;
-    }
-
-    public boolean isRootAffect() {
-        return rootAffect;
-    }
-
-    public void setRootAffect(boolean _rootAffect) {
-        rootAffect = _rootAffect;
-    }
-
-    public boolean isAnalyzingRoot() {
-        return analyzingRoot;
-    }
-
-    public void setAnalyzingRoot(boolean _analyzingRoot) {
-        analyzingRoot = _analyzingRoot;
-    }
-
     public boolean isMerged() {
         return merged;
     }
@@ -421,10 +356,6 @@ public final class AnalyzedPageEl {
 
     public int getGlobalOffset() {
         return globalOffset;
-    }
-
-    public int getTranslatedOffset() {
-        return translatedOffset;
     }
 
     public AssignedVariablesBlock getAssignedVariables() {

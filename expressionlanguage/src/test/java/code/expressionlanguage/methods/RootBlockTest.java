@@ -1155,7 +1155,7 @@ public class RootBlockTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
-    private static ContextEl failValidateOverridingMethods(StringMap<String> _files) {
+    private static void failValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
@@ -1166,7 +1166,6 @@ public class RootBlockTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
-        return cont_;
     }
     private ObjectMap<MethodId, StringList> toList(ObjectMap<MethodId, EqList<ClassMethodId>> _m) {
         ObjectMap<MethodId, StringList> m_ = new ObjectMap<MethodId, StringList>();

@@ -9,8 +9,6 @@ import org.junit.Test;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.ResultTernary;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -3521,7 +3519,6 @@ public class PrimitiveTypeUtilTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        return cont_;
+        return InitializationLgNames.buildStdOne(opt_);
     }
 }

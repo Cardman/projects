@@ -721,10 +721,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public void setCurrentChildTypeIndex(int _index) {
-    }
-
-    @Override
     public String getCurrentVarSetting() {
         return context.getCurrentVarSetting();
     }

@@ -25,16 +25,12 @@ public abstract class ExecAbstractArrayInstancingOperation extends ExecAbstractI
     public final String getClassName() {
         return className;
     }
-    public final void setClassName(String _className) {
-        className = _className;
-    }
 
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
     abstract Argument getArgument(CustList<Argument> _arguments,
             ExecutableCode _conf);

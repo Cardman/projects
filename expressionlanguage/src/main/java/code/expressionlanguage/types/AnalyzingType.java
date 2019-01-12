@@ -17,7 +17,7 @@ public final class AnalyzingType {
     private int offset;
     private int prio;
 
-    public void setupValue(String _string, int _offset, Options _options) {
+    public void setupValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
@@ -139,12 +139,7 @@ public final class AnalyzingType {
     public void setKind(KindPartType _kind) {
         kind = _kind;
     }
-    public int getOffset() {
-        return offset;
-    }
-    public void setOffset(int _offset) {
-        offset = _offset;
-    }
+
     public Numbers<Integer> getIndexes() {
         return indexes;
     }

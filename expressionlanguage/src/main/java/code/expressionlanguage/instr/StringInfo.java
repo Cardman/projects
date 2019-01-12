@@ -12,20 +12,8 @@ public final class StringInfo {
         return chars;
     }
 
-    public void setChars(CharList _chars) {
-        chars = _chars;
-    }
-
     public char[] getBuiltUnicode() {
         return builtUnicode;
-    }
-
-    public int getIndexUnicode() {
-        return indexUnicode;
-    }
-
-    public void setIndexUnicode(int _indexUnicode) {
-        indexUnicode = _indexUnicode;
     }
 
 }

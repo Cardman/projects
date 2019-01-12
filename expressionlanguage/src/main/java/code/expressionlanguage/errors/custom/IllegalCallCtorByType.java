@@ -13,10 +13,6 @@ public final class IllegalCallCtorByType extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),SEP_INFO,BAD_CALL_CTOR_TYPE,SEP_KEY_VAL,type);
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setType(String _type) {
         type = _type;
     }

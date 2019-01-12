@@ -34,7 +34,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public final void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public final void abruptGroup(AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
         }

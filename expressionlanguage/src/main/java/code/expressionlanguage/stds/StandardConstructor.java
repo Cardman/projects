@@ -31,7 +31,6 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return getId().getSignature();
     }
 
-    @Override
     public String getDeclaringType() {
         return getOwner().getFullName();
     }

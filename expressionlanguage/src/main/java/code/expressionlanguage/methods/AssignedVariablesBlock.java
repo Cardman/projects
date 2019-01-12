@@ -16,11 +16,4 @@ public final class AssignedVariablesBlock {
         return finalVariables;
     }
 
-    public void setFinalVariablesGlobal(AssignedVariables _finalVariablesGlobal) {
-        finalVariablesGlobal = _finalVariablesGlobal;
-    }
-
-    public void setFinalVariables(IdMap<Block, AssignedVariables> _finalVariables) {
-        finalVariables = _finalVariables;
-    }
 }

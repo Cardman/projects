@@ -14,20 +14,6 @@ import code.util.StringMap;
 public final class ContextFactory {
 
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
-            Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
-        ContextEl context_ = buildDefKw(_lang, _lock, _init, _options, _exec,_undefinedLgNames, _tabWidth);
-        StringMap<String> srcFiles_ = new StringMap<String>();
-        for (EntryCust<String, String> e: _files.entryList()) {
-        	if (!e.getKey().startsWith("src/")) {
-        		continue;
-        	}
-        	srcFiles_.addEntry(e.getKey(), e.getValue());
-        }
-        context_.getClasses().addResources(_files);
-        Classes.validateAll(srcFiles_, context_);
-        return context_;
-    }
-    public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
             Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 
         KeyWords kwl_ = km_.getKeyWords(_lang);

@@ -452,7 +452,6 @@ public final class AliasCharSequence {
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilderStruct.calculate(_cont, result_, _method, _struct, args_);
-            return result_;
         }
         return result_;
     }

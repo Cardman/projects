@@ -31,8 +31,8 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
         return intermediate;
     }
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                ContextEl _conf) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument arg_ = getCommonArgument(previous_, _conf);
         boolean simple_ = false;
@@ -47,7 +47,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
         } else {
             setSimpleArgument(arg_, _conf, _nodes);
         }
-        return arg_;
     }
     abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
 

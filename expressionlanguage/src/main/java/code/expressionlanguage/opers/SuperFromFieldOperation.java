@@ -60,7 +60,7 @@ public final class SuperFromFieldOperation extends
     }
 
     @Override
-    String getFieldName(Analyzable _conf) {
+    String getFieldName() {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -69,12 +69,12 @@ public final class SuperFromFieldOperation extends
     }
 
     @Override
-    boolean isBaseAccess(Analyzable _an) {
+    boolean isBaseAccess() {
         return true;
     }
 
     @Override
-    boolean isSuperAccess(Analyzable _an) {
+    boolean isSuperAccess() {
         return true;
     }
 

@@ -261,18 +261,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         vars_.getFields().put(this, fieldsAfter_);
     }
 
-    static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
-        Argument a_ = _right;
-        if (_post) {
-            a_ = _stored;
-        }
-        return a_;
-    }
-
-    public SettableElResult getSettable() {
-        return settable;
-    }
-
     public boolean isPost() {
         return post;
     }

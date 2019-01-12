@@ -5,8 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.calls.MethodPageEl;
-import code.expressionlanguage.classes.Composite;
-import code.expressionlanguage.classes.StdStruct;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
@@ -262,20 +260,6 @@ public class ExpressionLanguageTest {
         assertEq("ll", ((StringStruct)res_[1]).getInstance());
         assertEq(" w", ((StringStruct)res_[2]).getInstance());
         assertEq("rd", ((StringStruct)res_[3]).getInstance());
-    }
-    public void processEl62Test() {
-        ContextEl context_ = contextEl();
-        Composite compos_ = new Composite();
-        compos_.setInteger(2);
-        addBean(context_, compos_, "code.expressionlanguage.classes.Composite");
-        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
-        LoopVariable lv_ = new LoopVariable();
-        lv_.setStruct(new IntStruct(4));
-        lv_.setClassName("$int");
-        localVars_.put("v", lv_);
-        context_.getLastPage().getVars().putAllMap(localVars_);
-        Argument arg_ = simpleCaculateEl("v;+integer",context_);
-        assertEq(6, arg_.getNumber());
     }
 
     @Test
@@ -1521,52 +1505,12 @@ public class ExpressionLanguageTest {
           str_.append("}\n");
           return str_.toString();
       }
-      private static Argument simpleCaculateEl(String _el, ContextEl _context) {
-          return caculateEl(_el, _context, true);
-      }
-      private static Argument caculateEl(String _el, ContextEl _context, boolean _static) {
-          _context.setAnalyzing(new AnalyzedPageEl());
-          if (!_context.isEmptyPages()) {
-              _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
-              _context.getAnalyzing().setLocalVars(_context.getLastPage().getLocalVars());
-              _context.getAnalyzing().setVars(_context.getLastPage().getVars());
-              _context.getAnalyzing().setCatchVars(_context.getLastPage().getCatchVars());
-              _context.getAnalyzing().getParameters().putAllMap(_context.getLastPage().getParameters());
-          } else {
-              _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
-              addImportingPage(_context);
-          }
-          return caculateCustEl(_el, _context, _static);
-      }
-      private static Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
-          Calculation calc_ = Calculation.staticCalculation(_static);
-          CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
-          _context.setAnalyzing(null);
-          ExpressionLanguage el_ = new ExpressionLanguage(ops_);
-          return el_.calculateMember(_context);
-      }
-      private static void addImportingPage(ContextEl _conf) {
+
+    private static void addImportingPage(ContextEl _conf) {
           _conf.addPage(new MethodPageEl(_conf));
       }
-      private static void addBean(ContextEl _conf, Composite _bean, String _beanClass) {
-          _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));
-          _conf.setGlobalClass(_beanClass);
-      }
 
-      private static ContextEl contextEl() {
-          StringBuilder xml_ = new StringBuilder();
-          xml_.append("$public $class pkg.Ex {}\n");
-          StringMap<String> files_ = new StringMap<String>();
-          files_.put("pkg/Ex", xml_.toString());
-          Options opt_ = new Options();
-          opt_.setEndLineSemiColumn(false);
-          opt_.setSuffixVar(VariableSuffix.DISTINCT);
-          ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-          Classes.validateAll(files_, cont_);
-          assertTrue(cont_.getClasses().isEmptyErrors());
-          return cont_;
-      }
-      private static ContextEl contextEl(StringMap<String> _files) {
+    private static ContextEl contextEl(StringMap<String> _files) {
           Options opt_ = new Options();
           opt_.setEndLineSemiColumn(false);
           opt_.setSuffixVar(VariableSuffix.DISTINCT);

@@ -113,7 +113,7 @@ public final class ParserType {
         }
         return indexes_;
     }
-    public static boolean isCorrectIndexes(String _input, Analyzable _an) {
+    public static boolean isCorrectIndexes(String _input) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
@@ -135,10 +135,7 @@ public final class ParserType {
             }
             i_++;
         }
-        if (count_ > 0) {
-            return false;
-        }
-        return true;
+        return count_ <= 0;
     }
     public static Numbers<Integer> getIndexesExec(String _input) {
         int count_ = 0;
@@ -187,25 +184,25 @@ public final class ParserType {
         }
         if (isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
-            a_.setupValue(_string, _offset, _options);
+            a_.setupValue(_string, _offset);
             return a_;
         }
         if (_options.isSingleInnerParts()) {
             if (isTypeLeafPart(_string.trim())) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset, _options);
+                a_.setupValue(_string, _offset);
                 return a_;
             }
         } else {
             if (isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset, _options);
+                a_.setupValue(_string, _offset);
                 return a_;
             }
         }
         if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
-            a_.setupValue(_string, _offset, _options);
+            a_.setupValue(_string, _offset);
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUB_TYPE)) {
@@ -310,7 +307,7 @@ public final class ParserType {
         if (_options.isSingleInnerParts() && operators_.isEmpty()) {
             if (isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset, _options);
+                a_.setupValue(_string, _offset);
                 return a_;
             }
         }

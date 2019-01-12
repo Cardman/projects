@@ -171,7 +171,6 @@ public final class StandardInstancingOperation extends
         analyzeCtor(_conf, realClassName_, firstArgs_);
     }
     void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
-        String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();
@@ -179,20 +178,20 @@ public final class StandardInstancingOperation extends
         ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
         Classes classes_ = _conf.getClasses();
-        if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
+        if (PrimitiveTypeUtil.isPrimitive(_realClassName, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(realClassName_);
+            call_.setType(_realClassName);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
             classes_.addError(call_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+            setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        String base_ = Templates.getIdFromAllTypes(realClassName_);
+        String base_ = Templates.getIdFromAllTypes(_realClassName);
         GeneType g_ = _conf.getClassBody(base_);
         if (g_ == null) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(realClassName_);
+            call_.setType(_realClassName);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
             classes_.addError(call_);
@@ -221,17 +220,17 @@ public final class StandardInstancingOperation extends
                 st_.setInit(_conf,base_,staticType_);
             }
         }
-        for (String p:Templates.getAllTypes(realClassName_).mid(1)){
+        for (String p:Templates.getAllTypes(_realClassName).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(realClassName_);
+                call_.setType(_realClassName);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(realClassName_);
+                call_.setType(_realClassName);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
@@ -242,26 +241,26 @@ public final class StandardInstancingOperation extends
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+            setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
         if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(realClassName_);
+            call_.setType(_realClassName);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+            setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
         if (g_ instanceof EnumBlock) {
             if (fieldName.isEmpty()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(realClassName_);
+                call_.setType(_realClassName);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
-                setResultClass(new ClassArgumentMatching(realClassName_));
+                setResultClass(new ClassArgumentMatching(_realClassName));
                 return;
             }
             blockIndex = _conf.getCurrentChildTypeIndex();
@@ -273,7 +272,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = idMethod_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
         constId = ctorRes_.getRealId();
         className = ctorRes_.getConstId().getName();
         if (ctorRes_.isVarArgToCall()) {
@@ -282,7 +281,7 @@ public final class StandardInstancingOperation extends
         }
         unwrapArgsFct(filter_, constId, naturalVararg, lastType, _firstArgs, _conf);
         possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst() && g_.isStaticType();
-        setResultClass(new ClassArgumentMatching(realClassName_));
+        setResultClass(new ClassArgumentMatching(_realClassName));
     }
 
     @Override

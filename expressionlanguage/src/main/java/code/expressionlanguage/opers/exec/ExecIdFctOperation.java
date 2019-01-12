@@ -12,7 +12,4 @@ public final class ExecIdFctOperation extends ExecConstLeafOperation {
         method = _i.getMethod();
     }
 
-    public ClassMethodId getMethod() {
-        return method;
-    }
 }

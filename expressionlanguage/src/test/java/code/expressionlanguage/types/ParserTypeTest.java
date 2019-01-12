@@ -584,7 +584,6 @@ public class ParserTypeTest {
     private static ContextEl contextEnElDefault() {
         Options opt_ = new Options();
         opt_.setSingleInnerParts(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne("en", opt_);
     }
 }

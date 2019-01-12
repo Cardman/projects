@@ -34,20 +34,12 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         array = _ann.isArray();
     }
 
-    public boolean isArray() {
-        return array;
-    }
-    public String getClassName() {
-        return className;
-    }
-
     @Override
-    public Argument calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
 
     Argument getArgument(CustList<Argument> _arguments,

@@ -10,5 +10,4 @@ public interface RemovableVars {
     BracedBlock getCurrentVisitedBlock();
     BracedBlock getLastBlock();
 
-    void setBlock(BracedBlock _block);
 }

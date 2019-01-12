@@ -13,16 +13,8 @@ public class StdWordError {
         return StringList.concat(errCat.name(),"-",message);
     }
 
-    public ErrorCat getErrCat() {
-        return errCat;
-    }
-
     public void setErrCat(ErrorCat _errCat) {
         errCat = _errCat;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public void setMessage(String _message) {

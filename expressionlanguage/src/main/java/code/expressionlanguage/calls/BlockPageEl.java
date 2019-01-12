@@ -23,11 +23,11 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
             ((WithEl)en_).processEl(_context);
             return;
         }
-        endRoot(_context);
+        endRoot();
     }
 
     @Override
-    public ParentStackBlock getNextBlock(Block _bl, ContextEl _context) {
+    public ParentStackBlock getNextBlock(Block _bl) {
         ParentStackBlock parElt_;
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
@@ -35,7 +35,7 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
         } else {
             BracedBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (!noBlock()) {
+            if (hasBlock()) {
                 parElt_ =  new ParentStackBlock(n_);
             } else {
                 //directly at the root => last element in the block root
@@ -50,12 +50,12 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
         setNullReadWrite();
     }
 
-    public void endRoot(ContextEl _context) {
+    public void endRoot() {
         setNullReadWrite();
     }
 
     @Override
-    public void postReturn(ContextEl _context) {
+    public void postReturn() {
         setNullReadWrite();
     }
 

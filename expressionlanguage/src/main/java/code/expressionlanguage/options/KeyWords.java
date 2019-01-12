@@ -541,20 +541,7 @@ public final class KeyWords {
         list_.sortElts(new StartsWithComparing());
         return list_.first();
     }
-    public static String getKeyWord(StringList _list, String _string, int _from) {
-        String sub_ = _string.substring(_from);
-        StringList list_ = new StringList();
-        for (String k: _list) {
-            if (sub_.startsWith(k)) {
-                list_.add(k);
-            }
-        }
-        if (list_.isEmpty()) {
-            return null;
-        }
-        list_.sortElts(new StartsWithComparing());
-        return list_.first();
-    }
+
     public String getKeyWordLang() {
         return keyWordLang;
     }
@@ -807,87 +794,59 @@ public final class KeyWords {
     public void setKeyWordNbExpBin(String _keyWordNbExpBin) {
         keyWordNbExpBin = _keyWordNbExpBin;
     }
-    public String getKeyWordNbSufDoublePrim() {
-        return keyWordNbSufDoublePrim;
-    }
+
     public void setKeyWordNbSufDoublePrim(String _keyWordNbSufDoublePrim) {
         keyWordNbSufDoublePrim = _keyWordNbSufDoublePrim;
     }
-    public String getKeyWordNbSufDouble() {
-        return keyWordNbSufDouble;
-    }
+
     public void setKeyWordNbSufDouble(String _keyWordNbSufDouble) {
         keyWordNbSufDouble = _keyWordNbSufDouble;
     }
-    public String getKeyWordNbSufFloatPrim() {
-        return keyWordNbSufFloatPrim;
-    }
+
     public void setKeyWordNbSufFloatPrim(String _keyWordNbSufFloatPrim) {
         keyWordNbSufFloatPrim = _keyWordNbSufFloatPrim;
     }
-    public String getKeyWordNbSufFloat() {
-        return keyWordNbSufFloat;
-    }
+
     public void setKeyWordNbSufFloat(String _keyWordNbSufFloat) {
         keyWordNbSufFloat = _keyWordNbSufFloat;
     }
-    public String getKeyWordNbSufLongPrim() {
-        return keyWordNbSufLongPrim;
-    }
+
     public void setKeyWordNbSufLongPrim(String _keyWordNbSufLongPrim) {
         keyWordNbSufLongPrim = _keyWordNbSufLongPrim;
     }
-    public String getKeyWordNbSufLong() {
-        return keyWordNbSufLong;
-    }
+
     public void setKeyWordNbSufLong(String _keyWordNbSufLong) {
         keyWordNbSufLong = _keyWordNbSufLong;
     }
-    public String getKeyWordNbSufIntegerPrim() {
-        return keyWordNbSufIntegerPrim;
-    }
+
     public void setKeyWordNbSufIntegerPrim(String _keyWordNbSufIntegerPrim) {
         keyWordNbSufIntegerPrim = _keyWordNbSufIntegerPrim;
     }
-    public String getKeyWordNbSufInteger() {
-        return keyWordNbSufInteger;
-    }
+
     public void setKeyWordNbSufInteger(String _keyWordNbSufInteger) {
         keyWordNbSufInteger = _keyWordNbSufInteger;
     }
-    public String getKeyWordNbSufCharacterPrim() {
-        return keyWordNbSufCharacterPrim;
-    }
+
     public void setKeyWordNbSufCharacterPrim(String _keyWordNbSufCharacterPrim) {
         keyWordNbSufCharacterPrim = _keyWordNbSufCharacterPrim;
     }
-    public String getKeyWordNbSufCharacter() {
-        return keyWordNbSufCharacter;
-    }
+
     public void setKeyWordNbSufCharacter(String _keyWordNbSufCharacter) {
         keyWordNbSufCharacter = _keyWordNbSufCharacter;
     }
-    public String getKeyWordNbSufShortPrim() {
-        return keyWordNbSufShortPrim;
-    }
+
     public void setKeyWordNbSufShortPrim(String _keyWordNbSufShortPrim) {
         keyWordNbSufShortPrim = _keyWordNbSufShortPrim;
     }
-    public String getKeyWordNbSufShort() {
-        return keyWordNbSufShort;
-    }
+
     public void setKeyWordNbSufShort(String _keyWordNbSufShort) {
         keyWordNbSufShort = _keyWordNbSufShort;
     }
-    public String getKeyWordNbSufBytePrim() {
-        return keyWordNbSufBytePrim;
-    }
+
     public void setKeyWordNbSufBytePrim(String _keyWordNbSufBytePrim) {
         keyWordNbSufBytePrim = _keyWordNbSufBytePrim;
     }
-    public String getKeyWordNbSufByte() {
-        return keyWordNbSufByte;
-    }
+
     public void setKeyWordNbSufByte(String _keyWordNbSufByte) {
         keyWordNbSufByte = _keyWordNbSufByte;
     }

@@ -14,10 +14,6 @@ public final class DuplicateConstructor extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,id.getSignature(),SEP_INFO);
     }
 
-    public ConstructorId getId() {
-        return id;
-    }
-
     public void setId(ConstructorId _id) {
         id = _id;
     }

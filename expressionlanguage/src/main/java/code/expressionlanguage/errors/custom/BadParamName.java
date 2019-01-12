@@ -14,10 +14,6 @@ public final class BadParamName extends FoundErrorInterpret {
         return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,paramName,SEP_INFO);
     }
 
-    public String getParamName() {
-        return paramName;
-    }
-
     public void setParamName(String _className) {
         paramName = _className;
     }

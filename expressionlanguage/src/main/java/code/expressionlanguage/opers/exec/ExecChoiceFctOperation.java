@@ -40,13 +40,12 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
@@ -65,16 +64,14 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                Argument a_ = new Argument();
-                return a_;
+                return new Argument();
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
             if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                Argument a_ = new Argument();
-                return a_;
+                return new Argument();
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);

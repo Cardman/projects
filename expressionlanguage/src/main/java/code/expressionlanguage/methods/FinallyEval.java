@@ -143,7 +143,7 @@ public final class FinallyEval extends BracedStack implements Eval {
         }
     }
     @Override
-    public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
+    public void abruptGroup(AnalyzingEl _anEl) {
         CustList<Block> group_ = new CustList<Block>();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {

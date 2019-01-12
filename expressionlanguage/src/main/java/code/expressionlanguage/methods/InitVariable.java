@@ -6,5 +6,4 @@ public interface InitVariable extends StackableBlock {
 
     StringList getVariableNames();
 
-    String getClassName();
 }

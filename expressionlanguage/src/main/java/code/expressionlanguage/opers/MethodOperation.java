@@ -266,8 +266,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     @Override
     public final CustList<Operable> getChildrenOperable() {
         CustList<Operable> list_ = new CustList<Operable>();
-        OperationNode firstChild_ = getFirstChild();
-        OperationNode elt_ = firstChild_;
+        OperationNode elt_ = getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();
@@ -276,8 +275,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
     public final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        OperationNode firstChild_ = getFirstChild();
-        OperationNode elt_ = firstChild_;
+        OperationNode elt_ = getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();

@@ -69,7 +69,6 @@ import code.util.graphs.SortedGraph;
 
 public final class Classes {
 
-    public static final String EXT = "cdm";
     public static final String TEMP_PREFIX = "tmp";
     private static final char DOT = '.';
 
@@ -131,7 +130,7 @@ public final class Classes {
     public StringMap<String> getResources() {
 		return resources;
 	}
-    public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
+    public void processBracedClass(RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
         if (classesBodies.contains(fullName_)) {
             DuplicateType d_ = new DuplicateType();
@@ -174,7 +173,7 @@ public final class Classes {
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
-        if (ParserType.isCorrectIndexes(fullDef_, _context)) {
+        if (ParserType.isCorrectIndexes(fullDef_)) {
             StringList params_ = Templates.getAllTypes(fullDef_);
             StringList namesFromParent_ = new StringList();
             RootBlock r_ = _root;
@@ -301,9 +300,7 @@ public final class Classes {
     public void addStdError(StdWordError _std) {
         stdErrorDet.add(_std);
     }
-    public StdErrorList getStdErrorDet() {
-        return stdErrorDet;
-    }
+
     public boolean isEmptyWarnings() {
         return warningsDet.isEmpty();
     }
@@ -313,9 +310,7 @@ public final class Classes {
     public String displayWarnings() {
         return warningsDet.display(this);
     }
-    public WarningList getWarningsDet() {
-        return warningsDet;
-    }
+
     public void addResources(StringMap<String> _resources) {
     	for (EntryCust<String, String> e: _resources.entryList()) {
     		resources.add(e.getKey(), e.getValue());
@@ -519,8 +514,7 @@ public final class Classes {
         if (_element == null) {
             return list_;
         }
-        Block firstChild_ = _element.getFirstChild();
-        Block elt_ = firstChild_;
+        Block elt_ = _element.getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();
@@ -544,9 +538,8 @@ public final class Classes {
                 c_.buildDirectGenericSuperTypes(_context);
             }
             for (RootBlock c: classes_.getClassBodies(_predefined)) {
-                RootBlock bl_ = c;
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildMapParamType(_context);
+                _context.getAnalyzing().setCurrentBlock(c);
+                c.buildMapParamType(_context);
             }
         } else {
             //Error but continue
@@ -554,9 +547,8 @@ public final class Classes {
                 c.buildErrorDirectGenericSuperTypes(_context);
             }
             for (RootBlock c: classes_.getClassBodies(_predefined)) {
-                RootBlock bl_ = c;
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildErrorMapParamType(_context);
+                _context.getAnalyzing().setCurrentBlock(c);
+                c.buildErrorMapParamType(_context);
             }
         }
         for (RootBlock c: classes_.getClassBodies(_predefined)) {
@@ -872,25 +864,24 @@ public final class Classes {
                 }
                 curList_.add(c);
                 String d_ = c.getFullName();
-                RootBlock bl_ = c;
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                boolean int_ = bl_ instanceof InterfaceBlock;
+                _context.getAnalyzing().setCurrentBlock(c);
+                boolean int_ = c instanceof InterfaceBlock;
                 int nbDirectSuperClass_ = 0;
                 int index_ = -1;
                 StringList names_ = new StringList();
-                for (EntryCust<Integer, String> t: bl_.getRowColDirectSuperTypes().entryList()) {
+                for (EntryCust<Integer, String> t: c.getRowColDirectSuperTypes().entryList()) {
                     index_++;
                     String v_ = t.getValue();
                     v_ = ContextEl.removeDottedSpaces(v_);
                     String base_ = Templates.getIdFromAllTypes(v_);
-                    int offset_ = bl_.getRowColDirectSuperTypes().getKey(index_);
+                    int offset_ = c.getRowColDirectSuperTypes().getKey(index_);
                     if (StringList.quickEq(base_, enumParamClassName_)) {
-                        Boolean exp_ = bl_.getExplicitDirectSuperTypes().getVal(offset_);
+                        Boolean exp_ = c.getExplicitDirectSuperTypes().getVal(offset_);
                         if (exp_) {
                             UnknownClassName undef_;
                             undef_ = new UnknownClassName();
                             undef_.setClassName(base_);
-                            undef_.setFileName(bl_.getFile().getFileName());
+                            undef_.setFileName(c.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             addError(undef_);
                         } else {
@@ -902,19 +893,19 @@ public final class Classes {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(base_);
-                        undef_.setFileName(bl_.getFile().getFileName());
+                        undef_.setFileName(c.getFile().getFileName());
                         undef_.setIndexFile(offset_);
                         addError(undef_);
                         index_++;
                         continue;
                     }
                     String type_ = base_;
-                    base_ = _context.resolveBaseInherits(base_, bl_, index_, possibleQualifiers_, false);
+                    base_ = _context.resolveBaseInherits(base_, c, index_, possibleQualifiers_, false);
                     if (base_ == null || base_.isEmpty()) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(type_);
-                        undef_.setFileName(bl_.getFile().getFileName());
+                        undef_.setFileName(c.getFile().getFileName());
                         undef_.setIndexFile(offset_);
                         addError(undef_);
                     } else {
@@ -926,9 +917,8 @@ public final class Classes {
                             if (!(super_ instanceof InterfaceBlock)) {
                                 BadInheritedClass enum_;
                                 enum_ = new BadInheritedClass();
-                                String n_ = base_;
-                                enum_.setClassName(n_);
-                                enum_.setFileName(bl_.getFile().getFileName());
+                                enum_.setClassName(base_);
+                                enum_.setFileName(c.getFile().getFileName());
                                 enum_.setIndexFile(offset_);
                                 addError(enum_);
                             } else {
@@ -937,14 +927,13 @@ public final class Classes {
                         } else if (super_.isFinalType()) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
-                            String n_ = base_;
-                            enum_.setClassName(n_);
-                            enum_.setFileName(bl_.getFile().getFileName());
+                            enum_.setClassName(base_);
+                            enum_.setFileName(c.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             addError(enum_);
                         } else {
                             names_.add(base_);
-                            RootBlock par_ = bl_.getParentType();
+                            RootBlock par_ = c.getParentType();
                             while (par_ != null) {
                                 if (par_.isStaticType()) {
                                     break;
@@ -963,8 +952,8 @@ public final class Classes {
                 if (oldSize_ != newSize_) {
                     UnknownClassName undef_;
                     undef_ = new UnknownClassName();
-                    undef_.setClassName(bl_.getFullName());
-                    undef_.setFileName(bl_.getFile().getFileName());
+                    undef_.setClassName(c.getFullName());
+                    undef_.setFileName(c.getFile().getFileName());
                     undef_.setIndexFile(0);
                     addError(undef_);
                     continue;
@@ -974,8 +963,8 @@ public final class Classes {
                     BadInheritedClass enum_;
                     enum_ = new BadInheritedClass();
                     enum_.setClassName(EMPTY_STRING);
-                    enum_.setFileName(bl_.getFile().getFileName());
-                    enum_.setIndexFile(bl_.getIdRowCol());
+                    enum_.setFileName(c.getFile().getFileName());
+                    enum_.setIndexFile(c.getIdRowCol());
                     addError(enum_);
                 }
             }
@@ -1056,22 +1045,21 @@ public final class Classes {
             String _objectClassName) {
         LgNames stds_ = _context.getStandards();
         for (RootBlock s: getClassBodies(_predefined)) {
-            RootBlock dBl_ = s;
             String c = s.getFullName();
             Mapping mapping_ = new Mapping();
             StringMap<StringList> cts_ = new StringMap<StringList>();
             StringList variables_ = new StringList();
             boolean ok_ = true;
-            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+            for (TypeVar t: s.getParamTypesMapValues()) {
                 cts_.put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
             }
-            if (!variables_.isEmpty() && dBl_ instanceof AnnotationBlock) {
+            if (!variables_.isEmpty() && s instanceof AnnotationBlock) {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
                 b_.setClassName(c);
-                b_.setFileName(dBl_.getFile().getFileName());
-                b_.setIndexFile(dBl_.getIdRowCol());
+                b_.setFileName(s.getFile().getFileName());
+                b_.setIndexFile(s.getIdRowCol());
                 addError(b_);
                 continue;
             }
@@ -1084,12 +1072,12 @@ public final class Classes {
                 b_ = new BadInheritedClass();
                 //TODO better message
                 b_.setClassName(c);
-                b_.setFileName(dBl_.getFile().getFileName());
-                b_.setIndexFile(dBl_.getIdRowCol());
+                b_.setFileName(s.getFile().getFileName());
+                b_.setIndexFile(s.getIdRowCol());
                 addError(b_);
                 continue;
             }
-            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+            for (TypeVar t: s.getParamTypesMapValues()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
                 StringList upper_ = Mapping.getAllUpperBounds(cts_, t.getName(),_objectClassName);
@@ -1098,8 +1086,8 @@ public final class Classes {
                     if (b.startsWith("[")) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(c);
-                        un_.setFileName(dBl_.getFile().getFileName());
-                        un_.setIndexFile(dBl_.getIdRowCol());
+                        un_.setFileName(s.getFile().getFileName());
+                        un_.setIndexFile(s.getIdRowCol());
                         addError(un_);
                     }
                     String baseParams_ = Templates.getIdFromAllTypes(b);
@@ -1116,8 +1104,8 @@ public final class Classes {
                     UnknownClassName un_ = new UnknownClassName();
                     //TODO all conflicting classes
                     un_.setClassName(c);
-                    un_.setFileName(dBl_.getFile().getFileName());
-                    un_.setIndexFile(dBl_.getIdRowCol());
+                    un_.setFileName(s.getFile().getFileName());
+                    un_.setIndexFile(s.getIdRowCol());
                     addError(un_);
                     okLoc_ = false;
                     ok_ = false;
@@ -1127,8 +1115,8 @@ public final class Classes {
                     if (e.getValue().size() > 1) {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
-                        duplicate_.setFileName(dBl_.getFile().getFileName());
-                        duplicate_.setIndexFile(dBl_.getIdRowCol());
+                        duplicate_.setFileName(s.getFile().getFileName());
+                        duplicate_.setIndexFile(s.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
                     }
@@ -1155,8 +1143,8 @@ public final class Classes {
                     if (e.getValue().size() > 1) {
                         DuplicateGenericSuperTypes duplicate_;
                         duplicate_ = new DuplicateGenericSuperTypes();
-                        duplicate_.setFileName(dBl_.getFile().getFileName());
-                        duplicate_.setIndexFile(dBl_.getIdRowCol());
+                        duplicate_.setFileName(s.getFile().getFileName());
+                        duplicate_.setIndexFile(s.getIdRowCol());
                         duplicate_.setGenericSuperTypes(e.getValue());
                         addError(duplicate_);
                     }
@@ -1204,8 +1192,8 @@ public final class Classes {
                         //error
                         BadInheritedClass inh_;
                         inh_ = new BadInheritedClass();
-                        inh_.setFileName(dBl_.getFile().getFileName());
-                        inh_.setIndexFile(dBl_.getIdRowCol());
+                        inh_.setFileName(s.getFile().getFileName());
+                        inh_.setIndexFile(s.getIdRowCol());
                         inh_.setClassName(c);
                         addError(inh_);
                         ok_ = false;
@@ -1217,26 +1205,26 @@ public final class Classes {
             }
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
-            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+            for (TypeVar t: s.getParamTypesMapValues()) {
                 map_.put(t.getName(), t.getConstraints());
             }
-            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+            for (TypeVar t: s.getParamTypesMapValues()) {
                 for (String b: t.getConstraints()) {
                     if (!Templates.isCorrectTemplateAll(b, map_, _context, true)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
-                        un_.setFileName(dBl_.getFile().getFileName());
-                        un_.setIndexFile(dBl_.getIdRowCol());
+                        un_.setFileName(s.getFile().getFileName());
+                        un_.setIndexFile(s.getIdRowCol());
                         addError(un_);
                     }
                 }
             }
-            for (String t: dBl_.getDirectGenericSuperTypes(_context)) {
+            for (String t: s.getDirectGenericSuperTypes(_context)) {
                 if (!Templates.isCorrectTemplateAll(t, map_, _context, true)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(t);
-                    un_.setFileName(dBl_.getFile().getFileName());
-                    un_.setIndexFile(dBl_.getIdRowCol());
+                    un_.setFileName(s.getFile().getFileName());
+                    un_.setIndexFile(s.getIdRowCol());
                     addError(un_);
                 }
             }
@@ -1281,9 +1269,8 @@ public final class Classes {
     public void validateIds(ContextEl _context, boolean _predefined) {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (RootBlock c: getClassBodies(_predefined)) {
-            RootBlock bl_ = c;
-            _context.setGlobalClass(bl_.getGenericString());
-            bl_.validateIds(_context);
+            _context.setGlobalClass(c.getGenericString());
+            c.validateIds(_context);
         }
         if (_predefined) {
             return;
@@ -1402,35 +1389,29 @@ public final class Classes {
         if(StringList.quickEq(_op, "++")) {
             return true;
         }
-        if(StringList.quickEq(_op, "--")) {
-            return true;
-        }
-        return false;
+        return StringList.quickEq(_op, "--");
     }
     public void validateOverridingInherit(ContextEl _context, boolean _predefined) {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (RootBlock c: getClassBodies(_predefined)) {
-            RootBlock bl_ = c;
-            bl_.setupBasicOverrides(_context);
+            c.setupBasicOverrides(_context);
         }
         for (RootBlock c: getClassBodies(_predefined)) {
-            RootBlock bl_ = c;
-            if (bl_ instanceof AnnotationBlock) {
+            if (c instanceof AnnotationBlock) {
                 continue;
             }
-            bl_.checkCompatibility(_context);
-            bl_.checkImplements(_context);
+            c.checkCompatibility(_context);
+            c.checkImplements(_context);
         }
         for (RootBlock c: getClassBodies(_predefined)) {
-            RootBlock bl_ = c;
-            if (bl_ instanceof AnnotationBlock) {
+            if (c instanceof AnnotationBlock) {
                 continue;
             }
-            bl_.checkCompatibilityBounds(_context);
+            c.checkCompatibilityBounds(_context);
         }
     }
 
-    public static boolean canAccessField(String _className, String _accessedClass, String _name, Analyzable _context) {
+    public static boolean isHiddenField(String _className, String _accessedClass, String _name, Analyzable _context) {
         String baseClass_ = Templates.getIdFromAllTypes(_accessedClass);
         GeneType access_ = _context.getClassBody(baseClass_);
         if (access_ instanceof RootBlock) {
@@ -1438,18 +1419,18 @@ public final class Classes {
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     if (((InfoBlock)b).getFieldName().containsStr(_name)) {
-                        return canAccess(_className,(InfoBlock)b, _context);
+                        return !canAccess(_className, (InfoBlock) b, _context);
                     }
                 }
             }
-            return false;
+            return true;
         }
         for (StandardField f: _context.getStandards().getStandards().getVal(baseClass_).getFields().values()) {
             if (f.getFieldName().containsStr(_name)) {
-                return canAccess(_className,f, _context);
+                return !canAccess(_className, f, _context);
             }
         }
-        return false;
+        return true;
     }
     public static CustList<RootBlock> accessedClassMembers(boolean _inherits,boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
         String idRoot_ = Templates.getIdFromAllTypes(_className);
@@ -1543,23 +1524,14 @@ public final class Classes {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
                 return true;
             }
-            if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
-                return true;
-            }
-            return false;
+            return StringList.quickEq(belong_.getPackageName(), root_.getPackageName());
         }
         if (_block.getAccess() == AccessEnum.PACKAGE) {
-            if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
-                return true;
-            }
-            return false;
+            return StringList.quickEq(belong_.getPackageName(), root_.getPackageName());
         }
         GeneType outBelong_ = belong_.getOuter();
         GeneType outRoot_ = root_.getOuter();
-        if (StringList.quickEq(outBelong_.getFullName(), outRoot_.getFullName())) {
-            return true;
-        }
-        return false;
+        return StringList.quickEq(outBelong_.getFullName(), outRoot_.getFullName());
     }
 
     //validate el and its possible returned type
@@ -1918,7 +1890,7 @@ public final class Classes {
             c.validateConstructors(_context);
         }
     }
-    public EqList<ClassField> initStaticFields(ContextEl _context, boolean _predefined) {
+    public void initStaticFields(ContextEl _context, boolean _predefined) {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
         page_.setGearConst(true);
@@ -2038,7 +2010,6 @@ public final class Classes {
             }
         }
         _context.setAnalyzing(null);
-        return success_;
     }
     public StringList getPackages(boolean _predefined) {
         StringList pkgs_ = new StringList();
@@ -2422,7 +2393,6 @@ public final class Classes {
             String formatRet_;
             ConstructorId fid_;
             String ret_ = _context.getStandards().getAliasVoid();
-            String formCl_ = _name;
             if (Templates.correctNbParameters(_name, _context)) {
                 formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
                 fid_ = id_.reflectFormat(_name, _context);
@@ -2430,7 +2400,7 @@ public final class Classes {
                 formatRet_ = ret_;
                 fid_ = id_;
             }
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_, _name);
             infosConst_.put(id_, met_);
         }
         if (_type instanceof EnumBlock) {

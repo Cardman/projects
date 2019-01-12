@@ -31,26 +31,20 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         off = _v.getOff();
     }
 
-    @Override
     public boolean resultCanBeSet() {
         return variable;
     }
 
 
-    public String getVariableName() {
-        return variableName;
-    }
-
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
         if (resultCanBeSet()) {
             setQuickSimpleArgument(arg_, _conf, _nodes);
         } else {
             setSimpleArgument(arg_, _conf, _nodes);
         }
-        return arg_;
     }
     Argument getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();

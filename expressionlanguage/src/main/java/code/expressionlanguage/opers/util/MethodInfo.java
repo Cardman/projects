@@ -73,11 +73,6 @@ public final class MethodInfo implements Parametrable {
     }
 
     @Override
-    public Identifiable getId() {
-        return getConstraints();
-    }
-
-    @Override
     public int getImported() {
         return imported;
     }

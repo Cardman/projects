@@ -22,7 +22,7 @@ public final class InitializationLgNames {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
         ExecutingOptions exec_ = new ExecutingOptions();
-        return buildLg(_lg, CustList.INDEX_NOT_FOUND_ELT, lgName_, _opt, exec_);
+        return buildLg(_lg, lgName_, _opt, exec_);
     }
     public static ContextEl buildStdOne(int _stack,Options _opt) {
         LgNames lgName_ = new CustLgNames();
@@ -38,7 +38,7 @@ public final class InitializationLgNames {
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;
     }
-    private static ContextEl buildLg(String _lang,int _stack,LgNames _lgNames, Options _opt, ExecutingOptions _exec) {
+    private static ContextEl buildLg(String _lang, LgNames _lgNames, Options _opt, ExecutingOptions _exec) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl out_ = ContextFactory.buildDefKw(_lang, lk_, di_, _opt, _exec,_lgNames,4);

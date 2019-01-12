@@ -18,10 +18,7 @@ public final class ClassField implements Equallable<ClassField> {
         if (!StringList.quickEq(className, _obj.className)) {
             return false;
         }
-        if (!StringList.quickEq(fieldName, _obj.fieldName)) {
-            return false;
-        }
-        return true;
+        return StringList.quickEq(fieldName, _obj.fieldName);
     }
 
     public String getClassName() {

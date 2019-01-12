@@ -21,10 +21,6 @@ public final class ClassEdge implements GraphElement<ClassEdge> {
         return order;
     }
 
-    public void setOrder(int _order) {
-        order = _order;
-    }
-
     @Override
     public boolean eq(ClassEdge _g) {
         return StringList.quickEq(id, _g.id);

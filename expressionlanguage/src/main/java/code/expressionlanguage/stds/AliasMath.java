@@ -275,7 +275,7 @@ public final class AliasMath {
         method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
     }
-    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
@@ -597,9 +597,7 @@ public final class AliasMath {
     public void setAliasRotateRight(String _aliasRotateRight) {
         aliasRotateRight = _aliasRotateRight;
     }
-    public String getAliasRandom() {
-        return aliasRandom;
-    }
+
     public void setAliasRandom(String _aliasRandom) {
         aliasRandom = _aliasRandom;
     }

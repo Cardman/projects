@@ -23,16 +23,6 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public ArrayStruct getStack() {
-        return stack;
-    }
-
-    @Override
-    public StringStruct getMessage() {
-        return new StringStruct(message);
-    }
-
-    @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
@@ -54,6 +44,16 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(message);
+    }
+
+    @Override
+    public Struct getStack() {
+        return stack;
+    }
+
+    @Override
+    public Struct getMessage() {
         return new StringStruct(message);
     }
 }

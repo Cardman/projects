@@ -26,12 +26,4 @@ public final class ResultErrorStd {
         error = _error;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String _errorMessage) {
-        errorMessage = _errorMessage;
-    }
-
 }

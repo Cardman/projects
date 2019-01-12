@@ -187,10 +187,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (curr_.isEmpty()) {
             return true;
         }
-        if (!StringList.quickEq(curr_, _clName)) {
-            return true;
-        }
-        return false;
+        return !StringList.quickEq(curr_, _clName);
     }
     public boolean isContainedSensibleFields(Struct _array) {
         if (!initEnums) {
@@ -289,10 +286,8 @@ public abstract class ContextEl implements ExecutableCode {
 	public void setInterrupt(AtomicBoolean _interrupt) {
 		interrupt = _interrupt;
 	}
-	public void interrupt() {
-		interrupt.set(true);
-	}
-	public void resetInitEnums() {
+
+    public void resetInitEnums() {
         failInit = false;
         exception = null;
         sensibleFields.clear();
@@ -309,9 +304,7 @@ public abstract class ContextEl implements ExecutableCode {
     public boolean processException() {
         if (exception != null) {
             getThrowing().removeBlockFinally(this);
-            if (exception != null) {
-                return false;
-            }
+            return exception == null;
         }
         return true;
     }
@@ -414,22 +407,20 @@ public abstract class ContextEl implements ExecutableCode {
         MethodPageEl pageLoc_ = new MethodPageEl(this);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
-        MethodId id_ = _method;
         NamedFunctionBlock methodLoc_;
-        if (!StringList.isDollarWord(id_.getName())) {
-            methodLoc_ = Classes.getOperatorsBodiesById(this, id_).first();
+        if (!StringList.isDollarWord(_method.getName())) {
+            methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
         } else {
-            methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
+            methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
         }
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
-        CustList<Argument> args_ = _args;
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
             String p_ = paramsLoc_.get(i);
             String c_ = typesLoc_.get(i);
             LocalVariable lv_ = new LocalVariable();
-            lv_.setStruct(args_.get(i).getStruct());
+            lv_.setStruct(_args.get(i).getStruct());
             lv_.setClassName(c_);
             pageLoc_.getParameters().put(p_, lv_);
         }
@@ -689,7 +680,6 @@ public abstract class ContextEl implements ExecutableCode {
             String formatRet_;
             ConstructorId fid_;
             String ret_ = getStandards().getAliasVoid();
-            String formCl_ = _name;
             if (Templates.correctNbParameters(_name, this)) {
                 formatRet_ = Templates.wildCardFormat(false, _name, ret_, this,true);
                 fid_ = id_.reflectFormat(_name, this);
@@ -697,7 +687,7 @@ public abstract class ContextEl implements ExecutableCode {
                 formatRet_ = ret_;
                 fid_ = id_;
             }
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_, _name);
             infosConst_.put(id_, met_);
         }
         AccessEnum acc_ = _type.getAccess();
@@ -845,8 +835,8 @@ public abstract class ContextEl implements ExecutableCode {
     public void clearPages() {
         importing.clear();
     }
-    public boolean isEmptyPages() {
-        return importing.isEmpty();
+    public boolean hasPages() {
+        return !importing.isEmpty();
     }
 
     public AbstractPageEl getCall(int _index) {
@@ -892,7 +882,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public String getNextTempVar() {
-        return analyzing.getNextTempVar(classes);
+        return analyzing.getNextTempVar();
     }
 
     public AbstractPageEl getLastPage() {
@@ -1011,10 +1001,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (callAnnot != null) {
             return true;
         }
-        if (initClass != null) {
-            return true;
-        }
-        return false;
+        return initClass != null;
     }
     @Override
     public Struct getException() {
@@ -1052,10 +1039,6 @@ public abstract class ContextEl implements ExecutableCode {
         callCtor = _callCtor;
     }
 
-    public CustomFoundAnnotation getCallAnnot() {
-        return callAnnot;
-    }
-
     public void setCallAnnot(CustomFoundAnnotation _callAnnot) {
         callAnnot = _callAnnot;
     }
@@ -1084,16 +1067,8 @@ public abstract class ContextEl implements ExecutableCode {
         initClass = _initClass;
     }
 
-    public NotInitializedFields getInitFields() {
-        return initFields;
-    }
-
     public void setInitFields(NotInitializedFields _initFields) {
         initFields = _initFields;
-    }
-
-    public CustomFoundBlock getFoundBlock() {
-        return foundBlock;
     }
 
     public void setFoundBlock(CustomFoundBlock _foundBlock) {
@@ -1114,7 +1089,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getIndexChildType();
     }
 
-    @Override
     public void setCurrentChildTypeIndex(int _index) {
         analyzing.setIndexChildType(_index);
     }
@@ -1703,17 +1677,13 @@ public abstract class ContextEl implements ExecutableCode {
     private static boolean access(RootBlock _from, RootBlock _found, boolean _outer) {
         if (_found.getAccess().ordinal() > AccessEnum.PROTECTED.ordinal()) {
             if (_found.getAccess() == AccessEnum.PACKAGE) {
-                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
-                    return false;
-                }
+                return StringList.quickEq(_found.getPackageName(), _from.getPackageName());
             } else {
                 return false;
             }
         } else if (_found.getAccess() == AccessEnum.PROTECTED){
             if (!_outer) {
-                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
-                    return false;
-                }
+                return StringList.quickEq(_found.getPackageName(), _from.getPackageName());
             }
         }
         return true;
@@ -2701,22 +2671,22 @@ public abstract class ContextEl implements ExecutableCode {
         if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
         if (_name.startsWith(Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
             StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
         if (_name.startsWith(Templates.SUP_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
-            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
         if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
         if (_name.startsWith(Templates.ARR_BEG_STRING)) {
             return new ClassMetaInfo(_name, this, ClassCategory.ARRAY, _variableOwner);
@@ -2753,7 +2723,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock);
             }
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
@@ -2764,7 +2734,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, false, this);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, false);
             }
         }
         return null;
@@ -2816,7 +2786,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public LoopVariable getMutableLoopVar(String _key, int _index) {
-        return analyzing.getMutableLoopVar(_key, _index);
+        return analyzing.getMutableLoopVar(_key,_index);
     }
 
     @Override
@@ -2945,9 +2915,7 @@ public abstract class ContextEl implements ExecutableCode {
             if (analyzing.containsVar(_id)) {
                 return false;
             }
-            if (getParameters().contains(_id)) {
-                return false;
-            }
+            return !getParameters().contains(_id);
         }
         return true;
     }
@@ -2978,9 +2946,7 @@ public abstract class ContextEl implements ExecutableCode {
             return false;
         }
         if (options.getSuffixVar() == VariableSuffix.NONE) {
-            if (isDigit(_id.charAt(0))) {
-                return false;
-            }
+            return !isDigit(_id.charAt(0));
         }
         return true;
     }

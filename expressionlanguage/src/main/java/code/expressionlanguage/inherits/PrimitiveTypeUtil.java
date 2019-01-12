@@ -506,10 +506,7 @@ public final class PrimitiveTypeUtil {
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
         String p_ = dPar_.getComponent();
         if (StringList.quickEq(p_, stds_.getAliasObject())) {
-            if (dPar_.getDim() > dArg_.getDim()) {
-                return false;
-            }
-            return true;
+            return dPar_.getDim() <= dArg_.getDim();
         }
         if (dPar_.getDim() != dArg_.getDim()) {
             return false;
@@ -523,10 +520,7 @@ public final class PrimitiveTypeUtil {
         if (clArgBl_.getAllSuperTypes().containsObj(p_)) {
             return true;
         }
-        if (StringList.quickEq(p_, a_)) {
-            return true;
-        }
-        return false;
+        return StringList.quickEq(p_, a_);
     }
 
     public static ClassArgumentMatching getPrettyArrayType(ClassArgumentMatching _className) {
@@ -619,19 +613,13 @@ public final class PrimitiveTypeUtil {
         }
         ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
         if (_arg == null || _arg.isEmpty()) {
-            if (param_.isPrimitive(_context)) {
-                return false;
-            }
-            return true;
+            return !param_.isPrimitive(_context);
         }
         if (StringList.quickEq(_arg, stds_.getAliasVoid())) {
             return false;
         }
         AssignableFrom a_ = isAssignableFromCust(_param, _arg, _context);
-        if (a_ == AssignableFrom.YES) {
-            return true;
-        }
-        return false;
+        return a_ == AssignableFrom.YES;
     }
     private static AssignableFrom isAssignableFromCust(String _param, String _arg, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
@@ -798,10 +786,7 @@ public final class PrimitiveTypeUtil {
         if (out_.matchClass(_stds.getAliasPrimShort())) {
             return true;
         }
-        if (out_.matchClass(_stds.getAliasPrimByte())) {
-            return true;
-        }
-        return false;
+        return out_.matchClass(_stds.getAliasPrimByte());
     }
     private static ClassMatching toPrimitive(ClassMatching _class, LgNames _stds) {
         String cl_ = _class.getClassName();
@@ -927,10 +912,7 @@ public final class PrimitiveTypeUtil {
         if (prim_.matchClass(_stds.getAliasPrimShort())) {
             return true;
         }
-        if (prim_.matchClass(_stds.getAliasPrimByte())) {
-            return true;
-        }
-        return false;
+        return prim_.matchClass(_stds.getAliasPrimByte());
     }
 
     public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,

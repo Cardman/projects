@@ -69,13 +69,6 @@ public final class ExpressionLanguage {
     public Argument calculateMember(ContextEl _context, int _offset) {
         return ElUtil.tryToCalculate(_context, this, _offset);
     }
-    public CustList<ExecOperationNode> getOperations() {
-        return operations;
-    }
-
-    public ExecOperationNode getCurrentOper() {
-        return currentOper;
-    }
 
     public void setCurrentOper(ExecOperationNode _currentOper) {
         currentOper = _currentOper;

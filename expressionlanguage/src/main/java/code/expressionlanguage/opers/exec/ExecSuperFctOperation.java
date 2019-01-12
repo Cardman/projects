@@ -36,13 +36,12 @@ public final class ExecSuperFctOperation extends ExecReflectableInvokingOperatio
     }
 
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_, arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
-        return res_;
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
@@ -59,8 +58,7 @@ public final class ExecSuperFctOperation extends ExecReflectableInvokingOperatio
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                Argument a_ = new Argument();
-                return a_;
+                return new Argument();
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             String base_ = Templates.getIdFromAllTypes(classNameFound_);

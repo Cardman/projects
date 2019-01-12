@@ -1107,8 +1107,7 @@ public class AnalyzedOperationNodesTest {
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         f_ = (FieldBlock) f_.getNextSibling();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
-        return list_;
+        return f_.getOpValue();
     }
     private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
         return analyzeIndirectLocalVarsParam(_el, _param, _var, _className, file(), _mustFail);
@@ -1121,8 +1120,7 @@ public class AnalyzedOperationNodesTest {
         RootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         f_ = (FieldBlock) f_.getNextSibling();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
-        return list_;
+        return f_.getOpValue();
     }
     private static String addonFileStaticResult(String _el, String _type, String _param, String _var) {
         StringBuilder str_ = new StringBuilder();

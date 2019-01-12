@@ -18,8 +18,8 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         classMethodId = _n.getClassMethodId();
     }
     @Override
-    public final Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
@@ -28,7 +28,7 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         MethodId id_ = classMethodId.getConstraints();
         ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0);
         ExecInvokingOperation.callOperator(_conf, classNameFound_, id_, firstArgs_);
-        return Argument.createVoid();
+        Argument.createVoid();
     }
 
 

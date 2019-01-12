@@ -20,8 +20,8 @@ public final class ExecStrCmpOperation extends ExecReflectableOpering {
         CmpOperation.tryGetResult(_conf, oper, null, true, this);
     }
     @Override
-    public Argument calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode opOne_ = chidren_.first();
         ExecOperationNode opTwo_ = chidren_.last();
@@ -29,7 +29,6 @@ public final class ExecStrCmpOperation extends ExecReflectableOpering {
         Argument second_ = getArgument(_nodes,opTwo_);
         Argument arg_ = CmpOperation.calculateCommonStr(first_, second_, oper);
         setSimpleArgument(arg_, _conf, _nodes);
-        return arg_;
     }
 
 }

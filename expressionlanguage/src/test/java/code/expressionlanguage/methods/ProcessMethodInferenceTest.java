@@ -35,7 +35,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -64,7 +64,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -96,7 +96,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -131,7 +131,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -167,7 +167,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package $final #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -203,7 +203,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package $final #T[][] array = {$new #S[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -244,7 +244,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -284,7 +284,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -324,7 +324,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -364,7 +364,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -390,7 +390,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -417,7 +417,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -480,7 +480,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        initializeClass("pkg.Ex", cont_);
+
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -510,7 +510,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -536,7 +536,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -642,7 +642,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package $final #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -678,7 +678,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" $package #T[][] array = {$new #T[]{}}:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -700,7 +700,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -721,7 +721,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -736,7 +736,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(true,false);
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
