@@ -37,7 +37,7 @@ public final class ProcessMethod {
         AbstractCallingInstancingPageEl page_ = _cont.createInstancing(_class, call_, _args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
-        return page_.getReturnedArgument();
+        return page_.getGlobalArgument();
     }
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {

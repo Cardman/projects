@@ -9,7 +9,6 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -104,6 +103,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     @Override
     public String getRealLabel() {
         return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     public ExpressionLanguage getEl() {

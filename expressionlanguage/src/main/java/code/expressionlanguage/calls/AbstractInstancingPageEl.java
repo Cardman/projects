@@ -23,8 +23,6 @@ import code.util.StringList;
 
 public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl,WithElPageEl {
 
-    private Argument argument;
-
     private boolean calledImplicitConstructor;
 
     private boolean firstField;
@@ -117,16 +115,9 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         }
         return true;
     }
-    public abstract void setArgumentForConstructor();
 
-    public void exitFromConstructor() {
-        setArgumentForConstructor();
+    private void exitFromConstructor() {
         setNullReadWrite();
-    }
-
-    @Override
-    public final void setReturnedArgument(Argument _arg) {
-        setArgumentForConstructor();
     }
 
     @Override
@@ -134,7 +125,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
         exitFromConstructor();
     }
 
-    public void endRoot() {
+    private void endRoot() {
         exitFromConstructor();
     }
     @Override

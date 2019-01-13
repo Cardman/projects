@@ -66,6 +66,14 @@ public final class TypeUtil {
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
+            if (len_ > 0 && c instanceof GeneInterface) {
+                BadInheritedClass enum_;
+                enum_ = new BadInheritedClass();
+                enum_.setClassName(c.getFullName());
+                enum_.setFileName(d_);
+                enum_.setIndexFile(_context.getCurrentLocationIndex());
+                classes_.addError(enum_);
+            }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
@@ -129,19 +137,15 @@ public final class TypeUtil {
         }
         for (String c: _types) {
             GeneType bl_ = _context.getClassBody(c);
-            if (!(bl_ instanceof GeneClass)) {
+            if (!(bl_ instanceof UniqueRootedBlock)) {
                 continue;
             }
-            if (!(bl_ instanceof RootBlock)) {
-                continue;
-            }
-            RootBlock block_ = (RootBlock) bl_;
-            StringList ints_ = block_.getStaticInitImportedInterfaces();
+            UniqueRootedBlock un_ = (UniqueRootedBlock)bl_;
+            StringList ints_ = un_.getStaticInitImportedInterfaces();
             StringList trimmedInt_ = new StringList();
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            UniqueRootedBlock un_ = (UniqueRootedBlock)bl_;
             StringList all_ = bl_.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
             allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
@@ -186,7 +190,7 @@ public final class TypeUtil {
                 BadInheritedClass undef_;
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(c);
-                undef_.setFileName(block_.getFile().getFileName());
+                undef_.setFileName(un_.getFile().getFileName());
                 undef_.setIndexFile(0);
                 classes_.addError(undef_);
             }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
@@ -50,17 +49,13 @@ public final class BlockPageEl extends AbstractPageEl implements ReturnablePageE
         setNullReadWrite();
     }
 
-    public void endRoot() {
+    private void endRoot() {
         setNullReadWrite();
     }
 
     @Override
     public void postReturn() {
         setNullReadWrite();
-    }
-
-    @Override
-    public void setReturnedArgument(Argument _arg) {
     }
 
 }

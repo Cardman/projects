@@ -36,10 +36,10 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
                     return false;
                 }
             }
-        }
-        for (String i: root_.getStaticInitImportedInterfaces()) {
-            if (ExecInvokingOperation.hasToExit(_context, i)) {
-                return false;
+            for (String i: root_.getStaticInitImportedInterfaces()) {
+                if (ExecInvokingOperation.hasToExit(_context, i)) {
+                    return false;
+                }
             }
         }
         return true;
@@ -96,7 +96,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
         setNullReadWrite();
     }
 
-    public void endRoot(ContextEl _context) {
+    private void endRoot(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         String curClass_ = getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);

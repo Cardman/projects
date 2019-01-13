@@ -30,7 +30,6 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             }
             str_.setStruct(new ClassField(className_, name_), value_.getStruct());
         }
-        setArgumentForConstructor();
         setNullReadWrite();
     }
     public StringMap<String> getNames() {

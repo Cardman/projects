@@ -68,6 +68,8 @@ public class CustInitializer extends DefaultInitializer {
         	toFile_ = StringList.concat(folder_,"/",toFile_);
         	StreamTextFile.logToFile(toFile_, text_);
         }
+        Thread thread_ = Thread.currentThread();
+        threadIdDate.remove(thread_);
     }
 
     void putNewCustTreadIdDate(Thread _id, String _value) {

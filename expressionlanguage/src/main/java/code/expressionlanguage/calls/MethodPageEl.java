@@ -9,7 +9,7 @@ import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 
-public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnablePageEl,WithElPageEl {
+public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnablePageEl,ReturnableValuePageEl,WithElPageEl {
 
     private Argument returnedArgument;
 
@@ -69,7 +69,7 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
         setNullReadWrite();
     }
 
-    public void endRoot() {
+    private void endRoot() {
         setNullReadWrite();
     }
 

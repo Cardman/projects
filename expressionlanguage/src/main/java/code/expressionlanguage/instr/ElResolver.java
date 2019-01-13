@@ -20,7 +20,6 @@ import code.util.Numbers;
 import code.util.StringList;
 
 
-@SuppressWarnings("ALL")
 public final class ElResolver {
 
     public static final int BAD_PRIO = -1;
@@ -161,6 +160,7 @@ public final class ElResolver {
         ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
         resWords_.setNextIndex(i_);
         resWords_.setLastDoubleDot(i_);
+        resWords_.setCallCtor(false);
         resOpers_.setDoubleDotted(resWords_);
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -263,6 +263,7 @@ public final class ElResolver {
             if (StringList.isDollarWordChar(curChar_)) {
                 resWords_.setNextIndex(i_);
                 resWords_.setLastDoubleDot(lastDoubleDot_);
+                resWords_.setCallCtor(ctorCall_);
                 processWords(_string, d_, resWords_, _conf);
                 if (d_.getBadOffset() >= 0) {
                     return d_;
@@ -276,12 +277,13 @@ public final class ElResolver {
             }
             resOpers_.setPartOfString(partOfString_);
             resOpers_.setBeginOrEnd(beginOrEnd_);
-            resOpers_.setConstChar(constChar_);
-            resOpers_.setConstString(constString_);
-            resOpers_.setConstText(constText_);
+            resOpers_.setConstChar(false);
+            resOpers_.setConstString(false);
+            resOpers_.setConstText(false);
             resOpers_.setNbChars(nbChars_);
             resOpers_.getDoubleDotted().setNextIndex(i_);
             resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
+            resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
             processOperators(beginIndex_,_minIndex,_string, _d, _delimiters, ctorCall_, d_, resOpers_, _conf);
             if (d_.getBadOffset() >= 0) {
                 return d_;
@@ -295,6 +297,7 @@ public final class ElResolver {
             
             i_ = resOpers_.getDoubleDotted().getNextIndex();
             lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
+            ctorCall_ = resOpers_.getDoubleDotted().isCallCtor();
         }
         if (constString_) {
             d_.setBadOffset(i_);
@@ -472,7 +475,6 @@ public final class ElResolver {
                             }
                             if (curLoc_ == ARR_RIGHT) {
                                 if (ok_) {
-                                    ok_ = false;
                                     break;
                                 }
                                 ok_ = true;
@@ -1042,8 +1044,7 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         int lastDoubleDot_ = _out.getLastDoubleDot();
-        boolean aff_ = false;
-        boolean ctorCall_ = false;
+        boolean ctorCall_ = _out.isCallCtor();
         Options opt_ = _an.getOptions();
         KeyWords keyWords_ = _an.getKeyWords();
         char suffix_ = opt_.getSuffix();
@@ -1105,7 +1106,7 @@ public final class ElResolver {
             }
             i_++;
         }
-        ConstType type_ = ConstType.NOTHING;
+        ConstType type_;
         boolean tolerateDot_ = false;
         VariableInfo info_ = new VariableInfo();
         boolean other_ = false;
@@ -1199,7 +1200,7 @@ public final class ElResolver {
                     }
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
-                        if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                        if (_string.substring(i_).trim().charAt(0) != PAR_LEFT) {
                             type_ = ConstType.WORD;
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
@@ -1269,7 +1270,7 @@ public final class ElResolver {
                     tolerateDot_ = true;
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
-                        if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                        if (_string.substring(i_).trim().charAt(0) != PAR_LEFT) {
                             type_ = ConstType.WORD;
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
@@ -1504,16 +1505,13 @@ public final class ElResolver {
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
-        boolean constString_ = _out.isConstString();
-        boolean constChar_ = _out.isConstChar();
-        boolean constText_ = _out.isConstText();
         int len_ = _string.length();
         int i_ = _out.getDoubleDotted().getNextIndex();
-        int lastDoubleDot_ = _out.getDoubleDotted().getLastDoubleDot();
+        int lastDoubleDot_;
         boolean beginOrEnd_ = _out.isBeginOrEnd();
         Options opt_ = _conf.getOptions();
         KeyWords keyWords_ = _conf.getKeyWords();
-        int nbChars_ = _out.getNbChars();
+        int nbChars_;
         ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
         resKeyWords_.setNextIndex(i_);
         ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
@@ -1592,8 +1590,7 @@ public final class ElResolver {
                     while (_string.charAt(j_) != begin_) {
                         j_++;
                     }
-                    beginOrEnd_ = true;
-                    _out.setBeginOrEnd(beginOrEnd_);
+                    _out.setBeginOrEnd(true);
                     i_ = j_;
                     _out.getDoubleDotted().setNextIndex(i_);
                     return;
@@ -1604,8 +1601,7 @@ public final class ElResolver {
                     while (_string.charAt(j_) != end_) {
                         j_++;
                     }
-                    beginOrEnd_ = true;
-                    _out.setBeginOrEnd(beginOrEnd_);
+                    _out.setBeginOrEnd(true);
                     i_ = j_;
                     _out.getDoubleDotted().setNextIndex(i_);
                     return;
@@ -1615,9 +1611,8 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DELIMITER_CHAR) {
-            constChar_ = true;
             nbChars_ = 0;
-            _out.setConstChar(constChar_);
+            _out.setConstChar(true);
             _out.setNbChars(nbChars_);
             _dout.getDelStringsChars().add(i_);
             i_++;
@@ -1625,16 +1620,14 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DELIMITER_STRING) {
-            constString_ = true;
-            _out.setConstString(constString_);
+            _out.setConstString(true);
             _dout.getDelStringsChars().add(i_);
             i_++;
             _out.getDoubleDotted().setNextIndex(i_);
             return;
         }
         if (curChar_ == DELIMITER_TEXT){
-            constText_ = true;
-            _out.setConstText(constText_);
+            _out.setConstText(true);
             _dout.getDelStringsChars().add(i_);
             i_++;
             _out.getDoubleDotted().setNextIndex(i_);
@@ -1642,23 +1635,21 @@ public final class ElResolver {
         }
         if (isLogicAndOr(end_, partOfString_, curChar_)) {
             if (!beginOrEnd_) {
-                partOfString_ = false;
-                _out.setPartOfString(partOfString_);
+                _out.setPartOfString(false);
                 _dout.setIndexBegin(_minIndex);
                 _dout.setIndexEnd(i_-1);
                 _out.getDoubleDotted().setNextIndex(len_);
                 return;
             }
             beginOrEnd_ = false;
-            _out.setBeginOrEnd(beginOrEnd_);
+            _out.setBeginOrEnd(false);
         }
         if (isLogicAndOr(begin_, partOfString_, curChar_)) {
             if (!beginOrEnd_) {
                 _dout.setBadOffset(i_);
                 return;
             }
-            beginOrEnd_ = false;
-            _out.setBeginOrEnd(beginOrEnd_);
+            _out.setBeginOrEnd(false);
         }
         if (curChar_ == PAR_LEFT) {
             int j_ = indexAfterPossibleCast(_conf, _ctorCall, _string, i_, len_, _dout);
@@ -1968,7 +1959,7 @@ public final class ElResolver {
         int lChar_ = -1;
         BooleanList doubleDotted_ = new BooleanList();
         StringBuilder part_ = new StringBuilder();
-        boolean foundThis_ = false;
+        boolean foundThis_;
         boolean addLast_ = true;
         int j_ = i_;
         int k_ = i_;
@@ -2012,7 +2003,6 @@ public final class ElResolver {
             if (StringList.quickEq(keyWordThis_, tr_)) {
                 indexes_.removeLast();
                 addLast_ = false;
-                foundThis_ = true;
                 break;
             }
             if (StringList.quickEq(keyWordSuper_, tr_)) {
@@ -2051,7 +2041,6 @@ public final class ElResolver {
                 } else {
                     if (!doubleDotted_.isEmpty() && doubleDotted_.last()) {
                         addLast_ = false;
-                        foundThis_ = true;
                         break;
                     }
                     doubleDotted_.add(false);
@@ -2489,7 +2478,7 @@ public final class ElResolver {
                             output_.setNextIndex(-(j_ + 1));
                             return output_;
                         }
-                        if (!isCorrectNbEnd(nextPart_)) {
+                        if (isNotCorrectNbEnd(nextPart_)) {
                             output_.setNextIndex(-(j_ + 1));
                             return output_;
                         }
@@ -2539,17 +2528,16 @@ public final class ElResolver {
                     }
                     int n_ = output_.getNextIndex();
                     String next_ = _string.substring(n_).trim();
-                    if (!isCorrectNbEnd(next_)) {
+                    if (isNotCorrectNbEnd(next_)) {
                         output_.setNextIndex(-(j_ + 1));
                         return output_;
                     }
                     return output_;
                 }
             } else {
-                if (!isDigit(current_, base_) && Character.isLetter(current_)) {
+                if (isNonDigit(current_, base_) && Character.isLetter(current_)) {
                     if (sub_.startsWith(hexPre_)) {
                         if (j_ + 1 < _max) {
-                            current_ = _string.charAt(j_ + 1);
                             j_+=hexPre_.length();
                         }
                     }
@@ -2567,7 +2555,7 @@ public final class ElResolver {
                     }
                     int n_ = output_.getNextIndex();
                     String next_ = _string.substring(n_).trim();
-                    if (!isCorrectNbEnd(next_)) {
+                    if (isNotCorrectNbEnd(next_)) {
                         output_.setNextIndex(-(j_ + 1));
                         return output_;
                     }
@@ -2600,7 +2588,7 @@ public final class ElResolver {
                 off_ = binExp_.length();
                 exp_ = sub_.startsWith(binExp_);
             }
-            if (!isDigit(next_, base_) && next_ != NB_INTERN_SP && !exp_) {
+            if (isNonDigit(next_, base_) && next_ != NB_INTERN_SP && !exp_) {
                 String suff_ = _key.getNbKeyWord(_string, j_ + 1);
                 if (suff_ == null) {
                     if (StringList.isDollarWordChar(_string.charAt(j_ + 1))) {
@@ -2613,7 +2601,7 @@ public final class ElResolver {
                     nbInfos_.setSuffix(su_);
                 }
                 String nextPart_ = _string.substring(j_+1).trim();
-                if (!isCorrectNbEnd(nextPart_)) {
+                if (isNotCorrectNbEnd(nextPart_)) {
                     output_.setNextIndex(-(j_ + 1));
                     return output_;
                 }
@@ -2629,7 +2617,7 @@ public final class ElResolver {
             j_++;
             while (j_ < _max) {
                 char curChar_ = _string.charAt(j_);
-                if (!isDigit(curChar_, base_) && curChar_ != NB_INTERN_SP) {
+                if (isNonDigit(curChar_, base_) && curChar_ != NB_INTERN_SP) {
                     break;
                 }
                 decPart_.append(curChar_);
@@ -2639,13 +2627,10 @@ public final class ElResolver {
                 output_.setNextIndex(j_);
                 return output_;
             }
-            next_ = _string.charAt(j_);
             sub_ = _string.substring(j_);
             if (base_ == 10) {
-                off_ = decExp_.length();
                 exp_ = sub_.startsWith(decExp_);
             } else {
-                off_ = binExp_.length();
                 exp_ = sub_.startsWith(binExp_);
             }
             if (exp_) {
@@ -2669,7 +2654,7 @@ public final class ElResolver {
                 j_ += suff_.length();
             }
             String nextPart_ = _string.substring(j_).trim();
-            if (!isCorrectNbEnd(nextPart_)) {
+            if (isNotCorrectNbEnd(nextPart_)) {
                 output_.setNextIndex(-j_);
                 return output_;
             }
@@ -2693,14 +2678,14 @@ public final class ElResolver {
             }
         }
         String nextPart_ = _string.substring(j_).trim();
-        if (!isCorrectNbEnd(nextPart_)) {
+        if (isNotCorrectNbEnd(nextPart_)) {
             output_.setNextIndex(-j_);
             return output_;
         }
         output_.setNextIndex(j_);
         return output_;
     }
-    private static boolean isDigit(char _char, int _base) {
+    private static boolean isNonDigit(char _char, int _base) {
         boolean ok_ = false;
         if (_base == 10) {
             ok_ = ContextEl.isDigit(_char);
@@ -2723,7 +2708,7 @@ public final class ElResolver {
                 ok_ = true;
             }
         }
-        return ok_;
+        return !ok_;
     }
     private static void processExp(KeyWords _key, int _start, int _max, String _string, NumberInfosOutput _output) {
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
@@ -2763,21 +2748,21 @@ public final class ElResolver {
             }
         }
         nextPart_ = _string.substring(j_).trim();
-        if (!isCorrectNbEnd(nextPart_)) {
+        if (isNotCorrectNbEnd(nextPart_)) {
             _output.setNextIndex(-j_);
             return;
         }
         _output.setNextIndex(j_);
     }
-    private static boolean isCorrectNbEnd(String _next) {
+    private static boolean isNotCorrectNbEnd(String _next) {
         if (_next.isEmpty()) {
-            return true;
+            return false;
         }
         char n_ = _next.charAt(0);
         if (ContextEl.isDigit(n_)) {
-            return false;
+            return true;
         }
-        return n_ != DOT_VAR;
+        return n_ == DOT_VAR;
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
             Analyzable _conf, Delimiters _d) {

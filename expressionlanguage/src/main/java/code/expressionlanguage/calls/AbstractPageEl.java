@@ -118,18 +118,18 @@ public abstract class AbstractPageEl extends PageEl {
     public boolean isEmptyEl() {
         return currentEls.isEmpty();
     }
-    public ExpressionLanguage getLastEl() {
+    ExpressionLanguage getLastEl() {
         return currentEls.last();
     }
 
-    public void addCurrentEl(ExpressionLanguage _el) {
+    void addCurrentEl(ExpressionLanguage _el) {
         currentEls.add(_el);
     }
 
     public ReadWrite getReadWrite() {
         return readWrite;
     }
-    public void setNullReadWrite() {
+    void setNullReadWrite() {
         readWrite = null;
     }
 

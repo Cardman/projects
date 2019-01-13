@@ -57,6 +57,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         }
         return j_;
     }
+
+    public int getTabWidth() {
+        return tabWidth;
+    }
+
     public boolean isPredefined() {
         return predefined;
     }

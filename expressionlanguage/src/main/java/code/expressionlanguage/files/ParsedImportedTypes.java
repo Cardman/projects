@@ -13,7 +13,7 @@ public final class ParsedImportedTypes {
     private int nextIndex;
     private boolean ok;
     private boolean foundBrace;
-    public ParsedImportedTypes(int _nextIndex, String _fullFile, int _tabWidth, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
+    public ParsedImportedTypes(int _nextIndex, String _fullFile, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
         if (_fullFile.charAt(_nextIndex) != BEGIN_BLOCK) {
             ok = true;
@@ -45,7 +45,7 @@ public final class ParsedImportedTypes {
             nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
         }
         int bk_ = nextIndex;
-        nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _tabWidth, _enabledSpaces);
+        nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile, _enabledSpaces);
         if (nextIndex < 0) {
             _badIndexes.add(bk_);
             //ERROR

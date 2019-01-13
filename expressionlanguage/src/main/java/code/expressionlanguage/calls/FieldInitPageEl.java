@@ -70,7 +70,7 @@ public final class FieldInitPageEl extends AbstractPageEl implements WithElPageE
         setNullReadWrite();
     }
 
-    public void endRoot() {
+    private void endRoot() {
         setNullReadWrite();
     }
 
