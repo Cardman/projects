@@ -890,7 +890,12 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            String errMessage_ = result_.getErrorMessage();
+            if (errMessage_ != null) {
+                _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
+            } else {
+                _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            }
             return result_;
         }
         String mathType_ = lgNames_.getAliasMath();

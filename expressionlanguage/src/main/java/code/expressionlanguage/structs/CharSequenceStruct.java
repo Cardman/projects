@@ -234,6 +234,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         String badIndex_ = _stds.getAliasBadIndex();
         CharSequence seq_ = getInstance();
         if (ind_ < 0 || ind_ >= seq_.length()) {
+            if (ind_ < 0) {
+                _res.setErrorMessage(StringList.concat(Long.toString(ind_),"<0"));
+            } else {
+                _res.setErrorMessage(StringList.concat(Long.toString(ind_),">=", Long.toString(seq_.length())));
+            }
             _res.setError(badIndex_);
             return;
         }
@@ -392,7 +397,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         int begin_ = _beginIndex.getInstance().intValue();
         int end_ = _endIndex.getInstance().intValue();
         CharSequence seq_ = getInstance();
-        if (begin_ < 0 || end_ < 0 || end_ > seq_.length() || begin_ > end_) {
+        if (begin_ < 0 || end_ > seq_.length() || begin_ > end_) {
+            if (begin_ < 0) {
+                _res.setErrorMessage(StringList.concat(Long.toString(begin_),"<0"));
+            } else if (end_ > seq_.length()) {
+                _res.setErrorMessage(StringList.concat(Long.toString(end_),">", Long.toString(seq_.length())));
+            } else {
+                _res.setErrorMessage(StringList.concat(Long.toString(begin_),">", Long.toString(end_)));
+            }
             _res.setError(_stds.getAliasBadIndex());
             return;
         }
