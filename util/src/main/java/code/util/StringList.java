@@ -773,22 +773,18 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         if (_new == null) {
             if (_old.isEmpty()) {
-                StringList list_ = new StringList();
-                for (char c: _string.toCharArray()) {
-                    list_.add(String.valueOf(c));
-                }
-                return list_.join(EMPTY_STRING);
+                return _string;
             }
             StringBuilder list_ = new StringBuilder();
             int i_ = FIRST_INDEX;
             int len_ = _string.length();
-            int index_ = INDEX_NOT_FOUND_ELT;
+            int index_;
             while (i_ < len_) {
                 index_ = _string.indexOf(_old, i_);
                 if (index_ < 0) {
                     break;
                 }
-                list_.append(_string.substring(i_, index_));
+                list_.append(_string, i_, index_);
                 i_ = index_ + _old.length();
             }
             if (i_ <= len_) {
@@ -808,13 +804,13 @@ public final class StringList extends CustList<String> implements Equallable<Str
         StringBuilder list_ = new StringBuilder();
         int i_ = FIRST_INDEX;
         int len_ = _string.length();
-        int index_ = INDEX_NOT_FOUND_ELT;
+        int index_;
         while (i_ < len_) {
             index_ = _string.indexOf(_old, i_);
             if (index_ < 0) {
                 break;
             }
-            list_.append(_string.substring(i_, index_));
+            list_.append(_string, i_, index_);
             list_.append(_new);
             i_ = index_ + _old.length();
         }

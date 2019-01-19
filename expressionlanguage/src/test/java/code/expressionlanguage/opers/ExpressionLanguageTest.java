@@ -1184,6 +1184,50 @@ public class ExpressionLanguageTest {
     Argument arg_ = directCalculate("\"my_string\".replace(\"_\",\"t\")");
     assertEq("mytstring", arg_.getString());
   }
+    @Test
+    public void processEl395Test() {
+        Struct arg_ = directCalculateExc("\"my_string\".indexOf($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl396Test() {
+        Struct arg_ = directCalculateExc("\"my_string\".indexOf($null,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl397Test() {
+        Struct arg_ = directCalculateExc("\"my_string\".lastIndexOf($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl398Test() {
+        Struct arg_ = directCalculateExc("\"my_string\".lastIndexOf($null,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl399Test() {
+        Argument arg_ = directCalculate("\"my_string\".replace($null,\"t\")");
+        assertEq("my_string", arg_.getString());
+    }
+    @Test
+    public void processEl400Test() {
+        Argument arg_ = directCalculate("\"my_string\".replace(\"\",$null)");
+        assertEq("my_string", arg_.getString());
+    }
+    @Test
+    public void processEl401Test() {
+        Argument arg_ = directCalculate("\"my_string\".replace(\"_\",$null)");
+        assertEq("mystring", arg_.getString());
+    }
+    @Test
+    public void processEl402Test() {
+        Argument arg_ = directCalculate("\"mystring\".replace(\"\",\"_\")");
+        assertEq("_m_y_s_t_r_i_n_g_", arg_.getString());
+    }
     private static Argument directCalculate(String _el) {
           ContextEl c_ = analyze(_el);
           addImportingPage(c_);
