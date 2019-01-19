@@ -179,6 +179,67 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         return out_.toString();
     }
+    public static int badDecode(byte[] _bytes, int _from, int _length) {
+        int len_ = _from + _length;
+        int i_ = _from;
+        StringBuilder out_ = new StringBuilder();
+        while (i_ < len_) {
+            byte cur_ = _bytes[i_];
+            if (cur_ >= 0) {
+                out_.append((char)cur_);
+                i_++;
+                continue;
+            }
+            if (i_ + 1 >= len_) {
+                return i_;
+            }
+            if (cur_ < -62) {
+                return i_;
+            }
+            if (cur_ > -17) {
+                return i_;
+            }
+            byte next_ = _bytes[i_ + 1];
+            if (next_ > -65) {
+                return i_;
+            }
+            if (cur_ <= -33) {
+                short f_ = (short)(cur_ + 64);
+                short s_ = (short)(next_ + 128);
+                short t_ = (short) (64 * f_ + s_);
+                out_.append((char)t_);
+                i_++;
+                i_++;
+                continue;
+            }
+            if (i_ + 2 >= len_) {
+                return i_;
+            }
+            byte afterNext_ = _bytes[i_ + 2];
+            if (afterNext_ > -65) {
+                return i_;
+            }
+            if (cur_ == -32) {
+                short f_ = (short)(next_ + 128);
+                short s_ = (short)(afterNext_ + 128);
+                short t_ = (short) (64 * f_ + s_);
+                out_.append((char)t_);
+                i_++;
+                i_++;
+                i_++;
+                continue;
+            }
+            short f_ = (short)(cur_ + 32);
+            short s_ = (short)(next_ + 128);
+            short t_ = (short) (afterNext_ + 128);
+            short full_ = (short) (64 * 64 * f_ + 64 * s_ + t_);
+            out_.append((char)full_);
+            i_++;
+            i_++;
+            i_++;
+        }
+        return -1;
+    }
     public static String toLowerCase(String _string) {
         int len_ = _string.length();
         StringBuilder str_ = new StringBuilder(len_);

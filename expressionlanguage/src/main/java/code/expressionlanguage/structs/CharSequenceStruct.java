@@ -91,7 +91,6 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
-        String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
             length(_res);
             return;
@@ -174,14 +173,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSplit())) {
             if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
+                if (!(_args[0] instanceof CharStruct)) {
                     splitSingleString(_args[0], lgNames_, _res);
                     return;
                 }
                 splitSingleChar((CharStruct)_args[0], lgNames_, _res);
                 return;
             }
-            if (StringList.quickEq(list_.first(), stringType_)) {
+            if (!(_args[0] instanceof CharStruct)) {
                 splitSingleString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
                 return;
             }
@@ -542,7 +541,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         aliasChar_ = PrimitiveTypeUtil.getPrettyArrayType(aliasChar_);
         int len_ = seq_.length();
         Struct[] arrOut_ = new Struct[len_];
-        for (int i = 0; i <= len_; i++) {
+        for (int i = 0; i < len_; i++) {
             arrOut_[i] = new CharStruct(seq_.charAt(i));
         }
         ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);

@@ -195,7 +195,6 @@ public final class AliasCharSequence {
         method_ = new StandardMethod(aliasToString_, params_, aliasString, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasCharSequence, std_);
-
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -203,6 +202,9 @@ public final class AliasCharSequence {
         params_ = new StringList(aliasString);
         method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString, aliasString);
+        method_ = new StandardMethod(_lgNames.getAliasCompare(), params_, aliasPrimInteger_, false, MethodModifier.STATIC, std_);
+        methods_.put(new MethodId(MethodModifier.STATIC, _lgNames.getAliasCompare(), params_), method_);
         params_ = new StringList(aliasString);
         method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);

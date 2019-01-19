@@ -24,8 +24,12 @@ public final class ReplacementStruct implements RealInstanceStruct {
             return;
         }
         Replacement rep_ = new Replacement();
-        rep_.setOldString(((CharSequenceStruct)_args[0]).getInstance().toString());
-        rep_.setNewString(((CharSequenceStruct)_args[1]).getInstance().toString());
+        if (_args[0] instanceof CharSequenceStruct) {
+            rep_.setOldString(((CharSequenceStruct)_args[0]).getInstance().toString());
+        }
+        if (_args[1] instanceof CharSequenceStruct) {
+            rep_.setNewString(((CharSequenceStruct)_args[1]).getInstance().toString());
+        }
         _res.setResult(new ReplacementStruct(rep_));
     }
 
@@ -47,20 +51,25 @@ public final class ReplacementStruct implements RealInstanceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSetNewString())) {
-            rp_.setNewString(_args[0], lgNames_, _res);
+            rp_.setNewString(_args[0], _res);
             return;
         }
-        rp_.setOldString(_args[0], lgNames_, _res);
+        rp_.setOldString(_args[0], _res);
         
     }
     private void getOldString(ResultErrorStd _res) {
-        _res.setResult(new StringStruct(instance.getOldString()));
+        String oldStr_ = instance.getOldString();
+        if (oldStr_ == null) {
+            _res.setResult(NullStruct.NULL_VALUE);
+            return;
+        }
+        _res.setResult(new StringStruct(oldStr_));
     }
 
-    private void setOldString(Struct _value, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
+    private void setOldString(Struct _value, ResultErrorStd _res) {
         if (!(_value instanceof StringStruct)) {
-            _res.setError(nullPe_);
+            instance.setOldString(null);
+            _res.setResult(NullStruct.NULL_VALUE);
             return;
         }
         StringStruct str_ = (StringStruct)_value;
@@ -69,13 +78,18 @@ public final class ReplacementStruct implements RealInstanceStruct {
     }
 
     private void getNewString(ResultErrorStd _res) {
-        _res.setResult(new StringStruct(instance.getNewString()));
+        String newStr_ = instance.getNewString();
+        if (newStr_ == null) {
+            _res.setResult(NullStruct.NULL_VALUE);
+            return;
+        }
+        _res.setResult(new StringStruct(newStr_));
     }
 
-    private void setNewString(Struct _value, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
+    private void setNewString(Struct _value, ResultErrorStd _res) {
         if (!(_value instanceof StringStruct)) {
-            _res.setError(nullPe_);
+            instance.setNewString(null);
+            _res.setResult(NullStruct.NULL_VALUE);
             return;
         }
         StringStruct str_ = (StringStruct)_value;

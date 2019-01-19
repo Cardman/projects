@@ -566,6 +566,7 @@ public abstract class LgNames {
                 getAliasToString()));
         map_.put(getAliasString(), new StringList(
                 getAliasCharAt(),
+                getAliasCompare(),
                 getAliasCompareTo(),
                 getAliasCompareToIgnoreCase(),
                 getAliasContains(),
@@ -1934,7 +1935,12 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            String errMessage_ = result_.getErrorMessage();
+            if (errMessage_ != null) {
+                _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
+            } else {
+                _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            }
             return result_;
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
@@ -1970,7 +1976,7 @@ public abstract class LgNames {
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)) {
-            StringStruct.instantiate(_cont, result_, _method, args_);
+            StringStruct.instantiate(lgNames_, result_, _method, args_);
             return result_;
         }
         if (StringList.quickEq(type_, booleanType_)
