@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
 
     @Test

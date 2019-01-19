@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static code.sml.EquallableRowColUtil.assertEq;
 
-@SuppressWarnings("static-method")
 public class IndentTest {
 
     @Test

@@ -37,7 +37,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FightRoundTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";

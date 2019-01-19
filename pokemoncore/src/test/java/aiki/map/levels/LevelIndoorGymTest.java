@@ -12,7 +12,7 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Point;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class LevelIndoorGymTest {
 
     @Test

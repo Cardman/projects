@@ -11,7 +11,7 @@ import cards.president.enumerations.Playing;
 import code.util.EqList;
 import code.util.Numbers;
 
-@SuppressWarnings("static-method")
+
 public class CheckerGamePresidentWithRulesTest {
 
     @Test

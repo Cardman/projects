@@ -20,7 +20,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class FighterValidationTest extends InitializationDataBase {
     @Test
     public void validate1Test(){

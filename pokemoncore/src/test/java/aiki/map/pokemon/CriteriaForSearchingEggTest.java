@@ -6,7 +6,7 @@ import org.junit.Test;
 import aiki.game.fight.InitializationDataBase;
 import code.util.pagination.SearchingMode;
 
-@SuppressWarnings("static-method")
+
 public class CriteriaForSearchingEggTest extends InitializationDataBase {
 
     @Test

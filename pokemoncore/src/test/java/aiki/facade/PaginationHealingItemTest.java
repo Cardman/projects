@@ -20,7 +20,7 @@ import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
-@SuppressWarnings("static-method")
+
 public class PaginationHealingItemTest extends InitializationDataBase {
 
     private static final String BERRY = "berry";

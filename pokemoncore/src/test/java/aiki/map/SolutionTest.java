@@ -37,7 +37,7 @@ import code.util.NumberMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class SolutionTest {
 
     private static final String VOIE = "voie";

@@ -12,7 +12,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class PseudoPlayerTest extends InitializationDataBase {
 
     @Test

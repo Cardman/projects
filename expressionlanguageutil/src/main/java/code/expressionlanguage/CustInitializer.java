@@ -54,13 +54,13 @@ public class CustInitializer extends DefaultInitializer {
 		return threadIdDate.get(thread_);
 	}
     public void prExc(ContextEl _cont) {
-    	Struct str_ = _cont.getException();
-        if (str_ instanceof DisplayableStruct) {
+    	Struct exception_ = _cont.getException();
+        if (exception_ instanceof DisplayableStruct) {
         	String toFile_ = getCurrentTreadIdDate();
         	if (toFile_ == null) {
         		toFile_ = _cont.getExecuting().getMainThread();
         	}
-        	String text_ = ((DisplayableStruct)str_).getDisplayedString(_cont).getInstance();
+        	String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
         	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
         	ExecutingOptions ex_ = _cont.getExecuting();
         	String folder_ = ex_.getLogFolder();

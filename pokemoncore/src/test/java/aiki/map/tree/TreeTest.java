@@ -32,7 +32,7 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class TreeTest {
 
     private static City city() {

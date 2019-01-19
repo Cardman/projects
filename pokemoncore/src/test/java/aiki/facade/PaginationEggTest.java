@@ -16,7 +16,7 @@ import code.util.EqList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
-@SuppressWarnings("static-method")
+
 public class PaginationEggTest extends InitializationDataBase {
 
     @Test

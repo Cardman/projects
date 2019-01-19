@@ -58,7 +58,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class FileResolverTest {
     @Test
     public void parseFile1Test() {

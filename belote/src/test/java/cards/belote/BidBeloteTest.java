@@ -7,7 +7,7 @@ import org.junit.Test;
 import cards.belote.enumerations.BidBelote;
 import code.util.EnumList;
 
-@SuppressWarnings("static-method")
+
 public class BidBeloteTest {
 
     @Test

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 
-@SuppressWarnings("static-method")
+
 public class StringListTest {
     @Test
     public void match1Test(){

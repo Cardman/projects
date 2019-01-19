@@ -21,7 +21,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FightInvokeTest extends InitializationDataBase {
 
     private static Fight invokableMoves() {

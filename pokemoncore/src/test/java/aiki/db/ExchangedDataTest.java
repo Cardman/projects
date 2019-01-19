@@ -19,7 +19,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class ExchangedDataTest extends InitializationDataBase {
 
     @Test

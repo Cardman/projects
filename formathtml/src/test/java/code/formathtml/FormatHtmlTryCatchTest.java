@@ -17,7 +17,7 @@ import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import code.util.StringMapObject;
 
-@SuppressWarnings("static-method")
+
 public class FormatHtmlTryCatchTest {
 
     @Test

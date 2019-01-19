@@ -8,7 +8,7 @@ import org.junit.Test;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 
-@SuppressWarnings("static-method")
+
 public final class MetaDocumentTest {
 
     @Test

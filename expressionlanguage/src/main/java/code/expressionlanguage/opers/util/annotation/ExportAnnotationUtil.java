@@ -3,10 +3,8 @@ package code.expressionlanguage.opers.util.annotation;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.util.CustList;
 
-@SuppressWarnings("ALL")
 public final class ExportAnnotationUtil {
 
-    @SuppressWarnings("UnusedAssignment")
     public static String exportAnnotation(FieldableStruct _str) {
         StringBuilder out_ = new StringBuilder();
         CustList<CustList<StackObject>> elts_;
@@ -58,7 +56,6 @@ public final class ExportAnnotationUtil {
                 }
                 out_.append(par_.getEnd());
                 current_ = current_.getParent();
-                curStack_ = visSt_.last();
                 elts_.removeLast();
                 visSt_.removeLast();
                 if (elts_.isEmpty()) {

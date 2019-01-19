@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
 
-@SuppressWarnings("static-method")
+
 public class HandPresidentTest {
 
     @Test

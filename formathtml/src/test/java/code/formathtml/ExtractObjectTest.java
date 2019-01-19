@@ -25,7 +25,7 @@ import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class ExtractObjectTest {
 
     @Test

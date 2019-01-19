@@ -37,7 +37,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("ALL")
 public final class TypeUtil {
 
     private TypeUtil() {
@@ -196,12 +195,11 @@ public final class TypeUtil {
             }
         }
     }
-    public static void buildInherits(StandardType _type,ContextEl _context) {
-        String typeName_ = _type.getFullName();
+    private static void buildInherits(StandardType _type, ContextEl _context) {
         String aliasObject_ = _context.getStandards().getAliasObject();
         if (_type instanceof StandardClass) {
             StandardClass type_ = (StandardClass) _type;
-            typeName_ = type_.getSuperClass(_context);
+            String typeName_ = type_.getSuperClass(_context);
             while (true) {
                 _type.getAllSuperClasses().add(typeName_);
                 if (StringList.quickEq(typeName_, aliasObject_)) {
@@ -792,7 +790,7 @@ public final class TypeUtil {
         out_.getDepends().addAllElts(depends_);
         return out_;
     }
-    public static EqList<ClassMethodId> getAllDuplicates(GeneType _type, ContextEl _classes) {
+    private static EqList<ClassMethodId> getAllDuplicates(GeneType _type, ContextEl _classes) {
         EqList<ClassMethodId> list_;
         list_ = new EqList<ClassMethodId>();
         for (String s: getAllGenericSuperTypes(_type, _classes)) {
@@ -847,7 +845,7 @@ public final class TypeUtil {
         }
         return map_;
     }
-    public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods(
+    private static ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods(
             ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,
             ContextEl _conf) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;

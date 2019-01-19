@@ -20,7 +20,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodInstanceInterfaceTest extends
         ProcessMethodCommon {
     @Test

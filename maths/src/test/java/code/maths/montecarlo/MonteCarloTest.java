@@ -9,7 +9,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class MonteCarloTest {
 
     @Test

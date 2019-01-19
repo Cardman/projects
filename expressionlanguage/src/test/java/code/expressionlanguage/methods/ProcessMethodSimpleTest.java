@@ -15,7 +15,7 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
 
     @Test

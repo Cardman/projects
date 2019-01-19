@@ -8,7 +8,7 @@ import aiki.map.places.Place;
 import code.util.CustList;
 import code.util.NumberMap;
 
-@SuppressWarnings("static-method")
+
 public class DataMapAddPlaceTest {
 
     @Test

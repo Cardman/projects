@@ -23,7 +23,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class ClassesTest {
     @Test
     public void emptyClassesTest() {

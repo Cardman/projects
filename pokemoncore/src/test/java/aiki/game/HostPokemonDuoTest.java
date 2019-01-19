@@ -9,7 +9,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 
-@SuppressWarnings("static-method")
+
 public class HostPokemonDuoTest extends InitializationDataBase {
 
     @Test

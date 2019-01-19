@@ -9,7 +9,7 @@ import code.sml.DocumentResult;
 import code.util.EqList;
 import code.util.IdMap;
 
-@SuppressWarnings("static-method")
+
 public class FindNextElementTest {
 
     @Test

@@ -8,7 +8,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.Numbers;
 
-@SuppressWarnings("static-method")
+
 public class TrickTarotTest {
     @Test
     public void new_PliTarot_byte_Boolean_1Test(){

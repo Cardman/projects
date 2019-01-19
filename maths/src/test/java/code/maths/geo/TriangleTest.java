@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import code.maths.Rate;
 
-@SuppressWarnings("static-method")
+
 public class TriangleTest {
 
     @Test

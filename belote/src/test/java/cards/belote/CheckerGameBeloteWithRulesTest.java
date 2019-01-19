@@ -12,7 +12,7 @@ import cards.consts.GameType;
 import cards.consts.Suit;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class CheckerGameBeloteWithRulesTest {
 
     @Test

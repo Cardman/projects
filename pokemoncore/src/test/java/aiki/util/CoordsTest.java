@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class CoordsTest {
 
     @Test

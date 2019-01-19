@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
 
-@SuppressWarnings("static-method")
+
 public class BeanEight extends Bean {
 
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());

@@ -7,7 +7,7 @@ import cards.president.enumerations.CardPresident;
 import code.util.EqList;
 import code.util.Numbers;
 
-@SuppressWarnings("static-method")
+
 public class TrickPresidentTest {
 
     @Test

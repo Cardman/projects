@@ -16,7 +16,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
 
     @Test

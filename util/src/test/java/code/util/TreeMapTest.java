@@ -11,7 +11,7 @@ import code.util.comparators.ComparatorNatNumber;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Listable;
 
-@SuppressWarnings("static-method")
+
 public class TreeMapTest {
 
     @Test
@@ -130,7 +130,7 @@ public class TreeMapTest {
         assertTrue(!map_.contains("TWO"));
     }
 
-//    @SuppressWarnings("static-method")
+//
 //    @Test
 //    public void has1Test() {
 //        TreeMap<String,Integer> map_ = new TreeMap<new>(new);
@@ -140,7 +140,7 @@ public class TreeMapTest {
 //        assertTrue(!map_.has(3));
 //    }
 
-//    @SuppressWarnings("static-method")
+//
 //    @Test
 //    public void getKeys1Test() {
 //        TreeMap<String,Integer> map_ = new TreeMap<new>(new);

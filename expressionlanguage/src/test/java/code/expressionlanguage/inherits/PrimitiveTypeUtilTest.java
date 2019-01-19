@@ -21,7 +21,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class PrimitiveTypeUtilTest {
 
     private static final String CUST_CLASS = "pkg.CustClass";

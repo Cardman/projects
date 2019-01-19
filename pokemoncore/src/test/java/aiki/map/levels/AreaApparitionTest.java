@@ -10,7 +10,7 @@ import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class AreaApparitionTest {
 
     @Test

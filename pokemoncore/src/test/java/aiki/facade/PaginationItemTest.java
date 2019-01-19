@@ -18,7 +18,7 @@ import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
-@SuppressWarnings("static-method")
+
 public class PaginationItemTest extends InitializationDataBase {
 
     private static final String BATTLE_ITEM = "battle item";

@@ -16,7 +16,7 @@ import aiki.util.Point;
 import code.maths.LgInt;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class GameProgressionTest extends InitializationDataBase {
 
     private static final String SEPARATOR_TRAINERS = " ";

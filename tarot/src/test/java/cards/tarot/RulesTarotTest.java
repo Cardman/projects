@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import cards.tarot.enumerations.DealingTarot;
 
-@SuppressWarnings("static-method")
+
 public class RulesTarotTest {
     @Test
     public void isValidRules_defaultRules1Test(){

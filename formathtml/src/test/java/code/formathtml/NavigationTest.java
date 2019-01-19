@@ -46,7 +46,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
 
-@SuppressWarnings("static-method")
+
 public class NavigationTest {
 
     @Test

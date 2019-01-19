@@ -28,7 +28,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FighterTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";

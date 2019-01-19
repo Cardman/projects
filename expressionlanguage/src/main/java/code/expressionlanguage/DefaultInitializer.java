@@ -100,7 +100,7 @@ public class DefaultInitializer implements Initializer {
         }
     }
     protected boolean simpleCall(ContextEl _owner) {
-        Boolean res_ = _owner.removeCall(0);
+        Boolean res_ = _owner.removeCall();
         if (res_ == null) {
             return false;
         }

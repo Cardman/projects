@@ -12,7 +12,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 
-@SuppressWarnings("static-method")
+
 public class GameEndTest extends InitializationDataBase {
 
     @Test

@@ -10,7 +10,7 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 
-@SuppressWarnings("static-method")
+
 public class PokemonPlayerValidationTest extends InitializationDataBase {
 
     @Test

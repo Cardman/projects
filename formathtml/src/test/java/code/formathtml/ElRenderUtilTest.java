@@ -37,7 +37,7 @@ import code.formathtml.util.StdStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-@SuppressWarnings("static-method")
+
 public final class ElRenderUtilTest {
     private static final String ARR_INT = "[$int";
     private static final String ARR_ARR_INT = "[[$int";

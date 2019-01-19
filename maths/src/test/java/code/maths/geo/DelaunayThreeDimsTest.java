@@ -6,7 +6,7 @@ import org.junit.Test;
 import code.util.EqList;
 import code.util.IdList;
 
-@SuppressWarnings("static-method")
+
 public class DelaunayThreeDimsTest {
 
     @Test

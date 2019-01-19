@@ -14,7 +14,7 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class TemplatesTest {
 
     private static final String ARR_OBJECT = "[java.lang.Object";

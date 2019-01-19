@@ -14,7 +14,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-@SuppressWarnings("ALL")
 public final class FinallyEval extends BracedStack implements Eval {
 
     public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
@@ -38,7 +37,6 @@ public final class FinallyEval extends BracedStack implements Eval {
         buildEmptyEl(_cont);
     }
 
-    @SuppressWarnings("UnusedAssignment")
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
@@ -66,9 +64,9 @@ public final class FinallyEval extends BracedStack implements Eval {
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
+        StringMap<SimpleAssignment> after_;
+        CustList<StringMap<SimpleAssignment>> afterVars_;
+        CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         for (EntryCust<ReturnMehod, Eval> e: _anEl.getReturnables().entryList()) {

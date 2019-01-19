@@ -5,7 +5,7 @@ import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class BeanTwo extends Bean {
 
     private boolean checked;

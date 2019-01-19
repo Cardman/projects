@@ -27,7 +27,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
 
-@SuppressWarnings("static-method")
+
 public class FormatHtmlTest {
     @Test
     public void processHtml1Test() {

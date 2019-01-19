@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import code.util.ints.Listable;
 
-@SuppressWarnings("static-method")
+
 public class NatTreeMapTest {
 
     @Test
@@ -95,7 +95,7 @@ public class NatTreeMapTest {
         assertTrue(!map_.contains("TWO"));
     }
 
-//    @SuppressWarnings("static-method")
+//
 //    @Test
 //    public void has1Test() {
 //        NatStringTreeMap<Integer> map_ = new NatTreeMap<>();
@@ -105,7 +105,7 @@ public class NatTreeMapTest {
 //        assertTrue(!map_.has(3));
 //    }
 
-//    @SuppressWarnings("static-method")
+//
 //    @Test
 //    public void getKeys1Test() {
 //        NatStringTreeMap<Integer> map_ = new NatTreeMap<>();

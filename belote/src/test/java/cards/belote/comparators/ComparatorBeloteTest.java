@@ -11,7 +11,7 @@ import cards.consts.Suit;
 import code.util.EnumList;
 import code.util.EnumMap;
 
-@SuppressWarnings("static-method")
+
 public class ComparatorBeloteTest {
 
     @Test

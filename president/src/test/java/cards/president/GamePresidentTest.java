@@ -12,7 +12,7 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.consts.Constants;
 
-@SuppressWarnings("static-method")
+
 public class GamePresidentTest {
 
     @Test

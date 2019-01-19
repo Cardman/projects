@@ -7,7 +7,7 @@ import cards.consts.MixCardsChoice;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 
-@SuppressWarnings("static-method")
+
 public class DealTarotTest {
 
     private HandTarot initPileTarot() {

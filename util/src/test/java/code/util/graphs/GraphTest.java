@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class GraphTest {
 
     @Test

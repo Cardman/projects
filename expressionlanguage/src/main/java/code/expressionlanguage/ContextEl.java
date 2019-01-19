@@ -110,10 +110,9 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.SortedGraph;
 
-@SuppressWarnings("ALL")
 public abstract class ContextEl implements ExecutableCode {
 
-    protected static final int DEFAULT_TAB_WIDTH = 4;
+    static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
     private static final String EMPTY_PREFIX = "";
 
@@ -309,7 +308,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return true;
     }
-    public void processTags() {
+    void processTags() {
         AbstractPageEl ip_ = getLastPage();
         if (!ip_.checkCondition(this)) {
             return;
@@ -322,7 +321,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         ip_.tryProcessEl(this);
     }
-    public AbstractPageEl processAfterOperation() {
+    AbstractPageEl processAfterOperation() {
         if (callCtor != null) {
             return createInstancing(callCtor);
         }
@@ -353,11 +352,11 @@ public abstract class ContextEl implements ExecutableCode {
         return null;
     }
 
-    public Boolean removeCall(int _sizeBk) {
+    Boolean removeCall() {
         AbstractPageEl p_ = getLastPage();
         if (p_.getReadWrite() == null) {
             removeLastPage();
-            if (nbPages() == _sizeBk) {
+            if (nbPages() == 0) {
                 return null;
             }
             if (p_ instanceof ForwardPageEl) {
@@ -482,12 +481,11 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setFile(file_);
         return page_;
     }
-    public NewAnnotationPageEl createAnnotation(String _class,
-            StringMap<String> _id,
-            CustList<Argument> _args) {
+    private NewAnnotationPageEl createAnnotation(String _class,
+                                                 StringMap<String> _id,
+                                                 CustList<Argument> _args) {
         setCallAnnot(null);
         NewAnnotationPageEl page_;
-        ConstructorBlock method_ = null;
         FileBlock file_ = getFile(_class);
         Argument argGl_ = new Argument();
         page_ = new NewAnnotationPageEl();
@@ -498,11 +496,11 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
-        page_.setBlockRoot(method_);
+        page_.setBlockRoot(null);
         page_.setFile(file_);
         return page_;
     }
-    public AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
+    private AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in, CustList<Argument> _args) {
         setCallCtor(null);
         AbstractPageEl page_;
         FileBlock file_ = getFile(_class);
@@ -543,7 +541,7 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setFile(file_);
         return page_;
     }
-    public FieldInitPageEl createInitFields(String _class, Argument _current) {
+    private FieldInitPageEl createInitFields(String _class, Argument _current) {
         setInitFields(null);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
@@ -564,7 +562,7 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setFile(class_.getFile());
         return page_;
     }
-    public BlockPageEl createBlockPageEl(String _class, Argument _current, InitBlock _block) {
+    private BlockPageEl createBlockPageEl(String _class, Argument _current, InitBlock _block) {
         setFoundBlock(null);
         FileBlock file_ = getFile(_class);
         BlockPageEl page_ = new BlockPageEl();
@@ -810,7 +808,7 @@ public abstract class ContextEl implements ExecutableCode {
         options = _options;
     }
 
-    public int getStackOverFlow() {
+    int getStackOverFlow() {
         return stackOverFlow;
     }
     public void setStackOverFlow(int _stackOverFlow) {
@@ -833,7 +831,7 @@ public abstract class ContextEl implements ExecutableCode {
     public void setClasses(Classes _classes) {
         classes = _classes;
     }
-    public void clearPages() {
+    private void clearPages() {
         importing.clear();
     }
     public boolean hasPages() {
@@ -1177,7 +1175,7 @@ public abstract class ContextEl implements ExecutableCode {
     public String getInternGlobalClass() {
         return null;
     }
-    @SuppressWarnings("UnusedAssignment")
+
     @Override
     public String resolveAccessibleIdType(String _in) {
         Block bl_ = getCurrentBlock();
@@ -1216,8 +1214,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return EMPTY_TYPE;
             }
             res_ = id_;
-            //noinspection UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment,UnusedAssignment
-            b_ = classes.getClassBody(id_);
         }
         for (String i: inners_.mid(1)) {
             String resId_ = StringList.concat(res_,"..",i.trim());
@@ -1670,14 +1666,14 @@ public abstract class ContextEl implements ExecutableCode {
             return localSolve(inners_, 0, _root, _index, _readyTypes, _static);
         }
         String res_ = removeDottedSpaces(lookupImportType(base_, _root));
-        if (res_.isEmpty()) {
+        b_ = classes.getClassBody(res_);
+        if (b_ == null) {
             return null;
         }
-        b_ = classes.getClassBody(res_);
         if (!access(_root, b_, outer_)) {
             return null;
         }
-        return getOtherParts(inners_,res_,0,_root, _readyTypes, _static, false);
+        return getOtherParts(inners_,res_,0,_root, _readyTypes, _static);
     }
 
     private static boolean access(RootBlock _from, RootBlock _found, boolean _outer) {
@@ -1738,7 +1734,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else {
             res_ = gType_.getFullName();
         }
-        return getOtherParts(_inners,res_,_first,_root, _readyTypes, _static, false);
+        return getOtherParts(_inners,res_,_first,_root, _readyTypes, _static);
     }
 
     private String lookupImportMemberTypes(String _type, RootBlock _root,
@@ -1765,17 +1761,17 @@ public abstract class ContextEl implements ExecutableCode {
         if (classes.getClassBody(res_) == null) {
             return null;
         }
-        return getOtherParts(inners_,res_,0,_root, _readyTypes, null, false);
+        return getOtherParts(inners_,res_,0,_root, _readyTypes, null);
     }
 
     private String getOtherParts(StringList _inners, String _res, int _first,
-            RootBlock _root, StringList _readyTypes, Boolean _static, boolean _qualifier) {
+                                 RootBlock _root, StringList _readyTypes, Boolean _static) {
         String out_ = _res;
         String fullName_ = _root.getFullName();
         int index_ = _first + 1;
         int max_ = _inners.size() - 1;
         for (String i : _inners.mid(1 + _first)) {
-            boolean staticLoc_ = _qualifier || index_ < max_;
+            boolean staticLoc_ = index_ < max_;
             String name_ = i.trim();
             if (_static != null) {
                 staticLoc_ = _static;
@@ -1796,14 +1792,12 @@ public abstract class ContextEl implements ExecutableCode {
                 if (_static) {
                     return EMPTY_TYPE;
                 }
-            } else if (_qualifier){
-                return EMPTY_TYPE;
             }
         }
         return out_;
     }
 
-    public static String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+    private static String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1889,7 +1883,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return EMPTY_TYPE;
     }
-    public String getSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+    private String getSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();

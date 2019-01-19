@@ -10,7 +10,7 @@ import aiki.map.pokemon.PkTrainer;
 import code.maths.Rate;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class PseudoFoeFighterTest extends InitializationDataBase {
 
     @Test

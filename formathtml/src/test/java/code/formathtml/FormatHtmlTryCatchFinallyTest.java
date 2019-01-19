@@ -16,7 +16,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FormatHtmlTryCatchFinallyTest {
 
     @Test

@@ -7,7 +7,7 @@ import org.junit.Test;
 import aiki.game.fight.InitializationDataBase;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class EggValidationTest extends InitializationDataBase {
 
     private static final String SEPARATOR = String.valueOf(Egg.SEPARATOR);

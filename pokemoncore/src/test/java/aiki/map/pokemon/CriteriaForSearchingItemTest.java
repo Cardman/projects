@@ -10,7 +10,7 @@ import aiki.game.fight.InitializationDataBase;
 import code.maths.LgInt;
 import code.util.pagination.SearchingMode;
 
-@SuppressWarnings("static-method")
+
 public class CriteriaForSearchingItemTest extends InitializationDataBase {
 
     @Test

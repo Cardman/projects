@@ -9,7 +9,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.Numbers;
 
-@SuppressWarnings("static-method")
+
 public class TrickBeloteTest {
     @Test
     public void new_PliBelote_byte_1Test(){

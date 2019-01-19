@@ -38,7 +38,7 @@ import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class GameFinalizeFightTest extends InitializationDataBase{
 
     private static final String NICKNAME_SAMPLE = "MY_GREAT_POKEMON";

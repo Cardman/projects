@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import cards.belote.enumerations.DealingBelote;
 
-@SuppressWarnings("static-method")
+
 public class RulesBeloteTest {
 
     @Test

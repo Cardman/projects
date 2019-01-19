@@ -25,7 +25,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class FightInitializationTest extends InitializationDataBase {
 
     @Test

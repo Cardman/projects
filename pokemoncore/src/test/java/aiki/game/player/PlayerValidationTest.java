@@ -15,7 +15,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class PlayerValidationTest extends InitializationDataBase {
     @Test
     public void validate1Test(){

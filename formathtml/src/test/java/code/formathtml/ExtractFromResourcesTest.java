@@ -9,7 +9,7 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-@SuppressWarnings("static-method")
+
 public class ExtractFromResourcesTest {
 
     @Test

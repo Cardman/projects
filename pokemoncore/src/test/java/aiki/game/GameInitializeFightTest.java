@@ -23,7 +23,7 @@ import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
 
-@SuppressWarnings("static-method")
+
 public class GameInitializeFightTest extends InitializationDataBase {
 
     @Test

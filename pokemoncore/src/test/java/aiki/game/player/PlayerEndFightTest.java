@@ -21,7 +21,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.Numbers;
 
-@SuppressWarnings("static-method")
+
 public class PlayerEndFightTest extends InitializationDataBase {
 
     private static Fight endFight(

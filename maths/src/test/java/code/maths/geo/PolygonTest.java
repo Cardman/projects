@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import code.util.CustList;
 
-@SuppressWarnings("static-method")
+
 public class PolygonTest {
 
     @Test

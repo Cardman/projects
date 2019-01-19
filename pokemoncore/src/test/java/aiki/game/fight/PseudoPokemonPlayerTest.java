@@ -9,7 +9,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 
-@SuppressWarnings("static-method")
+
 public class PseudoPokemonPlayerTest extends InitializationDataBase {
 
     @Test

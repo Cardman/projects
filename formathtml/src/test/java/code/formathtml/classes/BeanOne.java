@@ -9,7 +9,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
 
-@SuppressWarnings("static-method")
+
 public class BeanOne extends Bean {
 
     private Composite composite = new Composite();

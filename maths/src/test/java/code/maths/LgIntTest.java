@@ -9,7 +9,7 @@ import code.util.Numbers;
 import code.util.SortableCustList;
 import code.util.TreeMap;
 
-@SuppressWarnings("static-method")
+
 public class LgIntTest {
     @Test
     public void base1(){

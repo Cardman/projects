@@ -13,7 +13,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class HandTarotTest {
     @Test
     public void pileBase1(){

@@ -7,7 +7,7 @@ import org.junit.Test;
 import code.util.CustList;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class RateTest {
     @Test
     public void new_Rate_1(){

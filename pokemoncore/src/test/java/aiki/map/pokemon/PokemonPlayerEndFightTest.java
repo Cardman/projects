@@ -18,7 +18,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class PokemonPlayerEndFightTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";

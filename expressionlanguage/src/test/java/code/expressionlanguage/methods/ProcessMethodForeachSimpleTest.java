@@ -11,7 +11,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodForeachSimpleTest extends ProcessMethodCommon {
 
     @Test

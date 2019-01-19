@@ -3,7 +3,7 @@ import static code.maths.EquallableMathUtil.assertEq;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
+
 public class SitePointThreeDimsTest {
 
     @Test

@@ -12,7 +12,7 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class LevelWithWildPokemonTest {
 
     @Test

@@ -7,7 +7,7 @@ import org.junit.Test;
 import code.util.PairNumber;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class ImageTest {
 
     @Test

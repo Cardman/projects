@@ -28,7 +28,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FightArtificialIntelligenceTest extends InitializationDataBase {
 
     private static Fight choiceForSubstituing(

@@ -17,7 +17,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class PseudoPlayerFighterTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";

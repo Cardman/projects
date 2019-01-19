@@ -15,7 +15,7 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.consts.Constants;
 
-@SuppressWarnings("static-method")
+
 public class CheckerGameTarotWithRulesTest {
 
     @Test

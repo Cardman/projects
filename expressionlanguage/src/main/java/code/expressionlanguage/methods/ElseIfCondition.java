@@ -17,7 +17,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-@SuppressWarnings("ALL")
 public final class ElseIfCondition extends Condition implements BlockCondition {
 
     public ElseIfCondition(ContextEl _importingPage,
@@ -37,7 +36,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         return ((IfCondition)p_).getLabel();
     }
 
-    boolean canBeIncrementedCurGroup() {
+    private boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
     }
@@ -123,9 +122,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
+        StringMap<SimpleAssignment> after_ ;
+        CustList<StringMap<SimpleAssignment>> afterVars_;
+        CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ = buildAssFieldsAfterIf(true, prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(true, prev_, _an, _anEl);

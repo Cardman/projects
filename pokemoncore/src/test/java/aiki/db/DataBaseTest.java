@@ -57,7 +57,7 @@ import code.util.NumberMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class DataBaseTest {
 
     @Test

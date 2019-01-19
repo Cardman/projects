@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
+
 public class BigIntegersTest {
 
     @Test

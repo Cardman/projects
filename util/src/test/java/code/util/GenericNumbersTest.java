@@ -7,7 +7,7 @@ import java.math.MathContext;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
+
 public class GenericNumbersTest {
 
     @Test

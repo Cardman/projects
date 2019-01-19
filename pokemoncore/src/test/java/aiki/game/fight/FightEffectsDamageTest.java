@@ -31,7 +31,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FightEffectsDamageTest extends InitializationDataBase {
 
     private static Fight randomRate() {

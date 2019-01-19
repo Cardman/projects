@@ -38,7 +38,7 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class GameUnlockPlacesTest extends InitializationDataBase {
 
     private static final String L = "L";

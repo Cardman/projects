@@ -26,7 +26,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 
-@SuppressWarnings("static-method")
+
 public class FightSimulationTest extends InitializationDataBase {
 
     @Test

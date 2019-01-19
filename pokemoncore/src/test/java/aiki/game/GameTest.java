@@ -39,7 +39,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class GameTest extends InitializationDataBase {
 
     @Test

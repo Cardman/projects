@@ -22,7 +22,7 @@ import code.sml.ElementList;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class ExtractConditionTest {
 
 

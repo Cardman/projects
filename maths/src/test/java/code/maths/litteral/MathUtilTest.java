@@ -7,7 +7,7 @@ import org.junit.Test;
 import code.maths.Rate;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class MathUtilTest {
     @Test
     public void evaluateExp1Test(){

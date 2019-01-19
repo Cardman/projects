@@ -6,7 +6,7 @@ import org.junit.Test;
 import aiki.game.fight.InitializationDataBase;
 import code.maths.LgInt;
 
-@SuppressWarnings("static-method")
+
 public class InventoryValidationTest extends InitializationDataBase {
 
     @Test

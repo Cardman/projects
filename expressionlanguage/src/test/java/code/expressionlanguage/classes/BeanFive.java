@@ -5,7 +5,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
 
-@SuppressWarnings("static-method")
+
 public class BeanFive {
 
 

@@ -24,7 +24,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class PlayerTest extends InitializationDataBase {
 
     private static final String SAMPLE_NICKNAME = "TOTO";

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static code.util.EquallableExUtil.assertEq;
 
-@SuppressWarnings("static-method")
+
 public class ListTest {
 
     @Test

@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument96Test() {

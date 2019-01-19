@@ -14,7 +14,7 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public final class PartTypeUtilTest {
 
     @Test

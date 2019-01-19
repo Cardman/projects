@@ -3,7 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
+
 public class RulesPresidentTest {
     @Test
     public void isValidRules_defaultRules1Test(){

@@ -12,7 +12,7 @@ import code.images.Image;
 import code.util.Numbers;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class BlockTest {
 
 

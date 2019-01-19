@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
-@SuppressWarnings("static-method")
+
 public class CriteriaForSearchingPokemonTest extends InitializationDataBase {
 
     @Test

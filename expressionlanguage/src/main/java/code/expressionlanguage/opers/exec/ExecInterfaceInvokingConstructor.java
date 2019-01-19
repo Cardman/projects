@@ -8,14 +8,12 @@ import code.expressionlanguage.opers.InterfaceInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 
-@SuppressWarnings("ALL")
 public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    public ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int) {
+    protected ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int) {
         super(_int);
     }
 
-    @SuppressWarnings("UnusedAssignment")
     @Override
     Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
@@ -24,9 +22,6 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
-        String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
-        gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         CustList<Argument> firstArgs_;
         String cl_ = getConstId().getName();
         cl_ = Templates.getIdFromAllTypes(cl_);

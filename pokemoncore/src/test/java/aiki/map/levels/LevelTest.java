@@ -8,7 +8,7 @@ import org.junit.Test;
 import aiki.util.Point;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class LevelTest {
 
     @Test

@@ -16,7 +16,7 @@ import code.maths.LgInt;
 import code.util.NumberMap;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class TeamValidationTest extends InitializationDataBase {
 
 

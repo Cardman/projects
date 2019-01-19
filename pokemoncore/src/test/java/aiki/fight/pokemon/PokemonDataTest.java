@@ -21,7 +21,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class PokemonDataTest {
 
     public static PokemonData dataBase() {

@@ -7,7 +7,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 
-@SuppressWarnings("static-method")
+
 public class DealBeloteTest {
 
     @Test

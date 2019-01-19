@@ -32,7 +32,7 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class LevelAreaTest {
 
     private static City city() {

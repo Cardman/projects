@@ -19,7 +19,7 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
+
 public class PseudoFightTest extends InitializationDataBase {
 
     @Test

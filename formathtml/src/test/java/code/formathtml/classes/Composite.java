@@ -6,7 +6,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Displayable;
 
-@SuppressWarnings("static-method")
+
 public class Composite implements Displayable {
 
     private int integer;

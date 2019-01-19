@@ -9,7 +9,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.EnumList;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class ComparatorTarotTest {
 
     @Test

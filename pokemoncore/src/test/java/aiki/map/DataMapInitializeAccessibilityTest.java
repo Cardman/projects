@@ -38,7 +38,7 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
-@SuppressWarnings("static-method")
+
 public class DataMapInitializeAccessibilityTest {
 
     private static final String LINK = "link";

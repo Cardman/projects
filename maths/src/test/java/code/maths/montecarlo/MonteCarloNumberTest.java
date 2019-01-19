@@ -7,7 +7,7 @@ import org.junit.Test;
 import code.maths.LgInt;
 import code.maths.Rate;
 
-@SuppressWarnings("static-method")
+
 public class MonteCarloNumberTest {
 
     @Test

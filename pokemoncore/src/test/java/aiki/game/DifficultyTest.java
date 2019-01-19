@@ -7,7 +7,7 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import code.maths.Rate;
 
-@SuppressWarnings("static-method")
+
 public class DifficultyTest extends InitializationDataBase {
 
     @Test

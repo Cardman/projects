@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-@SuppressWarnings("static-method")
+
 public class FightStatisticTest extends InitializationDataBase {
 
     private static final String VAR_EXAMPLE = "VAR__EXAMPLE";

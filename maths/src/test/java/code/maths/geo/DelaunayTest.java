@@ -9,7 +9,7 @@ import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
 
-@SuppressWarnings("static-method")
+
 public class DelaunayTest {
 
     @Test

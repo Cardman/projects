@@ -20,7 +20,7 @@ import aiki.util.Point;
 import code.maths.Rate;
 import code.util.EqList;
 
-@SuppressWarnings("static-method")
+
 public class GameValidationTest extends InitializationDataBase {
 
 

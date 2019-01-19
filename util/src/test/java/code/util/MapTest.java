@@ -8,7 +8,7 @@ import org.junit.Test;
 import code.util.classestest.KeyExample;
 import code.util.ints.Listable;
 
-@SuppressWarnings("static-method")
+
 public class MapTest {
 
     @Test

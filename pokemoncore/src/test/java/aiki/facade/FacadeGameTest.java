@@ -6,7 +6,7 @@ import org.junit.Test;
 import aiki.game.fight.InitializationDataBase;
 import code.util.CustList;
 
-@SuppressWarnings("static-method")
+
 public class FacadeGameTest extends InitializationDataBase {
 
     @Test

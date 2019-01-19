@@ -7,7 +7,7 @@ import org.junit.Test;
 import cards.tarot.enumerations.BidTarot;
 import code.util.EnumList;
 
-@SuppressWarnings("static-method")
+
 public class BidTarotTest {
 
     @Test

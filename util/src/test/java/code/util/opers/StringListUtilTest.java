@@ -7,7 +7,7 @@ import code.util.EqList;
 import code.util.StringList;
 
 
-@SuppressWarnings("static-method")
+
 public class StringListUtilTest {
     @Test
     public void firstCommonSubstring1Test(){

@@ -8,7 +8,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.ObjectMap;
 
-@SuppressWarnings("static-method")
+
 public class ThrowerDamageLawsTest extends InitializationDataBase {
 
     @Test
