@@ -895,6 +895,10 @@ public abstract class LgNames {
         }
         String mathType_ = lgNames_.getAliasMath();
         if (StringList.quickEq(type_, mathType_)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                return result_;
+            }
             /** mathematics "random" calls in order to facilitate uses,
              * despite of the difference between the JAVA names and the user choice names (parameterized in a text file)*/
             StringList paramList_ = _method.getConstraints().getParametersTypes();
