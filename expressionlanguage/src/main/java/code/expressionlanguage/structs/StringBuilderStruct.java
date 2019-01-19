@@ -46,6 +46,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res) {
         int one_ = _arg.getInstance().intValue();
         if (one_ < 0) {
+            _res.setErrorMessage(Integer.toString(one_));
             _res.setError(_stds.getAliasBadIndex());
             return;
         }
@@ -137,7 +138,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         instance.ensureCapacity(_minimumCapacity.getInstance().intValue());
-        _out.setResult(NullStruct.NULL_VALUE);
+        _out.setResult(this);
     }
 
     private void trimToSize(ExecutableCode _an, ResultErrorStd _out) {
@@ -147,7 +148,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         instance.trimToSize();
-        _out.setResult(NullStruct.NULL_VALUE);
+        _out.setResult(this);
     }
 
     private void setLength(NumberStruct _newLength, ExecutableCode _an, ResultErrorStd _out) {
@@ -176,7 +177,14 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int start_ = _start.getInstance().intValue();
         int end_ = _end.getInstance().intValue();
-        if (start_ < 0 || end_ < 0 || start_ > end_ || end_ > toApp_.length()) {
+        if (start_ < 0 || start_ > end_ || end_ > toApp_.length()) {
+            if (start_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
+            } else if (start_ > end_){
+                _out.setErrorMessage(StringList.concat(Long.toString(start_),">",Long.toString(end_)));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(end_),">", Long.toString(toApp_.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
@@ -221,11 +229,18 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         Struct[] arr_ = ((ArrayStruct)_str).getInstance();
         int lenChar_ = arr_.length;
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
+            if (offset_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(offset_),"<0"));
+            } else if (len_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(len_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(offset_ + len_),">", Long.toString(lenChar_)));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
         char[] chars_ = new char[lenChar_];
-        for (int i = 0; i < len_; i++) {
+        for (int i = 0; i < lenChar_; i++) {
             chars_[i] = ((CharStruct)arr_[i]).getChar();
         }
         instance.append(chars_, offset_, len_);
@@ -306,6 +321,11 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         LgNames lgNames_ = cont_.getStandards();
         int index_ = _index.getInstance().intValue();
         if (index_ < 0 || index_ > instance.length()) {
+            if (index_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),">",Long.toString(instance.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
@@ -322,7 +342,14 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         int offset_ = _offset.getInstance().intValue();
         int len_ = _len.getInstance().intValue();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > chars_.length) {
-            _out.setError(lgNames_.getAliasNullPe());
+            if (offset_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(offset_),"<0"));
+            } else if (len_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(len_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(offset_ + len_),">", Long.toString(chars_.length)));
+            }
+            _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
         instance.insert(index_, chars_, offset_, len_);
@@ -338,6 +365,11 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         LgNames lgNames_ = cont_.getStandards();
         int index_ = _offset.getInstance().intValue();
         if (index_ < 0 || index_ > instance.length()) {
+            if (index_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),">",Long.toString(instance.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
@@ -364,10 +396,15 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         LgNames lgNames_ = cont_.getStandards();
         int index_ = _dstOffset.getInstance().intValue();
         if (index_ < 0 || index_ > instance.length()) {
+            if (index_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),">",Long.toString(instance.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
-        instance.insert(index_, _s.getDisplayedString(_an));
+        instance.insert(index_, _s.getDisplayedString(_an).getInstance());
         _out.setResult(this);
     }
 
@@ -382,12 +419,26 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int index_ = _dstOffset.getInstance().intValue();
         if (index_ < 0 || index_ > instance.length()) {
+            if (index_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(index_),">",Long.toString(instance.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
         int start_ = _start.getInstance().intValue();
         int end_ = _end.getInstance().intValue();
         if (start_ < 0 || end_ < 0 || start_ > end_ || end_ > toApp_.length()) {
+            if (start_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
+            } else if (end_ < 0) {
+                _out.setErrorMessage(StringList.concat(Long.toString(end_),"<0"));
+            } else if (start_ > end_) {
+                _out.setErrorMessage(StringList.concat(Long.toString(start_),">",Long.toString(end_)));
+            } else {
+                _out.setErrorMessage(StringList.concat(Long.toString(end_),">", Long.toString(toApp_.length())));
+            }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }

@@ -2156,6 +2156,969 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$new String($new $char[]{})");
         assertEq("", arg_.getString());
     }
+
+    @Test
+    public void processEl516Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf(\"y\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl517Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf(\"y\",1)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl518Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf(\"y\",2)");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl519Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf(\"a\")");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl520Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf('y')");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl521Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf('y',1)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl522Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf('y',2)");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl523Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").indexOf('a')");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl524Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf(\"y\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl525Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf(\"y\",1)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl526Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf(\"y\",2)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl527Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf(\"a\")");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl528Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf('y')");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl529Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf('y',1)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl530Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf('y',2)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl531Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").lastIndexOf('a')");
+        assertEq(-1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl532Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").indexOf($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl533Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").indexOf($null,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl534Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").lastIndexOf($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl535Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").lastIndexOf($null,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+
+    @Test
+    public void processEl536Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").substring(-1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl537Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").substring(10)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>9", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl539Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").substring(1)");
+        assertEq("y_string", arg_.getString());
+    }
+
+    @Test
+    public void processEl540Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").substring(-1,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl541Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").substring(2,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("2>1", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl542Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").substring(1,10)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>9", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl543Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").substring(1,9)");
+        assertEq("y_string", arg_.getString());
+    }
+
+    @Test
+    public void processEl544Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").charAt(10)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>=9", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl545Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").charAt(-1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl546Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").contains($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl547Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").contains(\"-\")");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl548Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").contains(\"_\")");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl549Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").startsWith($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl550Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").startsWith(\"_\")");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl551Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").startsWith(\"m\")");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl552Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").startsWith($null,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl553Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").startsWith(\"_\",0)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl554Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").startsWith(\"_\",2)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl555Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").endsWith($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl556Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").endsWith(\"_\")");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl557Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").endsWith(\"g\")");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl558Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").format($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl559Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"my_string\").format((CharSequence)$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl560Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"{0}_{1}\").format(\"my\",\"string\")");
+        assertEq("my_string", arg_.getString());
+    }
+
+    @Test
+    public void processE561Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitStrings(2,\"e\",\"o\")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+    }
+
+    @Test
+    public void processE562Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitStrings(-1,\"e\",\"o\")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(4, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+        assertEq(" w", ((StringStruct) res_[2]).getInstance());
+        assertEq("rd", ((StringStruct) res_[3]).getInstance());
+    }
+
+    @Test
+    public void processE563Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitStrings(-2,\"e\",\"o\")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(4, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+        assertEq(" w", ((StringStruct) res_[2]).getInstance());
+        assertEq("rd", ((StringStruct) res_[3]).getInstance());
+    }
+    @Test
+    public void processE564Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").splitStrings($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE565Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").splitStrings((CharSequence)$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE566Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").splitStrings(-1,$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE567Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").splitStrings(-1,(CharSequence)$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE568Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").splitChars($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE569Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitChars('e','o')");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(4, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+        assertEq(" w", ((StringStruct) res_[2]).getInstance());
+        assertEq("rd", ((StringStruct) res_[3]).getInstance());
+    }
+    @Test
+    public void processE570Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(' ')");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+    @Test
+    public void processE571Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(' ',1)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(1, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+    }
+    @Test
+    public void processE572Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").split($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE573Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"hello word\").split($null,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processE574Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(\" \")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+    @Test
+    public void processE575Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(\" \",1)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(1, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+    }
+    @Test
+    public void processE576Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(\" \",-1)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+    @Test
+    public void processE577Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(\" \",-2)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+    @Test
+    public void processE578Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(' ',-1)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+    @Test
+    public void processE579Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").split(' ',-2)");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(2, res_.length);
+        assertEq("hello", ((StringStruct) res_[0]).getInstance());
+        assertEq("word", ((StringStruct) res_[1]).getInstance());
+    }
+
+    @Test
+    public void processE580Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitStrings(-1,\"e\",\"o\")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(4, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+        assertEq(" w", ((StringStruct) res_[2]).getInstance());
+        assertEq("rd", ((StringStruct) res_[3]).getInstance());
+    }
+
+    @Test
+    public void processE581Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"hello word\").splitStrings(-2,\"e\",\"o\")");
+        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+        assertEq("[java.lang.String", arr_.getClassName());
+        Struct[] res_ = arr_.getInstance();
+        assertEq(4, res_.length);
+        assertEq("h", ((StringStruct) res_[0]).getInstance());
+        assertEq("ll", ((StringStruct) res_[1]).getInstance());
+        assertEq(" w", ((StringStruct) res_[2]).getInstance());
+        assertEq("rd", ((StringStruct) res_[3]).getInstance());
+    }
+
+    @Test
+    public void processEl582Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"\\nnew line\").trim()");
+        assertEq("new line", arg_.getString());
+    }
+
+    @Test
+    public void processEl583Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"\\nnew line\").toString()");
+        assertEq("\nnew line", arg_.getString());
+    }
+
+    @Test
+    public void processEl584Test() {
+        Argument arg_ = directCalculate("$new java.lang.String($new StringBuilder(\"\u1000\").getBytes())");
+        assertEq("\u1000", arg_.getString());
+    }
+
+    @Test
+    public void processEl585Test() {
+        Argument arg_ = directCalculate("$new java.lang.String($new StringBuilder(\"\u0800\").getBytes())");
+        assertEq("\u0800", arg_.getString());
+    }
+
+    @Test
+    public void processEl586Test() {
+        Argument arg_ = directCalculate("$new java.lang.String($new StringBuilder(\"\u07FF\").getBytes())");
+        assertEq("\u07FF", arg_.getString());
+    }
+
+    @Test
+    public void processEl587Test() {
+        Argument arg_ = directCalculate("$new java.lang.String($new StringBuilder(\"\u0050\").getBytes())");
+        assertEq("\u0050", arg_.getString());
+    }
+
+    @Test
+    public void processEl588Test() {
+        Argument arg_ = directCalculate("$new StringBuilder()");
+        assertEq("", arg_.getString());
+    }
+
+    @Test
+    public void processEl589Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(\"a string\").toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl590Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(0i).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl591Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($true).toString()");
+        assertEq("true", arg_.getString());
+    }
+
+    @Test
+    public void processEl592Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($false).toString()");
+        assertEq("false", arg_.getString());
+    }
+
+    @Test
+    public void processEl593Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(($byte)0).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl594Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(0l).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl595Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(0s).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl596Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append('c').toString()");
+        assertEq("c", arg_.getString());
+    }
+
+    @Test
+    public void processEl597Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(1.0f).toString()");
+        assertEq("1.0", arg_.getString());
+    }
+
+    @Test
+    public void processEl598Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(1.0d).toString()");
+        assertEq("1.0", arg_.getString());
+    }
+    @Test
+    public void processEl599Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append((String)$null).toString()");
+        assertEq("", arg_.getString());
+    }
+    @Test
+    public void processEl600Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append((StringBuilder)$null).toString()");
+        assertEq("", arg_.getString());
+    }
+
+    @Test
+    public void processEl601Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($new $char[]{'a',' ','s','t','r','i','n','g'}).toString()");
+        assertEq("a string", arg_.getString());
+    }
+    @Test
+    public void processEl602Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(($char[])$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl603Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new $char[]{'a',' ','s','t','r','i','n','g'},-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl604Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new $char[]{'a',' ','s','t','r','i','n','g'},0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-8<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl605Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new $char[]{'a',' ','s','t','r','i','n','g'},1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl606Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(($char[])$null,0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl607Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($new $char[]{'a',' ','s','t','r','i','n','g'},2,6).toString()");
+        assertEq("string", arg_.getString());
+    }
+
+    @Test
+    public void processEl608Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(\"a string\",-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl609Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(\"a string\",0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("0>-8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl610Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(\"a string\",1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl611Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append(\"a string\",10,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl612Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append(\"a string\",2,8).toString()");
+        assertEq("string", arg_.getString());
+    }
+    @Test
+    public void processEl613Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new StringBuilder(\"a string\"),-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl614Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new StringBuilder(\"a string\"),0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("0>-8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl615Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new StringBuilder(\"a string\"),1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl616Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().append($new StringBuilder(\"a string\"),10,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl617Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($new StringBuilder(\"a string\"),2,8).toString()");
+        assertEq("string", arg_.getString());
+    }
+
+    @Test
+    public void processEl618Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().append($new StringBuilder(\"a string\")).toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl619Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(8).capacity()");
+        assertEq(8, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl620Test() {
+        Argument arg_ = directCalculate("$new StringBuilder($new StringBuilder(\"a string\")).toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl621Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder((StringBuilder)$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl622Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(-8)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl623Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,\"a string\").toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl624Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,0i).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl625Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$true).toString()");
+        assertEq("true", arg_.getString());
+    }
+
+    @Test
+    public void processEl626Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$false).toString()");
+        assertEq("false", arg_.getString());
+    }
+
+    @Test
+    public void processEl627Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,($byte)0).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl628Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,0l).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl629Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,0s).toString()");
+        assertEq("0", arg_.getString());
+    }
+
+    @Test
+    public void processEl630Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,'c').toString()");
+        assertEq("c", arg_.getString());
+    }
+
+    @Test
+    public void processEl631Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,1.0f).toString()");
+        assertEq("1.0", arg_.getString());
+    }
+
+    @Test
+    public void processEl632Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,1.0d).toString()");
+        assertEq("1.0", arg_.getString());
+    }
+    @Test
+    public void processEl633Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,(String)$null).toString()");
+        assertEq("", arg_.getString());
+    }
+    @Test
+    public void processEl634Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,(StringBuilder)$null).toString()");
+        assertEq("", arg_.getString());
+    }
+
+    @Test
+    public void processEl635Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$new $char[]{'a',' ','s','t','r','i','n','g'}).toString()");
+        assertEq("a string", arg_.getString());
+    }
+    @Test
+    public void processEl636Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,($char[])$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl637Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new $char[]{'a',' ','s','t','r','i','n','g'},-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl638Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new $char[]{'a',' ','s','t','r','i','n','g'},0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-8<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl639Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new $char[]{'a',' ','s','t','r','i','n','g'},1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl640Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,($char[])$null,0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl641Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$new $char[]{'a',' ','s','t','r','i','n','g'},2,6).toString()");
+        assertEq("string", arg_.getString());
+    }
+
+    @Test
+    public void processEl642Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,\"a string\",-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl643Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,\"a string\",0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-8<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl644Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,\"a string\",1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl645Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,\"a string\",10,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl646Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,\"a string\",2,8).toString()");
+        assertEq("string", arg_.getString());
+    }
+    @Test
+    public void processEl647Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new StringBuilder(\"a string\"),-1,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl648Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new StringBuilder(\"a string\"),0,-8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-8<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl649Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new StringBuilder(\"a string\"),1,9).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl650Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(0,$new StringBuilder(\"a string\"),10,8).toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("10>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl651Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$new StringBuilder(\"a string\"),2,8).toString()");
+        assertEq("string", arg_.getString());
+    }
+
+    @Test
+    public void processEl652Test() {
+        Argument arg_ = directCalculate("$new StringBuilder().insert(0,$new StringBuilder(\"a string\")).toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl653Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder((String)$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl654Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,\"a string\").toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl655Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,\"a string\").toString()");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

@@ -919,6 +919,14 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, replType_)
                 || StringList.quickEq(type_, stringBuilderType_)) {
             result_ = AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
+            if (result_.getError() != null) {
+                String errMessage_ = result_.getErrorMessage();
+                if (errMessage_ != null) {
+                    _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
+                } else {
+                    _cont.setException(new ErrorStruct(_cont,result_.getError()));
+                }
+            }
             return result_;
         }
         if (StringList.quickEq(type_, lgNames_.getAliasEnums())) {
@@ -1945,6 +1953,14 @@ public abstract class LgNames {
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilderStruct.instantiate(_cont, result_, _method, args_);
+            if (result_.getError() != null) {
+                String errMessage_ = result_.getErrorMessage();
+                if (errMessage_ != null) {
+                    _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
+                } else {
+                    _cont.setException(new ErrorStruct(_cont,result_.getError()));
+                }
+            }
             return result_;
         } else if (StringList.quickEq(type_, objectType_)) {
             result_.setResult(new SimpleObjectStruct());
