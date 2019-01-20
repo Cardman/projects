@@ -160,6 +160,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         LgNames lgNames_ = cont_.getStandards();
         int newLength_ = _newLength.getInstance().intValue();
         if (newLength_ < 0) {
+            _out.setErrorMessage(StringList.concat(Long.toString(newLength_),"<0"));
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }

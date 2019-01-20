@@ -891,12 +891,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            String errMessage_ = result_.getErrorMessage();
-            if (errMessage_ != null) {
-                _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
-            } else {
-                _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            }
+            processError(_cont,result_);
             return result_;
         }
         String mathType_ = lgNames_.getAliasMath();
@@ -919,14 +914,7 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, replType_)
                 || StringList.quickEq(type_, stringBuilderType_)) {
             result_ = AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
-            if (result_.getError() != null) {
-                String errMessage_ = result_.getErrorMessage();
-                if (errMessage_ != null) {
-                    _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
-                } else {
-                    _cont.setException(new ErrorStruct(_cont,result_.getError()));
-                }
-            }
+            processError(_cont, result_);
             return result_;
         }
         if (StringList.quickEq(type_, lgNames_.getAliasEnums())) {
@@ -952,7 +940,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            processError(_cont,result_);
             return result_;
         }
         result_ = AliasReflection.invokeMethod(_cont, _method, _struct, _args);
@@ -960,14 +948,11 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
+            processError(_cont,result_);
             return result_;
         }
         result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);
-        if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            return result_;
-        }
+        processError(_cont,result_);
         return result_;
     }
 
@@ -1932,7 +1917,7 @@ public abstract class LgNames {
         return new ResultErrorStd();
     }
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
+        ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
@@ -1943,35 +1928,33 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            String errMessage_ = result_.getErrorMessage();
-            if (errMessage_ != null) {
-                _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
-            } else {
-                _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            }
+            processError(_cont, result_);
             return result_;
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilderStruct.instantiate(_cont, result_, _method, args_);
-            if (result_.getError() != null) {
-                String errMessage_ = result_.getErrorMessage();
-                if (errMessage_ != null) {
-                    _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
-                } else {
-                    _cont.setException(new ErrorStruct(_cont,result_.getError()));
-                }
-            }
+            processError(_cont, result_);
             return result_;
         } else if (StringList.quickEq(type_, objectType_)) {
             result_.setResult(new SimpleObjectStruct());
         } else {
             result_ = lgNames_.getOtherResult(_cont, _method, args_);
         }
-        if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(_cont,result_.getError()));
-        }
+        processError(_cont,result_);
         return result_;
     }
+
+    private static void processError(ContextEl _cont, ResultErrorStd _result) {
+        if (_result.getError() != null) {
+            String errMessage_ = _result.getErrorMessage();
+            if (errMessage_ != null) {
+                _cont.setException(new ErrorStruct(_cont,errMessage_,_result.getError()));
+            } else {
+                _cont.setException(new ErrorStruct(_cont,_result.getError()));
+            }
+        }
+    }
+
     public static ResultErrorStd newInstanceStd(Analyzable _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);

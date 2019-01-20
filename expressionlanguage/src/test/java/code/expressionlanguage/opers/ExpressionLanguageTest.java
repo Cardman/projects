@@ -3322,6 +3322,13 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$new StringBuilder(\"a string\").clear()");
         assertEq("", arg_.getString());
     }
+    @Test
+    public void processEl686Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").setLength(-1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
