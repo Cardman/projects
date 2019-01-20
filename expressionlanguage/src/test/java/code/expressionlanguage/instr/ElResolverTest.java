@@ -3280,7 +3280,8 @@ public class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("", values_.getVal(0));
         assertEq("0", values_.getVal(1));
-    
+        assertTrue(!seq_.isDeclaring());
+        assertTrue(!seq_.isCallDbArray());
         assertTrue(seq_.isArray());
     }
 
@@ -4124,6 +4125,46 @@ public class ElResolverTest extends ProcessMethodCommon{
         assertEq("18`36", values_.getVal(0));
         assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence226Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "tab[0]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(3));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("tab", values_.getVal(0));
+        assertEq("[0]", values_.getVal(3));
+        assertTrue(!seq_.isDeclaring());
+        assertTrue(!seq_.isCallDbArray());
+        assertTrue(!seq_.isArray());
+        assertTrue(seq_.isDot());
+    }
+
+    @Test
+    public void getOperationsSequence227Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "tab[0][1]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(6));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("tab[0]", values_.getVal(0));
+        assertEq("[1]", values_.getVal(6));
+        assertTrue(!seq_.isDeclaring());
+        assertTrue(!seq_.isCallDbArray());
+        assertTrue(!seq_.isArray());
+        assertTrue(seq_.isDot());
     }
     @Test
     public void checkSyntax1Test() {

@@ -3119,6 +3119,209 @@ public class ExpressionLanguageTest {
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
     }
+
+    @Test
+    public void processEl656Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").replace(-1,1,\" super \")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl657Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").replace(9,1,\" super \")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl658Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").replace(8,7,\" super \")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("8>7", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl659Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a bad string\").replace(1,6,$null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl660Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a bad string\").replace(1,6,\" super \").toString()");
+        assertEq("a super string", arg_.getString());
+    }
+
+    @Test
+    public void processEl661Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,$new StringBuilder(\"a string\"))");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl662Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,$new StringBuilder(\"a string\"))");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl663Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,$new $char[]{'a',' ','s','t','r','i','n','g'},2,6)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl664Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,$new $char[]{'a',' ','s','t','r','i','n','g'},2,6)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl665Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,$new $char[]{'a',' ','s','t','r','i','n','g'})");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl666Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,$new $char[]{'a',' ','s','t','r','i','n','g'})");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl667Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").delete(-1,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl668Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").delete(9,1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("9>8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl669Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").delete(8,7)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("8>7", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl670Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a bad string\").delete(1,5).toString()");
+        assertEq("a string", arg_.getString());
+    }
+    @Test
+    public void processEl671Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").deleteCharAt(-1)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl672Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").deleteCharAt(8)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("8>=8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl673Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a  string\").deleteCharAt(1).toString()");
+        assertEq("a string", arg_.getString());
+    }
+    @Test
+    public void processEl674Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").setCharAt(-1,' ')");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl675Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder(\"a string\").setCharAt(8,' ')");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("8>=8", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl676Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a_string\").setCharAt(1,' ').toString()");
+        assertEq("a string", arg_.getString());
+    }
+
+    @Test
+    public void processEl677Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,$new StringBuilder(\"a string\"),0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl678Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,$new StringBuilder(\"a string\"),0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl679Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(-1,\"a string\",0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl680Test() {
+        Struct arg_ = directCalculateExc("$new StringBuilder().insert(1,\"a string\",0,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
+        assertEq("1>0", ((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl681Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a string\").reverse()");
+        assertEq("gnirts a", arg_.getString());
+    }
+    @Test
+    public void processEl682Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a string\").ensureCapacity(32).capacity() >= 32");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl683Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a string\").trimToSize().capacity()");
+        assertEq(8, arg_.getNumber());
+    }
+    @Test
+    public void processEl684Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a string\").setLength(1)");
+        assertEq("a", arg_.getString());
+    }
+    @Test
+    public void processEl685Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"a string\").clear()");
+        assertEq("", arg_.getString());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
