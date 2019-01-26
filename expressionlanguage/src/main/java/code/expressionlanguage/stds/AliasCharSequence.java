@@ -94,13 +94,8 @@ public final class AliasCharSequence {
         String aliasCompareTo_ = _lgNames.getAliasCompareTo();
         String aliasObject_ = _lgNames.getAliasObject();
         String aliasValueOf_ = _lgNames.getAliasValueOf();
-        params_ = new StringList(aliasPrimInteger_ );
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar_, false, MethodModifier.ABSTRACT,std_);
-        methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger_, false, MethodModifier.ABSTRACT,std_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.ABSTRACT,std_);
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar_, false, MethodModifier.NORMAL, std_);
@@ -193,6 +188,9 @@ public final class AliasCharSequence {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasToString_, params_, aliasString, false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasCharSequence,aliasCharSequence);
+        method_ = new StandardMethod(_lgNames.getAliasEquals(), params_, _lgNames.getAliasPrimBoolean(), false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasCharSequence, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();

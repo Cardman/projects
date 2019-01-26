@@ -33,7 +33,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         return true;
     }
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
-        ((CharSequenceStruct)_struct).calculate(_cont, _res, _method, _args);
+        if (!_method.getConstraints().isStaticMethod()) {
+            ((CharSequenceStruct) _struct).calculate(_cont, _res, _method, _args);
+            return;
+        }
+        _res.setResult(new BooleanStruct(_args[0].sameReference(_args[1])));
     }
     private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
@@ -155,17 +159,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             splitChars(_args[0], lgNames_, _res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-            eq(_args[0], _res);
-            return;
-        }
         if (StringList.quickEq(name_, lgNames_.getAliasFormat())) {
             format(_args[0], lgNames_, _res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-            _res.setResult(getDisplayedString(_cont));
-        }
+        _res.setResult(getDisplayedString(_cont));
     }
     private void length(ResultErrorStd _res) {
         _res.setResult(new IntStruct(getInstance().length()));
@@ -495,9 +493,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
         _res.setResult(arr_);
     }
-    private void eq(Struct _sep, ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(sameReference(_sep)));
-    }
+
     private void format(Struct _seps, LgNames _stds,ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_seps instanceof ArrayStruct)) {

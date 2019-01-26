@@ -835,6 +835,40 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
     }
     @Test
+    public void calculateArgument24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" static int instance = 2;\n");
+        xml_.append(" static int zero = 0;\n");
+        xml_.append("}\n");
+        xml_.append("public class [static pkg.ExCont.*;] pkg.Initializer {\n");
+        xml_.append(" public static int out;\n");
+        xml_.append(" static{\n");
+        xml_.append("  Object bk = instance %= zero;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class [static pkg.Initializer.out;] pkg.Apply {\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        Struct exc_ = cont_.getException();
+        assertEq("$core.DefErrorClass",exc_.getClassName(cont_));
+        CausingErrorStruct cause_ = (CausingErrorStruct)exc_;
+        assertEq("$core.DivideZero",cause_.getCause().getClassName(cont_));
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");

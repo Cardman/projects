@@ -185,32 +185,14 @@ public final class StringStruct extends CharSequenceStruct {
                 _res.setResult(((DisplayableStruct)arg_).getDisplayedString(_cont));
                 return;
             }
-            if (!(arg_ instanceof ArrayStruct)) {
-                String nullPe_ = lgNames_.getAliasNullPe();
-                _res.setError(nullPe_);
-                return;
-            }
-            ArrayStruct chArr_ = (ArrayStruct) arg_;
-            Struct[] argArr_ = chArr_.getInstance();
-            int len_ = argArr_.length;
-            char[] arr_ = new char[len_];
-            for (int i = 0; i < len_; i++) {
-                arr_[i] = ((CharStruct)argArr_[i]).getChar();
-            }
+        }
+        char[] arr_ = tryGetCharArray(arg_,_res,lgNames_);
+        if (arr_ == null) {
+            return;
+        }
+        if (list_.size() == 1) {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
-        }
-        if (!(arg_ instanceof ArrayStruct)) {
-            String nullPe_ = lgNames_.getAliasNullPe();
-            _res.setError(nullPe_);
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) arg_;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
         }
         int one_ = ((NumberStruct)_args[1]).getInstance().intValue();
         int two_ = ((NumberStruct)_args[2]).getInstance().intValue();
@@ -226,6 +208,21 @@ public final class StringStruct extends CharSequenceStruct {
             return;
         }
         _res.setResult(new StringStruct(String.valueOf(arr_,one_,two_)));
+    }
+    private static char[] tryGetCharArray(Struct _arg, ResultErrorStd _res, LgNames _stds) {
+        if (!(_arg instanceof ArrayStruct)) {
+            String nullPe_ = _stds.getAliasNullPe();
+            _res.setError(nullPe_);
+            return null;
+        }
+        ArrayStruct chArr_ = (ArrayStruct) _arg;
+        Struct[] argArr_ = chArr_.getInstance();
+        int len_ = argArr_.length;
+        char[] arr_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+        }
+        return arr_;
     }
     private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
@@ -273,9 +270,7 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setResult(new StringStruct(StringList.toLowerCase(one_)));
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
-            _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
-        }
+        _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
     }
 
     private void compareTo(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {

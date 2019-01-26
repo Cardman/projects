@@ -94,7 +94,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasIsInfinite("isInfinite");
         _lgNames.setAliasIsNan("isNan");
         _lgNames.setAliasForDigit("forDigit");
-        _lgNames.setAliasGetDirectionality("isGetDirectionality");
+        _lgNames.setAliasGetDirectionality("getDirectionality");
         _lgNames.setAliasGetType("getType");
         _lgNames.setAliasString("java.lang.String");
         _lgNames.setAliasLength("length");

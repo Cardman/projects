@@ -180,6 +180,33 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         return _nb1 == _nb2;
     }
 
+    public static int compareGene(Number _nb1,Number _nb2) {
+        if (_nb1 instanceof Double || _nb1 instanceof Float) {
+            if (_nb1.doubleValue() < _nb2.doubleValue()) {
+                return CustList.NO_SWAP_SORT;
+            }
+            if (_nb1.doubleValue() > _nb2.doubleValue()) {
+                return CustList.SWAP_SORT;
+            }
+            return CustList.EQ_CMP;
+        }
+        if (_nb2 instanceof Double || _nb2 instanceof Float) {
+            if (_nb1.doubleValue() < _nb2.doubleValue()) {
+                return CustList.NO_SWAP_SORT;
+            }
+            if (_nb1.doubleValue() > _nb2.doubleValue()) {
+                return CustList.SWAP_SORT;
+            }
+            return CustList.EQ_CMP;
+        }
+        if (_nb1.longValue() < _nb2.longValue()) {
+            return CustList.NO_SWAP_SORT;
+        }
+        if (_nb1.longValue() > _nb2.longValue()) {
+            return CustList.SWAP_SORT;
+        }
+        return CustList.EQ_CMP;
+    }
     public static int compare(Number _nb1,Number _nb2) {
         if (_nb1.longValue() < _nb2.longValue()) {
             return CustList.NO_SWAP_SORT;

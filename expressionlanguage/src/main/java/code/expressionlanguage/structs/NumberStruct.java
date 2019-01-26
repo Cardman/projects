@@ -21,50 +21,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
     public static void calculateOperator(Analyzable _cont, ResultErrorStd _res, ClassArgumentMatching _order, String _op, boolean _catString, Struct... _args) {
         if (_catString) {
-            if (StringList.quickEq(_op, "+") || StringList.quickEq(_op, "+=")) {
-              catenize(_cont, _res, _args);
-              return;
-            }
-        }
-        if (StringList.quickEq(_op, "++")) {
-            IntStruct one_ = new IntStruct(1);
-            _res.setResult(calculateSum((NumberStruct)_args[0], one_, _cont, _order));
+            catenize(_cont, _res, _args);
             return;
         }
-        if (StringList.quickEq(_op, "--")) {
-            IntStruct one_ = new IntStruct(1);
-            _res.setResult(calculateDiff((NumberStruct)_args[0], one_, _cont, _order));
-            return;
-        }
-        if (StringList.quickEq(_op, "-")) {
-            _res.setResult(opposite((NumberStruct)_args[0], _cont, _order));
-            return;
-        }
-        if (StringList.quickEq(_op, "+")) {
-            _res.setResult(idNumber((NumberStruct)_args[0], _cont, _order));
-            return;
-        }
-        if (StringList.quickEq(_op, "~")) {
-            _res.setResult(negBinNumber((NumberStruct)_args[0], _cont, _order));
-            return;
-        }
-        if (StringList.quickEq(_op, "!")) {
-            Boolean arg_ = ((BooleanStruct)_args[0]).getInstance();
-            _res.setResult(new BooleanStruct(!arg_));
-            return;
-        }
-        if (StringList.quickEq(_op, "!=")) {
-            _res.setResult(new BooleanStruct(!_args[0].sameReference(_args[1])));
-            return;
-        }
-        if (StringList.quickEq(_op, "==")) {
-            _res.setResult(new BooleanStruct(_args[0].sameReference(_args[1])));
-            return;
-        }
-        String op_ = _op;
-        if (op_.endsWith("=")) {
-            op_ = op_.substring(0, op_.length() - 1);
-        }
+        String op_ = _op.substring(0, _op.length() - 1);
         if (StringList.quickEq(op_, "+")) {
             _res.setResult(calculateSum((NumberStruct)_args[0], (NumberStruct)_args[1], _cont, _order));
             return;
@@ -139,11 +99,14 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String intType_ = lgNames_.getAliasInteger();
         String longType_ = lgNames_.getAliasLong();
         String floatType_ = lgNames_.getAliasFloat();
-        String doubleType_ = lgNames_.getAliasDouble();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                _res.setResult(new BooleanStruct(Boolean.parseBoolean(one_)));
+                if (StringList.quickEq(one_, lgNames_.getTrueString())) {
+                    _res.setResult(new BooleanStruct(true));
+                } else {
+                    _res.setResult(new BooleanStruct(false));
+                }
             } else {
                 Boolean one_ = ((BooleanStruct) _args[0]).getInstance();
                 _res.setResult(new BooleanStruct(one_));
@@ -153,118 +116,42 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setResult(new CharStruct(one_));
         } else if (StringList.quickEq(type_, byteType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                Long lg_;
-                int radix_ = DEFAULT_RADIX;
-                if (list_.size() != 1) {
-                    radix_ = ((NumberStruct) _args[1]).getInt();
-                }
-                lg_ = LgNames.parseLong(one_, radix_);
-                if (lg_ == null || lg_ < Byte.MIN_VALUE || lg_ > Byte.MAX_VALUE) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new ByteStruct(lg_.byteValue()));
-                }
+                parseByte(_res,list_,lgNames_,_args);
             } else {
                 Byte one_ = ((NumberStruct) _args[0]).getByte();
                 _res.setResult(new ByteStruct(one_));
             }
         } else if (StringList.quickEq(type_, shortType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                Long lg_;
-                int radix_ = DEFAULT_RADIX;
-                if (list_.size() != 1) {
-                    radix_ = ((NumberStruct) _args[1]).getInt();
-                }
-                lg_ = LgNames.parseLong(one_, radix_);
-                if (lg_ == null || lg_ < Short.MIN_VALUE || lg_ > Short.MAX_VALUE) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new ShortStruct(lg_.shortValue()));
-                }
+                parseShort(_res,list_,lgNames_,_args);
             } else {
                 Short one_ = ((NumberStruct) _args[0]).getShort();
                 _res.setResult(new ShortStruct(one_));
             }
         } else if (StringList.quickEq(type_, intType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                Long lg_;
-                int radix_ = DEFAULT_RADIX;
-                if (list_.size() != 1) {
-                    radix_ = ((NumberStruct) _args[1]).getInt();
-                }
-                lg_ = LgNames.parseLong(one_, radix_);
-                if (lg_ == null || lg_ < Integer.MIN_VALUE || lg_ > Integer.MAX_VALUE) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new IntStruct(lg_.intValue()));
-                }
+                parseInt(_res,list_,lgNames_,_args);
             } else {
                 Integer one_ = ((NumberStruct) _args[0]).getInt();
                 _res.setResult(new IntStruct(one_));
             }
         } else if (StringList.quickEq(type_, longType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                Long lg_;
-                int radix_ = DEFAULT_RADIX;
-                if (list_.size() != 1) {
-                    radix_ = ((NumberStruct) _args[1]).getInt();
-                }
-                lg_ = LgNames.parseLong(one_, radix_);
-                if (lg_ == null) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new LongStruct(lg_));
-                }
+                parseLong(_res,list_,lgNames_,_args);
             } else {
                 Long one_ = ((NumberStruct) _args[0]).getLong();
                 _res.setResult(new LongStruct(one_));
             }
         } else if (StringList.quickEq(type_, floatType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                NumberInfos infos_ = LgNames.trySplitDouble(one_);
-                boolean valid_ = true;
-                if (infos_ == null) {
-                    valid_ = false;
-                }
-                Double d_ = null;
-                if (valid_) {
-                    d_ = LgNames.parseDouble(infos_);
-                    double abs_ = Math.abs(d_);
-                    if (abs_ > Float.MAX_VALUE) {
-                        valid_ = false;
-                    }
-                }
-                if (!valid_) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new FloatStruct(d_.floatValue()));
-                }
+                parseFloat(_res,lgNames_,_args[0]);
             } else {
                 Float one_ = ((NumberStruct) _args[0]).getFloat();
                 _res.setResult(new FloatStruct(one_));
             }
-        } else if (StringList.quickEq(type_, doubleType_)) {
+        } else {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                boolean valid_ = true;
-                NumberInfos infos_ = LgNames.trySplitDouble(one_);
-                if (infos_ == null) {
-                    valid_ = false;
-                }
-                Double d_ = null;
-                if (valid_) {
-                    d_ = LgNames.parseDouble(infos_);
-                }
-                if (!valid_) {
-                    _res.setError(lgNames_.getAliasNbFormat());
-                } else {
-                    _res.setResult(new DoubleStruct(d_));
-                }
+                parseDouble(_res,lgNames_,_args[0]);
             } else {
                 Double one_ = ((NumberStruct) _args[0]).getDouble();
                 _res.setResult(new DoubleStruct(one_));
@@ -278,32 +165,48 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         LgNames lgNames_ = _cont.getStandards();
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
+        String byteType_ = lgNames_.getAliasByte();
+        String shortType_ = lgNames_.getAliasShort();
+        String intType_ = lgNames_.getAliasInteger();
+        String longType_ = lgNames_.getAliasLong();
+        String floatType_ = lgNames_.getAliasFloat();
+        String doubleType_ = lgNames_.getAliasDouble();
         String nbType_ = lgNames_.getAliasNumber();
-        String stringType_ = lgNames_.getAliasString();
         String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
         if (StringList.quickEq(type_, booleanType_)) {
-            BooleanStruct instance_ = (BooleanStruct) _struct;
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
+                BooleanStruct instance_ = (BooleanStruct) _struct;
                 _res.setResult(new BooleanStruct(instance_.getInstance()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                 _res.setResult(new IntStruct(ComparatorBoolean.cmp(((BooleanStruct) _args[0]).getInstance(),((BooleanStruct) _args[1]).getInstance())));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                BooleanStruct instance_ = (BooleanStruct) _struct;
                 _res.setResult(new IntStruct(ComparatorBoolean.cmp(instance_.getInstance(),((BooleanStruct) _args[0]).getInstance())));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+                BooleanStruct instance_ = (BooleanStruct) _struct;
                 _res.setResult(new BooleanStruct(instance_.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
-                _res.setResult(new BooleanStruct(Boolean.parseBoolean(((CharSequenceStruct) _args[0]).getInstance().toString())));
+                if (StringList.quickEq(((CharSequenceStruct) _args[0]).getInstance().toString(),lgNames_.getTrueString())) {
+                    _res.setResult(new BooleanStruct(true));
+                } else {
+                    _res.setResult(new BooleanStruct(false));
+                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                 if (!list_.isEmpty()) {
-                    _res.setResult(new StringStruct(Boolean.toString(((BooleanStruct) _args[0]).getInstance())));
+                    _res.setResult(((BooleanStruct) _args[0]).getDisplayedString(_cont));
                 } else {
-                    _res.setResult(new StringStruct(Boolean.toString(instance_.getInstance())));
+                    BooleanStruct instance_ = (BooleanStruct) _struct;
+                    _res.setResult(instance_.getDisplayedString(_cont));
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasValueOf())) {
+            } else {
                 if (StringList.quickEq(list_.first(), booleanPrimType_)) {
-                    _res.setResult(new BooleanStruct(((BooleanStruct) _args[0]).getInstance()));
+                    _res.setResult(_args[0]);
                 } else {
-                    _res.setResult(new BooleanStruct(Boolean.valueOf(((CharSequenceStruct) _args[0]).getInstance().toString())));
+                    if (StringList.quickEq(((CharSequenceStruct) _args[0]).getInstance().toString(),lgNames_.getTrueString())) {
+                        _res.setResult(new BooleanStruct(true));
+                    } else {
+                        _res.setResult(new BooleanStruct(false));
+                    }
                 }
             }
         } else if (StringList.quickEq(type_, charType_)) {
@@ -386,6 +289,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     _res.setResult(new CharStruct(Character.toUpperCase(one_)));
                     return;
                 }
+                Character one_ = ((CharStruct) _args[0]).getChar();
+                _res.setResult(new StringStruct(Character.toString(one_)));
+                return;
             }
             CharStruct ch_ = (CharStruct) _struct;
             if (StringList.quickEq(name_, lgNames_.getAliasCharValue())) {
@@ -393,161 +299,68 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 return;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                if (!(_args[0] instanceof CharStruct)) {
+                    _res.setError(lgNames_.getAliasNullPe());
+                    return;
+                }
                 Character one_ = ch_.getChar();
                 Character two_ = ((CharStruct) _args[0]).getChar();
                 _res.setResult(new IntStruct(one_.compareTo(two_)));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                Character one_ = ch_.getChar();
-                Character two_ = ((CharStruct) _args[0]).getChar();
-                _res.setResult(new BooleanStruct(one_.charValue() == two_.charValue()));
-                return;
-            }
-            if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                if (list_.isEmpty()) {
-                    Character one_ = ch_.getChar();
-                    _res.setResult(new StringStruct(Character.toString(one_)));
-                } else {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
-                    _res.setResult(new StringStruct(Character.toString(one_)));
-                }
-                return;
-            }
+            Character one_ = ch_.getChar();
+            _res.setResult(new StringStruct(Character.toString(one_)));
             return;
         }
-        if (PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(type_), lgNames_)) {
-            NumberStruct instance_ = (NumberStruct) _struct;
+        if (StringList.quickEq(type_, byteType_)
+                || StringList.quickEq(type_, shortType_)
+                || StringList.quickEq(type_, intType_)
+                || StringList.quickEq(type_, longType_)
+                || StringList.quickEq(type_, floatType_)
+                || StringList.quickEq(type_, doubleType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                 Number one_ = ((NumberStruct) _args[0]).getInstance();
                 Number two_ = ((NumberStruct) _args[1]).getInstance();
                 _res.setResult(new IntStruct(Numbers.compare(one_, two_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 Number two_ = ((NumberStruct) _args[0]).getInstance();
                 _res.setResult(new IntStruct(Numbers.compare(one_, two_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                Number one_ = instance_.getInstance();
-                Number two_ = ((NumberStruct) _args[0]).getInstance();
-                _res.setResult(new BooleanStruct(Numbers.eq(one_, two_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new ByteStruct(one_.byteValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new ShortStruct(one_.shortValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new IntStruct(one_.intValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new LongStruct(one_.longValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new FloatStruct(one_.floatValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new DoubleStruct(one_.doubleValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToString()) && list_.isEmpty()) {
-                Number one_ = instance_.getInstance();
-                _res.setResult(new StringStruct(Numbers.toString(one_)));
             } else {
-                String byteType_ = lgNames_.getAliasByte();
-                String shortType_ = lgNames_.getAliasShort();
-                String intType_ = lgNames_.getAliasInteger();
-                String longType_ = lgNames_.getAliasLong();
-                String floatType_ = lgNames_.getAliasFloat();
                 if (StringList.quickEq(type_, byteType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Byte one_ = ((NumberStruct) _args[0]).getByte();
-                        _res.setResult(new ByteStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                         Byte one_ = ((NumberStruct) _args[0]).getByte();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else{
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        Long lg_;
-                        int radix_ = DEFAULT_RADIX;
-                        if (list_.size() != 1) {
-                            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
-                        }
-                        lg_ = LgNames.parseLong(one_, radix_);
-                        if (lg_ == null || lg_ < Byte.MIN_VALUE || lg_ > Byte.MAX_VALUE) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new ByteStruct(lg_.byteValue()));
-                        }
+                        parseByte(_res, list_, lgNames_, _args);
                     }
                 } else if (StringList.quickEq(type_, shortType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Short one_ = ((NumberStruct) _args[0]).getShort();
-                        _res.setResult(new ShortStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                         Short one_ = ((NumberStruct) _args[0]).getShort();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else {
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        Long lg_;
-                        int radix_ = DEFAULT_RADIX;
-                        if (list_.size() != 1) {
-                            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
-                        }
-                        lg_ = LgNames.parseLong(one_, radix_);
-                        if (lg_ == null || lg_ < Short.MIN_VALUE || lg_ > Short.MAX_VALUE) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new ShortStruct(lg_.shortValue()));
-                        }
+                        parseShort(_res, list_, lgNames_, _args);
                     }
                 } else if (StringList.quickEq(type_, intType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Integer one_ = ((NumberStruct) _args[0]).getInstance().intValue();
-                        _res.setResult(new IntStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                         Integer one_ = ((NumberStruct) _args[0]).getInstance().intValue();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else {
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        Long lg_;
-                        int radix_ = DEFAULT_RADIX;
-                        if (list_.size() != 1) {
-                            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
-                        }
-                        lg_ = LgNames.parseLong(one_, radix_);
-                        if (lg_ == null || lg_ < Integer.MIN_VALUE || lg_ > Integer.MAX_VALUE) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new IntStruct(lg_.intValue()));
-                        }
+                        parseInt(_res, list_, lgNames_, _args);
                     }
                 } else if (StringList.quickEq(type_, longType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Long one_ = ((NumberStruct) _args[0]).getInstance().longValue();
-                        _res.setResult(new LongStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                         Long one_ = ((NumberStruct) _args[0]).getInstance().longValue();
                         _res.setResult(new StringStruct(Long.toString(one_)));
                     } else {
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        Long lg_;
-                        int radix_ = DEFAULT_RADIX;
-                        if (list_.size() != 1) {
-                            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
-                        }
-                        lg_ = LgNames.parseLong(one_, radix_);
-                        if (lg_ == null) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new LongStruct(lg_));
-                        }
+                        parseLong(_res, list_, lgNames_, _args);
                     }
                 } else if (StringList.quickEq(type_, floatType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Float one_ = ((NumberStruct) _args[0]).getFloat();
-                        _res.setResult(new FloatStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
                         Float one_;
                         if (list_.isEmpty()) {
+                            NumberStruct instance_ = (NumberStruct) _struct;
                             one_ = instance_.getFloat();
                         } else {
                             one_ = ((NumberStruct) _args[0]).getFloat();
@@ -556,6 +369,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                         Float one_;
                         if (list_.isEmpty()) {
+                            NumberStruct instance_ = (NumberStruct) _struct;
                             one_ = instance_.getFloat();
                         } else {
                             one_ = ((NumberStruct) _args[0]).getFloat();
@@ -565,33 +379,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                         Float one_ = ((NumberStruct) _args[0]).getFloat();
                         _res.setResult(new StringStruct(Float.toString(one_)));
                     } else {
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        boolean valid_ = true;
-                        NumberInfos infos_ = LgNames.trySplitDouble(one_);
-                        if (infos_ == null) {
-                            valid_ = false;
-                        }
-                        Double d_ = null;
-                        if (valid_) {
-                            d_ = LgNames.parseDouble(infos_);
-                            double abs_ = Math.abs(d_);
-                            if (abs_ > Float.MAX_VALUE) {
-                                valid_ = false;
-                            }
-                        }
-                        if (!valid_) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new FloatStruct(d_.floatValue()));
-                        }
+                        parseFloat(_res, lgNames_, _args[0]);
                     }
                 } else {
-                    if (StringList.quickEq(name_, lgNames_.getAliasValueOf()) && !StringList.quickEq(list_.first(), stringType_)) {
-                        Double one_ = ((NumberStruct) _args[0]).getDouble();
-                        _res.setResult(new DoubleStruct(one_));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                    if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
                         Double one_;
                         if (list_.isEmpty()) {
+                            NumberStruct instance_ = (NumberStruct) _struct;
                             one_ = instance_.getDouble();
                         } else {
                             one_ = ((NumberStruct) _args[0]).getDouble();
@@ -600,6 +394,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                         Double one_;
                         if (list_.isEmpty()) {
+                            NumberStruct instance_ = (NumberStruct) _struct;
                             one_ = instance_.getDouble();
                         } else {
                             one_ = ((NumberStruct) _args[0]).getDouble();
@@ -609,71 +404,176 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                         Double one_ = ((NumberStruct) _args[0]).getDouble();
                         _res.setResult(new StringStruct(Double.toString(one_)));
                     } else {
-                        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
-                        boolean valid_ = true;
-                        NumberInfos infos_ = LgNames.trySplitDouble(one_);
-                        if (infos_ == null) {
-                            valid_ = false;
-                        }
-                        Double d_ = null;
-                        if (valid_) {
-                            d_ = LgNames.parseDouble(infos_);
-                        }
-                        if (!valid_) {
-                            _res.setError(lgNames_.getAliasNbFormat());
-                        } else {
-                            _res.setResult(new DoubleStruct(d_));
-                        }
+                        parseDouble(_res, lgNames_, _args[0]);
                     }
                 }
             }
             return;
         }
         if (StringList.quickEq(type_, nbType_)) {
-            NumberStruct instance_ = (NumberStruct) _struct;
             if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                if (!(_args[0] instanceof  NumberStruct)) {
+                    _res.setError(lgNames_.getAliasNullPe());
+                    return;
+                }
+                if (!(_args[1] instanceof  NumberStruct)) {
+                    _res.setError(lgNames_.getAliasNullPe());
+                    return;
+                }
                 Number one_ = ((NumberStruct) _args[0]).getInstance();
                 Number two_ = ((NumberStruct) _args[1]).getInstance();
-                _res.setResult(new IntStruct(Numbers.compare(one_, two_)));
+                _res.setResult(new IntStruct(Numbers.compareGene(one_, two_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
+                if (!(_args[0] instanceof  NumberStruct)) {
+                    _res.setError(lgNames_.getAliasNullPe());
+                    return;
+                }
                 Number two_ = ((NumberStruct) _args[0]).getInstance();
-                _res.setResult(new IntStruct(Numbers.compare(one_, two_)));
+                _res.setResult(new IntStruct(Numbers.compareGene(one_, two_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                Number one_ = instance_.getInstance();
-                Number two_ = ((NumberStruct) _args[0]).getInstance();
-                _res.setResult(new BooleanStruct(Numbers.eq(one_, two_)));
+                _res.setResult(new BooleanStruct(_struct.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new ByteStruct(one_.byteValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new ShortStruct(one_.shortValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new IntStruct(one_.intValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new LongStruct(one_.longValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new FloatStruct(one_.floatValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new DoubleStruct(one_.doubleValue()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToString()) && list_.isEmpty()) {
+            } else if (list_.isEmpty()) {
+                NumberStruct instance_ = (NumberStruct) _struct;
                 Number one_ = instance_.getInstance();
                 _res.setResult(new StringStruct(Numbers.toString(one_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                Number one_ = ((NumberStruct) _args[0]).getInstance();
-                if (one_ == null) {
-                    _res.setResult(new StringStruct(""));
-                } else {
-                    _res.setResult(new StringStruct(Numbers.toString(one_)));
-                }
+            } else {
+                _res.setResult(((DisplayableStruct)_args[0]).getDisplayedString(_cont));
             }
         }
     }
+
+    private static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg) {
+        String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
+        boolean valid_ = true;
+        NumberInfos infos_ = LgNames.trySplitDouble(one_);
+        if (infos_ == null) {
+            valid_ = false;
+        }
+        Double d_ = null;
+        if (valid_) {
+            d_ = LgNames.parseDouble(infos_);
+        }
+        if (!valid_) {
+            _res.setErrorMessage(one_);
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new DoubleStruct(d_));
+        }
+    }
+
+    private static void parseFloat(ResultErrorStd _res, LgNames _stds, Struct _arg) {
+        String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
+        boolean valid_ = true;
+        NumberInfos infos_ = LgNames.trySplitDouble(one_);
+        if (infos_ == null) {
+            valid_ = false;
+        }
+        Double d_ = null;
+        if (valid_) {
+            d_ = LgNames.parseDouble(infos_);
+            double abs_ = Math.abs(d_);
+            if (abs_ > Float.MAX_VALUE) {
+                valid_ = false;
+            }
+        }
+        if (!valid_) {
+            _res.setErrorMessage(one_);
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new FloatStruct(d_.floatValue()));
+        }
+    }
+
+    private static void parseLong(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        Long lg_;
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
+        }
+        lg_ = LgNames.parseLong(one_, radix_);
+        if (lg_ == null) {
+            _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new LongStruct(lg_));
+        }
+    }
+
+    private static void parseInt(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        Long lg_;
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
+        }
+        lg_ = LgNames.parseLong(one_, radix_);
+        if (lg_ == null || lg_ < Integer.MIN_VALUE || lg_ > Integer.MAX_VALUE) {
+            _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new IntStruct(lg_.intValue()));
+        }
+    }
+
+    private static void parseShort(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        Long lg_;
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
+        }
+        lg_ = LgNames.parseLong(one_, radix_);
+        if (lg_ == null || lg_ < Short.MIN_VALUE || lg_ > Short.MAX_VALUE) {
+            _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new ShortStruct(lg_.shortValue()));
+        }
+    }
+
+    private static void parseByte(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        Long lg_;
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
+        }
+        lg_ = LgNames.parseLong(one_, radix_);
+        if (lg_ == null || lg_ < Byte.MIN_VALUE || lg_ > Byte.MAX_VALUE) {
+            _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
+            _res.setError(_stds.getAliasNbFormat());
+        } else {
+            _res.setResult(new ByteStruct(lg_.byteValue()));
+        }
+    }
+
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         Number a_ = ((NumberStruct) _a).getInstance();
         Number b_ = ((NumberStruct) _b).getInstance();
