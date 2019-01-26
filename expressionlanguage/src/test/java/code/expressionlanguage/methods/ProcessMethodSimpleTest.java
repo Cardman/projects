@@ -884,6 +884,30 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertEq(xml_.toString(), ret_.getString());
     }
     @Test
+    public void calculateArgument47Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.readContent(\"\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isNull());
+    }
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

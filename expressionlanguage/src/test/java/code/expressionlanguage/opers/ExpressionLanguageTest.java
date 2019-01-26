@@ -4398,6 +4398,258 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$new Boolean(\"false\")");
         assertTrue(arg_.isFalse());
     }
+
+    @Test
+    public void processEl860Test() {
+        Struct arg_ = directCalculateExc("$math.mod(1,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl861Test() {
+        Struct arg_ = directCalculateExc("$math.mod(1l,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl862Test() {
+        Struct arg_ = directCalculateExc("$math.quot(1,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl863Test() {
+        Struct arg_ = directCalculateExc("$math.quot(1l,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl864Test() {
+        Struct arg_ = directCalculateExc("$math.binMod(1,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl865Test() {
+        Struct arg_ = directCalculateExc("$math.binQuot(1,0)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException",err_.getClassName());
+    }
+
+    @Test
+    public void processEl866Test() {
+        Argument arg_ = directCalculate("$math.binMod(1,1)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl867Test() {
+        Argument arg_ = directCalculate("$math.binQuot(1,1)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl868Test() {
+        Argument arg_ = directCalculate("$math.plus(1)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl869Test() {
+        Argument arg_ = directCalculate("$math.plus(1,2)");
+        assertEq(3,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl870Test() {
+        Argument arg_ = directCalculate("$math.minus(1)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl871Test() {
+        Argument arg_ = directCalculate("$math.minus(1,2)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl872Test() {
+        Argument arg_ = directCalculate("$math.minus(1l)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl873Test() {
+        Argument arg_ = directCalculate("$math.minus(($float)1)");
+        assertEq(-1.0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl874Test() {
+        Argument arg_ = directCalculate("$math.minus(($double)1)");
+        assertEq(-1.0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl875Test() {
+        Argument arg_ = directCalculate("$math.mult(3,2)");
+        assertEq(6,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl876Test() {
+        Argument arg_ = directCalculate("$math.negBin(0)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl877Test() {
+        Argument arg_ = directCalculate("$math.negBin(0l)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl878Test() {
+        Argument arg_ = directCalculate("$math.negBin(-1)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl879Test() {
+        Argument arg_ = directCalculate("$math.negBin(-1l)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl880Test() {
+        Argument arg_ = directCalculate("$math.and(1,2)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl881Test() {
+        Argument arg_ = directCalculate("$math.or(1,2)");
+        assertEq(3,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl882Test() {
+        Argument arg_ = directCalculate("$math.xor(5,3)");
+        assertEq(6,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl883Test() {
+        Argument arg_ = directCalculate("$math.shiftLeft(1,2)");
+        assertEq(4,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl884Test() {
+        Argument arg_ = directCalculate("$math.shiftRight(4,2)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl885Test() {
+        Argument arg_ = directCalculate("$math.bitShiftLeft(1,2)");
+        assertEq(4,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl886Test() {
+        Argument arg_ = directCalculate("$math.bitShiftRight(4,2)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl887Test() {
+        Argument arg_ = directCalculate("$math.rotateLeft(1,2)");
+        assertEq(4,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl888Test() {
+        Argument arg_ = directCalculate("$math.rotateRight(4,2)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl889Test() {
+        Argument arg_ = directCalculate("$math.lt(1,2)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl890Test() {
+        Argument arg_ = directCalculate("$math.lt(1,1)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl891Test() {
+        Argument arg_ = directCalculate("$math.gt(2,1)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl892Test() {
+        Argument arg_ = directCalculate("$math.gt(1,1)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl893Test() {
+        Argument arg_ = directCalculate("$math.le(1,2)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl894Test() {
+        Argument arg_ = directCalculate("$math.le(1,1)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl895Test() {
+        Argument arg_ = directCalculate("$math.ge(2,1)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl896Test() {
+        Argument arg_ = directCalculate("$math.ge(1,1)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl897Test() {
+        Argument arg_ = directCalculate("$math.le(2,1)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl898Test() {
+        Argument arg_ = directCalculate("$math.ge(1,2)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl899Test() {
+        Argument arg_ = directCalculate("$math.neg($true)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl900Test() {
+        Argument arg_ = directCalculate("$math.neg($false)");
+        assertTrue(arg_.isTrue());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

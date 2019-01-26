@@ -205,7 +205,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null) {
+        if (str_ != null && ElUtil.isSimpleStruct(str_)) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
             setSimpleArgumentAna(arg_,_conf);

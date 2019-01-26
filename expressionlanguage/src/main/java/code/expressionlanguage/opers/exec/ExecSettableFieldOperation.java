@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
@@ -92,7 +93,7 @@ public final class ExecSettableFieldOperation extends
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null) {
+        if (str_ != null && ElUtil.isSimpleStruct(str_)) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
             setSimpleArgumentAna(arg_,_conf);

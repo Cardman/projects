@@ -1119,7 +1119,7 @@ public abstract class LgNames {
             if (expNbLong_ == 0) {
                 double long_;
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
-                    return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
+                    return processBigNumbers(int_, positive_);
                 }
                 long_ = parseQuickLongTen(int_.toString());
                 if (!positive_) {
@@ -1160,7 +1160,7 @@ public abstract class LgNames {
                         number_.append("0");
                     }
                     if (number_.length() > MAX_DIGITS_DOUBLE) {
-                        return processBigNumbers(number_, positive_, MAX_DIGITS_DOUBLE);
+                        return processBigNumbers(number_, positive_);
                     }
                     double long_ = parseQuickLongTen(number_.toString());
                     if (!positive_) {
@@ -1229,11 +1229,11 @@ public abstract class LgNames {
                     numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
-            return processBigNumbers(numberInt_, positive_, MAX_DIGITS_DOUBLE);
+            return processBigNumbers(numberInt_, positive_);
         }
         double longValue_ = parseQuickLongTen(numberInt_.toString());
         StringBuilder decCopy_ = new StringBuilder();
-        int nbLeadingZeros_ = 0;
+        int nbLeadingZeros_;
         int index_ = 0;
         while (index_ < numberDec_.length()) {
             if (numberDec_.charAt(index_) != '0') {
@@ -1261,10 +1261,10 @@ public abstract class LgNames {
         }
         return longValue_ + decValue_ / power_;
     }
-    private static Double processBigNumbers(StringBuilder _nb, boolean _positive, int _max) {
-        Long long_ = parseQuickLongTen(_nb.substring(0, _max + 1));
+    private static Double processBigNumbers(StringBuilder _nb, boolean _positive) {
+        Long long_ = parseQuickLongTen(_nb.substring(0, (int) LgNames.MAX_DIGITS_DOUBLE + 1));
         double power_ = 1;
-        int logDec_ = _nb.length() - _max - 1;
+        int logDec_ = _nb.length() - (int) LgNames.MAX_DIGITS_DOUBLE - 1;
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
         }

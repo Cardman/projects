@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -741,6 +739,80 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertEq("12", getString(cont_,"pkg.Ex","inst"));
     }
+    @Test
+    public void calculate40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst.setOldString(\"\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }@Test
+    public void calculate41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst.setNewString(\"\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+    @Test
+    public void calculate42Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst.setOldString(\"12\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq("12", getReplOldString(cont_,"pkg.Ex","inst"));
+    }@Test
+    public void calculate43Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst.setNewString(\"12\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq("12", getReplNewString(cont_,"pkg.Ex","inst"));
+    }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)str_).getInstance();
@@ -748,5 +820,13 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     private String getString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((CharSequenceStruct)str_).getInstance().toString();
+    }
+    private String getReplOldString(ContextEl _cont,String _className, String _fieldName) {
+        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        return ((ReplacementStruct)str_).getInstance().getOldString();
+    }
+    private String getReplNewString(ContextEl _cont,String _className, String _fieldName) {
+        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        return ((ReplacementStruct)str_).getInstance().getNewString();
     }
 }

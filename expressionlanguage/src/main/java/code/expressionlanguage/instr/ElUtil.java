@@ -45,7 +45,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -525,6 +525,21 @@ public final class ElUtil {
             }
             ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
+    }
+    public static boolean isSimpleStruct(Struct _str) {
+        if (_str == NullStruct.NULL_VALUE) {
+            return true;
+        }
+        if (_str instanceof NumberStruct) {
+            return true;
+        }
+        if (_str instanceof StringStruct) {
+            return true;
+        }
+        if (_str instanceof BooleanStruct) {
+            return true;
+        }
+        return false;
     }
     private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
