@@ -813,6 +813,40 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertEq("12", getReplNewString(cont_,"pkg.Ex","inst"));
     }
+    @Test
+    public void calculate44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst.setOldString(inst.getOldString()+\"12\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq("12", getReplOldString(cont_,"pkg.Ex","inst"));
+    }@Test
+    public void calculate45Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst.setNewString(inst.getNewString()+\"12\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq("12", getReplNewString(cont_,"pkg.Ex","inst"));
+    }
+
     private Number getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)str_).getInstance();

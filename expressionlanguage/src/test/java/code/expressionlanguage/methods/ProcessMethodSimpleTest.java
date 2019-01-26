@@ -908,6 +908,86 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(ret_.isNull());
     }
     @Test
+    public void calculate48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("  inst;.setOldString(inst;.getOldString()+\"12\"):\n");
+        xml_.append("  $return inst;.getOldString():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("12", ret_.getString());
+    }
+    @Test
+    public void calculate49Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("  inst;.setNewString(inst;.getNewString()+\"12\"):\n");
+        xml_.append("  $return inst;.getNewString():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("12", ret_.getString());
+    }
+    @Test
+    public void calculate50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("  inst;.setOldString($null):\n");
+        xml_.append("  $return inst;.getOldString():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isNull());
+    }
+    @Test
+    public void calculate51Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String meth(){\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
+        xml_.append("  inst;.setNewString($null):\n");
+        xml_.append("  $return inst;.getNewString():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isNull());
+    }
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
