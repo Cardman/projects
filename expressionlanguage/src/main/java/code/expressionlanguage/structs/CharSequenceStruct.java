@@ -33,59 +33,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         return true;
     }
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
-        if (!_method.getConstraints().isStaticMethod()) {
-            ((CharSequenceStruct)_struct).calculate(_cont, _res, _method, _args);
-            return;
-        }
-        String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getStandards();
-        if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-            Struct arg_ = _args[0];
-            if (!(arg_ instanceof CharSequenceStruct)) {
-                String nullPe_ = lgNames_.getAliasNullPe();
-                _res.setError(nullPe_);
-                return;
-            }
-            CharSequenceStruct first_ = (CharSequenceStruct) arg_;
-            first_.compareTo(_args[1], lgNames_, _res);
-            return;
-        }
-        Struct arg_ = _args[0];
-        if (list_.size() == 1) {
-            if (arg_ instanceof DisplayableStruct) {
-                _res.setResult(((DisplayableStruct)arg_).getDisplayedString(_cont));
-                return;
-            }
-            if (!(arg_ instanceof ArrayStruct)) {
-                String nullPe_ = lgNames_.getAliasNullPe();
-                _res.setError(nullPe_);
-                return;
-            }
-            ArrayStruct chArr_ = (ArrayStruct) arg_;
-            Struct[] argArr_ = chArr_.getInstance();
-            int len_ = argArr_.length;
-            char[] arr_ = new char[len_];
-            for (int i = 0; i < len_; i++) {
-                arr_[i] = ((CharStruct)argArr_[i]).getChar();
-            }
-            _res.setResult(new StringStruct(String.valueOf(arr_)));
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) arg_;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
-        }
-        int one_ = ((NumberStruct)_args[0]).getInstance().intValue();
-        int two_ = ((NumberStruct)_args[1]).getInstance().intValue();
-        if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
-            _res.setError(lgNames_.getAliasBadIndex());
-            return;
-        }
-        _res.setResult(new StringStruct(String.valueOf(arr_,one_,two_)));
+        ((CharSequenceStruct)_struct).calculate(_cont, _res, _method, _args);
     }
     private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();

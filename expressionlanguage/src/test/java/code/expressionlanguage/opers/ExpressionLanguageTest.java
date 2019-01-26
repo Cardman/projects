@@ -3329,6 +3329,50 @@ public class ExpressionLanguageTest {
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
     }
+    @Test
+    public void processE687Test() {
+        Argument arg_ = directCalculate("$new String($new $char[]{' '})");
+        assertEq(" ", arg_.getString());
+    }
+    @Test
+    public void processEl688Test() {
+        Struct arg_ = directCalculateExc("$new String(($char[])$null,-1,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl689Test() {
+        Struct arg_ = directCalculateExc("$new String(($byte[])$null,-1,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+    @Test
+    public void processEl690Test() {
+        Argument arg_ = directCalculate("$new String($new $byte[]{($byte)32},0,1)");
+        assertEq(" ", arg_.getString());
+    }
+    @Test
+    public void processEl691Test() {
+        Argument arg_ = directCalculate("$new String($new $char[]{($char)' '},0,1)");
+        assertEq(" ", arg_.getString());
+    }
+    @Test
+    public void processEl692Test() {
+        Argument arg_ = directCalculate("\"helloword\".equalsIgnoreCase($null)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl693Test() {
+        Argument arg_ = directCalculate("\"my_string\".charAt(0)");
+        assertEq('m',arg_.getInt());
+    }
+
+    @Test
+    public void processEl694Test() {
+        Argument arg_ = directCalculate("$new StringBuilder(\"my_string\").charAt(0)");
+        assertEq('m',arg_.getInt());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

@@ -127,9 +127,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             one_.setLength((NumberStruct) _args[0], _cont, _res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasTrimToSize())) {
-            one_.trimToSize(_cont, _res);
-        }
+        one_.trimToSize(_cont, _res);
     }
     private void ensureCapacity(NumberStruct _minimumCapacity, ExecutableCode _an, ResultErrorStd _out) {
         ContextEl cont_ = _an.getContextEl();

@@ -463,7 +463,7 @@ public final class AliasCharSequence {
         return result_;
     }
 
-    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = LgNames.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
@@ -472,56 +472,6 @@ public final class AliasCharSequence {
         String charSequenceType_ = lgNames_.getAliasCharSequence();
         if (StringList.quickEq(type_, stringType_)) {
             StringStruct.calculate(_cont, result_, _method, _struct, args_);
-            if (result_.getResult() != null) {
-                return result_;
-            }
-            if (result_.getError() != null) {
-                return result_;
-            }
-            String name_ = _method.getConstraints().getName();
-            String one_ = ((StringStruct)_struct).getInstance();
-            if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
-                Struct two_ = args_[0];
-                if (!(two_ instanceof StringStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    StringStruct t_ = (StringStruct) two_;
-                    result_.setResult(new IntStruct(one_.compareToIgnoreCase(t_.getInstance())));
-                }
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.getAliasEqualsIgnoreCase())) {
-                Struct two_ = args_[0];
-                if (!(two_ instanceof StringStruct)) {
-                    result_.setResult(new BooleanStruct(false));
-                } else {
-                    StringStruct t_ = (StringStruct) two_;
-                    result_.setResult(new BooleanStruct(one_.equalsIgnoreCase(t_.getInstance())));
-                }
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-                Boolean two_ = ((BooleanStruct)args_[0]).getInstance();
-                int three_ = ((NumberStruct)args_[1]).getInstance().intValue();
-                Struct str_ = args_[2];
-                int five_ = ((NumberStruct)args_[3]).getInstance().intValue();
-                int six_ = ((NumberStruct)args_[4]).getInstance().intValue();
-                if (!(str_ instanceof CharSequenceStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    String four_ = ((CharSequenceStruct)str_).getInstance().toString();
-                    result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_, six_)));
-                }
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
-                result_.setResult(new StringStruct(StringList.toLowerCase(one_)));
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
-                result_.setResult(new StringStruct(StringList.toUpperCase(one_)));
-                return result_;
-            }
             return result_;
         }
         if (StringList.quickEq(type_, charSequenceType_)) {

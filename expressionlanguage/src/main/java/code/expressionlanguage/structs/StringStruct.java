@@ -232,84 +232,8 @@ public final class StringStruct extends CharSequenceStruct {
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         String stringType_ = lgNames_.getAliasString();
-        if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
-            length(_res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasIsEmpty())) {
-            isEmpty(_res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasCharAt())) {
-            charAt(_args[0], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasGetBytes())) {
-            getBytes(lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-            compareTo(_args[0], lgNames_, _res);
-            return;
-        }
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
             regionMatches((BooleanStruct) _args[0],(NumberStruct)_args[1], _args[2], (NumberStruct)_args[3], (NumberStruct)_args[4], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasStartsWith())) {
-            if (list_.size() == 1) {
-                startsWith(_args[0], lgNames_, _res);
-                return;
-            }
-            startsWith(_args[0], (NumberStruct)_args[1], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasEndsWith())) {
-            endsWith(_args[0], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasIndexOf())) {
-            if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
-                    indexOfString(_args[0], lgNames_, _res);
-                    return;
-                }
-                indexOf(_args[0], _res);
-                return;
-            }
-            if (StringList.quickEq(list_.first(), stringType_)) {
-                indexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
-                return;
-            }
-            indexOf(_args[0], _args[1], _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasContains())) {
-            contains(_args[0], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasLastIndexOf())) {
-            if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
-                    lastIndexOfString(_args[0], lgNames_, _res);
-                    return;
-                }
-                lastIndexOf(_args[0], _res);
-                return;
-            }
-            if (StringList.quickEq(list_.first(), stringType_)) {
-                lastIndexOfString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
-                return;
-            }
-            lastIndexOf(_args[0], _args[1], _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasSubstring()) || StringList.quickEq(name_, lgNames_.getAliasSubSequence())) {
-            if (list_.size() == 1) {
-                substring((NumberStruct) _args[0], lgNames_, _res);
-                return;
-            }
-            substring((NumberStruct) _args[0], (NumberStruct) _args[1], lgNames_, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
@@ -320,83 +244,38 @@ public final class StringStruct extends CharSequenceStruct {
             replace((CharStruct)_args[0], (CharStruct)_args[1], _res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasSplit())) {
-            if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringType_)) {
-                    splitSingleString(_args[0], lgNames_, _res);
-                    return;
-                }
-                splitSingleChar((CharStruct)_args[0], lgNames_, _res);
-                return;
-            }
-            if (StringList.quickEq(list_.first(), stringType_)) {
-                splitSingleString(_args[0], (NumberStruct) _args[1], lgNames_, _res);
-                return;
-            }
-            splitSingleChar((CharStruct)_args[0], (NumberStruct) _args[1], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasTrim())) {
-            trim(_res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasToCharArray())) {
-            toCharArray(lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasSplitStrings())) {
-            if (list_.size() == 1) {
-                splitStrings(_args[0], lgNames_, _res);
-                return;
-            }
-            splitStrings((NumberStruct) _args[0], _args[1], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasSplitChars())) {
-            splitChars(_args[0], lgNames_, _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-            eq(_args[0], _res);
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasFormat())) {
-            format(_args[0], lgNames_, _res);
-            return;
-        }
         if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
             replaceMultiple(_args[0], lgNames_, _res);
-        }
-    }
-    private void length(ResultErrorStd _res) {
-        _res.setResult(new IntStruct(instance.length()));
-    }
-
-    private void isEmpty(ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(instance.isEmpty()));
-    }
-
-    private void charAt(Struct _index, LgNames _stds, ResultErrorStd _res) {
-        NumberStruct nb_ = (NumberStruct)_index;
-        int ind_ = nb_.getInstance().intValue();
-        String badIndex_ = _stds.getAliasBadIndex();
-        if (ind_ < 0 || ind_ >= instance.length()) {
-            _res.setError(badIndex_);
             return;
         }
-        _res.setResult(new CharStruct(instance.charAt(ind_)));
-    }
-
-    private void getBytes(LgNames _stds, ResultErrorStd _res) {
-        String bytePrim_ = _stds.getAliasPrimByte();
-        byte[] list_ = StringList.encode(instance);
-        bytePrim_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrim_);
-        int len_ = list_.length;
-        Struct[] strArr_ = new Struct[len_];
-        for (int i = 0; i < len_; i++) {
-            strArr_[i] = new ByteStruct(list_[i]);
+        String one_ = getInstance();
+        if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
+            Struct two_ = _args[0];
+            if (!(two_ instanceof StringStruct)) {
+                _res.setError(lgNames_.getAliasNullPe());
+            } else {
+                StringStruct t_ = (StringStruct) two_;
+                _res.setResult(new IntStruct(one_.compareToIgnoreCase(t_.getInstance())));
+            }
+            return;
         }
-        _res.setResult(new ArrayStruct(strArr_, bytePrim_));
+        if (StringList.quickEq(name_, lgNames_.getAliasEqualsIgnoreCase())) {
+            Struct two_ = _args[0];
+            if (!(two_ instanceof StringStruct)) {
+                _res.setResult(new BooleanStruct(false));
+            } else {
+                StringStruct t_ = (StringStruct) two_;
+                _res.setResult(new BooleanStruct(one_.equalsIgnoreCase(t_.getInstance())));
+            }
+            return;
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
+            _res.setResult(new StringStruct(StringList.toLowerCase(one_)));
+            return;
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
+            _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
+        }
     }
 
     private void compareTo(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {
@@ -424,114 +303,6 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new BooleanStruct(instance.regionMatches(case_,to_, other_.instance, po_, comLen_)));
     }
 
-    private void startsWith(Struct _prefix, LgNames _stds, ResultErrorStd _res) {
-        startsWith(_prefix,new IntStruct(0), _stds, _res);
-    }
-
-    private void endsWith(Struct _suffix, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_suffix instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        StringStruct suffix_ = (StringStruct) _suffix;
-        _res.setResult(new BooleanStruct(instance.endsWith(suffix_.instance)));
-    }
-    private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_prefix instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        StringStruct pref_ = (StringStruct) _prefix;
-        int to_ = _toffset.getInstance().intValue();
-        _res.setResult(new BooleanStruct(instance.startsWith(pref_.instance, to_)));
-    }
-
-    private void indexOf(Struct _ch, ResultErrorStd _res) {
-        indexOf(_ch,new IntStruct(0),_res);
-    }
-
-    private void indexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = (NumberStruct) _ch;
-        int int_ = ch_.getInstance().intValue();
-        NumberStruct index_ = (NumberStruct) _fromIndex;
-        int from_ = index_.getInstance().intValue();
-        _res.setResult(new IntStruct(instance.indexOf(int_, from_)));
-    }
-    //getAliasFormat,replaceMult,getAliasSplit chars
-
-    private void contains(Struct _str, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_str instanceof CharSequenceStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        CharSequenceStruct arg_ = (CharSequenceStruct) _str;
-        _res.setResult(new BooleanStruct(instance.contains(arg_.getInstance())));
-    }
-
-    private void indexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_str instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        StringStruct str_ = (StringStruct) _str;
-        _res.setResult(new IntStruct(instance.indexOf(str_.instance)));
-    }
-
-    private void indexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
-        int from_ = _fromIndex.getInstance().intValue();
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_str instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        StringStruct str_ = (StringStruct) _str;
-        _res.setResult(new IntStruct(instance.indexOf(str_.instance, from_)));
-    }
-
-    private void lastIndexOf(Struct _ch, ResultErrorStd _res) {
-        lastIndexOf(_ch, new IntStruct(instance.length()),_res);
-    }
-
-    private void lastIndexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = (NumberStruct) _ch;
-        int int_ = ch_.getInstance().intValue();
-        NumberStruct index_ = (NumberStruct) _fromIndex;
-        int from_ = index_.getInstance().intValue();
-        _res.setResult(new IntStruct(instance.lastIndexOf(int_, from_)));
-    }
-
-    private void lastIndexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
-        lastIndexOfString(_str,new IntStruct(instance.length()), _stds, _res);
-    }
-
-    private void lastIndexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_str instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        StringStruct str_ = (StringStruct)_str;
-        int from_ = _fromIndex.getInstance().intValue();
-        _res.setResult(new IntStruct(instance.lastIndexOf(str_.instance, from_)));
-    }
-    private void substring(NumberStruct _beginIndex, LgNames _stds, ResultErrorStd _res) {
-        substring(_beginIndex, new IntStruct(instance.length()), _stds, _res);
-    }
-
-    private void substring(NumberStruct _beginIndex, NumberStruct _endIndex, LgNames _stds, ResultErrorStd _res) {
-        int begin_ = _beginIndex.getInstance().intValue();
-        int end_ = _endIndex.getInstance().intValue();
-        if (begin_ < 0 || end_ < 0 || end_ > instance.length() || begin_ > end_) {
-            _res.setError(_stds.getAliasBadIndex());
-            return;
-        }
-        _res.setResult(new StringStruct(instance.substring(begin_, end_)));
-    }
-
     private void replace(CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
         char oldChar_ = _oldChar.getChar();
         char newChar_ = _newChar.getChar();
@@ -554,160 +325,7 @@ public final class StringStruct extends CharSequenceStruct {
         String out_ = StringList.replace(instance, old_, new_);
         _res.setResult(new StringStruct(out_));
     }
-    private void splitSingleChar(CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
-        splitSingleChar(_sep, new IntStruct(-1), _stds, _res);
-    }
-    private void splitSingleChar(CharStruct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
-        int lim_ = _lim.getInstance().intValue();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        char ch_ = _sep.getChar();
-        StringList parts_ = StringList.splitChars(instance, ch_);
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = lim_;
-        }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
-        String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
-    }
-    private void splitChars(Struct _seps, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_seps instanceof ArrayStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
-        Character[] seps_ = new Character[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
-            if (!(curSep_ instanceof CharStruct)) {
-                _res.setError(nullPe_);
-                return;
-            }
-            seps_[i] = ((CharStruct)curSep_).getChar();
-        }
-        StringList parts_ = StringList.splitChars(instance, seps_);
-        int lenArr_ = parts_.size();
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
-        String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
-    }
-    private void splitSingleString(Struct _sep, LgNames _stds, ResultErrorStd _res) {
-        splitSingleString(_sep, new IntStruct(-1), _stds, _res);
-    }
-    private void splitStrings(Struct _seps, LgNames _stds, ResultErrorStd _res) {
-        splitStrings(new IntStruct(-1), _seps, _stds, _res);
-    }
-    private void splitStrings(NumberStruct _lim, Struct _seps, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_seps instanceof ArrayStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
-        String[] seps_ = new String[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
-            if (!(curSep_ instanceof StringStruct)) {
-                _res.setError(nullPe_);
-                return;
-            }
-            seps_[i] = ((StringStruct)curSep_).instance;
-        }
-        int lim_ = _lim.getInstance().intValue();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        StringList parts_ = StringList.splitStrings(instance, seps_);
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = lim_;
-        }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
-        String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
-    }
-    private void splitSingleString(Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_sep instanceof StringStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        int lim_ = _lim.getInstance().intValue();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        StringStruct str_ = (StringStruct)_sep;
-        StringList parts_ = StringList.splitStrings(instance, str_.instance);
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = lim_;
-        }
-        Struct[] arr_ = new Struct[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_.get(i));
-        }
-        String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
-        _res.setResult(new ArrayStruct(arr_, aliasString_));
-    }
-    
-    private void trim(ResultErrorStd _res) {
-        _res.setResult(new StringStruct(instance.trim()));
-    }
 
-    private void toCharArray(LgNames _stds,ResultErrorStd _res) {
-        String aliasChar_ = _stds.getAliasPrimChar();
-        aliasChar_ = PrimitiveTypeUtil.getPrettyArrayType(aliasChar_);
-        int len_ = instance.length();
-        Struct[] arrOut_ = new Struct[len_];
-        for (int i = 0; i <= len_; i++) {
-            arrOut_[i] = new CharStruct(instance.charAt(i));
-        }
-        ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
-        _res.setResult(arr_);
-    }
-    private void eq(Struct _sep, ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(sameReference(_sep)));
-    }
-    private void format(Struct _seps, LgNames _stds,ResultErrorStd _res) {
-        String nullPe_ = _stds.getAliasNullPe();
-        if (!(_seps instanceof ArrayStruct)) {
-            _res.setError(nullPe_);
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        Struct[] arrStructSep_ = arrSep_.getInstance();
-        int lenSeps_ = arrStructSep_.length;
-        String[] seps_ = new String[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrStructSep_[i];
-            if (!(curSep_ instanceof StringStruct)) {
-                _res.setError(nullPe_);
-                return;
-            }
-            seps_[i] = ((StringStruct)curSep_).instance;
-        }
-        _res.setResult(new StringStruct(StringList.simpleStringsFormat(instance, seps_)));
-    }
     private void replaceMultiple(Struct _seps, LgNames _stds,ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_seps instanceof ArrayStruct)) {
