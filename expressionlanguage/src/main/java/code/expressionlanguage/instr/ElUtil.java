@@ -571,7 +571,7 @@ public final class ElUtil {
                     ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
-                    if (op_.getParent() instanceof DotOperation) {
+                    if (op_.getParent() instanceof DotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
                         exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
                     }
                     exp_ = loc_;
