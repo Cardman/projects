@@ -423,9 +423,7 @@ public abstract class LgNames {
                 getAliasRotateRight()));
         map_.put(getAliasReplacement(), new StringList(
                 getAliasGetNewString(),
-                getAliasGetOldString(),
-                getAliasSetNewString(),
-                getAliasSetOldString()));
+                getAliasGetOldString()));
         map_.put(getAliasBoolean(), new StringList(
                 getAliasBooleanValue(),
                 getAliasCompare(),
@@ -1971,7 +1969,7 @@ public abstract class LgNames {
         String doubleType_ = lgNames_.getAliasDouble();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.instantiate(result_, _method, args_);
+            ReplacementStruct.instantiate(result_, args_);
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)) {
@@ -2978,18 +2976,6 @@ public abstract class LgNames {
     }
     public void setAliasGetNewString(String _aliasGetNewString) {
         charSeq.setAliasGetNewString(_aliasGetNewString);
-    }
-    public String getAliasSetOldString() {
-        return charSeq.getAliasSetOldString();
-    }
-    public void setAliasSetOldString(String _aliasSetOldString) {
-        charSeq.setAliasSetOldString(_aliasSetOldString);
-    }
-    public String getAliasSetNewString() {
-        return charSeq.getAliasSetNewString();
-    }
-    public void setAliasSetNewString(String _aliasSetNewString) {
-        charSeq.setAliasSetNewString(_aliasSetNewString);
     }
     public String getAliasAbs() {
         return mathRef.getAliasAbs();

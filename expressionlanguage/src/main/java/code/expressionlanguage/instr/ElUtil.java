@@ -539,6 +539,9 @@ public final class ElUtil {
         if (_str instanceof BooleanStruct) {
             return true;
         }
+        if (_str instanceof ReplacementStruct) {
+            return true;
+        }
         return false;
     }
     private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list) {

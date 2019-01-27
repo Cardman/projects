@@ -352,8 +352,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
-        _lgNames.setAliasSetOldString("setOldString");
-        _lgNames.setAliasSetNewString("setNewString");
         _lgNames.setAliasGetSuperClass("getSuperClass");
         _lgNames.setAliasGetGenericSuperClass("getGenericSuperClass");
         _lgNames.setAliasGetInterfaces("getInterfaces");
@@ -606,8 +604,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasEnumPredValueOf("valeurDe");
         _lgNames.setAliasGetOldString("valChaineAvant");
         _lgNames.setAliasGetNewString("valChaineApres");
-        _lgNames.setAliasSetOldString("majChaineAvant");
-        _lgNames.setAliasSetNewString("majChaineApres");
         _lgNames.setAliasGetSuperClass("valSuperClasse");
         _lgNames.setAliasGetGenericSuperClass("valGeneSuperClasse");
         _lgNames.setAliasGetInterfaces("valInterfaces");

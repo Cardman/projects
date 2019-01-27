@@ -862,8 +862,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 type_ = ReflectingType.GET_FIELD;
             }
             Argument instance_ = l_.getInstanceCall();
-            String obj_ = _conf.getStandards().getAliasObject();
-            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
             CustList<Argument> nList_ = new CustList<Argument>();
             Argument realInstance_;
             if (static_) {
@@ -1032,7 +1030,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
-        Argument a_ = new Argument();
+        Argument a_;
         if (_possibleOffset > -1) {
             _conf.setOffset(_possibleOffset);
         }

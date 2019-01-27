@@ -912,8 +912,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static String meth(){\n");
-        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
-        xml_.append("  inst;.setOldString(inst;.getOldString()+\"12\"):\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement(\"old\",\"new\"):\n");
         xml_.append("  $return inst;.getOldString():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -925,15 +924,14 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("meth");
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("12", ret_.getString());
+        assertEq("old", ret_.getString());
     }
     @Test
     public void calculate49Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static String meth(){\n");
-        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
-        xml_.append("  inst;.setNewString(inst;.getNewString()+\"12\"):\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement(\"old\",\"new\"):\n");
         xml_.append("  $return inst;.getNewString():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -945,15 +943,14 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("meth");
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("12", ret_.getString());
+        assertEq("new", ret_.getString());
     }
     @Test
     public void calculate50Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static String meth(){\n");
-        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
-        xml_.append("  inst;.setOldString($null):\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement($null,\"new\"):\n");
         xml_.append("  $return inst;.getOldString():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -972,8 +969,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static String meth(){\n");
-        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement():\n");
-        xml_.append("  inst;.setNewString($null):\n");
+        xml_.append("  $final code.util.Replacement inst = $new code.util.Replacement(\"old\",$null):\n");
         xml_.append("  $return inst;.getNewString():\n");
         xml_.append(" }\n");
         xml_.append("}\n");

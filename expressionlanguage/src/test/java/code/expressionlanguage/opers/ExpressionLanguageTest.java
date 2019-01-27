@@ -1847,12 +1847,7 @@ public class ExpressionLanguageTest {
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
     }
-    @Test
-    public void processE461Test() {
-        Struct arg_ = directCalculateExc("\"hello word\".replaceMultiple($new code.util.Replacement())");
-        ErrorStruct err_ = (ErrorStruct) arg_;
-        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
-    }
+
     @Test
     public void processE462Test() {
         Struct arg_ = directCalculateExc("\"hello word\".replaceMultiple($new code.util.Replacement($null,\"good\"))");

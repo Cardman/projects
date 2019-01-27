@@ -7,11 +7,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -66,8 +63,6 @@ public final class AliasCharSequence {
     private String aliasReplacement;
     private String aliasGetOldString;
     private String aliasGetNewString;
-    private String aliasSetOldString;
-    private String aliasSetNewString;
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
@@ -89,7 +84,6 @@ public final class AliasCharSequence {
         String aliasPrimChar_ = _lgNames.getAliasPrimChar();
         String aliasPrimShort_ = _lgNames.getAliasPrimShort();
         String aliasPrimByte_ = _lgNames.getAliasPrimByte();
-        String aliasVoid_ = _lgNames.getAliasVoid();
         String aliasToString_ = _lgNames.getAliasToString();
         String aliasCompareTo_ = _lgNames.getAliasCompareTo();
         String aliasObject_ = _lgNames.getAliasObject();
@@ -416,15 +410,6 @@ public final class AliasCharSequence {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSetOldString, params_, aliasVoid_, false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasSetNewString, params_, aliasVoid_, false, MethodModifier.NORMAL,std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false, std_);
-        constructors_.add(ctor_);
         params_ = new StringList(aliasCharSequence,aliasCharSequence);
         ctor_ = new StandardConstructor(params_, false, std_);
         constructors_.add(ctor_);
@@ -452,7 +437,7 @@ public final class AliasCharSequence {
         String replType_ = lgNames_.getAliasReplacement();
         Struct[] args_ = LgNames.getObjects(_args);
         if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.calculate(_cont, result_, _method, _struct, args_);
+            ReplacementStruct.calculate(_cont, result_, _method, _struct);
             return result_;
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
@@ -807,20 +792,5 @@ public final class AliasCharSequence {
         aliasGetNewString = _aliasGetNewString;
     }
 
-    public String getAliasSetOldString() {
-        return aliasSetOldString;
-    }
-
-    public void setAliasSetOldString(String _aliasSetOldString) {
-        aliasSetOldString = _aliasSetOldString;
-    }
-
-    public String getAliasSetNewString() {
-        return aliasSetNewString;
-    }
-
-    public void setAliasSetNewString(String _aliasSetNewString) {
-        aliasSetNewString = _aliasSetNewString;
-    }
 
 }

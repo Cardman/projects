@@ -18,11 +18,7 @@ public final class ReplacementStruct implements RealInstanceStruct {
         instance = _instance;
     }
 
-    public static void instantiate(ResultErrorStd _res, ConstructorId _id, Struct... _args) {
-        if (_id.getParametersTypes().size() == 0) {
-            _res.setResult(new ReplacementStruct(new Replacement()));
-            return;
-        }
+    public static void instantiate(ResultErrorStd _res, Struct... _args) {
         Replacement rep_ = new Replacement();
         if (_args[0] instanceof CharSequenceStruct) {
             rep_.setOldString(((CharSequenceStruct)_args[0]).getInstance().toString());
@@ -33,7 +29,7 @@ public final class ReplacementStruct implements RealInstanceStruct {
         _res.setResult(new ReplacementStruct(rep_));
     }
 
-    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         ReplacementStruct rp_ = (ReplacementStruct)_struct;
@@ -41,20 +37,7 @@ public final class ReplacementStruct implements RealInstanceStruct {
             rp_.getNewString(_res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasGetOldString())) {
-            rp_.getOldString(_res);
-            return;
-        }
-        ContextEl cont_ = _cont.getContextEl();
-        if (cont_.isInitEnums() && cont_.isContainedSensibleFields(rp_)) {
-            cont_.failInitEnums();
-            return;
-        }
-        if (StringList.quickEq(name_, lgNames_.getAliasSetNewString())) {
-            rp_.setNewString(_args[0], _res);
-            return;
-        }
-        rp_.setOldString(_args[0], _res);
+        rp_.getOldString(_res);
         
     }
     private void getOldString(ResultErrorStd _res) {
@@ -66,17 +49,6 @@ public final class ReplacementStruct implements RealInstanceStruct {
         _res.setResult(new StringStruct(oldStr_));
     }
 
-    private void setOldString(Struct _value, ResultErrorStd _res) {
-        if (!(_value instanceof StringStruct)) {
-            instance.setOldString(null);
-            _res.setResult(NullStruct.NULL_VALUE);
-            return;
-        }
-        StringStruct str_ = (StringStruct)_value;
-        instance.setOldString(str_.getInstance());
-        _res.setResult(NullStruct.NULL_VALUE);
-    }
-
     private void getNewString(ResultErrorStd _res) {
         String newStr_ = instance.getNewString();
         if (newStr_ == null) {
@@ -84,17 +56,6 @@ public final class ReplacementStruct implements RealInstanceStruct {
             return;
         }
         _res.setResult(new StringStruct(newStr_));
-    }
-
-    private void setNewString(Struct _value, ResultErrorStd _res) {
-        if (!(_value instanceof StringStruct)) {
-            instance.setNewString(null);
-            _res.setResult(NullStruct.NULL_VALUE);
-            return;
-        }
-        StringStruct str_ = (StringStruct)_value;
-        instance.setNewString(str_.getInstance());
-        _res.setResult(NullStruct.NULL_VALUE);
     }
 
     @Override

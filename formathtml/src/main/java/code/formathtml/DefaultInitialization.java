@@ -199,8 +199,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasEnumPredValueOf("valueOf");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
-        _lgNames.setAliasSetOldString("setOldString");
-        _lgNames.setAliasSetNewString("setNewString");
         _lgNames.setAliasGetSuperClass("getSuperClass");
         _lgNames.setAliasGetGenericSuperClass("getGenericSuperClass");
         _lgNames.setAliasGetInterfaces("getInterfaces");
