@@ -751,6 +751,10 @@ public final class AliasReflection {
                 }
                 Boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
                 String baseWildCard_ = nameCl_;
+                if (StringList.quickEq(nameCl_,Templates.SUB_TYPE)) {
+                    result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
+                    return result_;
+                }
                 if (nameCl_.startsWith(Templates.SUB_TYPE)) {
                     baseWildCard_ = nameCl_.substring(Templates.SUB_TYPE.length());
                 } else if (nameCl_.startsWith(Templates.SUP_TYPE)) {
@@ -1212,7 +1216,9 @@ public final class AliasReflection {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 String clName_ = cl_.getName();
                 String baseWildCard_ = clName_;
-                if (clName_.startsWith(Templates.SUB_TYPE)) {
+                if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
+                    baseWildCard_ = lgNames_.getAliasObject();
+                } else if (clName_.startsWith(Templates.SUB_TYPE)) {
                     baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
                 } else if (clName_.startsWith(Templates.SUP_TYPE)) {
                     baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
@@ -1322,12 +1328,20 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayNewInstance)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                String clDyn_ = cl_.getName();
                 if (cl_.isTypeWildCard()) {
-                    result_.setError(lgNames_.getAliasNullPe());
+                    result_.setErrorMessage(clDyn_);
+                    result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
                 }
                 if (cl_.isTypeVariable()) {
-                    result_.setError(lgNames_.getAliasNullPe());
+                    result_.setErrorMessage(clDyn_);
+                    result_.setError(lgNames_.getAliasIllegalArg());
+                    return result_;
+                }
+                if (StringList.quickEq(clDyn_, _cont.getStandards().getAliasVoid())) {
+                    result_.setErrorMessage(clDyn_);
+                    result_.setError(lgNames_.getAliasClassNotFoundError());
                     return result_;
                 }
                 Numbers<Integer> dims_ = new Numbers<Integer>();
@@ -1338,18 +1352,19 @@ public final class AliasReflection {
                     result_.setError(lgNames_.getAliasNullPe());
                     return result_;
                 }
-                for (Struct s: ((ArrayStruct)inst_).getInstance()) {
+                Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
+                if (arrayDim_.length == 0) {
+                    result_.setError(size_);
+                    return result_;
+                }
+                for (Struct s: arrayDim_) {
                     int dim_ = ((NumberStruct)s).getInstance().intValue();
                     if (dim_ < 0) {
+                        result_.setErrorMessage(StringList.concat(Integer.toString(dim_),"<0"));
                         result_.setError(size_);
                         return result_;
                     }
                     dims_.add(dim_);
-                }
-                String clDyn_ = cl_.getName();
-                if (StringList.quickEq(clDyn_, _cont.getStandards().getAliasVoid())) {
-                    result_.setError(lgNames_.getAliasClassNotFoundError());
-                    return result_;
                 }
                 result_.setResult(PrimitiveTypeUtil.newCustomArray(clDyn_, dims_, _cont));
                 return result_;

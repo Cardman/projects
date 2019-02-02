@@ -27,6 +27,7 @@ public final class AliasCore {
     private String aliasNbFormat;
     private String aliasBadEncode;
     private String aliasBadIndex;
+    private String aliasIllegalArg;
     private String aliasSof;
 
     private String aliasName;
@@ -114,6 +115,12 @@ public final class AliasCore {
         stdcl_ = new StandardClass(aliasBadIndex, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasBadIndex, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasIllegalArg, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasIllegalArg, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -261,6 +268,14 @@ public final class AliasCore {
 
     public void setAliasBadIndex(String _aliasBadIndex) {
         aliasBadIndex = _aliasBadIndex;
+    }
+
+    public String getAliasIllegalArg() {
+        return aliasIllegalArg;
+    }
+
+    public void setAliasIllegalArg(String _aliasIllegalArg) {
+        aliasIllegalArg = _aliasIllegalArg;
     }
 
     public String getAliasSof() {

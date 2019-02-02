@@ -85,6 +85,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasBadEncode("java.lang.$enc");
 //        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
+        _lgNames.setAliasIllegalArg("code.expressionlanguage.exceptions.IllegalArgument");
 //        _lgNames.setAliasBadSize("$badSize");
         _lgNames.setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
 //        _lgNames.setAliasError("$error");

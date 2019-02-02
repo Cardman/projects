@@ -775,7 +775,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         int valuesSize_ = _values.size();
         if (valuesSize_ != paramsFct_.size()) {
             String null_;
-            null_ = lgNames_.getAliasNullPe();
+            null_ = lgNames_.getAliasIllegalArg();
             _conf.setException(new ErrorStruct(_conf,null_));
             return new Argument();
         }
@@ -1100,7 +1100,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (_isStaticField) {
                 if (_finalField && _failIfFinal) {
                     String npe_;
-                    npe_ = stds_.getAliasNullPe();
+                    npe_ = stds_.getAliasIllegalArg();
                     _conf.setException(new ErrorStruct(_conf,npe_));
                     return Argument.createVoid();
                 }

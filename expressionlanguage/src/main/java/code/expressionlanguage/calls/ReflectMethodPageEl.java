@@ -43,7 +43,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             }
             if (!method_.isPolymorph() && method_.isAbstract()) {
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getAliasIllegalArg();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
@@ -83,7 +83,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             if (args_.size() != mid_.getParametersTypes().size()) {
                 LgNames stds_ = _context.getStandards();
                 String null_;
-                null_ = stds_.getAliasNullPe();
+                null_ = stds_.getAliasIllegalArg();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }

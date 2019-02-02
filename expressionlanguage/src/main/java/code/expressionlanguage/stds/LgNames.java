@@ -151,6 +151,7 @@ public abstract class LgNames {
         list_.add(getAliasStackTraceElement());
         list_.add(getAliasBadEncode());
         list_.add(getAliasBadIndex());
+        list_.add(getAliasIllegalArg());
         list_.add(getAliasDivisionZero());
         list_.add(getAliasStore());
         list_.add(getAliasCast());
@@ -2238,6 +2239,14 @@ public abstract class LgNames {
     }
     public void setAliasBadIndex(String _aliasBadIndex) {
         coreNames.setAliasBadIndex(_aliasBadIndex);
+    }
+
+    public String getAliasIllegalArg() {
+        return coreNames.getAliasIllegalArg();
+    }
+
+    public void setAliasIllegalArg(String _aliasIllegalArg) {
+        coreNames.setAliasIllegalArg(_aliasIllegalArg);
     }
     public String getAliasSof() {
         return coreNames.getAliasSof();

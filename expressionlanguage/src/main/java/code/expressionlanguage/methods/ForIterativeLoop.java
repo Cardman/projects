@@ -709,7 +709,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 copyFrom_ += stepValue_;
             }
         }
-        long length_ = CustList.INDEX_NOT_FOUND_ELT;
+        long length_;
         boolean finished_ = false;
         length_ = nbMaxIterations_;
         if (length_ == CustList.SIZE_EMPTY) {
