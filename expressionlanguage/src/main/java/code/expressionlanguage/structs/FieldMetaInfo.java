@@ -16,19 +16,16 @@ public final class FieldMetaInfo implements Struct {
 
     private final boolean finalField;
 
-    private final boolean enumElement;
-
     public FieldMetaInfo(String _declaringClass,
-            String _name,
-            String _returnType, boolean _static,
-            boolean _finalField, boolean _enumElement,
-            AccessEnum _access) {
+                         String _name,
+                         String _returnType, boolean _static,
+                         boolean _finalField,
+                         AccessEnum _access) {
         declaringClass = _declaringClass;
         name = _name;
         type = _returnType;
         staticField = _static;
         finalField = _finalField;
-        enumElement = _enumElement;
         access = _access;
     }
     @Override

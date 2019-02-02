@@ -362,7 +362,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasMakeArray("makeArray");
         _lgNames.setAliasGetParameterTypes("getParameterTypes");
         _lgNames.setAliasGetTypeParameters("getTypeParameters");
-        _lgNames.setAliasGetParameterNames("getParameterNames");
+        _lgNames.setAliasGetParameterNames("getGenericParameterTypes");
         _lgNames.setAliasGetGenericReturnType("getGenericReturnType");
         _lgNames.setAliasGetReturnType("getReturnType");
         _lgNames.setAliasGetActualTypeArguments("getActualTypeArguments");
@@ -614,7 +614,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasMakeArray("rendreTableau");
         _lgNames.setAliasGetParameterTypes("valTypesDeParametres");
         _lgNames.setAliasGetTypeParameters("valTypesParametres");
-        _lgNames.setAliasGetParameterNames("valNomsParameters");
+        _lgNames.setAliasGetParameterNames("valGeneTypesParametres");
         _lgNames.setAliasGetGenericReturnType("valGeneTypeRetour");
         _lgNames.setAliasGetReturnType("valTypeRetour");
         _lgNames.setAliasGetActualTypeArguments("valCourantArgTypes");

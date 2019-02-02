@@ -243,7 +243,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasMakeArray("makeArray");
         _lgNames.setAliasGetParameterTypes("getParameterTypes");
         _lgNames.setAliasGetTypeParameters("getTypeParameters");
-        _lgNames.setAliasGetParameterNames("getParameterNames");
+        _lgNames.setAliasGetParameterNames("getGenericParameterTypes");
         _lgNames.setAliasGetGenericReturnType("getGenericReturnType");
         _lgNames.setAliasGetReturnType("getReturnType");
         _lgNames.setAliasGetActualTypeArguments("getActualTypeArguments");

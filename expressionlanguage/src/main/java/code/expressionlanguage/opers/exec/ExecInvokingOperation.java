@@ -811,7 +811,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return result_;
             }
             ConstructorId cid_ = l_.getFid();
-            ConstructorMetaInfo c_ = new ConstructorMetaInfo(forId_, AccessEnum.PUBLIC, cid_, forId_, cid_, forId_, forId_);
+            ConstructorMetaInfo c_ = new ConstructorMetaInfo(forId_, AccessEnum.PUBLIC, cid_, forId_, cid_, forId_);
             Argument pr_ = new Argument();
             pr_.setStruct(c_);
             Argument instance_ = l_.getInstanceCall();
@@ -852,7 +852,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String name_ = idField_.getFieldName();
             String clName_ = idField_.getClassName();
             String retField_ = l_.getReturnFieldType();
-            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, retField_, static_, final_, false, AccessEnum.PUBLIC);
+            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, retField_, static_, final_, AccessEnum.PUBLIC);
             Argument pr_ = new Argument();
             pr_.setStruct(f_);
             ReflectingType type_;
@@ -898,7 +898,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         } else {
             met_ = MethodModifier.NORMAL;
         }
-        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "", "");
+        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "");
         m_.setPolymorph(l_.isPolymorph());
         Argument pr_ = new Argument();
         pr_.setStruct(m_);

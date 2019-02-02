@@ -2326,12 +2326,11 @@ public final class Classes {
             if (b instanceof InfoBlock) {
                 InfoBlock method_ = (InfoBlock) b;
                 String ret_ = method_.getImportedClassName();
-                boolean enumElement_ = b instanceof ElementBlock;
                 boolean staticElement_ = method_.isStaticField();
                 boolean finalElement_ = method_.isFinalField();
                 AccessEnum acc_ = method_.getAccess();
                 for (String f: method_.getFieldName()) {
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, acc_);
                     infosFields_.put(f, met_);
                 }
             }
@@ -2340,18 +2339,15 @@ public final class Classes {
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
                 AccessEnum acc_ = method_.getAccess();
-                String formatRet_;
                 MethodId fid_;
                 String formCl_ = method_.getDeclaringType();
-                boolean static_ = method_.isStaticMethod();
                 if (Templates.correctNbParameters(_name, _context)) {
-                    formatRet_ = Templates.wildCardFormat(static_, _name, ret_, _context, true);
                     fid_ = id_.reflectFormat(_name, _context);
+                    formCl_ = _name;
                 } else {
-                    formatRet_ = ret_;
                     fid_ = id_;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formCl_);
                 infos_.put(id_, met_);
             }
             if (b instanceof AnnotationMethodBlock) {
@@ -2359,12 +2355,10 @@ public final class Classes {
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
                 AccessEnum acc_ = method_.getAccess();
-                String formatRet_;
                 MethodId fid_;
                 String formCl_ = method_.getDeclaringType();
-                formatRet_ = ret_;
                 fid_ = id_;
-                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formCl_);
                 infos_.put(id_, met_);
             }
             if (b instanceof ConstructorBlock) {
@@ -2372,35 +2366,29 @@ public final class Classes {
                 ConstructorBlock method_ = (ConstructorBlock) b;
                 ConstructorId id_ = method_.getGenericId();
                 AccessEnum acc_ = method_.getAccess();
-                String formatRet_;
                 ConstructorId fid_;
                 String ret_ = method_.getImportedReturnType();
                 String formCl_ = method_.getDeclaringType();
                 if (Templates.correctNbParameters(_name, _context)) {
-                    formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
                     fid_ = id_.reflectFormat(_name, _context);
                 } else {
-                    formatRet_ = ret_;
                     fid_ = id_;
                 }
-                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formCl_);
                 infosConst_.put(id_, met_);
             }
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             AccessEnum acc_ = _type.getAccess();
-            String formatRet_;
             ConstructorId fid_;
             String ret_ = _context.getStandards().getAliasVoid();
             if (Templates.correctNbParameters(_name, _context)) {
-                formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
                 fid_ = id_.reflectFormat(_name, _context);
             } else {
-                formatRet_ = ret_;
                 fid_ = id_;
             }
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_, _name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             infosConst_.put(id_, met_);
         }
         if (_type instanceof EnumBlock) {
@@ -2409,18 +2397,15 @@ public final class Classes {
             String string_ = _context.getStandards().getAliasString();
             MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
             String ret_ = _type.getWildCardString();
-            String formatRet_;
             MethodId fid_;
-            formatRet_ = ret_;
             fid_ = id_;
             String decl_ = _type.getFullName();
-            MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+            MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             infos_.put(id_, met_);
             id_ = new MethodId(true, values_, new StringList());
             ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
-            formatRet_ = ret_;
             fid_ = id_;
-            met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+            met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             infos_.put(id_, met_);
         }
         RootBlock par_ = _type.getParentType();

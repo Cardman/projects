@@ -66,6 +66,10 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         if (!StringList.quickEq(_obj.name, name)) {
             return false;
         }
+        return eqPartial(_obj);
+    }
+
+    public boolean eqPartial(ConstructorId _obj) {
         if (classNames.size() != _obj.classNames.size()) {
             return false;
         }
@@ -80,6 +84,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
         return true;
     }
+
     public boolean same(ConstructorId _obj) {
         if (!StringList.quickEq(_obj.name, name)) {
             return false;

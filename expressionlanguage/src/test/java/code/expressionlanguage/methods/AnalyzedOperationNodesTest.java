@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class AnalyzedOperationNodesTest {
+public final class AnalyzedOperationNodesTest {
     private static final String COMPOSITE = "code.formathtml.classes.Composite";
     private static final String MY_CLASS = "myimpl.MyClass";
     private static final String MY_GENE_CLASS = "myimpl.MyGeneClass";

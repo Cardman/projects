@@ -24,7 +24,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class ClassesTest {
+public final class ClassesTest {
     @Test
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();

@@ -20,7 +20,7 @@ import code.util.NatTreeMap;
 import code.util.StringMap;
 
 
-public class ElResolverTest extends ProcessMethodCommon{
+public final class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence1Test() {

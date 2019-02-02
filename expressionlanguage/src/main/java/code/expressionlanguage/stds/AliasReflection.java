@@ -12,10 +12,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -332,7 +329,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
@@ -344,7 +341,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -447,7 +444,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetParameterTypes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
@@ -462,7 +459,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasMethod, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -508,7 +505,6 @@ public final class AliasReflection {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
-        String aliasString_ = lgNames_.getAliasString();
         String aliasClass_ = ref_.aliasClass;
         String aliasMethod_ = ref_.aliasMethod;
         String aliasConstructor_ = ref_.aliasConstructor;
@@ -566,7 +562,9 @@ public final class AliasReflection {
                 FieldMetaInfo field_ = (FieldMetaInfo) _struct;
                 String owner_ = field_.getDeclaringClass();
                 String typeField_ = field_.getType();
-                typeField_ = Templates.reflectFormat(owner_, typeField_, _cont);
+                if (Templates.correctNbParameters(owner_,_cont)) {
+                    typeField_ = Templates.reflectFormat(owner_, typeField_, _cont);
+                }
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
                 return result_;
             }
@@ -657,24 +655,25 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+                String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getRealId().getParametersTypes();
                 int len_ = geneInterfaces_.size();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
                 Struct[] superInts_ = new Struct[len_];
                 if (method_.isVararg()) {
                     int first_ = len_ -1;
                     for (int i = 0; i < first_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = new StringStruct(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                     String int_ = geneInterfaces_.get(first_);
                     int_ = PrimitiveTypeUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = new StringStruct(int_);
+                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = Templates.getIdFromAllTypes(int_);
-                        superInts_[i] = new StringStruct(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -683,13 +682,19 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(new StringStruct(method_.getReturnType()));
+                String owner_ = method_.getFormClassName();
+                String typeMethod_ = method_.getReturnType();
+                if (Templates.correctNbParameters(owner_,_cont)) {
+                    typeMethod_ = Templates.reflectFormat(owner_, typeMethod_, _cont);
+                }
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
                 String owner_ = method_.getFormClassName();
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType(),owner_));
+                String typeMethod_ = method_.getReturnType();
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
@@ -745,10 +750,16 @@ public final class AliasReflection {
                     return result_;
                 }
                 Boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
+                String baseWildCard_ = nameCl_;
+                if (nameCl_.startsWith(Templates.SUB_TYPE)) {
+                    baseWildCard_ = nameCl_.substring(Templates.SUB_TYPE.length());
+                } else if (nameCl_.startsWith(Templates.SUP_TYPE)) {
+                    baseWildCard_ = nameCl_.substring(Templates.SUP_TYPE.length());
+                }
                 if (isUpperValue_) {
-                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUB_TYPE,nameCl_), varOwn_));
+                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUB_TYPE,baseWildCard_), varOwn_));
                 } else {
-                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUP_TYPE,nameCl_), varOwn_));
+                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUP_TYPE,baseWildCard_), varOwn_));
                 }
                 return result_;
             }
@@ -872,12 +883,10 @@ public final class AliasReflection {
                         MethodId id_ = o.getId();
                         String ret_ = o.getImportedReturnType();
                         AccessEnum acc_ = o.getAccess();
-                        String formatRet_;
                         MethodId fid_;
-                        formatRet_ = ret_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        operators_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, formatRet_,decl_));
+                        operators_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, decl_));
                     }
                     operators_.sortElts(new OperatorCmp());
                     Struct[] ctorsArr_ = new Struct[operators_.size()];
@@ -903,12 +912,10 @@ public final class AliasReflection {
                     if (id_.eq(idToSearch_)) {
                         String ret_ = o.getImportedReturnType();
                         AccessEnum acc_ = o.getAccess();
-                        String formatRet_;
                         MethodId fid_;
-                        formatRet_ = ret_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        candidates_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, formatRet_,decl_));
+                        candidates_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, decl_));
                     }
                 }
                 Struct[] methodsArr_ = new Struct[candidates_.size()];
@@ -981,17 +988,19 @@ public final class AliasReflection {
                 candidates_ = new CustList<ConstructorMetaInfo>();
                 String instClassName_ = cl_.getName();
                 ConstructorId idToSearch_ = new ConstructorId(instClassName_, classesNames_, vararg_);
-                for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
-                    ConstructorId id_ = e.getKey();
-                    if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
-                        candidates_.add(e.getValue());
+                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                    for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
+                        ConstructorId id_ = e.getKey();
+                        if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
+                            candidates_.add(e.getValue());
+                        }
                     }
-                }
-                if (ctors_.isEmpty()) {
-                    if (classesNames_.isEmpty() && !vararg_) {
-                        String ret_ = cl_.getName();
-                        AccessEnum acc_ = cl_.getAccess();
-                        candidates_.add(new ConstructorMetaInfo(instClassName_, acc_, idToSearch_, ret_, idToSearch_, ret_, ret_));
+                } else {
+                    for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
+                        ConstructorId id_ = e.getKey();
+                        if (id_.eqPartial(idToSearch_)) {
+                            candidates_.add(e.getValue());
+                        }
                     }
                 }
                 Struct[] ctorsArr_ = new Struct[candidates_.size()];
@@ -1014,18 +1023,10 @@ public final class AliasReflection {
                         String instClassName_ = cl_.getName();
                         MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
                         AccessEnum acc_ = AccessEnum.PUBLIC;
-                        String formatRet_;
                         String idCl_ = Templates.getIdFromAllTypes(instClassName_);
-                        String formCl_;
-                        if (Templates.correctNbParameters(instClassName_, _cont)) {
-                            formatRet_ = instClassName_;
-                            formCl_ = instClassName_;
-                        } else {
-                            formatRet_ = idCl_;
-                            formCl_ = idCl_;
-                        }
+                        String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                         Struct[] methodsArr_ = new Struct[1];
-                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, instClassName_, id_, formatRet_, formCl_);
+                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
                         return result_;
@@ -1057,18 +1058,10 @@ public final class AliasReflection {
                     String instClassName_ = cl_.getName();
                     MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
                     AccessEnum acc_ = AccessEnum.PUBLIC;
-                    String formatRet_;
                     String idCl_ = Templates.getIdFromAllTypes(instClassName_);
-                    String formCl_;
-                    if (Templates.correctNbParameters(instClassName_, _cont)) {
-                        formatRet_ = instClassName_;
-                        formCl_ = instClassName_;
-                    } else {
-                        formatRet_ = idCl_;
-                        formCl_ = idCl_;
-                    }
+                    String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                     Struct[] methodsArr_ = new Struct[1];
-                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, instClassName_, id_, formatRet_, formCl_);
+                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                     ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                     result_.setResult(str_);
                     return result_;
@@ -1077,10 +1070,19 @@ public final class AliasReflection {
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
                 MethodId idToSearch_ = new MethodId(static_, methodName_, classesNames_, vararg_);
-                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
-                    MethodId id_ = e.getKey();
-                    if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
-                        candidates_.add(e.getValue());
+                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
+                            candidates_.add(e.getValue());
+                        }
+                    }
+                } else {
+                    for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (id_.eq(idToSearch_)) {
+                            candidates_.add(e.getValue());
+                        }
                     }
                 }
                 Struct[] methodsArr_ = new Struct[candidates_.size()];
@@ -1208,22 +1210,25 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                if (cl_.isTypeWildCard()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
-                if (cl_.isTypeVariable()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                    return result_;
-                }
                 String clName_ = cl_.getName();
+                String baseWildCard_ = clName_;
+                if (clName_.startsWith(Templates.SUB_TYPE)) {
+                    baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
+                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                    baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
+                }
                 String owner_ = cl_.getVariableOwner();
-                if (StringList.quickEq(clName_, aliasVoid_)) {
+                if (StringList.quickEq(baseWildCard_, aliasVoid_)) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
-                clName_ = PrimitiveTypeUtil.getPrettyArrayType(clName_);
-                result_.setResult(_cont.getExtendedClassMetaInfo(clName_, owner_));
+                String arrayName_ = PrimitiveTypeUtil.getPrettyArrayType(baseWildCard_);
+                if (clName_.startsWith(Templates.SUB_TYPE)) {
+                    arrayName_ = StringList.concat(Templates.SUB_TYPE,arrayName_);
+                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                    arrayName_ = StringList.concat(Templates.SUP_TYPE,arrayName_);
+                }
+                result_.setResult(_cont.getExtendedClassMetaInfo(arrayName_, owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetVariableOwner)) {
@@ -1466,24 +1471,25 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterNames)) {
                 ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
+                String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getRealId().getParametersTypes();
                 int len_ = geneInterfaces_.size();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
                 Struct[] superInts_ = new Struct[len_];
                 if (method_.isVararg()) {
                     int first_ = len_ -1;
                     for (int i = 0; i < first_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = new StringStruct(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                     String int_ = geneInterfaces_.get(first_);
                     int_ = PrimitiveTypeUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = new StringStruct(int_);
+                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = Templates.getIdFromAllTypes(int_);
-                        superInts_[i] = new StringStruct(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -1492,13 +1498,19 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
                 ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
-                result_.setResult(new StringStruct(method_.getReturnType()));
+                String owner_ = method_.getFormClassName();
+                String typeMethod_ = method_.getReturnType();
+                if (Templates.correctNbParameters(owner_,_cont)) {
+                    typeMethod_ = Templates.reflectFormat(owner_, typeMethod_, _cont);
+                }
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
                 ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
                 String owner_ = method_.getFormClassName();
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType(),owner_));
+                String typeMethod_ = method_.getReturnType();
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeMethod_,owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
@@ -1514,6 +1526,20 @@ public final class AliasReflection {
         }
         return result_;
     }
+
+    private static String getReturnTypeClone(ContextEl _cont, String _instClass, String _idCl) {
+        String ret_;
+        if (Templates.correctNbParameters(_instClass, _cont)) {
+            DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_idCl);
+            String compo_ = dc_.getComponent();
+            String geneForm_ = _cont.getClassBody(compo_).getGenericString();
+            ret_ = PrimitiveTypeUtil.getPrettyArrayType(geneForm_,dc_.getDim());
+        } else {
+            ret_ = _instClass;
+        }
+        return ret_;
+    }
+
     public String getAliasClass() {
         return aliasClass;
     }

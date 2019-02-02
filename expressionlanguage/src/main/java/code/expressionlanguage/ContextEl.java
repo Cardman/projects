@@ -652,7 +652,7 @@ public abstract class ContextEl implements ExecutableCode {
             boolean finalElement_ = f.isFinalField();
             AccessEnum acc_ = f.getAccess();
             for (String g: f.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
+                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, acc_);
                 infosFields_.put(g, met_);
             }
         }
@@ -661,7 +661,7 @@ public abstract class ContextEl implements ExecutableCode {
             String ret_ = m.getImportedReturnType();
             AccessEnum acc_ = m.getAccess();
             String decl_ = m.getDeclaringType();
-            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, ret_, decl_);
+            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, decl_);
             infos_.put(id_, met_);
         }
         for (StandardConstructor d: _type.getConstructors()) {
@@ -670,23 +670,20 @@ public abstract class ContextEl implements ExecutableCode {
             AccessEnum acc_ = d.getAccess();
             String decl_ = d.getDeclaringType();
             String ret_ = d.getImportedReturnType();
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, ret_, decl_);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, decl_);
             infosConst_.put(id_, met_);
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             AccessEnum acc_ = _type.getAccess();
-            String formatRet_;
             ConstructorId fid_;
             String ret_ = getStandards().getAliasVoid();
             if (Templates.correctNbParameters(_name, this)) {
-                formatRet_ = Templates.wildCardFormat(false, _name, ret_, this,true);
                 fid_ = id_.reflectFormat(_name, this);
             } else {
-                formatRet_ = ret_;
                 fid_ = id_;
             }
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_, _name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             infosConst_.put(id_, met_);
         }
         AccessEnum acc_ = _type.getAccess();

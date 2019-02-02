@@ -23,7 +23,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
-public class ExpressionLanguageTest {
+public final class ExpressionLanguageTest {
 
     private static final String ARR_INT = "[$int";
     private static final String ARR_ARR_INT = "[[$int";

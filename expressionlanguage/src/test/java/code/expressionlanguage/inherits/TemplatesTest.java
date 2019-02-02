@@ -15,7 +15,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class TemplatesTest {
+public final class TemplatesTest {
 
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";

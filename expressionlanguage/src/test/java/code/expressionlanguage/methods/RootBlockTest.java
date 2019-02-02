@@ -19,7 +19,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class RootBlockTest {
+public final class RootBlockTest {
 
     @Test
     public void getAllGenericSuperTypes1Test() {

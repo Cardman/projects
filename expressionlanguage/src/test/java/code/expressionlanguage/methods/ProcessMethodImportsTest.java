@@ -19,7 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
-public class ProcessMethodImportsTest extends ProcessMethodCommon {
+public final class ProcessMethodImportsTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_LIST_PATH = "pkg/CustList";
     private static final String CUST_SEC_LIST_PATH = "pkg/SecCustList";

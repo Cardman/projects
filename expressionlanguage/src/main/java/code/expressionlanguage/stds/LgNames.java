@@ -851,6 +851,9 @@ public abstract class LgNames {
             processError(_cont,result_);
             return result_;
         }
+        if (_cont.isFailInit()) {
+            return result_;
+        }
         result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);
         processError(_cont,result_);
         return result_;

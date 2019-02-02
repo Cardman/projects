@@ -13,16 +13,14 @@ public final class ConstructorMetaInfo implements Struct {
     private final AccessEnum access;
     private final ConstructorId fid;
     private final String returnType;
-    private final String formattedReturnType;
 
-    public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId,String _returnType,
-            ConstructorId _fid,String _formattedReturnType, String _formClassName) {
+    public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId, String _returnType,
+                               ConstructorId _fid, String _formClassName) {
         className = _className;
         access = _access;
         realId = _realId;
         returnType = _returnType;
         fid = _fid;
-        formattedReturnType = _formattedReturnType;
         formClassName = _formClassName;
     }
 
@@ -69,10 +67,6 @@ public final class ConstructorMetaInfo implements Struct {
 
     public String getReturnType() {
         return returnType;
-    }
-
-    public String getFormattedReturnType() {
-        return formattedReturnType;
     }
 
     @Override

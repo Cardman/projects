@@ -19,19 +19,17 @@ public final class MethodMetaInfo implements Struct {
     private final MethodModifier modifier;
 
     private final String returnType;
-    private final String formattedReturnType;
 
     private boolean polymorph = true;
 
-    public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier,String _returnType,
-            MethodId _fid,String _formattedReturnType, String _formClassName) {
+    public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
+                          MethodId _fid, String _formClassName) {
         access = _access;
         className = _className;
         realId = _realId;
         modifier = _modifier;
         returnType = _returnType;
         fid = _fid;
-        formattedReturnType = _formattedReturnType;
         formClassName = _formClassName;
     }
     @Override
@@ -100,10 +98,6 @@ public final class MethodMetaInfo implements Struct {
 
     public String getReturnType() {
         return returnType;
-    }
-
-    public String getFormattedReturnType() {
-        return formattedReturnType;
     }
 
     @Override

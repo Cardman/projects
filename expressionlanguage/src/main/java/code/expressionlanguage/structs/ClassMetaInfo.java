@@ -55,7 +55,12 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
                 superClass = EMPTY_STRING;
                 access = AccessEnum.PUBLIC;
             } else {
-                access = _context.getClassBody(comp_).getAccess();
+                GeneType g_ = _context.getClassBody(comp_);
+                if (g_ == null) {
+                    access = AccessEnum.PUBLIC;
+                } else {
+                    access = g_.getAccess();
+                }
                 abstractType = false;
                 superClass = _context.getStandards().getAliasObject();
             }

@@ -22,7 +22,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 
-public class PrimitiveTypeUtilTest {
+public final class PrimitiveTypeUtilTest {
 
     private static final String CUST_CLASS = "pkg.CustClass";
     private static final String ARR_ARR_CUST_CLASS = "[[pkg.CustClass";
