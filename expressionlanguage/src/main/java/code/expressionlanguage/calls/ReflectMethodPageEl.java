@@ -57,6 +57,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             }
         }
         if (!calledMethod) {
+            calledMethod = true;
             String className_ = methodToCall.getClassName();
             MethodId mid_ = methodToCall.getConstraints();
             Argument instance_;
@@ -92,7 +93,6 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 setWrapException(true);
                 return false;
             }
-            calledMethod = true;
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

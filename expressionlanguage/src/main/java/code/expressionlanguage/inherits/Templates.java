@@ -1133,7 +1133,7 @@ public final class Templates {
         map_.setMapping(_mapping);
         return isCorrectOrNumbers(map_, _context);
     }
-    public static boolean isCorrect(Mapping _m, Analyzable _context) {
+    static boolean isCorrect(Mapping _m, Analyzable _context) {
         ClassArgumentMatching arg_ = _m.getArg();
         ClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
@@ -1151,14 +1151,12 @@ public final class Templates {
                 match_.setParam(p);
                 matchs_.add(match_);
                 boolean okTree_ = true;
-                boolean noWrapper_ = false;
                 while (true) {
                     CustList<Matching> new_ = new CustList<Matching>();
                     for (Matching m: matchs_) {
                         String a_ = m.getArg();
                         String p_ = m.getParam();
                         MappingPairs m_ = getSimpleMapping(a_,p_,generalMapping_, _context);
-                        noWrapper_ = true;
                         if (m_ == null) {
                             okTree_ = false;
                             break;
@@ -1216,7 +1214,6 @@ public final class Templates {
         match_.setArg(_a);
         match_.setParam(_p);
         matchs_.add(match_);
-        boolean noWrapper_ = false;
         boolean okTree_ = true;
         while (true) {
             CustList<Matching> new_ = new CustList<Matching>();
@@ -1228,7 +1225,6 @@ public final class Templates {
                     okTree_ = false;
                     break;
                 }
-                noWrapper_ = true;
                 boolean locOk_ = true;
                 for (Matching n: m_.getPairsArgParam()) {
                     if (n.getMatchEq() == MatchingEnum.EQ) {
@@ -1411,7 +1407,7 @@ public final class Templates {
         if (StringList.quickEq(baseParam_, fct_)) {
             return null;
         }
-        String generic_ = null;
+        String generic_;
         String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
         String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
         StringList curClasses_ = new StringList(geneSubType_);
@@ -1467,7 +1463,7 @@ public final class Templates {
         return m_;
     }
     private static MappingPairs newMappingPairs(String _generic, StringList _params) {
-        int len_ = _params.size();
+        int len_;
         StringList foundSuperClass_ = getAllTypes(_generic);
         EqList<Matching> pairsArgParam_ = new EqList<Matching>();
         len_ = foundSuperClass_.size();

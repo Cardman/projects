@@ -1096,21 +1096,21 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String fieldType_;
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        if (_isStaticField) {
-            if (_finalField && _failIfFinal) {
-                String npe_;
-                npe_ = stds_.getAliasNullPe();
-                _conf.setException(new ErrorStruct(_conf,npe_));
-                return Argument.createVoid();
-            }
-            if (ExecInvokingOperation.hasToExit(_conf, _className)) {
-                return Argument.createVoid();
-            }
-            fieldType_ = _returnType;
-            if (!Templates.checkObject(fieldType_, _right, _conf)) {
-                return Argument.createVoid();
-            }
-            if (classes_.isCustomType(_className)) {
+        if (classes_.isCustomType(_className)) {
+            if (_isStaticField) {
+                if (_finalField && _failIfFinal) {
+                    String npe_;
+                    npe_ = stds_.getAliasNullPe();
+                    _conf.setException(new ErrorStruct(_conf,npe_));
+                    return Argument.createVoid();
+                }
+                if (ExecInvokingOperation.hasToExit(_conf, _className)) {
+                    return Argument.createVoid();
+                }
+                fieldType_ = _returnType;
+                if (!Templates.checkObject(fieldType_, _right, _conf)) {
+                    return Argument.createVoid();
+                }
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
                     return _right;
@@ -1118,34 +1118,25 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
                 return _right;
             }
-            ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(_conf,result_.getError()));
-                return _right;
+            if (_previous.isNull()) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new ErrorStruct(_conf,npe_));
+                return Argument.createVoid();
             }
-            return _right;
-        }
-        if (_previous.isNull()) {
-            String npe_;
-            npe_ = stds_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(_conf,npe_));
-            return Argument.createVoid();
-        }
-        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
-        String base_ = Templates.getIdFromAllTypes(argClassName_);
-        String classNameFound_ = _className;
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-            return Argument.createVoid();
-        }
-        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-        fieldType_ = _returnType;
-        fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
-        if (!Templates.checkObject(fieldType_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        if (_previous.getStruct() instanceof FieldableStruct) {
+            String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+            String base_ = Templates.getIdFromAllTypes(argClassName_);
+            String classNameFound_ = _className;
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+                return Argument.createVoid();
+            }
+            classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+            fieldType_ = _returnType;
+            fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
+            if (!Templates.checkObject(fieldType_, _right, _conf)) {
+                return Argument.createVoid();
+            }
             if (_conf.getContextEl().isContainedSensibleFields(_previous.getStruct())) {
                 _conf.getContextEl().failInitEnums();
                 return _right;

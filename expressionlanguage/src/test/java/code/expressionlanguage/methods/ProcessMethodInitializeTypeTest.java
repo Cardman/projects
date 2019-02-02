@@ -638,6 +638,23 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertEq(12, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
+    public void calculate33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static StringBuilder inst=$new StringBuilder(\"hello \"):\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst.append(\"world\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq("hello world", getString(cont_,"pkg.Ex","inst"));
+    }
+    @Test
     public void calculate34Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -740,7 +757,347 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertEq("12", getString(cont_,"pkg.Ex","inst"));
     }
 
+    @Test
+    public void calculate40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst ++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
 
+    @Test
+    public void calculate41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst += 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate42Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate43Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.single.inst ++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.single.inst += 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate45Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.single.inst = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate46Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst[0] ++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate47Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst[0] += 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst[0] = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate49Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo single = ExTwo.single:\n");
+        xml_.append("  single;.inst ++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo single = ExTwo.single:\n");
+        xml_.append("  single;.inst += 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate51Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo single = ExTwo.single:\n");
+        xml_.append("  single;.inst = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $int inst = 1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate52Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $int[] inst = ExTwo.inst:\n");
+        xml_.append("  inst;.[0] ++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate53Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $int[] inst = ExTwo.inst:\n");
+        xml_.append("  inst;.[0] += 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+
+    @Test
+    public void calculate54Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $int[] inst = ExTwo.inst:\n");
+        xml_.append("  inst;.[0] = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)str_).getInstance();

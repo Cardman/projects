@@ -119,19 +119,17 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         RemovableVars stack_;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
-            if (bl_ instanceof BreakableBlockStack) {
-                stack_ = bl_;
-                if (label.isEmpty()) {
-                    if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
-                        bl_.getBlock().removeLocalVars(ip_);
-                        break;
-                    }
-                } else {
-                    BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
-                    if (StringList.quickEq(label, br_.getRealLabel())){
-                        bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
-                        break;
-                    }
+            stack_ = bl_;
+            if (label.isEmpty()) {
+                if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
+                    bl_.getBlock().removeLocalVars(ip_);
+                    break;
+                }
+            } else {
+                BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
+                if (StringList.quickEq(label, br_.getRealLabel())){
+                    bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
+                    break;
                 }
             }
             ip_.setFinallyToProcess(false);
