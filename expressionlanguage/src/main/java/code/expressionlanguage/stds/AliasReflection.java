@@ -1334,7 +1334,7 @@ public final class AliasReflection {
                     result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
                 }
-                if (cl_.isTypeVariable()) {
+                if (clDyn_.contains(Templates.PREFIX_VAR_TYPE)) {
                     result_.setErrorMessage(clDyn_);
                     result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
@@ -1342,6 +1342,11 @@ public final class AliasReflection {
                 if (StringList.quickEq(clDyn_, _cont.getStandards().getAliasVoid())) {
                     result_.setErrorMessage(clDyn_);
                     result_.setError(lgNames_.getAliasClassNotFoundError());
+                    return result_;
+                }
+                if (!Templates.correctNbParameters(clDyn_,_cont)) {
+                    result_.setErrorMessage(clDyn_);
+                    result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
                 }
                 Numbers<Integer> dims_ = new Numbers<Integer>();

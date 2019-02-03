@@ -3539,7 +3539,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -3707,6 +3707,31 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam).newArrayInstance():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T>{\n");
+        xml_.append(" $public T inst:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
+        assertEq("pkg.ExParam",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl341Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $return $class(String).newArrayInstance():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3721,7 +3746,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("code.expressionlanguage.exceptions.NegativeSizeException",err_.getClassName(cont_));
     }
     @Test
-    public void processEl341Test() {
+    public void processEl342Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
         xml_ = new StringBuilder();
@@ -3743,7 +3768,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
-    public void processEl342Test() {
+    public void processEl343Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
         xml_ = new StringBuilder();
