@@ -833,7 +833,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -856,7 +856,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -879,7 +879,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -902,7 +902,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -924,7 +924,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -946,7 +946,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -969,7 +969,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -993,7 +993,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1017,7 +1017,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static ExTwo single = $new ExTwo():\n");
+        xml_.append(" $public $static $final ExTwo single = $new ExTwo():\n");
         xml_.append(" $public $int inst = 1:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1041,7 +1041,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -1064,7 +1064,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -1087,7 +1087,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int[] inst = {1}:\n");
+        xml_.append(" $public $static $final $int[] inst = {1}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -1108,7 +1108,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $Method inst = $class(ExTwo).getDeclaredMethods()[0]:\n");
+        xml_.append(" $public $static $final $Method inst = $class(ExTwo).getDeclaredMethods()[0]:\n");
         xml_.append(" $public $static $void exec(){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1123,7 +1123,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $Method inst = $class(Ex).getDeclaredMethods()[0]:\n");
+        xml_.append(" $public $static $final $Method inst = $class(Ex).getDeclaredMethods()[0]:\n");
         xml_.append(" $static {\n");
         xml_.append("  inst.setPolymorph($false):\n");
         xml_.append(" }\n");
@@ -1154,6 +1154,51 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(isPolymorph(cont_,"pkg.Ex","inst"));
+    }
+    @Test
+    public void calculate58Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $Class.set(ExTwo.inst,0,1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int[] inst = {0}:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+    @Test
+    public void calculate59Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int[] inst = {0}:\n");
+        xml_.append(" $public $static $final $int ance:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $Class.set(inst,0,1):\n");
+        xml_.append("  ance = inst[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertEq(1,getNumber(cont_,"pkg.Ex","inst",0));
+        assertEq(1,getNumber(cont_,"pkg.Ex","ance"));
+    }
+    private Number getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
+        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).getInstance();
     }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

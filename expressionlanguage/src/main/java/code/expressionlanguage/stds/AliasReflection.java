@@ -1303,12 +1303,27 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 String owner_ = cl_.getVariableOwner();
-                if (!cl_.isTypeArray()) {
+                String clName_ = cl_.getName();
+                String baseWildCard_ = clName_;
+                if (StringList.quickEq(clName_, Templates.SUB_TYPE)) {
+                    baseWildCard_ = lgNames_.getAliasObject();
+                } else if (clName_.startsWith(Templates.SUB_TYPE)) {
+                    baseWildCard_ = clName_.substring(Templates.SUB_TYPE.length());
+                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                    baseWildCard_ = clName_.substring(Templates.SUP_TYPE.length());
+                }
+                if (!baseWildCard_.startsWith(Templates.ARR_BEG_STRING)) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
-                String clName_ = cl_.getName();
-                clName_ = PrimitiveTypeUtil.getQuickComponentType(clName_);
+                String pre_ = "";
+                if (clName_.startsWith(Templates.SUB_TYPE)) {
+                    pre_ = Templates.SUB_TYPE;
+                } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+                    pre_ = Templates.SUP_TYPE;
+                }
+                clName_ = baseWildCard_.substring(Templates.ARR_BEG_STRING.length());
+                clName_ = StringList.concat(pre_,clName_);
                 result_.setResult(_cont.getExtendedClassMetaInfo(clName_, owner_));
                 return result_;
             }
@@ -1377,7 +1392,8 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasArrayGetLength)) {
                 Struct inst_ = args_[0];
                 if (!(inst_ instanceof ArrayStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
+                    result_.setErrorMessage(inst_.getClassName(_cont));
+                    result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
                 }
                 ArrayStruct arr_ = (ArrayStruct) inst_;

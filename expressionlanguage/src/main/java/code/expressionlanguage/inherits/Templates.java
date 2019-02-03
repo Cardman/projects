@@ -964,7 +964,8 @@ public final class Templates {
         }
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getAliasCast();
-            _context.setException(new ErrorStruct(_context,cast_));
+            String type_ = _array.getClassName(_context);
+            _context.setException(new ErrorStruct(_context,type_,cast_));
             return;
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
@@ -1051,7 +1052,8 @@ public final class Templates {
             return NullStruct.NULL_VALUE;
         }
         String cast_ = stds_.getAliasCast();
-        _context.setException(new ErrorStruct(_context,cast_));
+        String type_ = _array.getClassName(_context);
+        _context.setException(new ErrorStruct(_context,type_,cast_));
         return NullStruct.NULL_VALUE;
     }
     public static ErrorType getErrorWhenIndex(Struct _array, Struct _index) {

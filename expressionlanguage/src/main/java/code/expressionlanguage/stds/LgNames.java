@@ -852,7 +852,7 @@ public abstract class LgNames {
             processError(_cont,result_);
             return result_;
         }
-        if (_cont.isFailInit()) {
+        if (_cont.hasExceptionOrFailInit()) {
             return result_;
         }
         result_ = lgNames_.getOtherResult(_cont, _struct, _method, args_);

@@ -659,6 +659,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
+        assertNull(cont_.getException());
     }
     @Test
     public void processEl342Test() {
@@ -679,6 +680,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
+        assertNull(cont_.getException());
     }
     @Test
     public void processEl343Test() {
@@ -701,6 +703,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
+        assertNull(cont_.getException());
     }
     @Test
     public void processEl344Test() {
@@ -743,6 +746,108 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq("java.lang.String",out_.getString());
+    }
+    @Test
+    public void processEl346Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(String).getComponentType():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(out_.isNull());
+        assertNull(cont_.getException());
+    }
+    @Test
+    public void processEl347Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String[]).getComponentType().getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("java.lang.String",out_.getString());
+    }
+    @Test
+    public void processEl348Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String[]).makeWildCard($true).getComponentType().getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("?java.lang.String",out_.getString());
+    }
+    @Test
+    public void processEl349Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(String[]).makeWildCard($false).getComponentType().getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("!java.lang.String",out_.getString());
+    }
+    @Test
+    public void processEl350Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(String[]).makeWildCard($null).getComponentType():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(out_.isNull());
+        assertNull(cont_.getException());
     }
     @Test
     public void calculate1Test() {
@@ -4468,6 +4573,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
+        assertNull(cont_.getException());
     }
     @Test
     public void calculate159Test() {

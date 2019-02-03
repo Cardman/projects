@@ -3787,6 +3787,244 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq("[java.lang.String",argument_.getString());
     }
+    @Test
+    public void processEl344Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $Class.getLength(1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
+        assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl345Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $Class.getLength($class(String).newArrayInstance(1)):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq(1,argument_.getNumber());
+    }
+    @Test
+    public void processEl346Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $Class.get(1,0):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
+        assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl347Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $Class.get($new String[]{},1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
+        assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl348Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $Class.get($new String[]{},-1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
+        assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl349Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return (String)$Class.get($new String[]{\"hello\"},0):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("hello",argument_.getString());
+    }
+    @Test
+    public void processEl350Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set(1,0,1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",err_.getClassName(cont_));
+        assertEq("java.lang.Integer",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl351Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set($new String[]{},-1,1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
+        assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl352Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set($new String[]{},1,1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.BadIndexException",err_.getClassName(cont_));
+        assertEq("1>=0",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl353Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set($new String[]{\"hello\"},0,1):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.DynamicArrayStoreException",err_.getClassName(cont_));
+        assertEq("java.lang.Integer!=java.lang.String",((StringStruct) err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl354Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String[] arr = $new String[]{\"hello\"}:\n");
+        xml_.append("  $Class.set(arr;.,0,\"world\"):\n");
+        xml_.append("  $return arr;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        assertEq("world",argument_.getString());
+    }
 //    @Test
     public void processEl1337Test() {
         StringBuilder xml_;
