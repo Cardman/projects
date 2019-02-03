@@ -4025,15 +4025,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument argument_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertEq("world",argument_.getString());
     }
-//    @Test
-    public void processEl1337Test() {
+    @Test
+    public void processEl355Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static String exmeth(){\n");
-        xml_.append("  $return $class($void).makeArray():\n");
+        xml_.append("  $return $Class.getClass($class(String).newArrayInstance($null)).getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4042,7 +4042,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument out_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
-        assertEq("?java.lang.String",out_.getString());
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
     }
 }

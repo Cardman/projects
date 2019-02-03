@@ -516,9 +516,25 @@ public final class Templates {
             if (_classNames.isEmpty()) {
                 return null;
             }
+            StringList parts_ = new StringList();
+            for (String s: _classNames) {
+                if (StringList.quickEq(s, Templates.SUB_TYPE)) {
+                    parts_.add(_context.getStandards().getAliasObject());
+                    continue;
+                }
+                if (s.startsWith(Templates.SUB_TYPE)) {
+                    parts_.add(s.substring(Templates.SUB_TYPE.length()));
+                    continue;
+                }
+                if (s.startsWith(Templates.SUP_TYPE)) {
+                    parts_.add(s.substring(Templates.SUP_TYPE.length()));
+                    continue;
+                }
+                parts_.add(s);
+            }
             StringBuilder str_ = new StringBuilder(fct_);
             str_.append(Templates.TEMPLATE_BEGIN);
-            str_.append(_classNames.join(Templates.TEMPLATE_SEP));
+            str_.append(parts_.join(Templates.TEMPLATE_SEP));
             str_.append(Templates.TEMPLATE_END);
             return str_.toString();
         }
