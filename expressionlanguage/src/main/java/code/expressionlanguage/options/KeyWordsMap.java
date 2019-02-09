@@ -371,6 +371,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetFieldType("getType");
         _lgNames.setAliasGetGenericType("getGenericType");
         _lgNames.setAliasIsFinal("isFinal");
+        _lgNames.setAliasIsTypeVariable("isTypeVariable");
+        _lgNames.setAliasIsVariable("isVariable");
         _lgNames.setAliasIsStatic("isStatic");
         _lgNames.setAliasIsVarargs("isVarargs");
         _lgNames.setAliasIsNormal("isNormal");
@@ -624,6 +626,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetFieldType("valType");
         _lgNames.setAliasGetGenericType("valGeneType");
         _lgNames.setAliasIsFinal("estFinal");
+        _lgNames.setAliasIsTypeVariable("estTypeVariable");
+        _lgNames.setAliasIsVariable("estVariable");
         _lgNames.setAliasIsStatic("estStatic");
         _lgNames.setAliasIsVarargs("estVarargs");
         _lgNames.setAliasIsNormal("estNormal");

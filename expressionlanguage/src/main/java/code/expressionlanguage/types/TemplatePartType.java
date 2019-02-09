@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -8,23 +9,23 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-final class TemplatePartType extends ParentPartType {
+final class TemplatePartType extends BinaryType {
 
-    public TemplatePartType(ParentPartType _parent, int _index, int _indexInType) {
+    TemplatePartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);
     }
 
     @Override
-    public String getPrettyBegin() {
+    String getPrettyBegin() {
         return EMPTY_STRING;
     }
     @Override
-    public String getBegin() {
+    String getBegin() {
         return EMPTY_STRING;
     }
 
     @Override
-    public String getSeparator(int _index) {
+    String getSeparator(int _index) {
         if (_index == 0) {
             return Templates.TEMPLATE_BEGIN;
         }
@@ -32,16 +33,21 @@ final class TemplatePartType extends ParentPartType {
     }
 
     @Override
-    public String getPrettyEnd() {
+    String getPrettyEnd() {
         return Templates.TEMPLATE_END;
     }
     @Override
-    public String getEnd() {
+    String getEnd() {
         return Templates.TEMPLATE_END;
     }
 
     @Override
-    public void analyzeDepends(Analyzable _an,
+    boolean analyzeTree(ExecutableCode an, CustList<NatTreeMap<Integer, String>> dels_) {
+        return true;
+    }
+
+    @Override
+    void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact) {
         CustList<PartType> ch_ = new CustList<PartType>();
@@ -83,7 +89,7 @@ final class TemplatePartType extends ParentPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -100,7 +106,7 @@ final class TemplatePartType extends ParentPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();

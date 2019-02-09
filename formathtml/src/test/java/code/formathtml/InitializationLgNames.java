@@ -269,6 +269,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetFieldType("getType");
         _lgNames.setAliasGetGenericType("getGenericType");
         _lgNames.setAliasIsFinal("isFinal");
+        _lgNames.setAliasIsTypeVariable("isTypeVariable");
+        _lgNames.setAliasIsVariable("isVariable");
         _lgNames.setAliasIsStatic("isStatic");
         _lgNames.setAliasIsVarargs("isVarargs");
         _lgNames.setAliasIsNormal("isNormal");

@@ -36,28 +36,8 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.CausingErrorStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LambdaConstructorStruct;
-import code.expressionlanguage.structs.LambdaFieldStruct;
-import code.expressionlanguage.structs.LambdaMethodStruct;
-import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.expressionlanguage.structs.*;
+import code.util.*;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
     private boolean staticAccess;
@@ -407,7 +387,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Classes classes_ = _conf.getClasses();
         String aliasClass_ = stds_.getAliasClass();
         String aliasForName_ = stds_.getAliasForName();
-        String aliasValueOf_ = stds_.getAliasEnumPredValueOf();
+        String aliasValueOf_ = stds_.getAliasEnumValueOf();
         String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
         String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
         String aliasInit_ = stds_.getAliasInit();
@@ -465,7 +445,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
-                if (!cl_.isEnum()) {
+                if (!cl_.isTypeEnum()) {
                     return new Argument();
                 }
                 Argument clArg_ = _firstArgs.first();
@@ -475,25 +455,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
-                if (!cl_.isEnum()) {
-                    return new Argument();
-                }
                 String enumName_ = cl_.getName();
                 RootBlock r_ = classes_.getClassBody(enumName_);
-                StringList allElements_ = new StringList();
-                for (Block e: Classes.getDirectChildren(r_)) {
-                    if (e instanceof ElementBlock) {
-                        String type_ = ((ElementBlock)e).getImportedClassName();
-                        allElements_.add(type_);
-                    }
+                if (r_ == null || !cl_.isTypeEnum()) {
+                    return new Argument();
                 }
-                allElements_.removeDuplicates();
-                String className_;
-                if (allElements_.size() == 1) {
-                    className_ = allElements_.first();
-                } else {
-                    className_ = r_.getWildCardString();
-                }
+                String className_ = r_.getWildCardElement();
                 return getEnumValues(className_, _conf);
             }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
@@ -512,7 +479,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
-                    _conf.setException(new ErrorStruct(_conf,stds_.getAliasClassNotFoundError()));
+                    _conf.setException(new ErrorStruct(_conf,clDyn_,stds_.getAliasClassNotFoundError()));
                     return new Argument();
                 }
                 if (init_) {
@@ -530,6 +497,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 ContextEl cont_ = _conf.getContextEl();
                 String id_ = Templates.getIdFromAllTypes(className_);
                 GeneType type_ = cont_.getClassBody(id_);
+                if (type_ == null) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    cont_.setException(new ErrorStruct(_conf,null_));
+                    return Argument.createVoid();
+                }
                 if (type_.isAbstractType()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
@@ -546,18 +519,41 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 className_ = res_;
                 String first_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
-                if (type_ instanceof RootBlock) {
-                    CustList<RootBlock> needRoot_;
-                    needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
-                    first_ = needRoot_.first().getFullName();
-                    for (RootBlock r: needRoot_) {
-                        need_.add(r);
+                if (!(type_ instanceof RootBlock)) {
+                    String aliasNumber_ = stds_.getAliasNumber();
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(aliasNumber_, id_, _conf)) {
+                        String pr_ = PrimitiveTypeUtil.toPrimitive(id_, _conf.getStandards());
+                        return new Argument(PrimitiveTypeUtil.defaultValue(pr_, _conf));
                     }
-                    if (type_.withoutInstance() && hasToExit(_conf, first_)) {
-                        return Argument.createVoid();
+                    String aliasBoolean_ = stds_.getAliasBoolean();
+                    if (StringList.quickEq(aliasBoolean_, id_)) {
+                        return new Argument(new BooleanStruct(false));
                     }
-                } else {
-                    need_.add(type_);
+                    String aliasString_ = stds_.getAliasString();
+                    if (StringList.quickEq(aliasString_, id_)) {
+                        return new Argument(new StringStruct(""));
+                    }
+                    String aliasStringBuilder_ = stds_.getAliasStringBuilder();
+                    if (StringList.quickEq(aliasStringBuilder_, id_)) {
+                        return new Argument(new StringBuilderStruct(new StringBuilder()));
+                    }
+                    String aliasRepl_ = stds_.getAliasReplacement();
+                    if (StringList.quickEq(aliasRepl_, id_)) {
+                        Replacement r_ = new Replacement();
+                        r_.setOldString("");
+                        r_.setNewString("");
+                        return new Argument(new ReplacementStruct(r_));
+                    }
+                    return _conf.getStandards().defaultInstance(_conf,id_);
+                }
+                CustList<RootBlock> needRoot_;
+                needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
+                first_ = needRoot_.first().getFullName();
+                for (RootBlock r: needRoot_) {
+                    need_.add(r);
+                }
+                if (type_.withoutInstance() && hasToExit(_conf, first_)) {
+                    return Argument.createVoid();
                 }
                 if (!_firstArgs.isEmpty()) {
                     Struct par_ = _firstArgs.first().getStruct();
@@ -672,20 +668,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String values_ = context_.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
                 EnumBlock e_ = (EnumBlock) classes_.getClassBody(_classNameFound);
-                StringList allElements_ = new StringList();
-                for (Block e: Classes.getDirectChildren(e_)) {
-                    if (e instanceof ElementBlock) {
-                        String type_ = ((ElementBlock)e).getImportedClassName();
-                        allElements_.add(type_);
-                    }
-                }
-                allElements_.removeDuplicates();
-                String className_;
-                if (allElements_.size() == 1) {
-                    className_ = allElements_.first();
-                } else {
-                    className_ = e_.getWildCardString();
-                }
+                String className_ = e_.getWildCardElement();
                 return getEnumValues(className_, _conf);
             }
             Argument arg_ = _firstArgs.first();
@@ -998,7 +981,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (ExecInvokingOperation.hasToExit(_conf, _class)) {
             return Argument.createVoid();
         }
-        if (_name.isNull()) {
+        Struct name_ = _name.getStruct();
+        if (!(name_ instanceof StringStruct)) {
             return new Argument();
         }
         ContextEl c_ = _conf.getContextEl();
@@ -1009,7 +993,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ElementBlock b_ = (ElementBlock)b;
             String fieldName_ = b_.getUniqueFieldName();
-            if (StringList.quickEq(fieldName_, ((StringStruct) _name.getStruct()).getInstance())) {
+            if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Argument argres_ = new Argument();
                 Struct str_ = classes_.getStaticField(new ClassField(_class, fieldName_),c_);
                 _conf.getContextEl().addSensibleField(_class, str_);

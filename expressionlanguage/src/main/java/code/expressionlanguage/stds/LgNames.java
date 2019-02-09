@@ -1,9 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -312,6 +309,8 @@ public abstract class LgNames {
                 getAliasIsClass(),
                 getAliasIsEnum(),
                 getAliasIsFinal(),
+                getAliasIsTypeVariable(),
+                getAliasIsVariable(),
                 getAliasIsInstance(),
                 getAliasIsInterface(),
                 getAliasIsPackage(),
@@ -785,7 +784,6 @@ public abstract class LgNames {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String replType_ = lgNames_.getAliasReplacement();
         result_ = invokeStdMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -811,8 +809,7 @@ public abstract class LgNames {
             }
             return result_;
         }
-        if (StringList.quickEq(type_, replType_)
-                || StringList.quickEq(type_, stringBuilderType_)) {
+        if (StringList.quickEq(type_, stringBuilderType_)) {
             result_ = AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
             processError(_cont, result_);
             return result_;
@@ -870,6 +867,7 @@ public abstract class LgNames {
         String charType_ = lgNames_.getAliasCharacter();
         String nbType_ = lgNames_.getAliasNumber();
         String stringType_ = lgNames_.getAliasString();
+        String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
         	if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
         		result_.setResult(ResourcesStruct.getResourceNames(_cont));
@@ -890,6 +888,10 @@ public abstract class LgNames {
                 result_.setResult(par_);
                 return result_;
             }
+        }
+        if (StringList.quickEq(type_, replType_)) {
+            ReplacementStruct.calculate(_cont, result_, _method, _struct);
+            return result_;
         }
         if (StringList.quickEq(type_, stringType_)
                 || StringList.quickEq(type_, lgNames_.getAliasCharSequence())) {
@@ -1818,6 +1820,9 @@ public abstract class LgNames {
 
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         return new ResultErrorStd();
+    }
+    public Argument defaultInstance(ExecutableCode _cont, String _id) {
+        return new Argument(new SimpleObjectStruct());
     }
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_;
@@ -3295,6 +3300,18 @@ public abstract class LgNames {
     }
     public void setAliasIsFinal(String _aliasIsFinal) {
         reflect.setAliasIsFinal(_aliasIsFinal);
+    }
+    public String getAliasIsTypeVariable() {
+        return reflect.getAliasIsTypeVariable();
+    }
+    public void setAliasIsTypeVariable(String _aliasIsFinal) {
+        reflect.setAliasIsTypeVariable(_aliasIsFinal);
+    }
+    public String getAliasIsVariable() {
+        return reflect.getAliasIsVariable();
+    }
+    public void setAliasIsVariable(String _aliasIsFinal) {
+        reflect.setAliasIsVariable(_aliasIsFinal);
     }
     public String getAliasIsStatic() {
         return reflect.getAliasIsStatic();

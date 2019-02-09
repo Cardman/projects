@@ -67,6 +67,8 @@ public final class AliasReflection {
     private String aliasGetReturnType;
     private String aliasGetActualTypeArguments;
     private String aliasIsFinal;
+    private String aliasIsTypeVariable;
+    private String aliasIsVariable;
     private String aliasIsStatic;
     private String aliasIsVarargs;
     private String aliasIsNormal;
@@ -189,6 +191,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsVariable, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsTypeVariable, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsInterface, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -461,17 +469,17 @@ public final class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasInvokeTarget, fields_, constructors_, methods_, aliasError_, MethodModifier.NORMAL);
+        stdcl_ = new StandardClass(aliasInvokeTarget, fields_, constructors_, methods_, aliasError_, MethodModifier.ABSTRACT);
         _stds.getStandards().put(aliasInvokeTarget, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError_, MethodModifier.NORMAL);
+        stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError_, MethodModifier.ABSTRACT);
         _stds.getStandards().put(aliasClassNotFoundError, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasAnnotation, fields_, constructors_, methods_, aliasObject_, MethodModifier.NORMAL);
+        stdcl_ = new StandardClass(aliasAnnotation, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasAnnotation);
         method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -507,11 +515,9 @@ public final class AliasReflection {
         String aliasField_ = ref_.aliasField;
         String aliasVoid_ = lgNames_.getAliasVoid();
         if (StringList.quickEq(type_, ref_.aliasAnnotation)) {
-            if (StringList.quickEq(name_, ref_.aliasGetString)) {
-                FieldableStruct poly_ = (FieldableStruct) args_[0];
-                result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(poly_)));
-                return result_;
-            }
+            FieldableStruct poly_ = (FieldableStruct) args_[0];
+            result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(poly_)));
+            return result_;
         }
         if (StringList.quickEq(type_, ref_.aliasField)) {
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
@@ -564,13 +570,11 @@ public final class AliasReflection {
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetGenericType)) {
-                FieldMetaInfo field_ = (FieldMetaInfo) _struct;
-                String owner_ = field_.getDeclaringClass();
-                String typeField_ = field_.getType();
-                result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
-                return result_;
-            }
+            FieldMetaInfo field_ = (FieldMetaInfo) _struct;
+            String owner_ = field_.getDeclaringClass();
+            String typeField_ = field_.getType();
+            result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
+            return result_;
         }
         if (StringList.quickEq(type_, ref_.aliasMethod)) {
             if (StringList.quickEq(name_, ref_.aliasIsPolymorph)) {
@@ -708,17 +712,15 @@ public final class AliasReflection {
                 result_.setResult(_cont.getExtendedClassMetaInfo(cl_));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasSetPolymorph)) {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
-                    _cont.failInitEnums();
-                    return result_;
-                }
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                Boolean poly_ = ((BooleanStruct) args_[0]).getInstance();
-                method_.setPolymorph(poly_);
-                result_.setResult(NullStruct.NULL_VALUE);
+            if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                _cont.failInitEnums();
                 return result_;
             }
+            MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+            Boolean poly_ = ((BooleanStruct) args_[0]).getInstance();
+            method_.setPolymorph(poly_);
+            result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
         }
         if (StringList.quickEq(type_, aliasClass_)) {
             if (StringList.quickEq(name_, ref_.aliasIsAbstract)) {
@@ -788,6 +790,16 @@ public final class AliasReflection {
                 result_.setResult(new BooleanStruct(class_.isFinalType()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasIsTypeVariable)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isTypeVariable()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasIsVariable)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isVariable()));
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasIsInterface)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isTypeInterface()));
@@ -820,11 +832,11 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasIsInstance)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
-                if (class_.isTypeVariable()) {
+                String param_ = class_.getName();
+                if (param_.contains(Templates.PREFIX_VAR_TYPE)) {
                     result_.setResult(new BooleanStruct(false));
                     return result_;
                 }
-                String param_ = class_.getName();
                 String arg_ = lgNames_.getStructClassName(args_[0], _cont);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
@@ -1468,21 +1480,19 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetActualTypeArguments)) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                StringList types_ = Templates.getAllTypes(cl_.getName());
-                String owner_ = cl_.getName();
-                int len_ = types_.size();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_-1];
-                for (int i = 1; i < len_; i++) {
-                    String nameVar_ = types_.get(i);
-                    superInts_[i-1] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
-                }
-                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
-                result_.setResult(arr_);
-                return result_;
+            ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+            StringList types_ = Templates.getAllTypes(cl_.getName());
+            String owner_ = cl_.getName();
+            int len_ = types_.size();
+            String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+            Struct[] superInts_ = new Struct[len_-1];
+            for (int i = 1; i < len_; i++) {
+                String nameVar_ = types_.get(i);
+                superInts_[i-1] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
             }
+            ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+            result_.setResult(arr_);
+            return result_;
         }
         if (StringList.quickEq(type_, aliasConstructor_)) {
             if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
@@ -1787,6 +1797,23 @@ public final class AliasReflection {
     public void setAliasIsStatic(String _aliasIsStatic) {
         aliasIsStatic = _aliasIsStatic;
     }
+
+    public String getAliasIsTypeVariable() {
+        return aliasIsTypeVariable;
+    }
+
+    public void setAliasIsTypeVariable(String _aliasIsTypeVariable) {
+        aliasIsTypeVariable = _aliasIsTypeVariable;
+    }
+
+    public String getAliasIsVariable() {
+        return aliasIsVariable;
+    }
+
+    public void setAliasIsVariable(String _aliasIsVariable) {
+        aliasIsVariable = _aliasIsVariable;
+    }
+
     public String getAliasIsVarargs() {
         return aliasIsVarargs;
     }

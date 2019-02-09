@@ -19,15 +19,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -228,6 +220,37 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasFile, std_);
+    }
+    @Override
+    public Argument defaultInstance(ExecutableCode _cont, String _id) {
+        if (StringList.quickEq(_id,getAliasObject())) {
+            return super.defaultInstance(_cont,_id);
+        }
+        if (StringList.quickEq(_id,aliasThread)) {
+            _cont.setException(new ErrorStruct(_cont,getAliasIllegalArg()));
+            return Argument.createVoid();
+        }
+        if (StringList.quickEq(_id,aliasReentrantLock)) {
+            ReentrantLock re_ = new ReentrantLock();
+            StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
+            return new Argument(std_);
+        }
+        if (StringList.quickEq(_id,aliasAtomicBoolean)) {
+            AtomicBoolean at_ = new AtomicBoolean();
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+            return new Argument(std_);
+        }
+        if (StringList.quickEq(_id,aliasAtomicInteger)) {
+            AtomicInteger at_ = new AtomicInteger();
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+            return new Argument(std_);
+        }
+        if (StringList.quickEq(_id,aliasAtomicLong)) {
+            AtomicLong at_ = new AtomicLong();
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            return new Argument(std_);
+        }
+        return Argument.createVoid();
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,

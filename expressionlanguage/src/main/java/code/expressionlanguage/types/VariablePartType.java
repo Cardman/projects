@@ -11,12 +11,12 @@ import code.util.StringList;
 
 final class VariablePartType extends LeafPartType {
 
-    public VariablePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
+    VariablePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
 
     @Override
-    public void analyzeDepends(Analyzable _an,
+    void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact) {
         String type_ = getTypeName();
@@ -45,7 +45,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyzeInherits(Analyzable _an, int _index,
+    void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
             boolean _protected) {
@@ -73,7 +73,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         if (getParent() instanceof InnerPartType) {
             _an.getCurrentBadIndexes().add(getIndexInType());
@@ -99,7 +99,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
@@ -118,7 +118,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
+    void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
         
     }
 }

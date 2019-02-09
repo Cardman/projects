@@ -4,6 +4,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.structs.Struct;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -2984,5 +2985,31 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Method f = $class($Fct).makeGeneric($class($int),$class($int)).getDeclaredMethods()[0i]:\n");
+        xml_.append("  $Fct<$int,$int> g = $new Ex().$lambda(Ex,exmethtwo,$int):\n");
+        xml_.append("  $return $($int) f;.invoke(g;.,$new Object[][]{$null}):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmethtwo($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        Struct str_ = cont_.getException();
+        assertEq("code.util.exceptions.NullObjectException", str_.getClassName(cont_));
     }
 }

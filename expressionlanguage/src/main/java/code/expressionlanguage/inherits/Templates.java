@@ -244,6 +244,12 @@ public final class Templates {
         }
         StringMap<StringList> mapping_ = new StringMap<StringList>();
         if (_wildCard) {
+            if (className_.startsWith(SUB_TYPE)) {
+                return "";
+            }
+            if (className_.startsWith(SUP_TYPE)) {
+                return "";
+            }
             StringList allArgTypes_ = getAllTypes(className_).mid(1);
             for (String m: allArgTypes_) {
                 if (m.startsWith(SUB_TYPE)) {
@@ -1094,6 +1100,18 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
+    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,Analyzable _context) {
+        if (PrimitiveTypeUtil.isPrimitive(_p, _context)) {
+            if (!PrimitiveTypeUtil.isPrimitive(_a, _context)) {
+                return false;
+            }
+        }
+        Mapping map_ = new Mapping();
+        map_.setArg(_a);
+        map_.setParam(_p);
+        map_.setMapping(_mapping);
+        return isCorrectOrNumbers(map_, _context);
+    }
     public static boolean isCorrectOrNumbers(Mapping _m, Analyzable _context) {
         ClassArgumentMatching a_ = _m.getArg();
         ClassArgumentMatching p_ = _m.getParam();
@@ -1139,18 +1157,7 @@ public final class Templates {
         }
         return isCorrect(_m, _context);
     }
-    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,Analyzable _context) {
-        if (PrimitiveTypeUtil.isPrimitive(_p, _context)) {
-            if (!PrimitiveTypeUtil.isPrimitive(_a, _context)) {
-                return false;
-            }
-        }
-        Mapping map_ = new Mapping();
-        map_.setArg(_a);
-        map_.setParam(_p);
-        map_.setMapping(_mapping);
-        return isCorrectOrNumbers(map_, _context);
-    }
+
     static boolean isCorrect(Mapping _m, Analyzable _context) {
         ClassArgumentMatching arg_ = _m.getArg();
         ClassArgumentMatching param_ = _m.getParam();

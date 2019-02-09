@@ -418,31 +418,9 @@ public final class AliasCharSequence {
 
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
-        result_ = invokeStdMethod(_cont, _method, _struct, _args);
-        if (result_.getResult() != null) {
-            return result_;
-        }
-        if (result_.getError() != null) {
-            String errMessage_ = result_.getErrorMessage();
-            if (errMessage_ != null) {
-                _cont.setException(new ErrorStruct(_cont,errMessage_,result_.getError()));
-            } else {
-                _cont.setException(new ErrorStruct(_cont,result_.getError()));
-            }
-            return result_;
-        }
-        String type_ = _method.getClassName();
-        LgNames lgNames_ = _cont.getStandards();
-        String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String replType_ = lgNames_.getAliasReplacement();
+        result_ = new ResultErrorStd();
         Struct[] args_ = LgNames.getObjects(_args);
-        if (StringList.quickEq(type_, replType_)) {
-            ReplacementStruct.calculate(_cont, result_, _method, _struct);
-            return result_;
-        }
-        if (StringList.quickEq(type_, stringBuilderType_)) {
-            StringBuilderStruct.calculate(_cont, result_, _method, _struct, args_);
-        }
+        StringBuilderStruct.calculate(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
@@ -452,15 +430,11 @@ public final class AliasCharSequence {
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();
-        String charSequenceType_ = lgNames_.getAliasCharSequence();
         if (StringList.quickEq(type_, stringType_)) {
             StringStruct.calculate(_cont, result_, _method, _struct, args_);
             return result_;
         }
-        if (StringList.quickEq(type_, charSequenceType_)) {
-            CharSequenceStruct.calculate(_cont, result_, _method, _struct, args_);
-            return result_;
-        }
+        CharSequenceStruct.calculate(_cont, result_, _method, _struct, args_);
         return result_;
     }
 

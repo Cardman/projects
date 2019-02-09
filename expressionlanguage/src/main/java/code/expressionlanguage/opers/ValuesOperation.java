@@ -59,19 +59,7 @@ public final class ValuesOperation extends VariableLeafOperation {
             badAccess_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(badAccess_);
         }
-        StringList allElements_ = new StringList();
-        for (Block e: Classes.getDirectChildren(r_)) {
-            if (e instanceof ElementBlock) {
-                String type_ = ((ElementBlock)e).getImportedClassName();
-                allElements_.add(type_);
-            }
-        }
-        allElements_.removeDuplicates();
-        if (allElements_.size() == 1) {
-            className = allElements_.first();
-        } else {
-            className = r_.getWildCardString();
-        }
+        className = r_.getWildCardElement();
         String ret_ = PrimitiveTypeUtil.getPrettyArrayType(className);
         setResultClass(new ClassArgumentMatching(ret_));
     }

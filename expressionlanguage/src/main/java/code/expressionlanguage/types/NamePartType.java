@@ -18,12 +18,12 @@ import code.util.StringMap;
 
 final class NamePartType extends LeafPartType {
 
-    public NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
+    NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
 
     @Override
-    public void analyzeDepends(Analyzable _an,
+    void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact) {
         CustList<PartType> previous_ = new CustList<PartType>();
@@ -72,7 +72,7 @@ final class NamePartType extends LeafPartType {
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
-            StringList deps_ = new StringList();
+            StringList deps_;
             String type_ = getTypeName();
             TypeOwnersDepends res_ = TypeUtil.getOwnersDepends(lastInner_, fullName_, id_, type_, _an);
             StringList owners_ = res_.getTypeOwners();
@@ -190,7 +190,7 @@ final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         StringList allAncestors_ = new StringList();
         RootBlock p_ = _rooted.getParentType();
-        StringList deps_ = new StringList();
+        StringList deps_;
         while (p_ != null) {
             allAncestors_.add(p_.getFullName());
             p_ = p_.getParentType();
@@ -234,7 +234,7 @@ final class NamePartType extends LeafPartType {
     }
 
     @Override
-    public void analyzeInherits(Analyzable _an, int _index,
+    void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
             boolean _protected) {
@@ -477,7 +477,7 @@ final class NamePartType extends LeafPartType {
         return false;
     }
     @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
@@ -493,8 +493,8 @@ final class NamePartType extends LeafPartType {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
                 if (i_.isRemovedBefore()) {
-                    tryAnalyzeInnerParts(_an, _globalType, _rooted, _exact,
-                            true);
+                    tryAnalyzeInnerParts(_an, _globalType, _rooted, _exact
+                    );
                     return;
                 }
             }
@@ -586,8 +586,8 @@ final class NamePartType extends LeafPartType {
         //_an.lookupImportMemberType(type_, _rooted, false);
         if (_an.getOptions().isSingleInnerParts()) {
             if (parCur_ == null || parCur_.getPreviousSibling() == null) {
-                tryAnalyzeInnerParts(_an, _globalType, _rooted, _exact,
-                        true);
+                tryAnalyzeInnerParts(_an, _globalType, _rooted, _exact
+                );
                 return;
             }
         }
@@ -604,8 +604,7 @@ final class NamePartType extends LeafPartType {
     }
 
     private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
-            boolean _protectedInc) {
+                                      AccessingImportingBlock _rooted, boolean _exact) {
         String type_ = getTypeName();
         if (_rooted instanceof RootBlock) {
             RootBlock c = (RootBlock)_rooted;
@@ -623,7 +622,7 @@ final class NamePartType extends LeafPartType {
                 return;
             }
             for (String a: allAncestors_) {
-                StringList owners_ = TypeUtil.getOwners(false, _protectedInc, _globalType, a, type_, false, _an);
+                StringList owners_ = TypeUtil.getOwners(false, true, _globalType, a, type_, false, _an);
                 if (owners_.size() == 1) {
                     GeneType g_ = _an.getClassBody(a);
                     String genStr_ = g_.getGenericString();
@@ -653,18 +652,16 @@ final class NamePartType extends LeafPartType {
                 return;
             }
         }
-        if (_protectedInc) {
-            String res_ = _an.lookupImportMemberType(type_, _rooted, false);
-            if (!res_.isEmpty()) {
-                setAnalyzedType(res_);
-                return;
-            }
+        String res_ = _an.lookupImportMemberType(type_, _rooted, false);
+        if (!res_.isEmpty()) {
+            setAnalyzedType(res_);
+            return;
         }
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
 
     @Override
-    public void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer,String>> _dels, AccessingImportingBlock _rooted) {
+    void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer,String>> _dels, AccessingImportingBlock _rooted) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -761,7 +758,7 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(out_);
     }
     @Override
-    public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
+    void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
         StringList pr_ = new StringList();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -796,18 +793,6 @@ final class NamePartType extends LeafPartType {
             setImportedTypeName(typeName_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (parts_.size() > 1) {
-                String p_ = parts_.last().trim();
-                if (_an.getStandards().getStandards().contains(p_)) {
-                    setImportedTypeName(p_);
-                }
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setImportedTypeName(typeName_);
             return;
@@ -818,12 +803,10 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setImportedTypeName(getTypeName().trim());
-                    }
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                    setImportedTypeName(getTypeName().trim());
                 }
             }
         }

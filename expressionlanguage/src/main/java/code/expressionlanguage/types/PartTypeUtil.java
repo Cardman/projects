@@ -56,9 +56,9 @@ public final class PartTypeUtil {
                         }
                     }
                     if (count_ == 0) {
-                        id_.append(par_.getSeparator(current_.getIndex()));
+                        id_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
                     } else if (count_ > 1 || !(par_ instanceof TemplatePartType)) {
-                        out_.append(par_.getSeparator(current_.getIndex()));
+                        out_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
                     } else if (current_.getIndex() > 0) {
                         // par_ instanceof TemplatePartType
                         // end first argument
@@ -350,7 +350,7 @@ public final class PartTypeUtil {
                 PartType next_ = createNextSiblingExec(current_, loc_, dels_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(par_.getSeparator(current_.getIndex()));
+                    out_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
@@ -405,15 +405,23 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
+                if (current_ instanceof ParentPartType) {
+                    if (!((ParentPartType)current_).analyzeTree(_an, dels_)) {
+                        return "";
+                    }
+                }
                 PartType next_ = createNextSiblingExec(current_, loc_, dels_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(par_.getSeparator(current_.getIndex()));
+                    out_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
                 }
                 if (par_ == root_) {
+                    if (!par_.analyzeTree(_an, dels_)) {
+                        return "";
+                    }
                     out_.append(par_.getEnd());
                     stop_ = true;
                     break;
@@ -484,16 +492,17 @@ public final class PartTypeUtil {
     }
     static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
         ParentPartType par_ = _parent.getParent();
-        if (par_ == null) {
+        if (!(par_ instanceof BinaryType)) {
             return null;
         }
+        BinaryType b_ = (BinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
         NatTreeMap<Integer, String> last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = par_.getIndex();
+        int indexPar_ = b_.getIndex();
         int off_ = 0;
         if (_dels.size() >= 2) {
             NatTreeMap<Integer, String> befLast_;
@@ -505,23 +514,24 @@ public final class PartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartType(_an,par_,indexNext_, off_, an_, last_, rem_, _options);
+        PartType p_ = PartType.createPartType(_an,b_,indexNext_, off_, an_, last_, rem_, _options);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;
     }
     static PartType createNextSiblingExec(PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels) {
         ParentPartType par_ = _parent.getParent();
-        if (par_ == null) {
+        if (!(par_ instanceof BinaryType)) {
             return null;
         }
+        BinaryType b_ = (BinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
         NatTreeMap<Integer, String> last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = par_.getIndex();
+        int indexPar_ = b_.getIndex();
         int off_ = 0;
         if (_dels.size() >= 2) {
             NatTreeMap<Integer, String> befLast_;
@@ -533,7 +543,7 @@ public final class PartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
         boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartTypeExec(par_,indexNext_, off_, an_, last_, rem_);
+        PartType p_ = PartType.createPartTypeExec(b_,indexNext_, off_, an_, last_, rem_);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;

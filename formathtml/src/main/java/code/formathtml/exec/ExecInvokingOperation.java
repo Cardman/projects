@@ -537,7 +537,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
-                if (!cl_.isEnum()) {
+                if (!cl_.isTypeEnum()) {
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -548,26 +548,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
-                if (!cl_.isEnum()) {
+                if (!cl_.isTypeEnum()) {
                     Argument a_ = new Argument();
                     return a_;
                 }
                 String enumName_ = cl_.getName();
                 RootBlock r_ = classes_.getClassBody(enumName_);
-                StringList allElements_ = new StringList();
-                for (Block e: Classes.getDirectChildren(r_)) {
-                    if (e instanceof ElementBlock) {
-                        String type_ = ((ElementBlock)e).getImportedClassName();
-                        allElements_.add(type_);
-                    }
-                }
-                allElements_.removeDuplicates();
-                String className_;
-                if (allElements_.size() == 1) {
-                    className_ = allElements_.first();
-                } else {
-                    className_ = r_.getWildCardString();
-                }
+                String className_ = r_.getWildCardElement();
                 return getEnumValues(className_, _conf);
             }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
@@ -757,20 +744,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String values_ = context_.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
                 EnumBlock e_ = (EnumBlock) classes_.getClassBody(_classNameFound);
-                StringList allElements_ = new StringList();
-                for (Block e: Classes.getDirectChildren(e_)) {
-                    if (e instanceof ElementBlock) {
-                        String type_ = ((ElementBlock)e).getImportedClassName();
-                        allElements_.add(type_);
-                    }
-                }
-                allElements_.removeDuplicates();
-                String className_;
-                if (allElements_.size() == 1) {
-                    className_ = allElements_.first();
-                } else {
-                    className_ = e_.getWildCardString();
-                }
+                String className_ = e_.getWildCardElement();
                 return getEnumValues(className_, _conf);
             }
             Argument arg_ = _firstArgs.first();

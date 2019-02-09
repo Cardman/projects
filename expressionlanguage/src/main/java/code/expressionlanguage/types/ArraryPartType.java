@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -10,35 +11,36 @@ import code.util.StringList;
 
 final class ArraryPartType extends ParentPartType {
 
-    public ArraryPartType(ParentPartType _parent, int _index, int _indexInType) {
+    ArraryPartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);
     }
 
     @Override
-    public String getPrettyBegin() {
+    String getPrettyBegin() {
         return EMPTY_STRING;
     }
 
     @Override
-    public String getBegin() {
+    String getBegin() {
         return Templates.ARR_BEG_STRING;
     }
 
     @Override
-    public String getSeparator(int _index) {
+    String getPrettyEnd() {
+        return "[]";
+    }
+    @Override
+    String getEnd() {
         return EMPTY_STRING;
     }
 
     @Override
-    public String getPrettyEnd() {
-        return "[]";
+    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> dels_) {
+        return true;
     }
+
     @Override
-    public String getEnd() {
-        return EMPTY_STRING;
-    }
-    @Override
-    public void analyzeDepends(Analyzable _an,
+    void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact) {
         String ch_ = getFirstChild().getAnalyzedType();
@@ -49,7 +51,7 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    public void analyzeInherits(Analyzable _an, int _index,
+    void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
             boolean _protected) {
@@ -58,14 +60,14 @@ final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
     @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
     @Override
-    public void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();

@@ -80,19 +80,7 @@ public final class EnumValueOfOperation extends ReflectableOpering {
             un_.setType(argCl_);
             _conf.getClasses().addError(un_);
         }
-        StringList allElements_ = new StringList();
-        for (Block e: Classes.getDirectChildren(r_)) {
-            if (e instanceof ElementBlock) {
-                String type_ = ((ElementBlock)e).getImportedClassName();
-                allElements_.add(type_);
-            }
-        }
-        allElements_.removeDuplicates();
-        if (allElements_.size() == 1) {
-            className = allElements_.first();
-        } else {
-            className = r_.getWildCardString();
-        }
+        className = r_.getWildCardElement();
         setResultClass(new ClassArgumentMatching(className));
     }
 

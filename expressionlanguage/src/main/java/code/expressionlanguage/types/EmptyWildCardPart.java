@@ -9,13 +9,13 @@ import code.util.NatTreeMap;
 
 final class EmptyWildCardPart extends LeafPartType {
 
-    public EmptyWildCardPart(ParentPartType _parent, int _index,
+    EmptyWildCardPart(ParentPartType _parent, int _index,
             int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
 
     @Override
-    public void analyzeDepends(Analyzable _an,
+    void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels, RootBlock _rooted,
             boolean _exact) {
         if (!(getParent() instanceof TemplatePartType)) {
@@ -27,7 +27,7 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
-    public void analyze(Analyzable _an,
+    void analyze(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             AccessingImportingBlock _rooted, boolean _exact) {
         if (!(getParent() instanceof TemplatePartType)) {
@@ -38,7 +38,7 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
-    public void analyzeInherits(Analyzable _an, int _index,
+    void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
             boolean _protected) {
@@ -50,7 +50,7 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
-    public void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             AccessingImportingBlock _rooted) {
         if (!(getParent() instanceof TemplatePartType)) {
@@ -61,7 +61,7 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
-    public void checkDynExistence(Analyzable _an,
+    void checkDynExistence(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels) {
         if (!(getParent() instanceof TemplatePartType)) {
             return;

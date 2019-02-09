@@ -1,8 +1,12 @@
 package code.expressionlanguage.types;
 
+import code.expressionlanguage.ExecutableCode;
+import code.util.CustList;
+import code.util.NatTreeMap;
+
 abstract class ParentPartType extends PartType {
 
-    public ParentPartType(ParentPartType _parent, int _index, int _indexInType) {
+    ParentPartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);
     }
     private PartType firstChild;
@@ -17,13 +21,15 @@ abstract class ParentPartType extends PartType {
         }
         p_.setNextSibling(_child);
     }
-    public abstract String getPrettyBegin();
-    public abstract String getPrettyEnd();
-    public abstract String getBegin();
-    public abstract String getSeparator(int _index);
-    public abstract String getEnd();
+    abstract String getPrettyBegin();
+    abstract String getPrettyEnd();
+    abstract String getBegin();
+
+    abstract String getEnd();
     @Override
-    public final PartType getFirstChild() {
+    final PartType getFirstChild() {
         return firstChild;
     }
+
+    abstract boolean analyzeTree(ExecutableCode an, CustList<NatTreeMap<Integer,String>> dels_);
 }

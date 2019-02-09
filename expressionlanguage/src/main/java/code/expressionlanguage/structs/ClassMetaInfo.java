@@ -145,9 +145,6 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    public boolean isEnum() {
-        return category == ClassCategory.ENUM;
-    }
     public String getVariableOwner() {
         return variableOwner;
     }
@@ -196,9 +193,6 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         }
         return list_;
     }
-    public AccessEnum getAccess() {
-        return access;
-    }
     public boolean isPublic() {
         return access == AccessEnum.PUBLIC;
     }
@@ -231,6 +225,10 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     }
     public boolean isTypePrimitive() {
         return category == ClassCategory.PRIMITIVE;
+    }
+
+    public boolean isVariable() {
+        return name.contains(Templates.PREFIX_VAR_TYPE);
     }
 
     public boolean isTypeVariable() {

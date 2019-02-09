@@ -20,7 +20,7 @@ abstract class PartType {
     private int indexInType;
     private String analyzedType = EMPTY_STRING;
     private StringList typeNames = new StringList();
-    public PartType(ParentPartType _parent, int _index, int _indexInType) {
+    PartType(ParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
         index = _index;
         indexInType = _indexInType;
@@ -86,44 +86,44 @@ abstract class PartType {
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
-    public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
-    public abstract void analyzeInherits(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, RootBlock _rooted,boolean _exact, boolean _protected);
-    public abstract void analyzeDepends(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>>_dels, RootBlock _rooted,boolean _exact);
-    public abstract void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted);
-    public StringList getTypeNames() {
+    abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
+    abstract void analyzeInherits(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, RootBlock _rooted,boolean _exact, boolean _protected);
+    abstract void analyzeDepends(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>>_dels, RootBlock _rooted,boolean _exact);
+    abstract void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted);
+    StringList getTypeNames() {
         return typeNames;
     }
 
-    public void stopDepends() {
+    void stopDepends() {
         typeNames = null;
     }
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
-    public int getIndexInType() {
+    int getIndexInType() {
         return indexInType;
     }
-    public final ParentPartType getParent() {
+    final ParentPartType getParent() {
         return parent;
     }
-    public final PartType getNextSibling() {
+    final PartType getNextSibling() {
         return nextSibling;
     }
-    public final void setPreviousSibling(PartType _previousSibling) {
+    final void setPreviousSibling(PartType _previousSibling) {
         previousSibling = _previousSibling;
     }
-    public final PartType getPreviousSibling() {
+    final PartType getPreviousSibling() {
         return previousSibling;
     }
-    public abstract PartType getFirstChild();
-    public void setNextSibling(PartType _child) {
+    abstract PartType getFirstChild();
+    void setNextSibling(PartType _child) {
         nextSibling = _child;
     }
-    public String getAnalyzedType() {
+    String getAnalyzedType() {
         return analyzedType;
     }
-    public void setAnalyzedType(String _analyzedType) {
+    void setAnalyzedType(String _analyzedType) {
         analyzedType = _analyzedType;
     }
 }

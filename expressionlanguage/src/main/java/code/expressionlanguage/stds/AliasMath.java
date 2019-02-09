@@ -62,7 +62,7 @@ public final class AliasMath {
         String aliasPrimFloat_ = _stds.getAliasPrimFloat();
         String aliasPrimDouble_ = _stds.getAliasPrimDouble();
         String aliasPrimBoolean_ = _stds.getAliasPrimBoolean();
-        StandardClass std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL);
+        StandardClass std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
