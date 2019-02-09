@@ -253,6 +253,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasForDigit("forDigit");
         _lgNames.setAliasGetDirectionality("getDirectionality");
         _lgNames.setAliasGetType("getType");
+        _lgNames.setAliasGetCharType("getType");
         _lgNames.setAliasString("$core.String");
         _lgNames.setAliasLength("length");
         _lgNames.setAliasCharAt("charAt");
@@ -367,7 +368,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetGenericReturnType("getGenericReturnType");
         _lgNames.setAliasGetReturnType("getReturnType");
         _lgNames.setAliasGetActualTypeArguments("getActualTypeArguments");
-        _lgNames.setAliasGetGenericTypeArguments("getGenericTypeArguments");
         _lgNames.setAliasGetFieldType("getType");
         _lgNames.setAliasGetGenericType("getGenericType");
         _lgNames.setAliasIsFinal("isFinal");
@@ -505,6 +505,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasIsNan("estNbIndefini");
         _lgNames.setAliasForDigit("convertir");
         _lgNames.setAliasGetDirectionality("valDirection");
+        _lgNames.setAliasGetCharType("valType");
         _lgNames.setAliasGetType("valType");
         _lgNames.setAliasString("$coeur.Chaine");
         _lgNames.setAliasLength("longueur");
@@ -620,7 +621,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetGenericReturnType("valGeneTypeRetour");
         _lgNames.setAliasGetReturnType("valTypeRetour");
         _lgNames.setAliasGetActualTypeArguments("valCourantArgTypes");
-        _lgNames.setAliasGetGenericTypeArguments("valGeneArgTypes");
         _lgNames.setAliasGetFieldType("valType");
         _lgNames.setAliasGetGenericType("valGeneType");
         _lgNames.setAliasIsFinal("estFinal");

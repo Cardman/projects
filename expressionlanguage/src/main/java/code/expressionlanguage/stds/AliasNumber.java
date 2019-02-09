@@ -52,7 +52,7 @@ public final class AliasNumber {
     private String aliasIsNan;
     private String aliasForDigit;
     private String aliasGetDirectionality;
-    private String aliasGetType;
+    private String aliasGetCharType;
     public void build(LgNames _lgNames) {
         StringMap<StandardField> fields_;
         StringList params_;
@@ -214,7 +214,7 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetType, params_, aliasPrimByte_, false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimByte_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
         method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, stdcl_);
@@ -603,11 +603,11 @@ public final class AliasNumber {
     public void setAliasGetDirectionality(String _aliasGetDirectionality) {
         aliasGetDirectionality = _aliasGetDirectionality;
     }
-    public String getAliasGetType() {
-        return aliasGetType;
+    public String getAliasGetCharType() {
+        return aliasGetCharType;
     }
-    public void setAliasGetType(String _aliasGetType) {
-        aliasGetType = _aliasGetType;
+    public void setAliasGetCharType(String _aliasGetType) {
+        aliasGetCharType = _aliasGetType;
     }
     
 }

@@ -88,6 +88,9 @@ public final class StandardClass extends StandardType implements GeneClass {
                 return s;
             }
         }
+        if (StringList.quickEq(_classes.getStandards().getAliasObject(), getFullName())) {
+            return "";
+        }
         return _classes.getStandards().getAliasObject();
     }
 

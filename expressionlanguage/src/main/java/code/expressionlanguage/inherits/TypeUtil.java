@@ -201,6 +201,9 @@ public final class TypeUtil {
             StandardClass type_ = (StandardClass) _type;
             String typeName_ = type_.getSuperClass(_context);
             while (true) {
+                if (typeName_.isEmpty()) {
+                    break;
+                }
                 _type.getAllSuperClasses().add(typeName_);
                 if (StringList.quickEq(typeName_, aliasObject_)) {
                     break;
@@ -210,55 +213,41 @@ public final class TypeUtil {
             }
             type_ = (StandardClass) _type;
             StringList allSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
-            StringList currentSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
             for (String s: _type.getAllSuperClasses()) {
                 allSuperInterfaces_.addAllElts(((StandardClass)_context.getClassBody(s)).getDirectInterfaces(_context));
-                currentSuperInterfaces_.addAllElts(((StandardClass)_context.getClassBody(s)).getDirectInterfaces(_context));
             }
-            while (true) {
-                StringList newSuperInterfaces_ = new StringList();
-                for (String c: currentSuperInterfaces_) {
-                    if (StringList.quickEq(c, aliasObject_)) {
-                        continue;
-                    }
-                    StandardInterface superType_ = (StandardInterface) _context.getClassBody(c);
-                    for (String s: superType_.getDirectSuperClasses(_context)) {
-                        newSuperInterfaces_.add(s);
-                        allSuperInterfaces_.add(s);
-                    }
-                }
-                if (newSuperInterfaces_.isEmpty()) {
-                    break;
-                }
-                currentSuperInterfaces_ = newSuperInterfaces_;
-            }
-            allSuperInterfaces_.removeAllObj(aliasObject_);
-            allSuperInterfaces_.removeDuplicates();
+            feedInts(_type,_context,allSuperInterfaces_);
             type_.getAllInterfaces().addAllElts(allSuperInterfaces_);
         } else {
             StandardInterface type_ = (StandardInterface) _type;
             StringList allSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
-            StringList currentSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
-            while (true) {
-                StringList newSuperInterfaces_ = new StringList();
-                for (String c: currentSuperInterfaces_) {
-                    if (StringList.quickEq(c, aliasObject_)) {
-                        continue;
-                    }
-                    StandardInterface superType_ = (StandardInterface) _context.getClassBody(c);
-                    for (String s: superType_.getDirectSuperClasses(_context)) {
-                        newSuperInterfaces_.add(s);
-                        allSuperInterfaces_.add(s);
-                    }
-                }
-                if (newSuperInterfaces_.isEmpty()) {
-                    break;
-                }
-                currentSuperInterfaces_ = newSuperInterfaces_;
-            }
-            allSuperInterfaces_.removeDuplicates();
+            feedInts(_type,_context,allSuperInterfaces_);
             type_.getAllSuperClasses().addAllElts(allSuperInterfaces_);
         }
+    }
+    private static void feedInts(StandardType _type, ContextEl _context, StringList _ints) {
+        String aliasObject_ = _context.getStandards().getAliasObject();
+        StringList currentSuperInterfaces_ = new StringList(_type.getDirectInterfaces());
+        while (true) {
+            StringList newSuperInterfaces_ = new StringList();
+            for (String c: currentSuperInterfaces_) {
+                GeneType st_ = _context.getClassBody(c);
+                if (!(st_ instanceof StandardInterface)) {
+                    continue;
+                }
+                StandardInterface superType_ = (StandardInterface) st_;
+                for (String s: superType_.getDirectSuperClasses(_context)) {
+                    newSuperInterfaces_.add(s);
+                    _ints.add(s);
+                }
+            }
+            if (newSuperInterfaces_.isEmpty()) {
+                break;
+            }
+            currentSuperInterfaces_ = newSuperInterfaces_;
+        }
+        _ints.removeAllObj(aliasObject_);
+        _ints.removeDuplicates();
     }
     public static void buildOverrides(GeneType _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();

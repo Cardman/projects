@@ -134,6 +134,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasForDigit("forDigit");
         _lgNames.setAliasGetDirectionality("getDirectionality");
         _lgNames.setAliasGetType("getType");
+        _lgNames.setAliasGetCharType("getType");
         _lgNames.setAliasString("java.lang.String");
         _lgNames.setAliasLength("length");
         _lgNames.setAliasCharAt("charAt");
@@ -248,7 +249,6 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetGenericReturnType("getGenericReturnType");
         _lgNames.setAliasGetReturnType("getReturnType");
         _lgNames.setAliasGetActualTypeArguments("getActualTypeArguments");
-        _lgNames.setAliasGetGenericTypeArguments("getGenericTypeArguments");
         _lgNames.setAliasGetFieldType("getType");
         _lgNames.setAliasGetGenericType("getGenericType");
         _lgNames.setAliasIsFinal("isFinal");

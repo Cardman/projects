@@ -27,9 +27,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             if (current_ instanceof LeafPartType) {
                 if (count_ == 0) {
                     id_.append(((LeafPartType)current_).getTypeName());
@@ -121,9 +118,6 @@ public final class PartTypeUtil {
         PartType current_ = root_;
         StringList allDeps_ = new StringList();
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
@@ -186,9 +180,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
@@ -242,9 +233,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
@@ -298,9 +286,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             PartType child_ = createFirstChild(_an, current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
@@ -349,9 +334,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             if (current_ instanceof LeafPartType) {
                 String t_ = ((LeafPartType)current_).getTypeName();
                 out_.append(t_);
@@ -406,9 +388,6 @@ public final class PartTypeUtil {
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
-            if (current_ == null) {
-                break;
-            }
             if (current_ instanceof LeafPartType) {
                 ((LeafPartType)current_).checkDynExistence(_an, dels_);
                 String t_ = ((LeafPartType)current_).exportHeader();

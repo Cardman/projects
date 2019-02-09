@@ -183,6 +183,9 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         list_ = new CustList<ClassMetaInfo>();
         String id_ = Templates.getIdFromAllTypes(name);
         GeneType g_ = _cont.getClassBody(id_);
+        if (g_ == null) {
+            return list_;
+        }
         CustList<TypeVar> vars_;
         vars_ = g_.getParamTypesMapValues();
         StringList upperBounds_ = new StringList();

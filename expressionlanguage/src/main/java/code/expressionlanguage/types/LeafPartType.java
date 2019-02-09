@@ -20,7 +20,7 @@ abstract class LeafPartType extends PartType {
         importedTypeName = _importedTypeName;
     }
 
-    public String getTypeName() {
+    public final String getTypeName() {
         return typeName;
     }
     @Override

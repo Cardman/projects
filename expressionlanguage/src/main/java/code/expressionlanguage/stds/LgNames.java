@@ -293,7 +293,6 @@ public abstract class LgNames {
                 getAliasGetGenericBounds(),
                 getAliasGetGenericInterfaces(),
                 getAliasGetGenericSuperClass(),
-                getAliasGetGenericTypeArguments(),
                 getAliasGetGenericVariableOwner(),
                 getAliasGetInterfaces(),
                 getAliasArrayGetLength(),
@@ -471,7 +470,7 @@ public abstract class LgNames {
                 getAliasCompareTo(),
                 getAliasDigit(),
                 getAliasForDigit(),
-                getAliasGetType(),
+                getAliasGetCharType(),
                 getAliasIsDigit(),
                 getAliasGetDirectionality(),
                 getAliasIsLetter(),
@@ -2572,10 +2571,16 @@ public abstract class LgNames {
         nbAlias.setAliasGetDirectionality(_aliasGetDirectionality);
     }
     public String getAliasGetType() {
-        return nbAlias.getAliasGetType();
+        return reflect.getAliasGetType();
     }
     public void setAliasGetType(String _aliasGetType) {
-        nbAlias.setAliasGetType(_aliasGetType);
+        reflect.setAliasGetType(_aliasGetType);
+    }
+    public String getAliasGetCharType() {
+        return nbAlias.getAliasGetCharType();
+    }
+    public void setAliasGetCharType(String _aliasGetType) {
+        nbAlias.setAliasGetCharType(_aliasGetType);
     }
     public String getAliasString() {
         return charSeq.getAliasString();
@@ -3274,13 +3279,6 @@ public abstract class LgNames {
     public void setAliasGetActualTypeArguments(
             String _aliasGetActualTypeArguments) {
         reflect.setAliasGetActualTypeArguments(_aliasGetActualTypeArguments);
-    }
-    public String getAliasGetGenericTypeArguments() {
-        return reflect.getAliasGetGenericTypeArguments();
-    }
-    public void setAliasGetGenericTypeArguments(
-            String _aliasGetGenericTypeArguments) {
-        reflect.setAliasGetGenericTypeArguments(_aliasGetGenericTypeArguments);
     }
 
     public void setAliasGetFieldType(String _aliasGetGenericType) {
