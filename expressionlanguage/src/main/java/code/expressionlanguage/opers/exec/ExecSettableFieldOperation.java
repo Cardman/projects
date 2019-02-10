@@ -93,7 +93,7 @@ public final class ExecSettableFieldOperation extends
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null && ElUtil.isSimpleStruct(str_)) {
+        if (str_ != null && (_conf.isGearConst() || ElUtil.isSimpleStruct(str_))) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
             setSimpleArgumentAna(arg_,_conf);
