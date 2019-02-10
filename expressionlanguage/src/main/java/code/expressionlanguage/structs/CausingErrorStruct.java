@@ -50,7 +50,7 @@ public final class CausingErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public Struct getStack() {
+    public ArrayStruct getStack() {
         return stack;
     }
 

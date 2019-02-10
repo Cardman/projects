@@ -5,6 +5,8 @@ import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -84,19 +86,22 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        setElt(this,_conf);
+    }
+    public static void setElt(PossibleIntermediateDottedOperable _op, Analyzable _conf) {
+        CustList<Operable> children_ = _op.getChildrenOperable();
         if (!_conf.isGearConst()) {
             return;
         }
-        if (getPreviousArgument() == null) {
+        if (_op.getPreviousArgument() == null) {
             return;
         }
         Struct array_;
-        array_ = getPreviousArgument().getStruct();
+        array_ = _op.getPreviousArgument().getStruct();
         if (!(array_ instanceof ArrayStruct)) {
             return;
         }
-        Struct o_ = chidren_.last().getArgument().getStruct();
+        Struct o_ = children_.last().getArgument().getStruct();
         if (!(o_ instanceof NumberStruct)) {
             return;
         }
@@ -111,9 +116,8 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         Struct res_ = str_[index_];
         Argument arg_ = Argument.createVoid();
         arg_.setStruct(res_);
-        setSimpleArgumentAna(arg_, _conf);
+        _op.setSimpleArgumentAna(arg_,_conf);
     }
-    
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

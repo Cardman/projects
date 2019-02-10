@@ -82,14 +82,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
             Struct str_ = new ArrayStruct(array_,clArr_);
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                Argument chArg_ = optArgs_.get(i);
-                IntStruct ind_ = new IntStruct(i);
-                ExecArrOperation.setCheckedElement(str_, ind_, chArg_, _context);
-                if (_context.getContextEl().hasExceptionOrFailInit()) {
-                    return firstArgs_;
-                }
-            }
+            setCheckedElements(optArgs_,str_,_context);
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
@@ -114,14 +107,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_lastType);
             Struct str_ = new ArrayStruct(array_,clArr_);
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                Argument chArg_ = optArgs_.get(i);
-                IntStruct ind_ = new IntStruct(i);
-                ExecArrOperation.setCheckedElement(str_, ind_, chArg_, _context);
-                if (_context.getContextEl().hasExceptionOrFailInit()) {
-                    return firstArgs_;
-                }
-            }
+            setCheckedElements(optArgs_,str_,_context);
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
@@ -136,6 +122,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             firstArgs_.add(a_);
         }
         return firstArgs_;
+    }
+    static void setCheckedElements(CustList<Argument> _args, Struct _arr, ExecutableCode _context) {
+        int len_ = _args.size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            Argument chArg_ = _args.get(i);
+            IntStruct ind_ = new IntStruct(i);
+            ExecArrOperation.setCheckedElement(_arr, ind_, chArg_, _context);
+            if (_context.getContextEl().hasExceptionOrFailInit()) {
+                return;
+            }
+        }
     }
     static CustList<Argument> quickListArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
         if (!_children.isEmpty() && _children.first() instanceof ExecVarargOperation) {
@@ -1021,44 +1018,33 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        if (classes_.isCustomType(_className)) {
-            if (_isStaticField) {
-                if (ExecInvokingOperation.hasToExit(_conf, _className)) {
-                    return Argument.createVoid();
-                }
-                ContextEl c_ = _conf.getContextEl();
-                Struct struct_ = classes_.getStaticField(fieldId_,c_);
-                _conf.getContextEl().addSensibleField(fieldId_.getClassName(), struct_);
-                a_ = new Argument();
-                a_.setStruct(struct_);
-                return a_;
-            }
-            if (_previous.isNull()) {
-                String npe_;
-                npe_ = stds_.getAliasNullPe();
-                _conf.setException(new ErrorStruct(_conf,npe_));
+        if (_isStaticField) {
+            if (ExecInvokingOperation.hasToExit(_conf, _className)) {
                 return Argument.createVoid();
             }
-            String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
-            String base_ = Templates.getIdFromAllTypes(argClassName_);
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(_className, base_, _conf)) {
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
-                return _previous;
-            }
-            Struct struct_ = ((FieldableStruct) _previous.getStruct()).getStruct(fieldId_);
-            _conf.getContextEl().addSensibleField(_previous.getStruct(), struct_);
+            ContextEl c_ = _conf.getContextEl();
+            Struct struct_ = classes_.getStaticField(fieldId_,c_);
+            _conf.getContextEl().addSensibleField(fieldId_.getClassName(), struct_);
             a_ = new Argument();
             a_.setStruct(struct_);
             return a_;
         }
-        Struct default_ = _previous.getStruct();
-        ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, default_);
-        a_ = new Argument();
-        if (res_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,res_.getError()));
-        } else {
-            a_.setStruct(res_.getResult());
+        if (_previous.isNull()) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new ErrorStruct(_conf,npe_));
+            return Argument.createVoid();
         }
+        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_className, base_, _conf)) {
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
+            return _previous;
+        }
+        Struct struct_ = ((FieldableStruct) _previous.getStruct()).getStruct(fieldId_);
+        _conf.getContextEl().addSensibleField(_previous.getStruct(), struct_);
+        a_ = new Argument();
+        a_.setStruct(struct_);
         return a_;
     }
     public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf) {
@@ -1080,60 +1066,51 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String fieldType_;
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        if (classes_.isCustomType(_className)) {
-            if (_isStaticField) {
-                if (_finalField && _failIfFinal) {
-                    String npe_;
-                    npe_ = stds_.getAliasIllegalArg();
-                    _conf.setException(new ErrorStruct(_conf,npe_));
-                    return Argument.createVoid();
-                }
-                if (ExecInvokingOperation.hasToExit(_conf, _className)) {
-                    return Argument.createVoid();
-                }
-                fieldType_ = _returnType;
-                if (!Templates.checkObject(fieldType_, _right, _conf)) {
-                    return Argument.createVoid();
-                }
-                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
-                    _conf.getContextEl().failInitEnums();
-                    return _right;
-                }
-                classes_.initializeStaticField(fieldId_, _right.getStruct());
-                return _right;
-            }
-            if (_previous.isNull()) {
+        if (_isStaticField) {
+            if (_finalField && _failIfFinal) {
                 String npe_;
-                npe_ = stds_.getAliasNullPe();
+                npe_ = stds_.getAliasIllegalArg();
                 _conf.setException(new ErrorStruct(_conf,npe_));
                 return Argument.createVoid();
             }
-            String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
-            String base_ = Templates.getIdFromAllTypes(argClassName_);
-            String classNameFound_ = _className;
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+            if (ExecInvokingOperation.hasToExit(_conf, _className)) {
                 return Argument.createVoid();
             }
-            classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
             fieldType_ = _returnType;
-            fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
             if (!Templates.checkObject(fieldType_, _right, _conf)) {
                 return Argument.createVoid();
             }
-            if (_conf.getContextEl().isContainedSensibleFields(_previous.getStruct())) {
+            if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                 _conf.getContextEl().failInitEnums();
                 return _right;
             }
-            ((FieldableStruct) _previous.getStruct()).setStruct(fieldId_, _right.getStruct());
+            classes_.initializeStaticField(fieldId_, _right.getStruct());
             return _right;
         }
-        ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
-        if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(_conf,result_.getError()));
+        if (_previous.isNull()) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new ErrorStruct(_conf,npe_));
+            return Argument.createVoid();
+        }
+        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        String classNameFound_ = _className;
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+            return Argument.createVoid();
+        }
+        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+        fieldType_ = _returnType;
+        fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
+        if (!Templates.checkObject(fieldType_, _right, _conf)) {
+            return Argument.createVoid();
+        }
+        if (_conf.getContextEl().isContainedSensibleFields(_previous.getStruct())) {
+            _conf.getContextEl().failInitEnums();
             return _right;
         }
+        ((FieldableStruct) _previous.getStruct()).setStruct(fieldId_, _right.getStruct());
         return _right;
     }
 }

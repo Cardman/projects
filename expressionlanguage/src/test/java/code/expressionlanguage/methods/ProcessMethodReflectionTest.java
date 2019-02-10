@@ -5696,4 +5696,62 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("pkg.Ex<Number>",((StringStruct)err_.getMessage()).getInstance());
     }
+    @Test
+    public void processEl1492Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"..\",$true):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
+        assertEq("..",((StringStruct)err_.getMessage()).getInstance());
+    }
+    @Test
+    public void processEl1493Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"<java.lang.Number>\",$true):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.inst++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
+        assertEq("<java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
+    }
 }

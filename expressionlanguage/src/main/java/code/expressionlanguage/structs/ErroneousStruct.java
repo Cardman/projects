@@ -1,7 +1,7 @@
 package code.expressionlanguage.structs;
 
 public interface ErroneousStruct extends DisplayableStruct {
-    Struct getStack();
+    ArrayStruct getStack();
 
     Struct getMessage();
 }

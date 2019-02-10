@@ -26,34 +26,7 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        if (getPreviousArgument() == null) {
-            return;
-        }
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        if (!(array_ instanceof ArrayStruct)) {
-            return;
-        }
-        Struct o_ = chidren_.last().getArgument().getStruct();
-        if (!(o_ instanceof NumberStruct)) {
-            return;
-        }
-        int index_ = ((NumberStruct)o_).getInstance().intValue();
-        if (index_ < 0) {
-            return;
-        }
-        Struct[] str_ = ((ArrayStruct)array_).getInstance();
-        if (index_ >= str_.length) {
-            return;
-        }
-        Struct res_ = str_[index_];
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_);
-        setSimpleArgumentAna(arg_, _conf);
+        ArrOperation.setElt(this,_conf);
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

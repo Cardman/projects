@@ -124,19 +124,17 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setAnalyzedType(getTypeName().trim());
-                        return;
-                    }
-                    _an.getCurrentBadIndexes().add(getIndexInType());
-                    String out_ = _an.getStandards().getAliasObject();
-                    setAnalyzedType(out_);
-                    stopDepends();
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                    setAnalyzedType(getTypeName().trim());
                     return;
                 }
+                _an.getCurrentBadIndexes().add(getIndexInType());
+                String out_ = _an.getStandards().getAliasObject();
+                setAnalyzedType(out_);
+                stopDepends();
+                return;
             }
         }
         if (_an.getOptions().isSingleInnerParts()) {
@@ -343,16 +341,14 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setAnalyzedType(getTypeName().trim());
-                        return;
-                    }
-                    _an.getCurrentBadIndexes().add(getIndexInType());
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                    setAnalyzedType(getTypeName().trim());
                     return;
                 }
+                _an.getCurrentBadIndexes().add(getIndexInType());
+                return;
             }
         }
         //_an.lookupImportMemberType(type_, _rooted,true);
@@ -571,16 +567,14 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setAnalyzedType(getTypeName().trim());
-                        return;
-                    }
-                    _an.getCurrentBadIndexes().add(getIndexInType());
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                    setAnalyzedType(getTypeName().trim());
                     return;
                 }
+                _an.getCurrentBadIndexes().add(getIndexInType());
+                return;
             }
         }
         //_an.lookupImportMemberType(type_, _rooted, false);
@@ -734,15 +728,13 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setAnalyzedType(getTypeName().trim());
-                        return;
-                    }
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                    setAnalyzedType(getTypeName().trim());
                     return;
                 }
+                return;
             }
         }
         

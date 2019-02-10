@@ -65,14 +65,7 @@ public abstract class ExecAbstractArrayElementOperation extends
         dims_ = new Numbers<Integer>();
         dims_.add(nbCh_);
         Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-        for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-            Argument chArg_ = _arguments.get(i);
-            IntStruct i_ = new IntStruct(i);
-            ExecArrOperation.setCheckedElement(str_, i_, chArg_, _conf);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return a_;
-            }
-        }
+        setCheckedElements(_arguments,str_,_conf);
         a_.setStruct(str_);
         return a_;
     }

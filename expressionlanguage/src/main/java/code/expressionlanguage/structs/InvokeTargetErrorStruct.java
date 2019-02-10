@@ -48,7 +48,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public Struct getStack() {
+    public ArrayStruct getStack() {
         return stack;
     }
 
