@@ -8,6 +8,8 @@ public final class OverridingRelation {
 
     private ClassMethodId supMethod;
 
+    private boolean base;
+
     public MethodId getRealId() {
         return realId;
     }
@@ -30,5 +32,13 @@ public final class OverridingRelation {
 
     public void setSupMethod(ClassMethodId _supMethod) {
         supMethod = _supMethod;
+    }
+
+    public boolean isBase() {
+        return base;
+    }
+
+    public void setBase(boolean _base) {
+        base = _base;
     }
 }

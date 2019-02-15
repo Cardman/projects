@@ -252,6 +252,7 @@ public final class TypeUtil {
     public static void buildOverrides(GeneType _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
+        String voidType_ = stds_.getAliasVoid();
         String fileName_ = "";
         if (_type instanceof RootBlock) {
             fileName_ = ((RootBlock)_type).getFile().getFileName();
@@ -270,19 +271,32 @@ public final class TypeUtil {
             classesRef_.addError(err_);
         }
         ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
-        ObjectMap<MethodId, EqList<ClassMethodId>> allBaseOv_ = getAllOverridingMethods(allOv_, _context);
-        ObjectMap<MethodId,CustList<OverridingRelation>> allOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();
-        CustList<OverridingRelation> allBases_ = new CustList<OverridingRelation>();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        for (TypeVar t: _type.getParamTypesMapValues()) {
+            vars_.put(t.getName(), t.getConstraints());
+        }
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: allOv_.entryList()) {
+            MethodId key_ = e.getKey();
             CustList<ClassMethodId> current_ = new CustList<ClassMethodId>();
             StringList visited_ = new StringList();
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
-            for (ClassMethodId t: allBaseOv_.getVal(e.getKey())) {
+            StringMap<MethodId> defs_ = new StringMap<MethodId>();
+            StringList list_ = new StringList();
+            for (ClassMethodId v: e.getValue()) {
+                defs_.put(v.getClassName(), v.getConstraints());
+                list_.add(v.getClassName());
+            }
+            list_ = PrimitiveTypeUtil.getSubclasses(list_, _context);
+            EqList<ClassMethodId> out_ = new EqList<ClassMethodId>();
+            for (String v: list_) {
+                out_.add(new ClassMethodId(v, defs_.getVal(v)));
+            }
+            for (ClassMethodId t: out_) {
                 OverridingRelation ovRelBase_ = new OverridingRelation();
-                ovRelBase_.setRealId(e.getKey());
+                ovRelBase_.setRealId(key_);
                 ovRelBase_.setSubMethod(t);
                 ovRelBase_.setSupMethod(t);
-                allBases_.add(ovRelBase_);
+                ovRelBase_.setBase(true);
                 pairs_.add(ovRelBase_);
                 current_.add(t);
                 visited_.add(Templates.getIdFromAllTypes(t.getClassName()));
@@ -302,7 +316,7 @@ public final class TypeUtil {
                             MethodId f_ = m.getQuickFormattedId(superType_, _context);
                             if (f_.eq(c.getConstraints().quickFormat(templClass_, _context))) {
                                 OverridingRelation ovRel_ = new OverridingRelation();
-                                ovRel_.setRealId(e.getKey());
+                                ovRel_.setRealId(key_);
                                 ovRel_.setSubMethod(c);
                                 ovRel_.setSupMethod(new ClassMethodId(superType_, m.getId()));
                                 newpairs_.add(ovRel_);
@@ -324,18 +338,8 @@ public final class TypeUtil {
                 }
                 current_ = next_;
             }
-            allOverridings_.put(e.getKey(), pairs_);
-        }
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: _type.getParamTypesMapValues()) {
-            vars_.put(t.getName(), t.getConstraints());
-        }
-        ObjectMap<MethodId,CustList<OverridingRelation>> filterAccOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();
-        for (OverridingRelation o: allBases_) {
-            MethodId key_ = o.getRealId();
-            CustList<OverridingRelation> value_ = allOverridings_.getVal(key_);
             CustList<OverridingRelation> relations_ = new CustList<OverridingRelation>();
-            for (OverridingRelation l: value_) {
+            for (OverridingRelation l: pairs_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
                 GeneMethod sub_ = _context.getMethodBodiesById(subId_.getClassName(), subId_.getConstraints()).first();
@@ -348,26 +352,20 @@ public final class TypeUtil {
                     relations_.add(l);
                 }
             }
-            if (relations_.isEmpty()) {
-                continue;
-            }
-            filterAccOverridings_.put(key_, relations_);
-        }
-        ObjectMap<MethodId,CustList<OverridingRelation>> builtAccOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();
-        for (EntryCust<MethodId,CustList<OverridingRelation>> o: filterAccOverridings_.entryList()) {
-            CustList<ClassMethodId> current_ = new CustList<ClassMethodId>();
-            CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
-            for (OverridingRelation t: allBases_) {
-                if (t.getRealId().eq(o.getKey())) {
-                    current_.add(t.getSubMethod());
-                    pairs_.add(t);
+            current_ = new CustList<ClassMethodId>();
+            pairs_ = new CustList<OverridingRelation>();
+            for (OverridingRelation t: relations_) {
+                if (!t.isBase()) {
+                    continue;
                 }
+                current_.add(t.getSubMethod());
+                pairs_.add(t);
             }
             EqList<ClassMethodId> all_ = new EqList<ClassMethodId>();
             while (true) {
                 CustList<ClassMethodId> next_ = new CustList<ClassMethodId>();
                 for (ClassMethodId c: current_) {
-                    for (OverridingRelation a: o.getValue()) {
+                    for (OverridingRelation a: relations_) {
                         ClassMethodId clSup_ = a.getSupMethod();
                         ClassMethodId clSub_ = a.getSubMethod();
                         if (clSub_.eq(clSup_)) {
@@ -388,17 +386,13 @@ public final class TypeUtil {
                 }
                 current_ = next_;
             }
-            builtAccOverridings_.put(o.getKey(), pairs_);
-        }
-        String voidType_ = stds_.getAliasVoid();
-        for (EntryCust<MethodId,CustList<OverridingRelation>> o: builtAccOverridings_.entryList()) {
-            for (OverridingRelation l: o.getValue()) {
+            for (OverridingRelation l: relations_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
                 GeneMethod sub_ = _context.getMethodBodiesById(subId_.getClassName(), subId_.getConstraints()).first();
                 GeneMethod sup_ = _context.getMethodBodiesById(supId_.getClassName(), supId_.getConstraints()).first();
                 if (subId_.eq(supId_)) {
-                    addClass(_type.getAllOverridingMethods(), o.getKey(), subId_);
+                    addClass(_type.getAllOverridingMethods(), key_, subId_);
                 } else {
                     String retBase_ = sup_.getImportedReturnType();
                     String retDerive_ = sub_.getImportedReturnType();
@@ -454,15 +448,11 @@ public final class TypeUtil {
                         classesRef_.addError(err_);
                         continue;
                     }
-                    addClass(_type.getAllOverridingMethods(), o.getKey(), subId_);
-                    addClass(_type.getAllOverridingMethods(), o.getKey(), supId_);
+                    addClass(_type.getAllOverridingMethods(), key_, subId_);
+                    addClass(_type.getAllOverridingMethods(), key_, supId_);
                 }
             }
         }
-//        EqList<ClassMethodId> all_ = new EqList<ClassMethodId>();
-//        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _type.getAllOverridingMethods().entryList()) {
-//            
-//        }
     }
     static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
@@ -831,27 +821,6 @@ public final class TypeUtil {
         for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
             MethodId m_ = b.getId();
             map_.put(m_, new ClassMethodId(_type.getGenericString(), m_));
-        }
-        return map_;
-    }
-    private static ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods(
-            ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,
-            ContextEl _conf) {
-        ObjectMap<MethodId, EqList<ClassMethodId>> map_;
-        map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
-            StringMap<MethodId> defs_ = new StringMap<MethodId>();
-            StringList list_ = new StringList();
-            for (ClassMethodId v: e.getValue()) {
-                defs_.put(v.getClassName(), v.getConstraints());
-                list_.add(v.getClassName());
-            }
-            list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
-            EqList<ClassMethodId> out_ = new EqList<ClassMethodId>();
-            for (String v: list_) {
-                out_.add(new ClassMethodId(v, defs_.getVal(v)));
-            }
-            map_.put(e.getKey(), out_);
         }
         return map_;
     }
