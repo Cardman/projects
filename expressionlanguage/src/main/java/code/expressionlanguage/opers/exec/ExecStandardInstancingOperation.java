@@ -7,6 +7,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
@@ -60,15 +61,15 @@ public final class ExecStandardInstancingOperation extends
         }
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
-        CustList<ExecOperationNode> filter_ = new CustList<ExecOperationNode>();
-        for (ExecOperationNode o: chidren_) {
+        CustList<Operable> filter_ = new CustList<Operable>();
+        for (Operable o: chidren_) {
             if (o instanceof ExecStaticInitOperation) {
                 continue;
             }
             arguments_.add(o.getArgument());
             filter_.add(o);
         }
-        CustList<Argument> firstArgs_ = quickListArguments(filter_, naturalVararg_, lastType_, arguments_, _conf);
+        CustList<Argument> firstArgs_ = InvokingOperation.quickListArguments(filter_, naturalVararg_, lastType_, arguments_, _conf);
         if (firstArgs_ == null) {
             return;
         }

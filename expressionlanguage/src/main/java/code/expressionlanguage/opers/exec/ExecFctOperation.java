@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
+import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -58,9 +59,9 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         if (!_conf.isGearConst()) {
             return;
         }
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        CustList<Operable> chidren_ = getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
+        for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
         }
         if (classMethodId == null) {
@@ -83,12 +84,8 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         if (_conf.getClasses().isCustomType(cl_)) {
             return;
         }
-        if (lastType == null) {
-            return;
-        }
-        String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
-        CustList<Argument> firstArgs_ = quickListArguments(chidren_, naturalVararg_, lastType_, arguments_, _conf);
+        CustList<Argument> firstArgs_ = InvokingOperation.quickListArguments(chidren_, naturalVararg_, lastType, arguments_, _conf);
         if (firstArgs_ == null) {
             return;
         }

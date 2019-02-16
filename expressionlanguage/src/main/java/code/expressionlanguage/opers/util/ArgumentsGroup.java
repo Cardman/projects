@@ -8,11 +8,7 @@ public final class ArgumentsGroup {
 
     private Analyzable context;
 
-    private boolean ambigous;
-
     private StringMap<StringList> map;
-
-    private String globalClass;
 
     private CustList<ClassArgumentMatching> arguments;
 
@@ -28,18 +24,6 @@ public final class ArgumentsGroup {
 
     public StringMap<StringList> getMap() {
         return map;
-    }
-
-    public boolean isAmbigous() {
-        return ambigous;
-    }
-
-    public void setAmbigous(boolean _ambigous) {
-        ambigous = _ambigous;
-    }
-
-    public void setGlobalClass(String _globalClass) {
-        globalClass = _globalClass;
     }
 
     public ClassArgumentMatching get(int _index) {

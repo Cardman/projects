@@ -9,6 +9,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.Identifiable;
@@ -94,18 +95,18 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
 
-    static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
-        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
+    public static CustList<Argument> quickListArguments(CustList<Operable> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperable) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
             int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: _children) {
-                if (o instanceof VarargOperation) {
+            for (Operable o: _children) {
+                if (o instanceof VarargOperable) {
                     i_++;
                     continue;
                 }
-                if (o instanceof FirstOptOperation) {
+                if (o instanceof FirstOptOperable) {
                     opt_ = true;
                 }
                 Argument a_ = _nodes.get(i_);

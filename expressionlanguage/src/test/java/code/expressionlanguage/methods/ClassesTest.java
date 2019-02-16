@@ -3,6 +3,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.structs.NullStruct;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
@@ -1388,7 +1389,22 @@ public final class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(0, ctx_.getClasses().staticFieldCount());
+    }@Test
+    public void calculateStaticField14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Character ch=$null:\n");
+        xml_.append(" $public $static $final $int field=\"\".splitChars(ch).length:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "ch"));
+        assertTrue(str_ instanceof NullStruct);
     }
+
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -4164,6 +4165,146 @@ public final class ProcessMethodInstanceInterfaceTest extends
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
         assertTrue(((BooleanStruct)field_).getInstance());
+    }
+    @Test
+    public void calculateArgument90Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" {$enums.name($null):}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument91Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" {$enums.ordinal($null):}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        assertEq("code.util.exceptions.NullObjectException", cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument92Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $private $final Object inst = Ex.valueOf($null):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument out_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = out_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertTrue(field_ instanceof NullStruct);
+    }
+    @Test
+    public void calculateArgument93Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $private $final Object inst = Ex.valueOf(\"\"):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument out_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = out_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertTrue(field_ instanceof NullStruct);
     }
     @Test
     public void instanceArgumentFailTest() {

@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class FirstOptOperation extends AbstractUnaryOperation {
+public final class FirstOptOperation extends AbstractUnaryOperation implements FirstOptOperable {
 
     private int offset;
     public FirstOptOperation(int _index, int _indexChild, MethodOperation _m,

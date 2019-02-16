@@ -16,6 +16,7 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -302,8 +303,8 @@ public final class StandardInstancingOperation extends
         }
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: chidren_) {
+        CustList<Operable> filter_ = new CustList<Operable>();
+        for (Operable o: chidren_) {
             if (o instanceof StaticInitOperation) {
                 continue;
             }

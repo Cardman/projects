@@ -7,7 +7,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 
-public final class VarargOperation extends ConstLeafOperation {
+public final class VarargOperation extends ConstLeafOperation implements VarargOperable {
 
     private String className;
     private int offset;

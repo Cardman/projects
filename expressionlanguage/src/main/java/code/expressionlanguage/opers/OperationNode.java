@@ -763,23 +763,6 @@ public abstract class OperationNode implements Operable {
             }
             signatures_.add(mloc_);
         }
-        if (signatures_.isEmpty()) {
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getNames().join(""));
-            }
-            UndefinedConstructorError undefined_ = new UndefinedConstructorError();
-            undefined_.setClassName(clCurName_);
-            undefined_.setId(new ConstructorId(clCurName_, classesNames_,false));
-            undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(undefined_);
-            ConstrustorIdVarArg out_;
-            out_ = new ConstrustorIdVarArg();
-            out_.setRealId(undefined_.getId());
-            out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
-            return out_;
-        }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         if (glClass_ != null) {
@@ -788,9 +771,8 @@ public abstract class OperationNode implements Operable {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
-        gr_.setGlobalClass(glClass_);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
-        if (gr_.isAmbigous()) {
+        if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
                 classesNames_.add(c.getNames().join(""));
@@ -1286,9 +1268,6 @@ public abstract class OperationNode implements Operable {
             }
             signatures_.add(mi_);
         }
-        if (signatures_.isEmpty()) {
-            return new ClassMethodIdReturn(false);
-        }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         if (glClass_ != null) {
@@ -1297,11 +1276,10 @@ public abstract class OperationNode implements Operable {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
-        gr_.setGlobalClass(glClass_);
         _conf.setAmbigous(false);
         MethodInfo found_ = sortFct(signatures_, gr_);
-        if (gr_.isAmbigous()) {
-            _conf.setAmbigous(true);
+        if (found_ == null) {
+            _conf.setAmbigous(!signatures_.isEmpty());
             return new ClassMethodIdReturn(false);
         }
         MethodId constraints_ = found_.getConstraints();
@@ -1476,17 +1454,16 @@ public abstract class OperationNode implements Operable {
         return p_;
     }
 
-    static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
+    private static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
-        CustList<Parametrable> fct_ = new CustList<Parametrable>(new CollCapacity(_fct.size()));
-        for (MethodInfo m: _fct) {
-            fct_.add(m);
-        }
         if (_context.getContext().getOptions().isAllParametersSort()) {
-            CustList<Parametrable> pars_ = getFound(fct_, _context, true);
-            if (pars_.size() == 1) {
-                return (MethodInfo) pars_.first();
+            MethodInfo meth_ = getFoundMethod(_fct, _context);
+            if (meth_ != null) {
+                return meth_;
             }
+        }
+        if (_fct.isEmpty()) {
+            return null;
         }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Parametrable pFirst_ = _fct.first();
@@ -1497,22 +1474,20 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (_fct.first().getParameters().isError()) {
-            _context.setAmbigous(true);
             return null;
         }
         return _fct.first();
     }
-    static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
+    private static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
-        CustList<Parametrable> fct_ = new CustList<Parametrable>(new CollCapacity(_fct.size()));
-        for (ConstructorInfo m: _fct) {
-            fct_.add(m);
-        }
         if (_context.getContext().getOptions().isAllParametersSort()) {
-            CustList<Parametrable> pars_ = getFound(fct_, _context, false);
-            if (pars_.size() == 1) {
-                return (ConstructorInfo) pars_.first();
+            ConstructorInfo ctor_ = getFoundConstructor(_fct, _context);
+            if (ctor_ != null) {
+                return ctor_;
             }
+        }
+        if (_fct.isEmpty()) {
+            return null;
         }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Parametrable pFirst_ = _fct.first();
@@ -1523,13 +1498,12 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (_fct.first().getParameters().isError()) {
-            _context.setAmbigous(true);
             return null;
         }
         return _fct.first();
     }
 
-    static CustList<Parametrable> getFound(CustList<Parametrable> _fct, ArgumentsGroup _context, boolean _method) {
+    private static MethodInfo getFoundMethod(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
         CustList<Parametrable> fct_ = new CustList<Parametrable>();
         for (Parametrable m: _fct) {
             if (m.getInvocation() == InvocationMethod.STRICT) {
@@ -1547,10 +1521,16 @@ public abstract class OperationNode implements Operable {
         if (!fct_.isEmpty()) {
             allMax_ = getAllMaximalSpecificFixArity(fct_, _context);
         } else {
-            allMax_ = getAllMaximalSpecificVariableArity(_fct, _context);
+            for (Parametrable m: _fct) {
+                fct_.add(m);
+            }
+            allMax_ = getAllMaximalSpecificVariableArity(fct_, _context);
         }
-        if (allMax_.size() <= 1 || !_method) {
-            return allMax_;
+        if (allMax_.isEmpty()) {
+            return null;
+        }
+        if (allMax_.size() == 1) {
+            return (MethodInfo) allMax_.first();
         }
         Identifiable id_ = allMax_.first().getFormatted();
         int lenMax_ = allMax_.size();
@@ -1572,7 +1552,7 @@ public abstract class OperationNode implements Operable {
                 finals_.add(p);
             }
             if (finals_.size() == 1) {
-                return finals_;
+                return (MethodInfo) finals_.first();
             }
             Analyzable context_ = _context.getContext();
             for (Parametrable p: allMax_) {
@@ -1588,7 +1568,7 @@ public abstract class OperationNode implements Operable {
                 nonAbs_.add(p);
             }
             if (nonAbs_.size() == 1) {
-                return nonAbs_;
+                return (MethodInfo) nonAbs_.first();
             }
             StringMap<StringList> map_;
             map_ = _context.getMap();
@@ -1618,11 +1598,39 @@ public abstract class OperationNode implements Operable {
                     }
                 }
                 if (spec_) {
-                    return new CustList<Parametrable>(curMi_);
+                    return curMi_;
                 }
             }
         }
-        return new CustList<Parametrable>();
+        return null;
+    }
+    private static ConstructorInfo getFoundConstructor(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
+        CustList<Parametrable> fct_ = new CustList<Parametrable>();
+        for (Parametrable m: _fct) {
+            if (m.getInvocation() == InvocationMethod.STRICT) {
+                fct_.add(m);
+            }
+        }
+        if (fct_.isEmpty()) {
+            for (Parametrable m: _fct) {
+                if (m.getInvocation() == InvocationMethod.BOX_UNBOX) {
+                    fct_.add(m);
+                }
+            }
+        }
+        CustList<Parametrable> allMax_;
+        if (!fct_.isEmpty()) {
+            allMax_ = getAllMaximalSpecificFixArity(fct_, _context);
+        } else {
+            for (Parametrable m: _fct) {
+                fct_.add(m);
+            }
+            allMax_ = getAllMaximalSpecificVariableArity(fct_, _context);
+        }
+        if (allMax_.size() == 1) {
+            return (ConstructorInfo) allMax_.first();
+        }
+        return null;
     }
     static CustList<Parametrable> getAllMaximalSpecificFixArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
         CustList<Parametrable> list_ = new CustList<Parametrable>();
