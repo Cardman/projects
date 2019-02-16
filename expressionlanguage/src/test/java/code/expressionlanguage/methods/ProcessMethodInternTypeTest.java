@@ -4,6 +4,10 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -2549,6 +2553,41 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument47Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $private $int inst = 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Outer..Inner method(){\n");
+        xml_.append("  $return $new Outer().$new Inner():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Outer..Inner", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Outer..Inner", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(5, ((NumberStruct)field_).getInstance());
+        field_ = str_.getParent();
+        assertEq("pkg.Outer", field_.getClassName(cont_));
     }
     @Test
     public void calculateArgument1FailTest() {

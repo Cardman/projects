@@ -8,8 +8,6 @@ public interface FieldableStruct extends Struct {
 
     Struct getStruct(ClassField _classField);
 
-    String getClassName();
-
     ObjectMap<ClassField,Struct> getFields();
 
     void setStruct(ClassField _classField, Struct _value);

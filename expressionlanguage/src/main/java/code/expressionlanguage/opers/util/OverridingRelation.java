@@ -2,21 +2,11 @@ package code.expressionlanguage.opers.util;
 
 public final class OverridingRelation {
 
-    private MethodId realId;
-
     private ClassMethodId subMethod;
 
     private ClassMethodId supMethod;
 
     private boolean base;
-
-    public MethodId getRealId() {
-        return realId;
-    }
-
-    public void setRealId(MethodId _realId) {
-        realId = _realId;
-    }
 
     public ClassMethodId getSubMethod() {
         return subMethod;

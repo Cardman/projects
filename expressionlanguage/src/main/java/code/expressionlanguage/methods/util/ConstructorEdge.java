@@ -16,7 +16,7 @@ public final class ConstructorEdge implements GraphElement<ConstructorEdge> {
 
     @Override
     public boolean eq(ConstructorEdge _g) {
-        return id.eq(_g.id);
+        return id.eq(_g.getId());
     }
 
 }

@@ -5,7 +5,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class PageEl {
@@ -69,10 +68,6 @@ public abstract class PageEl {
         localVars.put(_key, _var);
     }
 
-    public void clearAllLocalVars() {
-        localVars.clear();
-    }
-
     public void removeLocalVar(String _key) {
         localVars.removeKey(_key);
     }
@@ -93,10 +88,6 @@ public abstract class PageEl {
         localVars = _localVars;
     }
 
-    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
-        localVars = _localVars.last();
-    }
-
     public StringMap<LocalVariable> getCatchVars() {
         return catchVars;
     }
@@ -107,10 +98,6 @@ public abstract class PageEl {
 
     public StringMap<LocalVariable> getParameters() {
         return parameters;
-    }
-
-    public void setParameters(StringMap<LocalVariable> _parameters) {
-        parameters = _parameters;
     }
 
 }

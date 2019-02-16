@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -123,21 +122,12 @@ public final class CustLgNames extends LgNames {
         params_ = new StringList();
         method_ = new StandardMethod(aliasSize, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-//        params_ = new StringList(aliasSimpleIteratorType);
-//        method_ = new StandardMethod(aliasSimpleIterator, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, aliasGeneObjects);
-//        methods_.put(method_.getId(), method_);
         stdcl_.setIterative(getAliasObject());
         std_ = stdcl_;
         getStandards().put(aliasGeneObjects, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
-//        params_ = new StringList();
-//        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-//        methods_.put(method_.getId(), method_);
-//        params_ = new StringList();
-//        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
-//        methods_.put(method_.getId(), method_);
         stdcl_ = new StandardClass(aliasStringList, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         ctor_ = new StandardConstructor(new StringList(getAliasString()), true, stdcl_);
         constructors_.add(ctor_);
@@ -488,6 +478,9 @@ public final class CustLgNames extends LgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
+        if (StringList.quickEq(_method.getName(),getAliasObject())) {
+            return super.getOtherResult(_cont,_method,_args);
+        }
         if (StringList.quickEq(_method.getName(), aliasInts)) {
             res_.setResult(new StdStruct(new Ints(), aliasInts));
             return res_;
@@ -514,48 +507,7 @@ public final class CustLgNames extends LgNames {
         }
         return super.getOtherResult(_cont, _method, _args);
     }
-    @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
-                res_.setResult(new IntStruct(cpt_.getInteger()));
-                return res_;
-            }
-        }
-        if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
-            if (StringList.quickEq(fieldName_, aliasCompositeField)) {
-                BeanOne cpt_ = (BeanOne) ((RealInstanceStruct)_instance).getInstance();
-                res_.setResult(StdStruct.newInstance(cpt_.getComposite(), aliasComposite));
-                return res_;
-            }
-        }
-        if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
-            if (StringList.quickEq(fieldName_, aliasNotRead)) {
-                res_.setError(getAliasError());
-                return res_;
-            }
-        }
-        return super.getOtherResult(_cont, _classField, _instance);
-    }
-    @Override
-    public ResultErrorStd setOtherResult(ContextEl _cont,
-            ClassField _classField, Struct _instance, Struct _value) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
-            if (StringList.quickEq(fieldName_, aliasIntegerField)) {
-                Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
-                cpt_.setInteger(((NumberStruct) _value).getInstance().intValue());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-        }
-        return super.setOtherResult(_cont, _classField, _instance, _value);
-    }
+
     public String getAliasInts() {
         return aliasInts;
     }

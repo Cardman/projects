@@ -25,10 +25,6 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         this(_staticMethod == MethodModifier.STATIC, _name, _classNames, false);
     }
 
-    public MethodId(MethodModifier _staticMethod,String _name, StringList _classNames, boolean _vararg) {
-        this(_staticMethod == MethodModifier.STATIC, _name, _classNames, _vararg);
-    }
-
     public MethodId(boolean _staticMethod,String _name, StringList _classNames) {
         this(_staticMethod, _name, _classNames, false);
     }

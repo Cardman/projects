@@ -10,10 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.NativeIterableAnalysisResult;
@@ -330,6 +327,9 @@ public abstract class BeanLgNames extends LgNames {
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Struct... _args) {
+        if (StringList.quickEq(_method.getName(),getAliasObject())) {
+            return super.getOtherResult(_cont,_method,_args);
+        }
         StringList list_ = _method.getParametersTypes();
         BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, b_, _args);
@@ -340,6 +340,27 @@ public abstract class BeanLgNames extends LgNames {
             ConstructorId _method, Object... _args) {
         return new ResultErrorStd();
     }
+    public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
+        BeanLgNames lgNames_ = (BeanLgNames) _cont.getStandards();
+        ResultErrorStd result_ = lgNames_.getSimpleResult(_cont, _classField);
+        if (result_.getResult() != null) {
+            return result_;
+        }
+        result_ = lgNames_.getOtherResult(_cont, _classField, _instance);
+        return result_;
+    }
+    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+        return new ResultErrorStd();
+    }
+
+    public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+        BeanLgNames lgNames_ = (BeanLgNames) _cont.getStandards();
+        return lgNames_.setOtherResult(_cont, _classField, _instance, _value);
+    }
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+        return new ResultErrorStd();
+    }
+
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {

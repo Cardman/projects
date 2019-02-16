@@ -4645,6 +4645,91 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$math.neg($false)");
         assertTrue(arg_.isTrue());
     }
+
+    @Test
+    public void processEl901Test() {
+        Argument arg_ = directCalculate("\"\"!=$null");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl902Test() {
+        Argument arg_ = directCalculate("0!=$null");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl903Test() {
+        Argument arg_ = directCalculate("$new $int[]{}!=$new $int[]{}");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl904Test() {
+        Argument arg_ = directCalculate("$null!=0");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl905Test() {
+        Argument arg_ = directCalculate("$null==$null");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl906Test() {
+        Argument arg_ = directCalculate("$true!=$null");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl907Test() {
+        Argument arg_ = directCalculate("$true==$true");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl908Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent(0)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl909Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent($true)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl910Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl911Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent($new code.util.Replacement(\"\",\"\"))");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl912Test() {
+        Argument arg_ = directCalculate("$new code.util.Replacement(\"\",\"\") != $null");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl913Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent($new $int[]{})");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl914Test() {
+        Argument arg_ = directCalculate("$ObjectsUtil.getParent($null)");
+        assertTrue(arg_.isNull());
+    }
+
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

@@ -212,10 +212,6 @@ public final class ImportingPage {
         pageEl.putLocalVar(_key, _var);
     }
 
-    public void clearAllLocalVars() {
-        pageEl.clearAllLocalVars();
-    }
-
     public void removeLocalVar(String _key) {
         pageEl.removeLocalVar(_key);
     }
@@ -232,10 +228,6 @@ public final class ImportingPage {
         return pageEl.getLocalVars();
     }
 
-    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
-        pageEl.setLocalVars(_localVars);
-    }
-
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
         pageEl.setLocalVars(_localVars);
     }
@@ -250,10 +242,6 @@ public final class ImportingPage {
 
     public StringMap<LocalVariable> getParameters() {
         return pageEl.getParameters();
-    }
-
-    public void setParameters(StringMap<LocalVariable> _parameters) {
-        pageEl.setParameters(_parameters);
     }
 
     public StringMap<LocalVariable> getReturnedValues() {

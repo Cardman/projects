@@ -3,8 +3,8 @@ package code.expressionlanguage.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -16,7 +16,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
     @Override
     public void tryProcessEl(ContextEl _context) {
         int len_ = names.size();
-        FieldableStruct str_ = (FieldableStruct) getGlobalArgument().getStruct();
+        AnnotationStruct str_ = (AnnotationStruct) getGlobalArgument().getStruct();
         String className_ = str_.getClassName();
         for (int i = 0; i <len_; i++) {
             String name_ = names.getKey(i);
@@ -32,9 +32,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         }
         setNullReadWrite();
     }
-    public StringMap<String> getNames() {
-        return names;
-    }
+
     public void setNames(StringMap<String> _names) {
         names = _names;
     }

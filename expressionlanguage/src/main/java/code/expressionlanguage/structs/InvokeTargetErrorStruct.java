@@ -3,6 +3,8 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.util.CollCapacity;
+import code.util.StringList;
 
 public final class InvokeTargetErrorStruct implements ErroneousStruct {
 
@@ -44,7 +46,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return new StringStruct(message);
+        return new StringStruct(getStringRep(_an.getStandards().getAliasInvokeTarget()));
     }
 
     @Override
@@ -56,4 +58,16 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
     public Struct getMessage() {
         return new StringStruct(message);
     }
+
+    private String getStringRep(String _cl) {
+        Struct[] calls_ = stack.getInstance();
+        StringList str_ = new StringList(new CollCapacity(calls_.length+2));
+        str_.add(_cl);
+        str_.add(message);
+        for (Struct s: calls_) {
+            str_.add(((StackTraceElementStruct)s).getStringRep());
+        }
+        return str_.join("\n");
+    }
+
 }

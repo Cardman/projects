@@ -1,8 +1,6 @@
 package code.expressionlanguage.opers.util;
-import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class ClassFormattedMethodId implements Equallable<ClassFormattedMethodId> {
+public final class ClassFormattedMethodId {
 
     private final String className;
 
@@ -19,14 +17,6 @@ public final class ClassFormattedMethodId implements Equallable<ClassFormattedMe
 
     public MethodId getConstraints() {
         return constraints;
-    }
-
-    @Override
-    public boolean eq(ClassFormattedMethodId _g) {
-        if (!StringList.quickEq(className, _g.className)) {
-            return false;
-        }
-        return constraints.eq(_g.constraints);
     }
 
 }

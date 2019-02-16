@@ -901,7 +901,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
     public final void checkImplements(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        EqList<ClassFormattedMethodId> abstractMethods_ = new EqList<ClassFormattedMethodId>();
+        CustList<ClassFormattedMethodId> abstractMethods_ = new CustList<ClassFormattedMethodId>();
         boolean concreteClass_ = false;
         if (mustImplement()) {
             concreteClass_ = true;
@@ -1317,11 +1317,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         return output_;
     }
-    public static EqList<ClassFormattedMethodId> remainingInterfaceMethodsToImplement(
+    public static CustList<ClassFormattedMethodId> remainingInterfaceMethodsToImplement(
             ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,
             String _fullName,
             ContextEl _context) {
-        EqList<ClassFormattedMethodId> rem_ = new EqList<ClassFormattedMethodId>();
+        CustList<ClassFormattedMethodId> rem_ = new CustList<ClassFormattedMethodId>();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             int nbConcrete_ = 0;
             int nbFinal_ = 0;
@@ -1331,13 +1331,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (method_.isStaticMethod()) {
                     continue;
                 }
-                if (method_.isFinalMethod() && Classes.canAccess(_fullName, method_, _context)) {
+                if (!Classes.canAccess(_fullName, method_, _context)) {
+                    continue;
+                }
+                if (method_.isFinalMethod()) {
                     nbFinal_++;
                 }
                 if (method_.isConcreteMethod()) {
-                    if (Classes.canAccess(_fullName, method_, _context)) {
-                        nbConcrete_++;
-                    }
+                    nbConcrete_++;
                 }
             }
             if (nbConcrete_ > 1 && nbFinal_ == 0) {

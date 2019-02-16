@@ -293,7 +293,6 @@ public final class TypeUtil {
             }
             for (ClassMethodId t: out_) {
                 OverridingRelation ovRelBase_ = new OverridingRelation();
-                ovRelBase_.setRealId(key_);
                 ovRelBase_.setSubMethod(t);
                 ovRelBase_.setSupMethod(t);
                 ovRelBase_.setBase(true);
@@ -316,7 +315,6 @@ public final class TypeUtil {
                             MethodId f_ = m.getQuickFormattedId(superType_, _context);
                             if (f_.eq(c.getConstraints().quickFormat(templClass_, _context))) {
                                 OverridingRelation ovRel_ = new OverridingRelation();
-                                ovRel_.setRealId(key_);
                                 ovRel_.setSubMethod(c);
                                 ovRel_.setSupMethod(new ClassMethodId(superType_, m.getId()));
                                 newpairs_.add(ovRel_);

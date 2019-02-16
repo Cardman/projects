@@ -2,7 +2,6 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.EntryCust;
 import code.util.ObjectMap;
 
 public final class EnumStruct implements FieldableStruct, EnumerableStruct, ExportableStringStruct {
@@ -41,12 +40,7 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
 
     @Override
     public void setStruct(ClassField _classField, Struct _value) {
-        for (EntryCust<ClassField, Struct> e: fields.entryList()) {
-            if (e.getKey().eq(_classField)) {
-                e.setValue(_value);
-                return;
-            }
-        }
+        fields.set(_classField,_value);
     }
 
     @Override
@@ -64,16 +58,11 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct, Expo
         return name;
     }
 
+
     @Override
     public ObjectMap<ClassField,Struct> getFields() {
         return fields;
     }
-
-    @Override
-    public String getClassName() {
-        return className;
-    }
-
 
     @Override
     public StringStruct exportValue() {

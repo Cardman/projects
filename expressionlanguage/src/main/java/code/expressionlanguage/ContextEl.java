@@ -749,6 +749,15 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return methods_;
     }
+    public static CustList<AnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
+        CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
+        for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
+            if (b instanceof AnnotationMethodBlock) {
+                methods_.add((AnnotationMethodBlock) b);
+            }
+        }
+        return methods_;
+    }
     public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         if (_element == null) {

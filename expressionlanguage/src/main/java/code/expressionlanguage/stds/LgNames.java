@@ -775,8 +775,7 @@ public abstract class LgNames {
         _cont.setAnalyzing(null);
     }
 
-    public void buildOther() {
-    }
+    public abstract void buildOther();
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
@@ -881,13 +880,11 @@ public abstract class LgNames {
                 result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
                 return result_;
             }
-            if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
-                Struct arg_ = args_[0];
-                Struct par_ = arg_.getParent();
-                _cont.getContextEl().addSensibleField(arg_, par_);
-                result_.setResult(par_);
-                return result_;
-            }
+            Struct arg_ = args_[0];
+            Struct par_ = arg_.getParent();
+            _cont.getContextEl().addSensibleField(arg_, par_);
+            result_.setResult(par_);
+            return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
             ReplacementStruct.calculate(_cont, result_, _method, _struct);
@@ -1818,9 +1815,8 @@ public abstract class LgNames {
         return -result_;
     }
 
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        return new ResultErrorStd();
-    }
+    public abstract ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args);
+
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         return new Argument(new SimpleObjectStruct());
     }
@@ -1830,7 +1826,6 @@ public abstract class LgNames {
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String objectType_ = lgNames_.getAliasObject();
         result_ = newInstanceStd(_cont, _method, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -1843,11 +1838,8 @@ public abstract class LgNames {
             StringBuilderStruct.instantiate(_cont, result_, _method, args_);
             processError(_cont, result_);
             return result_;
-        } else if (StringList.quickEq(type_, objectType_)) {
-            result_.setResult(new SimpleObjectStruct());
-        } else {
-            result_ = lgNames_.getOtherResult(_cont, _method, args_);
         }
+        result_ = lgNames_.getOtherResult(_cont, _method, args_);
         processError(_cont,result_);
         return result_;
     }
@@ -1900,20 +1892,11 @@ public abstract class LgNames {
         return result_;
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Struct... _args) {
-        return new ResultErrorStd();
+        ResultErrorStd res_ = new ResultErrorStd();
+        res_.setResult(new SimpleObjectStruct());
+        return res_;
     }
-    public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
-        LgNames lgNames_ = _cont.getStandards();
-        ResultErrorStd result_ = lgNames_.getSimpleResult(_cont, _classField);
-        if (result_.getResult() != null) {
-            return result_;
-        }
-        result_ = lgNames_.getOtherResult(_cont, _classField, _instance);
-        return result_;
-    }
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
-        return new ResultErrorStd();
-    }
+
     public ResultErrorStd getSimpleResult(Analyzable _conf, ClassField _classField) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
@@ -1971,13 +1954,7 @@ public abstract class LgNames {
         }
         return result_;
     }
-    public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
-        LgNames lgNames_ = _cont.getStandards();
-        return lgNames_.setOtherResult(_cont, _classField, _instance, _value);
-    }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
-        return new ResultErrorStd();
-    }
+
     static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];

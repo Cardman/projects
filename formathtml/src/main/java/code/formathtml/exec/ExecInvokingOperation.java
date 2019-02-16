@@ -53,6 +53,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -1051,7 +1052,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 a_.setStruct(struct_);
                 return a_;
             }
-            ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE);
+            ResultErrorStd res_ = BeanLgNames.getField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE);
             a_ = new Argument();
             if (res_.getError() != null) {
                 _conf.setException(new ErrorStruct(_conf,res_.getError()));
@@ -1080,7 +1081,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return a_;
         }
         Struct default_ = arg_.getStruct();
-        ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, default_);
+        ResultErrorStd res_ = BeanLgNames.getField(_conf.getContextEl(), fieldId_, default_);
         a_ = new Argument();
         if (res_.getError() != null) {
             _conf.setException(new ErrorStruct(_conf,res_.getError()));
@@ -1131,7 +1132,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return _right;
             }
             ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
+            result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
@@ -1166,7 +1167,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return _right;
         }
         ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
+        result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;

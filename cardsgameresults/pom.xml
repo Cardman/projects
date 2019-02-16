@@ -8,12 +8,12 @@
         <version>2.0</version>
         <relativePath>../cardsgroup</relativePath>
     </parent>
-	<groupId>cardgamesresults</groupId>
-	<artifactId>cardgamesresults</artifactId>
+	<groupId>cardsgameresults</groupId>
+	<artifactId>cardsgameresults</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<build>
-		<finalName>cardgamesresults</finalName>
+		<finalName>cardsgameresults</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

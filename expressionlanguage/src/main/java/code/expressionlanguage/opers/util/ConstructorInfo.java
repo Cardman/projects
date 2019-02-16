@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.util;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
-public final class ConstructorInfo implements Parametrable, Displayable {
+public final class ConstructorInfo implements Parametrable {
 
     private ConstructorId constraints;
     private ConstructorId formatted;
@@ -13,10 +13,6 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     private boolean varArgWrap;
     private InvocationMethod invocation;
-    @Override
-    public String display() {
-        return constraints.getSignature();
-    }
 
     public ConstructorId getConstraints() {
         return constraints;

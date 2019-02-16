@@ -52,8 +52,8 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>cardgamesresults</groupId>
-			<artifactId>cardgamesresults</artifactId>
+			<groupId>cardsgameresults</groupId>
+			<artifactId>cardsgameresults</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

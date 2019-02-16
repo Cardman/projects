@@ -33,8 +33,8 @@ public final class CustomFoundConstructor {
         CallConstructor call_ = new CallConstructor();
         call_.setFieldName(fieldName);
         call_.setChildIndex(childIndex);
-        call_.setArgument(currentObject);
-        call_.setId(id);
+        call_.setArgument(getCurrentObject());
+        call_.setId(getId());
         return call_;
     }
 

@@ -1,5 +1,4 @@
 package code.expressionlanguage.variables;
-import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -41,10 +40,6 @@ public final class LoopVariable {
 
     public void setStruct(Struct _element) {
         element = _element;
-    }
-
-    public void setElement(Long _element) {
-        element = new LongStruct(_element);
     }
 
     public long getStep() {

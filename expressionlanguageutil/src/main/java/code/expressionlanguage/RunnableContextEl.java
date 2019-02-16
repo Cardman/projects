@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -85,7 +84,7 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         Classes cls_ = getClasses();
         String run_ = custInit.getRunTask(stds_);
         String runnable_ = custInit.getInterfaceTask(stds_);
-        MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList(), false);
+        MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList());
         GeneType type_ = cls_.getClassBody(runnable_);
         String base_ = Templates.getIdFromAllTypes(className);
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, this).getVal(base_);
@@ -111,18 +110,8 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
     }
 
     @Override
-    public String getClassName() {
-        return className;
-    }
-
-    @Override
     public void setStruct(ClassField _classField, Struct _value) {
-        for (EntryCust<ClassField, Struct> e: fields.entryList()) {
-            if (e.getKey().eq(_classField)) {
-                e.setValue(_value);
-                return;
-            }
-        }
+        fields.set(_classField,_value);
     }
 
 }

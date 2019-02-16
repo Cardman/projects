@@ -11,12 +11,12 @@ import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.util.BeanLgNames;
 
 public final class ExecSettableFieldOperation extends
         ExecAbstractFieldOperation implements ExecSettableElResult {
@@ -221,7 +221,7 @@ public final class ExecSettableFieldOperation extends
                 return a_;
             }
             ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
+            result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
@@ -248,7 +248,7 @@ public final class ExecSettableFieldOperation extends
             return a_;
         }
         ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
+        result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
@@ -283,7 +283,7 @@ public final class ExecSettableFieldOperation extends
                 return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
             }
             ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
+            result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
@@ -308,7 +308,7 @@ public final class ExecSettableFieldOperation extends
             return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
         }
         ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
+        result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
@@ -336,7 +336,7 @@ public final class ExecSettableFieldOperation extends
                 return a_;
             }
             ResultErrorStd result_;
-            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
+            result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
                 _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
@@ -360,7 +360,7 @@ public final class ExecSettableFieldOperation extends
             return a_;
         }
         ResultErrorStd result_;
-        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
+        result_ = BeanLgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
             _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;

@@ -34,17 +34,13 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         if (!init) {
             String name_ = instance_.getName();
             AnnotationBlock ann_ = (AnnotationBlock) type_;
-            for (GeneMethod m: Classes.getMethodBlocks(ann_)) {
-                if (!(m instanceof AnnotationMethodBlock)) {
+            for (AnnotationMethodBlock m: ContextEl.getAnnotationMethods(ann_)) {
+                if (!StringList.quickEq(m.getName(), name_)) {
                     continue;
                 }
-                AnnotationMethodBlock a_ = (AnnotationMethodBlock) m;
-                if (!StringList.quickEq(a_.getName(), name_)) {
-                    continue;
-                }
-                ops = a_.getOpValue();
+                ops = m.getOpValue();
                 if (ops.isEmpty()) {
-                    String clMethod_ = a_.getImportedReturnType();
+                    String clMethod_ = m.getImportedReturnType();
                     Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
                     Argument out_ = new Argument();
                     out_.setStruct(value_);
@@ -72,11 +68,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean receive(Argument _argument, ContextEl _context) {
-        getLastEl().setArgument(_argument, _context);
-        if (_context.isFailInit()) {
-            return false;
-        }
-        return _context.processException();
+        return basicReceive(_argument,_context);
     }
 
 }

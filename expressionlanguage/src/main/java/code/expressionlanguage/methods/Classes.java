@@ -1594,14 +1594,6 @@ public final class Classes {
                 if (b instanceof StaticBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     StaticBlock method_ = (StaticBlock) b;
-                    if (b.getFirstChild() == null) {
-                        page_.setGlobalOffset(b.getOffset().getOffsetTrim());
-                        page_.setOffset(0);
-                        EmptyTagName un_ = new EmptyTagName();
-                        un_.setFileName(b.getFile().getFileName());
-                        un_.setIndexFile(b.getOffset().getOffsetTrim());
-                        addError(un_);
-                    }
                     method_.buildFctInstructions(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(b).getFieldsRoot());
                     page_.clearAllLocalVars();
@@ -1677,14 +1669,6 @@ public final class Classes {
                 if (b instanceof InstanceBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     InstanceBlock method_ = (InstanceBlock) b;
-                    if (b.getFirstChild() == null) {
-                        page_.setGlobalOffset(b.getOffset().getOffsetTrim());
-                        page_.setOffset(0);
-                        EmptyTagName un_ = new EmptyTagName();
-                        un_.setFileName(b.getFile().getFileName());
-                        un_.setIndexFile(b.getOffset().getOffsetTrim());
-                        addError(un_);
-                    }
                     method_.buildFctInstructions(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(method_).getFieldsRoot());
                     page_.clearAllLocalVars();

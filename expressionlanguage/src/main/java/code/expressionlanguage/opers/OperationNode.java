@@ -1854,109 +1854,42 @@ public abstract class OperationNode implements Operable {
             len_--;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            ClassArgumentMatching selected_ = _context.get(i);
-            ClassMatching one_;
-            ClassMatching two_;
             String wcOne_ = _o1.getFormatted().getParametersTypes().get(i);
             String wcTwo_ = _o2.getFormatted().getParametersTypes().get(i);
             if (wcOne_ == null) {
                 if (wcTwo_ != null) {
                     return CustList.SWAP_SORT;
                 }
-                _o1.getParameters().setError(true);
-                _o2.getParameters().setError(true);
-                return CustList.NO_SWAP_SORT;
+                continue;
             }
             if (wcTwo_ == null) {
                 return CustList.NO_SWAP_SORT;
             }
-            one_ = new ClassMatching(wcOne_);
-            two_ = new ClassMatching(wcTwo_);
-            if (one_.matchClass(two_)) {
-                continue;
-            }
-            if (selected_.isVariable()) {
-                if (one_.isAssignableFrom(two_, map_, context_)) {
-                    return CustList.SWAP_SORT;
-                }
-                if (two_.isAssignableFrom(one_, map_, context_)) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                _o1.getParameters().setError(true);
-                _o2.getParameters().setError(true);
+            if (isPreferred(wcOne_,wcTwo_,map_,context_)) {
                 return CustList.NO_SWAP_SORT;
             }
-            ClassMatching toPrOne_ = one_;
-            ClassMatching toPrTwo_ = two_;
-            boolean onePrimExcl_ = false;
-            boolean twoPrimExcl_ = false;
-            if (one_.isPrimitive(context_) && !two_.isPrimitive(context_)) {
-                onePrimExcl_ = true;
-            }
-            if (!one_.isPrimitive(context_) && two_.isPrimitive(context_)) {
-                twoPrimExcl_ = true;
-            }
-            if (selected_.isPrimitive(context_)) {
-                if (onePrimExcl_) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                if (twoPrimExcl_) {
-                    return CustList.SWAP_SORT;
-                }
-                toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
-                toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
-            } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, context_);
-                if (clMatch_.isPrimitive(context_)) {
-                    if (onePrimExcl_) {
-                        return CustList.SWAP_SORT;
-                    }
-                    if (twoPrimExcl_) {
-                        return CustList.NO_SWAP_SORT;
-                    }
-                    toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
-                    toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
-                }
-            }
-            if (toPrOne_.isAssignableFrom(toPrTwo_, map_, context_)) {
+            if (isPreferred(wcTwo_,wcOne_,map_,context_)) {
                 return CustList.SWAP_SORT;
             }
-            if (toPrTwo_.isAssignableFrom(toPrOne_, map_, context_)) {
-                return CustList.NO_SWAP_SORT;
+            if (StringList.quickEq(wcOne_,wcTwo_)) {
+                continue;
             }
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
         }
         if (vararg_) {
-            ClassMatching one_;
             String paramOne_ = _o1.getFormatted().getParametersTypes().last();
             paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            ClassMatching two_;
             String paramTwo_ = _o2.getFormatted().getParametersTypes().last();
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            String wcOne_ = paramOne_;
-            String wcTwo_ = paramTwo_;
-            if (wcOne_ == null) {
-                if (wcTwo_ != null) {
-                    return CustList.SWAP_SORT;
-                }
-                _o1.getParameters().setError(true);
-                _o2.getParameters().setError(true);
+            if (isPreferred(paramOne_,paramTwo_,map_,context_)) {
                 return CustList.NO_SWAP_SORT;
             }
-            if (wcTwo_ == null) {
-                return CustList.NO_SWAP_SORT;
+            if (isPreferred(paramTwo_,paramOne_,map_,context_)) {
+                return CustList.SWAP_SORT;
             }
-            one_ = new ClassMatching(wcOne_);
-            two_ = new ClassMatching(wcTwo_);
-            if (!one_.matchClass(two_)) {
-                if (one_.isAssignableFrom(two_, map_, context_)) {
-                    return CustList.SWAP_SORT;
-                }
-                if (two_.isAssignableFrom(one_, map_, context_)) {
-                    return CustList.NO_SWAP_SORT;
-                }
+            if (!StringList.quickEq(paramOne_,paramTwo_)) {
                 _o1.getParameters().setError(true);
                 _o2.getParameters().setError(true);
                 return CustList.NO_SWAP_SORT;
@@ -1968,6 +1901,11 @@ public abstract class OperationNode implements Operable {
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
                 return CustList.SWAP_SORT;
             }
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
+                return CustList.NO_SWAP_SORT;
+            }
+            _o1.getParameters().setError(true);
+            _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
         }
         String p_ = _o1.getReturnType();

@@ -3,7 +3,6 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
-import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -40,12 +39,7 @@ public final class AnnotationStruct implements FieldableStruct {
 
     @Override
     public void setStruct(ClassField _classField, Struct _value) {
-        for (EntryCust<ClassField, Struct> e: fields.entryList()) {
-            if (e.getKey().eq(_classField)) {
-                e.setValue(_value);
-                return;
-            }
-        }
+        fields.set(_classField,_value);
     }
 
     @Override
@@ -58,7 +52,7 @@ public final class AnnotationStruct implements FieldableStruct {
         return fields;
     }
 
-    @Override
+
     public String getClassName() {
         return className;
     }

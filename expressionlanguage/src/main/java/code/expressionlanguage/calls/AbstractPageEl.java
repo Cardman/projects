@@ -35,6 +35,10 @@ public abstract class AbstractPageEl extends PageEl {
     private FileBlock file;
 
     public boolean receive(Argument _argument, ContextEl _context) {
+        return basicReceive(_argument,_context);
+    }
+
+    boolean basicReceive(Argument _argument, ContextEl _context) {
         getLastEl().setArgument(_argument, _context);
         if (_context.isFailInit()) {
             return false;

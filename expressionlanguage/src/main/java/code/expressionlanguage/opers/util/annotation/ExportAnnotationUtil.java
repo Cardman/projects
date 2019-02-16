@@ -5,6 +5,8 @@ import code.util.CustList;
 
 public final class ExportAnnotationUtil {
 
+    private ExportAnnotationUtil(){
+    }
     public static String exportAnnotation(FieldableStruct _str) {
         StringBuilder out_ = new StringBuilder();
         CustList<CustList<StackObject>> elts_;

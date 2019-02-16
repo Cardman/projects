@@ -257,6 +257,9 @@ public class LgNamesUtils extends LgNames {
             ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
+        if (StringList.quickEq(name_,getAliasObject())) {
+            return super.getOtherResult(_cont,_method,_args);
+        }
         if (StringList.quickEq(name_,aliasThread)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();

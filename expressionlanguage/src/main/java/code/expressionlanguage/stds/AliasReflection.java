@@ -1595,11 +1595,9 @@ public final class AliasReflection {
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
-            if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-                ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormClassName()));
-                return result_;
-            }
+            ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
+            result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormClassName()));
+            return result_;
         }
         return result_;
     }
