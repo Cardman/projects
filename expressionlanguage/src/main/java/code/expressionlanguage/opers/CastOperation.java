@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -67,50 +68,14 @@ public final class CastOperation extends AbstractUnaryOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        LgNames stds_ = _conf.getStandards();
         Argument objArg_ = arguments_.first();
-        if (className.startsWith("#")) {
+        if (className.contains("#")) {
             return;
         }
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(className, objArg_.getStruct(), _conf.getStandards())) {
+        if (Templates.safeObject(className,objArg_,_conf) != ErrorType.NOTHING) {
             return;
         }
-        if (objArg_.isNull()) {
-            Argument arg_ = new Argument();
-            setSimpleArgumentAna(arg_, _conf);
-            return;
-        }
-        if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
-            if (!StringList.quickEq(className, _conf.getStandards().getAliasString())) {
-                return;
-            }
-        }
-        Struct s_ = objArg_.getStruct();
-        String argClassName_ = stds_.getStructClassName(s_, _conf.getContextEl());
-        ClassArgumentMatching resCl_ = getResultClass();
-        Argument arg_ = new Argument();
-        if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(argClassName_);
-            mapping_.setParam(className);
-            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                return;
-            }
-            arg_.setStruct(objArg_.getStruct());
-        } else {
-            if (PrimitiveTypeUtil.getOrderClass(className, _conf) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
-                    return;
-                }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
-            } else {
-                if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
-                    return;
-                }
-                arg_.setStruct(objArg_.getStruct());
-            }
-        }
-        setSimpleArgumentAna(arg_, _conf);
+        setSimpleArgumentAna(objArg_, _conf);
     }
 
     public String getClassName() {

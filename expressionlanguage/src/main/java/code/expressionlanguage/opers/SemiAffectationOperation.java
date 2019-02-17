@@ -116,29 +116,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
         OperationNode realFirstChild_ = getFirstChild();
-        if (realFirstChild_ == null) {
-            CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
-            for (StringMap<AssignmentBefore> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    SimpleAssignment s_ = new SimpleAssignment();
-                    s_.setAssignedAfter(true);
-                    s_.setUnassignedAfter(true);
-                    sm_.put(e.getKey(), s_);
-                }
-                variablesAfter_.add(sm_);
-            }
-            vars_.getVariables().put(this, variablesAfter_);
-            StringMap<AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
-            for (EntryCust<String, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
-                SimpleAssignment s_ = new SimpleAssignment();
-                s_.setAssignedAfter(true);
-                s_.setUnassignedAfter(true);
-                fieldsAfter_.put(e.getKey(), s_);
-            }
-            vars_.getFields().put(this, fieldsAfter_);
-            return;
-        }
         OperationNode firstChild_ = (OperationNode) settable;
         if (firstChild_ instanceof VariableOperation) {
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);

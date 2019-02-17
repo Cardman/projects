@@ -32,15 +32,7 @@ import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
 import code.expressionlanguage.opers.VariableOperation;
-import code.expressionlanguage.opers.exec.AtomicExecCalculableOperation;
-import code.expressionlanguage.opers.exec.ExecAffectationOperation;
-import code.expressionlanguage.opers.exec.ExecCompoundAffectationOperation;
-import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
-import code.expressionlanguage.opers.exec.ExecMethodOperation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.exec.ExecPossibleIntermediateDotted;
-import code.expressionlanguage.opers.exec.ExecSemiAffectationOperation;
-import code.expressionlanguage.opers.exec.ReductibleOperable;
+import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -299,15 +291,15 @@ public final class ElUtil {
         }
         return out_;
     }
-    public static boolean isDeclaringField(SettableElResult _var, Analyzable _an) {
+    public static boolean isDeclaringField(Operable _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }
-        if (!(_var instanceof StandardFieldOperation)) {
+        if (!(_var instanceof StandardFieldOperable)) {
             return false;
         }
-        return isDeclaringVariable((StandardFieldOperation) _var);
+        return isDeclaringVariable(_var);
     }
 
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
@@ -362,40 +354,40 @@ public final class ElUtil {
         }
         return isDeclaringVariable(_par);
     }
-    private static boolean isDeclaringVariable(LeafOperation _var) {
-        MethodOperation par_ = _var.getParent();
+    public static boolean isDeclaringVariable(Operable _var) {
+        ParentOperable par_ = _var.getParent();
         if (par_ == null) {
             return true;
         }
-        if (par_ instanceof DeclaringOperation) {
+        if (par_ instanceof DeclaringOperable) {
             return true;
         }
-        if (par_ instanceof AffectationOperation) {
+        if (par_ instanceof AffectationOperable) {
             if (par_.getParent() == null) {
                 if (_var == par_.getFirstChild()) {
                     return true;
                 }
             }
-            if (par_.getParent() instanceof DeclaringOperation) {
+            if (par_.getParent() instanceof DeclaringOperable) {
                 return _var == par_.getFirstChild();
             }
         }
         return false;
     }
-    private static boolean isDeclaringVariable(MethodOperation _par) {
+    public static boolean isDeclaringVariable(ParentOperable _par) {
         if (_par == null) {
             return true;
         }
-        if (_par instanceof DeclaringOperation) {
+        if (_par instanceof DeclaringOperable) {
             return true;
         }
-        if (_par instanceof AffectationOperation) {
+        if (_par instanceof AffectationOperable) {
             if (_par.getParent() == null) {
                 if (null == _par.getFirstChild()) {
                     return true;
                 }
             }
-            if (_par.getParent() instanceof DeclaringOperation) {
+            if (_par.getParent() instanceof DeclaringOperable) {
                 return null == _par.getFirstChild();
             }
         }

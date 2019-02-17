@@ -162,7 +162,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return new CustList<Argument>(_nodes);
     }
-    static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
+    public static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
         Struct elt_ = _element.getStruct();
         IntStruct i_ = new IntStruct(_index);

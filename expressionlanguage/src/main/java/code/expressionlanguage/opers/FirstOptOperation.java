@@ -4,6 +4,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.VarargError;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -59,17 +61,20 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        setArg(_conf,this);
+    }
+
+    public static void setArg(Analyzable _conf, ParentOperable _par) {
         if (!_conf.isGearConst()) {
             return;
         }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Operable> chidren_ = _par.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
+        for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        setSimpleArgumentAna(arguments_.first(), _conf);
+        _par.setSimpleArgumentAna(arguments_.first(), _conf);
     }
-
     public int getOffset() {
         return offset;
     }

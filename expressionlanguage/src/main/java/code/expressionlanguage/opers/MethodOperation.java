@@ -4,6 +4,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -14,7 +15,7 @@ import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
-public abstract class MethodOperation extends OperationNode implements ReductibleOperable {
+public abstract class MethodOperation extends OperationNode implements ReductibleOperable, ParentOperable {
 
     private OperationNode firstChild;
 

@@ -8742,7 +8742,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body>{$static(code.formathtml.classes.BeanUtil).sum(1i,2i)}_{$static(code.formathtml.classes.BeanUtil).NB_BEANS}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body>{$static(code.formathtml.classes.BeanUtil).sum(1i,2i)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8766,7 +8766,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_seven", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>3_8</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>3</body></html>", render_);
     }
 
 

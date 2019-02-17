@@ -261,7 +261,6 @@ public final class ElRenderUtil {
                         possible_.setIntermediateDotted();
                         possible_.setPreviousArgument(current_.getArgument());
                         possible_.setPreviousResultClass(current_.getResultClass(), static_);
-                        current_.setSiblingSet(possible_);
                     }
                 }
                 par_.appendChild(next_);

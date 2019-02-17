@@ -47,14 +47,13 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         }
     }
     Argument getCommonArgument(ExecutableCode _conf) {
-        Argument a_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        a_ = new Argument();
+        Argument a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
         return a_;
     }
@@ -92,7 +91,7 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         return arg_;
     }
 
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
+    private Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
@@ -103,7 +102,7 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         locVar_.setStruct(_right.getStruct());
         return _right;
     }
-    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
@@ -113,13 +112,10 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
+        setVar(_conf, locVar_, res_);
         return res_;
     }
-    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
@@ -129,13 +125,16 @@ public final class ExecVariableOperation extends ExecVariableLeafOperation imple
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
+        setVar(_conf, locVar_, res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
+    private static void setVar(ExecutableCode _conf, LocalVariable _var,Argument _value) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            return;
+        }
+        _var.setStruct(_value.getStruct());
+    }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         return endCalculate(_conf, _nodes, false, null, _right);

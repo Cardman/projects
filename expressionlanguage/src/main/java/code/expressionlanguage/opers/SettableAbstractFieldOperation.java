@@ -10,6 +10,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -182,33 +183,37 @@ public abstract class SettableAbstractFieldOperation extends
 
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (fieldMetaInfo == null) {
+        trySet(_conf, this, fieldMetaInfo);
+    }
+    public static void trySet(Analyzable _conf, Operable _oper, FieldInfo _info) {
+        if (_info == null) {
             return;
         }
-        if (!fieldMetaInfo.isStaticField()) {
+        if (!_info.isStaticField()) {
+            return;
+        }
+        if (!_info.isFinalField()) {
             return;
         }
         Classes cl_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        ClassField fieldId_ = _info.getClassField();
         if (!cl_.isCustomType(fieldId_.getClassName())) {
             ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-            if (res_.getResult() != null) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(res_.getResult());
-                setSimpleArgumentAna(arg_,_conf);
-            }
+            Argument arg_ = Argument.createVoid();
+            arg_.setStruct(res_.getResult());
+            _oper.setSimpleArgumentAna(arg_,_conf);
             return;
         }
-        if (_conf.isGearConst() && ElUtil.isDeclaringField(this, _conf) && fieldMetaInfo.isFinalField()) {
+        if (_conf.isGearConst() && ElUtil.isDeclaringField(_oper, _conf)) {
             Argument arg_ = Argument.createVoid();
-            setSimpleArgument(arg_);
+            _oper.setSimpleArgument(arg_);
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null && (_conf.isGearConst() || ElUtil.isSimpleStruct(str_))) {
+        if (str_ != null && ElUtil.isSimpleStruct(str_)) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
-            setSimpleArgumentAna(arg_,_conf);
+            _oper.setSimpleArgumentAna(arg_,_conf);
         }
     }
     @Override

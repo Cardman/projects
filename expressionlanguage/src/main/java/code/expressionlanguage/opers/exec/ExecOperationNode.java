@@ -482,37 +482,7 @@ public abstract class ExecOperationNode implements Operable {
         }
         return _operation.getOrder() + 1;
     }
-    protected static boolean isDeclaringField(ExecSettableElResult _var, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
-        if (!(bl_ instanceof FieldBlock)) {
-            return false;
-        }
-        if (!(_var instanceof ExecSettableFieldOperation)) {
-            return false;
-        }
-        return isDeclaringVariable((ExecSettableFieldOperation) _var);
-    }
 
-    private static boolean isDeclaringVariable(ExecLeafOperation _var) {
-        ExecMethodOperation par_ = _var.getParent();
-        if (par_ == null) {
-            return true;
-        }
-        if (par_ instanceof ExecDeclaringOperation) {
-            return true;
-        }
-        if (par_ instanceof ExecAffectationOperation) {
-            if (par_.getParent() == null) {
-                if (_var == par_.getFirstChild()) {
-                    return true;
-                }
-            }
-            if (par_.getParent() instanceof ExecDeclaringOperation) {
-                return _var == par_.getFirstChild();
-            }
-        }
-        return false;
-    }
     @Override
     public final int getOrder() {
         return order;
@@ -560,18 +530,7 @@ public abstract class ExecOperationNode implements Operable {
 
     @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
-        ExecPossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-        String un_ = resultClass.getUnwrapObject();
-        if (!un_.isEmpty()) {
-            if (_argument.isNull()) {
-                return;
-            }
-            _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
-        }
-        argument = _argument;
+        OperationNode.setArgAna(this, _argument, _conf);
     }
 
     @Override

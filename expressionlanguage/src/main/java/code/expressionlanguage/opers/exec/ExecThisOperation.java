@@ -21,6 +21,7 @@ public final class ExecThisOperation extends ExecVariableLeafOperation implement
         intermediate = _t.isIntermediate();
         nbAncestors = _t.getNbAncestors();
         off = _t.getOff();
+        setPreviousArgument(null);
     }
 
     @Override

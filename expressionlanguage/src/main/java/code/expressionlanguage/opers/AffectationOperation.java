@@ -13,6 +13,10 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.exec.AffectationOperable;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
+import code.expressionlanguage.opers.exec.StandardFieldOperable;
 import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -21,6 +25,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -31,7 +36,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class AffectationOperation extends ReflectableOpering {
+public final class AffectationOperation extends ReflectableOpering implements AffectationOperable {
 
     private SettableElResult settable;
 
@@ -355,11 +360,15 @@ public final class AffectationOperation extends ReflectableOpering {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!ElUtil.isDeclaringField(settable, _conf)) {
+        setArg(_conf,this,settable);
+    }
+
+    public static void setArg(Analyzable _conf, ParentOperable _current, Operable _settable) {
+        if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }
-        StandardFieldOperation fieldRef_ = (StandardFieldOperation) settable;
-        OperationNode lastChild_ = getFirstChild().getNextSibling();
+        StandardFieldOperable fieldRef_ = (StandardFieldOperable) _settable;
+        Operable lastChild_ = _current.getFirstChild().getNextSibling();
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
         if (id_ == null) {
@@ -370,10 +379,13 @@ public final class AffectationOperation extends ReflectableOpering {
         }
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
+        if (str_ instanceof ArrayStruct) {
+            return;
+        }
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         _conf.getClasses().initializeStaticField(id_, str_);
-        setSimpleArgument(value_);
+        _current.setSimpleArgument(value_);
     }
 }

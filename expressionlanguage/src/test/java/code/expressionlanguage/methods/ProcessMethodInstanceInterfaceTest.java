@@ -1,11 +1,16 @@
 package code.expressionlanguage.methods;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -3846,7 +3851,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void calculateArgument79Test() {
@@ -3900,7 +3905,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void calculateArgument81Test() {
@@ -3985,7 +3990,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void calculateArgument84Test() {
@@ -4068,7 +4073,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void calculateArgument87Test() {
@@ -4267,7 +4272,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void calculateArgument93Test() {
@@ -4304,7 +4309,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertTrue(field_ instanceof NullStruct);
+        assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
     public void instanceArgumentFailTest() {

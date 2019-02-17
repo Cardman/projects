@@ -18,7 +18,7 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
     public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
         intermediate = _a.isIntermediateDottedOperation();
-        previousArgument = _a.getPreviousArgument();
+        setPreviousArgument(_a.getPreviousArgument());
         off = _a.getOff();
     }
 

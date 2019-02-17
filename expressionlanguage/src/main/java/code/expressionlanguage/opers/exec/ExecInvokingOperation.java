@@ -1,8 +1,6 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Initializer;
@@ -26,7 +24,6 @@ import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.InvokingOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -50,7 +47,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         super(_inter);
         staticAccess = _inter.isStaticAccess();
         intermediate = _inter.isIntermediateDottedOperation();
-        previousArgument = _inter.getPreviousArgument();
+        setPreviousArgument(_inter.getPreviousArgument());
     }
 
     static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
@@ -133,20 +130,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return;
             }
         }
-    }
-    static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
-        Struct elt_ = _element.getStruct();
-        IntStruct i_ = new IntStruct(_index);
-        if (Templates.getErrorWhenContain(_array, i_, elt_, _conf) != ErrorType.NOTHING) {
-            return false;
-        }
-        Struct[] instance_ = _array.getInstance();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
-        LgNames stds_ = _conf.getStandards();
-        Struct value_ = PrimitiveTypeUtil.convertObject(cl_, elt_, stds_);
-        instance_[_index] = value_;
-        return true;
     }
     @Override
     public final boolean isIntermediateDottedOperation() {
@@ -259,11 +242,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _arguments) {
-            if (i_ < params_.size()) {
-                String param_ = params_.get(i_);
-                if (!Templates.checkObject(param_, a, _conf)) {
-                    return new Argument();
-                }
+            String param_ = params_.get(i_);
+            if (!Templates.checkObject(param_, a, _conf)) {
+                return new Argument();
             }
             i_++;
         }
@@ -710,16 +691,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 for (Argument a: _values) {
                     int dim_ = ((NumberStruct)a.getStruct()).getInstance().intValue();
                     if (dim_ < 0) {
-                        _conf.setException(new ErrorStruct(_conf,size_));
+                        String mess_ = StringList.concat(Long.toString(dim_),"<0");
+                        _conf.setException(new ErrorStruct(_conf,mess_,size_));
                         return result_;
                     }
                     dims_.add(dim_);
                 }
                 String c_ = forId_.substring(ARR.length());
-                if (StringList.quickEq(c_, _conf.getStandards().getAliasVoid())) {
-                    _conf.setException(new ErrorStruct(_conf,lgNames_.getAliasClassNotFoundError()));
-                    return result_;
-                }
                 result_.setStruct(PrimitiveTypeUtil.newCustomArray(c_, dims_, _conf));
                 return result_;
             }

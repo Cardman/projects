@@ -2,10 +2,11 @@ package code.formathtml.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.util.CustList;
 
-public abstract class ExecMethodOperation extends ExecDynOperationNode implements ReductibleOperable {
+public abstract class ExecMethodOperation extends ExecDynOperationNode implements ReductibleOperable, ParentOperable {
 
     private ExecDynOperationNode firstChild;
 

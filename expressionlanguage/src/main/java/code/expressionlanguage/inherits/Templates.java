@@ -924,7 +924,7 @@ public final class Templates {
         }
         return true;
     }
-    public static ErrorType safeObject(String _param, Argument _arg, ExecutableCode _context) {
+    public static ErrorType safeObject(String _param, Argument _arg, Analyzable _context) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);

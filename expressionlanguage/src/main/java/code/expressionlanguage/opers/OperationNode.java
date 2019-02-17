@@ -25,6 +25,7 @@ import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -46,7 +47,6 @@ import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -917,46 +917,12 @@ public abstract class OperationNode implements Operable {
             }
             GeneType root_ = _conf.getClassBody(t);
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                if (!Classes.canAccess(glClass_, e, _conf)) {
+                MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, e, t, superTypesBase_);
+                if (stMeth == null) {
                     continue;
                 }
-                String subType_ = superTypesBase_.getVal(t);
-                if (!Classes.canAccess(subType_, e, _conf)) {
-                    continue;
-                }
-                if (_accessFromSuper) {
-                    StringList l_ = new StringList(superTypesBase_.values());
-                    if (l_.containsStr(t)) {
-                        continue;
-                    }
-                }
-                if (_superClass) {
-                    StringList l_ = new StringList(superTypesBase_.values());
-                    if (!l_.containsStr(t)) {
-                        continue;
-                    }
-                }
-                if (e.isStaticMethod()) {
-                    MethodId id_ = e.getId();
-                    if (_uniqueId != null) {
-                        if (!_uniqueId.getConstraints().eq(id_)) {
-                            continue;
-                        }
-                    }
-                    String returnType_ = e.getImportedReturnType();
-                    ParametersGroup p_ = new ParametersGroup();
-                    for (String c: id_.getParametersTypes()) {
-                        p_.add(new ClassMatching(c));
-                    }
-                    MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(t);
-                    mloc_.setStatic(true);
-                    mloc_.setConstraints(id_);
-                    mloc_.setParameters(p_);
-                    mloc_.setReturnType(returnType_);
-                    ClassMethodId clId_ = new ClassMethodId(t, id_);
-                    methods_.add(clId_, mloc_);
-                }
+                ClassMethodId clId_ = new ClassMethodId(t, e.getId());
+                methods_.add(clId_, stMeth);
             }
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, t, 0));
         }
@@ -999,47 +965,12 @@ public abstract class OperationNode implements Operable {
             GeneType root_ = _conf.getClassBody(cl_);
             int anc_ = t.getValue();
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                if (!Classes.canAccess(glClass_, e, _conf)) {
+                MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, e, cl_, superTypesBase_);
+                if (stMeth == null) {
                     continue;
                 }
-                String subType_ = superTypesBaseAnc_.getVal(cl_);
-                if (!Classes.canAccess(subType_, e, _conf)) {
-                    continue;
-                }
-                if (_accessFromSuper) {
-                    StringList l_ = new StringList(superTypesBaseAnc_.values());
-                    if (l_.containsStr(cl_)) {
-                        continue;
-                    }
-                }
-                if (_superClass) {
-                    StringList l_ = new StringList(superTypesBaseAnc_.values());
-                    if (!l_.containsStr(cl_)) {
-                        continue;
-                    }
-                }
-                if (e.isStaticMethod()) {
-                    MethodId id_ = e.getId();
-                    if (_uniqueId != null) {
-                        if (!_uniqueId.getConstraints().eq(id_)) {
-                            continue;
-                        }
-                    }
-                    String returnType_ = e.getImportedReturnType();
-                    ParametersGroup p_ = new ParametersGroup();
-                    for (String c: id_.getParametersTypes()) {
-                        p_.add(new ClassMatching(c));
-                    }
-                    MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(cl_);
-                    mloc_.setStatic(true);
-                    mloc_.setConstraints(id_);
-                    mloc_.setParameters(p_);
-                    mloc_.setReturnType(returnType_);
-                    mloc_.setAncestor(anc_);
-                    ClassMethodId clId_ = new ClassMethodId(cl_, id_);
-                    methods_.add(clId_, mloc_);
-                }
+                ClassMethodId clId_ = new ClassMethodId(cl_, e.getId());
+                methods_.add(clId_, stMeth);
             }
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, cl_, anc_));
         }
@@ -1202,6 +1133,49 @@ public abstract class OperationNode implements Operable {
         }
         return methods_;
     }
+    private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,
+                                        boolean _superClass, ClassMethodId _uniqueId, String glClass_, GeneMethod e, String t, StringMap<String> superTypesBase_) {
+        if (!Classes.canAccess(glClass_, e, _conf)) {
+            return null;
+        }
+        String subType_ = superTypesBase_.getVal(t);
+        if (!Classes.canAccess(subType_, e, _conf)) {
+            return null;
+        }
+        if (_accessFromSuper) {
+            StringList l_ = new StringList(superTypesBase_.values());
+            if (l_.containsStr(t)) {
+                return null;
+            }
+        }
+        if (_superClass) {
+            StringList l_ = new StringList(superTypesBase_.values());
+            if (!l_.containsStr(t)) {
+                return null;
+            }
+        }
+        if (e.isStaticMethod()) {
+            MethodId id_ = e.getId();
+            if (_uniqueId != null) {
+                if (!_uniqueId.getConstraints().eq(id_)) {
+                    return null;
+                }
+            }
+            String returnType_ = e.getImportedReturnType();
+            ParametersGroup p_ = new ParametersGroup();
+            for (String c: id_.getParametersTypes()) {
+                p_.add(new ClassMatching(c));
+            }
+            MethodInfo mloc_ = new MethodInfo();
+            mloc_.setClassName(t);
+            mloc_.setStatic(true);
+            mloc_.setConstraints(id_);
+            mloc_.setParameters(p_);
+            mloc_.setReturnType(returnType_);
+            return mloc_;
+        }
+        return null;
+    }
     private static ObjectNotNullMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
@@ -1299,8 +1273,8 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
 
-    static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, Parametrable _id,ClassMatching[] _params,
-    ClassArgumentMatching... _argsClass) {
+    private static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, Parametrable _id, ClassMatching[] _params,
+                                            ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int nbDem_ = _params.length;
@@ -1429,7 +1403,7 @@ public abstract class OperationNode implements Operable {
         _id.setVarArgWrap(true);
         return true;
     }
-    static ClassMatching[] getParameters(Identifiable _id) {
+    private static ClassMatching[] getParameters(Identifiable _id) {
         StringList params_ = _id.getParametersTypes();
         int nbParams_ = params_.size();
         ClassMatching[] p_ = new ClassMatching[nbParams_];
@@ -1632,7 +1606,7 @@ public abstract class OperationNode implements Operable {
         }
         return null;
     }
-    static CustList<Parametrable> getAllMaximalSpecificFixArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
+    private static CustList<Parametrable> getAllMaximalSpecificFixArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
         CustList<Parametrable> list_ = new CustList<Parametrable>();
         int len_ = _all.size();
         for (int i = 0; i < len_; i++) {
@@ -1654,7 +1628,7 @@ public abstract class OperationNode implements Operable {
         }
         return list_;
     }
-    static CustList<Parametrable> getAllMaximalSpecificVariableArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
+    private static CustList<Parametrable> getAllMaximalSpecificVariableArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
         CustList<Parametrable> list_ = new CustList<Parametrable>();
         int len_ = _all.size();
         for (int i = 0; i < len_; i++) {
@@ -1676,19 +1650,19 @@ public abstract class OperationNode implements Operable {
         }
         return list_;
     }
-    static boolean isStrictMoreSpecificThanVariableArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isStrictMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         if (!isMoreSpecificThanVariableArity(_one, _two, _context)) {
             return false;
         }
         return !isMoreSpecificThanVariableArity(_two, _one, _context);
     }
-    static boolean isStrictMoreSpecificThanFixArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isStrictMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         if (!isMoreSpecificThanFixArity(_one, _two, _context)) {
             return false;
         }
         return !isMoreSpecificThanFixArity(_two, _one, _context);
     }
-    static boolean isMoreSpecificThanFixArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         if (_one.getImported() > _two.getImported()) {
             return false;
         }
@@ -1724,7 +1698,7 @@ public abstract class OperationNode implements Operable {
         }
         return all_;
     }
-    static boolean isMoreSpecificThanVariableArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         if (_one.getImported() > _two.getImported()) {
             return false;
         }
@@ -1799,7 +1773,7 @@ public abstract class OperationNode implements Operable {
         return two_.isAssignableFrom(one_, _map, _ana);
     }
 
-    static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
+    private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         if (_o1.getImported() > _o2.getImported()) {
             return CustList.SWAP_SORT;
         }
@@ -1983,14 +1957,21 @@ public abstract class OperationNode implements Operable {
 
     @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
-        String un_ = resultClass.getUnwrapObject();
+        setArgAna(this, _argument, _conf);
+    }
+    public static void setArgAna(Operable _op,Argument _argument, Analyzable _conf) {
+        PossibleIntermediateDottedOperable n_ = _op.getSiblingSet();
+        if (n_ != null) {
+            n_.setPreviousArgument(_argument);
+        }
+        String un_ = _op.getResultClass().getUnwrapObject();
         if (!un_.isEmpty()) {
             if (_argument.isNull()) {
                 return;
             }
             _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
-        argument = _argument;
+        _op.setSimpleArgument(_argument);
     }
     public final boolean isStaticBlock() {
         return staticBlock;
@@ -2011,6 +1992,10 @@ public abstract class OperationNode implements Operable {
 
     public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
+    }
+
+    public PossibleIntermediateDotted getSiblingSet() {
+        return siblingSet;
     }
 
     public final void setSiblingSet(PossibleIntermediateDotted _siblingSet) {

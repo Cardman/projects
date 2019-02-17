@@ -26,8 +26,9 @@ public final class ExecCatOperation extends ExecNumericOperation {
         o_ = chidren_.last();
         Argument c_ = getArgument(_nodes,o_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
-        a_ = localSumDiff(a_, c_, _conf);
-        setSimpleArgument(a_, _conf, _nodes);
+        Argument r_;
+        r_ = localSumDiff(a_, c_, _conf);
+        setSimpleArgument(r_, _conf, _nodes);
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
@@ -36,11 +37,7 @@ public final class ExecCatOperation extends ExecNumericOperation {
         Argument c_ = chidren_.last().getArgument();
         Argument r_;
         r_ = localSumDiff(a_, c_, _conf);
-        if (r_.isNull()) {
-            return;
-        }
-        a_ = r_;
-        setSimpleArgumentAna(a_, _conf);
+        setSimpleArgumentAna(r_, _conf);
     }
 
     private Argument localSumDiff(Argument _a, Argument _b,

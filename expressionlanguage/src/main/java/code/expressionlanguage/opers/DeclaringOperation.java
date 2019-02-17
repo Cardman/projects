@@ -2,10 +2,11 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.DeclaringOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.NatTreeMap;
 
-public final class DeclaringOperation extends MethodOperation {
+public final class DeclaringOperation extends MethodOperation implements DeclaringOperable {
 
     public DeclaringOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {

@@ -1551,14 +1551,7 @@ public final class ElRenderUtilTest {
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).int$$eger",0, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
-    @Test
-    public void processEl14FailTest() {
-        Configuration context_ = contextEl();
-        addImportingPage(context_);
-        ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).NOT_READ",0, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
-        assertNotNull(context_.getContext().getException());
-    }
+
     @Test
     public void processEl15FailTest() {
         Configuration context_ = contextEl();

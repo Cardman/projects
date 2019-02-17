@@ -6,6 +6,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.AbstractArrayElementOperation;
+import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
@@ -41,7 +42,7 @@ public abstract class ExecAbstractArrayElementOperation extends
         ArrayStruct str_ = PrimitiveTypeUtil.newCustomArray(cl_, dims_, _conf);
         for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
             Argument chArg_ = arguments_.get(i);
-            if (!setCheckedElement(str_, i, chArg_, _conf)) {
+            if (!InvokingOperation.setCheckedElement(str_, i, chArg_, _conf)) {
                 return;
             }
         }

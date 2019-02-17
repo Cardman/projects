@@ -3,6 +3,8 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -15,8 +17,8 @@ public abstract class AbstractUnaryOperation extends ReflectableOpering {
     }
     @Override
     public final void analyze(Analyzable _conf) {
-        OperationNode first_ = getFirstChild();
-        if (first_ == null || first_.getNextSibling() != null) {
+        CustList<OperationNode> children_ = getChildrenNodes();
+        if (children_.size() != 1) {
             LgNames stds_ = _conf.getStandards();
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
@@ -36,15 +38,19 @@ public abstract class AbstractUnaryOperation extends ReflectableOpering {
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        CustList<OperationNode> children_ = getChildrenNodes();
-        if (children_.isEmpty()) {
+        setArg(_conf, this);
+    }
+
+    public static void setArg(Analyzable _conf, ParentOperable _current) {
+        CustList<Operable> children_ = _current.getChildrenOperable();
+        if (children_.size() != 1) {
             return;
         }
-        for (OperationNode o: children_) {
+        for (Operable o: children_) {
             if (o.getArgument() == null) {
                 return;
             }
         }
-        quickCalculate(_conf);
+        _current.quickCalculate(_conf);
     }
 }

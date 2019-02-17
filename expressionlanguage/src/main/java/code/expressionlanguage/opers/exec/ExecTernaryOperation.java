@@ -21,32 +21,11 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
 
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (getFirstChild().getArgument() == null) {
-            return;
-        }
         quickCalculate(_conf);
     }
     @Override
     public final void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        if (arguments_.first().isNull()) {
-            return;
-        }
-        Boolean obj_ = ((BooleanStruct) arguments_.first().getStruct()).getInstance();
-        Argument arg_;
-        if (obj_) {
-            arg_ = arguments_.get(CustList.SECOND_INDEX);
-        } else {
-            arg_ = arguments_.last();
-        }
-        if (arg_ == null) {
-            return;
-        }
-        setSimpleArgumentAna(arg_, _conf);
+        AbstractTernaryOperation.tryGetResult(_conf, this);
     }
 
     @Override

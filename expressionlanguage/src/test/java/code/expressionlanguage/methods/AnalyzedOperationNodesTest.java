@@ -1150,8 +1150,14 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("  $return 1i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        String g_ = StringList.concat("pkg.ExTwo<?,?>");
-        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+        analyzeIndirectLocalVars("myvar.get($null)", "myvar", "pkg.ExTwo<?,?>", xml_.toString(), true);
+    }
+    @Test
+    public void processEl18FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("}\n");
+        analyzeIndirectLocalVars("$new pkg.ExTwo($null)", "myvar", "pkg.ExTwo", xml_.toString(), true);
     }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {

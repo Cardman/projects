@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.util.ClassField;
@@ -12,7 +13,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecAffectationOperation extends ExecReflectableOpering {
+public final class ExecAffectationOperation extends ExecReflectableOpering implements AffectationOperable {
 
     private ExecSettableElResult settable;
 
@@ -46,26 +47,7 @@ public final class ExecAffectationOperation extends ExecReflectableOpering {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!isDeclaringField(settable, _conf)) {
-            return;
-        }
-        ExecSettableFieldOperation fieldRef_ = (ExecSettableFieldOperation) settable;
-        ExecOperationNode lastChild_ = getFirstChild().getNextSibling();
-        Argument value_ = lastChild_.getArgument();
-        ClassField id_ = fieldRef_.getFieldId();
-        if (id_ == null) {
-            return;
-        }
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        FieldInfo fm_ = _conf.getFieldInfo(id_);
-        Struct str_ = value_.getStruct();
-        LgNames stds_ = _conf.getStandards();
-        String to_ = fm_.getType();
-        str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
-        _conf.getClasses().initializeStaticField(id_, str_);
-        setSimpleArgument(value_);
+        AffectationOperation.setArg(_conf, this, settable);
     }
 
     @Override

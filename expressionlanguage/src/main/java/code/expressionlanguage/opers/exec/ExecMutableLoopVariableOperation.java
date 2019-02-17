@@ -89,7 +89,7 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         return arg_;
     }
 
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
+    private Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
@@ -100,7 +100,7 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         locVar_.setStruct(_right.getStruct());
         return _right;
     }
-    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
@@ -110,13 +110,10 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
+        setVar(_conf, locVar_, res_);
         return res_;
     }
-    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
@@ -126,13 +123,16 @@ public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOper
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return res_;
-        }
-        locVar_.setStruct(res_.getStruct());
+        setVar(_conf, locVar_, res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
+    private static void setVar(ExecutableCode _conf, LoopVariable _var,Argument _value) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
+            return;
+        }
+        _var.setStruct(_value.getStruct());
+    }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         return endCalculate(_conf, _nodes, false, null, _right);

@@ -321,7 +321,7 @@ public final class PrimitiveTypeUtil {
         }
         return current_;
     }
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
+    public static boolean primitiveTypeNullObject(String _className, Struct _instance, Analyzable _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
 

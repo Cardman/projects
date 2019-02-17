@@ -20,7 +20,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecSettableFieldOperation extends
-        ExecAbstractFieldOperation implements ExecSettableElResult {
+        ExecAbstractFieldOperation implements ExecSettableElResult, StandardFieldOperable {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
@@ -70,34 +70,7 @@ public final class ExecSettableFieldOperation extends
 
     @Override
     public final void tryCalculateNode(Analyzable _conf) {
-        if (fieldMetaInfo == null) {
-            return;
-        }
-        if (!fieldMetaInfo.isStaticField()) {
-            return;
-        }
-        Classes cl_ = _conf.getClasses();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        if (!cl_.isCustomType(fieldId_.getClassName())) {
-            ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-            if (res_.getResult() != null) {
-                Argument arg_ = Argument.createVoid();
-                arg_.setStruct(res_.getResult());
-                setSimpleArgumentAna(arg_,_conf);
-            }
-            return;
-        }
-        if (_conf.isGearConst() && isDeclaringField(this, _conf) && fieldMetaInfo.isFinalField()) {
-            Argument arg_ = Argument.createVoid();
-            setSimpleArgument(arg_);
-            return;
-        }
-        Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null && (_conf.isGearConst() || ElUtil.isSimpleStruct(str_))) {
-            Argument arg_ = Argument.createVoid();
-            arg_.setStruct(str_);
-            setSimpleArgumentAna(arg_,_conf);
-        }
+        SettableAbstractFieldOperation.trySet(_conf,this,fieldMetaInfo);
     }
     @Override
     public final Argument calculateSetting(

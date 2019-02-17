@@ -20,15 +20,7 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation impl
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (ExecOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        setSimpleArgumentAna(arguments_.first(), _conf);
+        FirstOptOperation.setArg(_conf, this);
     }
 
     @Override
