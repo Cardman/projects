@@ -362,6 +362,10 @@ public class LgNamesUtils extends LgNames {
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getClassName();
+        String type_ = _method.getClassName();
+        if (StringList.quickEq(type_, getAliasEnums())) {
+            return super.getOtherResult(_cont,_instance,_method,_args);
+        }
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasPrint)) {

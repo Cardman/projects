@@ -58,7 +58,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
@@ -109,7 +109,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, ret_.getNumber());
     }
@@ -163,7 +163,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110, ret_.getNumber());
     }
@@ -218,7 +218,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110,ret_.getNumber());
     }
@@ -275,7 +275,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110,ret_.getNumber());
     }
@@ -335,7 +335,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1210, ret_.getNumber());
     }
@@ -395,7 +395,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1210, ret_.getNumber());
     }
@@ -404,52 +404,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1032Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -476,7 +430,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, ret_.getNumber());
     }
@@ -485,52 +439,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1033Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -558,7 +466,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
@@ -567,52 +475,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1034Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -641,7 +503,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, ret_.getNumber());
     }
@@ -650,52 +512,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1035Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -727,7 +543,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, ret_.getNumber());
     }
@@ -736,52 +552,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1036Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -814,7 +584,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, ret_.getNumber());
     }
@@ -823,43 +593,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1037Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int factrec($int l){\n");
         xml_.append("  $if(l;.;<=0){\n");
         xml_.append("   $return 1i:\n");
@@ -886,52 +619,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1038Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -959,7 +646,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, ret_.getNumber());
     }
@@ -968,52 +655,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1039Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int factrec($int l){\n");
-        xml_.append("  $if(l;.;<=0){\n");
-        xml_.append("   $return 1i:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return l;.;*factrec(l;.;-1i):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void addelt(code.expressionlanguage.classes.Ints l,$int e){\n");
-        xml_.append("  l;.;add(e;.;):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
@@ -1047,7 +688,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, ret_.getNumber());
     }
@@ -1098,7 +739,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, ret_.getNumber());
     }
@@ -1150,7 +791,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, ret_.getNumber());
     }
@@ -1207,7 +848,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110, ret_.getNumber());
     }
@@ -1269,7 +910,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11110, ret_.getNumber());
     }
@@ -1331,7 +972,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11110, ret_.getNumber());
     }
@@ -1340,43 +981,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
     public void calculateArgument1045Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
         xml_.append(" $public $static $int factrec($int l){\n");
         xml_.append("  $try{\n");
         xml_.append("   $if(l;.;<=0){\n");
@@ -1445,7 +1049,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
@@ -1492,7 +1096,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
@@ -1540,7 +1144,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
@@ -1573,7 +1177,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(20, ret_.getNumber());
     }
@@ -1606,7 +1210,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(20, ret_.getNumber());
     }
@@ -1639,7 +1243,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(12, ret_.getNumber());
     }
@@ -1671,7 +1275,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(12, ret_.getNumber());
     }

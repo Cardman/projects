@@ -813,32 +813,6 @@ public abstract class LgNames {
             processError(_cont, result_);
             return result_;
         }
-        if (StringList.quickEq(type_, lgNames_.getAliasEnums())) {
-            if (StringList.quickEq(name_, lgNames_.getAliasName())) {
-                Struct str_ = args_[0];
-                if (!(str_ instanceof EnumerableStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    EnumerableStruct en_ = (EnumerableStruct) str_;
-                    result_.setResult(new StringStruct(en_.getName()));
-                }
-            } else {
-                Struct str_ = args_[0];
-                if (!(str_ instanceof EnumerableStruct)) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    EnumerableStruct en_ = (EnumerableStruct) str_;
-                    result_.setResult(new IntStruct(en_.getOrdinal()));
-                }
-            }
-        }
-        if (result_.getResult() != null) {
-            return result_;
-        }
-        if (result_.getError() != null) {
-            processError(_cont,result_);
-            return result_;
-        }
         result_ = AliasReflection.invokeMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -1815,7 +1789,30 @@ public abstract class LgNames {
         return -result_;
     }
 
-    public abstract ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args);
+    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+        ResultErrorStd result_ = new ResultErrorStd();
+
+        String name_ = _method.getConstraints().getName();
+        LgNames lgNames_ = _cont.getStandards();
+        if (StringList.quickEq(name_, lgNames_.getAliasName())) {
+            Struct str_ = _args[0];
+            if (!(str_ instanceof EnumerableStruct)) {
+                result_.setError(lgNames_.getAliasNullPe());
+            } else {
+                EnumerableStruct en_ = (EnumerableStruct) str_;
+                result_.setResult(new StringStruct(en_.getName()));
+            }
+        } else {
+            Struct str_ = _args[0];
+            if (!(str_ instanceof EnumerableStruct)) {
+                result_.setError(lgNames_.getAliasNullPe());
+            } else {
+                EnumerableStruct en_ = (EnumerableStruct) str_;
+                result_.setResult(new IntStruct(en_.getOrdinal()));
+            }
+        }
+        return result_;
+    }
 
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         return new Argument(new SimpleObjectStruct());
@@ -1908,7 +1905,6 @@ public abstract class LgNames {
         String intType_ = lgNames_.getAliasInteger();
         String longType_ = lgNames_.getAliasLong();
         String floatType_ = lgNames_.getAliasFloat();
-        String doubleType_ = lgNames_.getAliasDouble();
         if (StringList.quickEq(type_, charType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
                 result_.setResult(new CharStruct(Character.MIN_VALUE));
@@ -1945,7 +1941,7 @@ public abstract class LgNames {
             } else {
                 result_.setResult(new FloatStruct(Float.MAX_VALUE));
             }
-        } else if (StringList.quickEq(type_, doubleType_)) {
+        } else {
             if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
                 result_.setResult(new DoubleStruct(Double.MIN_VALUE));
             } else {

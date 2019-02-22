@@ -4,6 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
@@ -24,9 +27,17 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
                 }
             }
         }
+        setWrapException(false);
+        String baseClass_ = method_.getDeclaringClass();
+        LgNames stds_ = _context.getStandards();
+        if (stds_.getStandards().contains(baseClass_)) {
+            String ill_;
+            ill_ = stds_.getAliasIllegalArg();
+            _context.setException(new ErrorStruct(_context,ill_));
+            return false;
+        }
         Argument instance_ = getArguments().first();
         Argument right_ = getArguments().last();
-        setWrapException(false);
         Argument arg_ = ExecInvokingOperation.setField(method_, instance_, right_, _context);
         setReturnedArgument(arg_);
         return true;

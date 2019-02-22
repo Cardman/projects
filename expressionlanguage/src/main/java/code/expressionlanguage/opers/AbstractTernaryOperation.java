@@ -119,7 +119,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
-        OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
+        OperationNode opThree_ = chidren_.last();
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         Argument firstArg_ = opTwo_.getArgument();
@@ -193,9 +193,6 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             if (!type_.isEmpty()) {
                 type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
             }
-        } else if (m_ == null && cur_ instanceof InfoBlock) {
-            InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
-            type_ = i_.getImportedClassName();
         } else if (!(m_ instanceof AffectationOperation)) {
             //ERROR
             type_ = EMPTY_STRING;

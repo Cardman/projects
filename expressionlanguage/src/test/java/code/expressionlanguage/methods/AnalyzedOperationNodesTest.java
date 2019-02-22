@@ -1231,8 +1231,6 @@ public final class AnalyzedOperationNodesTest {
         str_.append("\n");
         str_.append("    $public $int privateInt:\n");
         str_.append("\n");
-        str_.append("    $public code.util.StringList strings:\n");
-        str_.append("\n");
         str_.append("    $public java.lang.String string:\n");
         str_.append("\n");
         str_.append("    $public $char myChar = 't':\n");
@@ -1431,15 +1429,6 @@ public final class AnalyzedOperationNodesTest {
         str_.append("    $public $normal java.lang.String getStringElt($int _ind) {\n");
         str_.append("        $return $null:\n");
         str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal code.util.StringList getStrings() {\n");
-        str_.append("        $return strings:\n");
-        str_.append("    }\n");
-        str_.append("\n");
-        str_.append("    $public $normal $void setStrings(code.util.StringList _strings) {\n");
-        str_.append("        strings = _strings;.;:\n");
-        str_.append("    }\n");
-        str_.append("\n");
         str_.append("\n");
         str_.append("    $public $normal java.lang.String internMethod() {\n");
         str_.append("        $return \"sample\":\n");

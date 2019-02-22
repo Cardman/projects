@@ -7,7 +7,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.stds.NativeIterableAnalysisResult;
+import code.formathtml.util.NativeIterableAnalysisResult;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 

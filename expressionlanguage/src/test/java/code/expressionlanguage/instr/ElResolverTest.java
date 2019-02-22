@@ -3,16 +3,12 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.methods.*;
 import org.junit.Test;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
@@ -472,10 +468,34 @@ public final class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.BeanOne {\n");
+        xml_.append(" $public pkg.Composite composite:\n");
+        xml_.append(" {\n");
+        xml_.append("  composite.integer:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Composite {\n");
+        xml_.append(" $public $int integer:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
+        classes_.validateInheritingClasses(conf_, false);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
-        String el_ = "composite.integer";
+        conf_.setGlobalClass("pkg.BeanOne");
+        RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
+        Block b_ = r_.getFirstChild().getNextSibling().getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        Line l_ = (Line) b_;
+        String el_ = l_.getExpression();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
@@ -1952,10 +1972,34 @@ public final class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence109Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.BeanOne {\n");
+        xml_.append(" $public pkg.Composite composite:\n");
+        xml_.append(" {\n");
+        xml_.append("  composite.getOverridenFour(0):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Composite {\n");
+        xml_.append(" $public $void getOverridenFour($int){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_, false);
+        classes_.validateInheritingClasses(conf_, false);
+        classes_.validateIds(conf_,false);
+        classes_.validateOverridingInherit(conf_, false);
         addImportingPage(conf_);
-        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
-        String el_ = "composite.getOverridenFour(0)";
+        conf_.setGlobalClass("pkg.BeanOne");
+        RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
+        Block b_ = r_.getFirstChild().getNextSibling().getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        Line l_ = (Line) b_;
+        String el_ = l_.getExpression();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();

@@ -15,359 +15,6 @@ import code.util.StringMap;
 public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
 
     @Test
-    public void calculateArgument1006Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  p;.getList().add(0):\n");
-        xml_.append("  p;.getList().add(2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   t;.+=i;:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(21, ret_.getNumber());
-    }
-
-    @Test
-    public void calculateArgument1007Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   t;.+=i;:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append("  $return:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(21, ret_.getNumber());
-    }
-
-    @Test
-    public void calculateArgument1008Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   t;.+=i;:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(21, ret_.getNumber());
-    }
-
-
-    @Test
-    public void calculateArgument1009Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(21, ret_.getNumber());
-    }
-
-    @Test
-    public void calculateArgument1010Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
-    }
-
-    @Test
-    public void calculateArgument1011Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $while(exmethparam(p;.)){\n");
-        xml_.append("   $continue:\n");
-        xml_.append("  }\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $int elt=5i:\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("   t;.+=elt;.:\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(38, ret_.getNumber());
-    }
-
-
-    @Test
-    public void calculateArgument1012Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return exmethsec()+1i:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethsec(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
-        xml_.append("  code.expressionlanguage.classes.PickableList p=$new code.expressionlanguage.classes.PickableList():\n");
-        xml_.append("  adding(p;.,0):\n");
-        xml_.append("  adding(p;.,2):\n");
-        xml_.append("  $do{\n");
-        xml_.append("   t;.++:\n");
-        xml_.append("  }\n");
-        xml_.append("  $while(exmethparam(p;.)):\n");
-        xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2==0i){\n");
-        xml_.append("    t;.+=i;:\n");
-        xml_.append("   }\n");
-        xml_.append("   $else{\n");
-        xml_.append("    t;.+=i;+1:\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
-        xml_.append("  l;.;getList().add(o;.;):\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
-        xml_.append("  code.expressionlanguage.classes.Ints t:\n");
-        xml_.append("  t;.=$new code.expressionlanguage.classes.Ints():\n");
-        xml_.append("  t;.add(8i):\n");
-        xml_.append("  t;.add(2i):\n");
-        xml_.append("  t;.add(1i):\n");
-        xml_.append("  $return t;.:\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $static $boolean exmethparam(code.expressionlanguage.classes.PickableList l){\n");
-        xml_.append("  $return l;.;removeAndExistAfter(1i):\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(25, ret_.getNumber());
-    }
-
-    @Test
     public void calculateArgument1013Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -391,7 +38,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -420,7 +67,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(4, ret_.getNumber());
     }
@@ -449,7 +96,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
@@ -478,7 +125,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, ret_.getNumber());
     }
@@ -507,7 +154,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(5, ret_.getNumber());
     }
@@ -536,8 +183,142 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(4, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument1019Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return exmethsec()+1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethsec(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $int i=0:\n");
+        xml_.append("  $int m=2:\n");
+        xml_.append("  $do{\n");
+        xml_.append("   t;.++:\n");
+        xml_.append("   i;.++:\n");
+        xml_.append("  }\n");
+        xml_.append("  $while(exmethparam(i;.,m;.)):\n");
+        xml_.append("  $foreach($int i:exmethlist()){\n");
+        xml_.append("   $if(i;%2==0i){\n");
+        xml_.append("    t;.+=i;:\n");
+        xml_.append("   }\n");
+        xml_.append("   $else{\n");
+        xml_.append("    t;.+=i;+1:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int[] exmethlist(){\n");
+        xml_.append("  $int[] t:\n");
+        xml_.append("  t;.=$new $int[3]:\n");
+        xml_.append("  t;.[0]=8i:\n");
+        xml_.append("  t;.[1]=2i:\n");
+        xml_.append("  t;.[2]=1i:\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmethparam($int i,$int m){\n");
+        xml_.append("  $return i;.;<m;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(24, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument1020Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0:\n");
+        xml_.append("  $foreach($int i:exmethlist()){\n");
+        xml_.append("   $foreach($int j:exmethlisttwo()){\n");
+        xml_.append("    t;.+=i;+j;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int[] exmethlist(){\n");
+        xml_.append("  $int[] t:\n");
+        xml_.append("  t;.=$new $int[3]:\n");
+        xml_.append("  t;.[0]=8i:\n");
+        xml_.append("  t;.[1]=2i:\n");
+        xml_.append("  t;.[2]=1i:\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int[] exmethlisttwo(){\n");
+        xml_.append("  $int[] t:\n");
+        xml_.append("  t;.=$new $int[2]:\n");
+        xml_.append("  t;.[0]=2i:\n");
+        xml_.append("  t;.[1]=4i:\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(40, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument1021Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0:\n");
+        xml_.append("  $iter($int i=exinit():exto()::exstep()){\n");
+        xml_.append("   $foreach($int j:exmethlist()){\n");
+        xml_.append("    t;.+=i;+j;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int[] exmethlist(){\n");
+        xml_.append("  $int[] t:\n");
+        xml_.append("  t;.=$new $int[3]:\n");
+        xml_.append("  t;.[0]=8i:\n");
+        xml_.append("  t;.[1]=2i:\n");
+        xml_.append("  t;.[2]=1i:\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exinit(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exto(){\n");
+        xml_.append("  $return 4:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exstep(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(40, ret_.getNumber());
     }
 }

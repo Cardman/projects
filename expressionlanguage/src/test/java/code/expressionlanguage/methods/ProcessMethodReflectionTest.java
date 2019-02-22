@@ -5754,4 +5754,44 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("java.lang.$classNotFound",err_.getClassName(cont_));
         assertEq("<java.lang.Number>",((StringStruct)err_.getMessage()).getInstance());
     }
+
+    @Test
+    public void processEl494Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $byte exmeth(){\n");
+        xml_.append("  $return ($byte)$static($Class).forName(\"java.lang.Byte\",$true).getDeclaredFields(\"MAX_VALUE\")[0].get($null):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(127, ret_.getNumber());
+    }
+
+    @Test
+    public void processEl495Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $static($Class).forName(\"java.lang.Byte\",$true).getDeclaredFields(\"MAX_VALUE\")[0].set($null,127):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Apply", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
+    }
 }

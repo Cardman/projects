@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.NativeIterableAnalysisResult;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -342,12 +341,26 @@ public abstract class BeanLgNames extends LgNames {
     }
     public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames lgNames_ = (BeanLgNames) _cont.getStandards();
-        ResultErrorStd result_ = lgNames_.getSimpleResult(_cont, _classField);
-        if (result_.getResult() != null) {
-            return result_;
+        String type_ = _classField.getClassName();
+        String booleanType_ = lgNames_.getAliasBoolean();
+        String charType_ = lgNames_.getAliasCharacter();
+        String byteType_ = lgNames_.getAliasByte();
+        String shortType_ = lgNames_.getAliasShort();
+        String intType_ = lgNames_.getAliasInteger();
+        String longType_ = lgNames_.getAliasLong();
+        String floatType_ = lgNames_.getAliasFloat();
+        String doubleType_ = lgNames_.getAliasDouble();
+        if (StringList.quickEq(type_, booleanType_)
+                || StringList.quickEq(type_, charType_)
+                || StringList.quickEq(type_, byteType_)
+                || StringList.quickEq(type_, shortType_)
+                || StringList.quickEq(type_, intType_)
+                || StringList.quickEq(type_, longType_)
+                || StringList.quickEq(type_, floatType_)
+                || StringList.quickEq(type_, doubleType_)) {
+            return lgNames_.getSimpleResult(_cont, _classField);
         }
-        result_ = lgNames_.getOtherResult(_cont, _classField, _instance);
-        return result_;
+        return lgNames_.getOtherResult(_cont, _classField, _instance);
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         return new ResultErrorStd();
@@ -366,6 +379,10 @@ public abstract class BeanLgNames extends LgNames {
             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
+        String type_ = _method.getClassName();
+        if (StringList.quickEq(type_, getAliasEnums())) {
+            return super.getOtherResult(_cont,_instance,_method,_args);
+        }
         BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, b_, _args);
         Object instance_ = null;

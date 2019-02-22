@@ -423,7 +423,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $boolean exmeth(){\n");
-        xml_.append("  $return $static($Class).getAllClasses().length >= 50i:\n");
+        xml_.append("  $return $static($Class).getAllClasses().length >= 10i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
