@@ -28,11 +28,11 @@ public final class ExecStandardInstancingOperation extends
     private String className;
 
     private String fieldName;
-    private int blockIndex = -1;
+    private int blockIndex;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
     public ExecStandardInstancingOperation(StandardInstancingOperation _s) {
         super(_s);
         possibleInitClass = _s.isPossibleInitClass();
@@ -47,39 +47,7 @@ public final class ExecStandardInstancingOperation extends
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        String cl_ = className;
-        if (cl_ == null) {
-            return;
-        }
-        if (_conf.getClasses().isCustomType(cl_)) {
-            return;
-        }
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
-        CustList<Operable> filter_ = new CustList<Operable>();
-        for (Operable o: chidren_) {
-            if (o instanceof ExecStaticInitOperation) {
-                continue;
-            }
-            arguments_.add(o.getArgument());
-            filter_.add(o);
-        }
-        CustList<Argument> firstArgs_ = InvokingOperation.quickListArguments(filter_, naturalVararg_, lastType_, arguments_, _conf);
-        if (firstArgs_ == null) {
-            return;
-        }
-        ResultErrorStd res_ = LgNames.newInstanceStd(_conf, constId, Argument.toArgArray(firstArgs_));
-        if (res_.getResult() == null) {
-            return;
-        }
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_.getResult());
-        setSimpleArgumentAna(arg_, _conf);
+        StandardInstancingOperation.tryGetArg(this,_conf,naturalVararg,className,constId,lastType);
     }
 
     @Override

@@ -17,6 +17,8 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
+import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -24,6 +26,7 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -287,43 +290,42 @@ public final class StandardInstancingOperation extends
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        tryGetArg(this,_conf,naturalVararg,className,constId,lastType);
+    }
+
+    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Analyzable _conf,
+                                 int _naturalVararg, String _className,ConstructorId _constId,String _lastType) {
+        CustList<Operable> chidren_ = _current.getChildrenOperable();
+        CustList<Argument> arguments_ = new CustList<Argument>();
         if (!_conf.isGearConst()) {
             return;
         }
-        String cl_ = className;
-        if (cl_ == null) {
+        if (_conf.getClasses().isCustomType(_className)) {
             return;
         }
-        if (_conf.getClasses().isCustomType(cl_)) {
-            return;
-        }
-        String lastType_ = lastType;
-        int naturalVararg_ = naturalVararg;
         CustList<Operable> filter_ = new CustList<Operable>();
         for (Operable o: chidren_) {
-            if (o instanceof StaticInitOperation) {
+            if (o instanceof StaticInitOperable) {
                 continue;
             }
             arguments_.add(o.getArgument());
             filter_.add(o);
         }
-        CustList<Argument> firstArgs_ = quickListArguments(filter_, naturalVararg_, lastType_, arguments_, _conf);
+        CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_, _conf);
         if (firstArgs_ == null) {
             return;
         }
-        ResultErrorStd res_ = LgNames.newInstanceStd(_conf, constId, Argument.toArgArray(firstArgs_));
-        if (res_.getResult() == null) {
+        ResultErrorStd res_ = LgNames.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
+        Struct out_ = res_.getResult();
+        if (out_ == null) {
             return;
         }
         Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_.getResult());
-        setSimpleArgumentAna(arg_, _conf);
+        arg_.setStruct(out_);
+        _current.setSimpleArgumentAna(arg_, _conf);
     }
-
 
     public boolean isPossibleInitClass() {
         return possibleInitClass;

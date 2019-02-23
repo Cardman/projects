@@ -4,10 +4,11 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.StringList;
 
-public final class StaticInitOperation extends VariableLeafOperation {
+public final class StaticInitOperation extends VariableLeafOperation implements StaticInitOperable {
 
     private boolean possibleInitClass;
     private String methodName;
