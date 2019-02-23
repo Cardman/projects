@@ -3777,7 +3777,7 @@ public final class ElResolver {
             field_ = true;
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
             FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getCurrentBlock() != null, false);
-            if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
+            if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
                 field_ = false;
             }
         } else {

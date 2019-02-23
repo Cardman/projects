@@ -420,7 +420,7 @@ public final class Templates {
         }
         return true;
     }
-    public static String wildCardFormat(boolean _staticMember,String _first, String _second, Analyzable _classes, boolean _returnMode) {
+    public static String wildCardFormatReturn(boolean _staticMember, String _first, String _second, Analyzable _classes) {
         if (_staticMember) {
             return _second;
         }
@@ -439,25 +439,57 @@ public final class Templates {
                 index_++;
                 if (StringList.quickEq(t.getName(), name_)) {
                     String formatted_ = types_.get(index_+1);
-                    if (!_returnMode) {
-                        //parameters, field affectation
-                        if (formatted_.startsWith(SUB_TYPE)) {
-                            return null;
-                        }
-                        if (formatted_.startsWith(SUP_TYPE)) {
-                            return PrimitiveTypeUtil.getPrettyArrayType(formatted_.substring(SUP_TYPE.length()),arr_);
-                        }
-                    } else {
-                        //return type, field getting
-                        if (StringList.quickEq(formatted_, SUB_TYPE)) {
-                            return PrimitiveTypeUtil.getPrettyArrayType(objType_,arr_);
-                        }
-                        if (formatted_.startsWith(SUB_TYPE)) {
-                            return PrimitiveTypeUtil.getPrettyArrayType(formatted_.substring(SUB_TYPE.length()),arr_);
-                        }
-                        if (formatted_.startsWith(SUP_TYPE)) {
-                            return PrimitiveTypeUtil.getPrettyArrayType(objType_,arr_);
-                        }
+                    //return type, field getting
+                    if (StringList.quickEq(formatted_, SUB_TYPE)) {
+                        return PrimitiveTypeUtil.getPrettyArrayType(objType_,arr_);
+                    }
+                    if (formatted_.startsWith(SUB_TYPE)) {
+                        return PrimitiveTypeUtil.getPrettyArrayType(formatted_.substring(SUB_TYPE.length()),arr_);
+                    }
+                    if (formatted_.startsWith(SUP_TYPE)) {
+                        return PrimitiveTypeUtil.getPrettyArrayType(objType_,arr_);
+                    }
+                    return PrimitiveTypeUtil.getPrettyArrayType(formatted_,arr_);
+                }
+            }
+            return objType_;
+        }
+        StringMap<String> varTypes_ = new StringMap<String>();
+        if (typeVar_.size() == types_.size() - 1){
+            int i_ = CustList.FIRST_INDEX;
+            for (TypeVar t: typeVar_) {
+                i_++;
+                String arg_ = types_.get(i_);
+                varTypes_.put(t.getName(), arg_);
+            }
+        }
+        return getWildCardFormattedTypeReturn(_second, varTypes_);
+    }
+    public static String wildCardFormatParam(boolean _staticMember, String _first, String _second, Analyzable _classes) {
+        if (_staticMember) {
+            return _second;
+        }
+        DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
+        StringList types_ = getAllTypes(_first);
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
+        GeneType root_ = _classes.getClassBody(className_);
+        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        String objType_ = _classes.getStandards().getAliasObject();
+        if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
+            int arr_ = dc_.getDim();
+            String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
+
+            int index_ = -1;
+            for (TypeVar t: typeVar_) {
+                index_++;
+                if (StringList.quickEq(t.getName(), name_)) {
+                    String formatted_ = types_.get(index_+1);
+                    //parameters, field affectation
+                    if (formatted_.startsWith(SUB_TYPE)) {
+                        return null;
+                    }
+                    if (formatted_.startsWith(SUP_TYPE)) {
+                        return PrimitiveTypeUtil.getPrettyArrayType(formatted_.substring(SUP_TYPE.length()),arr_);
                     }
                     return PrimitiveTypeUtil.getPrettyArrayType(formatted_,arr_);
                 }
@@ -473,7 +505,7 @@ public final class Templates {
                 varTypes_.put(t.getName(), arg_);
             }
         }
-        return getWildCardFormattedType(objType_,_second, varTypes_, _returnMode);
+        return getWildCardFormattedTypeParam(objType_,_second, varTypes_);
     }
     public static String reflectFormat(String _first, String _second, Analyzable _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
@@ -602,28 +634,24 @@ public final class Templates {
             if (StringList.isDollarWordChar(_type.charAt(i))) {
                 continue;
             }
-            String sub_ = _type.substring(diese_+1, i);
-            if (_varTypes.contains(sub_)) {
-                String value_ = _varTypes.getVal(sub_);
-                str_.append(value_);
-            } else {
-                sub_ = _type.substring(diese_, i);
-                str_.append(sub_);
-            }
+            quickReplaceType(str_,_type,_varTypes,diese_,i);
             str_.append(_type.charAt(i));
             var_ = false;
         }
         if (var_) {
-            String sub_ = _type.substring(diese_+1);
-            if (_varTypes.contains(sub_)) {
-                String value_ = _varTypes.getVal(sub_);
-                str_.append(value_);
-            } else {
-                sub_ = _type.substring(diese_);
-                str_.append(sub_);
-            }
+            quickReplaceType(str_,_type,_varTypes,diese_,len_);
         }
         return str_.toString();
+    }
+    private static void quickReplaceType(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
+        String sub_ = _type.substring(_diese+1, _max);
+        if (_varTypes.contains(sub_)) {
+            String value_ = _varTypes.getVal(sub_);
+            _str.append(value_);
+        } else {
+            sub_ = _type.substring(_diese, _max);
+            _str.append(sub_);
+        }
     }
     static String getFormattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
@@ -648,26 +676,8 @@ public final class Templates {
             }
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
-                int j_ = str_.length() -1;
-                while (j_ >= 0) {
-                    if (str_.charAt(j_) != ARR_BEG) {
-                        break;
-                    }
-                    j_--;
-                }
-                String value_ = _varTypes.getVal(sub_);
-                //Error if found a wild card just before an array of type variable in _type
-                if (j_ >= 0 && (str_.charAt(j_) == SUB_TYPE_CHAR || str_.charAt(j_) == SUP_TYPE_CHAR)) {
+                if (!tryReplaceType(_varTypes, str_, sub_)) {
                     return null;
-                }
-                if (value_.startsWith(SUB_TYPE)) {
-                    str_.insert(j_ +1, SUB_TYPE);
-                    str_.append(value_.substring(SUB_TYPE.length()));
-                } else if (value_.startsWith(SUP_TYPE)) {
-                    str_.insert(j_ +1, SUP_TYPE);
-                    str_.append(value_.substring(SUP_TYPE.length()));
-                } else {
-                    str_.append(value_);
                 }
             } else {
                 sub_ = _type.substring(diese_, i);
@@ -679,25 +689,8 @@ public final class Templates {
         if (var_) {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
-                int j_ = str_.length() -1;
-                while (j_ >= 0) {
-                    if (str_.charAt(j_) != ARR_BEG) {
-                        break;
-                    }
-                    j_--;
-                }
-                String value_ = _varTypes.getVal(sub_);
-                if (j_ >= 0 && (str_.charAt(j_) == SUB_TYPE_CHAR || str_.charAt(j_) == SUP_TYPE_CHAR)) {
+                if (!tryReplaceType(_varTypes, str_, sub_)) {
                     return null;
-                }
-                if (value_.startsWith(SUB_TYPE)) {
-                    str_.insert(j_ +1, SUB_TYPE);
-                    str_.append(value_.substring(SUB_TYPE.length()));
-                } else if (value_.startsWith(SUP_TYPE)) {
-                    str_.insert(j_ +1, SUP_TYPE);
-                    str_.append(value_.substring(SUP_TYPE.length()));
-                } else {
-                    str_.append(value_);
                 }
             } else {
                 sub_ = _type.substring(diese_);
@@ -706,7 +699,24 @@ public final class Templates {
         }
         return str_.toString();
     }
-    static String getWildCardFormattedType(String _objType,String _type, StringMap<String> _varTypes, boolean _return) {
+    private static boolean tryReplaceType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
+        int j_ = getMaxIndex(_str, _str.length() - 1);
+        String value_ = _varTypes.getVal(_sub);
+        if (isSubOrSubChar(_str,j_)) {
+            return false;
+        }
+        if (value_.startsWith(SUB_TYPE)) {
+            _str.insert(j_ +1, SUB_TYPE);
+            _str.append(value_.substring(SUB_TYPE.length()));
+        } else if (value_.startsWith(SUP_TYPE)) {
+            _str.insert(j_ +1, SUP_TYPE);
+            _str.append(value_.substring(SUP_TYPE.length()));
+        } else {
+            _str.append(value_);
+        }
+        return true;
+    }
+    static String getWildCardFormattedTypeReturn(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
             return _type;
         }
@@ -731,25 +741,92 @@ public final class Templates {
             if (_varTypes.contains(sub_)) {
                 String value_ = _varTypes.getVal(sub_);
                 int max_ = str_.length() -1;
-                int j_ = max_;
-                while (j_ >= 0) {
-                    if (str_.charAt(j_) != ARR_BEG) {
-                        break;
-                    }
-                    j_--;
-                }
+                int j_ = getMaxIndex(str_, max_);
                 if (StringList.quickEq(value_, SUB_TYPE)) {
-                    if (_return) {
-                        if (j_ >= 0 && (str_.charAt(j_) == SUB_TYPE_CHAR || str_.charAt(j_) == SUP_TYPE_CHAR)) {
-                            j_--;
-                        }
-                        str_.delete(j_+1, max_+1);
+                    if (isSubOrSubChar(str_, j_)) {
+                        j_--;
+                    }
+                    str_.delete(j_+1, max_+1);
+                    str_.append(SUB_TYPE);
+                    str_.append(_type.charAt(i));
+                    var_ = false;
+                    continue;
+
+                }
+                if (value_.startsWith(SUB_TYPE)) {
+                    String bound_= value_.substring(SUB_TYPE.length());
+                    if (isSupChar(str_, j_)) {
+                        str_.delete(j_, max_+1);
                         str_.append(SUB_TYPE);
                         str_.append(_type.charAt(i));
                         var_ = false;
                         continue;
                     }
-                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                    if (isNotChar(str_, j_, SUB_TYPE_CHAR)) {
+                        str_.insert(j_ +1, SUB_TYPE);
+                    }
+                    str_.append(bound_);
+                    str_.append(_type.charAt(i));
+                    var_ = false;
+                    continue;
+
+                }
+                if (value_.startsWith(SUP_TYPE)) {
+                    String bound_= value_.substring(SUP_TYPE.length());
+                    if (isSubChar(str_, j_)) {
+                        str_.delete(j_, max_+1);
+                        str_.append(SUB_TYPE);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    if (isNotChar(str_, j_, SUP_TYPE_CHAR)) {
+                        str_.insert(j_ +1, SUP_TYPE);
+                    }
+                    str_.append(bound_);
+                    str_.append(_type.charAt(i));
+                    var_ = false;
+                    continue;
+
+                }
+                str_.append(value_);
+            } else {
+                sub_ = _type.substring(diese_, i);
+                str_.append(sub_);
+            }
+            str_.append(_type.charAt(i));
+            var_ = false;
+        }
+        return str_.toString();
+    }
+    static String getWildCardFormattedTypeParam(String _objType, String _type, StringMap<String> _varTypes) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(_type.charAt(i));
+                continue;
+            }
+            if (StringList.isDollarWordChar(_type.charAt(i))) {
+                continue;
+            }
+            String sub_ = _type.substring(diese_+1, i);
+            if (_varTypes.contains(sub_)) {
+                String value_ = _varTypes.getVal(sub_);
+                int max_ = str_.length() -1;
+                int j_ = getMaxIndex(str_, max_);
+                if (StringList.quickEq(value_, SUB_TYPE)) {
+                    if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(_objType);
                         str_.append(_type.charAt(i));
@@ -760,23 +837,7 @@ public final class Templates {
                 }
                 if (value_.startsWith(SUB_TYPE)) {
                     String bound_= value_.substring(SUB_TYPE.length());
-                    if (_return) {
-                        if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
-                            str_.delete(j_, max_+1);
-                            str_.append(SUB_TYPE);
-                            str_.append(_type.charAt(i));
-                            var_ = false;
-                            continue;
-                        }
-                        if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR) {
-                            str_.insert(j_ +1, SUB_TYPE);
-                        }
-                        str_.append(bound_);
-                        str_.append(_type.charAt(i));
-                        var_ = false;
-                        continue;
-                    }
-                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                    if (isSupChar(str_, j_)) {
                         str_.append(bound_);
                         str_.append(_type.charAt(i));
                         var_ = false;
@@ -786,29 +847,13 @@ public final class Templates {
                 }
                 if (value_.startsWith(SUP_TYPE)) {
                     String bound_= value_.substring(SUP_TYPE.length());
-                    if (_return) {
-                        if (j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR) {
-                            str_.delete(j_, max_+1);
-                            str_.append(SUB_TYPE);
-                            str_.append(_type.charAt(i));
-                            var_ = false;
-                            continue;
-                        }
-                        if (j_ >= 0 && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                            str_.insert(j_ +1, SUP_TYPE);
-                        }
+                    if (isSubChar(str_, j_)) {
                         str_.append(bound_);
                         str_.append(_type.charAt(i));
                         var_ = false;
                         continue;
                     }
-                    if (j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR) {
-                        str_.append(bound_);
-                        str_.append(_type.charAt(i));
-                        var_ = false;
-                        continue;
-                    }
-                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                    if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(_objType);
                         str_.append(_type.charAt(i));
@@ -827,6 +872,34 @@ public final class Templates {
         }
         return str_.toString();
     }
+
+    static int getMaxIndex(StringBuilder str_, int max_) {
+        int j_ = max_;
+        while (j_ >= 0) {
+            if (str_.charAt(j_) != ARR_BEG) {
+                break;
+            }
+            j_--;
+        }
+        return j_;
+    }
+
+    static boolean isNotChar(StringBuilder str_, int j_, char subTypeChar) {
+        return j_ >= 0 && str_.charAt(j_) != subTypeChar;
+    }
+
+    static boolean isSubOrSubChar(StringBuilder str_, int j_) {
+        return isSubChar(str_,j_) || isSupChar(str_, j_);
+    }
+
+    static boolean isSubChar(StringBuilder str_, int j_) {
+        return j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR;
+    }
+
+    static boolean isSupChar(StringBuilder _str, int _j) {
+        return _j >= 0 && _str.charAt(_j) == SUP_TYPE_CHAR;
+    }
+
     static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
             return _type;
@@ -850,27 +923,7 @@ public final class Templates {
             }
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
-                int j_ = str_.length() -1;
-                while (j_ >= 0) {
-                    if (str_.charAt(j_) != ARR_BEG) {
-                        break;
-                    }
-                    j_--;
-                }
-                String value_ = _varTypes.getVal(sub_);
-                if (value_.startsWith(SUB_TYPE)) {
-                    if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                        str_.insert(j_ +1, SUB_TYPE);
-                    }
-                    str_.append(value_.substring(SUB_TYPE.length()));
-                } else if (value_.startsWith(SUP_TYPE)) {
-                    if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                        str_.insert(j_ +1, SUP_TYPE);
-                    }
-                    str_.append(value_.substring(SUP_TYPE.length()));
-                } else {
-                    str_.append(value_);
-                }
+                replaceReflectedType(_varTypes, str_, sub_);
             } else {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
@@ -881,27 +934,7 @@ public final class Templates {
         if (var_) {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
-                int j_ = str_.length() -1;
-                while (j_ >= 0) {
-                    if (str_.charAt(j_) != ARR_BEG) {
-                        break;
-                    }
-                    j_--;
-                }
-                String value_ = _varTypes.getVal(sub_);
-                if (value_.startsWith(SUB_TYPE)) {
-                    if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                        str_.insert(j_ +1, SUB_TYPE);
-                    }
-                    str_.append(value_.substring(SUB_TYPE.length()));
-                } else if (value_.startsWith(SUP_TYPE)) {
-                    if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                        str_.insert(j_ +1, SUP_TYPE);
-                    }
-                    str_.append(value_.substring(SUP_TYPE.length()));
-                } else {
-                    str_.append(value_);
-                }
+                replaceReflectedType(_varTypes, str_, sub_);
             } else {
                 sub_ = _type.substring(diese_);
                 str_.append(sub_);
@@ -909,6 +942,25 @@ public final class Templates {
         }
         return str_.toString();
     }
+
+    static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder str_, String sub_) {
+        int j_ = getMaxIndex(str_, str_.length() - 1);
+        String value_ = _varTypes.getVal(sub_);
+        if (value_.startsWith(SUB_TYPE)) {
+            if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
+                str_.insert(j_ +1, SUB_TYPE);
+            }
+            str_.append(value_.substring(SUB_TYPE.length()));
+        } else if (value_.startsWith(SUP_TYPE)) {
+            if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
+                str_.insert(j_ +1, SUP_TYPE);
+            }
+            str_.append(value_.substring(SUP_TYPE.length()));
+        } else {
+            str_.append(value_);
+        }
+    }
+
     public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
     	ErrorType err_ = safeObject(_param, _arg, _context);
     	LgNames stds_ = _context.getStandards();
@@ -1573,32 +1625,26 @@ public final class Templates {
             for (String c: curClasses_) {
                 String baseClass_ = getIdFromAllTypes(c);
                 baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                String superClass_ = getSuperClassName(baseClass_, _context);
+                String superClass_ = getGenericSuperClassName(baseClass_, _context);
                 if (superClass_ != null) {
-                    String geneSuperClass_ = getGenericSuperClassName(c, _context);
+                    String id_ = getIdFromAllTypes(superClass_);
+                    String geneSuperClass_ = superClass_;
                     geneSuperClass_ = quickFormat(c, geneSuperClass_, _context);
-                    if (StringList.quickEq(superClass_, classParam_)) {
+                    if (StringList.quickEq(id_, classParam_)) {
                         generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
                         break;
                     }
-                    if (!visitedClasses_.containsStr(geneSuperClass_)) {
-                        nextClasses_.add(geneSuperClass_);
-                        visitedClasses_.add(geneSuperClass_);
-                    }
+                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperClass_);
                 }
-                int i_ = CustList.INDEX_NOT_FOUND_ELT;
                 for (String s: getSuperInterfaceNames(baseClass_, _context)) {
-                    i_++;
-                    String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
-                    geneSuperInterface_ = quickFormat(c, geneSuperInterface_, _context);
-                    if (StringList.quickEq(s, classParam_)) {
+                    String id_ = getIdFromAllTypes(s);
+                    String geneSuperInterface_;
+                    geneSuperInterface_ = quickFormat(c, s, _context);
+                    if (StringList.quickEq(id_, classParam_)) {
                         generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                         break;
                     }
-                    if (!visitedClasses_.containsStr(geneSuperInterface_)) {
-                        nextClasses_.add(geneSuperInterface_);
-                        visitedClasses_.add(geneSuperInterface_);
-                    }
+                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperInterface_);
                 }
                 if (generic_ != null) {
                     break;
@@ -1618,31 +1664,23 @@ public final class Templates {
         generic_ = format(_baseArg, generic_, _context);
         return generic_;
     }
-    private static String getSuperClassName(String _className, Analyzable _context) {
-        GeneType r_ = _context.getClassBody(_className);
-        if (r_ instanceof UniqueRootedBlock) {
-            String gene_ = ((UniqueRootedBlock)r_).getImportedDirectGenericSuperClass();
-            return getIdFromAllTypes(gene_);
+
+    private static void addTypeIdNotYet(StringList visitedClasses_, StringList nextClasses_, String geneSuperInterface_) {
+        if (!visitedClasses_.containsStr(geneSuperInterface_)) {
+            nextClasses_.add(geneSuperInterface_);
+            visitedClasses_.add(geneSuperInterface_);
         }
-        if (r_ instanceof InterfaceBlock) {
-            return null;
-        }
-        LgNames stds_ = _context.getStandards();
-        if (StringList.quickEq(_className, stds_.getAliasObject())) {
-            return null;
-        }
-        if (r_ instanceof StandardClass) {
-            return ((StandardClass)r_).getSuperClass();
-        }
-        return null;
     }
 
     private static String getGenericSuperClassName(String _genericClassName, Analyzable _context) {
         String baseClass_ = getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(baseClass_);
-        if (r_ != null) {
+        if (r_ instanceof UniqueRootedBlock) {
             return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperClass();
+        }
+        if (r_ != null) {
+            return null;
         }
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(baseClass_, stds_.getAliasObject())) {
@@ -1658,38 +1696,15 @@ public final class Templates {
     private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof UniqueRootedBlock) {
-            StringList bases_ = new StringList();
-            for (String i: ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces()) {
-                bases_.add(getIdFromAllTypes(i));
-            }
-            return bases_;
+            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces();
         }
         if (r_ instanceof InterfaceBlock) {
-            StringList bases_ = new StringList();
-            for (String i: ((InterfaceBlock)r_).getImportedDirectSuperInterfaces()) {
-                bases_.add(getIdFromAllTypes(i));
-            }
-            return bases_;
+            return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces();
         }
         if (r_ instanceof StandardClass) {
             return ((StandardClass)r_).getDirectInterfaces();
         }
         return ((StandardInterface)r_).getDirectSuperClasses();
-    }
-
-    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, Analyzable _context) {
-        String baseClass_ = getIdFromAllTypes(_genericClassName);
-        GeneType r_ = _context.getClassBody(baseClass_);
-        if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces().get(_index);
-        }
-        if (r_ instanceof InterfaceBlock) {
-            return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces().get(_index);
-        }
-        if (r_ instanceof StandardClass) {
-            return ((StandardClass)r_).getDirectInterfaces().get(_index);
-        }
-        return ((StandardInterface)r_).getDirectSuperClasses().get(_index);
     }
 
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {

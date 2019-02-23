@@ -1013,10 +1013,7 @@ public abstract class OperationNode implements Operable {
                             continue;
                         }
                         String ret_ = sup_.getImportedReturnType();
-                        ret_ = Templates.wildCardFormat(false, formattedClass_, ret_, _conf, true);
-                        if (ret_ == null) {
-                            continue;
-                        }
+                        ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
                         ParametersGroup p_ = new ParametersGroup();
                         for (String c: id_.getParametersTypes()) {
                             p_.add(new ClassMatching(c));
@@ -1077,10 +1074,7 @@ public abstract class OperationNode implements Operable {
                                 continue;
                             }
                             String ret_ = sup_.getImportedReturnType();
-                            ret_ = Templates.wildCardFormat(false, formattedClass_, ret_, _conf, true);
-                            if (ret_ == null) {
-                                continue;
-                            }
+                            ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
                             ParametersGroup p_ = new ParametersGroup();
                             for (String c: id_.getParametersTypes()) {
                                 p_.add(new ClassMatching(c));
@@ -1305,7 +1299,7 @@ public abstract class OperationNode implements Operable {
         StringList formatPar_ = new StringList();
         boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wc_ = Templates.wildCardFormat(static_, _class, _params[i].getClassName(), _context, false);
+            String wc_ = Templates.wildCardFormatParam(static_, _class, _params[i].getClassName(), _context);
             formatPar_.add(wc_);
             if (_argsClass[i].isVariable()) {
                 if (_params[i].isPrimitive(_context)) {
@@ -1356,7 +1350,7 @@ public abstract class OperationNode implements Operable {
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
             String param_ = _params[last_].getClassName();
-            String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
+            String wc_ = Templates.wildCardFormatParam(static_, _class, param_, _context);
             if (wc_ == null) {
                 return false;
             }
@@ -1386,7 +1380,7 @@ public abstract class OperationNode implements Operable {
         String param_ = _params[last_].getClassName();
         param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
         map_.getMapping().putAllMap(mapCtr_);
-        String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
+        String wc_ = Templates.wildCardFormatParam(static_, _class, param_, _context);
         if (wc_ == null) {
             return false;
         }

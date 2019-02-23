@@ -758,11 +758,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             if (formattedType_ == null) {
                                 continue;
                             }
-                            String ret_ = m_.getImportedReturnType();
-                            ret_ = Templates.wildCardFormat(false, formattedType_, ret_, _context, true);
-                            if (ret_ == null) {
-                                continue;
-                            }
                             addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId()));
                         }
                     }

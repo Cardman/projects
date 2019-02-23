@@ -165,7 +165,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 StringList params_ = argsRes_.getParametersTypes();
                 feed_ = new ClassMethodId(cl_, new MethodId(staticFlag_, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
-                    String format_ = Templates.wildCardFormat(staticFlag_, type_, s, _conf, false);
+                    String format_ = Templates.wildCardFormatParam(staticFlag_, type_, s, _conf);
                     if (format_ == null) {
                         StaticAccessError static_ = new StaticAccessError();
                         static_.setFileName(_conf.getCurrentFileName());
@@ -375,7 +375,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             StringList params_ = argsRes_.getParametersTypes();
             feed_ = new ClassMethodId(cl_, new MethodId(stCtx_, name_, params_, varargFct_));
             for (String s: argsRes_.getParametersTypes()) {
-                String format_ = Templates.wildCardFormat(stCtx_, type_, s, _conf, false);
+                String format_ = Templates.wildCardFormatParam(stCtx_, type_, s, _conf);
                 if (format_ == null) {
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());
@@ -528,7 +528,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             StringList params_ = argsRes_.getParametersTypes();
             feed_ = new ConstructorId(cl_, params_, varargFct_);
             for (String s: argsRes_.getParametersTypes()) {
-                String format_ = Templates.wildCardFormat(false, type_, s, _conf, false);
+                String format_ = Templates.wildCardFormatParam(false, type_, s, _conf);
                 if (format_ == null) {
                     StaticAccessError static_ = new StaticAccessError();
                     static_.setFileName(_conf.getCurrentFileName());

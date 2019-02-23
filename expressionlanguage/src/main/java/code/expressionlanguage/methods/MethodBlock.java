@@ -84,7 +84,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         boolean isStatic_ = isStaticMethod();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.wildCardFormat(isStatic_, _genericClass, n_, _context, false);
+            String formatted_ = Templates.wildCardFormatParam(isStatic_, _genericClass, n_, _context);
             if (formatted_ == null) {
                 return null;
             }
