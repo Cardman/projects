@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.IdOperation;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecIdOperation extends ExecAbstractUnaryOperation {
+public final class ExecIdOperation extends ExecAbstractUnaryOperation implements IdOperable{
 
     public ExecIdOperation(IdOperation _i) {
         super(_i);

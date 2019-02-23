@@ -5,13 +5,9 @@ import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
@@ -84,40 +80,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         class_ = PrimitiveTypeUtil.getQuickComponentType(class_);
         setResultClass(class_);
     }
-    @Override
-    public void quickCalculate(Analyzable _conf) {
-        setElt(this,_conf);
-    }
-    public static void setElt(PossibleIntermediateDottedOperable _op, Analyzable _conf) {
-        CustList<Operable> children_ = _op.getChildrenOperable();
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        if (_op.getPreviousArgument() == null) {
-            return;
-        }
-        Struct array_;
-        array_ = _op.getPreviousArgument().getStruct();
-        if (!(array_ instanceof ArrayStruct)) {
-            return;
-        }
-        Struct o_ = children_.last().getArgument().getStruct();
-        if (!(o_ instanceof NumberStruct)) {
-            return;
-        }
-        int index_ = ((NumberStruct)o_).getInstance().intValue();
-        if (index_ < 0) {
-            return;
-        }
-        Struct[] str_ = ((ArrayStruct)array_).getInstance();
-        if (index_ >= str_.length) {
-            return;
-        }
-        Struct res_ = str_[index_];
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_);
-        _op.setSimpleArgumentAna(arg_,_conf);
-    }
+
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

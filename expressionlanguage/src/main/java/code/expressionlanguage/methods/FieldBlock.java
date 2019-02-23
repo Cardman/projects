@@ -287,14 +287,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             return null;
         }
         ExecSettableFieldOperation cst_ = (ExecSettableFieldOperation) _op;
-        ClassField key_ = cst_.getFieldId();
-        if (key_ == null) {
-            return null;
-        }
-        if (!_an.getClasses().isCustomType(key_.getClassName())) {
-            return null;
-        }
-        return key_;
+        return cst_.getFieldId();
     }
     @Override
     public void processEl(ContextEl _cont) {

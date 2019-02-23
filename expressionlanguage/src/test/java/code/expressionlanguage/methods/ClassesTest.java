@@ -2620,6 +2620,62 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
     }
+    @Test
+    public void calculateStaticField95Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Integer iOne=$null:\n");
+        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne+iTwo:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField96Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Integer iOne=$null:\n");
+        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iTwo+iOne:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField97Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Integer iOne=$null:\n");
+        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iOne*iTwo:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField98Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Integer iOne=$null:\n");
+        xml_.append(" $public $static $final $int iTwo=0:\n");
+        xml_.append(" $public $static $final $int field=iTwo*iOne:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

@@ -7,8 +7,6 @@ import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.IntStruct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -52,15 +50,5 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeNotBoolAssignmentAfter(_conf);
     }
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-        Argument arg_ = getPreviousArgument();
-        Argument a_ = new Argument();
-        if (arg_ == null ||!(arg_.getStruct() instanceof ArrayStruct)) {
-            return;
-        }
-        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
-        a_.setStruct(new IntStruct(arr_.getInstance().length));
-        setSimpleArgumentAna(a_,_conf);
-    }
+
 }

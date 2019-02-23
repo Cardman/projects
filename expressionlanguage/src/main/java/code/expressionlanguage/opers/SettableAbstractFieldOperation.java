@@ -11,6 +11,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -30,7 +31,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class SettableAbstractFieldOperation extends
-        AbstractFieldOperation implements SettableElResult {
+        AbstractFieldOperation implements SettableElResult, ReductibleOperable {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
@@ -210,7 +211,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         Struct str_ = cl_.getStaticField(fieldId_);
-        if (str_ != null && ElUtil.isSimpleStruct(str_)) {
+        if (str_ != null) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
             _oper.setSimpleArgumentAna(arg_,_conf);

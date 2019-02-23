@@ -25,10 +25,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
-        ArrOperation.setElt(this,_conf);
-    }
-    @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
@@ -128,9 +124,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return _right.getStruct();
-        }
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
@@ -138,9 +131,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return _stored;
-        }
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
@@ -155,17 +145,11 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return _stored;
-        }
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return _stored;
-        }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();

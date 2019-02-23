@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -246,6 +248,13 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
+            if (s_.getFieldId() == null) {
+                OperationsSequence tmpOp_ = new OperationsSequence();
+                tmpOp_.setDelimiter(new Delimiters());
+                ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+                e_.setResultClass(s_.getResultClass());
+                return new ExecErrorPartOperation(e_);
+            }
             return new ExecSettableFieldOperation(s_);
         }
         if (_anaNode instanceof ArrayFieldOperation) {

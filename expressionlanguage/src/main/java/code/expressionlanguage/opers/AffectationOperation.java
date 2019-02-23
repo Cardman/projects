@@ -13,10 +13,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.exec.AffectationOperable;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.exec.StandardFieldOperable;
+import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -25,7 +22,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -212,22 +208,28 @@ public final class AffectationOperation extends ReflectableOpering implements Af
     }
 
     static SettableElResult tryGetSettable(MethodOperation _operation) {
-        OperationNode root_ = _operation.getFirstChild();
-        SettableElResult elt_ = null;
-        while (root_ instanceof IdOperation) {
-            root_ = root_.getFirstChild();
-        }
+        Operable root_ = getFirstToBeAnalyzed(_operation);
+        SettableElResult elt_;
         if (!(root_ instanceof DotOperation)) {
-            if (root_ instanceof SettableElResult) {
-                elt_ = (SettableElResult) root_;
-            }
+            elt_ = castTo(root_);
         } else {
             OperationNode beforeLast_ = ((MethodOperation)root_).getChildrenNodes().last();
-            if (beforeLast_ instanceof SettableElResult) {
-                elt_ = (SettableElResult) beforeLast_;
-            }
+            elt_ = castTo(beforeLast_);
         }
         return elt_;
+    }
+    public static Operable getFirstToBeAnalyzed(ParentOperable _operation) {
+        Operable root_ = _operation.getFirstChild();
+        while (root_ instanceof IdOperable) {
+            root_ = ((IdOperable)root_).getFirstChild();
+        }
+        return root_;
+    }
+    private static SettableElResult castTo(Operable _op) {
+        if (_op instanceof SettableElResult) {
+            return (SettableElResult) _op;
+        }
+        return null;
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
@@ -364,24 +366,15 @@ public final class AffectationOperation extends ReflectableOpering implements Af
     }
 
     public static void setArg(Analyzable _conf, ParentOperable _current, Operable _settable) {
-        if (!ElUtil.isDeclaringField(_settable, _conf)) {
+        if (!ElUtil.isInlineDeclaringField(_settable, _conf)) {
             return;
         }
         StandardFieldOperable fieldRef_ = (StandardFieldOperable) _settable;
         Operable lastChild_ = _current.getFirstChild().getNextSibling();
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
-        if (id_ == null) {
-            return;
-        }
-        if (!_conf.isGearConst()) {
-            return;
-        }
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
-        if (str_ instanceof ArrayStruct) {
-            return;
-        }
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);

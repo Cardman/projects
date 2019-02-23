@@ -1,10 +1,11 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.IdOperable;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class IdOperation extends AbstractUnaryOperation {
+public final class IdOperation extends AbstractUnaryOperation implements IdOperable {
 
     public IdOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {

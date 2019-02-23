@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -20,6 +21,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -228,21 +230,26 @@ public final class FctOperation extends ReflectableInvokingOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        tryGetArg(this, _conf, classMethodId, naturalVararg, lastType);
+    }
+
+    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Analyzable _conf,
+                                 ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
         if (!_conf.isGearConst()) {
             return;
         }
-        CustList<Operable> chidren_ = getChildrenOperable();
+        CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        if (classMethodId == null) {
+        if (_classMethodId == null) {
             return;
         }
         Argument previous_;
-        previous_ = getPreviousArgument();
+        previous_ = _current.getPreviousArgument();
         Struct str_;
-        if (!classMethodId.getConstraints().isStaticMethod()) {
+        if (!_classMethodId.getConstraints().isStaticMethod()) {
             if (previous_ == null || previous_.isNull()) {
                 return;
             }
@@ -252,24 +259,23 @@ public final class FctOperation extends ReflectableInvokingOperation {
         } else {
             str_ = NullStruct.NULL_VALUE;
         }
-        String cl_ = classMethodId.getClassName();
+        String cl_ = _classMethodId.getClassName();
         if (_conf.getClasses().isCustomType(cl_)) {
             return;
         }
-        int naturalVararg_ = naturalVararg;
-        CustList<Argument> firstArgs_ = quickListArguments(chidren_, naturalVararg_, lastType, arguments_, _conf);
+        CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
         if (firstArgs_ == null) {
             return;
         }
-        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, classMethodId, str_, Argument.toArgArray(firstArgs_));
-        if (res_.getResult() == null) {
+        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
+        Struct out_ = res_.getResult();
+        if (out_ == null || out_ instanceof ArrayStruct) {
             return;
         }
         Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_.getResult());
-        setSimpleArgumentAna(arg_, _conf);
+        arg_.setStruct(out_);
+        _current.setSimpleArgumentAna(arg_, _conf);
     }
-
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }

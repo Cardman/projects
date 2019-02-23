@@ -27,25 +27,22 @@ public final class StringStruct extends CharSequenceStruct {
             return;
         }
         if (list_.size() == 1) {
-            String arrBytes_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_);
-            if (StringList.quickEq(list_.first(), arrBytes_)) {
+            if (StringList.quickEq(list_.first(), bytePrimType_)) {
                 newStringStructByByteArray(_args[0], _stds, _res);
                 return;
             }
-            String arrChars_ = PrimitiveTypeUtil.getPrettyArrayType(charPrimType_);
-            if (StringList.quickEq(list_.first(), arrChars_)) {
+            if (StringList.quickEq(list_.first(), charPrimType_)) {
                 newStringStructByCharArray(_args[0], _stds, _res);
                 return;
             }
             newStringBuilderStruct(_args[0], _stds, _res);
             return;
         }
-        String arrBytes_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_);
-        if (StringList.quickEq(list_.first(), arrBytes_)) {
-            newStringStructByByteArray(_args[0], _args[1], _args[2], _stds, _res);
+        if (StringList.quickEq(list_.last(), bytePrimType_)) {
+            newStringStructByByteArray(_args[2], _args[0], _args[1], _stds, _res);
             return;
         }
-        newStringStructByCharArray(_args[0], _args[1], _args[2], _stds, _res);
+        newStringStructByCharArray(_args[2], _args[0], _args[1], _stds, _res);
     }
     private static void newStringStruct(ResultErrorStd _res) {
         _res.setResult(new StringStruct(""));
@@ -179,7 +176,12 @@ public final class StringStruct extends CharSequenceStruct {
             first_.compareTo(_args[1], lgNames_, _res);
             return;
         }
-        Struct arg_ = _args[0];
+        Struct arg_;
+        if (list_.size() == 1) {
+            arg_ = _args[0];
+        } else {
+            arg_ = _args[2];
+        }
         if (list_.size() == 1) {
             if (arg_ instanceof DisplayableStruct) {
                 _res.setResult(((DisplayableStruct)arg_).getDisplayedString(_cont));
@@ -194,8 +196,8 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
         }
-        int one_ = ((NumberStruct)_args[1]).getInstance().intValue();
-        int two_ = ((NumberStruct)_args[2]).getInstance().intValue();
+        int one_ = ((NumberStruct)_args[0]).getInstance().intValue();
+        int two_ = ((NumberStruct)_args[1]).getInstance().intValue();
         if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));

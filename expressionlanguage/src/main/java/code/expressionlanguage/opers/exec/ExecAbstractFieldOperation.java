@@ -7,7 +7,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
 import code.util.IdMap;
 
-public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted, ReductibleOperable {
+public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
 
     private boolean intermediate;
 

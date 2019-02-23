@@ -7,13 +7,10 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -56,46 +53,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (!_conf.isGearConst()) {
-            return;
-        }
-        CustList<Operable> chidren_ = getChildrenOperable();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (Operable o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        if (classMethodId == null) {
-            return;
-        }
-        Argument previous_;
-        previous_ = getPreviousArgument();
-        Struct str_;
-        if (!classMethodId.getConstraints().isStaticMethod()) {
-            if (previous_ == null || previous_.isNull()) {
-                return;
-            }
-            str_ = previous_.getStruct();
-        } else if (previous_ != null) {
-            str_ = previous_.getStruct();
-        } else {
-            str_ = NullStruct.NULL_VALUE;
-        }
-        String cl_ = classMethodId.getClassName();
-        if (_conf.getClasses().isCustomType(cl_)) {
-            return;
-        }
-        int naturalVararg_ = naturalVararg;
-        CustList<Argument> firstArgs_ = InvokingOperation.quickListArguments(chidren_, naturalVararg_, lastType, arguments_, _conf);
-        if (firstArgs_ == null) {
-            return;
-        }
-        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, classMethodId, str_, Argument.toArgArray(firstArgs_));
-        if (res_.getResult() == null) {
-            return;
-        }
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(res_.getResult());
-        setSimpleArgumentAna(arg_, _conf);
+        FctOperation.tryGetArg(this, _conf, classMethodId, naturalVararg, lastType);
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();

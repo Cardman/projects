@@ -34,7 +34,7 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
     public ExecLambdaOperation(LambdaOperation _l) {
         super(_l);
         intermediate = _l.isIntermediate();
-        previousArgument = _l.getPreviousArgument();
+        setPreviousArgument(_l.getPreviousArgument());
         staticAccess = _l.isStaticAccess();
         method = _l.getMethod();
         foundClass = _l.getFoundClass();

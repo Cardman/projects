@@ -2022,39 +2022,39 @@ public final class ExpressionLanguageTest {
     }
     @Test
     public void processE495Test() {
-        Argument arg_ = directCalculate("String.valueOf($new $char[]{'h',' ','w'})");
+        Argument arg_ = directCalculate("String.valueOf('h',' ','w')");
         assertEq("h w", arg_.getString());
     }
     @Test
     public void processE496Test() {
-        Struct arg_ = directCalculateExc("String.valueOf($null,0,3)");
+        Struct arg_ = directCalculateExc("String.valueOf(0,3,$null)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
     }
     @Test
     public void processE497Test() {
-        Struct arg_ = directCalculateExc("String.valueOf($new $char[]{'h',' ','w'},-1,3)");
+        Struct arg_ = directCalculateExc("String.valueOf(-1,3,'h',' ','w')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE498Test() {
-        Struct arg_ = directCalculateExc("String.valueOf($new $char[]{'h',' ','w'},0,-3)");
+        Struct arg_ = directCalculateExc("String.valueOf(0,-3,'h',' ','w')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-3<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE499Test() {
-        Struct arg_ = directCalculateExc("String.valueOf($new $char[]{'h',' ','w'},2,2)");
+        Struct arg_ = directCalculateExc("String.valueOf(2,2,'h',' ','w')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("4>3", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE500Test() {
-        Argument arg_ = directCalculate("String.valueOf($new $char[]{'h',' ','w'},0,3)");
+        Argument arg_ = directCalculate("String.valueOf(0,3,'h',' ','w')");
         assertEq("h w", arg_.getString());
     }
     @Test
@@ -2076,56 +2076,56 @@ public final class ExpressionLanguageTest {
     }
     @Test
     public void processE504Test() {
-        Struct arg_ = directCalculateExc("$new String($new $char[]{' '},-1,2)");
+        Struct arg_ = directCalculateExc("$new String(-1,2,' ')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE505Test() {
-        Struct arg_ = directCalculateExc("$new String($new $char[]{' '},0,-2)");
+        Struct arg_ = directCalculateExc("$new String(0,-2,' ')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-2<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE506Test() {
-        Struct arg_ = directCalculateExc("$new String($new $char[]{' '},0,2)");
+        Struct arg_ = directCalculateExc("$new String(0,2,' ')");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("2>1", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE507Test() {
-        Struct arg_ = directCalculateExc("$new String($new $byte[]{($byte)32},-1,2)");
+        Struct arg_ = directCalculateExc("$new String(-1,2,($byte)32)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-1<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE508Test() {
-        Struct arg_ = directCalculateExc("$new String($new $byte[]{($byte)32},0,-2)");
+        Struct arg_ = directCalculateExc("$new String(0,-2,($byte)32)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("-2<0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE509Test() {
-        Struct arg_ = directCalculateExc("$new String($new $byte[]{($byte)32},0,2)");
+        Struct arg_ = directCalculateExc("$new String(0,2,($byte)32)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("2>1", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE510Test() {
-        Struct arg_ = directCalculateExc("$new String($new $byte[]{($byte)-16})");
+        Struct arg_ = directCalculateExc("$new String(($byte)-16)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("0", ((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
     public void processE511Test() {
-        Struct arg_ = directCalculateExc("$new String($new $byte[]{($byte)-16},0,1)");
+        Struct arg_ = directCalculateExc("$new String(0,1,($byte)-16)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.expressionlanguage.exceptions.BadIndexException", err_.getClassName());
         assertEq("0", ((StringStruct) err_.getMessage()).getInstance());
@@ -3326,29 +3326,29 @@ public final class ExpressionLanguageTest {
     }
     @Test
     public void processE687Test() {
-        Argument arg_ = directCalculate("$new String($new $char[]{' '})");
+        Argument arg_ = directCalculate("$new String(' ')");
         assertEq(" ", arg_.getString());
     }
     @Test
     public void processEl688Test() {
-        Struct arg_ = directCalculateExc("$new String(($char[])$null,-1,2)");
+        Struct arg_ = directCalculateExc("$new String(-1,2,($char[])$null)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
     }
     @Test
     public void processEl689Test() {
-        Struct arg_ = directCalculateExc("$new String(($byte[])$null,-1,2)");
+        Struct arg_ = directCalculateExc("$new String(-1,2,($byte[])$null)");
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
     }
     @Test
     public void processEl690Test() {
-        Argument arg_ = directCalculate("$new String($new $byte[]{($byte)32},0,1)");
+        Argument arg_ = directCalculate("$new String(0,1,($byte)32)");
         assertEq(" ", arg_.getString());
     }
     @Test
     public void processEl691Test() {
-        Argument arg_ = directCalculate("$new String($new $char[]{($char)' '},0,1)");
+        Argument arg_ = directCalculate("$new String(0,1,' ')");
         assertEq(" ", arg_.getString());
     }
     @Test

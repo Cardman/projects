@@ -291,6 +291,23 @@ public final class ElUtil {
         }
         return out_;
     }
+    public static boolean isInlineDeclaringField(Operable _var, Analyzable _an) {
+        if (!_an.isGearConst()) {
+            return false;
+        }
+        Block bl_ = _an.getCurrentBlock();
+        if (!(bl_ instanceof FieldBlock)) {
+            return false;
+        }
+        if (!(_var instanceof StandardFieldOperable)) {
+            return false;
+        }
+        StandardFieldOperable f_ = (StandardFieldOperable) _var;
+        if (f_.getFieldId() == null) {
+            return false;
+        }
+        return isDeclaringVariable(_var);
+    }
     public static boolean isDeclaringField(Operable _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
@@ -364,9 +381,7 @@ public final class ElUtil {
         }
         if (par_ instanceof AffectationOperable) {
             if (par_.getParent() == null) {
-                if (_var == par_.getFirstChild()) {
-                    return true;
-                }
+                return _var == par_.getFirstChild();
             }
             if (par_.getParent() instanceof DeclaringOperable) {
                 return _var == par_.getFirstChild();
@@ -383,9 +398,7 @@ public final class ElUtil {
         }
         if (_par instanceof AffectationOperable) {
             if (_par.getParent() == null) {
-                if (null == _par.getFirstChild()) {
-                    return true;
-                }
+                return null == _par.getFirstChild();
             }
             if (_par.getParent() instanceof DeclaringOperable) {
                 return null == _par.getFirstChild();
@@ -517,24 +530,6 @@ public final class ElUtil {
             }
             ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
-    }
-    public static boolean isSimpleStruct(Struct _str) {
-        if (_str == NullStruct.NULL_VALUE) {
-            return true;
-        }
-        if (_str instanceof NumberStruct) {
-            return true;
-        }
-        if (_str instanceof StringStruct) {
-            return true;
-        }
-        if (_str instanceof BooleanStruct) {
-            return true;
-        }
-        if (_str instanceof ReplacementStruct) {
-            return true;
-        }
-        return false;
     }
     private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();

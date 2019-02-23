@@ -4,16 +4,13 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
-import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.StringList;
 
 public final class CastOperation extends AbstractUnaryOperation {
 
@@ -63,19 +60,23 @@ public final class CastOperation extends AbstractUnaryOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        tryGetArg(this,_conf, className);
+    }
+
+    public static void tryGetArg(Operable _current, Analyzable _conf, String _className) {
+        CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (OperationNode o: chidren_) {
+        for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
         }
         Argument objArg_ = arguments_.first();
-        if (className.contains("#")) {
+        if (_className.contains("#")) {
             return;
         }
-        if (Templates.safeObject(className,objArg_,_conf) != ErrorType.NOTHING) {
+        if (Templates.safeObject(_className,objArg_,_conf) != ErrorType.NOTHING) {
             return;
         }
-        setSimpleArgumentAna(objArg_, _conf);
+        _current.setSimpleArgumentAna(objArg_, _conf);
     }
 
     public String getClassName() {

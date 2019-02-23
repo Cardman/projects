@@ -20,7 +20,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecSettableFieldOperation extends
-        ExecAbstractFieldOperation implements ExecSettableElResult, StandardFieldOperable {
+        ExecAbstractFieldOperation implements ExecSettableElResult, StandardFieldOperable, ReductibleOperable {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
@@ -62,9 +62,6 @@ public final class ExecSettableFieldOperation extends
     }
     
     public final ClassField getFieldId() {
-        if (fieldMetaInfo == null) {
-            return null;
-        }
         return fieldMetaInfo.getClassField();
     }
 

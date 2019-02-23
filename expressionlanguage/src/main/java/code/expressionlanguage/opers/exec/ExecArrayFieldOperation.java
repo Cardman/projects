@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -39,15 +38,4 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         return a_;
     }
 
-    @Override
-    public void tryCalculateNode(Analyzable _conf) {
-        Argument arg_ = getPreviousArgument();
-        Argument a_ = new Argument();
-        if (arg_ == null ||!(arg_.getStruct() instanceof ArrayStruct)) {
-            return;
-        }
-        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
-        a_.setStruct(new IntStruct(arr_.getInstance().length));
-        setSimpleArgumentAna(a_,_conf);
-    }
 }
