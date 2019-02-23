@@ -264,4 +264,39 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).getInstance());
     }
+
+    @Test
+    public void instanceArgument9Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int st:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Ex exec(){\n");
+        xml_.append("  $return $new Ex():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int inst=2i:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo.st++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElOtherInit();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        CustList<Argument> args_ = new CustList<Argument>();
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", getMethodId("exec"),args_,cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)field_).getInstance());
+    }
 }

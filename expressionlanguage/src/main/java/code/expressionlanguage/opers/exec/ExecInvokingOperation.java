@@ -648,14 +648,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
-            if (i_ < params_.size()) {
-                if (_possibleOffset > -1) {
-                    _conf.setOffset(_possibleOffset);
-                }
-                String param_ = params_.get(i_);
-                if (!Templates.checkObject(param_, a, _conf)) {
-                    return;
-                }
+            if (_possibleOffset > -1) {
+                _conf.setOffset(_possibleOffset);
+            }
+            String param_ = params_.get(i_);
+            if (!Templates.checkObject(param_, a, _conf)) {
+                return;
             }
             i_++;
         }

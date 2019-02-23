@@ -62,6 +62,20 @@ public abstract class ProcessMethodCommon {
         return new ConstructorId(_name, cl_, false);
     }
 
+    protected static ContextEl contextElOtherInit(int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setInitializeStaticClassFirst(false);
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+
     protected static ContextEl contextEl(int... _m) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
