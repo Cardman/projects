@@ -847,7 +847,15 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 String param_ = class_.getName();
-                String arg_ = ((ClassMetaInfo)args_[0]).getName();
+                Struct subType_ = args_[0];
+                if (!(subType_ instanceof ClassMetaInfo)) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg("");
+                    mapping_.setParam(param_);
+                    result_.setResult(new BooleanStruct(Templates.isCorrectOrNumbers(mapping_, _cont)));
+                    return result_;
+                }
+                String arg_ = ((ClassMetaInfo)subType_).getName();
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
@@ -1390,7 +1398,15 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 StringList classesNames_ = new StringList();
+                if (!(args_[0] instanceof ArrayStruct)) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
                 for (Struct s: ((ArrayStruct)args_[0]).getInstance()) {
+                    if (!(s instanceof ClassMetaInfo)) {
+                        result_.setResult(NullStruct.NULL_VALUE);
+                        return result_;
+                    }
                     classesNames_.add(((ClassMetaInfo)s).getName());
                 }
                 String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);

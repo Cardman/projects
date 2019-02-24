@@ -218,49 +218,7 @@ public final class ParserType {
             a_.setupWildCardValues(Templates.SUP_TYPE, _string);
             return a_;
         }
-        int j_ = _string.length()-1;
-        boolean arr_ = true;
-        while (j_ >= 0) {
-            char locChar_ = _string.charAt(j_);
-            if (Character.isWhitespace(locChar_)) {
-                j_--;
-                continue;
-            }
-            if (locChar_ != ']') {
-                arr_ = false;
-            }
-            break;
-        }
-        if (arr_) {
-            j_--;
-            while (j_ >= 0) {
-                char locChar_ = _string.charAt(j_);
-                if (Character.isWhitespace(locChar_)) {
-                    j_--;
-                    continue;
-                }
-                if (locChar_ != '[') {
-                    arr_ = false;
-                }
-                break;
-            }
-        }
-        if (arr_) {
-            if (j_ >= 0) {
-                a_.setPrio(ARR_PRIO);
-                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-                if (last_ < 0) {
-                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-                    a_.setError(true);
-                    return a_;
-                }
-                String str_ = _string.substring(0, j_);
-                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
-                a_.getOperators().put(last_, "[]");
-                return a_;
-            }
-            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-            a_.setError(true);
+        if (tryGetArray(a_, _string)) {
             return a_;
         }
         int count_ = 0;
@@ -352,49 +310,7 @@ public final class ParserType {
             a_.setupWildCardValues(Templates.SUP_TYPE, _string);
             return a_;
         }
-        int j_ = _string.length()-1;
-        boolean arr_ = true;
-        while (j_ >= 0) {
-            char locChar_ = _string.charAt(j_);
-            if (Character.isWhitespace(locChar_)) {
-                j_--;
-                continue;
-            }
-            if (locChar_ != ']') {
-                arr_ = false;
-            }
-            break;
-        }
-        if (arr_) {
-            j_--;
-            while (j_ >= 0) {
-                char locChar_ = _string.charAt(j_);
-                if (Character.isWhitespace(locChar_)) {
-                    j_--;
-                    continue;
-                }
-                if (locChar_ != '[') {
-                    arr_ = false;
-                }
-                break;
-            }
-        }
-        if (arr_) {
-            if (j_ >= 0) {
-                a_.setPrio(ARR_PRIO);
-                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-                if (last_ < 0) {
-                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-                    a_.setError(true);
-                    return a_;
-                }
-                String str_ = _string.substring(0, j_);
-                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
-                a_.getOperators().put(last_, "[]");
-                return a_;
-            }
-            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-            a_.setError(true);
+        if (tryGetArray(a_, _string)) {
             return a_;
         }
         if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
@@ -443,6 +359,54 @@ public final class ParserType {
         a_.setPrio(prio_);
         a_.setupValuesExec(_string);
         return a_;
+    }
+    private static boolean tryGetArray(AnalyzingType _a,String _string) {
+        int j_ = _string.length()-1;
+        boolean arr_ = true;
+        while (true) {
+            char locChar_ = _string.charAt(j_);
+            if (Character.isWhitespace(locChar_)) {
+                j_--;
+                continue;
+            }
+            if (locChar_ != ']') {
+                arr_ = false;
+            }
+            break;
+        }
+        if (arr_) {
+            j_--;
+            while (j_ >= 0) {
+                char locChar_ = _string.charAt(j_);
+                if (Character.isWhitespace(locChar_)) {
+                    j_--;
+                    continue;
+                }
+                if (locChar_ != '[') {
+                    arr_ = false;
+                }
+                break;
+            }
+        }
+        if (arr_) {
+            if (j_ >= 0) {
+                _a.setPrio(ARR_PRIO);
+                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+                if (last_ < 0) {
+                    _a.getValues().put((int)CustList.FIRST_INDEX, _string);
+                    _a.setError(true);
+                    return true;
+                }
+                String str_ = _string.substring(0, j_);
+                _a.getValues().put((int)CustList.FIRST_INDEX, str_);
+                _a.getOperators().put(last_, "[]");
+                return true;
+            }
+            _a.getValues().put((int)CustList.FIRST_INDEX, _string);
+            _a.setError(true);
+            return true;
+        }
+        return false;
     }
     private static boolean isVar(String _string) {
         String tr_ = _string.trim();
