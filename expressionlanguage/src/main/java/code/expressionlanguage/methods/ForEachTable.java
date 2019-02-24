@@ -57,7 +57,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     private int classNameOffsetSecond;
 
     private final String classIndexName;
-
+    private String importedClassIndexName;
     private int classIndexNameOffset;
 
     private final String variableNameFirst;
@@ -180,11 +180,17 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         out_.removeDuplicates();
         return out_;
     }
+
+    public String getClassIndexName() {
+        return classIndexName;
+    }
+
     public void buildEl(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
+        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(classIndexName);
+            mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -371,7 +377,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameFirst, lv_);
         lv_ = new LoopVariable();
         if (!importedClassNameSecond.isEmpty()) {
@@ -379,7 +385,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
         buildConditions(_cont);
     }
@@ -621,13 +627,13 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setClassName(importedClassNameFirst);
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameFirst, lv_);
         lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setClassName(importedClassNameSecond);
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
         boolean finished_ = false;

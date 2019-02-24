@@ -55,7 +55,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     private int classNameOffset;
 
     private final String classIndexName;
-
+    private String importedClassIndexName;
     private int classIndexNameOffset;
 
     private final String variableName;
@@ -179,9 +179,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
     public void buildEl(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
+        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(classIndexName);
+            mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -360,7 +361,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
@@ -615,7 +616,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setClassName(importedClassName);
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);

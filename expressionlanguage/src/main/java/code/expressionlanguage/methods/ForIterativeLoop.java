@@ -41,9 +41,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     private int labelOffset;
 
     private final String className;
+    private String importedClassName;
     private int classNameOffset;
 
     private final String classIndexName;
+    private String importedClassIndexName;
     private int classIndexNameOffset;
 
     private final String variableName;
@@ -191,9 +193,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
+        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(classIndexName);
+            mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -203,7 +206,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = className.trim();
+        importedClassName = _cont.resolveCorrectType(className);
+        String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
             Mapping mapping_ = new Mapping();
@@ -286,7 +290,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(cl_);
-        lv_.setIndexClassName(classIndexName);
+        lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
         buildConditions(_cont);
     }
@@ -723,14 +727,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         if (finished_) {
             return;
         }
-        String indexClassName_;
-        indexClassName_ = getClassIndexName();
-        String className_;
         LoopVariable lv_ = new LoopVariable();
-        className_ = getClassName();
-        lv_.setClassName(className_);
-        lv_.setIndexClassName(indexClassName_);
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className_, new LongStruct(fromValue_), stds_));
+        lv_.setClassName(importedClassName);
+        lv_.setIndexClassName(importedClassIndexName);
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_));
         lv_.setStep(stepValue_);
         varsLoop_.put(var_, lv_);
     }
@@ -772,7 +772,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         LoopVariable lv_ = _vars.getVal(var_);
         Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
         Number o_ = element_.longValue()+lv_.getStep();
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(className, new LongStruct(o_.longValue()), _conf.getStandards()));
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_.longValue()), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 
