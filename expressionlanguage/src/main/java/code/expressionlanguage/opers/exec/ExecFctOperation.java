@@ -74,9 +74,6 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
             }
             if (prev_.getStruct() instanceof ArrayStruct) {
                 int offLoc_ = -1;
-                if (!chidren_.isEmpty()) {
-                    offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
-                }
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
             }

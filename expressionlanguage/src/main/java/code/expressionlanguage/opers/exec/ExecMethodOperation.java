@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.opers.MethodOperation;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode implements ReductibleOperable, ParentOperable {
@@ -12,13 +13,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        CustList<ExecOperationNode> children_ = getChildrenNodes();
-        for (ExecOperationNode o: children_) {
-            if (o.getArgument() == null) {
-                return;
-            }
-        }
-        quickCalculate(_conf);
+        MethodOperation.tryCalculateNode(this, _conf);
     }
     public void quickCalculate(Analyzable _conf) {
     }

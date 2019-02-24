@@ -10,7 +10,6 @@ public interface Operable {
 
     Argument getArgument();
     ParentOperable getParent();
-    CustList<Operable> getChildrenOperable();
     void setSimpleArgument(Argument _argument);
     void setSimpleArgumentAna(Argument _argument, Analyzable _conf);
     ClassArgumentMatching getResultClass();

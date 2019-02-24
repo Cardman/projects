@@ -10,10 +10,6 @@ public abstract class ExecLeafOperation extends ExecOperationNode {
     }
 
     @Override
-    public final CustList<Operable> getChildrenOperable() {
-        return new CustList<Operable>();
-    }
-    @Override
     public final ExecOperationNode getFirstChild() {
         return null;
     }

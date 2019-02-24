@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -50,7 +51,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
     public final void tryCalculateNode(Analyzable _conf) {
         tryGetResult(_conf, this);
     }
-    public static void tryGetResult(Analyzable _conf, Operable _to) {
+    public static void tryGetResult(Analyzable _conf, ParentOperable _to) {
         CustList<Operable> chidren_ = _to.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

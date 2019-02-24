@@ -24,10 +24,8 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-        String classNameFound_ = classMethodId.getClassName();
         MethodId id_ = classMethodId.getConstraints();
-        ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0);
-        ExecInvokingOperation.callOperator(_conf, classNameFound_, id_, firstArgs_);
+        ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0,false,false,null);
         Argument.createVoid();
     }
 

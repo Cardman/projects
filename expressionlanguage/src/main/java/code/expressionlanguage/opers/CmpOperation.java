@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -178,7 +179,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         }
         tryGetResult(_conf, op, classMethodId, stringCompare, this);
     }
-    public static void tryGetResult(Analyzable _conf, String _op, ClassMethodId _cl, boolean _str, Operable _to) {
+    public static void tryGetResult(Analyzable _conf, String _op, ClassMethodId _cl, boolean _str, ParentOperable _to) {
         if (_cl != null) {
             return;
         }

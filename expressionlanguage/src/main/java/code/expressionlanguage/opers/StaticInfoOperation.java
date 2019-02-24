@@ -6,6 +6,7 @@ import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
@@ -57,12 +58,15 @@ public final class StaticInfoOperation extends VariableLeafOperation implements 
 
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        if (className.contains(Templates.PREFIX_VAR_TYPE)) {
+        setArg(this, _conf, className);
+    }
+    private static void setArg(Operable _current, Analyzable _conf,String _className) {
+        if (_className.contains(Templates.PREFIX_VAR_TYPE)) {
             return;
         }
         Argument a_ = new Argument();
-        a_.setStruct(_conf.getExtendedClassMetaInfo(className));
-        setSimpleArgumentAna(a_, _conf);
+        a_.setStruct(_conf.getExtendedClassMetaInfo(_className));
+        _current.setSimpleArgumentAna(a_, _conf);
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {

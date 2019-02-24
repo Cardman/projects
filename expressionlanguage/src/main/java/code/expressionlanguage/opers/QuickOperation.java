@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -24,7 +25,7 @@ public abstract class QuickOperation extends ReflectableOpering {
         tryGetResult(_conf, this, abs_);
     }
 
-    public static void tryGetResult(Analyzable _conf, Operable _to,Struct _abs) {
+    public static void tryGetResult(Analyzable _conf, ParentOperable _to, Struct _abs) {
         if (!_conf.isOkNumOp()) {
             return;
         }

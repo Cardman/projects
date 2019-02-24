@@ -21,10 +21,6 @@ public abstract class LeafOperation extends OperationNode {
         analyzeAssignmentAfter(_conf, false);
     }
 
-    @Override
-    public final CustList<Operable> getChildrenOperable() {
-        return new CustList<Operable>();
-    }
     public void analyzeAssignmentAfter(Analyzable _conf, boolean _bool) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);

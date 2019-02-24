@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -297,7 +298,7 @@ public final class StandardInstancingOperation extends
 
     public static void tryGetArg(PossibleIntermediateDottedOperable _current, Analyzable _conf,
                                  int _naturalVararg, String _className,ConstructorId _constId,String _lastType) {
-        CustList<Operable> chidren_ = _current.getChildrenOperable();
+        CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         if (!_conf.isGearConst()) {
             return;

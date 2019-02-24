@@ -237,13 +237,16 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
     @Override
     public void tryCalculateNode(Analyzable _conf) {
-        CustList<OperationNode> children_ = getChildrenNodes();
-        for (OperationNode o: children_) {
+        tryCalculateNode(this, _conf);
+    }
+    public static void tryCalculateNode(ParentOperable _par, Analyzable _conf) {
+        CustList<Operable> children_ = _par.getChildrenOperable();
+        for (Operable o: children_) {
             if (o.getArgument() == null) {
                 return;
             }
         }
-        quickCalculate(_conf);
+        _par.quickCalculate(_conf);
     }
     public void quickCalculate(Analyzable _conf) {
     }

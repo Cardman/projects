@@ -1,6 +1,8 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -34,11 +36,15 @@ public final class DotOperation extends ReflectableOpering {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        DotOperation.setArg(this,_conf);
+    }
+
+    public static void setArg(ParentOperable _op, Analyzable _conf) {
+        CustList<Operable> chidren_ = _op.getChildrenOperable();
         if (chidren_.isEmpty()) {
             return;
         }
-        setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
+        _op.setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }
     @Override
     void calculateChildren() {

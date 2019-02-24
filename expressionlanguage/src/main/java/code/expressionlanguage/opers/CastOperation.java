@@ -8,6 +8,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -63,7 +64,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         tryGetArg(this,_conf, className);
     }
 
-    public static void tryGetArg(Operable _current, Analyzable _conf, String _className) {
+    public static void tryGetArg(ParentOperable _current, Analyzable _conf, String _className) {
         CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

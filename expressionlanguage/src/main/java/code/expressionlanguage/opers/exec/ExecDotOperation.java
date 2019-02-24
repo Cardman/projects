@@ -40,10 +40,7 @@ public final class ExecDotOperation extends ExecReflectableOpering {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.isEmpty()) {
-            return;
-        }
-        setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
+        DotOperation.setArg(this,_conf);
     }
+
 }

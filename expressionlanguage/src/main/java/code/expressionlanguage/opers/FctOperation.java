@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -238,7 +239,7 @@ public final class FctOperation extends ReflectableInvokingOperation {
         if (!_conf.isGearConst()) {
             return;
         }
-        CustList<Operable> chidren_ = _current.getChildrenOperable();
+        CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
             arguments_.add(o.getArgument());
