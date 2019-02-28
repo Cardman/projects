@@ -209,7 +209,7 @@ public final class ElUtil {
             return null;
         }
         MethodOperation block_ = (MethodOperation) _block;
-        if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+        if (block_.getChildren().isEmpty()) {
             if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
                 if (_index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();

@@ -262,7 +262,7 @@ public abstract class OperationNode implements Operable {
             }
             return new StandardFieldOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.isDeclaring()) {
+        if (_op.getPriority() == ElResolver.DECL_PRIO) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
         if (_an.isAnnotAnalysis()) {

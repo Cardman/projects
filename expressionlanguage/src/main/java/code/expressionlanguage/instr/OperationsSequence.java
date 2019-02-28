@@ -28,8 +28,6 @@ public final class OperationsSequence {
 
     private boolean instanceTest;
 
-    private boolean declaring;
-
     private String extractType = "";
 
     private int countArrays;
@@ -79,7 +77,7 @@ public final class OperationsSequence {
                 return;
             }
             if (op_.charAt(0) != DOT_VAR) {
-                if (priority == ElResolver.FCT_OPER_PRIO && !declaring) {
+                if (priority == ElResolver.FCT_OPER_PRIO) {
                     int afterLastPar_ = operators.lastKey()+1;
                     StringBuilder filter_ = new StringBuilder(_string);
                     for (int i : _nb.getReverse()) {
@@ -109,7 +107,7 @@ public final class OperationsSequence {
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
-        if (declaring) {
+        if (priority == ElResolver.DECL_PRIO) {
             str_ = _string.substring(beginValuePart_, endValuePart_);
             str_ = transformToSpaces(str_, beginValuePart_, _esc);
             values.put(beginValuePart_, str_);
@@ -368,14 +366,6 @@ public final class OperationsSequence {
 
     public void setNbInfos(NumberInfos _nbInfos) {
         nbInfos = _nbInfos;
-    }
-
-    public boolean isDeclaring() {
-        return declaring;
-    }
-
-    public void setDeclaring(boolean _declaring) {
-        declaring = _declaring;
     }
 
     public String getExtractType() {

@@ -3324,7 +3324,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("", values_.getVal(0));
         assertEq("0", values_.getVal(1));
-        assertTrue(!seq_.isDeclaring());
         assertTrue(!seq_.isCallDbArray());
         assertTrue(seq_.isArray());
     }
@@ -4185,7 +4184,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("tab", values_.getVal(0));
         assertEq("[0]", values_.getVal(3));
-        assertTrue(!seq_.isDeclaring());
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertTrue(seq_.isDot());
@@ -4205,10 +4203,47 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("tab[0]", values_.getVal(0));
         assertEq("[1]", values_.getVal(6));
-        assertTrue(!seq_.isDeclaring());
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
         assertTrue(seq_.isDot());
+    }
+
+    @Test
+    public void getOperationsSequence228Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "3*";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("*", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("3", values_.getVal(0));
+        assertEq("", values_.getVal(2));
+        assertEq(ElResolver.MULT_PRIO,seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence229Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = " {$new $int[]\\{1i,3i\\}}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
+        String elSynth_ = el_.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(2, elSynth_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(3, opers_.size());
+        assertEq("{", opers_.getVal(12));
+        assertEq(",", opers_.getVal(15));
+        assertEq("}", opers_.getVal(19));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(3, values_.size());
+        assertEq("$new $int[] ", values_.getVal(0));
+        assertEq("1i", values_.getVal(13));
+        assertEq("3i ", values_.getVal(16));
+        assertTrue(seq_.isCallDbArray());
+        assertTrue(seq_.isInstance());
     }
     @Test
     public void checkSyntax1Test() {

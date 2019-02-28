@@ -744,6 +744,33 @@ public final class PartTypeUtilTest {
         assertEq("java.lang.$Fct<?>", solved_);
     }
     @Test
+    public void process24Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree<Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public $static $class InnerThree<T> {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerFour:..InnerThree<Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        String solved_ = PartTypeUtil.processAnalyze("OuterTwo..InnerThree<Outer..Inner>", "",context_, root_);
+        assertEq("pkgtwo.OuterTwo..InnerThree<pkg.Outer..Inner>", solved_);
+    }
+    @Test
     public void process1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

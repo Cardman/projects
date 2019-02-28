@@ -445,19 +445,17 @@ public final class PartTypeUtil {
             return null;
         }
         ParentPartType par_ = (ParentPartType) _parent;
-        int indexPar_ = par_.getIndex();
+        int indexPar_ = 0;
         int off_ = 0;
-        if (_dels.size() >= 2) {
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
             NatTreeMap<Integer, String> befLast_;
-            befLast_ = _dels.get(_dels.size()-2);
-            off_ = befLast_.getKey(indexPar_);
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
         }
         NatTreeMap<Integer, String> last_ = _dels.last();
-        if (last_.isEmpty()) {
-            return null;
-        }
-        int k_ = last_.firstKey();
-        off_ += k_;
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
@@ -470,19 +468,17 @@ public final class PartTypeUtil {
             return null;
         }
         ParentPartType par_ = (ParentPartType) _parent;
-        int indexPar_ = par_.getIndex();
+        int indexPar_ = 0;
         int off_ = 0;
-        if (_dels.size() >= 2) {
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
             NatTreeMap<Integer, String> befLast_;
-            befLast_ = _dels.get(_dels.size()-2);
-            off_ = befLast_.getKey(indexPar_);
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
         }
         NatTreeMap<Integer, String> last_ = _dels.last();
-        if (last_.isEmpty()) {
-            return null;
-        }
-        int k_ = last_.firstKey();
-        off_ += k_;
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
         boolean rem_ = an_.isRemovedEmptyFirstChild();
@@ -502,15 +498,16 @@ public final class PartTypeUtil {
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = b_.getIndex();
+        int indexPar_ = indexNext_;
         int off_ = 0;
-        if (_dels.size() >= 2) {
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
             NatTreeMap<Integer, String> befLast_;
-            befLast_ = _dels.get(_dels.size()-2);
-            off_ = befLast_.getKey(indexPar_);
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
         }
-        int k_ = last_.getKey(indexNext_);
-        off_ += k_;
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
@@ -531,15 +528,16 @@ public final class PartTypeUtil {
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = b_.getIndex();
+        int indexPar_ = indexNext_;
         int off_ = 0;
-        if (_dels.size() >= 2) {
+        PartType g_ = par_;
+        for (int i = _dels.size()-1; i >= 0; i--) {
             NatTreeMap<Integer, String> befLast_;
-            befLast_ = _dels.get(_dels.size()-2);
-            off_ = befLast_.getKey(indexPar_);
+            befLast_ = _dels.get(i);
+            off_ += befLast_.getKey(indexPar_);
+            indexPar_ = g_.getIndex();
+            g_ = g_.getParent();
         }
-        int k_ = last_.getKey(indexNext_);
-        off_ += k_;
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
         boolean rem_ = an_.isRemovedEmptyFirstChild();
