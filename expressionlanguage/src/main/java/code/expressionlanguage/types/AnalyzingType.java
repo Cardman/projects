@@ -131,7 +131,7 @@ public final class AnalyzingType {
         values.put(beginValuePart_, str_);
     }
     public boolean isRemovedEmptyFirstChild() {
-        return prio == ParserType.INT_PRIO && values.firstValue().isEmpty();
+        return prio == ParserType.INT_PRIO && values.firstValue().trim().isEmpty();
     }
     public KindPartType getKind() {
         return kind;

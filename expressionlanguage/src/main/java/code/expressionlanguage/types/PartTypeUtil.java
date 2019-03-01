@@ -558,7 +558,7 @@ public final class PartTypeUtil {
         } else if (_p instanceof InnerPartType) {
             NatTreeMap<Integer,String> values_;
             values_ = new NatTreeMap<Integer, String>(_an.getValues());
-            if (values_.firstValue().isEmpty()) {
+            if (values_.firstValue().trim().isEmpty()) {
                 values_.removeKey(values_.firstKey());
             }
             _dels.add(values_);

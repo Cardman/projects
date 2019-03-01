@@ -55,8 +55,19 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
-        _conf.setNextIndex(d_.getIndexEnd()+2);
+        int beg_ = d_.getIndexBegin();
+        int end_ = d_.getIndexEnd();
+        int cap_ = end_+1 - beg_;
+        StringBuilder str_ = new StringBuilder(cap_);
+        for (int i = beg_; i <= end_; i++) {
+            if (d_.getEscapings().contains(i)) {
+                str_.append(' ');
+            } else {
+                str_.append(_el.charAt(i));
+            }
+        }
+        _conf.setNextIndex(end_+2);
+        String el_ = str_.toString();
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (opTwo_.isError()) {

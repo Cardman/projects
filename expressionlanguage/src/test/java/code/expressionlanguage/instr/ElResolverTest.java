@@ -4,6 +4,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.methods.*;
+import code.util.Numbers;
 import org.junit.Test;
 
 import code.expressionlanguage.AnalyzedPageEl;
@@ -4225,25 +4226,15 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(ElResolver.MULT_PRIO,seq_.getPriority());
     }
     @Test
-    public void getOperationsSequence229Test() {
+    public void checkSyntaxDelimiters10Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {$new $int[]\\{1i,3i\\}}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
-        String elSynth_ = el_.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(2, elSynth_, conf_, d_);
-        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(3, opers_.size());
-        assertEq("{", opers_.getVal(12));
-        assertEq(",", opers_.getVal(15));
-        assertEq("}", opers_.getVal(19));
-        NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("$new $int[] ", values_.getVal(0));
-        assertEq("1i", values_.getVal(13));
-        assertEq("3i ", values_.getVal(16));
-        assertTrue(seq_.isCallDbArray());
-        assertTrue(seq_.isInstance());
+        Numbers<Integer> esc_ = d_.getEscapings();
+        assertEq(2, esc_.size());
+        assertEq(13, esc_.first());
+        assertEq(20, esc_.last());
     }
     @Test
     public void checkSyntax1Test() {

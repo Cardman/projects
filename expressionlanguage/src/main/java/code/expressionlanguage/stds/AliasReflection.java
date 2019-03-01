@@ -237,13 +237,13 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetEnumConstants, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEnum_), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean_,aliasClass);
+        params_ = new StringList(aliasBoolean_,aliasClass);
         method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_);
         method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString_,aliasPrimBoolean_,aliasPrimBoolean_,aliasClass);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_,aliasClass);
         method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -1000,26 +1000,20 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                Boolean vararg_ = ((BooleanStruct) args_[0]).getInstance();
-                StringList classesNames_ = new StringList();
-                for (Struct s: (((ArrayStruct)args_[1]).getInstance())) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
                 CustList<ConstructorMetaInfo> candidates_;
                 candidates_ = new CustList<ConstructorMetaInfo>();
                 String instClassName_ = cl_.getName();
-                ConstructorId idToSearch_ = new ConstructorId(instClassName_, classesNames_, vararg_);
                 if (Templates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                         ConstructorId id_ = e.getKey();
-                        if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
+                        if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
                             candidates_.add(e.getValue());
                         }
                     }
                 } else {
                     for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                         ConstructorId id_ = e.getKey();
-                        if (id_.eqPartial(idToSearch_)) {
+                        if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1062,22 +1056,15 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                String methodName_ = ((StringStruct) args_[0]).getInstance();
-                Boolean static_ = ((BooleanStruct) args_[1]).getInstance();
-                Boolean vararg_ = ((BooleanStruct) args_[2]).getInstance();
-                StringList classesNames_ = new StringList();
-                for (Struct s: ((ArrayStruct)args_[3]).getInstance()) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
                 if (cl_.isTypeArray()) {
-                    if (static_ || vararg_ || !classesNames_.isEmpty() || !StringList.quickEq(methodName_, lgNames_.getAliasClone())) {
+                    MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
+                    if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
                         Struct[] methodsArr_ = new Struct[0];
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
                         return result_;
                     }
                     String instClassName_ = cl_.getName();
-                    MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
                     AccessEnum acc_ = AccessEnum.PUBLIC;
                     String idCl_ = Templates.getIdFromAllTypes(instClassName_);
                     String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
@@ -1090,18 +1077,17 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                MethodId idToSearch_ = new MethodId(static_, methodName_, classesNames_, vararg_);
                 if (Templates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
+                        if (eq(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
                 } else {
                     for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
                         MethodId id_ = e.getKey();
-                        if (id_.eq(idToSearch_)) {
+                        if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
                     }
@@ -1121,7 +1107,7 @@ public final class AliasReflection {
                 StringMap<FieldMetaInfo> fields_;
                 fields_ = cl_.getFieldsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasField_);
-                if (args_.length == 0) {
+                if (args_.length == 0 || !(args_[0] instanceof StringStruct)) {
                     Struct[] ctorsArr_ = new Struct[fields_.size()];
                     int index_ = 0;
                     for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
@@ -1629,6 +1615,46 @@ public final class AliasReflection {
             ret_ = _instClass;
         }
         return ret_;
+    }
+
+    private static boolean eq(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+        if (_name instanceof StringStruct) {
+            StringStruct name_ = (StringStruct) _name;
+            if (!StringList.quickEq(name_.getInstance(), _id.getName())) {
+                return false;
+            }
+        }
+        if (_static instanceof BooleanStruct) {
+            BooleanStruct static_ = (BooleanStruct) _static;
+            if (static_.getInstance() != _id.isStaticMethod()) {
+                return false;
+            }
+        }
+        if (_vararg instanceof BooleanStruct) {
+            BooleanStruct vararg_ = (BooleanStruct) _vararg;
+            if (vararg_.getInstance() != _id.isVararg()) {
+                return false;
+            }
+        }
+        if (_params instanceof ArrayStruct) {
+            ArrayStruct params_ = (ArrayStruct) _params;
+            Struct[] pars_ = params_.getInstance();
+            StringList parTypes_ = _id.getParametersTypes();
+            int parLen_ = parTypes_.size();
+            if (pars_.length != parLen_) {
+                return false;
+            }
+            for (int i = 0; i < parLen_; i++) {
+                Struct par_ = pars_[i];
+                if (par_ instanceof ClassMetaInfo) {
+                    ClassMetaInfo p_ = (ClassMetaInfo) par_;
+                    if (!StringList.quickEq(p_.getName(), parTypes_.get(i))) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public String getAliasClass() {

@@ -638,12 +638,14 @@ public final class FileResolver {
             boolean abstractType_ = false;
             boolean finalType_ = false;
             int bk_ = nextIndex_;
-            if (_file.substring(nextIndex_).startsWith(keyWordAbstract_)) {
+            String beforeQu_ = _file.substring(nextIndex_);
+            if (ContextEl.startsWithKeyWord(beforeQu_, keyWordAbstract_)) {
                 abstractType_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordAbstract_.length(), _file, enabledSpaces_);
                 nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
             }
-            if (_file.substring(nextIndex_).startsWith(keyWordFinal_)) {
+            beforeQu_ = _file.substring(nextIndex_);
+            if (ContextEl.startsWithKeyWord(beforeQu_, keyWordFinal_)) {
                 finalType_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordFinal_.length(), _file, enabledSpaces_);
                 nextIndex_ = skipWhitespace(nextIndex_, _file, enabledSpaces_);
@@ -662,16 +664,17 @@ public final class FileResolver {
             }
             int categoryOffset_ = nextIndex_ - 1;
             String type_;
-            if (_file.substring(nextIndex_).startsWith(keyWordClass_)) {
+            String beforeCat_ = _file.substring(nextIndex_);
+            if (ContextEl.startsWithKeyWord(beforeCat_, keyWordClass_)) {
                 type_ = keyWordClass_;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordClass_.length(), _file, enabledSpaces_);
-            } else if (_file.substring(nextIndex_).startsWith(keyWordEnum_)) {
+            } else if (ContextEl.startsWithKeyWord(beforeCat_, keyWordEnum_)) {
                 type_ = keyWordEnum_;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordEnum_.length(), _file, enabledSpaces_);
-            } else if (_file.substring(nextIndex_).startsWith(keyWordInterface_)) {
+            } else if (ContextEl.startsWithKeyWord(beforeCat_, keyWordInterface_)) {
                 type_ = keyWordInterface_;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordInterface_.length(), _file, enabledSpaces_);
-            } else if (_file.substring(nextIndex_).startsWith(keyWordAnnotation_)) {
+            } else if (ContextEl.startsWithKeyWord(beforeCat_, keyWordAnnotation_)) {
                 type_ = keyWordAnnotation_;
                 nextIndex_ = incrementRowCol(nextIndex_, keyWordAnnotation_.length(), _file, enabledSpaces_);
             } else {
@@ -1625,19 +1628,22 @@ public final class FileResolver {
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         int bk_;
-        if (_file.substring(locIndex_).startsWith(keyWordAbstract_)) {
+        String beforeQu_ = _file.substring(locIndex_);
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordAbstract_)) {
             abstractType_ = true;
             locIndex_ = incrementRowCol(locIndex_, keyWordAbstract_.length(), _file, enLoc_);
             locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
         }
         if (!_defStatic) {
-            if (_file.substring(locIndex_).startsWith(keyWordStatic_)) {
+            beforeQu_ = _file.substring(locIndex_);
+            if (ContextEl.startsWithKeyWord(beforeQu_,keyWordStatic_)) {
                 staticType_ = true;
                 locIndex_ = incrementRowCol(locIndex_, keyWordStatic_.length(), _file, enLoc_);
                 locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
             }
         }
-        if (_file.substring(locIndex_).startsWith(keyWordFinal_)) {
+        beforeQu_ = _file.substring(locIndex_);
+        if (ContextEl.startsWithKeyWord(beforeQu_,keyWordFinal_)) {
             finalType_ = true;
             locIndex_ = incrementRowCol(locIndex_, keyWordFinal_.length(), _file, enLoc_);
             locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
@@ -1645,16 +1651,16 @@ public final class FileResolver {
         String type_ = EMPTY_STRING;
         int categoryOffset_ = locIndex_;
         String infoModifiers_ = _file.substring(locIndex_);
-        if (infoModifiers_.startsWith(keyWordClass_)) {
+        if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordClass_)) {
             type_ = keyWordClass_;
             locIndex_ = incrementRowCol(locIndex_, keyWordClass_.length(), _file, enLoc_);
-        } else if (infoModifiers_.startsWith(keyWordEnum_)) {
+        } else if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordEnum_)) {
             type_ = keyWordEnum_;
             locIndex_ = incrementRowCol(locIndex_, keyWordEnum_.length(), _file, enLoc_);
-        } else if (infoModifiers_.startsWith(keyWordInterface_)) {
+        } else if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordInterface_)) {
             type_ = keyWordInterface_;
             locIndex_ = incrementRowCol(locIndex_, keyWordInterface_.length(), _file, enLoc_);
-        } else if (infoModifiers_.startsWith(keyWordAnnotation_)) {
+        } else if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordAnnotation_)) {
             type_ = keyWordAnnotation_;
             locIndex_ = incrementRowCol(locIndex_, keyWordAnnotation_.length(), _file, enLoc_);
         }
@@ -2770,11 +2776,9 @@ public final class FileResolver {
             // !Character.isWhitespace(currentCharFound_)
             break;
         }
-        boolean ok_;
         if (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (currentCharFound_ == BEGIN_ARRAY) {
-                ok_ = true;
                 while (indexInstr_ < instLen_) {
                     currentCharFound_ = _found.charAt(indexInstr_);
                     if (Character.isWhitespace(currentCharFound_)) {
@@ -2784,19 +2788,11 @@ public final class FileResolver {
                     }
                     if (currentCharFound_ == BEGIN_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (!ok_) {
-                            break;
-                        }
-                        ok_ = false;
                         indexInstr_++;
                         continue;
                     }
                     if (currentCharFound_ == END_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (ok_) {
-                            break;
-                        }
-                        ok_ = true;
                         indexInstr_++;
                         continue;
                     }
@@ -2922,11 +2918,10 @@ public final class FileResolver {
             break;
         }
 
-        boolean ok_;
+
         if (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (currentCharFound_ == BEGIN_ARRAY) {
-                ok_ = true;
                 while (indexInstr_ < instLen_) {
                     currentCharFound_ = _found.charAt(indexInstr_);
                     if (Character.isWhitespace(currentCharFound_)) {
@@ -2936,19 +2931,11 @@ public final class FileResolver {
                     }
                     if (currentCharFound_ == BEGIN_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (!ok_) {
-                            break;
-                        }
-                        ok_ = false;
                         indexInstr_++;
                         continue;
                     }
                     if (currentCharFound_ == END_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (ok_) {
-                            break;
-                        }
-                        ok_ = true;
                         indexInstr_++;
                         continue;
                     }
@@ -3064,19 +3051,12 @@ public final class FileResolver {
                     }
                     if (currentCharFound_ == BEGIN_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (!ok_) {
-                            break;
-                        }
                         ok_ = false;
                         indexInstr_++;
                         continue;
                     }
                     if (currentCharFound_ == END_ARRAY) {
                         declTypeName_.append(currentCharFound_);
-                        if (ok_) {
-                            ok_ = false;
-                            break;
-                        }
                         ok_ = true;
                         indexInstr_++;
                         continue;

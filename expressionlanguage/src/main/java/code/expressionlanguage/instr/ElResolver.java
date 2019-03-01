@@ -2868,14 +2868,10 @@ public final class ElResolver {
             instance_ = true;
         }
         Numbers<Integer> laterIndexesDouble_ = new Numbers<Integer>();
-        Numbers<Integer> escapings_ = new Numbers<Integer>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (_d.getDimsAddonIndexes().containsObj(i_+_offset)) {
                 laterIndexesDouble_.add(i_);
-            }
-            if (_d.getEscapings().containsObj(i_+_offset)) {
-                escapings_.add(i_);
             }
             if (!_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
                 i_++;
@@ -3187,7 +3183,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_, instance_, laterIndexesDouble_, escapings_);
+        op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);
         return op_;

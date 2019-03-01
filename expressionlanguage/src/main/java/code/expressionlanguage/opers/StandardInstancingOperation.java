@@ -68,7 +68,6 @@ public final class StandardInstancingOperation extends
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String className_ = methodName.trim().substring(newKeyWord_.length());
-        className_ = className_.trim();
         String realClassName_ = className_;
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
@@ -78,6 +77,7 @@ public final class StandardInstancingOperation extends
             analyzeCtor(_conf, realClassName_, firstArgs_);
             return;
         }
+        realClassName_ = realClassName_.trim();
         if (realClassName_.startsWith("..")) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());

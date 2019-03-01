@@ -2749,11 +2749,10 @@ public abstract class ContextEl implements ExecutableCode {
         if (!_found.startsWith(_keyWord)) {
             return false;
         }
-        String sub_ = _found.substring(_keyWord.length());
-        if (sub_.isEmpty()) {
+        if (_found.length() == _keyWord.length()) {
             return true;
         }
-        char first_ = sub_.charAt(0);
+        char first_ = _found.charAt(_keyWord.length());
         return !StringList.isDollarWordChar(first_);
     }
 

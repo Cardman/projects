@@ -432,10 +432,11 @@ public abstract class OperationNode implements Operable {
         if (par_ == null) {
             return true;
         }
+        int ind_ = 0;
         if (par_.getFirstChild() instanceof StaticInitOperation) {
-            return getIndexChild() == CustList.SECOND_INDEX;
+            ind_++;
         }
-        return getIndexChild() == CustList.FIRST_INDEX;
+        return getIndexChild() == ind_;
     }
 
     public abstract OperationNode getFirstChild();
@@ -449,7 +450,7 @@ public abstract class OperationNode implements Operable {
 
     static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext, _class, _baseClass, _superClass, _name, _import, _aff);
-        if (fr_.getStatus() == SearchingMemberStatus.UNIQ && fr_.getId().getType() != null) {
+        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
             return fr_;
         }
         StaticAccessFieldError access_ = new StaticAccessFieldError();
@@ -477,9 +478,6 @@ public abstract class OperationNode implements Operable {
         StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();
         for (String c: _class.getNames()) {
-            if (c.isEmpty()) {
-                continue;
-            }
             StringList classeNamesLoc_ = new StringList();
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
