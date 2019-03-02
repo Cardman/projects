@@ -3,9 +3,34 @@ package code.expressionlanguage.opers.util;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.CustList;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public final class AssignmentsUtil {
     private AssignmentsUtil() {
+    }
+    public static StringMap<Assignment> getOrEmpty(CustList<StringMap<Assignment>> _list, int _i) {
+        if (_list.isValidIndex(_i)) {
+            return _list.get(_i);
+        }
+        return new StringMap<Assignment>();
+    }
+    public static StringMap<AssignmentBefore> getOrEmptyBefore(CustList<StringMap<AssignmentBefore>> _list, int _i) {
+        if (_list.isValidIndex(_i)) {
+            return _list.get(_i);
+        }
+        return new StringMap<AssignmentBefore>();
+    }
+    public static StringMap<BooleanAssignment> getOrEmptyBool(CustList<StringMap<BooleanAssignment>> _list, int _i) {
+        if (_list.isValidIndex(_i)) {
+            return _list.get(_i);
+        }
+        return new StringMap<BooleanAssignment>();
+    }
+    public static StringMap<SimpleAssignment> getOrEmptySimple(CustList<StringMap<SimpleAssignment>> _list, int _i) {
+        if (_list.isValidIndex(_i)) {
+            return _list.get(_i);
+        }
+        return new StringMap<SimpleAssignment>();
     }
     public static CustList<StringMap<BooleanAssignment>> conditionAfter(CustList<StringMap<Assignment>> _cond) {
         CustList<StringMap<BooleanAssignment>> out_ = new CustList<StringMap<BooleanAssignment>>();

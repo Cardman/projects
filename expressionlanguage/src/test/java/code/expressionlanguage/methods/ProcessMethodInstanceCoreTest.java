@@ -299,4 +299,70 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).getInstance());
     }
+
+    @Test
+    public void instanceArgument10Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $final $int inst:\n");
+        xml_.append(" {\n");
+        xml_.append("  $int loc=0:\n");
+        xml_.append("  $int i=0:\n");
+        xml_.append("  $while($true){\n");
+        xml_.append("   $if(i;.>=5){\n");
+        xml_.append("    inst = loc;.:\n");
+        xml_.append("    $break:\n");
+        xml_.append("   }\n");
+        xml_.append("   loc;. += i;.:\n");
+        xml_.append("   i;.++:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(10, ((NumberStruct)field_).getInstance());
+    }
+
+    @Test
+    public void instanceArgument1FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int other:\n");
+        xml_.append(" $public $final $int inst:\n");
+        xml_.append(" {\n");
+        xml_.append("  $int loc=0:\n");
+        xml_.append("  $int i=0:\n");
+        xml_.append("  $while($true){\n");
+        xml_.append("   $int v=0:\n");
+        xml_.append("   other=1:\n");
+        xml_.append("   $if(i;.>=5){\n");
+        xml_.append("    inst = loc;.:\n");
+        xml_.append("    $continue:\n");
+        xml_.append("   }\n");
+        xml_.append("   loc;. += i;.:\n");
+        xml_.append("   i;.++:\n");
+        xml_.append("   $break:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

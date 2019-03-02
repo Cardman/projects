@@ -7,16 +7,10 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class WhileCondition extends Condition implements Loop {
 
@@ -136,18 +130,13 @@ public final class WhileCondition extends Condition implements Loop {
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -176,18 +165,13 @@ public final class WhileCondition extends Condition implements Loop {
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -202,11 +186,13 @@ public final class WhileCondition extends Condition implements Loop {
             String key_ = e.getKey();
             AssignmentBefore ass_ = e.getValue().copy();
             for (StringMap<AssignmentBefore> c: _continuable) {
-                if (!c.contains(key_)) {
-                    continue;
-                }
-                if (!c.getVal(key_).isUnassignedBefore()) {
-                    ass_.setUnassignedBefore(false);
+                for (EntryCust<String,AssignmentBefore> f: c.entryList()) {
+                    if (!StringList.quickEq(f.getKey(),key_)) {
+                        continue;
+                    }
+                    if (!f.getValue().isUnassignedBefore()) {
+                        ass_.setUnassignedBefore(false);
+                    }
                 }
             }
             if (_last.contains(key_)) {
@@ -285,30 +271,15 @@ public final class WhileCondition extends Condition implements Loop {
     @Override
     public boolean accessibleCondition() {
         ExecOperationNode op_ = getRoot();
-        boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            accessible_ = true;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            accessible_ = true;
-        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
-            accessible_ = true;
-        }
-        return accessible_;
+        return !Argument.isFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         boolean abr_ = true;
         ExecOperationNode op_ = getRoot();
-        boolean proc_ = true;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            proc_ = false;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            proc_ = false;
-        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-            proc_ = false;
-        }
+        boolean proc_ = Argument.isTrueValue(arg_);
         if (_anEl.isReachable(this)) {
             if (!proc_) {
                 abr_ = false;

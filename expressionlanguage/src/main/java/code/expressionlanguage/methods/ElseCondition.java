@@ -44,25 +44,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition {
     }
 
     @Override
-    public boolean accessibleCondition() {
-        Block prev_ = getPreviousSibling();
-        if (!(prev_ instanceof Condition)) {
-            return true;
-        }
-        Condition cond_ = (Condition) prev_;
-        ExecOperationNode op_ = cond_.getRoot();
-        boolean accessible_ = false;
-        Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            accessible_ = true;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            accessible_ = true;
-        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-            accessible_ = true;
-        }
-        return accessible_;
-    }
-    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         Block pBlock_ = getPreviousSibling();

@@ -25,10 +25,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
@@ -443,18 +440,13 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -485,18 +477,13 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -511,11 +498,13 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             String key_ = e.getKey();
             AssignmentBefore ass_ = e.getValue().copy();
             for (StringMap<AssignmentBefore> c: _continuable) {
-                if (!c.contains(key_)) {
-                    continue;
-                }
-                if (!c.getVal(key_).isUnassignedBefore()) {
-                    ass_.setUnassignedBefore(false);
+                for (EntryCust<String,AssignmentBefore> f:c.entryList()) {
+                    if (!StringList.quickEq(f.getKey(), key_)) {
+                        continue;
+                    }
+                    if (!f.getValue().isUnassignedBefore()) {
+                        ass_.setUnassignedBefore(false);
+                    }
                 }
             }
             if (_last.contains(key_)) {

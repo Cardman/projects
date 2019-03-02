@@ -16,10 +16,7 @@ import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class DoWhileCondition extends Condition {
 
@@ -57,15 +54,8 @@ public final class DoWhileCondition extends Condition {
             last_ = last_.getNextSibling();
         }
         ExecOperationNode op_ = getRoot();
-        boolean proc_ = true;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            proc_ = false;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            proc_ = false;
-        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-            proc_ = false;
-        }
+        boolean proc_ = Argument.isTrueValue(arg_);
         if (!proc_) {
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 abr_ = false;
@@ -200,8 +190,11 @@ public final class DoWhileCondition extends Condition {
         for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {
             String key_ = e.getKey();
             AssignmentBefore ass_ = e.getValue().copy();
-            if (_last.contains(key_)) {
-                if (!_last.getVal(key_).isUnassignedAfterWhenTrue()) {
+            for (EntryCust<String,BooleanAssignment> f: _last.entryList()) {
+                if (!StringList.quickEq(f.getKey(),key_)) {
+                    continue;
+                }
+                if (!f.getValue().isUnassignedAfterWhenTrue()) {
                     ass_.setUnassignedBefore(false);
                 }
             }

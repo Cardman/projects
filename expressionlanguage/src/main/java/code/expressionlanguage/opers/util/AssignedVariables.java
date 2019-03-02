@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ForEachLoop;
+import code.expressionlanguage.methods.ForEachTable;
 import code.expressionlanguage.methods.ForIterativeLoop;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -38,6 +39,9 @@ public class AssignedVariables {
         if (_filter instanceof ForEachLoop) {
             return new IdList<AffectationOperation>();
         }
+        if (_filter instanceof ForEachTable) {
+            return new IdList<AffectationOperation>();
+        }
         return filter(variablesBefore.getKeys());
     }
     public IdList<AffectationOperation> getFieldsBefore(Block _filter, boolean _all) {
@@ -50,6 +54,9 @@ public class AssignedVariables {
         if (_filter instanceof ForEachLoop) {
             return new IdList<AffectationOperation>();
         }
+        if (_filter instanceof ForEachTable) {
+            return new IdList<AffectationOperation>();
+        }
         return filter(fieldsBefore.getKeys());
     }
     public IdList<AffectationOperation> getMutableLoopBefore(Block _filter, boolean _all) {
@@ -60,6 +67,9 @@ public class AssignedVariables {
             return new IdList<AffectationOperation>();
         }
         if (_filter instanceof ForEachLoop) {
+            return new IdList<AffectationOperation>();
+        }
+        if (_filter instanceof ForEachTable) {
             return new IdList<AffectationOperation>();
         }
         return filter(mutableLoopBefore.getKeys());

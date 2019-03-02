@@ -1205,6 +1205,8 @@ public final class FileResolver {
         }
         if (okType_) {
             i_ = incrementRowCol(i_, _file, enabledSpaces_);
+        } else {
+            badIndexes_.add(len_);
         }
         _out.setNextIndex(i_);
         _out.setOk(okType_);

@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.AffectationOperation;
+import code.expressionlanguage.opers.DeclaringOperation;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;

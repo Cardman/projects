@@ -43,6 +43,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     private String importedClassName = EMPTY_STRING;
 
     private final String classIndexName;
+    private String importedClassIndexName;
     private int classIndexNameOffset;
 
     private final StringList variableNames = new StringList();
@@ -230,9 +231,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName, _cont)) {
+        importedClassIndexName = _cont.resolveCorrectType(classIndexName);
+        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(classIndexName);
+            mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -441,18 +443,13 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -481,18 +478,13 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 ContinueBlock br_ = continues_.get(j);
                 AssignedVariables ass_ = id_.getVal(br_);
                 CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
-                if (!vars_.isValidIndex(i)) {
-                    continue;
-                }
-                breakAss_.add(vars_.get(i));
+                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
             }
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
-                if (v_.isValidIndex(i)) {
-                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
-                }
+                varsList_.add(invalidateHypothesis(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
             } else {
                 varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
@@ -557,11 +549,13 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             String key_ = e.getKey();
             AssignmentBefore ass_ = e.getValue().copy();
             for (StringMap<AssignmentBefore> c: _continuable) {
-                if (!c.contains(key_)) {
-                    continue;
-                }
-                if (!c.getVal(key_).isUnassignedBefore()) {
-                    ass_.setUnassignedBefore(false);
+                for (EntryCust<String,AssignmentBefore> f:c.entryList()) {
+                    if (!StringList.quickEq(f.getKey(), key_)) {
+                        continue;
+                    }
+                    if (!f.getValue().isUnassignedBefore()) {
+                        ass_.setUnassignedBefore(false);
+                    }
                 }
             }
             if (_last.contains(key_)) {
@@ -701,16 +695,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             return true;
         }
         ExecOperationNode op_ = opExp.last();
-        boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
-            accessible_ = true;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            accessible_ = true;
-        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
-            accessible_ = true;
-        }
-        return accessible_;
+        return !Argument.isFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
@@ -719,13 +705,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         if (!opExp.isEmpty()) {
             ExecOperationNode op_ = opExp.last();
             Argument arg_ = op_.getArgument();
-            if (op_.getArgument() == null) {
-                proc_ = false;
-            } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-                proc_ = false;
-            } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-                proc_ = false;
-            }
+            proc_ = Argument.isTrueValue(arg_);
         }
         if (_anEl.isReachable(this)) {
             if (!proc_) {

@@ -43,6 +43,24 @@ public final class Argument {
         object = _object;
     }
 
+    public static boolean isFalseValue(Argument _arg) {
+        if (_arg == null) {
+            return false;
+        }
+        if (!(_arg.getStruct() instanceof BooleanStruct)) {
+            return false;
+        }
+        return !((BooleanStruct)_arg.getStruct()).getInstance();
+    }
+    public static boolean isTrueValue(Argument _arg) {
+        if (_arg == null) {
+            return false;
+        }
+        if (!(_arg.getStruct() instanceof BooleanStruct)) {
+            return false;
+        }
+        return ((BooleanStruct)_arg.getStruct()).getInstance();
+    }
     public static boolean isNullValue(Argument _arg) {
         if (_arg == null) {
             return false;

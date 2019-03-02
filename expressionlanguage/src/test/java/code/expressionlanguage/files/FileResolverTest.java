@@ -8451,6 +8451,28 @@ public final class FileResolverTest {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void parseFile3FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Ex {\n");
+        file_.append(" $public $static $int catching(){\n");
+        file_.append("  $int t:\n");
+        file_.append("  t;.=0i:\n");
+        file_.append("  $if(t;.<0){\n");
+        file_.append("   $return 1i/0i:\n");
+        file_.append("  }\n");
+        file_.append("  $else $if(t;. == 1){\n");
+        file_.append("   t;.=2i:\n");
+        file_.append("  $else $if($true){\n");
+        file_.append("   t;.=1i:\n");
+        file_.append("  }\n");
+        file_.append("  $return t;.:\n");
+        file_.append(" }\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {

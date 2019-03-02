@@ -16,6 +16,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
+import com.sun.org.apache.xpath.internal.Arg;
 
 public final class ElseIfCondition extends Condition implements BlockCondition {
 
@@ -46,15 +47,8 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
             return;
         }
         ExecOperationNode op_ = getRoot();
-        boolean abr_ = true;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            abr_ = false;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            abr_ = false;
-        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-            abr_ = false;
-        }
+        boolean abr_ = Argument.isTrueValue(arg_);
         if (!abr_) {
             return;
         }
@@ -137,30 +131,14 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     @Override
     public boolean accessibleCondition() {
         ExecOperationNode op_ = getRoot();
-        boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            accessible_ = true;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            accessible_ = true;
-        } else if (((BooleanStruct)arg_.getStruct()).getInstance()) {
-            accessible_ = true;
-        }
-        return accessible_;
+        return !Argument.isFalseValue(arg_);
     }
     @Override
     public boolean accessibleForNext() {
         ExecOperationNode op_ = getRoot();
-        boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
-            accessible_ = true;
-        } else if (!(arg_.getStruct() instanceof BooleanStruct)) {
-            accessible_ = true;
-        } else if (!((BooleanStruct)arg_.getStruct()).getInstance()) {
-            accessible_ = true;
-        }
-        return accessible_;
+        return !Argument.isTrueValue(arg_);
     }
     @Override
     public void processEl(ContextEl _cont) {

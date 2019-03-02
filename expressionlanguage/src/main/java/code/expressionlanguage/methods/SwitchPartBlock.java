@@ -3,10 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -47,11 +44,7 @@ public abstract class SwitchPartBlock extends BracedStack implements
             StringMap<SimpleAssignment> current_;
             if (_anEl.canCompleteNormally(this)) {
                 CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getVariablesRoot();
-                if (map_.isValidIndex(i)) {
-                    current_ = map_.get(i);
-                } else {
-                    current_ = new StringMap<SimpleAssignment>();
-                }
+                current_ = AssignmentsUtil.getOrEmptySimple(map_,i);
             } else {
                 current_ = new StringMap<SimpleAssignment>();
             }
@@ -73,11 +66,7 @@ public abstract class SwitchPartBlock extends BracedStack implements
             StringMap<SimpleAssignment> current_;
             if (_anEl.canCompleteNormally(this)) {
                 CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getMutableLoopRoot();
-                if (map_.isValidIndex(i)) {
-                    current_ = map_.get(i);
-                } else {
-                    current_ = new StringMap<SimpleAssignment>();
-                }
+                current_ = AssignmentsUtil.getOrEmptySimple(map_,i);
             } else {
                 current_ = new StringMap<SimpleAssignment>();
             }
