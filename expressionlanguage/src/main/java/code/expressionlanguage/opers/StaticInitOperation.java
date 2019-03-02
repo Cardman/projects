@@ -24,11 +24,6 @@ public final class StaticInitOperation extends VariableLeafOperation implements 
         setStaticResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
     void setInit(Analyzable _conf, String _base, boolean _staticType) {
         if (!_staticType) {
             possibleInitClass = false;

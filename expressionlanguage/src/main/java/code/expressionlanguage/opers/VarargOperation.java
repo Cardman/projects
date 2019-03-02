@@ -51,9 +51,4 @@ public final class VarargOperation extends ConstLeafOperation implements VarargO
         setSimpleArgument(new Argument());
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
 }

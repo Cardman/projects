@@ -14,12 +14,7 @@ import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.*;
-import code.expressionlanguage.opers.util.AssignedBooleanLoopVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
@@ -263,22 +258,14 @@ public final class AffectationOperation extends ReflectableOpering implements Af
                             _conf.getClasses().addError(un_);
                         }
                     }
-                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
-                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(),Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
                 }
                 variablesAfter_.add(sm_);
             }
             
         } else {
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
+            variablesAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
         }
         vars_.getVariables().put(this, variablesAfter_);
         if (firstChild_ instanceof MutableLoopVariableOperation) {
@@ -299,22 +286,14 @@ public final class AffectationOperation extends ReflectableOpering implements Af
                             _conf.getClasses().addError(un_);
                         }
                     }
-                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
-                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(), Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
                 }
                 mutableAfter_.add(sm_);
             }
             
         } else {
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(lastChild_);
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
-                mutableAfter_.add(sm_);
-            }
+            mutableAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
         }
         vars_.getMutableLoop().put(this, mutableAfter_);
         boolean fromCurClass_ = false;
@@ -340,15 +319,11 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             ClassField cl_ = cst_.getFieldId();
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                boolean ass_ = StringList.quickEq(cl_.getFieldName(), e.getKey()) || e.getValue().isAssignedAfter();
-                boolean unass_ = !StringList.quickEq(cl_.getFieldName(),e.getKey()) && e.getValue().isUnassignedAfter();
-                fieldsAfter_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                fieldsAfter_.put(e.getKey(), Assignment.assign(cl_.getFieldName(),e.getKey(),isBool_, e.getValue()));
             }
         } else {
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
-            }
+            fieldsAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,fieldsAfterLast_));
         }
         vars_.getFields().put(this, fieldsAfter_);
     }

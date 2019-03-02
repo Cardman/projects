@@ -1195,7 +1195,7 @@ public abstract class ContextEl implements ExecutableCode {
             classes.addError(un_);
             return EMPTY_TYPE;
         }
-        AccessingImportingBlock r_ = bl_.getImporting();
+        AccessingImportingBlock r_ = analyzing.getImporting();
         StringList inners_;
         if (options.isSingleInnerParts()) {
             inners_ = Templates.getAllInnerTypesSingleDotted(_in, this);
@@ -1256,7 +1256,7 @@ public abstract class ContextEl implements ExecutableCode {
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        AccessingImportingBlock r_ = bl_.getImporting();
+        AccessingImportingBlock r_ = analyzing.getImporting();
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = Templates.getIdFromAllTypes(_fromType);
@@ -1308,7 +1308,7 @@ public abstract class ContextEl implements ExecutableCode {
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        AccessingImportingBlock r_ = bl_.getImporting();
+        AccessingImportingBlock r_ = analyzing.getImporting();
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         
@@ -1316,7 +1316,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            FunctionBlock fct_ = bl_.getFunction();
+            FunctionBlock fct_ = analyzing.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
             } else {
@@ -1354,14 +1354,14 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public StringMap<StringList> getCurrentConstraints() {
         Block bl_ = getCurrentBlock();
-        AccessingImportingBlock r_ = bl_.getImporting();
+        AccessingImportingBlock r_ = analyzing.getImporting();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         
         boolean static_;
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            FunctionBlock fct_ = bl_.getFunction();
+            FunctionBlock fct_ = analyzing.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
             } else {
@@ -1394,7 +1394,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (StringList.quickEq(_in.trim(), void_)) {
             return EMPTY_TYPE;
         }
-        AccessingImportingBlock r_ = bl_.getImporting();
+        AccessingImportingBlock r_ = analyzing.getImporting();
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
 
@@ -1402,7 +1402,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            FunctionBlock fct_ = bl_.getFunction();
+            FunctionBlock fct_ = analyzing.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
             } else {
@@ -1433,6 +1433,8 @@ public abstract class ContextEl implements ExecutableCode {
         gr_ = new SortedGraph<ClassInheritsDeps>();
         EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
         for (RootBlock b: classes.getClassBodies(_predefined)) {
+            analyzing.setImporting(b);
+            analyzing.setCurrentBlock(b);
             StringList deps_ = b.getDepends(this);
             if (deps_ == null) {
                 return null;
@@ -2279,7 +2281,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (!StringList.isDollarWord(_method.trim())) {
             return methods_;
         }
-        AccessingImportingBlock type_ = _rooted.getImporting();
+        AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         if (type_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) type_;
@@ -2472,7 +2474,7 @@ public abstract class ContextEl implements ExecutableCode {
             return methods_;
         }
         int import_ = 1;
-        AccessingImportingBlock type_ = _rooted.getImporting();
+        AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         if (type_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) type_;

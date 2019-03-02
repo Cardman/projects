@@ -61,7 +61,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         String type_ = EMPTY_STRING;
         Block cur_ = _conf.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMehod) {
-            FunctionBlock f_ = cur_.getFunction();
+            FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
                 NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
                 String ret_ = n_.getImportedReturnType();

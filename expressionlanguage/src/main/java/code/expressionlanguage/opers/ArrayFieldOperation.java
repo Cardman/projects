@@ -46,9 +46,5 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
-    @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
 
 }

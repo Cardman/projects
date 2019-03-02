@@ -85,9 +85,4 @@ public final class StaticAccessOperation extends ConstLeafOperation {
         setStaticResultClass(new ClassArgumentMatching(classStr_));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
 }

@@ -26,9 +26,4 @@ public final class ErrorPartOperation extends ConstLeafOperation {
         setResultClass(new ClassArgumentMatching(argClName_));    
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
 }

@@ -98,13 +98,6 @@ public final class FinalVariableOperation extends VariableLeafOperation {
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
-        analyzeAssignmentAfter(_conf, isBool_);
-    }
-
     public String getVariableName() {
         return variableName;
     }

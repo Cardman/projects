@@ -143,7 +143,7 @@ public final class StandardInstancingOperation extends
         if (new_ == null) {
             Block bl_ = _conf.getCurrentBlock();
             int rc_ = _conf.getCurrentLocationIndex();
-            AccessingImportingBlock r_ = bl_.getImporting();
+            AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(realClassName_);
             un_.setFileName(r_.getFile().getFileName());
@@ -164,7 +164,7 @@ public final class StandardInstancingOperation extends
             if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
                 Block bl_ = _conf.getCurrentBlock();
                 int rc_ = _conf.getCurrentLocationIndex();
-                AccessingImportingBlock r_ = bl_.getImporting();
+                AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(realClassName_);
                 un_.setFileName(r_.getFile().getFileName());

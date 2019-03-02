@@ -3423,6 +3423,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3469,6 +3470,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3515,6 +3517,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3563,6 +3566,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3619,6 +3623,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3667,6 +3672,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);

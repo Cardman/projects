@@ -36,15 +36,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassCategory;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -1270,6 +1262,7 @@ public final class Classes {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (RootBlock c: getClassBodies(_predefined)) {
             _context.setGlobalClass(c.getGenericString());
+            _context.getAnalyzing().setImporting(c);
             c.validateIds(_context);
         }
         if (_predefined) {
@@ -1279,6 +1272,7 @@ public final class Classes {
         _context.setGlobalClass("");
         for (OperatorBlock o: getOperators()) {
             String name_ = o.getName();
+            _context.getAnalyzing().setImporting(o);
             o.buildImportedTypes(_context);
             if (!isOper(name_)) {
                 BadMethodName badMeth_ = new BadMethodName();
@@ -1540,6 +1534,7 @@ public final class Classes {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
         for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
@@ -1620,6 +1615,7 @@ public final class Classes {
         }
         page_.setAssignedStaticFields(true);
         for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
@@ -1706,9 +1702,7 @@ public final class Classes {
                     }
                 }
             }
-            for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
-                b_.put(a.getKey(), a.getValue().assignBefore());
-            }
+            b_.putAllMap(AssignmentsUtil.assignSimpleBefore(assAfter_));
             StringList filteredCtor_ = new StringList();
             if (c instanceof UniqueRootedBlock) {
                 Classes classes_ = _context.getClasses();
@@ -1797,6 +1791,7 @@ public final class Classes {
         StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
         b_.clear();
         for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof MethodBlock) {
@@ -1836,6 +1831,7 @@ public final class Classes {
         _context.setGlobalClass("");
         if (!_predefined) {
             for (OperatorBlock o : getOperators()) {
+                page_.setImporting(o);
                 StringList params_ = o.getParametersNames();
                 StringList types_ = o.getImportedParametersTypes();
                 int len_ = params_.size();
@@ -1853,6 +1849,7 @@ public final class Classes {
         }
         _context.setAnnotAnalysis(true);
         for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
             _context.setGlobalClass(c.getGenericString());
             for (Block b:getSortedDescNodes(c)) {
                 _context.getAnalyzing().setCurrentBlock(b);
@@ -1865,7 +1862,9 @@ public final class Classes {
             }
         }
         if (!_predefined) {
+            _context.setGlobalClass("");
             for (OperatorBlock o : getOperators()) {
+                page_.setImporting(o);
                 o.buildAnnotations(_context);
             }
         }
@@ -1899,6 +1898,7 @@ public final class Classes {
         EqList<ClassField> success_ = new EqList<ClassField>();
         EqList<ClassField> cstFields_ = new EqList<ClassField>();
         for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
@@ -1935,9 +1935,6 @@ public final class Classes {
                 FieldBlock f_ = (FieldBlock) b;
                 for (String f: f_.getFieldName()) {
                     if (StringList.quickEq(f, fieldName_)) {
-//                        if (!f_.isSimpleStaticConstant(f)) {
-//                            continue;
-//                        }
                         filteredCstFields_.add(new ClassField(c.getClassName(), f));
                         EqList<ClassField> deps_ = f_.getStaticConstantDependencies(_context,f);
                         if (deps_.isEmpty()) {

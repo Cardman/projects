@@ -42,7 +42,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);

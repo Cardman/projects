@@ -18,12 +18,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -189,7 +184,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
@@ -244,10 +239,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        boolean static_ = true;
-        if (f_ != null) {
-            static_ = f_.isStaticContext();
-        }
+        boolean static_ = f_.isStaticContext();
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(static_));
         ExecOperationNode initEl_ = opInit.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
@@ -300,77 +292,31 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-            SimpleAssignment ba_ = e.getValue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
-        }
-        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(parAss_.getVariablesRoot()));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<SimpleAssignment> s: parAss_.getMutableLoopRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(parAss_.getMutableLoopRoot()));
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
     @Override
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = new StringMap<AssignmentBefore>();
         variables_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            fields_.put(e.getKey(), e.getValue().copy());
-        }
-        vars_.getFieldsBefore().put(_root, fields_);
+        vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
         if (vars_.getVariablesRoot().isEmpty()) {
-            for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().copy());
-                }
-                variables_.add(sm_);
-            }
+            variables_.addAllElts(AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
         } else {
-            for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignBefore());
-                }
-                variables_.add(sm_);
-            }
+            variables_.addAllElts(AssignmentsUtil.assignSimpleBefore(vars_.getVariablesRoot()));
         }
         vars_.getVariablesBefore().put(_root, variables_);
         CustList<StringMap<AssignmentBefore>> mutable_;
         mutable_ = new CustList<StringMap<AssignmentBefore>>();
         if (vars_.getMutableLoopRoot().isEmpty()) {
-            for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().copy());
-                }
-                mutable_.add(sm_);
-            }
+            mutable_.addAllElts(AssignmentsUtil.copyBefore(vars_.getMutableLoopRootBefore()));
         } else {
-            for (StringMap<SimpleAssignment> s: vars_.getMutableLoopRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignBefore());
-                }
-                mutable_.add(sm_);
-            }
+            mutable_.addAllElts(AssignmentsUtil.assignSimpleBefore(vars_.getMutableLoopRoot()));
         }
         vars_.getMutableLoopBefore().put(_root, mutable_);
     }
@@ -378,48 +324,26 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
-        for (EntryCust<String,Assignment> e: res_.entryList()) {
-            vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
-        }
+        vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
         CustList<StringMap<Assignment>> varsRes_;
         varsRes_ = vars_.getLastVariablesOrEmpty();
         if (vars_.getVariablesRoot().isEmpty()) {
-            for (StringMap<Assignment> s: varsRes_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignClassic());
-                }
-                vars_.getVariablesRoot().add(sm_);
-            }
+            vars_.getVariablesRoot().addAllElts(AssignmentsUtil.assignClassic(varsRes_));
         } else {
             int index_ = 0;
             for (StringMap<Assignment> s: varsRes_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignClassic());
-                }
-                vars_.getVariablesRoot().set(index_, sm_);
+                vars_.getVariablesRoot().set(index_, AssignmentsUtil.assignClassic(s));
                 index_++;
             }
         }
         CustList<StringMap<Assignment>> mutableRes_;
         mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         if (vars_.getMutableLoopRoot().isEmpty()) {
-            for (StringMap<Assignment> s: mutableRes_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignClassic());
-                }
-                vars_.getMutableLoopRoot().add(sm_);
-            }
+            vars_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignClassic(mutableRes_));
         } else {
             int index_ = 0;
             for (StringMap<Assignment> s: mutableRes_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignClassic());
-                }
-                vars_.getMutableLoopRoot().set(index_, sm_);
+                vars_.getMutableLoopRoot().set(index_, AssignmentsUtil.assignClassic(s));
                 index_++;
             }
         }

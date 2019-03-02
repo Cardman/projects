@@ -43,10 +43,6 @@ public final class InternGlobalOperation extends LeafOperation {
         setResultClass(new ClassArgumentMatching(arg_));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-    }
-
     public int getOff() {
         return off;
     }

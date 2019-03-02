@@ -117,11 +117,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
-    @Override
     public final void setIntermediateDotted() {
         intermediate = true;
     }

@@ -60,6 +60,7 @@ public final class TypeUtil {
     public static void checkInterfaces(ContextEl _context, StringList _types, boolean _predefined) {
         Classes classes_ = _context.getClasses();
         for (RootBlock c: classes_.getClassBodies(_predefined)) {
+            _context.getAnalyzing().setImporting(c);
             _context.getAnalyzing().setCurrentBlock(c);
             _context.getAnalyzing().setGlobalClass(c.getGenericString());
             String d_ = c.getFile().getFileName();

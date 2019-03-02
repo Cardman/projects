@@ -2681,7 +2681,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
         xml_.append(" $int infoIntTwo()4i:\n");
         xml_.append("}\n");
-        xml_.append("$operator+ pkg.Ex(@MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
+        xml_.append("$operator+ pkg.Ex(@pkg.MyAnnot(infoIntOne=1i)@pkg.MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
         xml_.append(" $return $null:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -2733,7 +2733,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $annotation pkg.MyAnnot {\n");
         xml_.append("}\n");
-        xml_.append("@MyAnnot\n");
+        xml_.append("@pkg.MyAnnot\n");
         xml_.append("$operator+ pkg.Ex(pkg.Ex p){\n");
         xml_.append(" $return $null:\n");
         xml_.append("}\n");
@@ -2909,7 +2909,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
         xml_.append(" $int infoIntTwo()4i:\n");
         xml_.append("}\n");
-        xml_.append("$operator+ pkg.Ex(@MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
+        xml_.append("$operator+ pkg.Ex(@pkg.MyAnnot(infoIntOne=1i)@pkg.MyAnnotTwo(infoIntTwo=3i) pkg.Ex p){\n");
         xml_.append(" $return $null:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");

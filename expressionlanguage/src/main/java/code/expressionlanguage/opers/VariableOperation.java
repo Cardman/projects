@@ -9,10 +9,7 @@ import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
@@ -132,29 +129,12 @@ public final class VariableOperation extends VariableLeafOperation implements
             }
             boolean isBool_;
             isBool_ = getResultClass().isBoolType(_conf);
-            for (StringMap<AssignmentBefore> s: assB_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
-                }
-                ass_.add(sm_);
-            }
+            ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
             ass_.last().put(variableName, asBe_.assignAfter(isBool_));
-            for (StringMap<AssignmentBefore> s: assM_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
-                }
-                assAfM_.add(sm_);
-            }
-            for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                AssignmentBefore bf_ = e.getValue();
-                assA_.put(e.getKey(), bf_.assignAfter(isBool_));
-            }
+            assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
+            assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
             vars_.getVariables().put(this, ass_);
             vars_.getMutableLoop().put(this, assAfM_);
             vars_.getFields().put(this, assA_);
@@ -169,7 +149,6 @@ public final class VariableOperation extends VariableLeafOperation implements
         }
         
         for (StringMap<AssignmentBefore> s: assB_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                 if (StringList.quickEq(e.getKey(), varName_)) {
                     if (!e.getValue().isAssignedBefore()) {
@@ -181,23 +160,11 @@ public final class VariableOperation extends VariableLeafOperation implements
                         _conf.getClasses().addError(un_);
                     }
                 }
-                AssignmentBefore bf_ = e.getValue();
-                sm_.put(e.getKey(), bf_.assignAfter(isBool_));
             }
-            ass_.add(sm_);
         }
-        for (StringMap<AssignmentBefore> s: assM_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore bf_ = e.getValue();
-                sm_.put(e.getKey(), bf_.assignAfter(isBool_));
-            }
-            assAfM_.add(sm_);
-        }
-        for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-            AssignmentBefore bf_ = e.getValue();
-            assA_.put(e.getKey(), bf_.assignAfter(isBool_));
-        }
+        ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
+        assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
+        assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
         vars_.getMutableLoop().put(this, assAfM_);
         vars_.getVariables().put(this, ass_);
         vars_.getFields().put(this, assA_);

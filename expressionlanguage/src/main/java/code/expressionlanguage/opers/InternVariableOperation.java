@@ -30,13 +30,6 @@ public final class InternVariableOperation extends LeafOperation {
         setResultClass(new ClassArgumentMatching(c_));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
-        analyzeAssignmentAfter(_conf, isBool_);
-    }
-
 
     public String getVariableName() {
         return variableName;

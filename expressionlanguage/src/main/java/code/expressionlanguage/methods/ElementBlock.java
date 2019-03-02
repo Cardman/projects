@@ -12,11 +12,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -165,10 +161,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-                AssignmentBefore asBef_ = e.getValue().assignBefore();
-                assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
-            }
+            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }
@@ -231,9 +224,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-            as_.put(e.getKey(), e.getValue().assignAfterClassic());
-        }
+        as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
         as_.put(fieldName, Assignment.assignClassic(true, false));
     }
 

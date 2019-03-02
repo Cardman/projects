@@ -678,7 +678,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
         if (new_ == null) {
             Block bl_ = _conf.getCurrentBlock();
-            AccessingImportingBlock r_ = bl_.getImporting();
+            AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(cl_);
             un_.setFileName(r_.getFile().getFileName());
@@ -699,7 +699,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             StringMap<StringList> vars_ = _conf.getCurrentConstraints();
             if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
                 Block bl_ = _conf.getCurrentBlock();
-                AccessingImportingBlock r_ = bl_.getImporting();
+                AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(cl_);
                 un_.setFileName(r_.getFile().getFileName());
@@ -1216,10 +1216,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         paramsReturn_.addAllElts(_params);
         paramsReturn_.add(_returnType);
         return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, paramsReturn_.join(Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
-    }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
     }
 
     public final void setStaticAccess(boolean _staticAccess) {

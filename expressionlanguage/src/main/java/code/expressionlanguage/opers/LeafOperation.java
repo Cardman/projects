@@ -7,6 +7,7 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -21,6 +22,13 @@ public abstract class LeafOperation extends OperationNode {
         analyzeAssignmentAfter(_conf, false);
     }
 
+    @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        boolean isBool_;
+        isBool_ = getResultClass().isBoolType(_conf);
+        analyzeAssignmentAfter(_conf, isBool_);
+    }
+
     public void analyzeAssignmentAfter(Analyzable _conf, boolean _bool) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
@@ -28,26 +36,9 @@ public abstract class LeafOperation extends OperationNode {
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
 
-        for (EntryCust<String, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-            AssignmentBefore b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assignAfter(_bool));
-        }
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignAfter(_bool));
-            }
-            variablesAfter_.add(sm_);
-        }
-        for (StringMap<AssignmentBefore> s: vars_.getMutableLoopBefore().getVal(this)) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignAfter(_bool));
-            }
-            mutableAfter_.add(sm_);
-        }
+        fieldsAfter_.putAllMap(AssignmentsUtil.assignAfter(_bool,vars_.getFieldsBefore().getVal(this)));
+        variablesAfter_.addAllElts(AssignmentsUtil.assignAfter(_bool,vars_.getVariablesBefore().getVal(this)));
+        mutableAfter_.addAllElts(AssignmentsUtil.assignAfter(_bool,vars_.getMutableLoopBefore().getVal(this)));
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
         vars_.getMutableLoop().put(this, mutableAfter_);

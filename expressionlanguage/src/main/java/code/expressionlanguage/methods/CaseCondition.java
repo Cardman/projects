@@ -48,11 +48,12 @@ public final class CaseCondition extends SwitchPartBlock {
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         BracedBlock par_ = getParent();
+        boolean stCtx_ = f_.isStaticContext();
         if (!(par_ instanceof SwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -60,7 +61,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
-            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
@@ -96,7 +97,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     checkDuplicateEnumCase(_cont);
                     return;
                 }
-                opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+                opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
                 Argument a_ = opValue.last().getArgument();
                 if (Argument.isNullValue(a_)) {
                     checkDuplicateCase(_cont, a_);
@@ -110,7 +111,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 return;
             }
         }
-        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {

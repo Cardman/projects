@@ -15,11 +15,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.structs.EnumerableStruct;
@@ -89,33 +85,16 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<String, Assignment> e: parAss_.getLastFieldsOrEmpty().entryList()) {
-            Assignment ba_ = e.getValue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
-        }
-        for (StringMap<Assignment> s: parAss_.getLastVariablesOrEmpty()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastFieldsOrEmpty()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastVariablesOrEmpty()));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<Assignment> s: parAss_.getLastMutableLoopOrEmpty()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastMutableLoopOrEmpty()));
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);

@@ -66,7 +66,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
@@ -75,7 +75,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         BracedBlock par_ = getParent();
         while (par_ != null) {
             if (par_ instanceof Returnable) {
-                Returnable meth_ = null;
+                Returnable meth_;
                 meth_ = (Returnable) par_;
                 retType_ = meth_.getImportedReturnType();
                 break;
@@ -89,16 +89,10 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
                 return;
             }
         }
-        if (f_ == null) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
-            return;
-        }
-        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+        boolean stCtx_ = f_.isStaticContext();
+        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(stCtx_));
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!f_.isStaticContext()) {
+        if (!stCtx_) {
             String globalClass_ = page_.getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
             for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {

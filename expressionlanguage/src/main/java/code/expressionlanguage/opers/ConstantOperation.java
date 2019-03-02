@@ -6,11 +6,8 @@ import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.ParsedArgument;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -96,12 +93,16 @@ public final class ConstantOperation extends ConstLeafOperation {
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Argument arg_ = getArgument();
+        setAssignments(this,_conf);
+    }
+
+    public static void setAssignments(OperationNode _current, Analyzable _conf) {
+        Argument arg_ = _current.getArgument();
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
-        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
+        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(_current);
+        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(_current);
+        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(_current);
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
@@ -167,30 +168,12 @@ public final class ConstantOperation extends ConstLeafOperation {
             }
         } else {
             //simple assignment
-            for (StringMap<AssignmentBefore> s: assB_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(false));
-                }
-                ass_.add(sm_);
-            }
-            for (StringMap<AssignmentBefore> s: assM_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(false));
-                }
-                assAfM_.add(sm_);
-            }
-            for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                AssignmentBefore bf_ = e.getValue();
-                assA_.put(e.getKey(), bf_.assignAfter(false));
-            }
+            ass_.addAllElts(AssignmentsUtil.assignAfter(false,assB_));
+            assAfM_.addAllElts(AssignmentsUtil.assignAfter(false,assM_));
+            assA_.putAllMap(AssignmentsUtil.assignAfter(false,assF_));
         }
-        vars_.getVariables().put(this, ass_);
-        vars_.getMutableLoop().put(this, assAfM_);
-        vars_.getFields().put(this, assA_);
+        vars_.getVariables().put(_current, ass_);
+        vars_.getMutableLoop().put(_current, assAfM_);
+        vars_.getFields().put(_current, assA_);
     }
-
 }

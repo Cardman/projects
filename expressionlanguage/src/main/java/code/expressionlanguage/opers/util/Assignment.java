@@ -1,6 +1,8 @@
 package code.expressionlanguage.opers.util;
 
 
+import code.util.StringList;
+
 public abstract class Assignment {
 
     public abstract BooleanAssignment toBoolAssign();
@@ -44,7 +46,13 @@ public abstract class Assignment {
         return ba_;
     }
 
-    
+    public static Assignment assign(String _assVar, String _key,boolean _boolean, Assignment _ass) {
+        boolean assVar_ = StringList.quickEq(_assVar, _key);
+        boolean ass_ = assVar_ || _ass.isAssignedAfter();
+        boolean unass_ = !assVar_ && _ass.isUnassignedAfter();
+        return assign(_boolean,ass_,unass_);
+    }
+
     public static Assignment assign(boolean _boolean, boolean _ass, boolean _una) {
         if (_boolean) {
             BooleanAssignment ba_ = new BooleanAssignment();

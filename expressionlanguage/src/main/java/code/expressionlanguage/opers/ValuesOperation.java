@@ -64,11 +64,6 @@ public final class ValuesOperation extends VariableLeafOperation {
         setResultClass(new ClassArgumentMatching(ret_));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
     public String getClassName() {
         return className;
     }

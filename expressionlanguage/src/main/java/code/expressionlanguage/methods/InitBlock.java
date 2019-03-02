@@ -5,10 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.UnassignedFinalField;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -47,9 +44,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
                 parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
             }
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-                assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
-            }
+            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }

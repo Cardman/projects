@@ -1,10 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CollCapacity;
@@ -36,7 +32,8 @@ public final class AnalyzedPageEl {
 
     private boolean enabledInternVars;
 
-    private String readUrl;
+    private MemberCallingsBlock currentFct;
+    private AccessingImportingBlock importing;
 
     private int offset;
 
@@ -48,9 +45,7 @@ public final class AnalyzedPageEl {
     private int indexChildType;
 
     private boolean ambigous;
-    private boolean directImport;
-    private boolean rootAffect;
-    private boolean analyzingRoot;
+
     private boolean merged;
     private boolean finalVariable;
     private String currentVarSetting;
@@ -312,6 +307,22 @@ public final class AnalyzedPageEl {
 
     public void setStaticContext(boolean _staticContext) {
         staticContext = _staticContext;
+    }
+
+    public MemberCallingsBlock getCurrentFct() {
+        return currentFct;
+    }
+
+    public void setCurrentFct(MemberCallingsBlock _currentFct) {
+        currentFct = _currentFct;
+    }
+
+    public AccessingImportingBlock getImporting() {
+        return importing;
+    }
+
+    public void setImporting(AccessingImportingBlock _importing) {
+        importing = _importing;
     }
 
     public int getIndexChildType() {

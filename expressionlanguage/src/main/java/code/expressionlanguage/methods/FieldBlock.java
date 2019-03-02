@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.exec.ExecMethodOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.structs.Struct;
@@ -191,9 +192,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
             }
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-                assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
-            }
+            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }

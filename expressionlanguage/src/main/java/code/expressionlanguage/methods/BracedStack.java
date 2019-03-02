@@ -11,14 +11,7 @@ import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.VariableOperation;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -37,28 +30,9 @@ public abstract class BracedStack extends BracedBlock {
     
     protected void buildConditions(ContextEl _cont) {
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-        for (EntryCust<String,Assignment> e: res_.getLastFieldsOrEmpty().entryList()) {
-            BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
-            res_.getFieldsRootAfter().put(e.getKey(), ba_);
-        }
-        for (StringMap<Assignment> s: res_.getLastVariablesOrEmpty()) {
-            StringMap<BooleanAssignment> sm_;
-            sm_ = new StringMap<BooleanAssignment>();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
-                sm_.put(e.getKey(), ba_);
-            }
-            res_.getVariablesRootAfter().add(sm_);
-        }
-        for (StringMap<Assignment> s: res_.getLastMutableLoopOrEmpty()) {
-            StringMap<BooleanAssignment> sm_;
-            sm_ = new StringMap<BooleanAssignment>();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
-                sm_.put(e.getKey(), ba_);
-            }
-            res_.getMutableLoopRootAfter().add(sm_);
-        }
+        res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastFieldsOrEmpty()));
+        res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.toBoolAssign(res_.getLastVariablesOrEmpty()));
+        res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.toBoolAssign(res_.getLastMutableLoopOrEmpty()));
     }
     protected void assignWhenFalse(boolean _add,Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_;
@@ -77,29 +51,9 @@ public abstract class BracedStack extends BracedBlock {
             return;
         }
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = ba_.copyWhenFalse();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenFalse();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getMutableLoopRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenFalse();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenFalse(abv_.getFieldsRootAfter()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenFalse(abv_.getVariablesRootAfter()));
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenFalse(abv_.getMutableLoopRootAfter()));
         if (_add) {
             assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
             assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
@@ -112,30 +66,10 @@ public abstract class BracedStack extends BracedBlock {
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = ba_.copyWhenTrue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenTrue();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenTrue(abv_.getFieldsRootAfter()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenTrue(abv_.getVariablesRootAfter()));
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenTrue(abv_.getMutableLoopRootAfter()));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<BooleanAssignment> s: abv_.getMutableLoopRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenTrue();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }

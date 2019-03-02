@@ -68,10 +68,6 @@ public final class StaticInfoOperation extends VariableLeafOperation implements 
         a_.setStruct(_conf.getExtendedClassMetaInfo(_className));
         _current.setSimpleArgumentAna(a_, _conf);
     }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
 
     public String getClassName() {
         return className;

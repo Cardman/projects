@@ -9,16 +9,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -137,9 +128,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                             }
                         }
                     }
-                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
-                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(), Assignment.assign(str_, e.getKey(), isBool_, e.getValue()));
                 }
                 variablesAfter_.add(sm_);
             }
@@ -148,13 +137,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 firstChild_ = realFirstChild_;
             }
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
+            variablesAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
         }
         vars_.getVariables().put(this, variablesAfter_);
         if (firstChild_ instanceof MutableLoopVariableOperation) {
@@ -177,9 +160,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                             }
                         }
                     }
-                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
-                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(), Assignment.assign(str_, e.getKey(), isBool_, e.getValue()));
                 }
                 mutableAfter_.add(sm_);
             }
@@ -189,13 +170,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 firstChild_ = realFirstChild_;
             }
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(firstChild_);
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
-                mutableAfter_.add(sm_);
-            }
+            mutableAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
         }
         vars_.getMutableLoop().put(this, mutableAfter_);
         boolean fromCurClass_ = false;
@@ -221,18 +196,14 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                boolean ass_ = StringList.quickEq(cl_.getFieldName(), e.getKey()) || e.getValue().isAssignedAfter();
-                boolean unass_ = !StringList.quickEq(cl_.getFieldName(), e.getKey()) && e.getValue().isUnassignedAfter();
-                fieldsAfter_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
+                fieldsAfter_.put(e.getKey(), Assignment.assign(cl_.getFieldName(), e.getKey(), isBool_, e.getValue()));
             }
         } else {
             if (settable == null) {
                 firstChild_ = realFirstChild_;
             }
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
-            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
-            }
+            fieldsAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,fieldsAfterLast_));
         }
         vars_.getFields().put(this, fieldsAfter_);
     }

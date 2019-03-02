@@ -6,10 +6,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -64,35 +61,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
         mutableAfter_ = vars_.getMutableLoop().getVal(_previous);
-        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
-        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
-            BooleanAssignment b_ = e.getValue().toBoolAssign();
-            AssignmentBefore a_ = b_.copyWhenTrue();
-            fieldsBefore_.put(e.getKey(), a_);
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenTrue();
-                sm_.put(e.getKey(), a_);
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-        CustList<StringMap<AssignmentBefore>> mutableBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<Assignment> s: mutableAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenTrue();
-                sm_.put(e.getKey(), a_);
-            }
-            mutableBefore_.add(sm_);
-        }
-        vars_.getMutableLoopBefore().put(_nextSibling, mutableBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, AssignmentsUtil.assignWhenTrue(fieldsAfter_));
+        vars_.getVariablesBefore().put(_nextSibling, AssignmentsUtil.assignWhenTrue(variablesAfter_));
+        vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignWhenTrue(mutableAfter_));
     }
     public static void analyzeFalseAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
@@ -103,35 +74,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
         mutableAfter_ = vars_.getMutableLoop().getVal(_previous);
-        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
-        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
-            BooleanAssignment b_ = e.getValue().toBoolAssign();
-            AssignmentBefore a_ = b_.copyWhenFalse();
-            fieldsBefore_.put(e.getKey(), a_);
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenFalse();
-                sm_.put(e.getKey(), a_);
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-        CustList<StringMap<AssignmentBefore>> mutableBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<Assignment> s: mutableAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenFalse();
-                sm_.put(e.getKey(), a_);
-            }
-            mutableBefore_.add(sm_);
-        }
-        vars_.getMutableLoopBefore().put(_nextSibling, mutableBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, AssignmentsUtil.assignWhenFalse(fieldsAfter_));
+        vars_.getVariablesBefore().put(_nextSibling, AssignmentsUtil.assignWhenFalse(variablesAfter_));
+        vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignWhenFalse(mutableAfter_));
     }
     public static void analyzeStdAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
@@ -142,34 +87,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
         mutableAfter_ = vars_.getMutableLoop().getVal(_previous);
-        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<AssignmentBefore>> mutableBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        //TODO null fieldsAfter_ when local vars: a = value: duplicate field
-        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsBefore_.put(e.getKey(), b_.assignBefore());
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-        for (StringMap<Assignment> s: mutableAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            mutableBefore_.add(sm_);
-        }
-        vars_.getMutableLoopBefore().put(_nextSibling, mutableBefore_);
+        vars_.getFieldsBefore().put(_nextSibling, AssignmentsUtil.assignBefore(fieldsAfter_));
+        vars_.getVariablesBefore().put(_nextSibling, AssignmentsUtil.assignBefore(variablesAfter_));
+        vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignBefore(mutableAfter_));
     }
     public void analyzeStdAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
@@ -182,26 +102,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
         if (filter_.isEmpty()) {
-            for (EntryCust<String, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
-            }
-            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
-            for (StringMap<AssignmentBefore> s: vars_.getMutableLoopBefore().getVal(this)) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
-                }
-                mutableAfter_.add(sm_);
-            }
+            fieldsAfter_.putAllMap(AssignmentsUtil.assignAfter(isBool_,vars_.getFieldsBefore().getVal(this)));
+            variablesAfter_.addAllElts(AssignmentsUtil.assignAfter(isBool_,vars_.getVariablesBefore().getVal(this)));
+            mutableAfter_.addAllElts(AssignmentsUtil.assignAfter(isBool_,vars_.getMutableLoopBefore().getVal(this)));
             vars_.getFields().put(this, fieldsAfter_);
             vars_.getVariables().put(this, variablesAfter_);
             vars_.getMutableLoop().put(this, mutableAfter_);
@@ -211,26 +114,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
         CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getMutableLoop().getVal(last_);
-        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(isBool_));
-            }
-            variablesAfter_.add(sm_);
-        }
-        for (StringMap<Assignment> s: mutableAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(isBool_));
-            }
-            mutableAfter_.add(sm_);
-        }
+        fieldsAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,fieldsAfterLast_));
+        variablesAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
+        mutableAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,mutableAfterLast_));
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
         vars_.getMutableLoop().put(this, mutableAfter_);

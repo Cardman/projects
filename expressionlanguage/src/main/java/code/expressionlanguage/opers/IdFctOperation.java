@@ -104,11 +104,6 @@ public final class IdFctOperation extends ConstLeafOperation {
         return new MethodId(_static, _name, out_, vararg_ != -1);
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeNotBoolAssignmentAfter(_conf);
-    }
-
     public ClassMethodId getMethod() {
         return method;
     }

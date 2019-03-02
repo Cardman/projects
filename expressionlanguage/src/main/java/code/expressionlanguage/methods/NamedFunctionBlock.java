@@ -156,6 +156,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         int off_ = getOffset().getOffsetTrim();
         int i_ = 0;
         _stds.getAnalyzing().setCurrentBlock(this);
+        _stds.getAnalyzing().setCurrentFct(this);
         _stds.getAnalyzing().setGlobalOffset(off_);
         for (String p: parametersTypes) {
             _stds.getAnalyzing().setOffset(parametersTypesOffset.get(i_));

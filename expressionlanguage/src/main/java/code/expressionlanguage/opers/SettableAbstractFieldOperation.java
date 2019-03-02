@@ -12,15 +12,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -229,161 +221,60 @@ public abstract class SettableAbstractFieldOperation extends
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
-            if (arg_.getStruct() instanceof BooleanStruct) {
-                Boolean value_ = ((BooleanStruct)arg_.getStruct()).getInstance();
-                //boolean constant assignment
-                for (StringMap<AssignmentBefore> s: assB_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                        AssignmentBefore bf_ = e.getValue();
-                        BooleanAssignment b_ = new BooleanAssignment();
-                        if (value_) {
-                            b_.setAssignedAfterWhenFalse(true);
-                            b_.setUnassignedAfterWhenFalse(true);
-                            b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                            b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                        } else {
-                            b_.setAssignedAfterWhenTrue(true);
-                            b_.setUnassignedAfterWhenTrue(true);
-                            b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                            b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                        }
-                        sm_.put(e.getKey(), b_);
-                    }
-                    ass_.add(sm_);
-                }
-                for (StringMap<AssignmentBefore> s: assM_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                        AssignmentBefore bf_ = e.getValue();
-                        BooleanAssignment b_ = new BooleanAssignment();
-                        if (value_) {
-                            b_.setAssignedAfterWhenFalse(true);
-                            b_.setUnassignedAfterWhenFalse(true);
-                            b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                            b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                        } else {
-                            b_.setAssignedAfterWhenTrue(true);
-                            b_.setUnassignedAfterWhenTrue(true);
-                            b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                            b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                        }
-                        sm_.put(e.getKey(), b_);
-                    }
-                    assAfM_.add(sm_);
-                }
-                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    BooleanAssignment b_ = new BooleanAssignment();
-                    if (value_) {
-                        b_.setAssignedAfterWhenFalse(true);
-                        b_.setUnassignedAfterWhenFalse(true);
-                        b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                    } else {
-                        b_.setAssignedAfterWhenTrue(true);
-                        b_.setUnassignedAfterWhenTrue(true);
-                        b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                    }
-                    assA_.put(e.getKey(), b_);
-                }
-            } else {
-                //simple assignment
-                for (StringMap<AssignmentBefore> s: assB_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                        AssignmentBefore bf_ = e.getValue();
-                        sm_.put(e.getKey(), bf_.assignAfter(false));
-                    }
-                    ass_.add(sm_);
-                }
-                for (StringMap<AssignmentBefore> s: assM_) {
-                    StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                    for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                        AssignmentBefore bf_ = e.getValue();
-                        sm_.put(e.getKey(), bf_.assignAfter(false));
-                    }
-                    assAfM_.add(sm_);
-                }
-                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    assA_.put(e.getKey(), bf_.assignAfter(false));
-                }
-            }
+            ConstantOperation.setAssignments(this,_conf);
+            return;
+        }
+        boolean isBool_;
+        isBool_ = getResultClass().isBoolType(_conf);
+        ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
+        assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
+        boolean procField_ = isFromCurrentClass(_conf);
+        ClassField cl_ = getFieldId();
+        MethodOperation par_ = getParent();
+        if (par_ instanceof AffectationOperation && isFirstChild()) {
+            procField_ = false;
         } else {
-            boolean isBool_;
-            isBool_ = getResultClass().isBoolType(_conf);
-            for (StringMap<AssignmentBefore> s: assB_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
+            if (par_ instanceof DotOperation) {
+                boolean cancelCheck_ = false;
+                if (par_.getFirstChild() instanceof ThisOperation) {
+                    cancelCheck_ = true;
+                } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
+                    cancelCheck_ = true;
                 }
-                ass_.add(sm_);
-            }
-            for (StringMap<AssignmentBefore> s: assM_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
-                }
-                assAfM_.add(sm_);
-            }
-            boolean procField_ = isFromCurrentClass(_conf);
-            ClassField cl_ = getFieldId();
-            MethodOperation par_ = getParent();
-            if (par_ instanceof AffectationOperation && isFirstChild()) {
-                procField_ = false;
-            } else {
-                if (par_ instanceof DotOperation) {
-                    boolean cancelCheck_ = false;
-                    if (par_.getFirstChild() instanceof ThisOperation) {
-                        cancelCheck_ = true;
-                    } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
-                        cancelCheck_ = true;
+                if (cancelCheck_) {
+                    if (par_.getParent() instanceof AffectationOperation && par_.isFirstChild()) {
+                        procField_ = false;
                     }
-                    if (cancelCheck_) {
-                        if (par_.getParent() instanceof AffectationOperation && par_.isFirstChild()) {
-                            procField_ = false;
-                        }
-                    }
-                }
-            }
-            if (cl_ == null) {
-                procField_ = false;
-            } else if (_conf.isAssignedStaticFields()) {
-                FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                if (meta_.isStaticField()) {
-                    procField_ = false;
-                }
-            }
-            if (_conf.isAssignedFields()) {
-                procField_ = false;
-            }
-            if (!procField_) {
-                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    assA_.put(e.getKey(), bf_.assignAfter(isBool_));
-                }
-            } else {
-                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                    if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                        FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                        if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
-                            //error if final field
-                            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                            un_.setFileName(_conf.getCurrentFileName());
-                            un_.setIndexFile(_conf.getCurrentLocationIndex());
-                            _conf.getClasses().addError(un_);
-                        }
-                    }
-                    AssignmentBefore bf_ = e.getValue();
-                    assA_.put(e.getKey(), bf_.assignAfter(isBool_));
                 }
             }
         }
+        if (cl_ == null) {
+            procField_ = false;
+        } else if (_conf.isAssignedStaticFields()) {
+            FieldInfo meta_ = _conf.getFieldInfo(cl_);
+            if (meta_.isStaticField()) {
+                procField_ = false;
+            }
+        }
+        if (_conf.isAssignedFields()) {
+            procField_ = false;
+        }
+        if (procField_) {
+            for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
+                if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
+                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                    if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
+                        //error if final field
+                        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setFileName(_conf.getCurrentFileName());
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        _conf.getClasses().addError(un_);
+                    }
+                }
+            }
+        }
+        assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
         vars_.getVariables().put(this, ass_);
         vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);

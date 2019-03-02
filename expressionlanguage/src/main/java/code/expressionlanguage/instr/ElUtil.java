@@ -144,12 +144,12 @@ public final class ElUtil {
             _context.setOkNumOp(true);
             current_.setStaticBlock(_staticBlock);
             current_.analyze(_context);
-            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
-                current_.tryAnalyzeAssignmentAfter(_context);
-            }
             current_.setOrder(_sortedNodes.size());
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context);
+            }
+            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
+                current_.tryAnalyzeAssignmentAfter(_context);
             }
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
@@ -190,11 +190,11 @@ public final class ElUtil {
                 if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
                     cl_.setUnwrapObject(cl_);
                 }
+                par_.tryCalculateNode(_context);
                 if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
                 par_.setOrder(_sortedNodes.size());
-                par_.tryCalculateNode(_context);
                 _sortedNodes.add(par_);
                 return null;
             }

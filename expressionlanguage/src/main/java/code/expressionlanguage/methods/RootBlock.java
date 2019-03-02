@@ -534,9 +534,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         _context.getClasses().addError(badMeth_);
                     }
                 }
-                if (name_.isEmpty()) {
-                    name_ = className_;
-                }
                 if (method_ instanceof MethodBlock) {
                     MethodId id_ = ((MethodBlock) method_).getId();
                     if (this instanceof EnumBlock) {

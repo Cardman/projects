@@ -4,6 +4,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -66,31 +67,14 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
         CustList<StringMap<AssignmentBefore>> mutable_;
-        fields_ = new StringMap<AssignmentBefore>();
         variables_ = parAss_.getVariablesRootBefore();
         mutable_ = parAss_.getMutableLoopRootBefore();
-        for (EntryCust<String,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
-            fields_.put(e.getKey(), e.getValue().copy());
-        }
-        assBl_.getFieldsRootBefore().putAllMap(fields_);
-        for (StringMap<AssignmentBefore> s: variables_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.copyBefore(parAss_.getFieldsRootBefore()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.copyBefore(variables_));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<AssignmentBefore> s: mutable_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.copyBefore(mutable_));
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
@@ -102,39 +86,12 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             AssignedVariables ass_ = id_.getVal(this);
             StringMap<AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
             CustList<StringMap<AssignmentBefore>> variables_ = ass_.getVariablesRootBefore();
-            StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-            CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-            for (EntryCust<String,AssignmentBefore> e: fields_.entryList()) {
-                AssignmentBefore ab_ = e.getValue();
-                String key_ = e.getKey();
-                after_.put(key_, ab_.assignAfterClassic());
-            }
-            ass_.getFieldsRoot().putAllMap(after_);
-            for (StringMap<AssignmentBefore> s: variables_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore ab_ = e.getValue();
-                    String key_ = e.getKey();
-                    sm_.put(key_, ab_.assignAfterClassic());
-                }
-                afterVars_.add(sm_);
-            }
+            ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(fields_));
             ass_.getVariablesRoot().clear();
-            ass_.getVariablesRoot().addAllElts(afterVars_);
-            CustList<StringMap<SimpleAssignment>> afterMutable_;
-            afterMutable_ = new CustList<StringMap<SimpleAssignment>>();
+            ass_.getVariablesRoot().addAllElts(AssignmentsUtil.assignAfterClassic(variables_));
             CustList<StringMap<AssignmentBefore>> mutable_ = ass_.getMutableLoopRootBefore();
-            for (StringMap<AssignmentBefore> s: mutable_) {
-                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore ab_ = e.getValue();
-                    String key_ = e.getKey();
-                    sm_.put(key_, ab_.assignAfterClassic());
-                }
-                afterMutable_.add(sm_);
-            }
             ass_.getMutableLoopRoot().clear();
-            ass_.getMutableLoopRoot().addAllElts(afterMutable_);
+            ass_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignAfterClassic(mutable_));
             return;
         }
         while (ch_.getNextSibling() != null) {

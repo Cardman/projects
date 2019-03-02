@@ -21,11 +21,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
@@ -150,27 +146,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-            SimpleAssignment ba_ = e.getValue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
-        }
-        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(parAss_.getVariablesRoot()));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        for (StringMap<SimpleAssignment> s: parAss_.getMutableLoopRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
-                sm_.put(e.getKey(), ba_.assignBefore());
-            }
-            assBl_.getMutableLoopRootBefore().add(sm_);
-        }
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(parAss_.getMutableLoopRoot()));
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
@@ -178,7 +157,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         return importedClassName;
     }
     public void buildEl(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = _cont.resolveCorrectType(classIndexName);
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(importedClassIndexName, _cont)) {
             Mapping mapping_ = new Mapping();
@@ -223,18 +202,11 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        boolean static_ = true;
-        if (f_ != null) {
-            static_ = f_.isStaticContext();
-        }
+        boolean static_ = f_.isStaticContext();
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
-        if (f_ == null) {
-            importedClassName = _cont.getStandards().getAliasObject();
-            return;
-        }
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
@@ -293,7 +265,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
     public abstract StringList getInferredIterable(StringList _types,ContextEl _cont);
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        FunctionBlock f_ = getFunction();
+        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.size() == 1) {
             String type_ = _types.first();
@@ -331,27 +303,14 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 }
             }
         } else {
-            if (_types.isEmpty()) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(_cont.getStandards().getAliasObject());
-                mapping_.setParam(_cont.getStandards().getAliasIterable());
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(getFile().getFileName());
-                cast_.setIndexFile(expressionOffset);
-                _cont.getClasses().addError(cast_);
-            }
-            String iterable_ = _cont.getStandards().getAliasIterable();
-            for (String e: _types) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(e);
-                mapping_.setParam(iterable_);
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(getFile().getFileName());
-                cast_.setIndexFile(expressionOffset);
-                _cont.getClasses().addError(cast_);
-            }
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(_cont.getStandards().getAliasObject());
+            mapping_.setParam(_cont.getStandards().getAliasIterable());
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(getFile().getFileName());
+            cast_.setIndexFile(expressionOffset);
+            _cont.getClasses().addError(cast_);
         }
     }
     public void putVariable(ContextEl _cont) {
