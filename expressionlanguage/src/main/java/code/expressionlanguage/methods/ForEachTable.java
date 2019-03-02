@@ -102,6 +102,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return label;
     }
 
+    public int getExpressionOffset() {
+        return expressionOffset;
+    }
+
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -529,6 +533,46 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return new AssignedBooleanVariables();
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public String getClassNameFirst() {
+        return classNameFirst;
+    }
+
+    public String getVariableNameFirst() {
+        return variableNameFirst;
+    }
+
+    public String getClassNameSecond() {
+        return classNameSecond;
+    }
+
+    public String getVariableNameSecond() {
+        return variableNameSecond;
+    }
+
+    public int getClassNameOffsetFirst() {
+        return classNameOffsetFirst;
+    }
+
+    public int getClassNameOffsetSecond() {
+        return classNameOffsetSecond;
+    }
+
+    public int getVariableNameOffsetFirst() {
+        return variableNameOffsetFirst;
+    }
+
+    public int getVariableNameOffsetSecond() {
+        return variableNameOffsetSecond;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
@@ -545,12 +589,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                 processLastElementLoop(_cont);
                 return;
             }
-            if (c_.isFinished()) {
-                removeVarAndLoop(ip_);
-                processBlock(_cont);
-                return;
-            }
-            ip_.getReadWrite().setBlock(getFirstChild());
+            removeVarAndLoop(ip_);
+            processBlock(_cont);
             return;
         }
         LgNames stds_ = _cont.getStandards();
@@ -595,31 +635,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
-        boolean finished_ = false;
-        if (iterStr_ != null) {
-            Boolean has_ = iteratorHasNext(_cont);
-            if (has_ == null) {
-                return;
-            }
-            finished_ = !has_;
-            if (_cont.callsOrException()) {
-                return;
-            }
-        }
-        if (finished_) {
-            removeVarAndLoop(ip_);
-            _cont.getLastPage().clearCurrentEls();
-            l_.setEvaluatingKeepLoop(false);
-            processBlock(_cont);
-            return;
-        }
-        StringMap<LoopVariable> vars_ = ip_.getVars();
-        incrementLoop(_cont, l_, vars_);
-        if (_cont.callsOrException()) {
-            return;
-        }
-        l_.setEvaluatingKeepLoop(false);
-        ip_.getReadWrite().setBlock(getFirstChild());
+        iteratorHasNext(_cont);
     }
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
@@ -660,31 +676,19 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
         l_.setEvaluatingKeepLoop(true);
-        boolean hasNext_;
-        if (l_.getStructIterator() != null) {
-            Boolean has_ = iteratorHasNext(_conf);
-            if (has_ == null) {
-                return;
-            }
-            hasNext_ = has_;
-        } else {
-            hasNext_ = l_.hasNext();
+        Boolean has_ = iteratorHasNext(_conf);
+        if (has_ == null) {
+            return;
         }
-        
+        boolean hasNext_ = has_;
+
         if (hasNext_) {
             incrementLoop(_conf, l_, vars_);
-            if (_conf.callsOrException()) {
-                if (_conf.calls()) {
-                    return;
-                }
-                l_.setEvaluatingKeepLoop(false);
-                return;
-            }
         } else {
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
+            l_.setEvaluatingKeepLoop(false);
         }
-        l_.setEvaluatingKeepLoop(false);
     }
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
@@ -746,6 +750,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         call_.clearCurrentEls();
+        call_.getReadWrite().setBlock(getFirstChild());
     }
     private Boolean iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();

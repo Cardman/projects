@@ -696,18 +696,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             abs_.getInternVars().put(locName_, locVar_);
             ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
             arg_ = dyn_.calculateMember(_conf);
-//            if (_conf.callsOrException()) {
-//                return;
-//            }
-//            abs_.clearCurrentEls();
-//            element_ = arg_.getStruct();
         } else {
             Struct container_ = lv_.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
-//            if (_conf.hasExceptionOrFailInit()) {
-//                return;
-//            }
         }
         if (_conf.callsOrException()) {
             return;
@@ -719,7 +711,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             arg_ = new Argument(element_);
         }
         String className_ = abs_.formatVarType(importedClassName, _conf);
-//        Argument arg_ = new Argument(element_);
         if (!Templates.checkObject(className_, arg_, _conf)) {
             return;
         }
