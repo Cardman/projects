@@ -1804,19 +1804,16 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             imports_.add(r_.getImports());
-            roots_.add(r_);
             for (RootBlock r: r_.getAllParentTypes()) {
                 imports_.add(r.getImports());
-                roots_.add(r);
             }
         } else {
             imports_.add(_rooted.getImports());
-            roots_.add(_rooted);
         }
+        imports_.add(_rooted.getFile().getImports());
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains("..")) {
@@ -1834,18 +1831,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return types_.first();
             }
             types_.clear();
-        }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains("..")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-            if (!StringList.quickEq(end_, look_)) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-            types_.add(typeLoc_);
         }
         if (types_.size() == 1) {
             return types_.first();
@@ -1869,18 +1854,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains("..")) {
-                continue;
-            }
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")));
-            String typeLoc_ = StringList.concat(begin_,"..",look_);
-            types_.add(typeLoc_);
-        }
         if (types_.size() == 1) {
             return types_.first();
         }
@@ -1891,19 +1864,16 @@ public abstract class ContextEl implements ExecutableCode {
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
         String keyWordStatic_ = keyWords.getKeyWordStatic();
-        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             imports_.add(r_.getImports());
-            roots_.add(r_);
             for (RootBlock r: r_.getAllParentTypes()) {
                 imports_.add(r.getImports());
-                roots_.add(r);
             }
         } else {
             imports_.add(_rooted.getImports());
-            roots_.add(_rooted);
         }
+        imports_.add(_rooted.getFile().getImports());
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains(".")) {
@@ -1929,26 +1899,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return types_.first();
             }
             types_.clear();
-        }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, look_)) {
-                continue;
-            }
-            String beginImp_ = begin_;
-            String pre_ = EMPTY_PREFIX;
-            if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                pre_ = keyWordStatic_;
-            }
-            String typeInner_ = StringList.concat(beginImp_, look_);
-            String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
-            String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-            types_.add(typeLoc_);
         }
         if (types_.size() == 1) {
             return types_.first();
@@ -1987,26 +1937,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String beginImp_ = begin_;
-            String pre_ = EMPTY_PREFIX;
-            if (startsWithKeyWord(begin_, keyWordStatic_)) {
-                beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
-                pre_ = keyWordStatic_;
-            }
-            String typeInner_ = StringList.concat(beginImp_, look_);
-            String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
-            String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
-            types_.add(typeLoc_);
-        }
         if (types_.size() == 1) {
             return types_.first();
         }
@@ -2022,19 +1952,16 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             imports_.add(r_.getImports());
-            roots_.add(r_);
             for (RootBlock r: r_.getAllParentTypes()) {
                 imports_.add(r.getImports());
-                roots_.add(r);
             }
         } else {
             imports_.add(_rooted.getImports());
-            roots_.add(_rooted);
         }
+        imports_.add(_rooted.getFile().getImports());
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList s: imports_) {
             for (String i: s) {
@@ -2059,24 +1986,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return types_.first();
             }
             types_.clear();
-        }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (startsWithKeyWord(i, keyWordStatic_)) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, look_)) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            types_.add(typeLoc_);
         }
         if (types_.size() == 1) {
             return types_.first();
@@ -2113,24 +2022,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (startsWithKeyWord(i, keyWordStatic_)) {
-                continue;
-            }
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",look_);
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            types_.add(typeLoc_);
-        }
         if (types_.size() == 1) {
             return types_.first();
         }
@@ -2147,19 +2038,16 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             imports_.add(r_.getImports());
-            roots_.add(r_);
             for (RootBlock r: r_.getAllParentTypes()) {
                 imports_.add(r.getImports());
-                roots_.add(r);
             }
         } else {
             imports_.add(_rooted.getImports());
-            roots_.add(_rooted);
         }
+        imports_.add(_rooted.getFile().getImports());
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList s: imports_) {
             for (String i: s) {
@@ -2185,25 +2073,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return types_.first();
             }
             types_.clear();
-        }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            String typeImp_ = i;
-            if (startsWithKeyWord(i, keyWordStatic_)) {
-                typeImp_ = i.substring(keyWordStatic_.length()).trim();
-            }
-            String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")+1));
-            String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, look_)) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            types_.add(typeLoc_);
         }
         if (types_.size() == 1) {
             return types_.first();
@@ -2241,25 +2110,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        for (String i: _rooted.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            String typeImp_ = i;
-            if (startsWithKeyWord(i, keyWordStatic_)) {
-                typeImp_ = i.substring(keyWordStatic_.length()).trim();
-            }
-            String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",look_);
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            types_.add(typeLoc_);
-        }
         if (types_.size() == 1) {
             return types_.first();
         }
@@ -2287,6 +2137,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else {
             imports_.add(type_.getImports());
         }
+        imports_.add(type_.getFile().getImports());
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         int import_ = 1;
         for (StringList t: imports_) {
@@ -2332,48 +2183,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             import_++;
         }
-        for (String i: type_.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                continue;
-            }
-            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
-                    continue;
-                }
-            }
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _method.trim())) {
-                continue;
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                    if (!e.isStaticMethod()) {
-                        continue;
-                    }
-                    if (!StringList.quickEq(end_, e.getId().getName())) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    methods_.add(clMet_, import_);
-                }
-            }
-        }
-        import_++;
         for (StringList t: imports_) {
             for (String i: t) {
                 if (!i.contains(".")) {
@@ -2418,47 +2227,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             import_++;
         }
-        for (String i: type_.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                continue;
-            }
-            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
-                    continue;
-                }
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                    if (!e.isStaticMethod()) {
-                        continue;
-                    }
-                    if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    methods_.add(clMet_, import_);
-                }
-            }
-        }
         return methods_;
     }
 
@@ -2480,6 +2248,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else {
             imports_.add(type_.getImports());
         }
+        imports_.add(type_.getFile().getImports());
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
@@ -2524,47 +2293,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             import_++;
         }
-        for (String i: type_.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                continue;
-            }
-            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
-                    continue;
-                }
-            }
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _method.trim())) {
-                continue;
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                    if (!e.isStaticField()) {
-                        continue;
-                    }
-                    if (!e.getFieldName().containsStr(end_)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassField field_ = new ClassField(s, _method);
-                    methods_.add(field_, import_);
-                }
-            }
-        }
         for (StringList t: imports_) {
             for (String i: t) {
                 if (!i.contains(".")) {
@@ -2608,47 +2336,6 @@ public abstract class ContextEl implements ExecutableCode {
                 }
             }
             import_++;
-        }
-        for (String i: type_.getFile().getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
-                continue;
-            }
-            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
-                    continue;
-                }
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                    if (!e.isStaticField()) {
-                        continue;
-                    }
-                    if (!e.getFieldName().containsStr(_method.trim())) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassField field_ = new ClassField(s, _method);
-                    methods_.add(field_, import_);
-                }
-            }
         }
         return methods_;
     }

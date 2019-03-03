@@ -8,6 +8,7 @@ public class FieldResult {
     private SearchingMemberStatus status;
 
     private int anc;
+    private int order;
 
     public FieldInfo getId() {
         return id;
@@ -31,5 +32,13 @@ public class FieldResult {
 
     public void setAnc(int _anc) {
         anc = _anc;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int _order) {
+        order = _order;
     }
 }
