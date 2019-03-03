@@ -194,8 +194,8 @@ public abstract class Block {
     }
 
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
-        if (_block instanceof WithEl) {
-            ((WithEl)_block).buildExpressionLanguage(_cont);
+        if (_block instanceof BuildableElMethod) {
+            ((BuildableElMethod)_block).buildExpressionLanguage(_cont);
             return;
         }
         UnexpectedTagName un_ = new UnexpectedTagName();

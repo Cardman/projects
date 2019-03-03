@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
 
-public final class DeclareVariable extends Leaf implements InitVariable {
+public final class DeclareVariable extends Leaf implements InitVariable,BuildableElMethod {
 
     private final StringList variableNames = new StringList();
 

@@ -112,18 +112,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     String retDerive_ = mBase_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(c, retDerive_, _context);
                     String formattedRetBase_ = Templates.quickFormat(s, retBase_, _context);
-                    if (StringList.quickEq(retBase_, void_)) {
-                        if (!StringList.quickEq(retDerive_, void_)) {
-                            BadReturnTypeInherit err_;
-                            err_ = new BadReturnTypeInherit();
-                            err_.setFileName(getFile().getFileName());
-                            err_.setIndexFile(mBase_.getReturnTypeOffset());
-                            err_.setReturnType(retDerive_);
-                            err_.setMethod(mBase_.getId());
-                            err_.setParentClass(c);
-                            classesRef_.addError(err_);
-                        }
-                    } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
+                    if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFile().getFileName());

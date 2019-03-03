@@ -54,7 +54,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
             setAssignmentBeforeCall(_cont, anEl_);
-            reach(_cont, anEl_);
+            anEl_.reach(this);
             abrupt(_cont, anEl_);
             setAssignmentAfterCall(_cont, anEl_);
             return;
@@ -70,10 +70,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             }
             if (en_ == this) {
                 setAssignmentBeforeCall(_cont,anEl_);
+                anEl_.reach(this);
             } else {
                 en_.setAssignmentBefore(_cont, anEl_);
+                en_.reach(_cont, anEl_);
             }
-            en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
                 //error
                 DeadCodeMethod deadCode_ = new DeadCodeMethod();
@@ -209,9 +210,5 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     @Override
     public Numbers<Integer> getAnnotationsIndexes() {
         return annotationsIndexes;
-    }
-    @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
-        _anEl.reach(this);
     }
 }

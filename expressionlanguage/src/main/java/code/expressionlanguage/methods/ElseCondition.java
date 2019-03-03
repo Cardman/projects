@@ -15,7 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class ElseCondition extends BracedStack implements BlockCondition {
+public final class ElseCondition extends BracedStack implements BlockCondition, BuildableElMethod {
 
     public ElseCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {

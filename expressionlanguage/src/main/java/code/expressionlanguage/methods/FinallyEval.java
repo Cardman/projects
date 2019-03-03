@@ -74,7 +74,7 @@ public final class FinallyEval extends BracedStack implements Eval {
                 }
                 for (EntryCust<String, SimpleAssignment> f: _anEl.getAssignments().getVal(e.getKey()).entryList()) {
                     SimpleAssignment asLoc_ = f.getValue();
-                    if (assTar_.getFieldsRoot().getVal(f.getKey()).isAssignedAfter() || asLoc_.isAssignedAfter()) {
+                    if (asLoc_.isAssignedAfter() || assTar_.getFieldsRoot().getVal(f.getKey()).isAssignedAfter()) {
                         asLoc_.setAssignedAfter(true);
                         asLoc_.setUnassignedAfter(false);
                     }

@@ -420,21 +420,7 @@ public final class TypeUtil {
                         classesRef_.addError(err_);
                         continue;
                     }
-                    if (StringList.quickEq(retBase_, voidType_)) {
-                        if (!StringList.quickEq(retDerive_, voidType_)) {
-                            BadReturnTypeInherit err_;
-                            err_ = new BadReturnTypeInherit();
-                            err_.setFileName(fileName_);
-                            if (sub_ instanceof MethodBlock) {
-                                err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
-                            }
-                            err_.setReturnType(retDerive_);
-                            err_.setMethod(sub_.getId());
-                            err_.setParentClass(supId_.getClassName());
-                            classesRef_.addError(err_);
-                            continue;
-                        }
-                    } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
+                    if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(fileName_);

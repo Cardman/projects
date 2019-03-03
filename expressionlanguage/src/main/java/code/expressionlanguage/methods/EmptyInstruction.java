@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public final class EmptyInstruction extends Leaf {
+public final class EmptyInstruction extends Leaf implements BuildableElMethod {
 
     public EmptyInstruction(ContextEl _importingPage, BracedBlock _m,
             OffsetsBlock _offset) {

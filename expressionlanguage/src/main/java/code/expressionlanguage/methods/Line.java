@@ -19,7 +19,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl {
+public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,BuildableElMethod {
 
     private final String expression;
 

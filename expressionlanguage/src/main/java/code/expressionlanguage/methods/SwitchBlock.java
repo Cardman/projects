@@ -25,7 +25,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl {
+public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl,BuildableElMethod {
 
     private String label;
     private int labelOffset;

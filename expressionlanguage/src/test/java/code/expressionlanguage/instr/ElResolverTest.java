@@ -728,16 +728,16 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void getOperationsSequence40Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "new.java.lang.Integer(\"8\").intValue()+5";
+        String el_ = "$new java.lang.Integer(\"8\").intValue()+5";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(37));
+        assertEq("+", opers_.getVal(38));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("new.java.lang.Integer(\"8\").intValue()", values_.getVal(0));
-        assertEq("5", values_.getVal(38));
+        assertEq("$new java.lang.Integer(\"8\").intValue()", values_.getVal(0));
+        assertEq("5", values_.getVal(39));
     
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
@@ -4650,8 +4650,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void checkSyntax34FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "new.java.lang.Integer(?java";
-        assertEq(27, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$new java.lang.Integer(?java";
+        assertEq(28, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

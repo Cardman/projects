@@ -1158,6 +1158,13 @@ public final class Templates {
                 return false;
             }
         }
+        String void_ = _context.getStandards().getAliasVoid();
+        if (StringList.quickEq(_p, void_)) {
+            return StringList.quickEq(_a, void_);
+        }
+        if (StringList.quickEq(_a, void_)) {
+            return false;
+        }
         Mapping map_ = new Mapping();
         map_.setArg(_a);
         map_.setParam(_p);

@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public abstract class AbruptBlock extends Leaf {
+public abstract class AbruptBlock extends Leaf implements BuildableElMethod {
 
     AbruptBlock(ContextEl _importingPage, BracedBlock _m,
             OffsetsBlock _offset) {
