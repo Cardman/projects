@@ -121,7 +121,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         importedClassName = _cont.resolveCorrectType(className_);
     }
     @Override
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBefore(Analyzable _an) {
         Block prev_ = getPreviousSibling();
         AssignedVariables ass_;
         if (prev_ == null) {
@@ -190,15 +190,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     public Numbers<Integer> getAnnotationsIndexes() {
         return annotationsIndexes;
     }
-    @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+
+    public void setAssignmentAfter(Analyzable _an) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
         as_.put(fieldName, Assignment.assignClassic(true, false));
     }
-
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

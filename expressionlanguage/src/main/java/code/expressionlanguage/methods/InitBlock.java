@@ -18,7 +18,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     }
 
     @Override
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
@@ -47,8 +47,8 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         }
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+        setAssignmentAfter(_an,_anEl);
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {

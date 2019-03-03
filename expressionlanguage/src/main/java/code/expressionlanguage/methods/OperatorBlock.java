@@ -95,22 +95,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public RootBlock belong() {
         return (RootBlock) getParent();
     }
-    @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
-        LgNames stds_ = _an.getStandards();
-        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
-            if (_anEl.canCompleteNormally(this)) {
-                //error
-                MissingReturnMethod miss_ = new MissingReturnMethod();
-                miss_.setIndexFile(getOffset().getOffsetTrim());
-                miss_.setFileName(getFile().getFileName());
-                miss_.setId(getSignature());
-                miss_.setReturning(getImportedReturnType());
-                _an.getClasses().addError(miss_);
-            }
-        }
-    }
+
     @Override
     public StringList getImports() {
         return imports;

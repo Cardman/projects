@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -9,6 +10,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Numbers;
@@ -119,6 +121,22 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         annotationsOpsParams = annotationsOpsParams_;
     }
+    @Override
+    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+        setAssignmentAfter(_an,_anEl);
+        LgNames stds_ = _an.getStandards();
+        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
+            if (_anEl.canCompleteNormally(this)) {
+                //error
+                MissingReturnMethod miss_ = new MissingReturnMethod();
+                miss_.setIndexFile(getOffset().getOffsetTrim());
+                miss_.setFileName(getFile().getFileName());
+                miss_.setId(getSignature());
+                miss_.setReturning(getImportedReturnType());
+                _an.getClasses().addError(miss_);
+            }
+        }
+    }
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
@@ -197,7 +215,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return access;
     }
     @Override
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariables ass_;
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();

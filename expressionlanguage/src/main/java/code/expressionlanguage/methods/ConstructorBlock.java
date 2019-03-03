@@ -124,8 +124,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return clBlock_.getFullName();
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+        setAssignmentAfter(_an,_anEl);
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
         StringList filteredCtor_ = _an.getNeedInterfaces();

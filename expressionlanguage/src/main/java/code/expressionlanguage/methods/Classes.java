@@ -1581,9 +1581,9 @@ public final class Classes {
                         continue;
                     }
                     page_.setCurrentBlock(b);
-                    b.setAssignmentBefore(_context, null);
+                    method_.setAssignmentBefore(_context);
                     method_.buildExpressionLanguage(_context);
-                    b.setAssignmentAfter(_context, null);
+                    method_.setAssignmentAfter(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(b).getFieldsRoot());
                 }
                 if (b instanceof StaticBlock) {
@@ -1654,9 +1654,9 @@ public final class Classes {
                     page_.setGlobalClass(c.getGenericString());
                     FieldBlock method_ = (FieldBlock) b;
                     page_.setCurrentBlock(b);
-                    b.setAssignmentBefore(_context, null);
+                    method_.setAssignmentBefore(_context);
                     method_.buildExpressionLanguage(_context);
-                    b.setAssignmentAfter(_context, null);
+                    method_.setAssignmentAfter(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(method_).getFieldsRoot());
                 }
                 if (b instanceof InstanceBlock) {
@@ -2361,11 +2361,7 @@ public final class Classes {
             AccessEnum acc_ = _type.getAccess();
             ConstructorId fid_;
             String ret_ = _context.getStandards().getAliasVoid();
-            if (Templates.correctNbParameters(_name, _context)) {
-                fid_ = id_.reflectFormat(_name, _context);
-            } else {
-                fid_ = id_;
-            }
+            fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             infosConst_.put(id_, met_);
         }

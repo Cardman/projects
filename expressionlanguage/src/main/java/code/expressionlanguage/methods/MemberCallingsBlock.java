@@ -53,10 +53,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
-            setAssignmentBefore(_cont, anEl_);
+            setAssignmentBeforeCall(_cont, anEl_);
             reach(_cont, anEl_);
             abrupt(_cont, anEl_);
-            setAssignmentAfter(_cont, anEl_);
+            setAssignmentAfterCall(_cont, anEl_);
             return;
         }
         while (true) {
@@ -68,7 +68,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     ((BracedBlock)en_).appendChild(empty_);
                 }
             }
-            en_.setAssignmentBefore(_cont, anEl_);
+            if (en_ == this) {
+                setAssignmentBeforeCall(_cont,anEl_);
+            } else {
+                en_.setAssignmentBefore(_cont, anEl_);
+            }
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
                 //error
@@ -136,10 +140,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 _cont.getAnalyzing().setCurrentBlock(par_);
                 par_.abrupt(_cont, anEl_);
                 par_.abruptGroup(anEl_);
-                par_.setAssignmentAfter(_cont, anEl_);
                 if (par_ == this) {
+                    setAssignmentAfterCall(_cont, anEl_);
                     return;
                 }
+                par_.setAssignmentAfter(_cont, anEl_);
                 parents_.removeLast();
                 if (par_ instanceof BreakableBlock) {
                     parentsBreakables_.removeLast();
@@ -173,6 +178,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
+    public abstract void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl);
     @Override
     public void buildAnnotations(ContextEl _context) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();

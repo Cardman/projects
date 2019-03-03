@@ -153,8 +153,8 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return (RootBlock) getParent();
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
+    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+        setAssignmentAfter(_an,_anEl);
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {

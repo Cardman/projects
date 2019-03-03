@@ -678,11 +678,7 @@ public abstract class ContextEl implements ExecutableCode {
             AccessEnum acc_ = _type.getAccess();
             ConstructorId fid_;
             String ret_ = getStandards().getAliasVoid();
-            if (Templates.correctNbParameters(_name, this)) {
-                fid_ = id_.reflectFormat(_name, this);
-            } else {
-                fid_ = id_;
-            }
+            fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             infosConst_.put(id_, met_);
         }

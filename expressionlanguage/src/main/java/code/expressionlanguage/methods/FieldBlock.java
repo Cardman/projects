@@ -147,7 +147,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBefore(Analyzable _an) {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
@@ -175,6 +175,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
             id_.put(this, assBl_);
         }
+    }
+
+    @Override
+    public void setAssignmentAfter(Analyzable _an) {
     }
     @Override
     public void buildImportedType(ContextEl _cont) {
