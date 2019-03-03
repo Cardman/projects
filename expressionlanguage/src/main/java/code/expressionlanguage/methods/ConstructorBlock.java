@@ -148,7 +148,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             if (!StringList.equalsSet(filteredCtor_, ints_)) {
                 BadInheritedClass undef_;
                 undef_ = new BadInheritedClass();
-                undef_.setClassName(getRooted().getFullName());
+                undef_.setClassName(((RootBlock) getParent()).getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
                 _an.getClasses().addError(undef_);
@@ -157,7 +157,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             if (!ints_.isEmpty()) {
                 BadInheritedClass undef_;
                 undef_ = new BadInheritedClass();
-                undef_.setClassName(getRooted().getFullName());
+                undef_.setClassName(((RootBlock) getParent()).getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
                 _an.getClasses().addError(undef_);
@@ -183,9 +183,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         ClassField key_ = new ClassField(cl_, _pair.getKey());
         FieldInfo finfo_ = _an.getFieldInfo(key_);
         if (!finfo_.isFinalField()) {
-            return;
-        }
-        if (finfo_.isStaticField()) {
             return;
         }
         SimpleAssignment a_ = _pair.getValue();

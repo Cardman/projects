@@ -67,9 +67,6 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
         ClassField key_ = new ClassField(cl_, _pair.getKey());
         FieldInfo finfo_ = _an.getFieldInfo(key_);
-        if (finfo_.isStaticField() != isStaticContext()) {
-            return;
-        }
         if (!finfo_.isFinalField()) {
             return;
         }

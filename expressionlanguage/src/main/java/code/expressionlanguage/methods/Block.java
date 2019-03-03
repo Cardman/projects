@@ -239,16 +239,6 @@ public abstract class Block {
         }
         return (FileBlock) b_;
     }
-    protected final RootBlock getRooted() {
-        Block b_ = this;
-        while (b_ != null) {
-            if (b_ instanceof RootBlock) {
-                return (RootBlock)b_;
-            }
-            b_ = b_.getParent();
-        }
-        return null;
-    }
 
     public final Block getPreviousSibling() {
         return previousSibling;

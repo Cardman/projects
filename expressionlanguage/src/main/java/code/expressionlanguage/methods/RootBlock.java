@@ -1430,12 +1430,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
-    }
-    @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
-    }
-    @Override
     public boolean isTypeHidden(String _class, Analyzable _analyzable) {
         return !Classes.canAccessClass(getFullName(), _class, _analyzable);
     }

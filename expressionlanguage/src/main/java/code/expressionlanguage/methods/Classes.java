@@ -1683,17 +1683,17 @@ public final class Classes {
                     if (!finfo_.isFinalField()) {
                         continue;
                     }
-                    if (!a.getValue().isAssignedAfter()) {
-                        //error
-                        for (Block b: bl_) {
-                            if (b instanceof InfoBlock) {
-                                if (((InfoBlock)b).getFieldName().containsStr(fieldName_)) {
-                                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
-                                    un_.setFileName(c.getFile().getFileName());
-                                    un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
-                                    _context.getClasses().addError(un_);
-                                    break;
-                                }
+                    if (a.getValue().isAssignedAfter()) {
+                        continue;
+                    }
+                    //error
+                    for (Block b: bl_) {
+                        if (b instanceof InfoBlock) {
+                            if (((InfoBlock)b).getFieldName().containsStr(fieldName_)) {
+                                UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                                un_.setFileName(c.getFile().getFileName());
+                                un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
+                                _context.getClasses().addError(un_);
                             }
                         }
                     }
@@ -2318,14 +2318,14 @@ public final class Classes {
                 String ret_ = method_.getImportedReturnType();
                 AccessEnum acc_ = method_.getAccess();
                 MethodId fid_;
-                String formCl_ = method_.getDeclaringType();
+                String formCl_ = _type.getFullName();
                 if (Templates.correctNbParameters(_name, _context)) {
                     fid_ = id_.reflectFormat(_name, _context);
                     formCl_ = _name;
                 } else {
                     fid_ = id_;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
                 infos_.put(id_, met_);
             }
             if (b instanceof AnnotationMethodBlock) {
@@ -2334,9 +2334,9 @@ public final class Classes {
                 String ret_ = method_.getImportedReturnType();
                 AccessEnum acc_ = method_.getAccess();
                 MethodId fid_;
-                String formCl_ = method_.getDeclaringType();
+                String formCl_ = _type.getFullName();
                 fid_ = id_;
-                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
                 infos_.put(id_, met_);
             }
             if (b instanceof ConstructorBlock) {

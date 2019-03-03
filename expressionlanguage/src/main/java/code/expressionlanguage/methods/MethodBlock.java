@@ -26,8 +26,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
 
     private final boolean normalMethod;
 
-    private final String declaringType;
-
     public MethodBlock(ContextEl _importingPage,
             BracedBlock _m,
             OffsetAccessInfo _access,
@@ -47,7 +45,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
         abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
         normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
-        declaringType = getRooted().getFullName();
     }
 
     public int getModifierOffset() {
@@ -70,10 +67,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
             return MethodModifier.STATIC;
         }
         return MethodModifier.NORMAL;
-    }
-
-    public String getDeclaringType() {
-        return declaringType;
     }
 
     public MethodId getWildCardFormattedId(String _genericClass, ContextEl _context) {

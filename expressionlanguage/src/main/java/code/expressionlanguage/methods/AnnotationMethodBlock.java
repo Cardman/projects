@@ -76,10 +76,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return new MethodId(false, getName(), new StringList(), false);
     }
 
-    public String getDeclaringType() {
-        return getRooted().getFullName();
-    }
-
     @Override
     public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
         return getId();
@@ -216,7 +212,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             }
             struct_ = arg_.getStruct();
             ip_.clearCurrentEls();
-            RootBlock r_ = getRooted();
+            RootBlock r_ = (RootBlock) getParent();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             Argument gl_ = ip_.getGlobalArgument();
             ((FieldableStruct) gl_.getStruct()).setStruct(staticField_, struct_);

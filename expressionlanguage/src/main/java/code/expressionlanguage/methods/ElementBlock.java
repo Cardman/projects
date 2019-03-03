@@ -212,7 +212,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             }
             struct_ = arg_.getStruct();
             ip_.clearCurrentEls();
-            RootBlock r_ = getRooted();
+            RootBlock r_ = (RootBlock) getParent();
             ClassField staticField_ = new ClassField(r_.getFullName(), fieldName);
             _cont.getClasses().initializeStaticField(staticField_, struct_);
         }

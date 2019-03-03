@@ -273,6 +273,9 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                 }
             }
+            if (getParent() == null) {
+                assA_.put(cl_.getFieldName(),Assignment.assign(isBool_,false,true));
+            }
         }
         assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
         vars_.getVariables().put(this, ass_);
