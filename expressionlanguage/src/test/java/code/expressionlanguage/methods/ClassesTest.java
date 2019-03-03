@@ -1064,7 +1064,6 @@ public final class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         failValidateInheritingClasses(files_);
     }
-    
 
     @Test
     public void getAllOverridingMethods1Test() {

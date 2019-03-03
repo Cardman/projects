@@ -113,30 +113,6 @@ public final class ParserType {
         }
         return indexes_;
     }
-    public static boolean isCorrectIndexes(String _input) {
-        int count_ = 0;
-        int len_ = _input.length();
-        int i_ = 0;
-        while (i_ < len_) {
-            char curChar_ = _input.charAt(i_);
-            if (curChar_ == Templates.LT) {
-                count_++;
-            }
-            if (curChar_ == Templates.GT) {
-                if (count_ == 0) {
-                    return false;
-                }
-                count_--;
-            }
-            if (curChar_ == Templates.COMMA) {
-                if (count_ == 0) {
-                    return false;
-                }
-            }
-            i_++;
-        }
-        return count_ <= 0;
-    }
     public static Numbers<Integer> getIndexesExec(String _input) {
         int count_ = 0;
         int len_ = _input.length();

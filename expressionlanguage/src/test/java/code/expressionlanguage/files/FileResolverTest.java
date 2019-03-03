@@ -5269,7 +5269,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertNull(child_);
         assertEq(1, countFileTypes(context_));
@@ -5292,7 +5292,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5333,7 +5333,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5376,7 +5376,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5419,7 +5419,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5462,7 +5462,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5685,7 +5685,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5720,7 +5720,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5756,7 +5756,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5792,7 +5792,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -6042,7 +6042,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");
@@ -6069,7 +6069,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");
@@ -6098,7 +6098,7 @@ public final class FileResolverTest {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");

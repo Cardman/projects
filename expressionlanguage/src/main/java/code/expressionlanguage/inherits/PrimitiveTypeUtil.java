@@ -513,11 +513,6 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         RootBlock clArgBl_ = classes_.getClassBody(a_);
-        if (clArgBl_ instanceof AnnotationBlock) {
-            if (StringList.quickEq(p_, stds_.getAliasAnnotation())) {
-                return true;
-            }
-        }
         if (clArgBl_.getAllSuperTypes().containsObj(p_)) {
             return true;
         }
@@ -636,11 +631,7 @@ public final class PrimitiveTypeUtil {
         RootBlock clArgBl_ = classes_.getClassBody(a_);
         if (clArgBl_ != null) {
             if (clParBl_ == null && !StringList.quickEq(p_, stds_.getAliasObject())) {
-                if (clArgBl_ instanceof AnnotationBlock) {
-                    if (!StringList.quickEq(p_, stds_.getAliasAnnotation())) {
-                        return AssignableFrom.NO;
-                    }
-                } else {
+                if (!(clArgBl_ instanceof AnnotationBlock)) {
                     return AssignableFrom.NO;
                 }
             }
@@ -652,11 +643,6 @@ public final class PrimitiveTypeUtil {
             }
             if (dArg_.getDim() != dPar_.getDim()) {
                 return AssignableFrom.NO;
-            }
-            if (clArgBl_ instanceof AnnotationBlock) {
-                if (StringList.quickEq(p_, stds_.getAliasAnnotation())) {
-                    return AssignableFrom.YES;
-                }
             }
             if (StringList.quickEq(p_, a_)) {
                 return AssignableFrom.YES;

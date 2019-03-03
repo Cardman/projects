@@ -13,7 +13,8 @@ public final class AnnotationBlock extends RootBlock {
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
-
+    private final StringList allInterfaces = new StringList();
+    private StringList importedDirectSuperInterfaces = new StringList();
     public AnnotationBlock(ContextEl _importingPage,
             BracedBlock _m, int _idRowCol, int _categoryOffset, String _name,
             String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -29,7 +30,7 @@ public final class AnnotationBlock extends RootBlock {
 
     @Override
     public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        return new StringList(_classes.getStandards().getAliasAnnotation());
+        return new StringList(importedDirectSuperInterfaces);
     }
 
     @Override
@@ -54,7 +55,7 @@ public final class AnnotationBlock extends RootBlock {
 
     @Override
     public StringList getAllInterfaces() {
-        return getAllSuperClasses();
+        return allInterfaces;
     }
 
     @Override
@@ -74,6 +75,8 @@ public final class AnnotationBlock extends RootBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
+        importedDirectSuperInterfaces.clear();
+        importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotation());
     }
 
     @Override
@@ -81,7 +84,7 @@ public final class AnnotationBlock extends RootBlock {
     }
     @Override
     public StringList getAllGenericInterfaces(Analyzable _classes) {
-        return new StringList();
+        return importedDirectSuperInterfaces;
     }
 
     @Override
