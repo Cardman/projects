@@ -496,7 +496,7 @@ public abstract class OperationNode implements Operable {
         classeNames_.removeDuplicates();
         String objectType_ = _cont.getStandards().getAliasObject();
         ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
-        ObjectNotNullMap<ClassField,Integer> ancestors_ = new ObjectNotNullMap<ClassField,Integer>();
+        ObjectNotNullMap<ClassField,FieldResult> ancestors_ = new ObjectNotNullMap<ClassField,FieldResult>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = null;
         if (glClass_ != null) {
@@ -539,11 +539,16 @@ public abstract class OperationNode implements Operable {
             }
             String realType_ = fi_.getType();
             boolean finalField_ = fi_.isFinalField();
-            if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff) == null) {
+            FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
+            if (if_ == null) {
                 continue;
             }
             imports_.add(candidate_, 0);
-            ancestors_.add(candidate_, 0);
+            FieldResult r_ = new FieldResult();
+            r_.setId(if_);
+            r_.setAnc(0);
+            r_.setStatus(SearchingMemberStatus.UNIQ);
+            ancestors_.add(candidate_, r_);
         }
         int maxAnc_ = 0;
         for (String c: _class.getNames()) {
@@ -618,11 +623,16 @@ public abstract class OperationNode implements Operable {
                     }
                     String realType_ = fi_.getType();
                     boolean finalField_ = fi_.isFinalField();
-                    if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff) == null) {
+                    FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
+                    if (if_ == null) {
                         continue;
                     }
                     imports_.add(candidate_, anc_);
-                    ancestors_.add(candidate_, anc_);
+                    FieldResult res_ = new FieldResult();
+                    res_.setId(if_);
+                    res_.setAnc(anc_);
+                    res_.setStatus(SearchingMemberStatus.UNIQ);
+                    ancestors_.add(candidate_, res_);
                 }
                 if (p.isStaticType()) {
                     keepInstance_ = false;
@@ -643,22 +653,8 @@ public abstract class OperationNode implements Operable {
             StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
             if (subs_.size() == CustList.ONE_ELEMENT) {
                 String cl_ = subs_.first();
-                String baseCl_ = clCurNames_.getVal(cl_);
-                String formatted_;
-                if (Templates.correctNbParameters(baseCl_, _cont)) {
-                    formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
-                } else {
-                    formatted_ = cl_;
-                }
                 ClassField id_ = new ClassField(cl_, _name);
-                FieldInfo field_ = _cont.getFieldInfo(id_);
-                FieldResult r_ = new FieldResult();
-                String realType_ = field_.getType();
-                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), _cont, _aff);
-                r_.setId(f_);
-                r_.setAnc(ancestors_.getVal(id_));
-                r_.setStatus(SearchingMemberStatus.UNIQ);
-                return r_;
+                return ancestors_.getVal(id_);
             }
         }
         if (_import) {
@@ -667,7 +663,16 @@ public abstract class OperationNode implements Operable {
             for (EntryCust<ClassField, Integer> e: _cont.lookupImportStaticFields(curClassBase_, _name, curBlock_).entryList()) {
                 max_ = Math.max(max_, e.getValue()+maxAnc_);
                 imports_.add(e.getKey(),e.getValue()+maxAnc_);
-                ancestors_.add(e.getKey(),0);
+                FieldResult res_ = new FieldResult();
+                FieldInfo fi_ = _cont.getFieldInfo(e.getKey());
+                String realType_ = fi_.getType();
+                boolean finalField_ = fi_.isFinalField();
+                String formatted_ = e.getKey().getClassName();
+                FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
+                res_.setId(if_);
+                res_.setAnc(0);
+                res_.setStatus(SearchingMemberStatus.UNIQ);
+                ancestors_.add(e.getKey(),res_);
             }
             for (int i = maxLoc_; i <= max_; i++) {
                 StringList subClasses_ = new StringList();
@@ -681,14 +686,7 @@ public abstract class OperationNode implements Operable {
                 if (subs_.size() == CustList.ONE_ELEMENT) {
                     String cl_ = subs_.first();
                     ClassField id_ = new ClassField(cl_, _name);
-                    FieldInfo field_ = _cont.getFieldInfo(id_);
-                    FieldResult r_ = new FieldResult();
-                    String realType_ = field_.getType();
-                    FieldInfo f_ = FieldInfo.newFieldInfo(_name, cl_, realType_, _static, field_.isFinalField(), _cont, _aff);
-                    r_.setId(f_);
-                    r_.setAnc(ancestors_.getVal(id_));
-                    r_.setStatus(SearchingMemberStatus.UNIQ);
-                    return r_;
+                    return ancestors_.getVal(id_);
                 }
             }
         }
