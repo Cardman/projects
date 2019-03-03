@@ -68,14 +68,15 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         Argument prev_ = new Argument();
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return new Argument();
-            }
-            if (prev_.getStruct() instanceof ArrayStruct) {
+            Struct argPrev_ = _previous.getStruct();
+            if (argPrev_ instanceof ArrayStruct) {
                 int offLoc_ = -1;
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_);
+            }
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
+                return new Argument();
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {

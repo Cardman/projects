@@ -316,8 +316,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 a_.setStruct(copy_);
                 return a_;
             }
-            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotation_, clName_, _conf)) {
-                FieldableStruct f_ = (FieldableStruct) _previous.getStruct();
+            if (prev_ instanceof AnnotationStruct) {
+                FieldableStruct f_ = (FieldableStruct) prev_;
                 Struct ret_ = f_.getStruct(new ClassField(clName_, _methodId.getName()));
                 Argument a_ = new Argument();
                 if (ret_ instanceof ArrayStruct) {

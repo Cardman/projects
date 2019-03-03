@@ -82,18 +82,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.expressionlanguage.structs.AnnotationStruct;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -183,9 +172,6 @@ public abstract class ContextEl implements ExecutableCode {
             return false;
         }
         String curr_ = getCurInitType();
-        if (curr_.isEmpty()) {
-            return true;
-        }
         return !StringList.quickEq(curr_, _clName);
     }
     public boolean isContainedSensibleFields(Struct _array) {
@@ -198,19 +184,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (!initEnums) {
             return;
         }
-        if (_container == NullStruct.NULL_VALUE) {
-            return;
-        }
-        if (_container instanceof BooleanStruct) {
-            return;
-        }
-        if (_container instanceof NumberStruct) {
-            return;
-        }
-        if (_container instanceof StringStruct) {
-            return;
-        }
-        if (_container instanceof AnnotationStruct) {
+        if (!isPossibleSensible(_container)) {
             return;
         }
         String curr_ = getCurInitType();
@@ -222,19 +196,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (!initEnums) {
             return;
         }
-        if (_owned == NullStruct.NULL_VALUE) {
-            return;
-        }
-        if (_owned instanceof BooleanStruct) {
-            return;
-        }
-        if (_owned instanceof NumberStruct) {
-            return;
-        }
-        if (_owned instanceof StringStruct) {
-            return;
-        }
-        if (_owned instanceof AnnotationStruct) {
+        if (!isPossibleSensible(_owned)) {
             return;
         }
         if (sensibleFields.containsObj(_container)) {
@@ -249,23 +211,32 @@ public abstract class ContextEl implements ExecutableCode {
             return;
         }
         for (Struct s: _cloned.getInstance()) {
-            if (s == NullStruct.NULL_VALUE) {
-                continue;
-            }
-            if (s instanceof BooleanStruct) {
-                continue;
-            }
-            if (s instanceof NumberStruct) {
-                continue;
-            }
-            if (s instanceof StringStruct) {
-                continue;
-            }
-            if (s instanceof AnnotationStruct) {
+            if (!isPossibleSensible(s)) {
                 continue;
             }
             sensibleFields.add(s);
         }
+    }
+    static boolean isPossibleSensible(Struct _s) {
+        if (_s == NullStruct.NULL_VALUE) {
+            return false;
+        }
+        if (_s instanceof BooleanStruct) {
+            return false;
+        }
+        if (_s instanceof NumberStruct) {
+            return false;
+        }
+        if (_s instanceof StringStruct) {
+            return false;
+        }
+        if (_s instanceof ReplacementStruct) {
+            return false;
+        }
+        if (_s instanceof AnnotationStruct) {
+            return false;
+        }
+        return true;
     }
     public void failInitEnums() {
         if (!initEnums) {
@@ -293,12 +264,7 @@ public abstract class ContextEl implements ExecutableCode {
         clearPages();
     }
     private String getCurInitType() {
-        for (AbstractPageEl a: importing) {
-            if (a instanceof StaticInitPageEl) {
-                return a.getGlobalClass();
-            }
-        }
-        return "";
+        return importing.first().getGlobalClass();
     }
     public boolean processException() {
         if (exception != null) {
