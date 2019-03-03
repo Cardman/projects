@@ -572,11 +572,8 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
         if (iterStr_ != null) {
-            Boolean has_ = iteratorHasNext(_cont);
-            if (has_ == null) {
-                return;
-            }
-            finished_ = !has_;
+            iteratorHasNext(_cont);
+            return;
         }
         if (finished_) {
             removeVarAndLoop(ip_);

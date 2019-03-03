@@ -32,9 +32,6 @@ public class DefaultInitializer implements Initializer {
         fields_ = new ObjectMap<ClassField,Struct>();
         for (String c: allClasses_) {
             String formatted_ = Templates.getFullTypeByBases(_className,c,_context);
-            if (formatted_ == null) {
-                continue;
-            }
             RootBlock clMetaLoc_ = classes_.getClassBody(c);
             for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof FieldBlock)) {
@@ -44,16 +41,11 @@ public class DefaultInitializer implements Initializer {
                 if (f_.isStaticField()) {
                     continue;
                 }
-                Struct str_ = f_.getDefaultValue();
                 String fieldDeclClass_ = f_.getImportedClassName();
                 fieldDeclClass_ = Templates.quickFormat(formatted_,fieldDeclClass_,_context);
                 for (String f: f_.getFieldName()) {
                     ClassField key_ = new ClassField(c, f);
-                    if (str_ != null) {
-                        fields_.put(key_, str_);
-                    } else {
-                        fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
-                    }
+                    fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                 }
             }
         }

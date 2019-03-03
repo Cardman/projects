@@ -1757,6 +1757,34 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
+    public void instanceArgument168Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst;;;add(3i):\n");
+        xml_.append("  inst;;;add(1i):\n");
+        xml_.append("  inst;;;add(2i):\n");
+        xml_.append("  $foreach(java.lang.Number e:inst;;;){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).getInstance());
+    }
+    @Test
     public void instanceArgumentFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -1881,6 +1909,204 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         ConstructorId id_ = getConstructorId("pkg.Ex");
         instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
+    }
+    @Test
+    public void instanceArgument7FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach(java.lang.Number $e:inst;;;){\n");
+        xml_.append("   $for(java.lang.Number $e=0:res==0:){\n");
+        xml_.append("    $foreach(java.lang.Number $e:inst;;;){\n");
+        xml_.append("     $for(java.lang.Number $e:res==0:){\n");
+        xml_.append("      res;;;+=e;intValue():\n");
+        xml_.append("     }\n");
+        xml_.append("    }\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomFailList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int1:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup1 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach($var $e:$bool(res==0i,(Int1)$null,(Int2)$null)){\n");
+        xml_.append("   $for(java.lang.Number $e=0:res==0:){\n");
+        xml_.append("    $foreach(java.lang.Number $e:inst;;;){\n");
+        xml_.append("     $for(java.lang.Number $e:res==0:){\n");
+        xml_.append("      res;;;+=e;intValue():\n");
+        xml_.append("     }\n");
+        xml_.append("    }\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomFailList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int1:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup1 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach($var $e:$bool(res==0i,(Int1[])$null,(Int2[])$null)){\n");
+        xml_.append("   $for(java.lang.Number $e=0:res==0:){\n");
+        xml_.append("    $foreach(java.lang.Number $e:inst;;;){\n");
+        xml_.append("     $for(java.lang.Number $e:res==0:){\n");
+        xml_.append("      res;;;+=e;intValue():\n");
+        xml_.append("     }\n");
+        xml_.append("    }\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomFailList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach(java.lang.String e:inst;;;){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomFailList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach(java.lang.String e:$new Number[]{}){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument12FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int1:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup1 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("   $for(java.lang.Number $e=0:res==0:){\n");
+        xml_.append("    $foreach[String](java.lang.Number $e:inst;;;){\n");
+        xml_.append("     $for(java.lang.Number $e:res==0:){\n");
+        xml_.append("      res;;;+=e;intValue():\n");
+        xml_.append("     }\n");
+        xml_.append("    }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomFailList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument13FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $return:\n");
+        xml_.append("  $foreach(java.lang.Number e:$new Number[]{}){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument14FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach(java.lang.String e:0){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

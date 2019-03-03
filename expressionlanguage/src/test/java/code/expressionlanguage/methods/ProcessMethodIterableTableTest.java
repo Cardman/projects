@@ -727,6 +727,177 @@ public class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct res_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "res"));
         assertEq(25, ((NumberStruct)res_).getInstance());
     }
+    @Test
+    public void instanceArgument1Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $for(Number $f, Number $s: 0){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument2Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $for(String f, String f: inst){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument3Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int1:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int2:IntSup1:IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup1 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.IntSup2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $for($var f, $var f: $bool(res==0,(Int1)$null,(Int2)$null)){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument4Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $for(String f, String s: inst){\n");
+        xml_.append("   $for(String f, String s: inst){\n");
+        xml_.append("    res += f;intValue()+s;intValue():\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument5Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $for($int f=0:res==0:){\n");
+        xml_.append("   $for(String f, String s: inst){\n");
+        xml_.append("    res += 0:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument6Failest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $static $int res:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  inst.add(3,5):\n");
+        xml_.append("  inst.add(8,1):\n");
+        xml_.append("  inst.add(2,6):\n");
+        xml_.append("  $return:\n");
+        xml_.append("  $for($int s=0:res==0:){\n");
+        xml_.append("   $for[String](String f, String s: $null){\n");
+        xml_.append("    res += 0:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

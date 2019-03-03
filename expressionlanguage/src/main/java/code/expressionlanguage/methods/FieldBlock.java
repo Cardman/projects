@@ -113,17 +113,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return new ExpressionLanguage(opValue);
     }
 
-    public Struct getDefaultValue() {
-        if (!finalField) {
-            return null;
-        }
-        Argument arg_ = opValue.last().getArgument();
-        if (arg_ == null) {
-            return null;
-        }
-        return arg_.getStruct();
-    }
-
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
@@ -159,13 +148,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
-        if (!(getParent() instanceof RootBlock)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
@@ -188,9 +170,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         } else {
             IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
-            if (parAss_ == null) {
-                parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            }
             AssignedVariables assBl_ = buildNewAssignedVariable();
             assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());

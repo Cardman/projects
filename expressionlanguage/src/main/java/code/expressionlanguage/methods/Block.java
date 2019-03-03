@@ -132,15 +132,17 @@ public abstract class Block {
             CustList<StringMap<AssignmentBefore>> as_ = v_.getVariablesRootBefore();
             for (String v: _an.getInfersLocalVars()) {
                 for (StringMap<AssignmentBefore> a: as_) {
-                    if (!a.contains(v)) {
-                        continue;
-                    }
-                    if (!a.getVal(v).isAssignedBefore()) {
-                        //error
-                        UnassignedInfered un_ = new UnassignedInfered(v);
-                        un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(getOffset().getOffsetTrim());
-                        _an.getClasses().addError(un_);
+                    for (EntryCust<String,AssignmentBefore> f: a.entryList()) {
+                        if (!StringList.quickEq(f.getKey(),v)) {
+                            continue;
+                        }
+                        if (!f.getValue().isAssignedBefore()) {
+                            //error
+                            UnassignedInfered un_ = new UnassignedInfered(v);
+                            un_.setFileName(getFile().getFileName());
+                            un_.setIndexFile(getOffset().getOffsetTrim());
+                            _an.getClasses().addError(un_);
+                        }
                     }
                 }
             }

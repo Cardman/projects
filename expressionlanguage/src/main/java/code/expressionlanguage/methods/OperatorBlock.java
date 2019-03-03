@@ -86,10 +86,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return false;
     }
 
-    public boolean isNormalMethod() {
-        return false;
-    }
-
     @Override
     public boolean isStaticContext() {
         return true;
@@ -104,7 +100,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         super.setAssignmentAfter(_an, _anEl);
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
-            if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
+            if (_anEl.canCompleteNormally(this)) {
                 //error
                 MissingReturnMethod miss_ = new MissingReturnMethod();
                 miss_.setIndexFile(getOffset().getOffsetTrim());

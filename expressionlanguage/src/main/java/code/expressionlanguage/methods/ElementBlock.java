@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
@@ -16,7 +15,6 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -125,33 +123,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
-        if (prev_ != null && !(prev_ instanceof ElementBlock)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(prev_.getFile().getFileName());
-            un_.setIndexFile(prev_.getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
-        if (!(getParent() instanceof EnumBlock)) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _an.getClasses().addError(un_);
-            return;
-        }
-        while (prev_ != null) {
-            if (prev_ instanceof InitBlock) {
-                if (((InitBlock)prev_).isStaticContext() == isStaticField()) {
-                    break;
-                }
-            }
-            if (prev_ instanceof InfoBlock) {
-                if (((InfoBlock)prev_).isStaticField() == isStaticField()) {
-                    break;
-                }
-            }
-            prev_ = prev_.getPreviousSibling();
-        }
         AssignedVariables ass_;
         if (prev_ == null) {
             ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();

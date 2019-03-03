@@ -1601,9 +1601,6 @@ public final class Classes {
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
-                if (!finfo_.isStaticField()) {
-                    continue;
-                }
                 if (!a.getValue().isAssignedAfter()) {
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(id_);

@@ -120,6 +120,7 @@ public final class CaseCondition extends SwitchPartBlock {
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
             _cont.getClasses().addError(un_);
+            return;
         }
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

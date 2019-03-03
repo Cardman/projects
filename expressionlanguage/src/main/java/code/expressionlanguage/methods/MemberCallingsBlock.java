@@ -29,14 +29,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public final void buildFctInstructions(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (!(getParent() instanceof RootBlock) && !(this instanceof OperatorBlock)) {
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            _cont.getClasses().addError(un_);
-        }
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block firstChild_ = getFirstChild();

@@ -51,15 +51,13 @@ public final class FinallyEval extends BracedStack implements Eval {
         }
         CustList<Block> prev_ = new CustList<Block>();
         while (!(pBlock_ instanceof TryEval)) {
-            if (pBlock_ == null) {
+            if (!(pBlock_ instanceof Eval)) {
                 break;
             }
-            if (pBlock_ instanceof Eval) {
-                prev_.add(pBlock_);
-            }
+            prev_.add(pBlock_);
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        if (pBlock_ != null) {
+        if (pBlock_ instanceof Eval) {
             prev_.add(pBlock_);
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();

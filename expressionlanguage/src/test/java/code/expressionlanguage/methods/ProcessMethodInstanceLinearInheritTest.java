@@ -3155,6 +3155,166 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(5, ((NumberStruct)field_).getInstance());
     }
     @Test
+    public void instanceArgument176Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $normal $int superaccess(){\n");
+        xml_.append("  $return $superaccess(ExTwo)getter()+parinst:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExFour.ance++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int parinst = 6:\n");
+        xml_.append(" $public $static $int getter(){\n");
+        xml_.append("  $return 5i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkg.Ex inst=$new pkg.Ex():\n");
+        xml_.append(" $public $int ance=inst;;;superaccess():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $int ance:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(11, ((NumberStruct)field_).getInstance());
+    }
+    @Test
+    public void instanceArgument177Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $normal $int superaccess(){\n");
+        xml_.append("  $return $superaccess(ExTwo)getter()+parinst+cst:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int cst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExFour.ance++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int parinst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  cst = 10:\n");
+        xml_.append("  $return:\n");
+        xml_.append(" }\n");
+        xml_.append(" {\n");
+        xml_.append("  parinst = 6:\n");
+        xml_.append("  $return:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int getter(){\n");
+        xml_.append("  $return 5i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkg.Ex inst=$new pkg.Ex():\n");
+        xml_.append(" $public $int ance=inst;;;superaccess():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $int ance:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(21, ((NumberStruct)field_).getInstance());
+    }
+    @Test
+    public void instanceArgument178Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $normal $int superaccess(){\n");
+        xml_.append("  $return $superaccess(ExTwo)getter()+parinst+cst:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int cst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExFour.ance++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int parinst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  cst = 10:\n");
+        xml_.append(" }\n");
+        xml_.append(" {\n");
+        xml_.append("  parinst = 6:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int getter(){\n");
+        xml_.append("  $return 5i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkg.Ex inst=$new pkg.Ex():\n");
+        xml_.append(" $public $int ance=inst;;;superaccess():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $int ance:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(21, ((NumberStruct)field_).getInstance());
+    }
+    @Test
     public void instanceArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
