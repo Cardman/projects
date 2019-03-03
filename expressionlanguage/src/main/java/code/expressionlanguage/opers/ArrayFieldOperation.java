@@ -30,12 +30,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         String aliasLength_ = _conf.getStandards().getAliasLength();
         if (StringList.quickEq(str_, aliasLength_)) {
             Argument arg_ = getPreviousArgument();
-            if (Argument.isNullValue(arg_)) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
             return;
         }

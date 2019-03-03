@@ -1,6 +1,4 @@
 package code.expressionlanguage;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
@@ -43,14 +41,14 @@ public final class Argument {
         object = _object;
     }
 
-    public static boolean isFalseValue(Argument _arg) {
+    public static boolean isNotFalseValue(Argument _arg) {
         if (_arg == null) {
-            return false;
+            return true;
         }
         if (!(_arg.getStruct() instanceof BooleanStruct)) {
-            return false;
+            return true;
         }
-        return !((BooleanStruct)_arg.getStruct()).getInstance();
+        return !_arg.isFalse();
     }
     public static boolean isTrueValue(Argument _arg) {
         if (_arg == null) {
@@ -59,7 +57,7 @@ public final class Argument {
         if (!(_arg.getStruct() instanceof BooleanStruct)) {
             return false;
         }
-        return ((BooleanStruct)_arg.getStruct()).getInstance();
+        return _arg.isTrue();
     }
     public static boolean isNullValue(Argument _arg) {
         if (_arg == null) {
@@ -106,19 +104,8 @@ public final class Argument {
         object = new IntStruct(_object);
     }
 
-    private ClassArgumentMatching getArgClass(ContextEl _context) {
-        return new ClassArgumentMatching(getObjectClassName(_context));
-    }
-
     public String getObjectClassName(ContextEl _context) {
         return _context.getStandards().getStructClassName(object, _context);
-    }
-
-    public boolean isIntegerType(ContextEl _context) {
-        if (object == NullStruct.NULL_VALUE) {
-            return false;
-        }
-        return PrimitiveTypeUtil.isIntegerType(getArgClass(_context), _context);
     }
 
 }

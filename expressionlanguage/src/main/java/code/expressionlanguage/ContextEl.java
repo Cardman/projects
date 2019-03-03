@@ -52,7 +52,6 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.FunctionBlock;
@@ -2727,7 +2726,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_);
             }
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
@@ -2738,7 +2737,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, false);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_);
             }
         }
         return null;

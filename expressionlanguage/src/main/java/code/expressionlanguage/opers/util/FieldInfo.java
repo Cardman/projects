@@ -9,10 +9,9 @@ public final class FieldInfo {
     private final String realType;
     private final boolean staticField;
     private final boolean finalField;
-    private final boolean enumField;
     private final ClassField classField;
     private FieldInfo(String _name,String _declaringClass, String _type, String _realType,
-            boolean _staticField, boolean _finalField, boolean _enumField) {
+            boolean _staticField, boolean _finalField) {
         declaringClass = _declaringClass;
         String declaringBaseClass_ = Templates.getIdFromAllTypes(_declaringClass);
         classField = new ClassField(declaringBaseClass_, _name);
@@ -20,25 +19,23 @@ public final class FieldInfo {
         realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
-        enumField = _enumField;
     }
-    public static FieldInfo newFieldInfo(String _name,String _declaringClass, String _type,
-            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont, boolean _aff) {
+    public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
+                                         boolean _staticField, boolean _finalField, Analyzable _cont, boolean _aff) {
         String formattedType_ = _type;
         if (_aff) {
             formattedType_ = Templates.wildCardFormatParam(_staticField,_declaringClass, formattedType_, _cont);
         } else {
             formattedType_ = Templates.wildCardFormatReturn(_staticField,_declaringClass, formattedType_, _cont);
         }
-//        formattedType_ = Templates.wildCardFormat(_staticField,_declaringClass, formattedType_, _cont, !_aff);
         if (formattedType_ == null) {
             return null;
         }
-        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
+        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField);
     }
     public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
-                                             boolean _staticField, boolean _finalField, boolean _enumField) {
-        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _enumField);
+                                             boolean _staticField, boolean _finalField) {
+        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField);
     }
     public ClassField getClassField() {
         return classField;
@@ -57,8 +54,5 @@ public final class FieldInfo {
     }
     public boolean isFinalField() {
         return finalField;
-    }
-    public boolean isEnumField() {
-        return enumField;
     }
 }

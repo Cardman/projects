@@ -12,11 +12,9 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
-import com.sun.org.apache.xpath.internal.Arg;
 
 public final class IfCondition extends Condition implements BlockCondition {
 
@@ -100,7 +98,7 @@ public final class IfCondition extends Condition implements BlockCondition {
     public boolean accessibleCondition() {
         ExecOperationNode op_ = getRoot();
         Argument arg_ = op_.getArgument();
-        return !Argument.isFalseValue(arg_);
+        return Argument.isNotFalseValue(arg_);
     }
     @Override
     public boolean accessibleForNext() {

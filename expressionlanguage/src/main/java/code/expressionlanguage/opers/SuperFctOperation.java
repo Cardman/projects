@@ -138,12 +138,7 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
-            if (Argument.isNullValue(arg_)) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
         }
     }
 

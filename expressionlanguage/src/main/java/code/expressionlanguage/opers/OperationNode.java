@@ -7,10 +7,7 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.StaticAccessFieldError;
-import code.expressionlanguage.errors.custom.UndefinedConstructorError;
-import code.expressionlanguage.errors.custom.UndefinedMethodError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -542,8 +539,7 @@ public abstract class OperationNode implements Operable {
             }
             String realType_ = fi_.getType();
             boolean finalField_ = fi_.isFinalField();
-            boolean staticField_ = fi_.isStaticField();
-            if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, staticField_, _cont, _aff) == null) {
+            if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff) == null) {
                 continue;
             }
             imports_.add(candidate_, 0);
@@ -622,8 +618,7 @@ public abstract class OperationNode implements Operable {
                     }
                     String realType_ = fi_.getType();
                     boolean finalField_ = fi_.isFinalField();
-                    boolean staticField_ = fi_.isStaticField();
-                    if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, staticField_, _cont, _aff) == null) {
+                    if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff) == null) {
                         continue;
                     }
                     imports_.add(candidate_, anc_);
@@ -659,7 +654,7 @@ public abstract class OperationNode implements Operable {
                 FieldInfo field_ = _cont.getFieldInfo(id_);
                 FieldResult r_ = new FieldResult();
                 String realType_ = field_.getType();
-                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
+                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), _cont, _aff);
                 r_.setId(f_);
                 r_.setAnc(ancestors_.getVal(id_));
                 r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -689,7 +684,7 @@ public abstract class OperationNode implements Operable {
                     FieldInfo field_ = _cont.getFieldInfo(id_);
                     FieldResult r_ = new FieldResult();
                     String realType_ = field_.getType();
-                    FieldInfo f_ = FieldInfo.newFieldInfo(_name, cl_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
+                    FieldInfo f_ = FieldInfo.newFieldInfo(_name, cl_, realType_, _static, field_.isFinalField(), _cont, _aff);
                     r_.setId(f_);
                     r_.setAnc(ancestors_.getVal(id_));
                     r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -800,6 +795,14 @@ public abstract class OperationNode implements Operable {
         return out_;
     }
 
+    void checkNull(Argument _arg, Analyzable _conf) {
+        if (Argument.isNullValue(_arg)) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(static_);
+        }
+    }
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     boolean _staticContext, StringList _classes, String _name,
     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {

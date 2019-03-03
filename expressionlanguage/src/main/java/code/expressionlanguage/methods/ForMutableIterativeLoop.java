@@ -696,7 +696,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         ExecOperationNode op_ = opExp.last();
         Argument arg_ = op_.getArgument();
-        return !Argument.isFalseValue(arg_);
+        return Argument.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {

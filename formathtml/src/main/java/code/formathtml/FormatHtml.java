@@ -69,13 +69,10 @@ import code.util.StringMapObject;
 
 public final class FormatHtml {
 
-    static final String XMLNS = "xmlns";
-    static final String NAMESPACE_URI = "javahtml";
     static final String ATTRIBUTE_CLASS_NAME = "className";
     static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexclassName";
     static final String EMPTY_STRING = "";
     static final String RETURN_LINE = "\n";
-    static final String RETURN_TAB = "\n\t";
 
     static final String SPACE = " ";
     static final String VAR_METHOD = "varMethod";
@@ -4696,7 +4693,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argFrom_.isIntegerType(_conf.getContext())) {
+            if (!isIntegerType(argFrom_,_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(argFrom_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
@@ -4719,7 +4716,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argTo_.isIntegerType(_conf.getContext())) {
+            if (!isIntegerType(argTo_,_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(argTo_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
@@ -4742,7 +4739,7 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (!argStep_.isIntegerType(_conf.getContext())) {
+            if (!isIntegerType(argStep_,_conf.getContext())) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(argStep_.getObjectClassName(_conf.getContext()));
                 mapping_.setParam(_conf.getStandards().getAliasPrimLong());
@@ -4993,6 +4990,34 @@ public final class FormatHtml {
         }
     }
 
+    static boolean isIntegerType(Argument _arg,ContextEl _context) {
+        if (_arg.getStruct() == NullStruct.NULL_VALUE) {
+            return false;
+        }
+        return isIntegerType(getArgClass(_arg,_context), _context);
+    }
+    public static boolean isIntegerType(ClassArgumentMatching _class, ContextEl _context) {
+        return isIntegerType(_class, _context.getStandards());
+    }
+    private static boolean isIntegerType(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(_class, _stds);
+        if (prim_.matchClass(_stds.getAliasPrimLong())) {
+            return true;
+        }
+        if (prim_.matchClass(_stds.getAliasPrimInteger())) {
+            return true;
+        }
+        if (prim_.matchClass(_stds.getAliasPrimChar())) {
+            return true;
+        }
+        if (prim_.matchClass(_stds.getAliasPrimShort())) {
+            return true;
+        }
+        return prim_.matchClass(_stds.getAliasPrimByte());
+    }
+    private static ClassArgumentMatching getArgClass(Argument _arg,ContextEl _context) {
+        return new ClassArgumentMatching(_arg.getObjectClassName(_context));
+    }
     private static ParentElement getParentOfLastNode(Configuration _conf, Node _node, boolean _child) {
         Node n_ = _node.getFirstChild();
         if (n_ != null && _child && !StringList.quickEq(((Element) _node).getTagName(), TEXT_AREA)) {

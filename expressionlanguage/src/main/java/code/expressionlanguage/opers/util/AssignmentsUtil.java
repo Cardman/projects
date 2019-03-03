@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.util;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.CustList;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public final class AssignmentsUtil {
     private AssignmentsUtil() {

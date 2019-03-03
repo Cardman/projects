@@ -895,7 +895,7 @@ public final class PrimitiveTypeUtil {
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, Analyzable _context) {
         return toPrimitive(_class, _context.getStandards());
     }
-    private static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, LgNames _stds) {
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, LgNames _stds) {
         for (String w: _class.getNames()) {
             for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
                 if (StringList.quickEq(e.getValue().getWrapper(), w)) {
@@ -991,25 +991,6 @@ public final class PrimitiveTypeUtil {
             return new ByteStruct((byte) _arg);
         }
         return NullStruct.NULL_VALUE;
-    }
-    public static boolean isIntegerType(ClassArgumentMatching _class, ContextEl _context) {
-        return isIntegerType(_class, _context.getStandards());
-    }
-    private static boolean isIntegerType(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching prim_ = toPrimitive(_class, _stds);
-        if (prim_.matchClass(_stds.getAliasPrimLong())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimInteger())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimChar())) {
-            return true;
-        }
-        if (prim_.matchClass(_stds.getAliasPrimShort())) {
-            return true;
-        }
-        return prim_.matchClass(_stds.getAliasPrimByte());
     }
 
     public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,

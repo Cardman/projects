@@ -227,12 +227,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 setResultClass(new ClassArgumentMatching(fct_.toString()));
                 if (isIntermediateDottedOperation()) {
                     Argument arg_ = getPreviousArgument();
-                    if (Argument.isNullValue(arg_)) {
-                        StaticAccessError static_ = new StaticAccessError();
-                        static_.setFileName(_conf.getCurrentFileName());
-                        static_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getClasses().addError(static_);
-                    }
+                    checkNull(arg_,_conf);
                 }
                 return;
             }
@@ -447,12 +442,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             setResultClass(new ClassArgumentMatching(fct_.toString()));
             if (isIntermediateDottedOperation()) {
                 Argument arg_ = getPreviousArgument();
-                if (Argument.isNullValue(arg_)) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(static_);
-                }
+                checkNull(arg_,_conf);
             }
             return;
         }

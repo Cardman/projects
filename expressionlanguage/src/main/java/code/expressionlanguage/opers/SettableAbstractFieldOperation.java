@@ -97,12 +97,7 @@ public abstract class SettableAbstractFieldOperation extends
         setResultClass(new ClassArgumentMatching(c_));
         if (isIntermediateDottedOperation() && !fieldMetaInfo.isStaticField()) {
             Argument arg_ = getPreviousArgument();
-            if (Argument.isNullValue(arg_)) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
         }
     }
 

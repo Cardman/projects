@@ -45,12 +45,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();
-            if (Argument.isNullValue(arg_)) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
         }
     }
 

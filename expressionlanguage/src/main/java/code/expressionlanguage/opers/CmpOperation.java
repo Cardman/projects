@@ -75,23 +75,9 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
             stringCompare = true;
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             Argument arg_ = chidren_.first().getArgument();
-            if (Argument.isNullValue(arg_)) {
-                okNum = false;
-                _conf.setOkNumOp(false);
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
             arg_ = chidren_.last().getArgument();
-            if (Argument.isNullValue(arg_)) {
-                okNum = false;
-                _conf.setOkNumOp(false);
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(static_);
-            }
+            checkNull(arg_,_conf);
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
             return;
@@ -158,6 +144,13 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         un_.setOperands(classFirst_,classSecond_);
         _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
+    }
+    void checkNull(Argument _arg, Analyzable _an) {
+        if (Argument.isNullValue(_arg)) {
+            okNum = false;
+            _an.setOkNumOp(false);
+        }
+        super.checkNull(_arg,_an);
     }
     public final boolean isStringCompare() {
         return stringCompare;

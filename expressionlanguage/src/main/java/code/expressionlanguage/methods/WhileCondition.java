@@ -9,7 +9,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.*;
 
 public final class WhileCondition extends Condition implements Loop {
@@ -272,7 +271,7 @@ public final class WhileCondition extends Condition implements Loop {
     public boolean accessibleCondition() {
         ExecOperationNode op_ = getRoot();
         Argument arg_ = op_.getArgument();
-        return !Argument.isFalseValue(arg_);
+        return Argument.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
