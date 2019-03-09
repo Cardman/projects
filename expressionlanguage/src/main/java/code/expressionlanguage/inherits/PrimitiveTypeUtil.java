@@ -277,10 +277,8 @@ public final class PrimitiveTypeUtil {
         if (_current != NullStruct.NULL_VALUE) {
             String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
             String cl_ = Templates.getIdFromAllTypes(className_);
-            String cls_ = cl_;
-            cl_ = getQuickComponentBaseType(cl_).getComponent();
-            if (_an.getClassBody(cl_).withoutInstance()) {
-                if (!canBeUseAsArgument(id_, cls_, _an)) {
+            if (cl_.startsWith(Templates.ARR_BEG_STRING) || _an.getClassBody(cl_).withoutInstance()) {
+                if (!canBeUseAsArgument(id_, cl_, _an)) {
                     _an.setException(new ErrorStruct(_an,cast_));
                     return NullStruct.NULL_VALUE;
                 }

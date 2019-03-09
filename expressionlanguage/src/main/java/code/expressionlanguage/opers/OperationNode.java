@@ -500,52 +500,7 @@ public abstract class OperationNode implements Operable {
         ObjectNotNullMap<ClassField,FieldResult> ancestors_ = new ObjectNotNullMap<ClassField,FieldResult>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        for (String s: classeNames_) {
-            String id_ = Templates.getIdFromAllTypes(s);
-            if (StringList.quickEq(id_, objectType_)) {
-                continue;
-            }
-            ClassField candidate_ = new ClassField(id_, _name);
-            FieldInfo fi_ = _cont.getFieldInfo(candidate_);
-            if (fi_ == null) {
-                continue;
-            }
-            if (_static) {
-                if (!fi_.isStaticField()) {
-                    continue;
-                }
-            } else {
-                if (fi_.isStaticField()) {
-                    continue;
-                }
-            }
-            String baseLoc_ = clCurNamesBase_.getVal(s);
-            if (Classes.isHiddenField(baseLoc_, s, _name, _cont)) {
-                continue;
-            }
-            if (Classes.isHiddenField(curClassBase_, s, _name, _cont)) {
-                continue;
-            }
-            String formatted_;
-            String baseCl_ = clCurNames_.getVal(s);
-            if (Templates.correctNbParameters(baseCl_, _cont)) {
-                formatted_ = Templates.quickFormat(baseCl_, s, _cont);
-            } else {
-                formatted_ = s;
-            }
-            String realType_ = fi_.getType();
-            boolean finalField_ = fi_.isFinalField();
-            FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
-            if (if_ == null) {
-                continue;
-            }
-            imports_.add(candidate_, 0);
-            FieldResult r_ = new FieldResult();
-            r_.setId(if_);
-            r_.setAnc(0);
-            r_.setStatus(SearchingMemberStatus.UNIQ);
-            ancestors_.add(candidate_, r_);
-        }
+        fetchFields(_cont, _static, _name, _aff, clCurNames_, clCurNamesBase_, objectType_, imports_, ancestors_, curClassBase_, 0, true, classeNames_);
         int maxAnc_ = 0;
         for (String c: _class.getNames()) {
             int anc_ = 1;
@@ -576,55 +531,7 @@ public abstract class OperationNode implements Operable {
                     clCurNamesBase_.put(s, baseLoc_);
                     clCurNames_.put(s, f_);
                 }
-                for (String s: classeNamesPar_) {
-                    String id_ = Templates.getIdFromAllTypes(s);
-                    if (StringList.quickEq(id_, objectType_)) {
-                        continue;
-                    }
-                    ClassField candidate_ = new ClassField(id_, _name);
-                    FieldInfo fi_ = _cont.getFieldInfo(candidate_);
-                    if (fi_ == null) {
-                        continue;
-                    }
-                    if (_static) {
-                        if (!fi_.isStaticField()) {
-                            continue;
-                        }
-                    } else {
-                        if (fi_.isStaticField()) {
-                            continue;
-                        }
-                    }
-                    String basLoc_ = clCurNamesBase_.getVal(s);
-                    if (Classes.isHiddenField(basLoc_, s, _name, _cont)) {
-                        continue;
-                    }
-                    if (Classes.isHiddenField(curClassBase_, s, _name, _cont)) {
-                        continue;
-                    }
-                    if (!keepInstance_ && !_static) {
-                        continue;
-                    }
-                    String formatted_;
-                    String baseCl_ = clCurNames_.getVal(s);
-                    if (Templates.correctNbParameters(baseCl_, _cont)) {
-                        formatted_ = Templates.quickFormat(baseCl_, s, _cont);
-                    } else {
-                        formatted_ = s;
-                    }
-                    String realType_ = fi_.getType();
-                    boolean finalField_ = fi_.isFinalField();
-                    FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
-                    if (if_ == null) {
-                        continue;
-                    }
-                    imports_.add(candidate_, anc_);
-                    FieldResult res_ = new FieldResult();
-                    res_.setId(if_);
-                    res_.setAnc(anc_);
-                    res_.setStatus(SearchingMemberStatus.UNIQ);
-                    ancestors_.add(candidate_, res_);
-                }
+                fetchFields(_cont, _static, _name, _aff, clCurNames_, clCurNamesBase_, objectType_, imports_, ancestors_, curClassBase_, anc_, keepInstance_, classeNamesPar_);
                 if (p.isStaticType()) {
                     keepInstance_ = false;
                 }
@@ -685,7 +592,59 @@ public abstract class OperationNode implements Operable {
         r_.setStatus(SearchingMemberStatus.ZERO);
         return r_;
     }
-    
+
+    private static void fetchFields(Analyzable _cont, boolean _static, String _name, boolean _aff, StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase, String _objectType, ObjectNotNullMap<ClassField, Integer> _imports, ObjectNotNullMap<ClassField, FieldResult> _ancestors, String _curClassBase, int _anc, boolean _keepInstance, StringList _classeNamesPar) {
+        for (String s: _classeNamesPar) {
+            String id_ = Templates.getIdFromAllTypes(s);
+            if (StringList.quickEq(id_, _objectType)) {
+                continue;
+            }
+            ClassField candidate_ = new ClassField(id_, _name);
+            FieldInfo fi_ = _cont.getFieldInfo(candidate_);
+            if (fi_ == null) {
+                continue;
+            }
+            if (_static) {
+                if (!fi_.isStaticField()) {
+                    continue;
+                }
+            } else {
+                if (fi_.isStaticField()) {
+                    continue;
+                }
+            }
+            String basLoc_ = _clCurNamesBase.getVal(s);
+            if (Classes.isHiddenField(basLoc_, s, _name, _cont)) {
+                continue;
+            }
+            if (Classes.isHiddenField(_curClassBase, s, _name, _cont)) {
+                continue;
+            }
+            if (!_keepInstance && !_static) {
+                continue;
+            }
+            String formatted_;
+            String baseCl_ = _clCurNames.getVal(s);
+            if (Templates.correctNbParameters(baseCl_, _cont)) {
+                formatted_ = Templates.quickFormat(baseCl_, s, _cont);
+            } else {
+                formatted_ = s;
+            }
+            String realType_ = fi_.getType();
+            boolean finalField_ = fi_.isFinalField();
+            FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff);
+            if (if_ == null) {
+                continue;
+            }
+            _imports.add(candidate_, _anc);
+            FieldResult res_ = new FieldResult();
+            res_.setId(if_);
+            res_.setAnc(_anc);
+            res_.setStatus(SearchingMemberStatus.UNIQ);
+            _ancestors.add(candidate_, res_);
+        }
+    }
+
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getNames().first();
@@ -896,20 +855,11 @@ public abstract class OperationNode implements Operable {
             }
         }
         for (String t: superTypes_) {
-            if (_uniqueId != null) {
-                if (!StringList.quickEq(_uniqueId.getClassName(), t)) {
-                    continue;
-                }
+            if (isStaticCandidate(_uniqueId, t)) {
+                continue;
             }
             GeneType root_ = _conf.getClassBody(t);
-            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, e, t, superTypesBase_);
-                if (stMeth == null) {
-                    continue;
-                }
-                ClassMethodId clId_ = new ClassMethodId(t, e.getId());
-                methods_.add(clId_, stMeth);
-            }
+            fetchStaticMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, t, root_);
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, t, 0));
         }
         CustList<CustList<GeneType>> rootsAncs_ = new CustList<CustList<GeneType>>();
@@ -942,77 +892,20 @@ public abstract class OperationNode implements Operable {
             rootsAncs_.add(rootsAnc_);
         }
         for (EntryCust<String, Integer> t: superTypesAnc_.entryList()) {
-            if (_uniqueId != null) {
-                if (!StringList.quickEq(_uniqueId.getClassName(), t.getKey())) {
-                    continue;
-                }
+            if (isStaticCandidate(_uniqueId, t.getKey())) {
+                continue;
             }
             String cl_ = t.getKey();
             GeneType root_ = _conf.getClassBody(cl_);
             int anc_ = t.getValue();
-            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, e, cl_, superTypesBase_);
-                if (stMeth == null) {
-                    continue;
-                }
-                ClassMethodId clId_ = new ClassMethodId(cl_, e.getId());
-                methods_.add(clId_, stMeth);
-            }
+            fetchStaticMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, cl_, root_);
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, cl_, anc_));
         }
         if (!_staticContext){
             int indexType_ = 0;
             for (GeneType t: roots_) {
                 String clCurName_ = _fromClasses.get(indexType_);
-                for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
-                    for (ClassMethodId s: e.getValue()) {
-                        String name_ = s.getClassName();
-                        MethodId id_ = s.getConstraints();
-                        String base_ = Templates.getIdFromAllTypes(name_);
-                        if (_uniqueId != null) {
-                            if (!StringList.quickEq(_uniqueId.getClassName(), base_)) {
-                                continue;
-                            }
-                            if (!_uniqueId.getConstraints().eq(id_)) {
-                                continue;
-                            }
-                        }
-                        if (_accessFromSuper) {
-                            if (StringList.quickEq(base_, t.getFullName())) {
-                                continue;
-                            }
-                        }
-                        String formattedClass_;
-                        if (_superClass) {
-                            formattedClass_ = Templates.quickFormat(clCurName_, name_, _conf);
-                        } else {
-                            if (!StringList.quickEq(base_, t.getFullName())) {
-                                continue;
-                            }
-                            formattedClass_ = clCurName_;
-                        }
-                        GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
-                        if (!Classes.canAccess(glClass_, sup_, _conf)) {
-                            continue;
-                        }
-                        String ret_ = sup_.getImportedReturnType();
-                        ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
-                        ParametersGroup p_ = new ParametersGroup();
-                        for (String c: id_.getParametersTypes()) {
-                            p_.add(new ClassMatching(c));
-                        }
-                        MethodInfo mloc_ = new MethodInfo();
-                        mloc_.setClassName(formattedClass_);
-                        mloc_.setStatic(false);
-                        mloc_.setAbstractMethod(sup_.isAbstractMethod());
-                        mloc_.setFinalMethod(sup_.isFinalMethod());
-                        mloc_.setConstraints(id_);
-                        mloc_.setParameters(p_);
-                        mloc_.setReturnType(ret_);
-                        ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                        methods_.add(clId_, mloc_);
-                    }
-                }
+                fetchInstanceMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, 0, t, clCurName_);
                 indexType_++;
             }
             indexType_ = 0;
@@ -1022,56 +915,7 @@ public abstract class OperationNode implements Operable {
                 int anc_ = 1;
                 for (GeneType t: l) {
                     String f_ = Templates.quickFormat(clCurName_, t.getGenericString(), _conf);
-                    for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
-                        for (ClassMethodId s: e.getValue()) {
-                            String name_ = s.getClassName();
-                            String base_ = Templates.getIdFromAllTypes(name_);
-                            MethodId id_ = s.getConstraints();
-                            if (_uniqueId != null) {
-                                if (!StringList.quickEq(_uniqueId.getClassName(), base_)) {
-                                    continue;
-                                }
-                                if (!_uniqueId.getConstraints().eq(id_)) {
-                                    continue;
-                                }
-                            }
-                            if (_accessFromSuper) {
-                                if (StringList.quickEq(base_, t.getFullName())) {
-                                    continue;
-                                }
-                            }
-                            String formattedClass_;
-                            if (_superClass) {
-                                formattedClass_ = Templates.quickFormat(f_, name_, _conf);
-                            } else {
-                                if (!StringList.quickEq(base_, t.getFullName())) {
-                                    continue;
-                                }
-                                formattedClass_ = f_;
-                            }
-                            GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
-                            if (!Classes.canAccess(glClass_, sup_, _conf)) {
-                                continue;
-                            }
-                            String ret_ = sup_.getImportedReturnType();
-                            ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
-                            ParametersGroup p_ = new ParametersGroup();
-                            for (String c: id_.getParametersTypes()) {
-                                p_.add(new ClassMatching(c));
-                            }
-                            MethodInfo mloc_ = new MethodInfo();
-                            mloc_.setClassName(formattedClass_);
-                            mloc_.setStatic(false);
-                            mloc_.setAbstractMethod(sup_.isAbstractMethod());
-                            mloc_.setFinalMethod(sup_.isFinalMethod());
-                            mloc_.setConstraints(id_);
-                            mloc_.setParameters(p_);
-                            mloc_.setReturnType(ret_);
-                            mloc_.setAncestor(anc_);
-                            ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                            methods_.add(clId_, mloc_);
-                        }
-                    }
+                    fetchInstanceMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, anc_, t, f_);
                     anc_++;
                 }
             }
@@ -1081,13 +925,8 @@ public abstract class OperationNode implements Operable {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
-                if (_uniqueId != null) {
-                    if (!StringList.quickEq(_uniqueId.getClassName(), clName_)) {
-                        continue;
-                    }
-                    if (!_uniqueId.getConstraints().eq(id_)) {
-                        continue;
-                    }
+                if (isCandidateMethod(_uniqueId, clName_, id_)) {
+                    continue;
                 }
                 GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
                 String returnType_ = method_.getImportedReturnType();
@@ -1107,41 +946,122 @@ public abstract class OperationNode implements Operable {
         }
         return methods_;
     }
+
+    private static boolean isCandidateMethod(ClassMethodId _uniqueId, String _clName, MethodId _id) {
+        if (_uniqueId != null) {
+            if (!StringList.quickEq(_uniqueId.getClassName(), _clName)) {
+                return true;
+            }
+            if (!_uniqueId.getConstraints().eq(_id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isStaticCandidate(ClassMethodId _uniqueId, String key) {
+        if (_uniqueId != null) {
+            if (!StringList.quickEq(_uniqueId.getClassName(), key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
+        for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
+            MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
+            if (stMeth == null) {
+                continue;
+            }
+            ClassMethodId clId_ = new ClassMethodId(_cl, e.getId());
+            _methods.add(clId_, stMeth);
+        }
+    }
+
+    private static void fetchInstanceMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, int _anc, GeneType _t, String _f) {
+        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _t.getAllOverridingMethods().entryList()) {
+            for (ClassMethodId s: e.getValue()) {
+                String name_ = s.getClassName();
+                String base_ = Templates.getIdFromAllTypes(name_);
+                MethodId id_ = s.getConstraints();
+                if (isCandidateMethod(_uniqueId, base_, id_)) {
+                    continue;
+                }
+                if (_accessFromSuper) {
+                    if (StringList.quickEq(base_, _t.getFullName())) {
+                        continue;
+                    }
+                }
+                String formattedClass_;
+                if (_superClass) {
+                    formattedClass_ = Templates.quickFormat(_f, name_, _conf);
+                } else {
+                    if (!StringList.quickEq(base_, _t.getFullName())) {
+                        continue;
+                    }
+                    formattedClass_ = _f;
+                }
+                GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
+                if (!Classes.canAccess(_glClass, sup_, _conf)) {
+                    continue;
+                }
+                String ret_ = sup_.getImportedReturnType();
+                ret_ = Templates.wildCardFormatReturn(false, formattedClass_, ret_, _conf);
+                ParametersGroup p_ = new ParametersGroup();
+                for (String c: id_.getParametersTypes()) {
+                    p_.add(new ClassMatching(c));
+                }
+                MethodInfo mloc_ = new MethodInfo();
+                mloc_.setClassName(formattedClass_);
+                mloc_.setStatic(false);
+                mloc_.setAbstractMethod(sup_.isAbstractMethod());
+                mloc_.setFinalMethod(sup_.isFinalMethod());
+                mloc_.setConstraints(id_);
+                mloc_.setParameters(p_);
+                mloc_.setReturnType(ret_);
+                mloc_.setAncestor(_anc);
+                ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
+                _methods.add(clId_, mloc_);
+            }
+        }
+    }
+
     private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,
-                                        boolean _superClass, ClassMethodId _uniqueId, String glClass_, GeneMethod e, String t, StringMap<String> superTypesBase_) {
-        if (!Classes.canAccess(glClass_, e, _conf)) {
+                                        boolean _superClass, ClassMethodId _uniqueId, String _glClass, GeneMethod _e, String _t, StringMap<String> _superTypesBase) {
+        if (!Classes.canAccess(_glClass, _e, _conf)) {
             return null;
         }
-        String subType_ = superTypesBase_.getVal(t);
-        if (!Classes.canAccess(subType_, e, _conf)) {
+        String subType_ = _superTypesBase.getVal(_t);
+        if (!Classes.canAccess(subType_, _e, _conf)) {
             return null;
         }
         if (_accessFromSuper) {
-            StringList l_ = new StringList(superTypesBase_.values());
-            if (l_.containsStr(t)) {
+            StringList l_ = new StringList(_superTypesBase.values());
+            if (l_.containsStr(_t)) {
                 return null;
             }
         }
         if (_superClass) {
-            StringList l_ = new StringList(superTypesBase_.values());
-            if (!l_.containsStr(t)) {
+            StringList l_ = new StringList(_superTypesBase.values());
+            if (!l_.containsStr(_t)) {
                 return null;
             }
         }
-        if (e.isStaticMethod()) {
-            MethodId id_ = e.getId();
+        if (_e.isStaticMethod()) {
+            MethodId id_ = _e.getId();
             if (_uniqueId != null) {
                 if (!_uniqueId.getConstraints().eq(id_)) {
                     return null;
                 }
             }
-            String returnType_ = e.getImportedReturnType();
+            String returnType_ = _e.getImportedReturnType();
             ParametersGroup p_ = new ParametersGroup();
             for (String c: id_.getParametersTypes()) {
                 p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(t);
+            mloc_.setClassName(_t);
             mloc_.setStatic(true);
             mloc_.setConstraints(id_);
             mloc_.setParameters(p_);
@@ -1663,7 +1583,7 @@ public abstract class OperationNode implements Operable {
             if (idTwo_.isVararg() && i + 1 == len_) {
                 wcTwo_ = PrimitiveTypeUtil.getPrettyArrayType(wcTwo_);
             }
-            if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
+            if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                 all_ = false;
                 break;
             }
@@ -1694,7 +1614,7 @@ public abstract class OperationNode implements Operable {
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
+                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1702,7 +1622,7 @@ public abstract class OperationNode implements Operable {
             String wcTwo_ = _two.getFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenOne_; i++) {
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
-                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
+                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1712,7 +1632,7 @@ public abstract class OperationNode implements Operable {
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
                 String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
+                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1720,7 +1640,7 @@ public abstract class OperationNode implements Operable {
             String wcOne_ = _one.getFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenTwo_; i++) {
                 String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
-                if (!isPreferred(wcOne_, wcTwo_, map_, context_)) {
+                if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
@@ -1728,21 +1648,28 @@ public abstract class OperationNode implements Operable {
         }
         return all_;
     }
-    private static boolean isPreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, Analyzable _ana) {
+    private static int swapCasePreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, Analyzable _ana) {
         ClassMatching one_;
         ClassMatching two_;
         if (_paramFctOne == null) {
-            return _paramFctTwo == null;
+            if (_paramFctTwo == null) {
+                return CustList.EQ_CMP;
+            } else {
+                return CustList.SWAP_SORT;
+            }
         }
         if (_paramFctTwo == null) {
-            return true;
+            return CustList.NO_SWAP_SORT;
         }
         one_ = new ClassMatching(_paramFctOne);
         two_ = new ClassMatching(_paramFctTwo);
         if (one_.matchClass(two_)) {
-            return true;
+            return CustList.EQ_CMP;
         }
-        return two_.isAssignableFrom(one_, _map, _ana);
+        if (two_.isAssignableFrom(one_, _map, _ana)) {
+            return CustList.NO_SWAP_SORT;
+        }
+        return CustList.SWAP_SORT;
     }
 
     private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
@@ -1810,66 +1737,37 @@ public abstract class OperationNode implements Operable {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String wcOne_ = _o1.getFormatted().getParametersTypes().get(i);
             String wcTwo_ = _o2.getFormatted().getParametersTypes().get(i);
-            if (wcOne_ == null) {
-                if (wcTwo_ != null) {
-                    return CustList.SWAP_SORT;
-                }
-                continue;
+            int res_ = checkPreferred(wcOne_, wcTwo_, map_, context_, _o1, _o2);
+            if (res_ != CustList.EQ_CMP) {
+                return res_;
             }
-            if (wcTwo_ == null) {
-                return CustList.NO_SWAP_SORT;
-            }
-            if (isPreferred(wcOne_,wcTwo_,map_,context_)) {
-                return CustList.NO_SWAP_SORT;
-            }
-            if (isPreferred(wcTwo_,wcOne_,map_,context_)) {
-                return CustList.SWAP_SORT;
-            }
-            if (StringList.quickEq(wcOne_,wcTwo_)) {
-                continue;
-            }
-            _o1.getParameters().setError(true);
-            _o2.getParameters().setError(true);
-            return CustList.NO_SWAP_SORT;
         }
         if (vararg_) {
             String paramOne_ = _o1.getFormatted().getParametersTypes().last();
             paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
             String paramTwo_ = _o2.getFormatted().getParametersTypes().last();
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            if (isPreferred(paramOne_,paramTwo_,map_,context_)) {
-                return CustList.NO_SWAP_SORT;
-            }
-            if (isPreferred(paramTwo_,paramOne_,map_,context_)) {
-                return CustList.SWAP_SORT;
-            }
-            if (!StringList.quickEq(paramOne_,paramTwo_)) {
-                _o1.getParameters().setError(true);
-                _o2.getParameters().setError(true);
-                return CustList.NO_SWAP_SORT;
+            int res_ = checkPreferred(paramOne_, paramTwo_, map_, context_, _o1, _o2);
+            if (res_ != CustList.EQ_CMP) {
+                return res_;
             }
         }
         String baseTypeOne_ = Templates.getIdFromAllTypes(glClassOne_);
         String baseTypeTwo_ = Templates.getIdFromAllTypes(glClassTwo_);
-        if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
+        if (!StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
+            String p_ = _o1.getReturnType();
+            String a_ = _o2.getReturnType();
+            if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
                 return CustList.SWAP_SORT;
             }
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
+            a_ = _o1.getReturnType();
+            p_ = _o2.getReturnType();
+            if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
                 return CustList.NO_SWAP_SORT;
             }
+        } else if (StringList.quickEq(baseTypeOne_, baseTypeTwo_)){
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
-            return CustList.NO_SWAP_SORT;
-        }
-        String p_ = _o1.getReturnType();
-        String a_ = _o2.getReturnType();
-        if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
-            return CustList.SWAP_SORT;
-        }
-        a_ = _o1.getReturnType();
-        p_ = _o2.getReturnType();
-        if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
@@ -1884,6 +1782,22 @@ public abstract class OperationNode implements Operable {
         return CustList.NO_SWAP_SORT;
     }
 
+    private static int checkPreferred(String _one, String _two, StringMap<StringList> _map, Analyzable _an, Parametrable _p1, Parametrable _p2) {
+        int res_ = swapCasePreferred(_one, _two, _map, _an);
+        if (res_ != CustList.EQ_CMP) {
+            if (res_ == CustList.NO_SWAP_SORT) {
+                return res_;
+            }
+            res_ = swapCasePreferred(_two, _one, _map, _an);
+            if (res_ == CustList.NO_SWAP_SORT) {
+                return CustList.SWAP_SORT;
+            }
+            _p1.getParameters().setError(true);
+            _p2.getParameters().setError(true);
+            return CustList.NO_SWAP_SORT;
+        }
+        return res_;
+    }
     public final MethodOperation getParent() {
         return parent;
     }
