@@ -115,8 +115,6 @@ public abstract class ExecDynOperationNode implements Operable {
 
     private ClassArgumentMatching resultClass;
 
-    private boolean staticBlock;
-
     private ExecPossibleIntermediateDotted siblingSet;
 
     private int indexBegin;
@@ -126,7 +124,6 @@ public abstract class ExecDynOperationNode implements Operable {
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
         resultClass = _oper.getResultClass();
-        staticBlock = _oper.isStaticBlock();
         argument = _oper.getArgument();
         order = _oper.getOrder();
     }
@@ -676,13 +673,6 @@ public abstract class ExecDynOperationNode implements Operable {
             _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
         argument = _argument;
-    }
-    public final boolean isStaticBlock() {
-        return staticBlock;
-    }
-
-    public final void setStaticBlock(boolean _staticBlock) {
-        staticBlock = _staticBlock;
     }
 
     @Override

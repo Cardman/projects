@@ -86,7 +86,6 @@ public final class CaseCondition extends SwitchPartBlock {
                     OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                     OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
                     defaultAssignmentBefore(_cont, op_);
-                    op_.setStaticBlock(true);
                     op_.analyze(_cont);
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);

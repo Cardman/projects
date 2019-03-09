@@ -189,31 +189,12 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                     _methodTypes.add(new ClassArgumentMatching(s));
                 }
             }
-            boolean cloneArray_ = false;
-            for (String b: str_) {
-                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                    cloneArray_ = true;
-                    break;
-                }
-            }
+            boolean cloneArray_ = cloneArray(str_);
+            StringList a_ = new StringList();
+            getArrayBounds(str_, a_);
             if (cloneArray_) {
-                if (!StringList.quickEq(name_, _stds.getAliasClone())) {
-                    StringList classesNames_ = new StringList();
-                    UndefinedMethodError undefined_ = new UndefinedMethodError();
-                    MethodModifier mod_ = MethodModifier.FINAL;
-                    undefined_.setClassName(str_);
-                    undefined_.setId(new MethodId(mod_, name_, classesNames_));
-                    undefined_.setFileName(_conf.getCurrentFileName());
-                    undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().addError(undefined_);
+                if (checkArrayMethod(_conf, _stds, str_, name_)) {
                     return;
-                }
-                StringList a_ = new StringList();
-                for (String b: str_) {
-                    if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                        a_.add(b);
-                        foundClass = b;
-                    }
                 }
                 String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
                 MethodId id_ = new MethodId(false, name_, new StringList());
@@ -226,10 +207,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 fct_.append(foundClass);
                 fct_.append(Templates.TEMPLATE_END);
                 setResultClass(new ClassArgumentMatching(fct_.toString()));
-                if (isIntermediateDottedOperation()) {
-                    Argument arg_ = getPreviousArgument();
-                    checkNull(arg_,_conf);
-                }
+                checkNull(_conf);
                 return;
             }
             ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, false, str_, name_, accessSuper_, accessFromSuper_, false,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
@@ -247,23 +225,10 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             shiftArgument = !id_.isStaticMethod();
             String fct_ = formatReturn(_conf, false, id_, shiftArgument);
             setResultClass(new ClassArgumentMatching(fct_));
-            if (staticChoiceMethod_) {
-                if (id_.isAbstractMethod()) {
-                    AbstractMethod abs_ = new AbstractMethod();
-                    abs_.setClassName(id_.getRealClass());
-                    abs_.setSgn(id_.getRealId().getSignature());
-                    abs_.setIndexFile(_conf.getCurrentLocationIndex());
-                    abs_.setFileName(_conf.getCurrentFileName());
-                    _conf.getClasses().addError(abs_);
-                    return;
-                }
-            }
+            processAbstract(_conf, staticChoiceMethod_, id_);
             return;
         }
         OperationNode o_ = _m.getFirstChild();
-        while (o_.getNextSibling() != this) {
-            o_ = o_.getNextSibling();
-        }
         if (o_ instanceof StaticAccessOperation) {
             str_ = resolveCorrectTypes(_conf, false, _fromType);
             int vararg_ = -1;
@@ -271,7 +236,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             ClassMethodId feed_ = null;
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordId_ = keyWords_.getKeyWordId();
-            if (2 < _len && StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
+            if (3 < _len && StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
                 String nameId_ = _args.get(3).trim();
                 String cl_ = _conf.resolveAccessibleIdType(nameId_);
                 if (cl_.isEmpty()) {
@@ -359,10 +324,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             str_ = resolveCorrectTypes(_conf, !stCtx_, _fromType);
             String type_ = _conf.resolveCorrectType(_fromType, !stCtx_);
             String cl_ = Templates.getIdFromAllTypes(type_);
-            if (cl_.isEmpty()) {
-                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
-                return;
-            }
             argsRes_ = resolveArguments(i_+1, _conf, cl_, stCtx_, _args);
             if (argsRes_ == null) {
                 return;
@@ -399,39 +360,17 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (c.isEmpty()) {
-                continue;
-            }
             if (InvokingOperation.hasVoidPrevious(c, _conf)) {
                 return;
             }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
         }
-        boolean cloneArray_ = false;
-        for (String b: bounds_) {
-            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                cloneArray_ = true;
-                break;
-            }
-        }
+        boolean cloneArray_ = cloneArray(bounds_);
+        StringList a_ = new StringList();
+        getArrayBounds(bounds_, a_);
         if (cloneArray_) {
-            if (!StringList.quickEq(name_, _stds.getAliasClone())) {
-                StringList classesNames_ = new StringList();
-                UndefinedMethodError undefined_ = new UndefinedMethodError();
-                MethodModifier mod_ = MethodModifier.FINAL;
-                undefined_.setClassName(bounds_);
-                undefined_.setId(new MethodId(mod_, name_, classesNames_));
-                undefined_.setFileName(_conf.getCurrentFileName());
-                undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(undefined_);
+            if (checkArrayMethod(_conf, _stds, bounds_, name_)) {
                 return;
-            }
-            StringList a_ = new StringList();
-            for (String b: bounds_) {
-                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                    a_.add(b);
-                    foundClass = b;
-                }
             }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(_stds.getAliasObject());
             MethodId id_ = new MethodId(false, name_, new StringList());
@@ -441,10 +380,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             fct_.append(foundClass);
             fct_.append(Templates.TEMPLATE_END);
             setResultClass(new ClassArgumentMatching(fct_.toString()));
-            if (isIntermediateDottedOperation()) {
-                Argument arg_ = getPreviousArgument();
-                checkNull(arg_,_conf);
-            }
+            checkNull(_conf);
             return;
         }
         Mapping map_ = new Mapping();
@@ -452,9 +388,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-            maps_.put(t.getName(), t.getConstraints());
-        }
+        getRefConstraints(_conf, maps_, glClass_);
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
@@ -479,11 +413,57 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         ancestor = id_.getAncestor();
         String fct_ = formatReturn(_conf, false, id_, false);
         setResultClass(new ClassArgumentMatching(fct_));
-        if (staticChoiceMethod_) {
-            if (id_.isAbstractMethod()) {
+        processAbstract(_conf, staticChoiceMethod_, id_);
+    }
+
+    private boolean cloneArray(StringList _bounds) {
+        boolean cloneArray_ = false;
+        for (String b: _bounds) {
+            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                cloneArray_ = true;
+                break;
+            }
+        }
+        return cloneArray_;
+    }
+
+    private boolean checkArrayMethod(Analyzable _conf, LgNames _stds, StringList _str, String _name) {
+        if (!StringList.quickEq(_name, _stds.getAliasClone())) {
+            StringList classesNames_ = new StringList();
+            UndefinedMethodError undefined_ = new UndefinedMethodError();
+            MethodModifier mod_ = MethodModifier.FINAL;
+            undefined_.setClassName(_str);
+            undefined_.setId(new MethodId(mod_, _name, classesNames_));
+            undefined_.setFileName(_conf.getCurrentFileName());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(undefined_);
+            return true;
+        }
+        return false;
+    }
+
+    private void getArrayBounds(StringList _bounds, StringList _a) {
+        for (String b: _bounds) {
+            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                _a.add(b);
+                foundClass = b;
+            }
+        }
+    }
+
+    void checkNull(Analyzable _conf) {
+        Argument arg_ = getPreviousArgument();
+        if (isIntermediateDottedOperation()) {
+            checkNull(arg_, _conf);
+        }
+    }
+
+    private void processAbstract(Analyzable _conf, boolean _staticChoiceMethod, ClassMethodIdReturn _id) {
+        if (_staticChoiceMethod) {
+            if (_id.isAbstractMethod()) {
                 AbstractMethod abs_ = new AbstractMethod();
-                abs_.setClassName(id_.getRealClass());
-                abs_.setSgn(id_.getRealId().getSignature());
+                abs_.setClassName(_id.getRealClass());
+                abs_.setSgn(_id.getRealId().getSignature());
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(abs_);
@@ -823,9 +803,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                    map_.put(t.getName(), t.getConstraints());
-                }
+                getRefConstraints(_conf, map_, glClass_);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
@@ -845,9 +823,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             return;
         }
         OperationNode o_ = _m.getFirstChild();
-        while (o_.getNextSibling() != this) {
-            o_ = o_.getNextSibling();
-        }
         if (o_ instanceof StaticAccessOperation) {
             str_ = resolveCorrectTypes(_conf, false, _fromType);
             int i_ = 3;
@@ -879,9 +854,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                    map_.put(t.getName(), t.getConstraints());
-                }
+                getRefConstraints(_conf, map_, glClass_);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
@@ -900,8 +873,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
-        boolean stCtx_ = isStaticAccess();
-        str_ = resolveCorrectTypes(_conf, !stCtx_, _fromType);
+        str_ = resolveCorrectTypes(_conf, true, _fromType);
         int i_ = 3;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
@@ -928,9 +900,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (c.isEmpty()) {
-                continue;
-            }
             if (InvokingOperation.hasVoidPrevious(c, _conf)) {
                 return;
             }
@@ -941,9 +910,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-            maps_.put(t.getName(), t.getConstraints());
-        }
+        getRefConstraints(_conf, maps_, glClass_);
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
@@ -956,7 +923,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         }
         boolean aff_ = i_ < _len;
         ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-        FieldResult r_ = OperationNode.getDeclaredCustField(_conf, stCtx_, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_);
+        FieldResult r_ = OperationNode.getDeclaredCustField(_conf, false, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();
             for (String c: str_) {
@@ -997,6 +964,12 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         }
         String fct_ = formatFieldReturn(_conf, static_, params_, out_, false);
         setResultClass(new ClassArgumentMatching(fct_));
+    }
+
+    private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map, String _glClass) {
+        for (TypeVar t: Templates.getConstraints(_glClass, _conf)) {
+            _map.put(t.getName(), t.getConstraints());
+        }
     }
 
     private void processOperator(Analyzable _conf, LgNames _stds,

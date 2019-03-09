@@ -244,7 +244,6 @@ public final class ElRenderUtil {
         OperationNode current_ = _current;
         while (true) {
             _context.setOkNumOp(true);
-            current_.setStaticBlock(_staticBlock);
             current_.analyze(_context);
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context);
@@ -279,7 +278,6 @@ public final class ElRenderUtil {
             }
             if (par_ == _root) {
                 _context.setOkNumOp(true);
-                par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {

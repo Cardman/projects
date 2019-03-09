@@ -112,8 +112,6 @@ public abstract class OperationNode implements Operable {
 
     private ClassArgumentMatching resultClass;
 
-    private boolean staticBlock;
-
     private PossibleIntermediateDotted siblingSet;
 
     OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -1946,13 +1944,6 @@ public abstract class OperationNode implements Operable {
             _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
         _op.setSimpleArgument(_argument);
-    }
-    public final boolean isStaticBlock() {
-        return staticBlock;
-    }
-
-    public final void setStaticBlock(boolean _staticBlock) {
-        staticBlock = _staticBlock;
     }
 
     @Override

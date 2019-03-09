@@ -133,7 +133,6 @@ public final class ElUtil {
         OperationNode current_ = _current;
         while (true) {
             _context.setOkNumOp(true);
-            current_.setStaticBlock(_staticBlock);
             current_.analyze(_context);
             current_.setOrder(_sortedNodes.size());
             if (current_ instanceof ReductibleOperable) {
@@ -175,7 +174,6 @@ public final class ElUtil {
             }
             if (par_ == _root) {
                 _context.setOkNumOp(true);
-                par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
