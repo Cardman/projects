@@ -28,10 +28,7 @@ public final class StaticAccessOperation extends ConstLeafOperation {
             Classes classes_ = _conf.getClasses();
             if (classes_.isCustomType(ext_)) {
                 String glClass_ = _conf.getGlobalClass();
-                String curClassBase_ = null;
-                if (glClass_ != null) {
-                    curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-                }
+                String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
                 if (!Classes.canAccessClass(curClassBase_, ext_, _conf)) {
                     BadAccessClass badAccess_ = new BadAccessClass();
                     badAccess_.setId(ext_);

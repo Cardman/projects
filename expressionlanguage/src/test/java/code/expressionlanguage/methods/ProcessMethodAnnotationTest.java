@@ -3679,4 +3679,20 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void calculateArgument6FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoInt()1i:\n");
+        xml_.append(" $int infoIntTwo()2i:\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(3)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

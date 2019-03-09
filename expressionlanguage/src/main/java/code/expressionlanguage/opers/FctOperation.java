@@ -138,9 +138,6 @@ public final class FctOperation extends ReflectableInvokingOperation {
         boolean cloneArray_ = false;
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (c.isEmpty()) {
-                continue;
-            }
             if (hasVoidPrevious(c, _conf)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;

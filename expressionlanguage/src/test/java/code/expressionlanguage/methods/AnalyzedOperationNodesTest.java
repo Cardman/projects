@@ -1159,6 +1159,55 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         analyzeIndirectLocalVars("$new pkg.ExTwo($null)", "myvar", "pkg.ExTwo", xml_.toString(), true);
     }
+    @Test
+    public void processEl19FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = 1 ! 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl110FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = get(,):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl111FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ($static(ExTwo)).(call()):\n");
+        xml_.append(" }\n");
+        xml_.append(" $static $int call(){$return 0:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl112FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo {\n");
+        xml_.append(" $public ExTwo(){\n");
+        xml_.append("  $super():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {

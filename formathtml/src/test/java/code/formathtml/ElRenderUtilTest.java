@@ -1702,14 +1702,7 @@ public final class ElRenderUtilTest {
         ElRenderUtil.processEl(el_, 0, context_);
         assertNotNull(context_.getContext().getException());
     }
-    @Test
-    public void processEl31FailTest() {
-        Configuration context_ = contextEl();
-        addImportingPage(context_);
-        String el_ = "get(,)";
-        ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
-    }
+
     @Test
     public void processEl33FailTest() {
         Configuration conf_ = contextEl();
@@ -1782,14 +1775,7 @@ public final class ElRenderUtilTest {
         ElRenderUtil.processEl(el_, 0, conf_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
-    @Test
-    public void processEl43FailTest() {
-        Configuration conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "$static(code.expressionlanguage.classes.FailMethods).(fail())";
-        ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().isEmptyErrors());
-    }
+
     @Test
     public void processEl44FailTest() {
         Configuration conf_ = contextEl();

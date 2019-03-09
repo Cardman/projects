@@ -9,7 +9,7 @@ import code.util.StringMap;
 
 public abstract class PageEl {
 
-    private String globalClass;
+    private String globalClass = "";
 
     private Argument globalArgument;
 

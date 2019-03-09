@@ -498,10 +498,7 @@ public abstract class OperationNode implements Operable {
         ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
         ObjectNotNullMap<ClassField,FieldResult> ancestors_ = new ObjectNotNullMap<ClassField,FieldResult>();
         String glClass_ = _cont.getGlobalClass();
-        String curClassBase_ = null;
-        if (glClass_ != null) {
-            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        }
+        String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         for (String s: classeNames_) {
             if (StringList.quickEq(s, objectType_)) {
                 continue;
@@ -756,10 +753,8 @@ public abstract class OperationNode implements Operable {
         }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
+        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+            map_.put(t.getName(), t.getConstraints());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
@@ -1237,10 +1232,8 @@ public abstract class OperationNode implements Operable {
         }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
+        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+            map_.put(t.getName(), t.getConstraints());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         _conf.setAmbigous(false);

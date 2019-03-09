@@ -17,20 +17,11 @@ public final class SuperFieldOperation extends
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
             cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
-        }
-        if (cl_ == null) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
         }
         return cl_;
     }

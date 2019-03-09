@@ -43,11 +43,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (methodName.trim().isEmpty()) {
             array = true;
             MethodOperation mOp_ = getParent();
-            if (mOp_ == null) {
-                Block curr_ = _conf.getCurrentBlock();
-                if (curr_ instanceof AnnotationMethodBlock) {
-                    className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
-                }
+            Block curr_ = _conf.getCurrentBlock();
+            if (curr_ instanceof AnnotationMethodBlock) {
+                className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
             }
             if (mOp_ instanceof AssocationOperation) {
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
@@ -243,6 +241,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
+            BadConstructorCall cast_ = new BadConstructorCall();
+            cast_.setLocalOffset(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(cast_);
+            setResultClass(new ClassArgumentMatching(className));
+            return;
         }
         int nb_ = suppliedFields_.size();
         suppliedFields_.removeDuplicates();

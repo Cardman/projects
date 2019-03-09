@@ -451,10 +451,8 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                maps_.put(t.getName(), t.getConstraints());
-            }
+        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+            maps_.put(t.getName(), t.getConstraints());
         }
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
@@ -820,10 +818,8 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                if (glClass_ != null) {
-                    for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                        map_.put(t.getName(), t.getConstraints());
-                    }
+                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                    map_.put(t.getName(), t.getConstraints());
                 }
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
@@ -878,10 +874,8 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                if (glClass_ != null) {
-                    for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                        map_.put(t.getName(), t.getConstraints());
-                    }
+                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                    map_.put(t.getName(), t.getConstraints());
                 }
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
@@ -942,10 +936,8 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                maps_.put(t.getName(), t.getConstraints());
-            }
+        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+            maps_.put(t.getName(), t.getConstraints());
         }
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {

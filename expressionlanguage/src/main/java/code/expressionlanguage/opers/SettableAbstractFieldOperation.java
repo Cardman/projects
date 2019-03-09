@@ -146,10 +146,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         ClassField clField_ = fieldMetaInfo.getClassField();
         String gl_ = _an.getGlobalClass();
-        if (gl_ == null) {
-            return false;
-        }
-        String id_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+        String id_ = Templates.getIdFromAllTypes(gl_);
         if (isFirstChild()) {
             return StringList.quickEq(clField_.getClassName(), id_);
         }

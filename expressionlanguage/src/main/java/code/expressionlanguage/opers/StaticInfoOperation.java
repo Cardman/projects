@@ -40,10 +40,7 @@ public final class StaticInfoOperation extends VariableLeafOperation implements 
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(classStr_)) {
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            }
+            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(classStr_);

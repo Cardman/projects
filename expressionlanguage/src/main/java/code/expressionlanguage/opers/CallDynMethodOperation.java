@@ -79,10 +79,8 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
             int nb_ = param_.size();
             StringMap<StringList> map_ = new StringMap<StringList>();
             String glClass_ = _conf.getGlobalClass();
-            if (glClass_ != null) {
-                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                    map_.put(t.getName(), t.getConstraints());
-                }
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                map_.put(t.getName(), t.getConstraints());
             }
             for (int i = 0; i < nb_; i++) {
                 ClassArgumentMatching a_ = firstArgs_.get(i);

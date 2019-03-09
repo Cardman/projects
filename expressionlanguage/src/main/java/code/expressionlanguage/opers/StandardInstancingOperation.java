@@ -205,10 +205,7 @@ public final class StandardInstancingOperation extends
         }
         String glClass_ = _conf.getGlobalClass();
         if (classes_.isCustomType(base_)) {
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            }
+            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(base_);

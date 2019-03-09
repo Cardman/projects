@@ -60,10 +60,7 @@ public final class EnumValueOfOperation extends ReflectableOpering {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        String curClassBase_ = null;
-        if (glClass_ != null) {
-            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        }
+        String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         if (!Classes.canAccessClass(curClassBase_, clName_, _conf)) {
             BadAccessClass badAccess_ = new BadAccessClass();
             badAccess_.setId(clName_);

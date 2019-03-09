@@ -1463,11 +1463,11 @@ public final class Classes {
                 inners_.add(r_);
                 continue;
             }
-            if (_glClass == null) {
-                continue;
-            }
             String idGl_ = Templates.getIdFromAllTypes(_glClass);
             RootBlock rGl_ = _context.getClasses().getClassBody(idGl_);
+            if (rGl_ == null) {
+                continue;
+            }
             String outGl_ = rGl_.getOuter().getFullName();
             String pkgGl_ = rGl_.getPackageName();
             if (r_.getAccess() == AccessEnum.PROTECTED) {
@@ -1526,11 +1526,11 @@ public final class Classes {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
-        if (_className == null) {
-            return false;
-        }
         String baseClass_ = Templates.getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(baseClass_);
+        if (root_ == null) {
+            return false;
+        }
         GeneType belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {

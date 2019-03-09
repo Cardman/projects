@@ -14,7 +14,7 @@ public final class AnalyzedPageEl {
     /**Only used while throwing exception*/
     private Block currentBlock;
 
-    private String globalClass;
+    private String globalClass = "";
 
     private CustList<StringMap<LoopVariable>> vars = new CustList<StringMap<LoopVariable>>();
     private CustList<StringMap<LoopVariable>> mutableVars = new CustList<StringMap<LoopVariable>>();

@@ -3021,9 +3021,12 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
-                if (nextCharIs(_string, i_ + 1, len_, EQ_CHAR)) {
+                boolean nextIs_ = nextCharIs(_string, i_ + 1, len_, EQ_CHAR);
+                if (curChar_ == NEG_BOOL_CHAR || nextIs_) {
                     builtOperator_.append(curChar_);
-                    builtOperator_.append(EQ_CHAR);
+                    if (nextIs_) {
+                        builtOperator_.append(EQ_CHAR);
+                    }
                     if (prio_ > EQ_PRIO) {
                         prio_ = EQ_PRIO;
                     }

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -33,13 +32,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     @Override
     public void preAnalyze(Analyzable _conf) {
-        if (!StringList.isDollarWord(fieldName.trim())) {
-            BadFieldName err_ = new BadFieldName();
-            err_.setName(fieldName.trim());
-            err_.setIndexFile(_conf.getCurrentLocationIndex());
-            err_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(err_);
-        }
         fieldName = fieldName.trim();
         MethodOperation mOp_ = getParent();
         if (!(mOp_ instanceof AnnotationInstanceOperation)) {
@@ -87,10 +79,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         LgNames std_ = _conf.getStandards();
         String objCl_ = std_.getAliasObject();
         if (!(mOp_ instanceof AnnotationInstanceOperation)) {
-            setResultClass(new ClassArgumentMatching(objCl_));
-            return;
-        }
-        if (!StringList.isDollarWord(fieldName)) {
             setResultClass(new ClassArgumentMatching(objCl_));
             return;
         }

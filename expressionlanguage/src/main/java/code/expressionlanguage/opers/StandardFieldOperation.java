@@ -1,11 +1,9 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.StandardFieldOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
 public final class StandardFieldOperation extends
@@ -18,7 +16,6 @@ public final class StandardFieldOperation extends
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
@@ -29,14 +26,6 @@ public final class StandardFieldOperation extends
             } else {
                 cl_ = new ClassArgumentMatching(look_);
             }
-        }
-        if (cl_ == null || cl_.isUndefined()) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
         }
         return cl_;
     }

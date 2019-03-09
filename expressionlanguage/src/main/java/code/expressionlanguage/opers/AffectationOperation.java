@@ -127,13 +127,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             return;
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        boolean buildMap_ = true;
-        if (_conf.isStaticContext()) {
-            buildMap_ = false;
-        } else if (_conf.getGlobalClass() == null) {
-            buildMap_ = false;
-        }
-        if (buildMap_) {
+        if (!_conf.isStaticContext()) {
             for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
                 vars_.put(t.getName(), t.getConstraints());
             }

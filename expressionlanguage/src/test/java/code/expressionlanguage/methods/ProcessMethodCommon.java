@@ -18,8 +18,6 @@ public abstract class ProcessMethodCommon {
     protected static final String ARR_ARR_OBJECT = "[[java.lang.Object";
     protected static final String ARR_CUST = "[pkg.ExThree";
     protected static final String ARR_ARR_CUST = "[[pkg.ExThree";
-    protected static final String NUMBERS = "code.expressionlanguage.classes.Ints";
-    protected static final String CUST = NUMBERS;
     protected static final String INTEGER = "java.lang.Integer";
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";

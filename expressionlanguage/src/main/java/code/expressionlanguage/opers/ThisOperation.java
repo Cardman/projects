@@ -38,9 +38,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
             }
             if (!(o_ instanceof StaticAccessOperation)) {
                 String arg_ = _conf.getGlobalClass();
-                if (arg_ == null) {
-                    arg_ = stds_.getAliasObject();
-                }
                 StaticAccessThisError static_ = new StaticAccessThisError();
                 static_.setClassName(arg_);
                 static_.setFileName(_conf.getCurrentFileName());
@@ -103,9 +100,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String arg_ = _conf.getGlobalClass();
-        if (arg_ == null) {
-            arg_ = stds_.getAliasObject();
-        }
         if (_conf.isStaticContext()) {
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);

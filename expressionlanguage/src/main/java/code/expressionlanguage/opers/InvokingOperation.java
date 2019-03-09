@@ -57,10 +57,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
             String glClass_ = _conf.getGlobalClass();
-            if (glClass_ != null) {
-                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                    map_.put(t.getName(), t.getConstraints());
-                }
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                map_.put(t.getName(), t.getConstraints());
             }
             Mapping mapping_ = new Mapping();
             mapping_.setParam(name_);

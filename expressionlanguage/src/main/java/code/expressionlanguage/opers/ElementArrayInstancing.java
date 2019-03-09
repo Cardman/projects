@@ -49,10 +49,8 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
+        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+            map_.put(t.getName(), t.getConstraints());
         }
         String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className_);
         Mapping mapping_ = new Mapping();

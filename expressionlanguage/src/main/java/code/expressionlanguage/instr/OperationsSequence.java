@@ -91,8 +91,8 @@ public final class OperationsSequence {
                     }
                     if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                         operators.clear();
-                        operators.put(afterLastPar_, "");
                         priority = ElResolver.BAD_PRIO;
+                        constType = ConstType.ERROR;
                         return;
                     }
                 }
@@ -144,10 +144,6 @@ public final class OperationsSequence {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
-        } else if (priority != ElResolver.UNARY_PRIO){
-            //fctName.trim().isEmpty() && useFct
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            addValueIfNotEmpty(beginValuePart_, str_);
         }
         if (pureDot_) {
             beginValuePart_ = endValuePart_ + operators.lastValue().length();
@@ -167,6 +163,7 @@ public final class OperationsSequence {
                     String err_ = _string.substring(b_, e_);
                     if (!err_.trim().isEmpty()) {
                         errorParts.add(b_);
+                        constType = ConstType.ERROR;
                     }
                 }
                 str_ = _string.substring(beginValuePart_, endValuePart_);
