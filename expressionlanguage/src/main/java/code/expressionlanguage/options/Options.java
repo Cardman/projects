@@ -60,6 +60,10 @@ public final class Options {
         return allParametersSort;
     }
 
+    public void setAllParametersSort(boolean _allParametersSort) {
+        allParametersSort = _allParametersSort;
+    }
+
     public boolean isSingleInnerParts() {
         return singleInnerParts;
     }
