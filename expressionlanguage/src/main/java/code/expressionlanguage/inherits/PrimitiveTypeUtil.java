@@ -217,7 +217,7 @@ public final class PrimitiveTypeUtil {
                     int dLoc_ = dci_.getDim();
                     i_ = Templates.getIdFromAllTypes(i_);
                     GeneType j_ = _conf.getClassBody(i_);
-                    for (String u: TypeUtil.getAllGenericSuperTypes(j_, _conf)) {
+                    for (String u: j_.getAllGenericSuperTypes()) {
                         superTypes_.add(getPrettyArrayType(u, d_ + dLoc_));
                     }
                 }
@@ -230,7 +230,7 @@ public final class PrimitiveTypeUtil {
                 String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
                 GeneType g_ = _conf.getClassBody(w_);
                 superTypes_.add(getPrettyArrayType(w_, d_));
-                for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+                for (String t: g_.getAllGenericSuperTypes()) {
                     superTypes_.add(getPrettyArrayType(t, d_));
                 }
                 for (int d = 1; d <= d_; d++) {
@@ -246,7 +246,7 @@ public final class PrimitiveTypeUtil {
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
                         GeneType g_ = _conf.getClassBody(w_);
                         superTypes_.add(getPrettyArrayType(w_, d_));
-                        for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+                        for (String t: g_.getAllGenericSuperTypes()) {
                             superTypes_.add(getPrettyArrayType(t, d_));
                         }
                     }
@@ -258,7 +258,7 @@ public final class PrimitiveTypeUtil {
             }
             String id_ = Templates.getIdFromAllTypes(base_);
             GeneType g_ = _conf.getClassBody(id_);
-            for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+            for (String t: g_.getAllGenericSuperTypes()) {
                 superTypes_.add(getPrettyArrayType(t, d_));
             }
             for (int d = 1; d <= d_; d++) {

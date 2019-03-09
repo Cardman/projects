@@ -485,10 +485,10 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             if (_baseClass) {
-                classeNamesLoc_.add(root_.getFullName());
+                classeNamesLoc_.add(root_.getGenericString());
             }
             if (_superClass) {
-                classeNamesLoc_.addAllElts(root_.getAllSuperTypes());
+                classeNamesLoc_.addAllElts(root_.getAllGenericSuperTypes());
             }
             for (String s: classeNamesLoc_) {
                 clCurNamesBase_.put(s, base_);
@@ -503,10 +503,11 @@ public abstract class OperationNode implements Operable {
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         for (String s: classeNames_) {
-            if (StringList.quickEq(s, objectType_)) {
+            String id_ = Templates.getIdFromAllTypes(s);
+            if (StringList.quickEq(id_, objectType_)) {
                 continue;
             }
-            ClassField candidate_ = new ClassField(s, _name);
+            ClassField candidate_ = new ClassField(id_, _name);
             FieldInfo fi_ = _cont.getFieldInfo(candidate_);
             if (fi_ == null) {
                 continue;
@@ -530,12 +531,9 @@ public abstract class OperationNode implements Operable {
             String formatted_;
             String baseCl_ = clCurNames_.getVal(s);
             if (Templates.correctNbParameters(baseCl_, _cont)) {
-                formatted_ = Templates.getFullTypeByBases(baseCl_, s, _cont);
+                formatted_ = Templates.quickFormat(baseCl_, s, _cont);
             } else {
                 formatted_ = s;
-            }
-            if (formatted_ == null) {
-                continue;
             }
             String realType_ = fi_.getType();
             boolean finalField_ = fi_.isFinalField();
@@ -552,9 +550,6 @@ public abstract class OperationNode implements Operable {
         }
         int maxAnc_ = 0;
         for (String c: _class.getNames()) {
-            if (c.isEmpty()) {
-                continue;
-            }
             int anc_ = 1;
             boolean keepInstance_ = true;
             String base_ = Templates.getIdFromAllTypes(c);
@@ -574,20 +569,21 @@ public abstract class OperationNode implements Operable {
                 String baseLoc_ = Templates.getIdFromAllTypes(f_);
                 StringList classeNamesPar_ = new StringList();
                 if (_baseClass) {
-                    classeNamesPar_.add(p.getFullName());
+                    classeNamesPar_.add(p.getGenericString());
                 }
                 if (_superClass) {
-                    classeNamesPar_.addAllElts(p.getAllSuperTypes());
+                    classeNamesPar_.addAllElts(p.getAllGenericSuperTypes());
                 }
                 for (String s: classeNamesPar_) {
                     clCurNamesBase_.put(s, baseLoc_);
                     clCurNames_.put(s, f_);
                 }
                 for (String s: classeNamesPar_) {
-                    if (StringList.quickEq(s, objectType_)) {
+                    String id_ = Templates.getIdFromAllTypes(s);
+                    if (StringList.quickEq(id_, objectType_)) {
                         continue;
                     }
-                    ClassField candidate_ = new ClassField(s, _name);
+                    ClassField candidate_ = new ClassField(id_, _name);
                     FieldInfo fi_ = _cont.getFieldInfo(candidate_);
                     if (fi_ == null) {
                         continue;
@@ -614,12 +610,9 @@ public abstract class OperationNode implements Operable {
                     String formatted_;
                     String baseCl_ = clCurNames_.getVal(s);
                     if (Templates.correctNbParameters(baseCl_, _cont)) {
-                        formatted_ = Templates.getFullTypeByBases(baseCl_, s, _cont);
+                        formatted_ = Templates.quickFormat(baseCl_, s, _cont);
                     } else {
                         formatted_ = s;
-                    }
-                    if (formatted_ == null) {
-                        continue;
                     }
                     String realType_ = fi_.getType();
                     boolean finalField_ = fi_.isFinalField();
@@ -993,15 +986,12 @@ public abstract class OperationNode implements Operable {
                         }
                         String formattedClass_;
                         if (_superClass) {
-                            formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, _conf);
+                            formattedClass_ = Templates.quickFormat(clCurName_, name_, _conf);
                         } else {
                             if (!StringList.quickEq(base_, t.getFullName())) {
                                 continue;
                             }
                             formattedClass_ = clCurName_;
-                        }
-                        if (formattedClass_ == null) {
-                            continue;
                         }
                         GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                         if (!Classes.canAccess(glClass_, sup_, _conf)) {
@@ -1054,15 +1044,12 @@ public abstract class OperationNode implements Operable {
                             }
                             String formattedClass_;
                             if (_superClass) {
-                                formattedClass_ = Templates.getFullTypeByBases(f_, name_, _conf);
+                                formattedClass_ = Templates.quickFormat(f_, name_, _conf);
                             } else {
                                 if (!StringList.quickEq(base_, t.getFullName())) {
                                     continue;
                                 }
                                 formattedClass_ = f_;
-                            }
-                            if (formattedClass_ == null) {
-                                continue;
                             }
                             GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                             if (!Classes.canAccess(glClass_, sup_, _conf)) {

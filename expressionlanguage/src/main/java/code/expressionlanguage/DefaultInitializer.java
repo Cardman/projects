@@ -26,13 +26,14 @@ public class DefaultInitializer implements Initializer {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock class_ = classes_.getClassBody(baseClass_);
-        StringList allClasses_ = new StringList(baseClass_);
-        allClasses_.addAllElts(class_.getAllSuperTypes());
+        StringList allClasses_ = new StringList(class_.getGenericString());
+        allClasses_.addAllElts(class_.getAllGenericSuperTypes());
         ObjectMap<ClassField,Struct> fields_;
         fields_ = new ObjectMap<ClassField,Struct>();
         for (String c: allClasses_) {
-            String formatted_ = Templates.getFullTypeByBases(_className,c,_context);
-            RootBlock clMetaLoc_ = classes_.getClassBody(c);
+            String id_ = Templates.getIdFromAllTypes(c);
+            String formatted_ = Templates.quickFormat(_className,c,_context);
+            RootBlock clMetaLoc_ = classes_.getClassBody(id_);
             for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
@@ -44,7 +45,7 @@ public class DefaultInitializer implements Initializer {
                 String fieldDeclClass_ = f_.getImportedClassName();
                 fieldDeclClass_ = Templates.quickFormat(formatted_,fieldDeclClass_,_context);
                 for (String f: f_.getFieldName()) {
-                    ClassField key_ = new ClassField(c, f);
+                    ClassField key_ = new ClassField(id_, f);
                     fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                 }
             }

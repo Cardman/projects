@@ -54,14 +54,12 @@ final class WildCardPartType extends ParentPartType {
             RootBlock _rooted, boolean _exact) {
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            stopDepends();
             return;
         }
         PartType prev_ = getParent().getFirstChild();
         String base_ = ((NamePartType)prev_).getTypeName();
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            stopDepends();
             return;
         }
         String ch_ = getFirstChild().getAnalyzedType();
@@ -73,7 +71,7 @@ final class WildCardPartType extends ParentPartType {
     @Override
     void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            RootBlock _rooted, boolean _exact,
+            RootBlock _rooted,
             boolean _protected) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
@@ -90,8 +88,11 @@ final class WildCardPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact) {
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_rooted);
+    }
+    @Override
+    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());

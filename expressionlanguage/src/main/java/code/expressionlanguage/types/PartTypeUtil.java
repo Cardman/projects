@@ -12,102 +12,12 @@ import code.util.StringList;
 
 public final class PartTypeUtil {
 
-    public static StringList getAllTypes(String _input, Analyzable _an) {
-        StringList list_ = new StringList();
-        StringBuilder out_ = new StringBuilder();
-        StringBuilder id_ = new StringBuilder();
-        int count_ = 0;
-        Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
-        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
-        addValues(root_, dels_, loc_);
-        PartType current_ = root_;
-        while (true) {
-            if (current_ instanceof LeafPartType) {
-                if (count_ == 0) {
-                    id_.append(((LeafPartType)current_).getTypeName());
-                } else {
-                    out_.append(((LeafPartType)current_).getTypeName());
-                }
-            }
-            PartType child_ = createFirstChild(null,current_, loc_, dels_, options_);
-            if (child_ != null) {
-                if (count_ == 0) {
-                    id_.append(((ParentPartType)current_).getBegin());
-                } else {
-                    out_.append(((ParentPartType)current_).getBegin());
-                }
-                ((ParentPartType)current_).appendChild(child_);
-                current_ = child_;
-                continue;
-            }
-            boolean stop_ = false;
-            while (true) {
-                PartType next_ = createNextSibling(null,current_, loc_, dels_, options_);
-                ParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    if (par_ instanceof TemplatePartType) {
-                        if (current_.getIndex() == 0) {
-                            count_++;
-                        }
-                    }
-                    if (count_ == 0) {
-                        id_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
-                    } else if (count_ > 1 || !(par_ instanceof TemplatePartType)) {
-                        out_.append(((BinaryType) par_).getSeparator(current_.getIndex()));
-                    } else if (current_.getIndex() > 0) {
-                        // par_ instanceof TemplatePartType
-                        // end first argument
-                        list_.add(out_.toString());
-                        out_.delete(0, out_.length());
-                    }
-                    par_.appendChild(next_);
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    if (par_ instanceof TemplatePartType) {
-                        list_.add(out_.toString());
-                    }
-                    stop_ = true;
-                    break;
-                }
-                if (par_ == null) {
-                    stop_ = true;
-                    break;
-                }
-                if (par_ instanceof TemplatePartType) {
-                    count_--;
-                }
-                if (count_ > 0) {
-                    out_.append(par_.getEnd());
-                } else if (par_ instanceof TemplatePartType) {
-                    list_.add(out_.toString());
-                    out_.delete(0, out_.length());
-                }
-                dels_.removeLast();
-                current_ = par_;
-            }
-            if (stop_) {
-                break;
-            }
-        }
-        list_.add(0, id_.toString());
-        return list_;
-    }
-    static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
-        return processAnalyze(_input, _globalType, _an, _rooted, true);
-    }
     public static StringList processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
-            return null;
+            return new StringList();
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<NatTreeMap<Integer, String>> dels_;
@@ -128,10 +38,6 @@ public final class PartTypeUtil {
             while (true) {
                 current_.analyzeDepends(_an, _index, dels_, _rooted, _exact);
                 StringList deps_ = current_.getTypeNames();
-                if (deps_ == null) {
-                    _an.getCurrentBadIndexes().add(current_.getIndexInType());
-                    return null;
-                }
                 allDeps_.addAllElts(deps_);
                 PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
@@ -143,10 +49,6 @@ public final class PartTypeUtil {
                 if (par_ == root_) {
                     par_.analyzeDepends(_an, _index, dels_, _rooted, _exact);
                     deps_ = par_.getTypeNames();
-                    if (deps_ == null) {
-                        _an.getCurrentBadIndexes().add(current_.getIndexInType());
-                        return null;
-                    }
                     allDeps_.addAllElts(deps_);
                     stop_ = true;
                     break;
@@ -165,7 +67,7 @@ public final class PartTypeUtil {
         allDeps_.removeDuplicates();
         return allDeps_;
     }
-    public static String processAnalyzeInherits(String _input, int _index, String _globalType, Analyzable _an, RootBlock _rooted, boolean _exact, boolean _protectedInc) {
+    public static String processAnalyzeInherits(String _input, int _index, String _globalType, Analyzable _an, RootBlock _rooted, boolean _protectedInc) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
@@ -188,7 +90,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyzeInherits(_an, _index, dels_, _globalType, _rooted, _exact, _protectedInc);
+                current_.analyzeInherits(_an, _index, dels_, _globalType, _rooted, _protectedInc);
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
@@ -200,7 +102,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyzeInherits(_an, _index, dels_, _globalType, _rooted, _exact, _protectedInc);
+                    par_.analyzeInherits(_an, _index, dels_, _globalType, _rooted, _protectedInc);
                     stop_ = true;
                     break;
                 }
@@ -218,7 +120,7 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
-    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact) {
+    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
@@ -241,7 +143,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyze(_an, dels_, _globalType, _rooted, _exact);
+                current_.analyze(_an, dels_, _globalType, _rooted);
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
@@ -253,7 +155,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyze(_an, dels_, _globalType, _rooted, _exact);
+                    par_.analyze(_an, dels_, _globalType, _rooted);
                     stop_ = true;
                     break;
                 }
@@ -271,6 +173,58 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
+    public static String processAnalyzeLine(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
+        Options options_ = _an.getOptions();
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        if (indexes_ == null) {
+            _an.getCurrentBadIndexes().add(0);
+            return "";
+        }
+        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
+        CustList<NatTreeMap<Integer, String>> dels_;
+        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        boolean rem_ = loc_.isRemovedEmptyFirstChild();
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
+            if (child_ != null) {
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                current_.analyzeLine(_an, dels_, _globalType, _rooted);
+                if (current_.getAnalyzedType().isEmpty()) {
+                    return "";
+                }
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    par_.analyzeLine(_an, dels_, _globalType, _rooted);
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return root_.getAnalyzedType();
+    }
     public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);

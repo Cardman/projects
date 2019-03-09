@@ -40,7 +40,7 @@ abstract class PartType {
                     } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
                         okVarType_ = true;
                     }
-                    if (_an != null && _an.getAvailableVariables().containsStr(type_) && okVarType_) {
+                    if (_an.getAvailableVariables().containsStr(type_) && okVarType_) {
                         return new VariablePartType(_parent, _index, _indexInType, type_);
                     }
                 }
@@ -86,16 +86,13 @@ abstract class PartType {
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
-    abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
-    abstract void analyzeInherits(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, RootBlock _rooted,boolean _exact, boolean _protected);
+    abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted);
+    abstract void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted);
+    abstract void analyzeInherits(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, RootBlock _rooted, boolean _protected);
     abstract void analyzeDepends(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>>_dels, RootBlock _rooted,boolean _exact);
     abstract void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted);
     StringList getTypeNames() {
         return typeNames;
-    }
-
-    void stopDepends() {
-        typeNames = null;
     }
 
     int getIndex() {

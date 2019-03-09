@@ -33,7 +33,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         String sub_ = className.substring(keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_));
-        sub_ = _conf.resolveCorrectType(sub_, false);
+        sub_ = _conf.resolveCorrectType(sub_, sub_.contains(Templates.TEMPLATE_BEGIN));
         if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 correctTemplate = Templates.correctNbParameters(sub_, _conf);

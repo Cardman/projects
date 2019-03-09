@@ -507,7 +507,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
-            String type_ = _conf.resolveCorrectType(_fromType, true);
+            String type_ = _conf.resolveCorrectType(_fromType);
             String cl_ = Templates.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, _conf, cl_, false, _args);
             if (argsRes_ == null) {
@@ -544,7 +544,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             String cl_ = _conf.resolveCorrectType(_fromType);
             String id_ = Templates.getIdFromAllTypes(cl_);
             GeneType g_ = _conf.getClassBody(id_);
-            if (g_ == null || PrimitiveTypeUtil.isPrimitive(id_, _conf) || g_.isAbstractType()) {
+            if (g_ == null || g_.isAbstractType()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(cl_);
                 call_.setFileName(_conf.getCurrentFileName());
@@ -647,8 +647,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             return;
         }
         for (String o: previousResultClass.getNames()) {
-            String idRoot_ = Templates.getIdFromAllTypes(o);
-            StringList owners_ = TypeUtil.getOwners(false,true, glClass_, idRoot_, idClass_, false, _conf);
+            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, false, _conf);
             owners_.removeDuplicates();
             if (owners_.size() == 1) {
                 ownersMap_.put(o, owners_.first());
@@ -662,10 +661,19 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
-        String sub_ = ownersMap_.getKeys().first();
         String sup_ = ownersMap_.values().first();
-        String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
-        if (new_ == null) {
+        StringList partsArgs_ = new StringList();
+        for (String a: Templates.getAllTypes(cl_).mid(1)) {
+            String res_ = _conf.resolveCorrectType(a);
+            partsArgs_.add(res_);
+        }
+        if (partsArgs_.isEmpty()) {
+            cl_ = StringList.concat(sup_,"..",idClass_);
+        } else {
+            cl_ = StringList.concat(sup_,"..",idClass_,"<",partsArgs_.join(","),">");
+        }
+        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+        if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
             Block bl_ = _conf.getCurrentBlock();
             AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
@@ -674,28 +682,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             cl_ = _conf.getStandards().getAliasObject();
-        } else {
-            StringList partsArgs_ = new StringList();
-            for (String a: Templates.getAllTypes(cl_).mid(1)) {
-                String res_ = _conf.resolveCorrectType(a);
-                partsArgs_.add(res_);
-            }
-            if (partsArgs_.isEmpty()) {
-                cl_ = StringList.concat(new_,"..",idClass_);
-            } else {
-                cl_ = StringList.concat(new_,"..",idClass_,"<",partsArgs_.join(","),">");
-            }
-            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
-            if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
-                Block bl_ = _conf.getCurrentBlock();
-                AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(cl_);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(un_);
-                cl_ = _conf.getStandards().getAliasObject();
-            }
         }
         foundClass = cl_;
         shiftArgument = true;

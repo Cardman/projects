@@ -1293,7 +1293,12 @@ public abstract class ContextEl implements ExecutableCode {
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
+        String resType_;
+        if (_exact) {
+            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_);
+        } else {
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_);
+        }
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1379,7 +1384,12 @@ public abstract class ContextEl implements ExecutableCode {
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
+        String resType_;
+        if (_exact) {
+            resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_);
+        } else {
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, gl_, this, r_);
+        }
         if (resType_.trim().isEmpty()) {
             return EMPTY_TYPE;
         }
@@ -1397,9 +1407,6 @@ public abstract class ContextEl implements ExecutableCode {
             analyzing.setImporting(b);
             analyzing.setCurrentBlock(b);
             StringList deps_ = b.getDepends(this);
-            if (deps_ == null) {
-                return null;
-            }
             String c_ = b.getFullName();
             if (deps_.isEmpty()) {
                 absDeps_.add(new ClassInheritsDeps(c_));
@@ -1455,7 +1462,7 @@ public abstract class ContextEl implements ExecutableCode {
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1488,7 +1495,7 @@ public abstract class ContextEl implements ExecutableCode {
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false);
+        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, false);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);

@@ -22,12 +22,10 @@ final class VariablePartType extends LeafPartType {
         String type_ = getTypeName();
         if (getParent() instanceof InnerPartType) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            stopDepends();
             return;
         }
         if (getParent() instanceof TemplatePartType && getIndex() == 0) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            stopDepends();
             return;
         }
         String t_ = StringList.removeAllSpaces(type_);
@@ -40,14 +38,13 @@ final class VariablePartType extends LeafPartType {
         type_ = ContextEl.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().containsStr(type_)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            stopDepends();
         }
         setAnalyzedType(t_);
     }
     @Override
     void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            RootBlock _rooted, boolean _exact,
+            RootBlock _rooted,
             boolean _protected) {
         if (getParent() instanceof InnerPartType) {
             _an.getCurrentBadIndexes().add(getIndexInType());
@@ -73,8 +70,11 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact) {
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_rooted);
+    }
+    @Override
+    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;

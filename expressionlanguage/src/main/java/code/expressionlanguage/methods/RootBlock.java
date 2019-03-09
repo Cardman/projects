@@ -90,6 +90,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
+    private final StringList allGenericSuperTypes = new StringList();
 
     RootBlock(ContextEl _importingPage,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
@@ -148,6 +149,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
     @Override
     public abstract boolean isStaticType();
+
+    public final StringList getAllGenericSuperTypes() {
+        return allGenericSuperTypes;
+    }
+
     public abstract StringList getImportedDirectSuperTypes();
     public final StringList getDepends(Analyzable _an) {
         NatTreeMap<Integer, String> rcs_;
@@ -161,22 +167,19 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         _an.getAvailableVariables().clear();
         _an.getAvailableVariables().addAllElts(varsList_);
         Numbers<Integer> bi_ = _an.getCurrentBadIndexes();
-        bi_.clear();
         StringList all_ = new StringList();
         int i_ = 0;
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
+            bi_.clear();
             StringList list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true);
             i_++;
-            if (list_ == null) {
-                for (int i : bi_) {
-                    BadIndexInParser bip_ = new BadIndexInParser();
-                    bip_.setIndex(index_+i);
-                    bip_.setIndexFile(_an.getCurrentLocationIndex());
-                    bip_.setFileName(_an.getCurrentFileName());
-                    _an.getClasses().addError(bip_);
-                }
-                return null;
+            for (int i : bi_) {
+                BadIndexInParser bip_ = new BadIndexInParser();
+                bip_.setIndex(index_+i);
+                bip_.setIndexFile(_an.getCurrentLocationIndex());
+                bip_.setFileName(_an.getCurrentFileName());
+                _an.getClasses().addError(bip_);
             }
             all_.addAllElts(list_);
         }
@@ -684,7 +687,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public abstract void buildDirectGenericSuperTypes(ContextEl _classes);
     public abstract void buildErrorDirectGenericSuperTypes(ContextEl _classes);
 
-    public abstract StringList getAllGenericInterfaces(Analyzable _classes);
+    public final StringList getAllGenericInterfaces(Analyzable _classes){
+        StringList allSuperTypes_ = getAllGenericSuperTypes();
+        Classes classes_ = _classes.getClasses();
+        StringList allGenericInterfaces_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
+                allGenericInterfaces_.add(s);
+            }
+        }
+        return allGenericInterfaces_;
+    }
 
     @Override
     public final StringList getAllGenericSuperTypes(Analyzable _classes) {
@@ -933,7 +947,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     classesRef_.addError(err_);
                 }
             }
-            StringList allSuperClass_ = getAllGenericSuperTypes(_context);
+            StringList allSuperClass_ = getAllGenericSuperTypes();
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
                 RootBlock superBl_ = classesRef_.getClassBody(base_);
@@ -1114,8 +1128,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             MethodId cst_ = e.getKey();
             EqList<ClassMethodId> classes_ = e.getValue();
-            Mapping mapping_ = new Mapping();
-            mapping_.getMapping().putAllMap(_vars);
             if (_localMethodIds.contains(e.getKey())) {
                 //overridden by this interface
                 ClassMethodId subInt_ = _localMethodIds.getVal(e.getKey());
@@ -1126,7 +1138,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 String subType_ = sub_.getImportedReturnType();
                 subType_ = Templates.quickFormat(name_, subType_, _context);
-                mapping_.setArg(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
@@ -1134,11 +1145,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         continue;
                     }
                     String formattedSup_ = Templates.quickFormat(supName_, sup_.getImportedReturnType(), _context);
-                    mapping_.setParam(formattedSup_);
-                    if (StringList.quickEq(formattedSup_, subType_)) {
-                        continue;
-                    }
-                    if (!Templates.isCorrectOrNumbers(mapping_, _context)) {
+                    if (!Templates.isReturnCorrect(formattedSup_, subType_,_vars, _context)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }
@@ -1181,7 +1188,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 MethodBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
                 String subType_ = sub_.getImportedReturnType();
                 subType_ = Templates.quickFormat(name_, subType_, _context);
-                mapping_.setArg(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
@@ -1189,11 +1195,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         continue;
                     }
                     String formattedSup_ = Templates.quickFormat(supName_, sup_.getImportedReturnType(), _context);
-                    mapping_.setParam(formattedSup_);
-                    if (StringList.quickEq(formattedSup_, subType_)) {
-                        continue;
-                    }
-                    if (!Templates.isCorrectOrNumbers(mapping_, _context)) {
+                    if (!Templates.isReturnCorrect(formattedSup_, subType_,_vars, _context)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }
@@ -1280,14 +1282,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 continue;
             }
             if (fClasses_.size() == 1) {
-                Mapping map_ = new Mapping();
                 ClassMethodId subInt_ = fClasses_.first();
                 String subIntName_ = subInt_.getClassName();
-                map_.getMapping().putAllMap(_vars);
                 MethodBlock sub_ = Classes.getMethodBodiesById(_context, subIntName_, subInt_.getConstraints()).first();
                 String subType_ = sub_.getImportedReturnType();
                 subType_ = Templates.quickFormat(subIntName_, subType_, _context);
-                map_.setArg(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
@@ -1296,11 +1295,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     }
                     String supType_ = sup_.getImportedReturnType();
                     String formattedSupType_ = Templates.quickFormat(s_, supType_, _context);
-                    map_.setParam(formattedSupType_);
-                    if (StringList.quickEq(formattedSupType_, subType_)) {
-                        continue;
-                    }
-                    if (!Templates.isCorrectOrNumbers(map_, _context)) {
+                    if (!Templates.isReturnCorrect(formattedSupType_,subType_,_vars,_context)) {
                         addClass(output_, cst_, subInt_);
                         addClass(output_, cst_, s);
                     }

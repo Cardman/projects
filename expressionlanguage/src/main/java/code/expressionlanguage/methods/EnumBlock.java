@@ -42,7 +42,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     public void setupBasicOverrides(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         Classes classesRef_ = _context.getClasses();
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_context);
+        StringList allSuperTypes_ = getAllGenericSuperTypes();
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -81,7 +81,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(allGenericSuperClasses_);
-        String void_ = stds_.getAliasVoid();
         for (String s: getAllGenericInterfaces(_context)) {
             String base_ = Templates.getIdFromAllTypes(s);
             RootBlock r_ = classesRef_.getClassBody(base_);
@@ -171,20 +170,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public boolean mustImplement() {
         return true;
-    }
-
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
-        Classes classes_ = _classes.getClasses();
-        StringList allGenericInterfaces_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
-                allGenericInterfaces_.add(s);
-            }
-        }
-        return allGenericInterfaces_;
     }
 
     @Override

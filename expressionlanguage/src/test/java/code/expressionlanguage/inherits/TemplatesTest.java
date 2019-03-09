@@ -4,6 +4,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.common.GeneType;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
@@ -3679,6 +3680,55 @@ public final class TemplatesTest {
     }
 
     @Test
+    public void isCorrectTemplate79Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplateAll("pkg.ExTwo<pkg.Ex<java.lang.String>>", t_,cont_));
+    }
+
+    @Test
+    public void isCorrectTemplate80Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplateAll("pkg.ExTwo<java.lang.Number,java.lang.String>", t_,cont_,false));
+    }
+
+    @Test
+    public void isCorrectTemplate81Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<java.lang.Number>", t_,cont_,false));
+    }
+
+    @Test
+    public void isCorrectTemplate82Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<java.lang.String>", t_,cont_,false));
+    }
+    @Test
     public void isCorrectTemplateAll1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -3924,7 +3974,9 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", cont_);
+        String className_ = Templates.getIdFromAllTypes("pkg.Ex<#E>");
+        GeneType root_ = cont_.getClassBody(className_);
+        StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(0, superTypes_.size());
     }
 
@@ -3937,7 +3989,9 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.Ex<#E:java.lang.Number>:pkg.ExTwo<#E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex", cont_);
+        String className_ = Templates.getIdFromAllTypes("pkg.Ex");
+        GeneType root_ = cont_.getClassBody(className_);
+        StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0));
     }

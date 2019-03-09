@@ -308,7 +308,7 @@ public final class TypeUtil {
                     String templClass_ = c.getClassName();
                     String typeName_ = Templates.getIdFromAllTypes(templClass_);
                     GeneType root_ = _context.getClassBody(typeName_);
-                    for (String u:getAllGenericSuperTypes(root_,_context)) {
+                    for (String u:root_.getAllGenericSuperTypes()) {
                         String superType_ = Templates.quickFormat(templClass_, u, _context);
                         String superTypeName_ = Templates.getIdFromAllTypes(u);
                         GeneType super_ = _context.getClassBody(superTypeName_);
@@ -483,9 +483,6 @@ public final class TypeUtil {
             }
         }
         return methods_;
-    }
-    public static StringList getAllGenericSuperTypes(GeneType _type,Analyzable _classes) {
-        return _type.getAllGenericSuperTypes(_classes);
     }
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(GeneType _type,MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
@@ -708,6 +705,52 @@ public final class TypeUtil {
         owners_.removeDuplicates();
         return owners_;
     }
+    public static StringList getGenericOwners(boolean _inherits,boolean _protectedInc,String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
+        StringList ids_ = new StringList(_root);
+        StringList owners_ = new StringList();
+        StringList visited_ = new StringList();
+        while (true) {
+            StringList new_ = new StringList();
+            for (String s: ids_) {
+                String id_ = Templates.getIdFromAllTypes(s);
+                GeneType g_ = _an.getClassBody(id_);
+                if (!(g_ instanceof RootBlock)) {
+                    continue;
+                }
+                RootBlock sub_ = (RootBlock)g_;
+                boolean add_ = false;
+                for (RootBlock b: Classes.accessedClassMembers(_inherits, _protectedInc, _root,_gl,sub_, _an)) {
+                    if (_staticOnly) {
+                        if (!b.isStaticType()) {
+                            continue;
+                        }
+                    }
+                    String name_ = b.getName();
+                    if (StringList.quickEq(name_, _innerName)) {
+                        owners_.add(s);
+                        add_ = true;
+                    }
+                }
+                if (add_) {
+                    continue;
+                }
+                for (String t: sub_.getDirectGenericSuperTypes(_an)) {
+                    String format_ = Templates.quickFormat(s, t, _an);
+                    if (visited_.containsStr(format_)) {
+                        continue;
+                    }
+                    visited_.add(format_);
+                    new_.add(format_);
+                }
+            }
+            if (new_.isEmpty()) {
+                break;
+            }
+            ids_ = new_;
+        }
+        owners_.removeDuplicates();
+        return owners_;
+    }
     public static TypeOwnersDepends getOwnersDepends(boolean _protectedInc,String _gl, String _root, String _innerName, Analyzable _an) {
         TypeOwnersDepends out_ = new TypeOwnersDepends();
         StringList ids_ = new StringList(_root);
@@ -757,7 +800,7 @@ public final class TypeUtil {
     private static EqList<ClassMethodId> getAllDuplicates(GeneType _type, ContextEl _classes) {
         EqList<ClassMethodId> list_;
         list_ = new EqList<ClassMethodId>();
-        for (String s: getAllGenericSuperTypes(_type, _classes)) {
+        for (String s: _type.getAllGenericSuperTypes()) {
             EqList<MethodId> all_;
             all_ = new EqList<MethodId>();
             String base_ = Templates.getIdFromAllTypes(s);
@@ -787,7 +830,7 @@ public final class TypeUtil {
             MethodId m_ = b.getId();
             map_.put(m_, new EqList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
         }
-        for (String s: getAllGenericSuperTypes(_type, _classes)) {
+        for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             GeneType b_ = _classes.getClassBody(base_);
             for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {

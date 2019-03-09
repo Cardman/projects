@@ -36,7 +36,7 @@ public final class StaticInfoOperation extends VariableLeafOperation implements 
             return;
         }
         String classStr_;
-        classStr_ = _conf.resolveCorrectType(realCl_, false);
+        classStr_ = _conf.resolveCorrectType(realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(classStr_)) {

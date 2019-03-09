@@ -76,20 +76,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        Classes classes_ = _classes.getClasses();
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
-        StringList allGenericSuperClasses_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
-        return allGenericSuperClasses_;
-    }
-
-    @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
         NatTreeMap<Integer, String> rcs_;
         rcs_ = getRowColDirectSuperTypes();

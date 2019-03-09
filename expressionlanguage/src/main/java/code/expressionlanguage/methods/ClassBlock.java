@@ -49,7 +49,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_context);
+        StringList allSuperTypes_ = getAllGenericSuperTypes();
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -89,7 +89,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(allGenericSuperClasses_);
         LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
         for (String s: getAllGenericInterfaces(_context)) {
             String base_ = Templates.getIdFromAllTypes(s);
             RootBlock r_ = classesRef_.getClassBody(base_);
@@ -178,20 +177,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public boolean mustImplement() {
         return !isAbstractType();
-    }
-
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
-        Classes classes_ = _classes.getClasses();
-        StringList allGenericInterfaces_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
-                allGenericInterfaces_.add(s);
-            }
-        }
-        return allGenericInterfaces_;
     }
 
     @Override

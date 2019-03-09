@@ -266,11 +266,6 @@ public final class Templates {
         return "";
     }
 
-    static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
-        String className_ = getIdFromAllTypes(_className);
-        GeneType root_ = _context.getClassBody(className_);
-        return TypeUtil.getAllGenericSuperTypes(root_, _context);
-    }
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = getIdFromAllTypes(_subType);
         String baseSuperType_ = getIdFromAllTypes(_superType);
@@ -1218,9 +1213,6 @@ public final class Templates {
             String pName_ = pPrim_.getName();
             return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
         }
-        return isGenericCorrect(_m, _context);
-    }
-    private static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isVariable()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }

@@ -121,8 +121,7 @@ public final class StandardInstancingOperation extends
             }
         }
         for (String o: arg_.getNames()) {
-            String idRoot_ = Templates.getIdFromAllTypes(o);
-            StringList owners_ = TypeUtil.getOwners(false,true, glClass_, idRoot_, idClass_, false, _conf);
+            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, false, _conf);
             owners_.removeDuplicates();
             if (owners_.size() == 1) {
                 ownersMap_.put(o, owners_.first());
@@ -137,11 +136,18 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        String sub_ = ownersMap_.getKeys().first();
         String sup_ = ownersMap_.values().first();
-        String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
-        if (new_ == null) {
-            Block bl_ = _conf.getCurrentBlock();
+        StringList partsArgs_ = new StringList();
+        for (String a: Templates.getAllTypes(realClassName_).mid(1)) {
+            partsArgs_.add(_conf.resolveCorrectType(a));
+        }
+        if (partsArgs_.isEmpty()) {
+            realClassName_ = StringList.concat(sup_,"..",idClass_);
+        } else {
+            realClassName_ = StringList.concat(sup_,"..",idClass_,"<",partsArgs_.join(","),">");
+        }
+        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+        if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
             int rc_ = _conf.getCurrentLocationIndex();
             AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
@@ -150,28 +156,6 @@ public final class StandardInstancingOperation extends
             un_.setIndexFile(rc_);
             _conf.getClasses().addError(un_);
             realClassName_ = _conf.getStandards().getAliasObject();
-        } else {
-            StringList partsArgs_ = new StringList();
-            for (String a: Templates.getAllTypes(realClassName_).mid(1)) {
-                partsArgs_.add(_conf.resolveCorrectType(a));
-            }
-            if (partsArgs_.isEmpty()) {
-                realClassName_ = StringList.concat(new_,"..",idClass_);
-            } else {
-                realClassName_ = StringList.concat(new_,"..",idClass_,"<",partsArgs_.join(","),">");
-            }
-            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
-            if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
-                Block bl_ = _conf.getCurrentBlock();
-                int rc_ = _conf.getCurrentLocationIndex();
-                AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(realClassName_);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setIndexFile(rc_);
-                _conf.getClasses().addError(un_);
-                realClassName_ = _conf.getStandards().getAliasObject();
-            }
         }
         analyzeCtor(_conf, realClassName_, firstArgs_);
     }
@@ -302,9 +286,6 @@ public final class StandardInstancingOperation extends
         CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         if (!_conf.isGearConst()) {
-            return;
-        }
-        if (_conf.getClasses().isCustomType(_className)) {
             return;
         }
         CustList<Operable> filter_ = new CustList<Operable>();

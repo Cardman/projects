@@ -66,6 +66,12 @@ public final class StandardClass extends StandardType implements GeneClass {
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
+
+    @Override
+    public StringList getAllGenericSuperTypes() {
+        return allSuperTypes;
+    }
+
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;

@@ -239,10 +239,6 @@ public final class FctOperation extends ReflectableInvokingOperation {
         } else {
             str_ = NullStruct.NULL_VALUE;
         }
-        String cl_ = _classMethodId.getClassName();
-        if (_conf.getClasses().isCustomType(cl_)) {
-            return;
-        }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
         if (firstArgs_ == null) {
             return;

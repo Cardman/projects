@@ -82,10 +82,6 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
     }
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        return importedDirectSuperInterfaces;
-    }
 
     @Override
     public StringList getImportedDirectSuperTypes() {

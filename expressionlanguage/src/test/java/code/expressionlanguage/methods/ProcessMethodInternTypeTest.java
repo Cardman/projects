@@ -3177,4 +3177,20 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq("code.util.exceptions.NullObjectException",cont_.getException().getClassName(cont_));
     }
+    @Test
+    public void calculateArgument16FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object field = $class(pkg.Outer..InnerInexist):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

@@ -21,13 +21,16 @@ final class EmptyPartType extends LeafPartType {
     @Override
     void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            RootBlock _rooted, boolean _exact,
+            RootBlock _rooted,
             boolean _protected) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact) {
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+        _an.getCurrentBadIndexes().add(getIndexInType());
+    }
+    @Override
+    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override

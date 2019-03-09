@@ -66,7 +66,7 @@ final class InnerPartType extends BinaryType {
     @Override
     void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            RootBlock _rooted, boolean _exact,
+            RootBlock _rooted,
             boolean _protected) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -78,8 +78,11 @@ final class InnerPartType extends BinaryType {
         setAnalyzedType(t_);
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact) {
+    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+        analyzeLine(_an,_dels,_globalType,_rooted);
+    }
+    @Override
+    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
