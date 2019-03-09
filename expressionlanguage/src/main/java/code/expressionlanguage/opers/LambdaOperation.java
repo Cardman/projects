@@ -506,8 +506,10 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         ConstructorId feed_ = null;
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
+        boolean foundId_ = false;
+        String type_ = EMPTY_STRING;
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
-            String type_ = _conf.resolveCorrectType(_fromType);
+            type_ = _conf.resolveCorrectType(_fromType);
             String cl_ = Templates.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, _conf, cl_, false, _args);
             if (argsRes_ == null) {
@@ -527,6 +529,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 }
                 _methodTypes.add(new ClassArgumentMatching(format_));
             }
+            foundId_ = true;
         } else {
             int i_ = 2;
             argsRes_ = resolveArguments(i_, _conf, _args);
@@ -544,7 +547,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             String cl_ = _conf.resolveCorrectType(_fromType);
             String id_ = Templates.getIdFromAllTypes(cl_);
             GeneType g_ = _conf.getClassBody(id_);
-            if (g_ == null || g_.isAbstractType()) {
+            if (g_.isAbstractType()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(cl_);
                 call_.setFileName(_conf.getCurrentFileName());
@@ -572,6 +575,10 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
+            if (realId == null) {
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                return;
+            }
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
             if (!g_.isStaticType()) {
@@ -598,6 +605,10 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             fct_.append(parts_.join(Templates.TEMPLATE_SEP));
             fct_.append(Templates.TEMPLATE_END);
             setResultClass(new ClassArgumentMatching(fct_.toString()));
+            return;
+        }
+        if (foundId_) {
+            processCtor(_conf, _stds, _methodTypes, vararg_, feed_, type_);
             return;
         }
         String cl_ = _fromType.trim();
@@ -674,7 +685,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
-            Block bl_ = _conf.getCurrentBlock();
             AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(cl_);
@@ -683,38 +693,46 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             _conf.getClasses().addError(un_);
             cl_ = _conf.getStandards().getAliasObject();
         }
-        foundClass = cl_;
+        processCtor(_conf, _stds, _methodTypes, vararg_, null, cl_);
+    }
+
+    private void processCtor(Analyzable _conf, LgNames _stds, CustList<ClassArgumentMatching> _methodTypes, int _vararg, ConstructorId _feed, String _cl) {
+        foundClass = _cl;
         shiftArgument = true;
-        String id_ = Templates.getIdFromAllTypes(cl_);
-        GeneType g_ = _conf.getClassBody(id_);
-        if (g_ == null || g_.isAbstractType()) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(cl_);
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(call_);
-            setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
-            return;
-        }
-        for (String p:Templates.getAllTypes(cl_).mid(1)){
+        for (String p:Templates.getAllTypes(_cl).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(cl_);
+                call_.setType(_cl);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(cl_);
+                call_.setType(_cl);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
             }
         }
+        String id_ = Templates.getIdFromAllTypes(_cl);
+        GeneType g_ = _conf.getClassBody(id_);
+        if (g_.isAbstractType()) {
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(_cl);
+            call_.setFileName(_conf.getCurrentFileName());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(call_);
+            setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+            return;
+        }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructor(_conf, _vararg, new ClassArgumentMatching(_cl), _feed, ClassArgumentMatching.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
+        if (realId == null) {
+            setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+            return;
+        }
         ConstructorId fid_ = ctorRes_.getConstId();
         StringList parts_ = new StringList();
         StringList params_ = fid_.getParametersTypes();
@@ -729,7 +747,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 parts_.add(p);
             }
         }
-        parts_.add(cl_);
+        parts_.add(_cl);
         StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
         fct_.append(Templates.TEMPLATE_BEGIN);
         fct_.append(parts_.join(Templates.TEMPLATE_SEP));
