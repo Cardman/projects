@@ -115,10 +115,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 
     @Override
     public ClassMethodId getClassMethodId() {

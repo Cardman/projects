@@ -150,35 +150,19 @@ public final class AffectationOperation extends ReflectableOpering implements Af
                 Number value_ = ((NumberStruct) rightArg_.getStruct()).getInstance();
                 StringList first_ = clMatchLeft_.getNames();
                 long valueUnwrapped_ = value_.longValue();
-                if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
+                if ((first_.containsStr(primByte_) || first_.containsStr(byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if (first_.containsStr(primChar_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
+                if ((first_.containsStr(primChar_) || first_.containsStr(char_)) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if (first_.containsStr(primShort_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
+                if ((first_.containsStr(primShort_) || first_.containsStr(short_))&& valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if (first_.containsStr(primInt_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if (first_.containsStr(byte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if (first_.containsStr(char_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if (first_.containsStr(short_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if (first_.containsStr(int_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                if ((first_.containsStr(primInt_) || first_.containsStr(int_)) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }

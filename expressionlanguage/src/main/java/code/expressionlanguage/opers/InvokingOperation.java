@@ -31,6 +31,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
     }
 
     CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, Analyzable _conf) {
@@ -353,7 +354,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         staticAccess = _staticAccess;
     }
 
-    @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

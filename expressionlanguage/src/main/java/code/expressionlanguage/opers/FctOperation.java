@@ -67,14 +67,6 @@ public final class FctOperation extends ReflectableInvokingOperation {
             setStaticAccess(_conf.isStaticContext());
         }
 
-        if (clCur_ == null || clCur_.isUndefined()) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(static_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         StringList l_ = clCur_.getNames();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String trimMeth_ = methodName.trim();
@@ -218,10 +210,10 @@ public final class FctOperation extends ReflectableInvokingOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        tryGetArg(this, _conf, classMethodId, naturalVararg, lastType);
+        tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
 
-    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Analyzable _conf,
+    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Argument _pr,Analyzable _conf,
                                  ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
         if (!_conf.isGearConst()) {
             return;
@@ -235,7 +227,7 @@ public final class FctOperation extends ReflectableInvokingOperation {
             return;
         }
         Argument previous_;
-        previous_ = _current.getPreviousArgument();
+        previous_ = _pr;
         Struct str_;
         if (!_classMethodId.getConstraints().isStaticMethod()) {
             if (previous_ == null || previous_.isNull()) {

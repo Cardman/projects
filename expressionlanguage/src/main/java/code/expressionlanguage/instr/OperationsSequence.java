@@ -91,8 +91,7 @@ public final class OperationsSequence {
                     }
                     if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                         operators.clear();
-                        priority = ElResolver.BAD_PRIO;
-                        constType = ConstType.ERROR;
+                        operators.put(afterLastPar_,"");
                         return;
                     }
                 }

@@ -50,11 +50,6 @@ public final class CastOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
     public void quickCalculate(Analyzable _conf) {
         tryGetArg(this,_conf, className);
     }

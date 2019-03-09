@@ -67,7 +67,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
-        if (ctorRes_ == null) {
+        if (ctorRes_.getRealId() == null) {
             StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
                 cl_.add(c.getNames().join(""));

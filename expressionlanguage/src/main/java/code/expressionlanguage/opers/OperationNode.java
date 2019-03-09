@@ -44,6 +44,7 @@ import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -120,6 +121,7 @@ public abstract class OperationNode implements Operable {
         indexInEl = _indexInEl;
         operations = _op;
         indexChild = _indexChild;
+        resultClass = new ClassArgumentMatching(EMPTY_STRING);
     }
 
     public abstract void analyze(Analyzable _conf);
@@ -240,8 +242,9 @@ public abstract class OperationNode implements Operable {
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.LOOP_VAR) {
-                if (_an.containsMutableLoopVar(str_)) {
-                    return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
+                LoopVariable locVar_ = _an.getMutableLoopVar(str_);
+                if (locVar_ != null) {
+                    return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
                 }
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
@@ -262,7 +265,7 @@ public abstract class OperationNode implements Operable {
         if (_op.getPriority() == ElResolver.DECL_PRIO) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
-        if (_an.isAnnotAnalysis()) {
+        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _an.isAnnotAnalysis()) {
             String op_ = _op.getOperators().firstValue();
             if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
@@ -272,9 +275,9 @@ public abstract class OperationNode implements Operable {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
         }
-        if (_op.isCallDbArray()) {
+        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
-            if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
+            if (_m instanceof DotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
                     StringList pr_ = ch_.getResultClass().getNames();
@@ -333,10 +336,10 @@ public abstract class OperationNode implements Operable {
             }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.isArray()) {
+        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isArray()) {
             return new ArrOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.isDot()) {
+        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && !_op.getValues().isEmpty()) {
             return new DotOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.POST_INCR_PRIO) {
@@ -421,7 +424,7 @@ public abstract class OperationNode implements Operable {
             }
             return new AffectationOperation(_index, _indexChild, _m, _op);
         }
-        return new DotOperation(_index, _indexChild, _m, _op);
+        return new ErrorPartOperation(_index, _indexChild, _m, _op);
     }
 
     final boolean isFirstChild() {
@@ -771,8 +774,6 @@ public abstract class OperationNode implements Operable {
             _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
-            out_.setRealId(undefined_.getId());
-            out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
             return out_;
         }
         ConstructorId ctor_ = cInfo_.getConstraints();

@@ -94,9 +94,4 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         return fieldName;
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
 }

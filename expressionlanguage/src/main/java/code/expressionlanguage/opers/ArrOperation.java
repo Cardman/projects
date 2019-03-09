@@ -63,7 +63,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
             return;
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
-        if (class_ == null || !class_.isArray()) {
+        if (!class_.isArray()) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
@@ -88,8 +88,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    public boolean resultCanBeSet() {
+    public boolean isVariable() {
         return variable;
     }
 

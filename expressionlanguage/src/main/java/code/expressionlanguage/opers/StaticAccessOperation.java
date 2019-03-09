@@ -54,21 +54,10 @@ public final class StaticAccessOperation extends ConstLeafOperation {
             classStr_ = _conf.resolveAccessibleIdType(realCl_);
         } else {
             classStr_ = glClass_;
-            if (classStr_ == null) {
-                classStr_ = _conf.getStandards().getAliasObject();
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(EMPTY_STRING);
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(un_);
-            }
         }
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(classStr_)) {
-            String curClassBase_ = null;
-            if (glClass_ != null) {
-                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            }
+            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(classStr_);

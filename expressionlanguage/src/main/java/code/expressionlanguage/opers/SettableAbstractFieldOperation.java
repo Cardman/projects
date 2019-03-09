@@ -105,10 +105,6 @@ public abstract class SettableAbstractFieldOperation extends
     abstract String getFieldName();
     abstract boolean isBaseAccess();
     abstract boolean isSuperAccess();
-    @Override
-    public final boolean resultCanBeSet() {
-        return variable;
-    }
 
     @Override
     public final void setCatenizeStrings() {
@@ -119,13 +115,17 @@ public abstract class SettableAbstractFieldOperation extends
     public final void setVariable(boolean _variable) {
         variable = _variable;
     }
-    @Override
+
     public final void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;
     }
-    @Override
+
     public final boolean isStaticAccess() {
         return staticAccess;
+    }
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        setPreviousResultClass(_previousResultClass);
+        setStaticAccess(_staticAccess);
     }
     public final ClassField getFieldId() {
         if (fieldMetaInfo == null) {

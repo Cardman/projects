@@ -64,16 +64,14 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (f_ != curBlock_) {
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
-                if (!((Line)f_).getExp().isEmpty()) {
-                    ExecOperationNode root_ = ((Line)f_).getExp().last();
-                    if (root_ instanceof ExecInterfaceInvokingConstructor) {
-                        ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
-                        ConstructorId cid_ = ctor_.getConstId();
-                        if (cid_ != null) {
-                            String cl_ = cid_.getName();
-                            cl_ = Templates.getIdFromAllTypes(cl_);
-                            previousInts_.add(cl_);
-                        }
+                ExecOperationNode root_ = ((Line)f_).getExp().last();
+                if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                    ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
+                    ConstructorId cid_ = ctor_.getConstId();
+                    if (cid_ != null) {
+                        String cl_ = cid_.getName();
+                        cl_ = Templates.getIdFromAllTypes(cl_);
+                        previousInts_.add(cl_);
                     }
                 }
             }
@@ -88,43 +86,38 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         _conf.getClasses().addError(call_);
                     } else {
-                        if (!((Line)f_).getExp().isEmpty()) {
-                            //the case ((Line)f_).getExp().isEmpty() leads already to an error
-                            ExecOperationNode root_ = ((Line)f_).getExp().last();
-                            if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
-                                //error
-                                BadConstructorCall call_ = new BadConstructorCall();
-                                call_.setFileName(curLine_.getFile().getFileName());
-                                call_.setIndexFile(curLine_.getExpressionOffset());
-                                call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
-                                _conf.getClasses().addError(call_);
-                            }
+                        ExecOperationNode root_ = ((Line)f_).getExp().last();
+                        if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
+                            //error
+                            BadConstructorCall call_ = new BadConstructorCall();
+                            call_.setFileName(curLine_.getFile().getFileName());
+                            call_.setIndexFile(curLine_.getExpressionOffset());
+                            call_.setLocalOffset(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                            _conf.getClasses().addError(call_);
                         }
                     }
                     break;
                 }
                 if (n_ instanceof Line){
-                    if (!((Line)n_).getExp().isEmpty()) {
-                        ExecOperationNode root_ = ((Line)n_).getExp().last();
-                        if (root_ instanceof ExecInterfaceInvokingConstructor) {
-                            ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
-                            ConstructorId cid_ = ctor_.getConstId();
-                            if (cid_ != null) {
-                                String cl_ = cid_.getName();
-                                cl_ = Templates.getIdFromAllTypes(cl_);
-                                if (!previousInts_.isEmpty()) {
-                                    String sup_ = previousInts_.last();
-                                    if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
-                                        BadInheritedClass undef_;
-                                        undef_ = new BadInheritedClass();
-                                        undef_.setClassName(cl_);
-                                        undef_.setFileName(n_.getFile().getFileName());
-                                        undef_.setIndexFile(0);
-                                        _conf.getClasses().addError(undef_);
-                                    }
+                    ExecOperationNode root_ = ((Line)n_).getExp().last();
+                    if (root_ instanceof ExecInterfaceInvokingConstructor) {
+                        ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
+                        ConstructorId cid_ = ctor_.getConstId();
+                        if (cid_ != null) {
+                            String cl_ = cid_.getName();
+                            cl_ = Templates.getIdFromAllTypes(cl_);
+                            if (!previousInts_.isEmpty()) {
+                                String sup_ = previousInts_.last();
+                                if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
+                                    BadInheritedClass undef_;
+                                    undef_ = new BadInheritedClass();
+                                    undef_.setClassName(cl_);
+                                    undef_.setFileName(n_.getFile().getFileName());
+                                    undef_.setIndexFile(0);
+                                    _conf.getClasses().addError(undef_);
                                 }
-                                previousInts_.add(cl_);
                             }
+                            previousInts_.add(cl_);
                         }
                     }
                 }

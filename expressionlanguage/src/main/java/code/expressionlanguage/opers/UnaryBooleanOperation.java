@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -44,7 +45,11 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
+        Struct value_ = arg_.getStruct();
+        if (!(value_ instanceof BooleanStruct)) {
+            return;
+        }
+        BooleanStruct o_ = (BooleanStruct) value_;
         Boolean b_ = o_.getInstance();
         b_ = !b_;
         Argument a_ = new Argument();

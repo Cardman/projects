@@ -103,7 +103,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         return previousResultClass;
     }
 
-    @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

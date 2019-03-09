@@ -20,12 +20,7 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-    }
-
-    public void setStaticAccess(boolean _staticAccess) {
-    }
-    public boolean isStaticAccess() {
-        return false;
+        previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
     }
 
     @Override
@@ -43,12 +38,14 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
-        previousResultClass = _previousResultClass;
-        setStaticAccess(_staticAccess);
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        setPreviousResultClass(_previousResultClass);
     }
 
-    @Override
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+        previousResultClass = _previousResultClass;
+    }
+
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

@@ -55,7 +55,6 @@ public final class ExecThisOperation extends ExecVariableLeafOperation implement
         return previousResultClass;
     }
 
-    @Override
     public Argument getPreviousArgument() {
         return null;
     }

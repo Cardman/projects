@@ -28,8 +28,4 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 }

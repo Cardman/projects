@@ -91,10 +91,6 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 
     @Override
     public ClassMethodId getClassMethodId() {

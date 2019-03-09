@@ -253,7 +253,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return previousResultClass;
     }
 
-    @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

@@ -88,7 +88,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
-        if (arg_ == null || arg_.isUndefined() || arg_.isArray()) {
+        if (arg_.isArray()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -275,6 +275,10 @@ public final class StandardInstancingOperation extends
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
+        if (ctorRes_.getRealId() == null) {
+            setResultClass(new ClassArgumentMatching(_realClassName));
+            return;
+        }
         constId = ctorRes_.getRealId();
         className = ctorRes_.getConstId().getName();
         if (ctorRes_.isVarArgToCall()) {

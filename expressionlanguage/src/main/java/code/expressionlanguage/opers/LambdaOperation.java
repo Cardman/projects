@@ -64,6 +64,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         super(_indexInEl, _indexChild, _m, _op);
         offset = _op.getValues().firstKey();
         className = _op.getValues().firstValue();
+        previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
     }
 
     @Override
@@ -1226,7 +1227,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         previousResultClass = _previousResultClass;
         setStaticAccess(_staticAccess);
     }
-    @Override
+
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

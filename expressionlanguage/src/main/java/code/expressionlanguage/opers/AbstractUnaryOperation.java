@@ -37,6 +37,11 @@ public abstract class AbstractUnaryOperation extends ReflectableOpering {
     }
 
     @Override
+    public void analyzeAssignmentAfter(Analyzable _conf) {
+        analyzeStdAssignmentAfter(_conf);
+    }
+
+    @Override
     public void tryCalculateNode(Analyzable _conf) {
         setArg(_conf, this);
     }

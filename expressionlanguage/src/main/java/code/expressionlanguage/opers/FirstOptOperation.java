@@ -55,11 +55,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
     public void quickCalculate(Analyzable _conf) {
         setArg(_conf,this);
     }

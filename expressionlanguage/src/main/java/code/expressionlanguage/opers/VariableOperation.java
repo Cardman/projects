@@ -47,11 +47,6 @@ public final class VariableOperation extends VariableLeafOperation implements
     }
 
     @Override
-    public boolean resultCanBeSet() {
-        return variable;
-    }
-
-    @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();

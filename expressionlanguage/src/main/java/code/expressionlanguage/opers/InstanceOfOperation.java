@@ -43,11 +43,6 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
     public String getClassName() {
         return className;
     }

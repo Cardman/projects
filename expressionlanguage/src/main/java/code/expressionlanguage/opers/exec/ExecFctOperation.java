@@ -53,7 +53,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        FctOperation.tryGetArg(this, _conf, classMethodId, naturalVararg, lastType);
+        FctOperation.tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();

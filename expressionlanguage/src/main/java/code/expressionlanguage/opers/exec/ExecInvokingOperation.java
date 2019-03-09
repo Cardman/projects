@@ -295,7 +295,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
         String aliasInit_ = stds_.getAliasInit();
         String aliasAnnotated_ = stds_.getAliasAnnotated();
-        String aliasAnnotation_ = stds_.getAliasAnnotation();
         String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
         String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
         if (!_methodId.isStaticMethod()) {
@@ -353,7 +352,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 Argument clArg_ = _firstArgs.first();
                 String enumName_ = cl_.getName();
-                enumName_ = Templates.getIdFromAllTypes(enumName_);
                 return getEnumValue(enumName_, clArg_, _conf);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
@@ -873,7 +871,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return argres_;
     }
     public static Argument getEnumValue(String _class, Argument _name, ExecutableCode _conf) {
-        if (ExecInvokingOperation.hasToExit(_conf, _class)) {
+        String enumName_ = Templates.getIdFromAllTypes(_class);
+        if (ExecInvokingOperation.hasToExit(_conf, enumName_)) {
             return Argument.createVoid();
         }
         Struct name_ = _name.getStruct();
@@ -882,7 +881,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         ContextEl c_ = _conf.getContextEl();
         Classes classes_ = _conf.getClasses();
-        for (Block b: Classes.getDirectChildren(classes_.getClassBody(_class))) {
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(enumName_))) {
             if (!(b instanceof ElementBlock)) {
                 continue;
             }
@@ -890,8 +889,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String fieldName_ = b_.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Argument argres_ = new Argument();
-                Struct str_ = classes_.getStaticField(new ClassField(_class, fieldName_),c_);
-                _conf.getContextEl().addSensibleField(_class, str_);
+                Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),c_);
+                _conf.getContextEl().addSensibleField(enumName_, str_);
                 argres_.setStruct(str_);
                 return argres_;
             }

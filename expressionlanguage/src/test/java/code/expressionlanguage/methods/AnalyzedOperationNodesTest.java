@@ -1208,6 +1208,54 @@ public final class AnalyzedOperationNodesTest {
         files_.put("pkg/Ex", xml_.toString());
         contextEl(files_, true);
     }
+    @Test
+    public void processEl113FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $int a = $true:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl114FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = !1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl115FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = '':\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
+    @Test
+    public void processEl116FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Object a = 0x123456789123456789:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        contextEl(files_, true);
+    }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {

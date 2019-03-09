@@ -20,7 +20,7 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
 
     public ExecArrOperation(ArrOperation _arr) {
         super(_arr);
-        variable = _arr.resultCanBeSet();
+        variable = _arr.isVariable();
         catString = _arr.isCatString();
     }
 

@@ -80,8 +80,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
     }
     abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
 
-
-    @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
     }

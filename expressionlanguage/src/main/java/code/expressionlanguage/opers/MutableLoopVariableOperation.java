@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
-import code.expressionlanguage.errors.custom.UndefinedVariableError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -26,15 +25,21 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
 
     private String variableName = EMPTY_STRING;
     private int off;
+    private String className;
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
+        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING);
+    }
+
+    public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
+                                        MethodOperation _m, OperationsSequence _op, String _className) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        className = _className;
     }
-
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
@@ -43,7 +48,6 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
@@ -88,18 +92,7 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
             return;
         }
         variableName = str_;
-        LoopVariable locVar_ = _conf.getMutableLoopVar(variableName);
-        if (locVar_ != null) {
-            String c_ = locVar_.getClassName();
-            setResultClass(new ClassArgumentMatching(c_));
-            return;
-        }
-        UndefinedVariableError und_ = new UndefinedVariableError();
-        und_.setId(variableName);
-        und_.setFileName(_conf.getCurrentFileName());
-        und_.setIndexFile(_conf.getCurrentLocationIndex());
-        _conf.getClasses().addError(und_);
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new ClassArgumentMatching(className));
     }
 
     @Override
@@ -168,11 +161,6 @@ public final class MutableLoopVariableOperation extends VariableLeafOperation im
     @Override
     public void setCatenizeStrings() {
         catString = true;
-    }
-
-    @Override
-    public boolean resultCanBeSet() {
-        return variable;
     }
 
     public String getVariableName() {

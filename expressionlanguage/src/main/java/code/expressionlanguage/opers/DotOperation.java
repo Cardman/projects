@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.errors.custom.BadConstructorCall;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
@@ -17,11 +18,6 @@ public final class DotOperation extends ReflectableOpering {
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.isEmpty()) {
-            String obj_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(obj_));
-            return;
-        }
         setResultClass(chidren_.last().getResultClass());
     }
     @Override
@@ -41,9 +37,6 @@ public final class DotOperation extends ReflectableOpering {
 
     public static void setArg(ParentOperable _op, Analyzable _conf) {
         CustList<Operable> chidren_ = _op.getChildrenOperable();
-        if (chidren_.isEmpty()) {
-            return;
-        }
         _op.setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }
     @Override

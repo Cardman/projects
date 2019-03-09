@@ -33,9 +33,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
         if (isIntermediateDottedOperation()) {
             MethodOperation m_ = getParent();
             OperationNode o_ = m_.getFirstChild();
-            while (o_.getNextSibling() != this) {
-                o_ = o_.getNextSibling();
-            }
             if (!(o_ instanceof StaticAccessOperation)) {
                 String arg_ = _conf.getGlobalClass();
                 StaticAccessThisError static_ = new StaticAccessThisError();
@@ -127,11 +124,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     @Override
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
     }
 
     @Override

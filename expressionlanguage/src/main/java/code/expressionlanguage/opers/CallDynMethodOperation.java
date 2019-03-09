@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.BadNumberArgMethod;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -31,9 +32,15 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-//        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-//        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
+        String fctName_ = getOperations().getFctName().trim();
+        if (!StringList.quickEq(fctName_, _conf.getStandards().getAliasCall())) {
+            UndefinedFieldError und_ = new UndefinedFieldError();
+            und_.setClassName("");
+            und_.setFileName(_conf.getCurrentFileName());
+            und_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(und_);
+        }
         ClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getNames().first();
         StringList all_ = Templates.getAllTypes(fct_);
@@ -44,7 +51,6 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
         }
-//        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf))
         if (hasVoidArguments(chidren_, firstArgs_, 0, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
