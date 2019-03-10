@@ -476,18 +476,12 @@ public abstract class OperationNode implements Operable {
         StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();
         for (String c: _class.getNames()) {
-            StringList classeNamesLoc_ = new StringList();
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
             if (root_ == null) {
                 continue;
             }
-            if (_baseClass) {
-                classeNamesLoc_.add(root_.getGenericString());
-            }
-            if (_superClass) {
-                classeNamesLoc_.addAllElts(root_.getAllGenericSuperTypes());
-            }
+            StringList classeNamesLoc_ = fetchSuperTypes(_baseClass,_superClass,root_);
             for (String s: classeNamesLoc_) {
                 clCurNamesBase_.put(s, base_);
                 clCurNames_.put(s, c);
@@ -520,13 +514,7 @@ public abstract class OperationNode implements Operable {
                     f_ = Templates.quickFormat(c, f_, _cont);
                 }
                 String baseLoc_ = Templates.getIdFromAllTypes(f_);
-                StringList classeNamesPar_ = new StringList();
-                if (_baseClass) {
-                    classeNamesPar_.add(p.getGenericString());
-                }
-                if (_superClass) {
-                    classeNamesPar_.addAllElts(p.getAllGenericSuperTypes());
-                }
+                StringList classeNamesPar_ = fetchSuperTypes(_baseClass,_superClass,p);
                 for (String s: classeNamesPar_) {
                     clCurNamesBase_.put(s, baseLoc_);
                     clCurNames_.put(s, f_);
@@ -593,6 +581,16 @@ public abstract class OperationNode implements Operable {
         return r_;
     }
 
+    private static StringList fetchSuperTypes(boolean _baseClass, boolean _superClass, GeneType _g) {
+        StringList classeNamesPar_ = new StringList();
+        if (_baseClass) {
+            classeNamesPar_.add(_g.getGenericString());
+        }
+        if (_superClass) {
+            classeNamesPar_.addAllElts(_g.getAllGenericSuperTypes());
+        }
+        return classeNamesPar_;
+    }
     private static void fetchFields(Analyzable _cont, boolean _static, String _name, boolean _aff, StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase, String _objectType, ObjectNotNullMap<ClassField, Integer> _imports, ObjectNotNullMap<ClassField, FieldResult> _ancestors, String _curClassBase, int _anc, boolean _keepInstance, StringList _classeNamesPar) {
         for (String s: _classeNamesPar) {
             String id_ = Templates.getIdFromAllTypes(s);
@@ -859,7 +857,7 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             GeneType root_ = _conf.getClassBody(t);
-            fetchStaticMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, t, root_);
+            fetchStaticMethods(_conf, _accessFromSuper,0, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, t, root_);
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, t, 0));
         }
         CustList<CustList<GeneType>> rootsAncs_ = new CustList<CustList<GeneType>>();
@@ -883,6 +881,8 @@ public abstract class OperationNode implements Operable {
                     add_ = false;
                 }
                 String baseCur_ = p.getFullName();
+                superTypesAnc_.put(baseCur_,anc_);
+                superTypesBaseAnc_.put(baseCur_, baseCur_);
                 for (String m: p.getAllSuperTypes()) {
                     superTypesBaseAnc_.put(m, baseCur_);
                     superTypesAnc_.put(m,anc_);
@@ -898,7 +898,7 @@ public abstract class OperationNode implements Operable {
             String cl_ = t.getKey();
             GeneType root_ = _conf.getClassBody(cl_);
             int anc_ = t.getValue();
-            fetchStaticMethods(_conf, _accessFromSuper, _superClass, _uniqueId, glClass_, methods_, superTypesBase_, cl_, root_);
+            fetchStaticMethods(_conf, _accessFromSuper, anc_,_superClass, _uniqueId, glClass_, methods_, superTypesBaseAnc_, cl_, root_);
             methods_.putAllMap(getPredefineStaticEnumMethods(_conf, cl_, anc_));
         }
         if (!_staticContext){
@@ -968,9 +968,9 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
-    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
+    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            MethodInfo stMeth = getStMeth(_conf, _accessFromSuper, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
+            MethodInfo stMeth = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
             if (stMeth == null) {
                 continue;
             }
@@ -1027,7 +1027,7 @@ public abstract class OperationNode implements Operable {
         }
     }
 
-    private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,
+    private static MethodInfo getStMeth(Analyzable _conf, boolean _accessFromSuper,int _anc,
                                         boolean _superClass, ClassMethodId _uniqueId, String _glClass, GeneMethod _e, String _t, StringMap<String> _superTypesBase) {
         if (!Classes.canAccess(_glClass, _e, _conf)) {
             return null;
@@ -1063,6 +1063,7 @@ public abstract class OperationNode implements Operable {
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(_t);
             mloc_.setStatic(true);
+            mloc_.setAncestor(_anc);
             mloc_.setConstraints(id_);
             mloc_.setParameters(p_);
             mloc_.setReturnType(returnType_);
@@ -1576,16 +1577,11 @@ public abstract class OperationNode implements Operable {
         return !isMoreSpecificThanFixArity(_two, _one, _context);
     }
     private static boolean isMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
-        if (_one.getImported() > _two.getImported()) {
+        int cmp_ = compareImportAncestor(_one, _two);
+        if (cmp_ == CustList.SWAP_SORT) {
             return false;
         }
-        if (_two.getImported() > _one.getImported()) {
-            return true;
-        }
-        if (_one.getAncestor() > _two.getAncestor()) {
-            return false;
-        }
-        if (_two.getAncestor() > _one.getAncestor()) {
+        if (cmp_ == CustList.NO_SWAP_SORT) {
             return true;
         }
         Analyzable context_ = _context.getContext();
@@ -1612,16 +1608,11 @@ public abstract class OperationNode implements Operable {
         return all_;
     }
     private static boolean isMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
-        if (_one.getImported() > _two.getImported()) {
+        int cmp_ = compareImportAncestor(_one, _two);
+        if (cmp_ == CustList.SWAP_SORT) {
             return false;
         }
-        if (_two.getImported() > _one.getImported()) {
-            return true;
-        }
-        if (_one.getAncestor() > _two.getAncestor()) {
-            return false;
-        }
-        if (_two.getAncestor() > _one.getAncestor()) {
+        if (cmp_ == CustList.NO_SWAP_SORT) {
             return true;
         }
         Analyzable context_ = _context.getContext();
@@ -1694,17 +1685,9 @@ public abstract class OperationNode implements Operable {
     }
 
     private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
-        if (_o1.getImported() > _o2.getImported()) {
-            return CustList.SWAP_SORT;
-        }
-        if (_o2.getImported() > _o1.getImported()) {
-            return CustList.NO_SWAP_SORT;
-        }
-        if (_o1.getAncestor() > _o2.getAncestor()) {
-            return CustList.SWAP_SORT;
-        }
-        if (_o2.getAncestor() > _o1.getAncestor()) {
-            return CustList.NO_SWAP_SORT;
+        int cmp_ = compareImportAncestor(_o1, _o2);
+        if (cmp_ != CustList.EQ_CMP) {
+            return cmp_;
         }
         int len_ = _o1.getParameters().size();
         Analyzable context_ = _context.getContext();
@@ -1789,6 +1772,21 @@ public abstract class OperationNode implements Operable {
         return CustList.NO_SWAP_SORT;
     }
 
+    private static int compareImportAncestor(Parametrable _o1, Parametrable _o2) {
+        if (_o1.getImported() > _o2.getImported()) {
+            return CustList.SWAP_SORT;
+        }
+        if (_o2.getImported() > _o1.getImported()) {
+            return CustList.NO_SWAP_SORT;
+        }
+        if (_o1.getAncestor() > _o2.getAncestor()) {
+            return CustList.SWAP_SORT;
+        }
+        if (_o2.getAncestor() > _o1.getAncestor()) {
+            return CustList.NO_SWAP_SORT;
+        }
+        return CustList.EQ_CMP;
+    }
     private static int checkPreferred(String _one, String _two, StringMap<StringList> _map, Analyzable _an, Parametrable _p1, Parametrable _p2) {
         int res_ = swapCasePreferred(_one, _two, _map, _an);
         if (res_ != CustList.EQ_CMP) {
