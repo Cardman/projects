@@ -1713,23 +1713,21 @@ public abstract class OperationNode implements Operable {
         }
         boolean vararg_ = false;
         if (_o1.isVararg()) {
-            if (_o2.isVararg()) {
-                if (len_ < _o2.getParameters().size()) {
-                    return CustList.SWAP_SORT;
-                }
-                if (len_ > _o2.getParameters().size()) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                boolean varOne_ = _o1.isVarArgWrap();
-                boolean varTwo_ = _o2.isVarArgWrap();
-                if (varOne_ && !varTwo_) {
-                    return CustList.SWAP_SORT;
-                }
-                if (!varOne_ && varTwo_) {
-                    return CustList.NO_SWAP_SORT;
-                }
-                vararg_ = true;
+            if (len_ < _o2.getParameters().size()) {
+                return CustList.SWAP_SORT;
             }
+            if (len_ > _o2.getParameters().size()) {
+                return CustList.NO_SWAP_SORT;
+            }
+            boolean varOne_ = _o1.isVarArgWrap();
+            boolean varTwo_ = _o2.isVarArgWrap();
+            if (varOne_ && !varTwo_) {
+                return CustList.SWAP_SORT;
+            }
+            if (!varOne_ && varTwo_) {
+                return CustList.NO_SWAP_SORT;
+            }
+            vararg_ = true;
         }
         if (vararg_) {
             len_--;
@@ -1770,11 +1768,9 @@ public abstract class OperationNode implements Operable {
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
-            return CustList.SWAP_SORT;
-        }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
-            return CustList.NO_SWAP_SORT;
+        int res_ = PrimitiveTypeUtil.cmpTypes(baseTypeOne_, baseTypeTwo_, context_);
+        if (res_ != 0) {
+            return res_;
         }
         //inherits types if static methods
         _o1.getParameters().setError(true);

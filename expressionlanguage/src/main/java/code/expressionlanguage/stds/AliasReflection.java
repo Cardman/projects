@@ -303,7 +303,7 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString_,aliasPrimBoolean_,aliasClass);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasClass);
         method_ = new StandardMethod(aliasGetOperators, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -919,18 +919,11 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                String methodName_ = ((StringStruct) args_[0]).getInstance();
-                Boolean vararg_ = ((BooleanStruct) args_[1]).getInstance();
-                StringList classesNames_ = new StringList();
-                for (Struct s: ((ArrayStruct)args_[2]).getInstance()) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
-                MethodId idToSearch_ = new MethodId(true, methodName_, classesNames_, vararg_);
                 for (OperatorBlock o: _cont.getClasses().getOperators()) {
                     MethodId id_ = o.getId();
-                    if (id_.eq(idToSearch_)) {
+                    if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
                         String ret_ = o.getImportedReturnType();
                         AccessEnum acc_ = o.getAccess();
                         MethodId fid_;

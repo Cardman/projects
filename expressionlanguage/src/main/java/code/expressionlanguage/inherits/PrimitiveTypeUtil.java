@@ -600,6 +600,15 @@ public final class PrimitiveTypeUtil {
         }
         return true;
     }
+    public static int cmpTypes(String _one, String _two, Analyzable _context) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(_one, _two, _context)) {
+            return CustList.SWAP_SORT;
+        }
+        if (PrimitiveTypeUtil.canBeUseAsArgument(_two, _one, _context)) {
+            return CustList.NO_SWAP_SORT;
+        }
+        return CustList.EQ_CMP;
+    }
     public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasVoid())) {

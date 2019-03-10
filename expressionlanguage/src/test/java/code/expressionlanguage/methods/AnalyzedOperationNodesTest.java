@@ -1177,6 +1177,110 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!id_.isStaticMethod());
     }
     @Test
+    public void processEl170Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo {\n");
+        xml_.append(" $public $normal $long get(Integer... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("pkg.ExFour", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("get", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("java.lang.Integer", params_.last());
+        assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl171Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("pkg.ExFour", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("get", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("java.lang.Integer", params_.last());
+        assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl172Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree:ExFive {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo:ExFive {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
+        ExecFctOperation fct_ = getFct(opers_);
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("pkg.ExFour", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("get", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("java.lang.Integer", params_.last());
+        assertTrue(id_.isVararg());
+        assertEq(0, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
     public void processEl1FailTest() {
         analyzeIndirectLocalVars("composite.getOverridenOne($null)", "composite", COMPOSITE, true);
     }
@@ -1463,6 +1567,82 @@ public final class AnalyzedOperationNodesTest {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
         analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+    }
+    @Test
+    public void processEl119FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal String get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo {\n");
+        xml_.append(" $public $normal Number get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+
+    }
+    @Test
+    public void processEl118FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo {\n");
+        xml_.append(" $public $normal $int get(Integer... i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+
+    }
+    @Test
+    public void processEl120FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal String get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
+        xml_.append(" $public $normal Number get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+
+    }
+    @Test
+    public void processEl121FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree {\n");
+        xml_.append(" $public $normal String get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExTwo:ExThree {\n");
+        xml_.append(" $public $normal Number get(Integer... i){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
+        xml_.append("}\n");
+        String g_ = StringList.concat("pkg.ExFour");
+        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+
     }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
