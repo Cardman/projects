@@ -1331,6 +1331,27 @@ public abstract class OperationNode implements Operable {
         if (_fct.isEmpty()) {
             return null;
         }
+        CustList<MethodInfo> instances_ = new CustList<MethodInfo>();
+        for (MethodInfo m : _fct) {
+            if (m.isStatic()) {
+                continue;
+            }
+            instances_.add(m);
+        }
+        if (!instances_.isEmpty()) {
+            len_ = instances_.size();
+            for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+                Parametrable pFirst_ = instances_.first();
+                Parametrable pCurrent_ = instances_.get(i);
+                int res_ = compare(_context, pFirst_, pCurrent_);
+                if (res_ == CustList.SWAP_SORT) {
+                    instances_.swapIndexes(CustList.FIRST_INDEX, i);
+                }
+            }
+            if (!instances_.first().getParameters().isError()) {
+                return instances_.first();
+            }
+        }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Parametrable pFirst_ = _fct.first();
             Parametrable pCurrent_ = _fct.get(i);
@@ -1691,16 +1712,6 @@ public abstract class OperationNode implements Operable {
         map_ = _context.getMap();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
-        if (_o1.isStatic()) {
-            if (!_o2.isStatic()) {
-                return CustList.SWAP_SORT;
-            }
-        }
-        if (!_o1.isStatic()) {
-            if (_o2.isStatic()) {
-                return CustList.NO_SWAP_SORT;
-            }
-        }
         if (_o1.isVararg()) {
             if (!_o2.isVararg()) {
                 return CustList.SWAP_SORT;
