@@ -91,14 +91,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         }
         boolean stCtx_ = f_.isStaticContext();
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(stCtx_));
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!stCtx_) {
-            String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(opRet.last().getResultClass());

@@ -1,6 +1,7 @@
 package code.formathtml.render;
 
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.NumParsers;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -327,7 +328,7 @@ public final class MetaDocument {
                         par_ = par_.getParentNode();
                     }
                     if (elt_.getAttribute("src").contains(";")) {
-                        Integer delay_ = LgNames.parseInt(elt_.getAttribute("delay"));
+                        Integer delay_ = BeanLgNames.parseInt(elt_.getAttribute("delay"));
                         MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringList.splitStrings(elt_.getAttribute("src"), ";"), title_, delay_, anchor_);
                         imgs_.setStyle(styleLoc_);
                         currentParent.appendChild(imgs_);
@@ -358,11 +359,11 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        Integer vis_ = LgNames.parseInt(elt_.getAttribute("rows"));
+                        Integer vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"));
                         if (vis_ == null) {
                             vis_ = 1;
                         }
-                        MetaInput input_ = new MetaComboList(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
+                        MetaInput input_ = new MetaComboList(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -378,7 +379,7 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
+                        MetaInput input_ = new MetaComboBox(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     }
@@ -388,15 +389,15 @@ public final class MetaDocument {
                     String type_ = elt_.getAttribute("type");
                     String name_ = elt_.getAttribute("name");
                     if (StringList.quickEq(type_, "text")) {
-                        Integer cols_ = LgNames.parseInt(elt_.getAttribute("cols"));
+                        Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"));
                         if (cols_ == null) {
                             cols_ = 32;
                         }
-                        MetaInput input_ = new MetaTextField(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaTextField(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
@@ -405,7 +406,7 @@ public final class MetaDocument {
                         } else {
                             indexesButtons.put(name_, 0);
                         }
-                        MetaInput input_ = new MetaRadioButton(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaRadioButton(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -431,15 +432,15 @@ public final class MetaDocument {
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
-                    Integer rows_ = LgNames.parseInt(elt_.getAttribute("rows"));
+                    Integer rows_ = BeanLgNames.parseInt(elt_.getAttribute("rows"));
                     if (rows_ == null) {
                         rows_ = 32;
                     }
-                    Integer cols_ = LgNames.parseInt(elt_.getAttribute("cols"));
+                    Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"));
                     if (cols_ == null) {
                         cols_ = 32;
                     }
-                    MetaInput input_ = new MetaTextArea(currentParent, name_, LgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    MetaInput input_ = new MetaTextArea(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
                 }
@@ -613,11 +614,11 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                     MetaTable table_ = tables.last();
-                    Integer rows_ = LgNames.parseInt(elt_.getAttribute("rowspan"));
+                    Integer rows_ = BeanLgNames.parseInt(elt_.getAttribute("rowspan"));
                     if (rows_ == null) {
                         rows_ = 1;
                     }
-                    Integer cols_ = LgNames.parseInt(elt_.getAttribute("colspan"));
+                    Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("colspan"));
                     if (cols_ == null) {
                         cols_ = 1;
                     }
@@ -630,7 +631,7 @@ public final class MetaDocument {
                     currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "map")) {
-                    Integer width_ = LgNames.parseInt(elt_.getAttribute("width"));
+                    Integer width_ = BeanLgNames.parseInt(elt_.getAttribute("width"));
                     if (width_ == null) {
                         width_ = 1;
                     }
@@ -739,7 +740,7 @@ public final class MetaDocument {
             if (StringList.quickEq(key_, "font-size")) {
                 if (value_.endsWith("px")) {
                     String size_ = value_.substring(0, value_.length() - 2);
-                    Long val_ = LgNames.parseLongTen(size_);
+                    Long val_ = NumParsers.parseLongTen(size_);
                     if (val_ != null) {
                         _style.setSize(val_.intValue());
                     }
@@ -750,7 +751,7 @@ public final class MetaDocument {
                 if (value_.startsWith("rgb")) {
                     Numbers<Integer> rates_ = new Numbers<Integer>();
                     for (String c: StringList.splitChars(value_, ',')) {
-                        Long l_ = LgNames.parseLongTen(c.trim());
+                        Long l_ = NumParsers.parseLongTen(c.trim());
                         if (l_ != null) {
                             rates_.add(l_.intValue());
                         }
@@ -769,7 +770,7 @@ public final class MetaDocument {
                     continue;
                 }
                 if (value_.startsWith("#")) {
-                    Long val_ = LgNames.parseLong(value_.substring(1), 16);
+                    Long val_ = NumParsers.parseLong(value_.substring(1), 16);
                     if (val_ != null) {
                         _style.setFgColor(val_.intValue());
                     }
@@ -796,7 +797,7 @@ public final class MetaDocument {
                 if (value_.startsWith("rgb")) {
                     Numbers<Integer> rates_ = new Numbers<Integer>();
                     for (String c: StringList.splitChars(value_, ',')) {
-                        Long l_ = LgNames.parseLongTen(c.trim());
+                        Long l_ = NumParsers.parseLongTen(c.trim());
                         if (l_ != null) {
                             rates_.add(l_.intValue());
                         }
@@ -815,7 +816,7 @@ public final class MetaDocument {
                     continue;
                 }
                 if (value_.startsWith("#")) {
-                    Long val_ = LgNames.parseLong(value_.substring(1), 16);
+                    Long val_ = NumParsers.parseLong(value_.substring(1), 16);
                     if (val_ != null) {
                         _style.setBgColor(val_.intValue());
                     }
@@ -845,7 +846,7 @@ public final class MetaDocument {
                 for (String v: StringList.splitChars(value_, ' ','\t','\n','\r')) {
                     if (v.endsWith("px")) {
                         String size_ = v.substring(0, v.length() - 2);
-                        Long val_ = LgNames.parseLongTen(size_);
+                        Long val_ = NumParsers.parseLongTen(size_);
                         if (val_ != null) {
                             _style.setBorderSize(val_.intValue());
                         }
@@ -854,7 +855,7 @@ public final class MetaDocument {
                     if (v.startsWith("rgb")) {
                         Numbers<Integer> rates_ = new Numbers<Integer>();
                         for (String c: StringList.splitChars(value_, ',')) {
-                            Long l_ = LgNames.parseLongTen(c.trim());
+                            Long l_ = NumParsers.parseLongTen(c.trim());
                             if (l_ != null) {
                                 rates_.add(l_.intValue());
                             }
@@ -873,7 +874,7 @@ public final class MetaDocument {
                         continue;
                     }
                     if (v.startsWith("#")) {
-                        Long val_ = LgNames.parseLong(v.substring(1), 16);
+                        Long val_ = NumParsers.parseLong(v.substring(1), 16);
                         if (val_ != null) {
                             _style.setBorderColor(val_.intValue());
                         }

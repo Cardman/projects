@@ -56,11 +56,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             ClassArgumentMatching name_ = _children.first().getResultClass();
             StringMap<StringList> map_;
-            map_ = new StringMap<StringList>();
-            String glClass_ = _conf.getGlobalClass();
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
+            map_ = _conf.getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setParam(name_);
             for (OperationNode o: optArgsNodes_) {

@@ -21,10 +21,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.util.BadElRender;
-import code.formathtml.util.BeanStruct;
-import code.formathtml.util.StdStruct;
-import code.formathtml.util.TranslatorStruct;
+import code.formathtml.util.*;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
@@ -341,42 +338,42 @@ final class ExtractObject {
         String byte_ = stds_.getAliasByte();
         String null_ = stds_.getAliasNullPe();
         if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
-            Integer val_ = LgNames.parseInt(_arg);
+            Integer val_ = BeanLgNames.parseInt(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;
             }
             return new IntStruct(val_);
         } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
-            Long val_ = LgNames.parseLong(_arg);
+            Long val_ = BeanLgNames.parseLong(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;
             }
             return new LongStruct(val_);
         } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
-            Short val_ = LgNames.parseShort(_arg);
+            Short val_ = BeanLgNames.parseShort(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;
             }
             return new ShortStruct(val_);
         } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
-            Byte val_ = LgNames.parseByte(_arg);
+            Byte val_ = BeanLgNames.parseByte(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;
             }
             return new ByteStruct(val_);
         } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
-            Double val_ = LgNames.parseDouble(_arg);
+            Double val_ = BeanLgNames.parseDouble(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;
             }
             return new DoubleStruct(val_);
         } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
-            Float val_ = LgNames.parseFloat(_arg);
+            Float val_ = BeanLgNames.parseFloat(_arg);
             if (val_ == null) {
                 _conf.getContext().setException(new ErrorStruct(_conf,_arg,null_));
                 return NullStruct.NULL_VALUE;

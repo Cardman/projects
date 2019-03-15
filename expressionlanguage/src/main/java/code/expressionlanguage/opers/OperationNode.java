@@ -698,10 +698,7 @@ public abstract class OperationNode implements Operable {
             signatures_.add(mloc_);
         }
         StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-            map_.put(t.getName(), t.getConstraints());
-        }
+        map_ = _conf.getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (cInfo_ == null) {
@@ -1107,10 +1104,7 @@ public abstract class OperationNode implements Operable {
             signatures_.add(mi_);
         }
         StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-            map_.put(t.getName(), t.getConstraints());
-        }
+        map_ = _conf.getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         _conf.setAmbigous(false);
         MethodInfo found_ = sortFct(signatures_, gr_);
@@ -1161,8 +1155,7 @@ public abstract class OperationNode implements Operable {
                 }
             }
         }
-        String glClass_ = _context.getGlobalClass();
-        StringMap<StringList> mapCtr_ = Templates.getMapConstraints(glClass_, _context);
+        StringMap<StringList> mapCtr_ = _context.getCurrentConstraints();
         int len_ = nbDem_;
         StringList formatPar_ = new StringList();
         boolean allNotBoxUnbox_ = true;

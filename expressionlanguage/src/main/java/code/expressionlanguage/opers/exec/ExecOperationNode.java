@@ -9,67 +9,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.AbstractTernaryOperation;
-import code.expressionlanguage.opers.AddOperation;
-import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.AndOperation;
-import code.expressionlanguage.opers.AnnotationInstanceOperation;
-import code.expressionlanguage.opers.ArrOperation;
-import code.expressionlanguage.opers.ArrayFieldOperation;
-import code.expressionlanguage.opers.AssocationOperation;
-import code.expressionlanguage.opers.BitAndOperation;
-import code.expressionlanguage.opers.BitOrOperation;
-import code.expressionlanguage.opers.BitShiftLeftOperation;
-import code.expressionlanguage.opers.BitShiftRightOperation;
-import code.expressionlanguage.opers.BitXorOperation;
-import code.expressionlanguage.opers.CallDynMethodOperation;
-import code.expressionlanguage.opers.CastOperation;
-import code.expressionlanguage.opers.ChoiceFctOperation;
-import code.expressionlanguage.opers.CmpOperation;
-import code.expressionlanguage.opers.CompoundAffectationOperation;
-import code.expressionlanguage.opers.ConstantOperation;
-import code.expressionlanguage.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.opers.DeclaringOperation;
-import code.expressionlanguage.opers.DimensionArrayInstancing;
-import code.expressionlanguage.opers.DotOperation;
-import code.expressionlanguage.opers.ElementArrayInstancing;
-import code.expressionlanguage.opers.EnumValueOfOperation;
-import code.expressionlanguage.opers.EqOperation;
-import code.expressionlanguage.opers.ErrorPartOperation;
-import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.FinalVariableOperation;
-import code.expressionlanguage.opers.FirstOptOperation;
-import code.expressionlanguage.opers.IdFctOperation;
-import code.expressionlanguage.opers.IdOperation;
-import code.expressionlanguage.opers.InferArrayInstancing;
-import code.expressionlanguage.opers.InstanceOfOperation;
-import code.expressionlanguage.opers.InterfaceInvokingConstructor;
-import code.expressionlanguage.opers.InternVariableOperation;
-import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.MultOperation;
-import code.expressionlanguage.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.OrOperation;
-import code.expressionlanguage.opers.RotateLeftOperation;
-import code.expressionlanguage.opers.RotateRightOperation;
-import code.expressionlanguage.opers.SemiAffectationOperation;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.ShiftLeftOperation;
-import code.expressionlanguage.opers.ShiftRightOperation;
-import code.expressionlanguage.opers.StandardInstancingOperation;
-import code.expressionlanguage.opers.StaticAccessOperation;
-import code.expressionlanguage.opers.StaticInfoOperation;
-import code.expressionlanguage.opers.StaticInitOperation;
-import code.expressionlanguage.opers.SuperFctOperation;
-import code.expressionlanguage.opers.SuperInvokingConstructor;
-import code.expressionlanguage.opers.SymbolOperation;
-import code.expressionlanguage.opers.ThisOperation;
-import code.expressionlanguage.opers.UnaryBinOperation;
-import code.expressionlanguage.opers.UnaryBooleanOperation;
-import code.expressionlanguage.opers.UnaryOperation;
-import code.expressionlanguage.opers.ValuesOperation;
-import code.expressionlanguage.opers.VarargOperation;
-import code.expressionlanguage.opers.VariableOperation;
+import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -371,6 +311,12 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof BitXorOperation) {
             BitXorOperation c_ = (BitXorOperation) _anaNode;
             return new ExecBitXorOperation(c_);
+        }
+        if (_anaNode instanceof QuickOperation) {
+            QuickOperation q_ = (QuickOperation) _anaNode;
+            if (!q_.isOkNum()) {
+                return new ExecErrorParentOperation(q_);
+            }
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;

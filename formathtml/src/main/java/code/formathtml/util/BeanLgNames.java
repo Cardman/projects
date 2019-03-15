@@ -8,18 +8,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.stds.IterableAnalysisResult;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardInterface;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
@@ -57,6 +50,9 @@ import code.util.pagination.SelectedBoolean;
 
 public abstract class BeanLgNames extends LgNames {
 
+    private static final int DEFAULT_RADIX = 10;
+    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
+    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     private static final String VALIDATE = "validate";
     private static final String GET_INDEXES = "getIndexes";
     private static final String GET_OLD_VALUE = "getOldValue";
@@ -103,6 +99,133 @@ public abstract class BeanLgNames extends LgNames {
     private CustList<ExecOperationNode> expsIterator;
     private CustList<ExecOperationNode> expsHasNext;
     private CustList<ExecOperationNode> expsNext;
+
+    public static Double parseDouble(String _nb) {
+        NumberInfos infos_ = NumParsers.trySplitDouble(_nb);
+        if (infos_ == null) {
+            return null;
+        }
+        return NumParsers.parseDouble(infos_);
+    }
+
+    public static Float parseFloat(String _nb) {
+        NumberInfos infos_ = NumParsers.trySplitDouble(_nb);
+        if (infos_ == null) {
+            return null;
+        }
+        double double_ = NumParsers.parseDouble(infos_);
+        double abs_ = Math.abs(double_);
+        if (abs_ > Float.MAX_VALUE) {
+            return null;
+        }
+        return (float)double_;
+    }
+
+    public static Byte parseByte(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_ < Byte.MIN_VALUE) {
+            return null;
+        }
+        if (int_ > Byte.MAX_VALUE) {
+            return null;
+        }
+        return int_.byteValue();
+    }
+
+    public static Short parseShort(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_ < Short.MIN_VALUE) {
+            return null;
+        }
+        if (int_ > Short.MAX_VALUE) {
+            return null;
+        }
+        return int_.shortValue();
+    }
+
+    public static Integer parseInt(String _string) {
+        Long int_ = parseLong(_string);
+        if (int_ == null) {
+            return null;
+        }
+        if (int_ < Integer.MIN_VALUE) {
+            return null;
+        }
+        if (int_ > Integer.MAX_VALUE) {
+            return null;
+        }
+        return int_.intValue();
+    }
+
+    public static Long parseLong(String _string) {
+        if (_string == null) {
+            return null;
+        }
+        long result_ = 0;
+        boolean negative_ = false;
+        int i_ = 0;
+        int max_ = _string.length();
+        long limit_;
+        long multmin_;
+        int digit_;
+
+        if (max_ > 0) {
+            if (_string.charAt(0) == '-') {
+                negative_ = true;
+                limit_ = Long.MIN_VALUE;
+                i_++;
+            } else {
+                limit_ = -Long.MAX_VALUE;
+            }
+            if (negative_) {
+                multmin_ = MULTMIN_RADIX_TEN;
+            } else {
+                multmin_ = N_MULTMAX_RADIX_TEN;
+            }
+            if (i_ < max_) {
+                char ch_ = _string.charAt(i_);
+                i_++;
+                if (ch_ < '0' || ch_ > '9') {
+                    return null;
+                }
+                digit_ = ch_ - '0';
+                result_ = -digit_;
+            }
+            while (i_ < max_) {
+                // Accumulating negatively avoids surprises near MAX_VALUE
+                char ch_ = _string.charAt(i_);
+                i_++;
+                if (ch_ < '0' || ch_ > '9') {
+                    return null;
+                }
+                digit_ = ch_ - '0';
+                if (result_ < multmin_) {
+                    return null;
+                }
+                result_ *= 10;
+                if (result_ < limit_ + digit_) {
+                    return null;
+                }
+                result_ -= digit_;
+            }
+        } else {
+            return null;
+        }
+        if (negative_) {
+            if (i_ > 1) {
+                return result_;
+            }
+            return null;
+        }
+        return -result_;
+    }
+
     public void buildBeans() {
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
@@ -600,7 +723,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Double val_ = LgNames.parseDouble(_values.first());
+            Double val_ = parseDouble(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
@@ -613,7 +736,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Float val_ = LgNames.parseFloat(_values.first());
+            Float val_ = parseFloat(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
@@ -626,7 +749,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Long val_ = LgNames.parseLong(_values.first());
+            Long val_ = parseLong(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
@@ -639,7 +762,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Integer val_ = LgNames.parseInt(_values.first());
+            Integer val_ = parseInt(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
@@ -652,7 +775,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Short val_ = LgNames.parseShort(_values.first());
+            Short val_ = parseShort(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
@@ -665,7 +788,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Byte val_ = LgNames.parseByte(_values.first());
+            Byte val_ = parseByte(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;

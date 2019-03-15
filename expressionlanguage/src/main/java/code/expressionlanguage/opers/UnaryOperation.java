@@ -70,7 +70,8 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             }
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (cl_ == null) {
+        int orderClass_ = PrimitiveTypeUtil.getOrderClass(clMatch_, _conf);
+        if (orderClass_ == 0) {
             _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();

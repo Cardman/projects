@@ -381,20 +381,20 @@ public final class AliasMath {
             ClassArgumentMatching res_ = new ClassArgumentMatching(paramList_.first());
             if (res_.matchClass(aliasPrimInteger_)) {
                 int left_ = _args[0].getInt();
-                boolean[] bits_ = LgNames.toBits(left_);
+                boolean[] bits_ = NumParsers.toBits(left_);
                 int len_ = bits_.length;
                 for (int i = 0; i<len_; i++) {
                     bits_[i] = !bits_[i];
                 }
-                result_.setResult(new IntStruct(LgNames.toInt(bits_)));
+                result_.setResult(new IntStruct(NumParsers.toInt(bits_)));
             } else {
                 long left_ = _args[0].getLong();
-                boolean[] bits_ = LgNames.toBits(left_);
+                boolean[] bits_ = NumParsers.toBits(left_);
                 int len_ = bits_.length;
                 for (int i = 0; i<len_; i++) {
                     bits_[i] = !bits_[i];
                 }
-                result_.setResult(new LongStruct(LgNames.toLong(bits_)));
+                result_.setResult(new LongStruct(NumParsers.toLong(bits_)));
             }
         } else if (StringList.quickEq(name_, am_.aliasNeg)) {
             Boolean left_ = ((BooleanStruct)_args[0].getStruct()).getInstance();

@@ -11,9 +11,11 @@ import code.util.IdMap;
 public final class ExecStrCmpOperation extends ExecReflectableOpering {
 
     private String oper;
+    private int opOffset;
     public ExecStrCmpOperation(CmpOperation _r) {
         super(_r);
         oper = _r.getOp();
+        opOffset = _r.getOpOffset();
     }
     @Override
     public final void quickCalculate(Analyzable _conf) {
@@ -25,6 +27,7 @@ public final class ExecStrCmpOperation extends ExecReflectableOpering {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode opOne_ = chidren_.first();
         ExecOperationNode opTwo_ = chidren_.last();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
         Argument arg_ = CmpOperation.calculateCommonStr(first_, second_, oper);

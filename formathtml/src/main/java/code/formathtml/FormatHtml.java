@@ -23,25 +23,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.ExecInvokingOperation;
-import code.formathtml.util.ActionNext;
-import code.formathtml.util.BadElRender;
-import code.formathtml.util.BeanElement;
-import code.formathtml.util.BlockHtml;
-import code.formathtml.util.BreakableHtmlStack;
-import code.formathtml.util.FormInputCoords;
-import code.formathtml.util.IfHtmlStack;
-import code.formathtml.util.IndexesFormInput;
-import code.formathtml.util.LoopHtmlStack;
-import code.formathtml.util.NodeAction;
-import code.formathtml.util.NodeAttribute;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
-import code.formathtml.util.ParentElement;
-import code.formathtml.util.ReadWriteHtml;
-import code.formathtml.util.StringMapObjectStruct;
-import code.formathtml.util.SwitchHtmlStack;
-import code.formathtml.util.TryHtmlStack;
-import code.formathtml.util.VariableInformation;
+import code.formathtml.util.*;
 import code.sml.Attr;
 import code.sml.AttributePart;
 import code.sml.CharacterData;
@@ -3599,7 +3581,7 @@ public final class FormatHtml {
 
     private static void setValueInput(Configuration _conf, Element _tag) {
         String attribute_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
-        Long value_ = LgNames.parseLong(attribute_);
+        Long value_ = BeanLgNames.parseLong(attribute_);
         if (value_ != null) {
             //TODO converter
             _tag.setAttribute(ATTRIBUTE_VALUE, Numbers.toString(value_));

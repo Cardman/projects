@@ -124,11 +124,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         }
         setClassName(classNameFinal_);
         StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        String glClass_ = _conf.getGlobalClass();
-        for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-            map_.put(t.getName(), t.getConstraints());
-        }
+        map_ = _conf.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setParam(classNameFinal_);
         for (OperationNode o: chidren_) {

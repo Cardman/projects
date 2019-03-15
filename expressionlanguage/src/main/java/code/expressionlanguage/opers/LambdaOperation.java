@@ -967,9 +967,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     }
 
     private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map, String _glClass) {
-        for (TypeVar t: Templates.getConstraints(_glClass, _conf)) {
-            _map.put(t.getName(), t.getConstraints());
-        }
+        _map.putAllMap(_conf.getCurrentConstraints());
     }
 
     private void processOperator(Analyzable _conf, LgNames _stds,

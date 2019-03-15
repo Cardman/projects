@@ -128,12 +128,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         Argument secondArg_ = opThree_.getArgument();
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!_conf.isStaticContext()) {
-            for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         String void_ = stds_.getAliasVoid();
         if (one_.containsStr(void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);

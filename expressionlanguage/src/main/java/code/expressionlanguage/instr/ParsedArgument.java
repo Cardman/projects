@@ -2,6 +2,7 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.NumParsers;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
@@ -50,9 +51,9 @@ public final class ParsedArgument {
                 out_.type = floatType_;
             }
             if (suffix_ == 'D' || suffix_ == 'd') {
-                out_.object = new DoubleStruct(LgNames.parseDouble(_infosNb));
+                out_.object = new DoubleStruct(NumParsers.parseDouble(_infosNb));
             } else {
-                double d_ = LgNames.parseDouble(_infosNb);
+                double d_ = NumParsers.parseDouble(_infosNb);
                 if (!checkedDoubleBounds(d_, Float.MIN_VALUE, Float.MAX_VALUE)) {
                     return out_;
                 }
@@ -71,9 +72,9 @@ public final class ParsedArgument {
             if (nb_.length() > 16) {
                 return out_;
             }
-            boolean[] bits_ = LgNames.parseLongSixteenToBits(nb_);
+            boolean[] bits_ = NumParsers.parseLongSixteenToBits(nb_);
             if (suffix_ == 'L' || suffix_ == 'l') {
-                longValue_ = LgNames.toLong(bits_);
+                longValue_ = NumParsers.toLong(bits_);
                 if (suffix_ == 'l') {
                     out_.type = longPrimType_;
                 } else {
@@ -86,7 +87,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 8) {
                     return out_;
                 }
-                int int_ = LgNames.extractInt(bits_);
+                int int_ = NumParsers.extractInt(bits_);
                 if (suffix_ == 'i') {
                     out_.type = intPrimType_;
                 } else {
@@ -99,7 +100,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 4) {
                     return out_;
                 }
-                char int_ = LgNames.parseCharSixteen(nb_);
+                char int_ = NumParsers.parseCharSixteen(nb_);
                 if (suffix_ == 'c') {
                     out_.type = charPrimType_;
                 } else {
@@ -112,7 +113,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 4) {
                     return out_;
                 }
-                short int_ = LgNames.extractShort(bits_);
+                short int_ = NumParsers.extractShort(bits_);
                 if (suffix_ == 's') {
                     out_.type = shortPrimType_;
                 } else {
@@ -124,7 +125,7 @@ public final class ParsedArgument {
             if (nb_.length() > 2) {
                 return out_;
             }
-            byte int_ = LgNames.extractByte(bits_);
+            byte int_ = NumParsers.extractByte(bits_);
             if (suffix_ == 'b') {
                 out_.type = bytePrimType_;
             } else {
@@ -137,10 +138,10 @@ public final class ParsedArgument {
             if (nb_.length() > 64) {
                 return out_;
             }
-            boolean[] bits_ = LgNames.parseLongBinaryToBits(nb_);
-            longValue_ = LgNames.toLong(bits_);
+            boolean[] bits_ = NumParsers.parseLongBinaryToBits(nb_);
+            longValue_ = NumParsers.toLong(bits_);
             if (suffix_ == 'L' || suffix_ == 'l') {
-                longValue_ = LgNames.toLong(bits_);
+                longValue_ = NumParsers.toLong(bits_);
                 if (suffix_ == 'l') {
                     out_.type = longPrimType_;
                 } else {
@@ -153,7 +154,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 32) {
                     return out_;
                 }
-                int int_ = LgNames.extractInt(bits_);
+                int int_ = NumParsers.extractInt(bits_);
                 if (suffix_ == 'i') {
                     out_.type = intPrimType_;
                 } else {
@@ -166,7 +167,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 16) {
                     return out_;
                 }
-                char int_ = (char) LgNames.extractShort(bits_);
+                char int_ = (char) NumParsers.extractShort(bits_);
                 if (suffix_ == 'c') {
                     out_.type = charPrimType_;
                 } else {
@@ -179,7 +180,7 @@ public final class ParsedArgument {
                 if (nb_.length() > 16) {
                     return out_;
                 }
-                short int_ = LgNames.extractShort(bits_);
+                short int_ = NumParsers.extractShort(bits_);
                 if (suffix_ == 's') {
                     out_.type = shortPrimType_;
                 } else {
@@ -191,7 +192,7 @@ public final class ParsedArgument {
             if (nb_.length() > 8) {
                 return out_;
             }
-            byte int_ = LgNames.extractByte(bits_);
+            byte int_ = NumParsers.extractByte(bits_);
             if (suffix_ == 'b') {
                 out_.type = bytePrimType_;
             } else {
@@ -215,11 +216,11 @@ public final class ParsedArgument {
                     sub_ = 1;
                 }
                 String subString_ = nb_.substring(sub_);
-                boolean[] bitsOutTrunc_ = LgNames.parseLongOctalToBits(subString_);
+                boolean[] bitsOutTrunc_ = NumParsers.parseLongOctalToBits(subString_);
                 for (int i = 1; i < 64; i++) {
                     bits_[i] = bitsOutTrunc_[i-1];
                 }
-                longValue_ = LgNames.toLong(bits_);
+                longValue_ = NumParsers.toLong(bits_);
                 if (suffix_ == 'l') {
                     out_.type = longPrimType_;
                 } else {
@@ -237,7 +238,7 @@ public final class ParsedArgument {
                         return out_;
                     }
                 }
-                Long lg_ = LgNames.parseLong(nb_, 8);
+                Long lg_ = NumParsers.parseLong(nb_, 8);
                 if (lg_ == null) {
                     return out_;
                 }
@@ -273,7 +274,7 @@ public final class ParsedArgument {
                     }
                 }
             }
-            Long lg_ = LgNames.parseLong(nb_, 8);
+            Long lg_ = NumParsers.parseLong(nb_, 8);
             if (lg_ == null) {
                 return out_;
             }
@@ -323,7 +324,7 @@ public final class ParsedArgument {
             out_.object = new ByteStruct(longValue_.byteValue());
             return out_;
         }
-        longValue_ = LgNames.parseLongTen(nb_);
+        longValue_ = NumParsers.parseLongTen(nb_);
         if (longValue_ == null) {
             return out_;
         }

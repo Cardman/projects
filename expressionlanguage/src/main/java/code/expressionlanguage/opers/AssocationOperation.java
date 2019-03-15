@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.UndefinedFieldError;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -48,8 +49,9 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                 _conf.getClasses().addError(un_);
             } else {
                 String annotationClass_ = par_.getClassName();
-                if (!StringList.quickEq(_conf.getStandards().getAliasObject(), annotationClass_)) {
-                    Block ann_ = (Block) _conf.getClassBody(annotationClass_);
+                GeneType type_ = _conf.getClassBody(annotationClass_);
+                if (type_ instanceof Block) {
+                    Block ann_ = (Block) type_;
                     boolean ok_ = false;
                     for (Block b: Classes.getDirectChildren(ann_)) {
                         if (!(b instanceof AnnotationMethodBlock)) {

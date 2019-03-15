@@ -353,10 +353,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public final String getWildCardString() {
         String pkg_ = getPackageName();
         StringBuilder generic_ = new StringBuilder();
-        if (!pkg_.isEmpty()) {
-            generic_.append(pkg_);
-            generic_.append(DOT);
-        }
+        addPkgIfNotEmpty(pkg_, generic_);
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
             generic_.append(r.getName());
@@ -381,14 +378,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return generic_.toString();
     }
 
+    private static void addPkgIfNotEmpty(String _pkg, StringBuilder _generic) {
+        if (!_pkg.isEmpty()) {
+            _generic.append(_pkg);
+            _generic.append(DOT);
+        }
+    }
+
     @Override
     public final String getGenericString() {
         String pkg_ = getPackageName();
         StringBuilder generic_ = new StringBuilder();
-        if (!pkg_.isEmpty()) {
-            generic_.append(pkg_);
-            generic_.append(DOT);
-        }
+        addPkgIfNotEmpty(pkg_, generic_);
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
             generic_.append(r.getName());

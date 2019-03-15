@@ -8,6 +8,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.NumParsers;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.Numbers;
 import code.util.StringList;
@@ -471,13 +472,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     private static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg) {
         String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
         boolean valid_ = true;
-        NumberInfos infos_ = LgNames.trySplitDouble(one_);
+        NumberInfos infos_ = NumParsers.trySplitDouble(one_);
         if (infos_ == null) {
             valid_ = false;
         }
         Double d_ = null;
         if (valid_) {
-            d_ = LgNames.parseDouble(infos_);
+            d_ = NumParsers.parseDouble(infos_);
         }
         if (!valid_) {
             _res.setErrorMessage(one_);
@@ -490,13 +491,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     private static void parseFloat(ResultErrorStd _res, LgNames _stds, Struct _arg) {
         String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
         boolean valid_ = true;
-        NumberInfos infos_ = LgNames.trySplitDouble(one_);
+        NumberInfos infos_ = NumParsers.trySplitDouble(one_);
         if (infos_ == null) {
             valid_ = false;
         }
         Double d_ = null;
         if (valid_) {
-            d_ = LgNames.parseDouble(infos_);
+            d_ = NumParsers.parseDouble(infos_);
             double abs_ = Math.abs(d_);
             if (abs_ > Float.MAX_VALUE) {
                 valid_ = false;
@@ -517,7 +518,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_list.size() != 1) {
             radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
         }
-        lg_ = LgNames.parseLong(one_, radix_);
+        lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null) {
             _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
             _res.setError(_stds.getAliasNbFormat());
@@ -533,7 +534,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_list.size() != 1) {
             radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
         }
-        lg_ = LgNames.parseLong(one_, radix_);
+        lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Integer.MIN_VALUE || lg_ > Integer.MAX_VALUE) {
             _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
             _res.setError(_stds.getAliasNbFormat());
@@ -549,7 +550,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_list.size() != 1) {
             radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
         }
-        lg_ = LgNames.parseLong(one_, radix_);
+        lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Short.MIN_VALUE || lg_ > Short.MAX_VALUE) {
             _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
             _res.setError(_stds.getAliasNbFormat());
@@ -565,7 +566,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_list.size() != 1) {
             radix_ = ((NumberStruct) _args[1]).getInstance().intValue();
         }
-        lg_ = LgNames.parseLong(one_, radix_);
+        lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Byte.MIN_VALUE || lg_ > Byte.MAX_VALUE) {
             _res.setErrorMessage(StringList.concat(one_,",",Integer.toString(radix_)));
             _res.setError(_stds.getAliasNbFormat());
@@ -604,20 +605,20 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         if (_order.matchClass(intPrim_)) {
             int left_ = _a.getInt();
-            boolean[] bits_ = LgNames.toBits(left_);
+            boolean[] bits_ = NumParsers.toBits(left_);
             int len_ = bits_.length;
             for (int i = 0; i<len_; i++) {
                 bits_[i] = !bits_[i];
             }
-            return new IntStruct(LgNames.toInt(bits_));
+            return new IntStruct(NumParsers.toInt(bits_));
         }
         long left_ = _a.getLong();
-        boolean[] bits_ = LgNames.toBits(left_);
+        boolean[] bits_ = NumParsers.toBits(left_);
         int len_ = bits_.length;
         for (int i = 0; i<len_; i++) {
             bits_[i] = !bits_[i];
         }
-        return new LongStruct(LgNames.toLong(bits_));
+        return new LongStruct(NumParsers.toLong(bits_));
     }
     public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
@@ -790,26 +791,26 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();
             int right_ = ((NumberStruct)_b).getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
             int len_ = bitsLeft_.length;
             boolean[] bits_ = new boolean[len_];
             for (int i = 0; i < len_; i++) {
                 bits_[i] = bitsLeft_[i] && bitsRight_[i];
             }
-            int value_ = LgNames.toInt(bits_);
+            int value_ = NumParsers.toInt(bits_);
             return new IntStruct(value_);
         }
         long left_ = ((NumberStruct)_a).getLong();
         long right_ = ((NumberStruct)_b).getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
         int len_ = bitsLeft_.length;
         boolean[] bits_ = new boolean[len_];
         for (int i = 0; i < len_; i++) {
             bits_[i] = bitsLeft_[i] && bitsRight_[i];
         }
-        long value_ = LgNames.toLong(bits_);
+        long value_ = NumParsers.toLong(bits_);
         return new LongStruct(value_);
     }
 
@@ -825,26 +826,26 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();
             int right_ = ((NumberStruct)_b).getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
             int len_ = bitsLeft_.length;
             boolean[] bits_ = new boolean[len_];
             for (int i = 0; i < len_; i++) {
                 bits_[i] = bitsLeft_[i] || bitsRight_[i];
             }
-            int value_ = LgNames.toInt(bits_);
+            int value_ = NumParsers.toInt(bits_);
             return new IntStruct(value_);
         }
         long left_ = ((NumberStruct)_a).getLong();
         long right_ = ((NumberStruct)_b).getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
         int len_ = bitsLeft_.length;
         boolean[] bits_ = new boolean[len_];
         for (int i = 0; i < len_; i++) {
             bits_[i] = bitsLeft_[i] || bitsRight_[i];
         }
-        long value_ = LgNames.toLong(bits_);
+        long value_ = NumParsers.toLong(bits_);
         return new LongStruct(value_);
     }
 
@@ -860,26 +861,26 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = ((NumberStruct)_a).getInt();
             int right_ = ((NumberStruct)_b).getInt();
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
-            boolean[] bitsRight_ = LgNames.toBits(right_);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
             int len_ = bitsLeft_.length;
             boolean[] bits_ = new boolean[len_];
             for (int i = 0; i < len_; i++) {
                 bits_[i] = bitsLeft_[i] != bitsRight_[i];
             }
-            int value_ = LgNames.toInt(bits_);
+            int value_ = NumParsers.toInt(bits_);
             return new IntStruct(value_);
         }
         long left_ = ((NumberStruct)_a).getLong();
         long right_ = ((NumberStruct)_b).getLong();
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
-        boolean[] bitsRight_ = LgNames.toBits(right_);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
         int len_ = bitsLeft_.length;
         boolean[] bits_ = new boolean[len_];
         for (int i = 0; i < len_; i++) {
             bits_[i] = bitsLeft_[i] != bitsRight_[i];
         }
-        long value_ = LgNames.toLong(bits_);
+        long value_ = NumParsers.toLong(bits_);
         return new LongStruct(value_);
     }
     public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
@@ -888,8 +889,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
             int power_ = 1;
             for (int i = 0; i< value_; i++) {
                 power_ *= 2;
@@ -898,8 +899,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
         long power_ = 1;
         for (int i = 0; i< value_; i++) {
             power_ *= 2;
@@ -912,8 +913,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
             int power_ = 1;
             for (int i = 0; i< value_; i++) {
                 power_ *= 2;
@@ -922,8 +923,8 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
         long power_ = 1;
         for (int i = 0; i< value_; i++) {
             power_ *= 2;
@@ -936,9 +937,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
             int diff_ = 32 - value_;
             for (int i = 1; i < diff_; i++) {
                 bitsLeft_[i] = bitsLeft_[i + value_];
@@ -946,13 +947,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             for (int i = diff_; i < 32; i++) {
                 bitsLeft_[i] = false;
             }
-            return new IntStruct(LgNames.toInt(bitsLeft_));
+            return new IntStruct(NumParsers.toInt(bitsLeft_));
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
         int diff_ = 64 - (int)value_;
         for (int i = 1; i < diff_; i++) {
             bitsLeft_[i] = bitsLeft_[i + (int)value_];
@@ -960,7 +961,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         for (int i = diff_; i < 64; i++) {
             bitsLeft_[i] = false;
         }
-        return new LongStruct(LgNames.toLong(bitsLeft_));
+        return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
     public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -968,9 +969,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
             int diff_ = 32 - value_;
             for (int i = 0; i < diff_; i++) {
                 int index_ = 31 - i;
@@ -980,13 +981,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 int index_ = 31 - i;
                 bitsLeft_[index_] = false;
             }
-            return new IntStruct(LgNames.toInt(bitsLeft_));
+            return new IntStruct(NumParsers.toInt(bitsLeft_));
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
         int diff_ = 64 - (int)value_;
         for (int i = 0; i < diff_; i++) {
             int index_ = 63 - i;
@@ -996,7 +997,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             int index_ = 63 - i;
             bitsLeft_[index_] = false;
         }
-        return new LongStruct(LgNames.toLong(bitsLeft_));
+        return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
     public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -1004,9 +1005,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
             int max_ = bitsLeft_.length - 1;
             for (int i = 0; i < value_; i++) {
                 boolean firstBit_ = bitsLeft_[0];
@@ -1015,13 +1016,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 }
                 bitsLeft_[max_] = firstBit_;
             }
-            return new IntStruct(LgNames.toInt(bitsLeft_));
+            return new IntStruct(NumParsers.toInt(bitsLeft_));
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
         int max_ = bitsLeft_.length - 1;
         for (int i = 0; i < value_; i++) {
             boolean firstBit_ = bitsLeft_[0];
@@ -1030,7 +1031,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             }
             bitsLeft_[max_] = firstBit_;
         }
-        return new LongStruct(LgNames.toLong(bitsLeft_));
+        return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
     public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -1038,9 +1039,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         if (_order.matchClass(int_)) {
             int left_ = _a.getInt();
             int right_ = _b.getInt();
-            boolean[] bitsRight_ = LgNames.toBits(right_);
-            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
-            boolean[] bitsLeft_ = LgNames.toBits(left_);
+            boolean[] bitsRight_ = NumParsers.toBits(right_);
+            int value_ = NumParsers.toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = NumParsers.toBits(left_);
             int max_ = bitsLeft_.length - 1;
             for (int i = 0; i < value_; i++) {
                 boolean firstBit_ = bitsLeft_[max_];
@@ -1050,13 +1051,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 }
                 bitsLeft_[0] = firstBit_;
             }
-            return new IntStruct(LgNames.toInt(bitsLeft_));
+            return new IntStruct(NumParsers.toInt(bitsLeft_));
         }
         long left_ = _a.getLong();
         long right_ = _b.getLong();
-        boolean[] bitsRight_ = LgNames.toBits(right_);
-        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
-        boolean[] bitsLeft_ = LgNames.toBits(left_);
+        boolean[] bitsRight_ = NumParsers.toBits(right_);
+        long value_ = NumParsers.toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = NumParsers.toBits(left_);
         int max_ = bitsLeft_.length - 1;
         for (int i = 0; i < value_; i++) {
             boolean firstBit_ = bitsLeft_[max_];
@@ -1066,7 +1067,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             }
             bitsLeft_[0] = firstBit_;
         }
-        return new LongStruct(LgNames.toLong(bitsLeft_));
+        return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
     private double getDouble() {
         return getInstance().doubleValue();

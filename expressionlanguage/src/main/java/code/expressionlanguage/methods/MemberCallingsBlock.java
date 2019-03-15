@@ -32,14 +32,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block firstChild_ = getFirstChild();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!isStaticContext()) {
-            String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);

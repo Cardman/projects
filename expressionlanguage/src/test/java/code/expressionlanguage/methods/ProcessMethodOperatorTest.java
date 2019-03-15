@@ -39,7 +39,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -69,7 +69,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -100,7 +100,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -133,7 +133,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -183,7 +183,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -213,7 +213,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -244,7 +244,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -277,7 +277,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -308,7 +308,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -341,7 +341,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -375,7 +375,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -409,7 +409,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -447,7 +447,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
+        Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, ret_.getNumber());
     }
@@ -548,6 +548,144 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         xml_.append("  one;.a=5i:\n");
         xml_.append("  ~one;.:\n");
         xml_.append("  $if (one;.a != -6i){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+
+    @Test
+    public void calculateArgument18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ $int (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" $return 5:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ((Ex)$null + (Ex)$null != 5i){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+
+    @Test
+    public void calculateArgument19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator== $boolean (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" $if ($ObjectsUtil.eq(a;.;, $null)){\n");
+        xml_.append("  $return $ObjectsUtil.eq(b;.;, $null):\n");
+        xml_.append(" }\n");
+        xml_.append(" $return a;.;a == b;.;a:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ((Ex)$null == (Ex)$null){\n");
+        xml_.append("   $return 0i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument20Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator< $boolean (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" $if ($ObjectsUtil.eq(a;.;, $null)){\n");
+        xml_.append("  $return $ObjectsUtil.eq(b;.;, $null):\n");
+        xml_.append(" }\n");
+        xml_.append(" $return a;.;a < b;.;a:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ((Ex)$null < (Ex)$null){\n");
+        xml_.append("   $return 0i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ $int (pkg.Ex a){\n");
+        xml_.append(" $return 5:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if (+(Ex)$null != +5s){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator~ $int (pkg.Ex a){\n");
+        xml_.append(" $return 5:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a:\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if (~(Ex)$null != +5s){\n");
         xml_.append("   $return 1i:\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i:\n");

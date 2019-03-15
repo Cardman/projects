@@ -126,12 +126,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             _conf.getClasses().addError(cast_);
             return;
         }
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!_conf.isStaticContext()) {
-            for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(clMatchRight_);

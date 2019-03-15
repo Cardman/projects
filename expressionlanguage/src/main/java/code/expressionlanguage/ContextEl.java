@@ -1543,7 +1543,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (_rooted instanceof RootBlock) {
             fullName_ = ((RootBlock)_rooted).getFullName();
         } else {
-            fullName_ = null;
+            fullName_ = "";
         }
         int index_ = 1;
         int max_ = inners_.size() - 1;
@@ -1676,10 +1676,12 @@ public abstract class ContextEl implements ExecutableCode {
                 allAncestors_.add(p_);
                 p_ = p_.getParentType();
             }
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                if (!_readyTypes.containsStr(id_) && _static) {
-                    return EMPTY_TYPE;
+            if (_static) {
+                for (RootBlock a: allAncestors_) {
+                    String id_ = a.getFullName();
+                    if (!_readyTypes.containsStr(id_)) {
+                        return EMPTY_TYPE;
+                    }
                 }
             }
             int indexAncestor_ = 0;

@@ -19,7 +19,7 @@ public abstract class ExecQuickOperation extends ExecReflectableOpering {
     @Override
     public void tryCalculateNode(Analyzable _conf) {
         Struct abs_ = absorbingStruct();
-        QuickOperation.tryGetResult(_conf, this, abs_);
+        QuickOperation.tryGetResult(_conf, this, abs_,true);
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

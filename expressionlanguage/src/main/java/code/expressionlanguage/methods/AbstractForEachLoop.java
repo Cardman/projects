@@ -225,14 +225,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             } else {
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = new StringMap<StringList>();
-                if (!f_.isStaticContext()) {
-                    String globalClass_ = page_.getGlobalClass();
-                    String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-                    for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
-                        vars_.put(t.getName(), t.getConstraints());
-                    }
-                }
+                StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
@@ -285,14 +278,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = new StringMap<StringList>();
-                if (!f_.isStaticContext()) {
-                    String globalClass_ = page_.getGlobalClass();
-                    String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-                    for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
-                        vars_.put(t.getName(), t.getConstraints());
-                    }
-                }
+                StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();

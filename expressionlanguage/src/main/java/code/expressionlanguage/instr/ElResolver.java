@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.NumParsers;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.BooleanList;
 import code.util.CharList;
@@ -2299,7 +2299,7 @@ public final class ElResolver {
                 unicode_++;
             } else {
                 char[] unicodes_ = infos_.getStringInfo().getBuiltUnicode();
-                char builtChar_ = LgNames.parseCharSixteen(new String(unicodes_));
+                char builtChar_ = NumParsers.parseCharSixteen(new String(unicodes_));
                 infos_.getStringInfo().getChars().add(builtChar_);
                 unicode_ = 0;
                 nbChars_++;

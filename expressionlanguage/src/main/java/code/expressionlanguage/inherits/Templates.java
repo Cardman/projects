@@ -525,28 +525,6 @@ public final class Templates {
         GeneType root_ = _classes.getClassBody(className_);
         return root_.getGenericString();
     }
-    public static CustList<TypeVar> getConstraints(String _className, Analyzable _context) {
-        if (_className.isEmpty()) {
-            return new CustList<TypeVar>();
-        }
-        String types_ = getIdFromAllTypes(_className);
-        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_).getComponent();
-        GeneType root_ = _context.getClassBody(className_);
-        return root_.getParamTypesMapValues();
-    }
-    public static StringMap<StringList> getMapConstraints(String _className, Analyzable _context) {
-        if (_className == null || _className.isEmpty()) {
-            return new StringMap<StringList>();
-        }
-        String types_ = getIdFromAllTypes(_className);
-        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_).getComponent();
-        GeneType root_ = _context.getClassBody(className_);
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        for (TypeVar t: root_.getParamTypesMapValues()) {
-            map_.put(t.getName(), t.getConstraints());
-        }
-        return map_;
-    }
     public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
         String type_ = getIdFromAllTypes(_className);
         String fct_ = _context.getStandards().getAliasFct();

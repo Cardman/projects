@@ -19,15 +19,10 @@ public final class ChoiceFieldOperation extends
     ClassArgumentMatching getFrom(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        LgNames stds_ = _conf.getStandards();
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_);
-        if (StringList.quickEq(className_, stds_.getAliasObject())) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
-        }
         return new ClassArgumentMatching(className_);
     }
 

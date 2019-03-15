@@ -38,10 +38,7 @@ public final class SuperFromFieldOperation extends
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
-        StringMap<StringList> mapping_ = new StringMap<StringList>();
-        for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
-            mapping_.put(t.getName(), t.getConstraints());
-        }
+        StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
         map_.setMapping(mapping_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();

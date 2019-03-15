@@ -44,8 +44,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             array = true;
             MethodOperation mOp_ = getParent();
             Block curr_ = _conf.getCurrentBlock();
-            if (curr_ instanceof AnnotationMethodBlock) {
+            boolean found_ = false;
+            if (curr_ instanceof AnnotationMethodBlock && mOp_ == null) {
                 className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
+                found_ = true;
             }
             if (mOp_ instanceof AssocationOperation) {
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
@@ -55,7 +57,16 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     AnnotationInstanceOperation inst_;
                     inst_ = (AnnotationInstanceOperation)mOpAss_;
                     String className_ = inst_.getClassName();
-                    Block ann_ = (Block) _conf.getClassBody(className_);
+                    GeneType typeInfo_ = _conf.getClassBody(className_);
+                    if (!(typeInfo_ instanceof Block)) {
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        _conf.getClasses().addError(un_);
+                        className = _conf.getStandards().getAliasObject();
+                        return;
+                    }
+                    Block ann_ = (Block) typeInfo_;
                     String type_ = EMPTY_STRING;
                     for (Block b: Classes.getDirectChildren(ann_)) {
                         if (!(b instanceof AnnotationMethodBlock)) {
@@ -86,7 +97,16 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     AnnotationInstanceOperation inst_;
                     inst_ = (AnnotationInstanceOperation)mOp_;
                     String className_ = inst_.getClassName();
-                    Block ann_ = (Block) _conf.getClassBody(className_);
+                    GeneType type_ = _conf.getClassBody(className_);
+                    if (!(type_ instanceof Block)) {
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        _conf.getClasses().addError(un_);
+                        className = _conf.getStandards().getAliasObject();
+                        return;
+                    }
+                    Block ann_ = (Block) type_;
                     CustList<Block> bls_ = Classes.getDirectChildren(ann_);
                     CustList<AnnotationMethodBlock> blsAnn_ = new CustList<AnnotationMethodBlock>();
                     for (Block b: bls_) {
@@ -107,6 +127,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         className = a_.getImportedReturnType();
                     }
                 }
+            } else if (!found_) {
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().addError(un_);
+                className = _conf.getStandards().getAliasObject();
             }
         } else {
             String className_ = methodName.trim().substring(AROBASE.length());

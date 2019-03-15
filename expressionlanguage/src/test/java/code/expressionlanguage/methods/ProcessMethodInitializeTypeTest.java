@@ -1352,6 +1352,22 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
+    @Test
+    public void calculate67Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $final String a1 = \"\"+$null:\n");
+        xml_.append(" $static $final String a2 = $null+\"\":\n");
+        xml_.append(" $static $final String a3 = \"\"+$new StringBuilder():\n");
+        xml_.append(" $static $final String a4 = $new StringBuilder()+\"\":\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+    }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).getInstance();

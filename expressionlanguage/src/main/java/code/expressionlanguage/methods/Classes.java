@@ -1074,9 +1074,6 @@ public final class Classes {
                 continue;
             }
             mapping_.setMapping(cts_);
-            if (!ok_) {
-                continue;
-            }
             if (mapping_.isCyclic(_objectClassName)) {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
@@ -1452,7 +1449,9 @@ public final class Classes {
         CustList<RootBlock> inners_ = new CustList<RootBlock>();
         String outOwner_ = _clOwner.getOuter().getFullName();
         String outRoot_ = root_.getOuter().getFullName();
-        
+
+        String idGl_ = Templates.getIdFromAllTypes(_glClass);
+        RootBlock rGl_ = _context.getClasses().getClassBody(idGl_);
         for (Block b: Classes.getDirectChildren(_clOwner)) {
             if (!(b instanceof RootBlock)) {
                 continue;
@@ -1462,8 +1461,6 @@ public final class Classes {
                 inners_.add(r_);
                 continue;
             }
-            String idGl_ = Templates.getIdFromAllTypes(_glClass);
-            RootBlock rGl_ = _context.getClasses().getClassBody(idGl_);
             if (rGl_ == null) {
                 continue;
             }

@@ -252,8 +252,6 @@ public final class TypeUtil {
     }
     public static void buildOverrides(GeneType _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
-        String voidType_ = stds_.getAliasVoid();
         String fileName_ = "";
         if (_type instanceof RootBlock) {
             fileName_ = ((RootBlock)_type).getFile().getFileName();

@@ -14,6 +14,8 @@ import code.util.CustList;
 
 public abstract class QuickOperation extends ReflectableOpering {
 
+    private boolean okNum;
+
     public QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -22,11 +24,11 @@ public abstract class QuickOperation extends ReflectableOpering {
     @Override
     public void tryCalculateNode(Analyzable _conf) {
         Struct abs_ = absorbingStruct();
-        tryGetResult(_conf, this, abs_);
+        tryGetResult(_conf, this, abs_, okNum);
     }
 
-    public static void tryGetResult(Analyzable _conf, ParentOperable _to, Struct _abs) {
-        if (!_conf.isOkNumOp()) {
+    public static void tryGetResult(Analyzable _conf, ParentOperable _to, Struct _abs, boolean _okNum) {
+        if (!_okNum) {
             return;
         }
         CustList<Operable> children_ = _to.getChildrenOperable();
@@ -36,18 +38,11 @@ public abstract class QuickOperation extends ReflectableOpering {
             return;
         }
         Struct v_ = f_.getStruct();
-        if (!(v_ instanceof BooleanStruct)) {
-            return;
-        }
         if (v_.sameReference(_abs)) {
             _to.setSimpleArgumentAna(f_, _conf);
             return;
         }
         if (s_ == null) {
-            return;
-        }
-        v_ = s_.getStruct();
-        if (!(v_ instanceof BooleanStruct)) {
             return;
         }
         _to.setSimpleArgumentAna(s_, _conf);
@@ -62,6 +57,7 @@ public abstract class QuickOperation extends ReflectableOpering {
         chidren_.first().cancelArgument();
         chidren_.last().cancelArgument();
         String booleanType_ = stds_.getAliasBoolean();
+        okNum = true;
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
@@ -75,9 +71,14 @@ public abstract class QuickOperation extends ReflectableOpering {
                 un_.setOperands(cl_);
                 _conf.getClasses().addError(un_);
                 _conf.setOkNumOp(false);
+                okNum = false;
             }
         }
         setResultClass(chidren_.last().getResultClass());
+    }
+
+    public boolean isOkNum() {
+        return okNum;
     }
 
     public abstract BooleanStruct absorbingStruct();

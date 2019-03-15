@@ -77,7 +77,7 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                _configuration.setTabWidth(LgNames.parseInt(c.getAttribute("value")));
+                _configuration.setTabWidth(BeanLgNames.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "filesConfName")) {
@@ -108,11 +108,11 @@ public final class ReadConfiguration {
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {
-                context_.setStackOverFlow(LgNames.parseInt(c.getAttribute("value")));
+                context_.setStackOverFlow(BeanLgNames.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                context_.setTabWidth(LgNames.parseInt(c.getAttribute("value")));
+                context_.setTabWidth(BeanLgNames.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "options")) {
