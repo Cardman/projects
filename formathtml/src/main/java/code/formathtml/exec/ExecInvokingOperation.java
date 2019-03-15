@@ -98,7 +98,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 i_++;
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getNames().first();
+            String g_ = _children.first().getResultClass().getName();
             g_ = _context.getOperationPageEl().formatVarType(g_, _context);
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
@@ -183,7 +183,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 i_++;
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getNames().first();
+            String g_ = _children.first().getResultClass().getName();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
@@ -248,11 +248,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return intermediate;
     }
 
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
-    }
-
     public final Argument getPreviousArgument() {
         return previousArgument;
     }
@@ -309,10 +304,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1, false);
     }
     public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex, boolean _format) {
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            Argument a_ = new Argument();
-            return a_;
-        }
         LgNames stds_ = _conf.getStandards();
         String idCl_ = Templates.getIdFromAllTypes(_className);
         GeneType g_ = _conf.getClassBody(idCl_);
@@ -342,6 +333,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         String base_ = Templates.getIdFromAllTypes(_className);
+        String className_ = _className;
+        PageEl page_ = _conf.getOperationPageEl();
+        if (_format) {
+            className_ = page_.formatVarType(className_, _conf);
+        }
+        if (!Templates.okArgs(_constId,className_,_arguments,-1,_conf)) {
+            return new Argument();
+        }
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -351,33 +350,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument arg_ = new Argument();
             arg_.setStruct(res_.getResult());
             return arg_;
-        }
-        String className_ = _className;
-        PageEl page_ = _conf.getOperationPageEl();
-        if (_format) {
-            className_ = page_.formatVarType(className_, _conf);
-        }
-        StringList params_ = new StringList();
-        int j_ = 0;
-        for (String c: _constId.getParametersTypes()) {
-            String class_ = c;
-            class_ = Templates.quickFormat(className_, class_, _conf);
-            if (j_ + 1 == _constId.getParametersTypes().size() && _constId.isVararg()) {
-                class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
-            }
-            params_.add(class_);
-            j_++;
-        }
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: _arguments) {
-            if (i_ < params_.size()) {
-                String param_ = params_.get(i_);
-                if (!Templates.checkObject(param_, a, _conf)) {
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-            }
-            i_++;
         }
         _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
         return Argument.createVoid();
@@ -417,13 +389,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new ClassMethodId(classNameFound_, methodId_);
     }
     public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
-        StringList params_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
+        String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
-            String classFormat_ = _classNameFound;
             if (!Templates.isCorrectExecute(className_, _classNameFound, _conf)) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
                 Argument a_ = new Argument();
@@ -432,43 +403,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (!(_previous.getStruct() instanceof ArrayStruct)) {
                 classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             }
-            int i_ = 0;
-            for (String c: _methodId.getParametersTypes()) {
-                String c_ = c;
-                c_ = Templates.quickFormat(classFormat_, c_, _conf);
-                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
-        } else {
-            int i_ = 0;
-            for (String c: _methodId.getParametersTypes()) {
-                String c_ = c;
-                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
         }
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: _firstArgs) {
-            if (i_ < params_.size()) {
-                if (_possibleOffset > -1) {
-                    _conf.setOffset(_possibleOffset);
-                }
-                String param_ = params_.get(i_);
-                if (!Templates.checkObject(param_, a, _conf)) {
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-            }
-            i_++;
-        }
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return Argument.createVoid();
+        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf)) {
+            return new Argument();
         }
         if (!StringList.isDollarWord(_methodId.getName())) {
             _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));

@@ -40,7 +40,7 @@ public final class ExecStaticInitOperation extends ExecVariableLeafOperation {
 
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
         if (possibleInitClass) {
-            String className_ = getResultClass().getNames().first();
+            String className_ = getResultClass().getName();
             if (ExecInvokingOperation.hasToExit(_conf, className_)) {
                 return Argument.createVoid();
             }

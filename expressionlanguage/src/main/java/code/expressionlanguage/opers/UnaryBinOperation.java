@@ -5,12 +5,15 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
@@ -67,23 +70,29 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);
+        child_.cancelArgument();
         setResultClass(cl_);
     }
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (classMethodId != null || !_conf.isOkNumOp()) {
+        tryGetArg(this,classMethodId,_conf);
+    }
+
+    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,Analyzable _conf) {
+        if (_m != null) {
             return;
         }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Operable> chidren_ = _par.getChildrenOperable();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();
-        if (arg_.isNull()) {
+        Struct nb_ = arg_.getStruct();
+        if (!(nb_ instanceof NumberStruct)) {
             return;
         }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)arg_.getStruct(), _conf, res_));
-        setSimpleArgumentAna(out_, _conf);
+        ClassArgumentMatching res_ = _par.getResultClass();
+        out_.setStruct(NumberStruct.negBinNumber((NumberStruct) nb_, _conf, res_));
+        _par.setSimpleArgumentAna(out_, _conf);
     }
 
     @Override

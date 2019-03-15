@@ -35,11 +35,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
     }
 
     @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
-    }
-
-    @Override
     public final void calculate(ExecutableCode _conf) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {

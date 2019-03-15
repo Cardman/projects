@@ -107,6 +107,13 @@ public final class ClassArgumentMatching {
         return className.first();
     }
 
+    public String getSingleNameOrEmpty() {
+        if (className.size() != 1) {
+            return "";
+        }
+        return className.first();
+    }
+
     public StringList getNames() {
         return new StringList(className);
     }

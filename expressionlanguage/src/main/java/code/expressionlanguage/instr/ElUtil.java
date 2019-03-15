@@ -178,6 +178,7 @@ public final class ElUtil {
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
                     cl_.setUnwrapObject(cl_);
+                    par_.cancelArgument();
                 }
                 par_.tryCalculateNode(_context);
                 if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {

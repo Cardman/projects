@@ -29,14 +29,7 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        BooleanStruct o_ = (BooleanStruct) arg_.getStruct();
-        Boolean b_ = o_.getInstance();
-        b_ = !b_;
-        Argument a_ = new Argument();
-        a_.setObject(b_);
-        setSimpleArgumentAna(a_, _conf);
+        UnaryBooleanOperation.tryGetArg(this,_conf);
     }
 
 }

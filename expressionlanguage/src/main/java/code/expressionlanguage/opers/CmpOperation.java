@@ -96,12 +96,16 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
-        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
-        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
-        if (classFirst_.isPrimitive(_conf)) {
-            if (classSecond_.isPrimitive(_conf)) {
+        int orderClass_ = PrimitiveTypeUtil.getOrderClass(first_, _conf);
+        int orderClassTwo_ = PrimitiveTypeUtil.getOrderClass(second_, _conf);
+        if (orderClass_ > 0) {
+            if (orderClassTwo_ > 0) {
+                ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
+                ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
                 chidren_.first().getResultClass().setUnwrapObject(classFirst_);
                 chidren_.last().getResultClass().setUnwrapObject(classSecond_);
+                chidren_.first().cancelArgument();
+                chidren_.last().cancelArgument();
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
@@ -113,25 +117,13 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
-            un_.setOperands(classFirst_,classSecond_);
+            un_.setOperands(first_,second_);
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
         okNum = false;
         _conf.setOkNumOp(false);
-        if (classSecond_.isPrimitive(_conf)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
-            String res_ = stds_.getAliasPrimBoolean();
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setExpectedResult(stds_.getAliasPrimDouble());
-            un_.setOperands(classFirst_,classSecond_);
-            _conf.getClasses().addError(un_);
-            setResultClass(new ClassArgumentMatching(res_));
-            return;
-        }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         StringList expectedTypes_ = new StringList();
         expectedTypes_.add(stds_.getAliasPrimDouble());
@@ -141,7 +133,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         un_.setIndexFile(_conf.getCurrentLocationIndex());
         un_.setFileName(_conf.getCurrentFileName());
         un_.setExpectedResult(expectedTypes_.join(";"));
-        un_.setOperands(classFirst_,classSecond_);
+        un_.setOperands(first_,second_);
         _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }
@@ -178,13 +170,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         }
         CustList<Operable> chidren_ = _to.getChildrenOperable();
         Argument first_ = chidren_.first().getArgument();
-        if (first_.isNull()) {
-            return;
-        }
         Argument second_ = chidren_.last().getArgument();
-        if (second_.isNull()) {
-            return;
-        }
         Argument arg_;
         if (_str) {
             arg_ = calculateCommonStr(first_, second_, _op);

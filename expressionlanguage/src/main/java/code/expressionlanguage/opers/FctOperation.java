@@ -240,9 +240,6 @@ public final class FctOperation extends ReflectableInvokingOperation {
             str_ = NullStruct.NULL_VALUE;
         }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
-        if (firstArgs_ == null) {
-            return;
-        }
         ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null || out_ instanceof ArrayStruct) {

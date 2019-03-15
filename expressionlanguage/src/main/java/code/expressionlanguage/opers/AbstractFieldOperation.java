@@ -32,7 +32,6 @@ public abstract class AbstractFieldOperation extends VariableLeafOperation imple
         return intermediate;
     }
 
-    @Override
     public final ClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
     }

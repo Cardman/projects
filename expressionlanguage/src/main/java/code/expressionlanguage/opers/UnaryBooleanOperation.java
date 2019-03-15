@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -38,12 +40,17 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             _conf.getClasses().addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);
+        child_.cancelArgument();
         setResultClass(new ClassArgumentMatching(booleanPrimType_));
     }
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+        tryGetArg(this,_conf);
+    }
+
+    public static void tryGetArg(ParentOperable _par, Analyzable _conf) {
+        CustList<Operable> chidren_ = _par.getChildrenOperable();
         Argument arg_ = chidren_.first().getArgument();
         Struct value_ = arg_.getStruct();
         if (!(value_ instanceof BooleanStruct)) {
@@ -54,9 +61,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         b_ = !b_;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        setSimpleArgumentAna(a_, _conf);
+        _par.setSimpleArgumentAna(a_, _conf);
     }
-
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

@@ -119,6 +119,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             _conf.getClasses().addError(un_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
+        opOne_.cancelArgument();
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
@@ -196,9 +197,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
             if (s_ != null) {
                 ClassArgumentMatching c_ = s_.getResultClass();
-                if (c_.getNames().size() == 1) {
-                    type_ = c_.getName();
-                }
+                type_ = c_.getSingleNameOrEmpty();
             }
         }
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -207,25 +206,28 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
                 opThree_.getResultClass().setUnwrapObject(type_);
+                opTwo_.cancelArgument();
+                opThree_.cancelArgument();
             }
             setResultClass(new ClassArgumentMatching(type_));
-            if (opOne_.getArgument() != null) {
-                DeadCodeTernary d_ = new DeadCodeTernary();
-                d_.setIndexFile(_conf.getCurrentLocationIndex());
-                d_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addWarning(d_);
-            }
+            checkDeadCode(_conf, opOne_);
             return;
         }
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (res_.isUnwrapFirst()) {
             opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());
+            opTwo_.cancelArgument();
         }
         if (res_.isUnwrapSecond()) {
             opThree_.getResultClass().setUnwrapObject(res_.getTypes().first());
+            opThree_.cancelArgument();
         }
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
-        if (opOne_.getArgument() != null) {
+        checkDeadCode(_conf, opOne_);
+    }
+
+    private void checkDeadCode(Analyzable _conf, OperationNode _opOne) {
+        if (_opOne.getArgument() != null) {
             DeadCodeTernary d_ = new DeadCodeTernary();
             d_.setIndexFile(_conf.getCurrentLocationIndex());
             d_.setFileName(_conf.getCurrentFileName());

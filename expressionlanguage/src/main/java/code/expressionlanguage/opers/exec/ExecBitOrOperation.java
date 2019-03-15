@@ -21,9 +21,6 @@ public final class ExecBitOrOperation extends ExecStdNumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
-        if (_a.isNull() || _b.isNull()) {
-            return Argument.createVoid();
-        }
         return new Argument(NumberStruct.calculateOr(_a.getStruct(), _b.getStruct(), _an.getContextEl(), getResultClass()));
     }
 

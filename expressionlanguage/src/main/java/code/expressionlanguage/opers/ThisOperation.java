@@ -43,7 +43,7 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
                 setResultClass(new ClassArgumentMatching(arg_));
                 return;
             }
-            String access_ = previousResultClass.getNames().first();
+            String access_ = previousResultClass.getName();
             String id_ = Templates.getIdFromAllTypes(access_);
             String gl_ = _conf.getGlobalClass();
             gl_ = Templates.getIdFromAllTypes(gl_);
@@ -114,11 +114,6 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
     }
 
     @Override

@@ -32,9 +32,6 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
-        if (_a.isNull() || _b.isNull()) {
-            return Argument.createVoid();
-        }
         return localSumDiff(_a, _op, _b, _cont.getContextEl());
     }
 

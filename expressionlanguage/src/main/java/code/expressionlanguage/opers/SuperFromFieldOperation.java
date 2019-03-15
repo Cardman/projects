@@ -52,10 +52,6 @@ public final class SuperFromFieldOperation extends
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }
-        if (StringList.quickEq(className_, stds_.getAliasObject())) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
-        }
         return new ClassArgumentMatching(className_);
     }
 

@@ -55,7 +55,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             dims_.add(nbCh_);
             String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
             Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-            setCheckedElements(_arguments,str_,_conf);
+            Templates.setCheckedElements(_arguments,str_,_conf);
             a_.setStruct(str_);
             return a_;
         }

@@ -7,7 +7,6 @@ public interface PossibleIntermediateDotted extends PossibleIntermediateDottedOp
 
     void setIntermediateDotted();
     boolean isIntermediateDottedOperation();
-    ClassArgumentMatching getPreviousResultClass();
 
     void setPreviousResultClass(ClassArgumentMatching _previousResultClass,boolean _static);
 }

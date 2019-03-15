@@ -77,6 +77,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
                     o.getResultClass().setUnwrapObject(name_);
+                    o.cancelArgument();
                 }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
@@ -90,6 +91,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 continue;
             }
             firstArgs_.add(o.getResultClass());
+        }
+        return firstArgs_;
+    }
+
+    static CustList<OperationNode> filterOperands(CustList<OperationNode> _children) {
+        CustList<OperationNode> firstArgs_ = new CustList<OperationNode>();
+        for (OperationNode o: _children) {
+            if (o instanceof IdFctOperation) {
+                continue;
+            }
+            firstArgs_.add(o);
         }
         return firstArgs_;
     }
@@ -117,17 +129,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 i_++;
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getNames().first();
+            String g_ = _children.first().getResultClass().getName();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                Argument chArg_ = optArgs_.get(i);
-                if (!setCheckedElement(str_, i, chArg_, _context)) {
-                    return null;
-                }
-            }
+            Templates.setElements(optArgs_,str_);
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
@@ -149,31 +156,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                Argument chArg_ = optArgs_.get(i);
-                if (!setCheckedElement(str_, i, chArg_, _context)) {
-                    return null;
-                }
-            }
+            Templates.setElements(optArgs_,str_);
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
         return new CustList<Argument>(_nodes);
-    }
-    public static boolean setCheckedElement(ArrayStruct _array,int _index, Argument _element, Analyzable _conf) {
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
-        Struct elt_ = _element.getStruct();
-        IntStruct i_ = new IntStruct(_index);
-        if (Templates.getErrorWhenContain(_array, i_, elt_, _conf) != ErrorType.NOTHING) {
-            return false;
-        }
-        Struct[] instance_ = _array.getInstance();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
-        LgNames stds_ = _conf.getStandards();
-        Struct value_ = PrimitiveTypeUtil.convertObject(cl_, elt_, stds_);
-        instance_[_index] = value_;
-        return true;
     }
     static StringList getBounds(String _cl, Analyzable _conf) {
         LgNames stds_ = _conf.getStandards();
@@ -235,6 +223,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return void_;
     }
     static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, Analyzable _conf) {
+        boolean filter_ = true;
         if (!_ch.isEmpty() && _ch.first() instanceof VarargOperation) {
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: _ch) {
@@ -248,9 +237,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 String param_ = _id.getParametersTypes().get(i_-1);
                 if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
                     o.getResultClass().setUnwrapObject(param_);
+                    o.cancelArgument();
                 }
                 i_++;
             }
+            filter_ = false;
         } else if (_natvararg > -1) {
             int lenCh_ = _args.size();
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
@@ -277,6 +268,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
                     a_.setUnwrapObject(param_);
                 }
+            }
+        }
+        if (filter_) {
+            for (OperationNode o: filterOperands(_ch)) {
+                o.cancelArgument();
             }
         }
     }
@@ -343,7 +339,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return intermediate;
     }
 
-    @Override
     public final ClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
     }

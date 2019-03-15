@@ -38,7 +38,7 @@ public final class ExecThisOperation extends ExecVariableLeafOperation implement
         Argument a_ = new Argument();
         a_.setStruct(struct_);
         if (isIntermediateDottedOperation()) {
-            String c_ = getResultClass().getNames().first();
+            String c_ = getResultClass().getName();
             a_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors, c_, a_.getStruct(), _conf));
         }
         return a_;

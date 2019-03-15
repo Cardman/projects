@@ -61,10 +61,6 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         return a_;
     }
 
-    static void setCheckedElement(Struct _array,NumberStruct _index, Argument _element, ExecutableCode _conf) {
-        ExecInvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
-    }
-
     public boolean resultCanBeSet() {
         return variable;
     }

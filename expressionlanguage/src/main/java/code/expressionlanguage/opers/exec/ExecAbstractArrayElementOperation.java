@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.AbstractArrayElementOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public abstract class ExecAbstractArrayElementOperation extends
         dims_ = new Numbers<Integer>();
         dims_.add(nbCh_);
         Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-        setCheckedElements(_arguments,str_,_conf);
+        Templates.setCheckedElements(_arguments,str_,_conf);
         a_.setStruct(str_);
         return a_;
     }

@@ -63,21 +63,21 @@ public final class AffectationOperation extends ReflectableOpering implements Af
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (settable instanceof VariableOperation) {
-            VariableOperation v_ = (VariableOperation)elt_;
+            VariableOperation v_ = (VariableOperation)settable;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _conf) && _conf.getInfersLocalVars().containsStr(inf_)) {
                 String c_ = _conf.getCurrentVarSetting();
                 if (StringList.quickEq(c_, keyWordVar_)) {
                     ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                    StringList names_ = clMatchRight_.getNames();
-                    if (names_.size() == 1) {
-                        ClassArgumentMatching n_ = new ClassArgumentMatching(names_);
+                    String type_ = clMatchRight_.getSingleNameOrEmpty();
+                    if (!type_.isEmpty()) {
+                        ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                         LocalVariable lv_ = _conf.getLocalVar(inf_);
                         if (lv_ != null) {
-                            lv_.setClassName(names_.first());
+                            lv_.setClassName(type_);
                             DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
-                            d_.setImportedClassName(names_.first());
-                            _conf.setCurrentVarSetting(names_.first());
+                            d_.setImportedClassName(type_);
+                            _conf.setCurrentVarSetting(type_);
                         }
                         v_.setResultClass(n_);
                     }
@@ -85,21 +85,21 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             }
         }
         if (settable instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
+            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)settable;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _conf) && _conf.getInfersMutableLocalVars().containsStr(inf_)) {
                 String c_ = _conf.getCurrentVarSetting();
                 if (StringList.quickEq(c_, keyWordVar_)) {
                     ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                    StringList names_ = clMatchRight_.getNames();
-                    if (names_.size() == 1) {
-                        ClassArgumentMatching n_ = new ClassArgumentMatching(names_);
+                    String type_ = clMatchRight_.getSingleNameOrEmpty();
+                    if (!type_.isEmpty()) {
+                        ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                         LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
                         if (lv_ != null) {
-                            lv_.setClassName(names_.first());
+                            lv_.setClassName(type_);
                             ForMutableIterativeLoop d_ = (ForMutableIterativeLoop) _conf.getCurrentBlock();
-                            d_.setImportedClassName(names_.first());
-                            _conf.setCurrentVarSetting(names_.first());
+                            d_.setImportedClassName(type_);
+                            _conf.setCurrentVarSetting(type_);
                         }
                         v_.setResultClass(n_);
                     }
@@ -177,6 +177,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
+            right_.cancelArgument();
         }
     }
 

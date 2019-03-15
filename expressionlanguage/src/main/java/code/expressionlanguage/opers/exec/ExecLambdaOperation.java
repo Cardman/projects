@@ -58,7 +58,7 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
 
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         Argument arg_ = new Argument();
-        String clArg_ = getResultClass().getNames().first();
+        String clArg_ = getResultClass().getName();
         String ownerType_ = foundClass;
         ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
         clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);

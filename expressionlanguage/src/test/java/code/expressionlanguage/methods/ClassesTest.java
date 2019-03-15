@@ -2746,6 +2746,61 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl5FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int outer(){((String)$null<(String)$null):$return 0:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl6FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int outer(){($vararg($int)):$return 0:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl7FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int outer(){$new $int[]{$vararg($int)}:$return 0:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append("}\n");
+        xml_.append("@Annot($vararg($int))\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int outer(){$return 0:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

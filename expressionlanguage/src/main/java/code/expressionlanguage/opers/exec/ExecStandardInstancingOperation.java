@@ -7,11 +7,8 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -47,7 +44,7 @@ public final class ExecStandardInstancingOperation extends
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        StandardInstancingOperation.tryGetArg(this,_conf,naturalVararg,className,constId,lastType);
+        StandardInstancingOperation.tryGetArg(this,_conf,naturalVararg, constId,lastType);
     }
 
     @Override
@@ -78,4 +75,11 @@ public final class ExecStandardInstancingOperation extends
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
+    public ConstructorId getConstId() {
+        return constId;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
 }

@@ -16,9 +16,6 @@ public final class ExecMultOperation extends ExecStdNumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
-        if (_a.isNull() || _b.isNull()) {
-            return Argument.createVoid();
-        }
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
         }

@@ -15,7 +15,7 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class EnumValueOfOperation extends ReflectableOpering {
+public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int argOffset;
@@ -23,11 +23,6 @@ public final class EnumValueOfOperation extends ReflectableOpering {
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
     }
 
     @Override
@@ -41,7 +36,7 @@ public final class EnumValueOfOperation extends ReflectableOpering {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());

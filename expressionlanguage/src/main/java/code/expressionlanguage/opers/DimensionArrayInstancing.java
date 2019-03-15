@@ -1,13 +1,11 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -33,16 +31,6 @@ public final class DimensionArrayInstancing extends
         String className_ = m_.trim().substring(new_.length());
         className_ = className_.trim();
         className_ = _conf.resolveCorrectType(className_);
-        if (chidren_.isEmpty()) {
-            BadOperandsNumber badCall_ = new BadOperandsNumber();
-            badCall_.setOperandsNumber(0);
-            badCall_.setFileName(_conf.getCurrentFileName());
-            badCall_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(badCall_);
-            LgNames stds_ = _conf.getStandards();
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
-            return;
-        }
         for (OperationNode o: chidren_) {
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
             if (!o.getResultClass().isNumericInt(_conf)) {
@@ -55,6 +43,7 @@ public final class DimensionArrayInstancing extends
                 _conf.getClasses().addError(un_);
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
+            o.cancelArgument();
         }
         setClassName(className_);
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));

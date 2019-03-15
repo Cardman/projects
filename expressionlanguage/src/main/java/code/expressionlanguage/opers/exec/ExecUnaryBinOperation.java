@@ -27,15 +27,7 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Argument out_ = new Argument();
-        if (arg_.isNull()) {
-            return;
-        }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)arg_.getStruct(), _conf, res_));
-        setSimpleArgumentAna(out_, _conf);
+        UnaryBinOperation.tryGetArg(this,null,_conf);
     }
 
     Argument getArgument(ExecutableCode _conf,

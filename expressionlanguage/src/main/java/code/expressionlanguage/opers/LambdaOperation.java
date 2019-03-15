@@ -1195,11 +1195,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     }
 
     @Override
-    public final ClassArgumentMatching getPreviousResultClass() {
-        return previousResultClass;
-    }
-
-    @Override
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
         setStaticAccess(_staticAccess);

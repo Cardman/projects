@@ -59,6 +59,8 @@ public abstract class QuickOperation extends ReflectableOpering {
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         chidren_.first().getResultClass().setUnwrapObject(booleanPrimType_);
         chidren_.last().getResultClass().setUnwrapObject(booleanPrimType_);
+        chidren_.first().cancelArgument();
+        chidren_.last().cancelArgument();
         String booleanType_ = stds_.getAliasBoolean();
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;

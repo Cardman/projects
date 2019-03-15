@@ -45,9 +45,6 @@ public final class BitShiftLeftOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
-        if (_a.isNull() || _b.isNull()) {
-            return Argument.createVoid();
-        }
         return new Argument(NumberStruct.calculateBitShiftLeft((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
      }
 

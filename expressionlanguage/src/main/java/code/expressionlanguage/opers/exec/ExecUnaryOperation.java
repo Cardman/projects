@@ -30,19 +30,7 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Argument out_ = new Argument();
-        if (arg_.isNull()) {
-            return;
-        }
-        ClassArgumentMatching to_ = getResultClass();
-        if (StringList.quickEq(oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) arg_.getStruct(), _conf, to_));
-        } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) arg_.getStruct(), _conf, to_));
-        }
-        setSimpleArgumentAna(out_, _conf);
+        UnaryOperation.tryGetArg(this,null,oper,_conf);
     }
 
     Argument getArgument(ExecutableCode _conf,

@@ -147,10 +147,6 @@ public abstract class OperationNode implements Operable {
         _cont.setAnalyzedOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
-        _cont.setOffset(operations.getDelimiter().getIndexBegin()+_offset);
-    }
-
     public static OperationNode createOperationNode(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
         KeyWords keyWords_ = _an.getKeyWords();
@@ -278,9 +274,8 @@ public abstract class OperationNode implements Operable {
             if (_m instanceof DotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
-                    StringList pr_ = ch_.getResultClass().getNames();
-                    if (pr_.size() == 1) {
-                        String type_ = pr_.first();
+                    String type_ = ch_.getResultClass().getSingleNameOrEmpty();
+                    if (!type_.isEmpty()) {
                         String id_ = Templates.getIdFromAllTypes(type_);
                         String fct_ = _an.getStandards().getAliasFct();
                         if (StringList.quickEq(id_, fct_)) {
@@ -645,7 +640,7 @@ public abstract class OperationNode implements Operable {
 
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
-        String clCurName_ = _class.getNames().first();
+        String clCurName_ = _class.getName();
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
         for (ClassArgumentMatching c:_args) {
@@ -753,32 +748,6 @@ public abstract class OperationNode implements Operable {
         ClassMethodIdReturn res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
         if (res_.isFoundMethod()) {
             return res_;
-        }
-        //Error
-        if (_conf.isAmbigous()) {
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _argsClass) {
-                classesNames_.add(c.getNames().join(""));
-            }
-            UndefinedMethodError undefined_ = new UndefinedMethodError();
-            MethodModifier mod_;
-            if (_staticContext) {
-                mod_ = MethodModifier.STATIC;
-            } else {
-                mod_ = MethodModifier.FINAL;
-            }
-            undefined_.setClassName(_classes);
-            undefined_.setId(new MethodId(mod_, _name, classesNames_));
-            undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().addError(undefined_);
-            ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
-            return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
-            return_.setRealId(new MethodId(mod_, _name, classesNames_));
-            return_.setRealClass(_classes.first());
-            return_.setStaticMethod(_staticContext);
-            return_.setReturnType(_conf.getStandards().getAliasObject());
-            return return_;
         }
         ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
@@ -1042,7 +1011,7 @@ public abstract class OperationNode implements Operable {
                 return null;
             }
         }
-        if (_superClass) {
+        if (!_superClass) {
             StringList l_ = new StringList(_superTypesBase.values());
             if (!l_.containsStr(_t)) {
                 return null;
@@ -1322,7 +1291,6 @@ public abstract class OperationNode implements Operable {
     }
 
     private static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
-        int len_ = _fct.size();
         if (_context.getContext().getOptions().isAllParametersSort()) {
             MethodInfo meth_ = getFoundMethod(_fct, _context);
             if (meth_ != null) {
@@ -1333,12 +1301,15 @@ public abstract class OperationNode implements Operable {
             return null;
         }
         CustList<MethodInfo> instances_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> statics_ = new CustList<MethodInfo>();
         for (MethodInfo m : _fct) {
             if (m.isStatic()) {
+                statics_.add(m);
                 continue;
             }
             instances_.add(m);
         }
+        int len_;
         if (!instances_.isEmpty()) {
             len_ = instances_.size();
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
@@ -1353,18 +1324,30 @@ public abstract class OperationNode implements Operable {
                 return instances_.first();
             }
         }
+        len_ = statics_.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            Parametrable pFirst_ = _fct.first();
-            Parametrable pCurrent_ = _fct.get(i);
+            Parametrable pFirst_ = statics_.first();
+            Parametrable pCurrent_ = statics_.get(i);
             int res_ = compare(_context, pFirst_, pCurrent_);
             if (res_ == CustList.SWAP_SORT) {
-                _fct.swapIndexes(CustList.FIRST_INDEX, i);
+                statics_.swapIndexes(CustList.FIRST_INDEX, i);
             }
         }
-        if (_fct.first().getParameters().isError()) {
+        if (statics_.isEmpty()) {
             return null;
         }
-        return _fct.first();
+        if (statics_.first().getParameters().isError()) {
+            return null;
+        }
+        return statics_.first();
+    }
+    public void cancelArgument() {
+        if (resultClass.getUnwrapObject().isEmpty()) {
+            return;
+        }
+        if (Argument.isNullValue(argument)) {
+            argument = null;
+        }
     }
     private static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();

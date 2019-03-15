@@ -81,9 +81,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
             if (s_ != null) {
                 ClassArgumentMatching c_ = s_.getResultClass();
-                if (c_.getNames().size() == 1) {
-                    type_ = c_.getName();
-                }
+                type_ = c_.getSingleNameOrEmpty();
             }
         }
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -147,6 +145,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
             }
             if (PrimitiveTypeUtil.isPrimitive(classNameFinal_, _conf)) {
                 o.getResultClass().setUnwrapObject(classNameFinal_);
+                o.cancelArgument();
             }
         }
         setResultClass(new ClassArgumentMatching(cp_));

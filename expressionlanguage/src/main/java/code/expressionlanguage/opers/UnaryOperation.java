@@ -5,6 +5,8 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -86,30 +88,34 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);
+        child_.cancelArgument();
         setResultClass(cl_);
     }
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        if (classMethodId != null || !_conf.isOkNumOp()) {
-            return;
-        }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Argument out_ = new Argument();
-        if (arg_.isNull()) {
-            return;
-        }
-        ClassArgumentMatching to_ = getResultClass();
-        String oper_ = getOperations().getOperators().firstValue();
-        if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber((NumberStruct) arg_.getStruct(), _conf, to_));
-        } else {
-            out_.setStruct(NumberStruct.opposite((NumberStruct) arg_.getStruct(), _conf, to_));
-        }
-        setSimpleArgumentAna(out_, _conf);
+        tryGetArg(this,classMethodId,oper,_conf);
     }
 
+    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,String _oper,Analyzable _conf) {
+        if (_m != null) {
+            return;
+        }
+        CustList<Operable> chidren_ = _par.getChildrenOperable();
+        Argument arg_ = chidren_.first().getArgument();
+        Argument out_ = new Argument();
+        Struct nb_ = arg_.getStruct();
+        if (!(nb_ instanceof NumberStruct)) {
+            return;
+        }
+        ClassArgumentMatching to_ = _par.getResultClass();
+        if (StringList.quickEq(_oper, PLUS)) {
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) nb_, _conf, to_));
+        } else {
+            out_.setStruct(NumberStruct.opposite((NumberStruct) nb_, _conf, to_));
+        }
+        _par.setSimpleArgumentAna(out_, _conf);
+    }
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

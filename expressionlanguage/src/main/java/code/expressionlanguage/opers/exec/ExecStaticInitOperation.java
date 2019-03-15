@@ -20,7 +20,7 @@ public final class ExecStaticInitOperation extends ExecVariableLeafOperation imp
                           ContextEl _conf) {
         Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
-            String className_ = getResultClass().getNames().first();
+            String className_ = getResultClass().getName();
             ExecInvokingOperation.hasToExit(_conf, className_);
         }
         setSimpleArgument(arg_, _conf, _nodes);

@@ -13,7 +13,6 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.opers.exec.Operable;
@@ -165,17 +164,7 @@ public final class StandardInstancingOperation extends
         LgNames stds_ = _conf.getStandards();
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodId idMethod_ = lookOnlyForId();
-        ConstrustorIdVarArg ctorRes_ = null;
         Classes classes_ = _conf.getClasses();
-        if (PrimitiveTypeUtil.isPrimitive(_realClassName, _conf)) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(_realClassName);
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
-            classes_.addError(call_);
-            setResultClass(new ClassArgumentMatching(_realClassName));
-            return;
-        }
         String base_ = Templates.getIdFromAllTypes(_realClassName);
         GeneType g_ = _conf.getClassBody(base_);
         if (g_ == null) {
@@ -186,17 +175,6 @@ public final class StandardInstancingOperation extends
             classes_.addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
-        }
-        String glClass_ = _conf.getGlobalClass();
-        if (classes_.isCustomType(base_)) {
-            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
-                BadAccessClass badAccess_ = new BadAccessClass();
-                badAccess_.setId(base_);
-                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-                badAccess_.setFileName(_conf.getCurrentFileName());
-                classes_.addError(badAccess_);
-            }
         }
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
@@ -258,7 +236,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = idMethod_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
@@ -278,11 +256,11 @@ public final class StandardInstancingOperation extends
     public void quickCalculate(Analyzable _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        tryGetArg(this,_conf,naturalVararg,className,constId,lastType);
+        tryGetArg(this,_conf,naturalVararg, constId,lastType);
     }
 
     public static void tryGetArg(PossibleIntermediateDottedOperable _current, Analyzable _conf,
-                                 int _naturalVararg, String _className,ConstructorId _constId,String _lastType) {
+                                 int _naturalVararg, ConstructorId _constId, String _lastType) {
         CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         if (!_conf.isGearConst()) {
@@ -297,9 +275,6 @@ public final class StandardInstancingOperation extends
             filter_.add(o);
         }
         CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_, _conf);
-        if (firstArgs_ == null) {
-            return;
-        }
         ResultErrorStd res_ = LgNames.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
         Struct out_ = res_.getResult();
         if (out_ == null) {

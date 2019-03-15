@@ -114,16 +114,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String realClassName_ = className_;
             realClassName_ = _conf.resolveCorrectType(realClassName_);
             GeneType g_ = _conf.getClassBody(realClassName_);
-            if (g_ == null) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(realClassName_);
-                call_.setFileName(_conf.getCurrentFileName());
-                call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
-                className = _conf.getStandards().getAliasObject();
-                setResultClass(new ClassArgumentMatching(className));
-                return;
-            }
             if (!(g_ instanceof AnnotationBlock)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
@@ -153,6 +143,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
             String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className);
+            if (eltType_ == null) {
+                setResultClass(new ClassArgumentMatching(className));
+                return;
+            }
             Mapping mapping_ = new Mapping();
             mapping_.setParam(eltType_);
             for (OperationNode o: chidren_) {
@@ -169,6 +163,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
+                    o.cancelArgument();
                 }
             }
             setResultClass(new ClassArgumentMatching(className));

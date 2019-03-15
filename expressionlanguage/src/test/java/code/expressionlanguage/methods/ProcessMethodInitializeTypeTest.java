@@ -1312,6 +1312,46 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
+    @Test
+    public void calculate65Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $final Character ch = $null:\n");
+        xml_.append(" $static $final String other = $new String(ch):\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+    }
+    @Test
+    public void calculate66Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int1 {$int m():}\n");
+        xml_.append("$public $interface pkg.Int2 {}\n");
+        xml_.append("$public $interface pkg.Int3:Int1:Int2 {}\n");
+        xml_.append("$public $interface pkg.Int4:Int1:Int2 {}\n");
+        xml_.append("$public $class pkg.ExThree:Int3:Int4 {$public $int m(){$return 5:}}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $bool(1>0,(Int3)$new ExThree(),(Int4)$new ExThree()).m():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final StringBuilder inst=$new StringBuilder():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).getInstance();

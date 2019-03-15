@@ -25,11 +25,6 @@ public final class AddOperation extends NumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
-        if (!catString) {
-            if (_a.isNull() || _b.isNull()) {
-                return Argument.createVoid();
-            }
-        }
         return localSumDiff(_a, _op, _b, _cont.getContextEl());
     }
 

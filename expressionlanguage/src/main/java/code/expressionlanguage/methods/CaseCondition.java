@@ -66,10 +66,9 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
-        StringList names_ = resSwitch_.getNames();
-        if (names_.size() == 1) {
-            String exp_ = names_.first();
-            String id_ = Templates.getIdFromAllTypes(exp_);
+        String type_ = resSwitch_.getSingleNameOrEmpty();
+        if (!type_.isEmpty()) {
+            String id_ = Templates.getIdFromAllTypes(type_);
             GeneType g_ = _cont.getClassBody(id_);
             if (g_ instanceof EnumBlock) {
                 for (GeneField f: ContextEl.getFieldBlocks(g_)) {

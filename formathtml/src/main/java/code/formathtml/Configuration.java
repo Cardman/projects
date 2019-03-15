@@ -687,11 +687,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isAmbigous() {
-        return ambigous;
-    }
-
-    @Override
     public void setAmbigous(boolean _ambigous) {
         ambigous = _ambigous;
     }

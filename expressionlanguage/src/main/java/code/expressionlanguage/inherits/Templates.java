@@ -11,18 +11,16 @@ import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
@@ -981,6 +979,90 @@ public final class Templates {
         }
         return true;
     }
+    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ExecutableCode _context) {
+        int len_ = _args.size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            Argument chArg_ = _args.get(i);
+            IntStruct ind_ = new IntStruct(i);
+            ExecInvokingOperation.setElement(_arr, ind_, chArg_.getStruct(), _context);
+            if (_context.getContextEl().hasExceptionOrFailInit()) {
+                return;
+            }
+        }
+    }
+    public static void setElements(CustList<Argument> _args, ArrayStruct _arr) {
+        int len_ = _args.size();
+        Struct[] arr_ = _arr.getInstance();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            arr_[i] = _args.get(i).getStruct();
+        }
+    }
+    public static boolean okArgs(Identifiable _id, String _classNameFound,CustList<Argument> _firstArgs, int _possibleOffset,ExecutableCode _conf) {
+        StringList params_ = new StringList();
+        if (!_id.isStaticMethod()) {
+            int i_ = 0;
+            for (String c: _id.getParametersTypes()) {
+                String c_ = c;
+                c_ = Templates.quickFormat(_classNameFound, c_, _conf);
+                if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        } else {
+            int i_ = 0;
+            for (String c: _id.getParametersTypes()) {
+                String c_ = c;
+                if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _firstArgs) {
+            if (_possibleOffset > -1) {
+                _conf.setOffset(_possibleOffset);
+            }
+            String param_ = params_.get(i_);
+            if (!Templates.checkObject(param_, a, _conf)) {
+                return false;
+            }
+            i_++;
+        }
+        if (_id.isVararg()) {
+            Struct str_ = _firstArgs.last().getStruct();
+            if (str_ instanceof ArrayStruct) {
+                ArrayStruct arr_ = (ArrayStruct) str_;
+                for (Struct s: arr_.getInstance()) {
+                    ErrorType state_ = checkElement(arr_, s, _conf);
+                    if (state_ != ErrorType.NOTHING) {
+                        LgNames stds_ = _conf.getStandards();
+                        if (state_ == ErrorType.NPE) {
+                            String npe_ = stds_.getAliasNullPe();
+                            _conf.setException(new ErrorStruct(_conf,npe_));
+                        } else {
+                            String arrType_ = arr_.getClassName();
+                            String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
+                            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
+                            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, s, stds_);
+                            String arg_ = stds_.getStructClassName(conv_, _conf.getContextEl());
+                            String cast_ = stds_.getAliasStore();
+                            StringBuilder mess_ = new StringBuilder();
+                            mess_.append(arg_);
+                            mess_.append("!=");
+                            mess_.append(param_);
+                            _conf.setException(new ErrorStruct(_conf,mess_.toString(),cast_));
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
     public static ErrorType safeObject(String _param, Argument _arg, Analyzable _context) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
@@ -1081,6 +1163,24 @@ public final class Templates {
             return ErrorType.BAD_INDEX;
         }
         String arrType_ = arr_.getClassName();
+        String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
+        LgNames stds_ = _context.getStandards();
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(param_, _value, stds_)) {
+            return ErrorType.NPE;
+        }
+        if (_value != NullStruct.NULL_VALUE) {
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
+            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+            String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+            param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
+            if (!Templates.isCorrectExecute(arg_, param_, _context)) {
+                return ErrorType.STORE;
+            }
+        }
+        return ErrorType.NOTHING;
+    }
+    public static ErrorType checkElement(ArrayStruct _arr, Struct _value, Analyzable _context) {
+        String arrType_ = _arr.getClassName();
         String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
         LgNames stds_ = _context.getStandards();
         if (PrimitiveTypeUtil.primitiveTypeNullObject(param_, _value, stds_)) {

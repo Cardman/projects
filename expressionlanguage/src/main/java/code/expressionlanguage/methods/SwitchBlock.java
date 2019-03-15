@@ -108,16 +108,15 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             un_.setType(clArg_);
             _cont.getClasses().addError(un_);
         }
-        StringList names_ = clArg_.getNames();
-        if (names_.size() != 1) {
+        String type_ = clArg_.getSingleNameOrEmpty();
+        if (type_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
             _cont.getClasses().addError(un_);
         } else {
-            String exp_ = names_.first();
-            String id_ = Templates.getIdFromAllTypes(exp_);
+            String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {

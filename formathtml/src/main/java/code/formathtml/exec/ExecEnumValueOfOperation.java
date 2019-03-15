@@ -6,7 +6,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.EnumValueOfOperation;
 
-public final class ExecEnumValueOfOperation extends ExecReflectableOpering {
+public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
 
     private String className;
     private int argOffset;

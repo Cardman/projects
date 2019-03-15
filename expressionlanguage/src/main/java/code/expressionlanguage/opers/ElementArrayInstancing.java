@@ -69,6 +69,7 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                 o.getResultClass().setUnwrapObject(eltType_);
+                o.cancelArgument();
             }
         }
         String arrayCl_ = className_;

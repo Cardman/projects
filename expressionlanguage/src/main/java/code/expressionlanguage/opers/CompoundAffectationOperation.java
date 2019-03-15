@@ -141,6 +141,8 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
         if (!isString_) {
             elt_.getResultClass().setUnwrapObject(unwrapped_);
             right_.getResultClass().setUnwrapObject(unwrapped_);
+            ((OperationNode) elt_).cancelArgument();
+            right_.cancelArgument();
         }
     }
 

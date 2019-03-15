@@ -7,7 +7,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.EnumValueOfOperation;
 import code.util.IdMap;
 
-public final class ExecEnumValueOfOperation extends ExecReflectableOpering {
+public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
 
     private String className;
     private int argOffset;

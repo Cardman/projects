@@ -42,7 +42,7 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
             _conf.getClasses().addError(und_);
         }
         ClassArgumentMatching clCur_ = getPreviousResultClass();
-        String fct_ = clCur_.getNames().first();
+        String fct_ = clCur_.getName();
         StringList all_ = Templates.getAllTypes(fct_);
         String ret_ = all_.last();
         StringList param_ = all_.mid(1, all_.size() - 2);
@@ -105,6 +105,7 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
                     a_.setUnwrapObject(pa_);
+                    chidren_.get(i).cancelArgument();
                 }
             }
         }
