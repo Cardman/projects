@@ -64,10 +64,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         if (argBool_ == null) {
             return;
         }
-        if (argBool_.isNull()) {
-            return;
-        }
-        Boolean obj_ = ((BooleanStruct) arguments_.first().getStruct()).getInstance();
+        Boolean obj_ = ((BooleanStruct) argBool_.getStruct()).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);
@@ -184,10 +181,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             if (!type_.isEmpty()) {
                 type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
             }
-        } else if (!(m_ instanceof AffectationOperation)) {
-            //ERROR
-            type_ = EMPTY_STRING;
-        } else {
+        } else if (m_ instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) m_;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
             if (s_ != null) {

@@ -24,7 +24,7 @@ public final class VarargOperation extends ConstLeafOperation implements VarargO
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (!m_.isCallMethodCtor()) {
+        if (m_ == null ||!m_.isCallMethodCtor()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setIndexFile(_conf.getCurrentLocationIndex());

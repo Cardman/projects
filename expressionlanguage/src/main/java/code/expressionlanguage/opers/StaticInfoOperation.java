@@ -37,18 +37,6 @@ public final class StaticInfoOperation extends VariableLeafOperation implements 
         }
         String classStr_;
         classStr_ = _conf.resolveCorrectType(realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
-        String glClass_ = _conf.getGlobalClass();
-        Classes classes_ = _conf.getClasses();
-        if (classes_.isCustomType(classStr_)) {
-            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
-                BadAccessClass badAccess_ = new BadAccessClass();
-                badAccess_.setId(classStr_);
-                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-                badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().addError(badAccess_);
-            }
-        }
         className = classStr_;
         setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
     }
