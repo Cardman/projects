@@ -4730,6 +4730,290 @@ public final class ExpressionLanguageTest {
         assertTrue(arg_.isNull());
     }
 
+    @Test
+    public void processEl915Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl916Test() {
+        Struct arg_ = directCalculateExc("Byte.parseByte($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl917Test() {
+        Struct arg_ = directCalculateExc("Short.parseShort($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl918Test() {
+        Struct arg_ = directCalculateExc("Long.parseLong($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl919Test() {
+        Struct arg_ = directCalculateExc("Float.parseFloat($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl920Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl921Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt($null,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl922Test() {
+        Struct arg_ = directCalculateExc("Byte.parseByte($null,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl923Test() {
+        Struct arg_ = directCalculateExc("Short.parseShort($null,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl924Test() {
+        Struct arg_ = directCalculateExc("Long.parseLong($null,2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl925Test() {
+        Struct arg_ = directCalculateExc("$new Integer($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl926Test() {
+        Struct arg_ = directCalculateExc("$new Byte($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl927Test() {
+        Struct arg_ = directCalculateExc("$new Short($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl928Test() {
+        Struct arg_ = directCalculateExc("$new Long($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl929Test() {
+        Struct arg_ = directCalculateExc("$new Float($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl930Test() {
+        Struct arg_ = directCalculateExc("$new Double($null)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("code.util.exceptions.NullObjectException", err_.getClassName());
+    }
+
+    @Test
+    public void processEl931Test() {
+        Struct arg_ = directCalculateExc("Short.parseShort(\"\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl932Test() {
+        Struct arg_ = directCalculateExc("Short.parseShort(\"-\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl933Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"g\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl934Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"G\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl935Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"1g\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl936Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"1G\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl937Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"1|\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl938Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"|\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl939Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"0\",37)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl940Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"0\",37)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+    @Test
+    public void processEl941Test() {
+        Struct arg_ = directCalculateExc("Long.parseLong(\"9223372036854775808\",10)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl942Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"1!\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl943Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"2\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl944Test() {
+        Struct arg_ = directCalculateExc("Integer.parseInt(\"12\",2)");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl945Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"1.5\")");
+        assertEq(1.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl946Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"1.5e1\")");
+        assertEq(15, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl947Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"1.5E1\")");
+        assertEq(15, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl948Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"15.0e-1\")");
+        assertEq(1.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl949Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"1E1\")");
+        assertEq(10, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl950Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"5E-1\")");
+        assertEq(0.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl951Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"1e1\")");
+        assertEq(10, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl952Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"5e-1\")");
+        assertEq(0.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl953Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"1E\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl954Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"1t\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl955Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"1et\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl956Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"1e-t\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

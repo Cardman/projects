@@ -470,6 +470,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
         boolean valid_ = true;
         NumberInfos infos_ = NumParsers.trySplitDouble(one_);
@@ -489,6 +493,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseFloat(ResultErrorStd _res, LgNames _stds, Struct _arg) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
         boolean valid_ = true;
         NumberInfos infos_ = NumParsers.trySplitDouble(one_);
@@ -512,6 +520,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseLong(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
@@ -528,6 +540,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseInt(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
@@ -544,6 +560,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseShort(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
@@ -560,6 +580,10 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
 
     private static void parseByte(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            _res.setError(_stds.getAliasNullPe());
+            return;
+        }
         String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
         Long lg_;
         int radix_ = DEFAULT_RADIX;

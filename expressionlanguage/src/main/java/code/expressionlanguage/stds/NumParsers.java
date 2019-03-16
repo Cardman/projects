@@ -640,9 +640,6 @@ public final class NumParsers {
     }
 
     public static Long parseLong(String _string, int _radix) {
-        if (_string == null) {
-            return null;
-        }
         if (_radix < Character.MIN_RADIX) {
             return null;
         }
@@ -677,12 +674,15 @@ public final class NumParsers {
             }
             if (i_ < max_) {
                 int ch_ = _string.charAt(i_);
+                if (!Character.isLetterOrDigit(ch_)) {
+                    return null;
+                }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
                     ch_ = ch_ - 'A' + 'a';
                 }
                 i_++;
                 int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-                if (dig_ < 0 || dig_ >= _radix) {
+                if (dig_ >= _radix) {
                     return null;
                 }
                 digit_ = dig_;
@@ -691,12 +691,15 @@ public final class NumParsers {
             while (i_ < max_) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 int ch_ = _string.charAt(i_);
+                if (!Character.isLetterOrDigit(ch_)) {
+                    return null;
+                }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
                     ch_ = ch_ - 'A' + 'a';
                 }
                 i_++;
                 int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-                if (dig_ < 0 || dig_ >= _radix) {
+                if (dig_ >= _radix) {
                     return null;
                 }
                 digit_ = dig_;
@@ -722,9 +725,6 @@ public final class NumParsers {
     }
 
     public static NumberInfos trySplitDouble(String _nb) {
-        if (_nb == null) {
-            return null;
-        }
         if (_nb.isEmpty()) {
             return null;
         }
@@ -783,26 +783,23 @@ public final class NumParsers {
         if (i_ >= len_) {
             return infos_;
         }
-        char n_ = _nb.charAt(i_);
-        if (n_ == EXP || n_ == EXP_UPP) {
-            i_++;
-            if (i_ >= len_) {
+        i_++;
+        if (i_ >= len_) {
+            return null;
+        }
+        char cur_ = _nb.charAt(i_);
+        if (!ContextEl.isDigit(cur_) && cur_ != MINUS_CHAR) {
+            return null;
+        }
+        i_++;
+        exponentialPart_.append(cur_);
+        while (i_ < len_) {
+            cur_ = _nb.charAt(i_);
+            if (!ContextEl.isDigit(cur_)) {
                 return null;
             }
-            char cur_ = _nb.charAt(i_);
-            if (!ContextEl.isDigit(cur_) && cur_ != MINUS_CHAR) {
-                return null;
-            }
-            i_++;
             exponentialPart_.append(cur_);
-            while (i_ < len_) {
-                cur_ = _nb.charAt(i_);
-                if (!ContextEl.isDigit(cur_)) {
-                    return null;
-                }
-                exponentialPart_.append(cur_);
-                i_++;
-            }
+            i_++;
         }
         return infos_;
     }
