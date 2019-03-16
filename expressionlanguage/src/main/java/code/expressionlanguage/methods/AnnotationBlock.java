@@ -50,7 +50,7 @@ public final class AnnotationBlock extends RootBlock {
 
     @Override
     public boolean isAbstractType() {
-        return false;
+        return true;
     }
 
     @Override
