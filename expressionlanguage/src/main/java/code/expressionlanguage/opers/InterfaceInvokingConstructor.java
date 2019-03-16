@@ -106,17 +106,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         if (cid_ != null) {
                             String cl_ = cid_.getName();
                             cl_ = Templates.getIdFromAllTypes(cl_);
-                            if (!previousInts_.isEmpty()) {
-                                String sup_ = previousInts_.last();
-                                if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
-                                    BadInheritedClass undef_;
-                                    undef_ = new BadInheritedClass();
-                                    undef_.setClassName(cl_);
-                                    undef_.setFileName(n_.getFile().getFileName());
-                                    undef_.setIndexFile(0);
-                                    _conf.getClasses().addError(undef_);
-                                }
-                            }
+                            checkInherits(_conf, previousInts_, n_, cl_);
                             previousInts_.add(cl_);
                         }
                     }
@@ -127,20 +117,24 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             if (cid_ != null) {
                 String cl_ = cid_.getName();
                 cl_ = Templates.getIdFromAllTypes(cl_);
-                if (!previousInts_.isEmpty()) {
-                    String sup_ = previousInts_.last();
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
-                        BadInheritedClass undef_;
-                        undef_ = new BadInheritedClass();
-                        undef_.setClassName(cl_);
-                        undef_.setFileName(curBlock_.getFile().getFileName());
-                        undef_.setIndexFile(0);
-                        _conf.getClasses().addError(undef_);
-                    }
-                }
+                checkInherits(_conf, previousInts_, curBlock_, cl_);
             }
         }
     
+    }
+
+    private static void checkInherits(Analyzable _conf, StringList _previousInts, Block _n, String _cl) {
+        if (!_previousInts.isEmpty()) {
+            String sup_ = _previousInts.last();
+            if (PrimitiveTypeUtil.canBeUseAsArgument(_cl, sup_, _conf)) {
+                BadInheritedClass undef_;
+                undef_ = new BadInheritedClass();
+                undef_.setClassName(_cl);
+                undef_.setFileName(_n.getFile().getFileName());
+                undef_.setIndexFile(0);
+                _conf.getClasses().addError(undef_);
+            }
+        }
     }
 
 }

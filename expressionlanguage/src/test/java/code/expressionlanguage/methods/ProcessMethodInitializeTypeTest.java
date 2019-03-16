@@ -1372,6 +1372,78 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
+    @Test
+    public void calculate68Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean inst=$true:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst &= $false:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!getBoolean(cont_,"pkg.Ex","inst"));
+    }
+    @Test
+    public void calculate69Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean inst=$false:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst |= $true:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(getBoolean(cont_,"pkg.Ex","inst"));
+    }
+    @Test
+    public void calculate70Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean inst=$false:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst ^= $true:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(getBoolean(cont_,"pkg.Ex","inst"));
+    }
+    @Test
+    public void calculate71Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean inst=$true:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst ^= $true:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!getBoolean(cont_,"pkg.Ex","inst"));
+    }
+    private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
+        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
+        return ((BooleanStruct)str_).getInstance();
+    }
     private Number getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).getInstance();

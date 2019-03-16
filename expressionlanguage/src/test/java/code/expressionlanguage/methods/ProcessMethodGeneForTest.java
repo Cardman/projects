@@ -1079,4 +1079,96 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void calculateArgument19FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i:t;.==0:){\n");
+        xml_.append("   $for($final $int s:i;>0i:){\n");
+        xml_.append("    t;.+=i;:\n");
+        xml_.append("    $int v=0:\n");
+        xml_.append("    a;;=0:\n");
+        xml_.append("    s;+=0:\n");
+        xml_.append("    s;++:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument20FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i:t;.==0:){\n");
+        xml_.append("   $for($final $int s=0:i;>0i:){\n");
+        xml_.append("    t;.+=i;:\n");
+        xml_.append("    $int v=0:\n");
+        xml_.append("    a;;=0:\n");
+        xml_.append("    s;+=0:\n");
+        xml_.append("    s;++:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument21FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i:t;.==0:){\n");
+        xml_.append("   $final $int s=0:\n");
+        xml_.append("   $for(i;=4i:i;>0i:){\n");
+        xml_.append("    t;.+=i;:\n");
+        xml_.append("    $int v=0:\n");
+        xml_.append("    a;;=0:\n");
+        xml_.append("    s;.+=0:\n");
+        xml_.append("    s;.++:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument22FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int i=0:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  i+=0i:\n");
+        xml_.append("  i++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

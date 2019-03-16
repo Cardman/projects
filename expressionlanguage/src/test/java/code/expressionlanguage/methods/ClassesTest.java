@@ -3432,6 +3432,40 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl59FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$operator+ $int(pkg.ExThree p, pkg.ExThree q) {$return 0:}\n");
+        xml_.append("$operator++ $int(pkg.ExThree p) {$return 0:}\n");
+        xml_.append("$public $class pkg.ExThree {}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExTwo p = $null:\n");
+        xml_.append("  p;. += 1:\n");
+        xml_.append("  $int i = 1:\n");
+        xml_.append("  i;. &= $true:\n");
+        xml_.append("  $boolean j = $true:\n");
+        xml_.append("  j;. &= 1:\n");
+        xml_.append("  $boolean k = $true:\n");
+        xml_.append("  k;. -= 1:\n");
+        xml_.append("  $int l = 5:\n");
+        xml_.append("  l;. -= $true:\n");
+        xml_.append("  String m = \"\":\n");
+        xml_.append("  m;. &= \"\":\n");
+        xml_.append("  m;. ++:\n");
+        xml_.append("  ExThree n = $null:\n");
+        xml_.append("  n;. += (ExThree)$null:\n");
+        xml_.append("  n;. ++:\n");
+        xml_.append("  o;; += 8:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
