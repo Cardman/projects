@@ -124,7 +124,6 @@ public final class FctOperation extends ReflectableInvokingOperation {
             boolean static_ = isStaticAccess() || mid_.isStaticMethod();
             feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
-        boolean cloneArray_ = false;
         StringList bounds_ = new StringList();
         for (String c: l_) {
             if (hasVoidPrevious(c, _conf)) {
@@ -133,13 +132,8 @@ public final class FctOperation extends ReflectableInvokingOperation {
             }
             bounds_.addAllElts(getBounds(c, _conf));
         }
-        for (String b: bounds_) {
-            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                cloneArray_ = true;
-                break;
-            }
-        }
-        if (cloneArray_) {
+        StringList arrayBounds_ = getArrayBounds(bounds_);
+        if (!arrayBounds_.isEmpty()) {
             if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
                 StringList classesNames_ = new StringList();
                 UndefinedMethodError undefined_ = new UndefinedMethodError();
@@ -151,16 +145,10 @@ public final class FctOperation extends ReflectableInvokingOperation {
                 _conf.getClasses().addError(undefined_);
                 return;
             }
-            StringList a_ = new StringList();
-            for (String b: bounds_) {
-                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                    a_.add(b);
-                }
-            }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
             MethodId id_ = new MethodId(false, trimMeth_, new StringList());
             classMethodId = new ClassMethodId(foundClass_, id_);
-            setResultClass(new ClassArgumentMatching(a_));
+            setResultClass(new ClassArgumentMatching(arrayBounds_));
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);
             return;
@@ -203,6 +191,16 @@ public final class FctOperation extends ReflectableInvokingOperation {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);
         }
+    }
+
+    private static StringList getArrayBounds(StringList _bounds) {
+        StringList b_ = new StringList();
+        for (String b: _bounds) {
+            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                b_.add(b);
+            }
+        }
+        return b_;
     }
 
     @Override

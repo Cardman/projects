@@ -577,8 +577,9 @@ final class NamePartType extends LeafPartType {
 
     private boolean processFctVoid(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels) {
         PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
         if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+            String base_ = prev_.getAnalyzedType();
+            base_ = Templates.getIdFromAllTypes(base_);
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
                 return true;
@@ -712,8 +713,6 @@ final class NamePartType extends LeafPartType {
                 return;
             }
             if (!Templates.correctNbParameters(owner_, _an)) {
-                last_.setAnalyzedType(id_);
-                setAnalyzedType(StringList.concat(id_,"..",type_));
                 return;
             }
             last_.setAnalyzedType(owner_);
@@ -749,8 +748,9 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                String base_ = prev_.getAnalyzedType();
+                base_ = Templates.getIdFromAllTypes(base_);
                 if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                     return;

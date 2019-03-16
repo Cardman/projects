@@ -2580,6 +2580,100 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         assertTrue(ret_.isTrue());
     }
     @Test
+    public void calculateArgument48Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class [pkgtwo.OuterThree.*;] pkg.Outer: OuterTwo {\n");
+        xml_.append(" public static class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public static class InnerTwo:OuterTwo.InnerThree {\n");
+        xml_.append("  public static final InnerFive CST = new InnerFive();\n");
+        xml_.append("  public static String method(){\n");
+        xml_.append("   return Class.getClass(CST).getName();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  return pkg.Outer.InnerTwo.method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.OuterTwo {\n");
+        xml_.append(" protected static class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" public static class InnerFour:InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree:OuterFour {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.OuterFour {\n");
+        xml_.append(" public static class InnerFive {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkgtwo.OuterFour..InnerFive", ret_.getString());
+    }
+    @Test
+    public void calculateArgument49Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class [pkgtwo.OuterThree.InnerFive.*;] pkg.Outer: OuterTwo {\n");
+        xml_.append(" public static class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public static class InnerTwo:OuterTwo.InnerThree {\n");
+        xml_.append("  public static final InnerSix CST = new InnerSix();\n");
+        xml_.append("  public static String method(){\n");
+        xml_.append("   return Class.getClass(CST).getName();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  return pkg.Outer.InnerTwo.method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.OuterTwo {\n");
+        xml_.append(" protected static class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" public static class InnerFour:InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree:OuterFour {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.OuterFour {\n");
+        xml_.append(" public static class InnerFive {\n");
+        xml_.append("  public static class InnerSix {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", ret_.getString());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
