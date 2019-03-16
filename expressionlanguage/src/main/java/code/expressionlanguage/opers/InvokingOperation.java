@@ -200,12 +200,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             indexChild_++;
             if (c.matchVoid(_conf)) {
                 void_ = true;
-                if (indexChild_ < _children.size()) {
-                    OperationNode op_ = _children.get(indexChild_);
-                    op_.setRelativeOffsetPossibleAnalyzable(op_.getIndexInEl()+_off, _conf);
-                } else {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+_off, _conf);
-                }
+                OperationNode op_ = _children.get(indexChild_);
+                op_.setRelativeOffsetPossibleAnalyzable(op_.getIndexInEl()+_off, _conf);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(stds_.getAliasVoid());
                 mapping_.setParam(stds_.getAliasObject());

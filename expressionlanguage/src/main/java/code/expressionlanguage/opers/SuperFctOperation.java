@@ -66,6 +66,13 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_);
+        String clCurName_ = className_;
+        StringList bounds_ = getBounds(clCurName_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
@@ -77,17 +84,6 @@ public final class SuperFctOperation extends ReflectableInvokingOperation {
             cast_.setIndexFile(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(cast_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        String clCurName_ = className_;
-        if (hasVoidPrevious(clCurName_, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        StringList bounds_ = getBounds(clCurName_, _conf);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }

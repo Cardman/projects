@@ -2521,6 +2521,182 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!m_.isStaticMethod());
     }
     @Test
+    public void processEl214Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply:ExTwo {\n");
+        xml_.append(" $static {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("  $public $static $void m(){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId id_ =fct_.getClassMethodId();
+        MethodId m_  =id_.getConstraints();
+        assertEq("pkg.ExTwo", id_.getClassName());
+        assertEq("m", m_.getName());
+        StringList params_ = m_.getParametersTypes();
+        assertEq(0, params_.size());
+        assertTrue(!m_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(m_.isStaticMethod());
+    }
+    @Test
+    public void processEl215Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkg.ExTwo;] pkgtwo.Apply:ExTwo {\n");
+        xml_.append(" {$superaccess(ExTwo)m($id(ExTwo,$static)):}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("  $public $static $void m(){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId id_ =fct_.getClassMethodId();
+        MethodId m_  =id_.getConstraints();
+        assertEq("pkg.ExTwo", id_.getClassName());
+        assertEq("m", m_.getName());
+        StringList params_ = m_.getParametersTypes();
+        assertEq(0, params_.size());
+        assertTrue(!m_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(m_.isStaticMethod());
+    }
+    @Test
+    public void processEl216Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkgthree.ExTwo;pkg.ExTwo;] pkgtwo.Apply {\n");
+        xml_.append(" {ExTwo e = $new ExTwo():e;.$superaccess(ExTwo)m($id(ExTwo)):}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("  $public $void m(){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Apply");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
+        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId id_ =fct_.getClassMethodId();
+        MethodId m_  =id_.getConstraints();
+        assertEq("pkg.ExTwo", id_.getClassName());
+        assertEq("m", m_.getName());
+        StringList params_ = m_.getParametersTypes();
+        assertEq(0, params_.size());
+        assertTrue(!m_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!m_.isStaticMethod());
+    }
+    @Test
+    public void processEl217Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo:ExThree {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $void o() {}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $new ExTwo().$classchoice(Apply)m():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void m() {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId id_ =fct_.getClassMethodId();
+        MethodId m_  =id_.getConstraints();
+        assertEq("pkg.Apply", id_.getClassName());
+        assertEq("m", m_.getName());
+        StringList params_ = m_.getParametersTypes();
+        assertEq(0, params_.size());
+        assertTrue(!m_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(m_.isStaticMethod());
+    }
+    @Test
+    public void processEl218Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo:ExThree {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $void o() {}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $new ExTwo().$superaccess(ExThree)o():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkg.Apply");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId id_ =fct_.getClassMethodId();
+        MethodId m_  =id_.getConstraints();
+        assertEq("pkg.ExThree", id_.getClassName());
+        assertEq("o", m_.getName());
+        StringList params_ = m_.getParametersTypes();
+        assertEq(0, params_.size());
+        assertTrue(!m_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(m_.isStaticMethod());
+    }
+    @Test
     public void processEl1FailTest() {
         analyzeIndirectLocalVars("composite.getOverridenOne($null)", "composite", COMPOSITE, true);
     }
@@ -2976,7 +3152,8 @@ public final class AnalyzedOperationNodesTest {
             }
         }
         return null;
-    }private static ExecChoiceFctOperation getChoiceFct(CustList<ExecOperationNode> _f) {
+    }
+    private static ExecChoiceFctOperation getChoiceFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecChoiceFctOperation) {
                 return (ExecChoiceFctOperation) o;
@@ -2984,7 +3161,14 @@ public final class AnalyzedOperationNodesTest {
         }
         return null;
     }
-
+    private static ExecSuperFctOperation getSuperFct(CustList<ExecOperationNode> _f) {
+        for (ExecOperationNode o: _f) {
+            if (o instanceof ExecSuperFctOperation) {
+                return (ExecSuperFctOperation) o;
+            }
+        }
+        return null;
+    }
     private static ExecSettableFieldOperation getField(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecSettableFieldOperation) {

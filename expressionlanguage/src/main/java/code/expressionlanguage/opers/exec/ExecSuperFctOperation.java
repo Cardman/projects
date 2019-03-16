@@ -79,4 +79,12 @@ public final class ExecSuperFctOperation extends ExecReflectableInvokingOperatio
         }
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public int getNaturalVararg() {
+        return naturalVararg;
+    }
 }

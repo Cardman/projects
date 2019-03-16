@@ -3597,6 +3597,58 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl67FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo:ExThree {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $void o() {}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final String CST = $null:\n");
+        xml_.append(" $static $final $int LEN = CST.length():\n");
+        xml_.append(" $static $final $int RES = \"\".len():\n");
+        xml_.append(" $static {\n");
+        xml_.append("  m().$classchoice(ExTwo)m(n()):\n");
+        xml_.append("  m(n()):\n");
+        xml_.append("  m().n():\n");
+        xml_.append("  $new ExTwo().$classchoice(Apply)m():\n");
+        xml_.append("  m().$superaccess(ExThree)o():\n");
+        xml_.append("  $superaccess(ExThree)o(m()):\n");
+        xml_.append("  p($vararg($int),$firstopt(\"\")):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void m() {}\n");
+        xml_.append(" $public $static $void n() {}\n");
+        xml_.append(" $public $static $void p($int...) {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl68FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExTwo {\n");
+        xml_.append(" $public $abstract $void m() {}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply:ExTwo {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  Apply a = $new Apply():\n");
+        xml_.append("  a;.$superaccess(ExTwo)m():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void m() {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

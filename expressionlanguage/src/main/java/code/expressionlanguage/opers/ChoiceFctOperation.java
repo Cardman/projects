@@ -59,10 +59,6 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_);
         String clCurName_ = className_;
-        if (hasVoidPrevious(clCurName_, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         StringList bounds_ = getBounds(clCurName_, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
