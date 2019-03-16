@@ -1335,8 +1335,10 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.Int4:Int1:Int2 {}\n");
         xml_.append("$public $class pkg.ExThree:Int3:Int4 {$public $int m(){$return 5:}}\n");
         xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $int v:\n");
+        xml_.append(" $static $int t=1:\n");
         xml_.append(" $static{\n");
-        xml_.append("  $bool(1>0,(Int3)$new ExThree(),(Int4)$new ExThree()).m():\n");
+        xml_.append("  (v)=(t)+($bool(1>0,(Int3)$new ExThree(),(Int4)$new ExThree()).m()):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1351,6 +1353,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).getInstance());
+        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).getInstance());
     }
     @Test
     public void calculate67Test() {

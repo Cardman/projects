@@ -117,8 +117,7 @@ public abstract class BracedStack extends BracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                LocalVariable varLoc_ = _an.getLocalVar(key_,index_);
-                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
+                if (!_an.isFinalLocalVar(key_,index_)) {
                     continue;
                 }
                 processFinalVars(this, false, _an, _root, key_);
@@ -149,8 +148,7 @@ public abstract class BracedStack extends BracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                LoopVariable varLoc_ = _an.getMutableLoopVar(key_,index_);
-                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
+                if (!_an.isFinalMutableLoopVar(key_,index_)) {
                     continue;
                 }
                 processFinalMutableLoop(this, false, _an, _root, key_);

@@ -117,9 +117,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
-                        LocalVariable locVar_ = _conf.getLocalVar(str_,index_);
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (locVar_ != null && locVar_.isFinalVariable()) {
+                            if (_conf.isFinalLocalVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
@@ -149,9 +148,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 int index_ = mutableAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
-                        LoopVariable locVar_ = _conf.getMutableLoopVar(str_,index_);
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (locVar_ != null && locVar_.isFinalVariable()) {
+                            if (_conf.isFinalMutableLoopVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

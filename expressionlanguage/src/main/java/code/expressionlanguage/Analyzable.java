@@ -43,13 +43,14 @@ public interface Analyzable {
     void setCurrentVarSetting(String _currentVarSetting);
     LoopVariable getVar(String _key);
 
-    LoopVariable getMutableLoopVar(String _key, int _index);
+    boolean isFinalMutableLoopVar(String _key, int _index);
     boolean containsMutableLoopVar(String _string);
     LoopVariable getMutableLoopVar(String _key);
     void putMutableLoopVar(String _string, LoopVariable _loc);
 
     CustList<StringMap<LocalVariable>> getLocalVariables();
-    LocalVariable getLocalVar(String _key, int _index);
+
+    boolean isFinalLocalVar(String _key, int _index);
     boolean containsLocalVar(String _string);
     LocalVariable getLocalVar(String _key);
     void putLocalVar(String _string, LocalVariable _loc);

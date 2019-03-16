@@ -18,7 +18,18 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation implements
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode o_ = chidren_.first();
         Argument a_ = getArgument(_nodes,o_);
-        setSimpleArgument(a_, _conf, _nodes);
+        boolean simple_ = false;
+        if (o_ instanceof ExecSettableElResult) {
+            ExecSettableElResult s_ = (ExecSettableElResult) o_;
+            if (s_.resultCanBeSet()) {
+                simple_ = true;
+            }
+        }
+        if (simple_) {
+            setQuickSimpleArgument(a_, _conf, _nodes);
+        } else {
+            setSimpleArgument(a_, _conf, _nodes);
+        }
     }
     @Override
     public void quickCalculate(Analyzable _conf) {

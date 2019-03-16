@@ -2711,6 +2711,31 @@ public final class ClassesTest {
         assertEq(0, (((NumberStruct)str_).getInstance()).intValue());
     }
     @Test
+    public void calculateStaticField101Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=Byte.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Byte a2=Byte.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $short a3=Short.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Short a4=Short.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $char a5=Character.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Character a6=Character.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $int a7=Integer.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Integer a8=Integer.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $long a9=Long.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Long a10=Long.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $float a11=Float.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Float a12=Float.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $double a13=Double.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Double a14=Double.MAX_VALUE:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(14, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
     public void validateElFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -3349,6 +3374,58 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.ExTwo {:\n");
         xml_.append(" {$new Inexist():$new $int():}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl56FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyInt1 {}\n");
+        xml_.append("$public $interface pkg.MyInt2 {}\n");
+        xml_.append("$public $interface pkg.MyInt3:MyInt1:MyInt2 {}\n");
+        xml_.append("$public $interface pkg.MyInt4:MyInt1:MyInt2 {}\n");
+        xml_.append("$public $enum pkg.ExTwo {:\n");
+        xml_.append(" {$int i = $null:}\n");
+        xml_.append(" {$var v = 5: $var t = $bool($true,(MyInt3)$null,(MyInt4)$null):$if($true){$int k = 5:}}\n");
+        xml_.append(" {$for($var t = $bool($true,(MyInt3)$null,(MyInt4)$null)::){$int k = 5:}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl57FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {:\n");
+        xml_.append(" {$int v = 5:$if($true){$var v = 5:}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl58FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a3=Short.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Byte a4=Short.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $short a5=Integer.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Short a6=Integer.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $char a7=Integer.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Character a8=Integer.MAX_VALUE:\n");
+        xml_.append(" $public $static $final $int a9=Long.MIN_VALUE:\n");
+        xml_.append(" $public $static $final Integer a10=Long.MAX_VALUE:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();

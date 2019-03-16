@@ -634,6 +634,11 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public boolean isFinalLocalVar(String _key, int _index) {
+        return context.getAnalyzing().isFinalLocalVar(_key, _index);
+    }
+
+    @Override
     public boolean containsLocalVar(String _key) {
         return getLastPage().containsLocalVar(_key);
     }
@@ -761,8 +766,8 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public LocalVariable getLocalVar(String _key, int _index) {
-        return context.getLocalVar(_key, _index);
+    public boolean isFinalMutableLoopVar(String _key, int _index) {
+        return context.getAnalyzing().isFinalMutableLoopVar(_key,_index);
     }
 
     @Override
@@ -940,11 +945,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setAssignedFields(boolean _assignedFields) {
         context.setAssignedFields(_assignedFields);
-    }
-
-    @Override
-    public LoopVariable getMutableLoopVar(String _key, int _index) {
-        return context.getMutableLoopVar(_key, _index);
     }
 
     @Override

@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -64,7 +65,11 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         if (argBool_ == null) {
             return;
         }
-        Boolean obj_ = ((BooleanStruct) argBool_.getStruct()).getInstance();
+        Struct str_ = argBool_.getStruct();
+        if (!(str_ instanceof BooleanStruct)) {
+            return;
+        }
+        Boolean obj_ = ((BooleanStruct) str_).getInstance();
         Argument arg_;
         if (obj_) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);

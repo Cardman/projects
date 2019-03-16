@@ -1098,8 +1098,8 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public LocalVariable getLocalVar(String _key, int _index) {
-        return analyzing.getLocalVar(_key, _index);
+    public boolean isFinalLocalVar(String _key, int _index) {
+        return analyzing.isFinalLocalVar(_key, _index);
     }
 
     @Override
@@ -2444,8 +2444,8 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public LoopVariable getMutableLoopVar(String _key, int _index) {
-        return analyzing.getMutableLoopVar(_key,_index);
+    public boolean isFinalMutableLoopVar(String _key, int _index) {
+        return analyzing.isFinalMutableLoopVar(_key,_index);
     }
 
     @Override

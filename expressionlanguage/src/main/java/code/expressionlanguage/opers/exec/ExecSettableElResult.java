@@ -18,6 +18,7 @@ public interface ExecSettableElResult extends ExecOperable, Operable {
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post);
 
+    boolean resultCanBeSet();
     Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right);
 
     Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right);

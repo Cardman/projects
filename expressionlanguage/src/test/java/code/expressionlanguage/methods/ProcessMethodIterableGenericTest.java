@@ -2162,7 +2162,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $void res()\n");
         xml_.append(" {\n");
-        xml_.append("  $bool({},5,6,7):\n");
+        xml_.append("  $bool({},5,6,7):$bool(0,5,6):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());

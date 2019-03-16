@@ -12,10 +12,8 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -60,27 +58,20 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             return;
         }
         settable = elt_;
-        KeyWords keyWords_ = _conf.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
         if (settable instanceof VariableOperation) {
             VariableOperation v_ = (VariableOperation)settable;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _conf) && _conf.getInfersLocalVars().containsStr(inf_)) {
-                String c_ = _conf.getCurrentVarSetting();
-                if (StringList.quickEq(c_, keyWordVar_)) {
-                    ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                    String type_ = clMatchRight_.getSingleNameOrEmpty();
-                    if (!type_.isEmpty()) {
-                        ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                        LocalVariable lv_ = _conf.getLocalVar(inf_);
-                        if (lv_ != null) {
-                            lv_.setClassName(type_);
-                            DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
-                            d_.setImportedClassName(type_);
-                            _conf.setCurrentVarSetting(type_);
-                        }
-                        v_.setResultClass(n_);
-                    }
+                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                String type_ = clMatchRight_.getSingleNameOrEmpty();
+                if (!type_.isEmpty()) {
+                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    LocalVariable lv_ = _conf.getLocalVar(inf_);
+                    lv_.setClassName(type_);
+                    DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
+                    d_.setImportedClassName(type_);
+                    _conf.setCurrentVarSetting(type_);
+                    v_.setResultClass(n_);
                 }
             }
         }
@@ -88,21 +79,16 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)settable;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _conf) && _conf.getInfersMutableLocalVars().containsStr(inf_)) {
-                String c_ = _conf.getCurrentVarSetting();
-                if (StringList.quickEq(c_, keyWordVar_)) {
-                    ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                    String type_ = clMatchRight_.getSingleNameOrEmpty();
-                    if (!type_.isEmpty()) {
-                        ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                        LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
-                        if (lv_ != null) {
-                            lv_.setClassName(type_);
-                            ForMutableIterativeLoop d_ = (ForMutableIterativeLoop) _conf.getCurrentBlock();
-                            d_.setImportedClassName(type_);
-                            _conf.setCurrentVarSetting(type_);
-                        }
-                        v_.setResultClass(n_);
-                    }
+                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                String type_ = clMatchRight_.getSingleNameOrEmpty();
+                if (!type_.isEmpty()) {
+                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
+                    lv_.setClassName(type_);
+                    ForMutableIterativeLoop d_ = (ForMutableIterativeLoop) _conf.getCurrentBlock();
+                    d_.setImportedClassName(type_);
+                    _conf.setCurrentVarSetting(type_);
+                    v_.setResultClass(n_);
                 }
             }
         }
@@ -222,8 +208,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        LocalVariable locVar_ = _conf.getLocalVar(str_,index_);
-                        if (locVar_ != null && locVar_.isFinalVariable()) {
+                        if (_conf.isFinalLocalVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
@@ -250,8 +235,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
                 int index_ = mutableAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        LoopVariable locVar_ = _conf.getMutableLoopVar(str_,index_);
-                        if (locVar_ != null && locVar_.isFinalVariable()) {
+                        if (_conf.isFinalMutableLoopVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

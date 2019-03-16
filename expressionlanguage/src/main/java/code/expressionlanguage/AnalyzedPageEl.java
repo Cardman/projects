@@ -213,14 +213,14 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public LoopVariable getMutableLoopVar(String _key, int _index) {
-        for (StringMap<LoopVariable> m: mutableVars.getReverse()) {
+    public boolean isFinalMutableLoopVar(String _key, int _index) {
+        for (StringMap<LoopVariable> m: mutableVars) {
             LoopVariable l_ = m.getVal(_key);
             if (l_ != null) {
-                return l_;
+                return l_.isFinalVariable();
             }
         }
-        return null;
+        return false;
     }
 
     public boolean containsLocalVar(String _key) {
@@ -241,11 +241,14 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public LocalVariable getLocalVar(String _key, int _index) {
-        if (!localVars.isValidIndex(_index)) {
-            return null;
+    public boolean isFinalLocalVar(String _key, int _index) {
+        for (StringMap<LocalVariable> m: localVars) {
+            LocalVariable l_ = m.getVal(_key);
+            if (l_ != null) {
+                return l_.isFinalVariable();
+            }
         }
-        return localVars.get(_index).getVal(_key);
+        return false;
     }
 
     public void setLocalVars(StringMap<LocalVariable> _localVars) {

@@ -37,12 +37,16 @@ public final class ClassArgumentMatching {
         LgNames stds_ = _context.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
+        String charPr_ = stds_.getAliasPrimChar();
         String bytePr_ = stds_.getAliasPrimByte();
         ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(this, _context);
         if (prim_.matchClass(intPr_)) {
             return true;
         }
         if (prim_.matchClass(shortPr_)) {
+            return true;
+        }
+        if (prim_.matchClass(charPr_)) {
             return true;
         }
         return prim_.matchClass(bytePr_);
