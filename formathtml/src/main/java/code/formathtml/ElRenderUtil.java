@@ -44,7 +44,7 @@ public final class ElRenderUtil {
         context_.getAnalyzing().setVars(_conf.getVars());
         context_.getAnalyzing().setCatchVars(_conf.getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, context_, _minIndex, _begin, _end);
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
             BadElRender badEl_ = new BadElRender();

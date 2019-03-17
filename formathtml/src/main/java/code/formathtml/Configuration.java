@@ -869,14 +869,6 @@ public class Configuration implements ExecutableCode {
                 return type_;
             }
         }
-        if (res_.isEmpty()) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName("");
-            un_.setIndexFile(0);
-            un_.setType(_in);
-            context.getClasses().addError(un_);
-            res_ = standards.getAliasObject();
-        }
         return res_;
     }
 
@@ -909,7 +901,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public TypeOwnersDepends lookupImportMemberTypeDeps(String _type,
-            AccessingImportingBlock _rooted) {
+                                                        RootBlock _rooted) {
         return new TypeOwnersDepends();
     }
     @Override

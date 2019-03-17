@@ -17,27 +17,18 @@ public final class NumParsers {
     private NumParsers() {
     }
 
-    public static Double parseDouble(NumberInfos _nb) {
+    public static double parseDouble(NumberInfos _nb) {
         StringBuilder int_ = new StringBuilder(_nb.getIntPart());
         while(int_.indexOf("_") >= 0) {
             int_.deleteCharAt(int_.indexOf("_"));
-        }
-        while(int_.indexOf(" ") >= 0) {
-            int_.deleteCharAt(int_.indexOf(" "));
         }
         StringBuilder dec_ = new StringBuilder(_nb.getDecimalPart());
         while(dec_.indexOf("_") >= 0) {
             dec_.deleteCharAt(dec_.indexOf("_"));
         }
-        while(dec_.indexOf(" ") >= 0) {
-            dec_.deleteCharAt(dec_.indexOf(" "));
-        }
         StringBuilder exp_ = new StringBuilder(_nb.getExponentialPart());
         while(exp_.indexOf("_") >= 0) {
             exp_.deleteCharAt(exp_.indexOf("_"));
-        }
-        while(exp_.indexOf(" ") >= 0) {
-            exp_.deleteCharAt(exp_.indexOf(" "));
         }
         boolean positive_ = _nb.isPositive();
         Long expNb_;
@@ -257,7 +248,7 @@ public final class NumParsers {
         return longValue_ + decValue_ / power_;
     }
 
-    private static Double processBigNumbers(StringBuilder _nb, boolean _positive) {
+    private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
         Long long_ = parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
         double power_ = 1;
         int logDec_ = _nb.length() - (int) MAX_DIGITS_DOUBLE - 1;
@@ -611,20 +602,13 @@ public final class NumParsers {
     }
 
     public static long parseQuickLongTen(String _string) {
-        long result_ = 0;
-        boolean negative_ = false;
         int i_ = 0;
         int max_ = _string.length();
         int digit_;
-
-        if (_string.charAt(0) == '-') {
-            negative_ = true;
-            i_++;
-        }
         int ch_ = _string.charAt(i_);
         i_++;
         digit_ = ch_ - '0';
-        result_ = -digit_;
+        long result_ = -digit_;
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
             ch_ = _string.charAt(i_);
@@ -632,9 +616,6 @@ public final class NumParsers {
             digit_ = ch_ - '0';
             result_ *= DEFAULT_RADIX;
             result_ -= digit_;
-        }
-        if (negative_) {
-            return result_;
         }
         return -result_;
     }
@@ -674,7 +655,7 @@ public final class NumParsers {
             }
             if (i_ < max_) {
                 int ch_ = _string.charAt(i_);
-                if (!Character.isLetterOrDigit(ch_)) {
+                if (!parsableChar(ch_)) {
                     return null;
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
@@ -691,7 +672,7 @@ public final class NumParsers {
             while (i_ < max_) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 int ch_ = _string.charAt(i_);
-                if (!Character.isLetterOrDigit(ch_)) {
+                if (!parsableChar(ch_)) {
                     return null;
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
@@ -722,6 +703,16 @@ public final class NumParsers {
             return null;
         }
         return -result_;
+    }
+
+    private static boolean parsableChar(int _ch) {
+        if (_ch >= '0' && _ch <= '9') {
+            return true;
+        }
+        if (_ch >= 'a' && _ch <= 'z') {
+            return true;
+        }
+        return _ch >= 'A' && _ch <= 'Z';
     }
 
     public static NumberInfos trySplitDouble(String _nb) {

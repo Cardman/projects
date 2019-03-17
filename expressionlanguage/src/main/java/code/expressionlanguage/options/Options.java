@@ -7,7 +7,6 @@ public final class Options {
     private boolean initializeStaticClassFirst = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
-    private boolean upperLong;
     private boolean endLineSemiColumn = true;
     private boolean allParametersSort = true;
     private boolean singleInnerParts;
@@ -42,14 +41,6 @@ public final class Options {
 
     public boolean isVarTypeFirst() {
         return varTypeFirst;
-    }
-
-    public boolean isUpperLong() {
-        return upperLong;
-    }
-
-    public void setUpperLong(boolean _upperLong) {
-        upperLong = _upperLong;
     }
 
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {

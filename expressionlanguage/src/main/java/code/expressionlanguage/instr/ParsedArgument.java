@@ -41,31 +41,28 @@ public final class ParsedArgument {
         char suffix_ = _infosNb.getSuffix();
         ParsedArgument out_ = new ParsedArgument();
         if (suffix_ == 'D' || suffix_ == 'd' || suffix_ == 'F' || suffix_ == 'f') {
-            if (suffix_ == 'd') {
-                out_.type = doublePrimType_;
-            } else if (suffix_ == 'D'){
-                out_.type = doubleType_;
-            } else if (suffix_ == 'f') {
-                out_.type = floatPrimType_;
-            } else {
-                out_.type = floatType_;
-            }
+            double d_ = NumParsers.parseDouble(_infosNb);
             if (suffix_ == 'D' || suffix_ == 'd') {
-                out_.object = new DoubleStruct(NumParsers.parseDouble(_infosNb));
+                if (suffix_ == 'd') {
+                    out_.type = doublePrimType_;
+                } else {
+                    out_.type = doubleType_;
+                }
+                out_.object = new DoubleStruct(d_);
             } else {
-                double d_ = NumParsers.parseDouble(_infosNb);
-                if (!checkedDoubleBounds(d_, Float.MIN_VALUE, Float.MAX_VALUE)) {
+                if (!checkedDoubleBounds(d_)) {
                     return out_;
+                }
+                if (suffix_ == 'f') {
+                    out_.type = floatPrimType_;
+                } else {
+                    out_.type = floatType_;
                 }
                 out_.object = new FloatStruct((float) d_);
             }
             return out_;
         }
-        StringBuilder nbFormatted_ = new StringBuilder();
-        if (!_infosNb.isPositive()) {
-            nbFormatted_.append("-");
-        }
-        nbFormatted_.append(_infosNb.getIntPart());
+        StringBuilder nbFormatted_ = _infosNb.getIntPart();
         String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
         Long longValue_;
         if (_infosNb.getBase() == 16) {
@@ -216,6 +213,10 @@ public final class ParsedArgument {
                     sub_ = 1;
                 }
                 String subString_ = nb_.substring(sub_);
+                Long lg_ = NumParsers.parseLong(subString_, 8);
+                if (lg_ == null) {
+                    return out_;
+                }
                 boolean[] bitsOutTrunc_ = NumParsers.parseLongOctalToBits(subString_);
                 for (int i = 1; i < 64; i++) {
                     bits_[i] = bitsOutTrunc_[i-1];
@@ -326,6 +327,18 @@ public final class ParsedArgument {
         }
         longValue_ = NumParsers.parseLongTen(nb_);
         if (longValue_ == null) {
+            String str_  = StringList.concat("-",nb_);
+            Long oppLongValue_ = NumParsers.parseLongTen(str_);
+            if (oppLongValue_ != null) {
+                if (suffix_ == 'L' || suffix_ == 'l') {
+                    out_.object = new LongStruct(Long.MIN_VALUE);
+                    if (suffix_ == 'l') {
+                        out_.type = longPrimType_;
+                    } else {
+                        out_.type = longType_;
+                    }
+                }
+            }
             return out_;
         }
         if (suffix_ == 'L' || suffix_ == 'l') {
@@ -338,7 +351,15 @@ public final class ParsedArgument {
             return out_;
         }
         if (suffix_ == 'I' || suffix_ == 'i') {
-            if (!checkedLongBounds(longValue_, Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+            if (outOfBounds(longValue_, Integer.MAX_VALUE)) {
+                if (longValue_ == Integer.MAX_VALUE + 1L) {
+                    if (suffix_ == 'i') {
+                        out_.type = longPrimType_;
+                    } else {
+                        out_.type = longType_;
+                    }
+                    out_.object = new LongStruct(Integer.MAX_VALUE + 1L);
+                }
                 return out_;
             }
             if (suffix_ == 'i') {
@@ -350,7 +371,15 @@ public final class ParsedArgument {
             return out_;
         }
         if (suffix_ == 'S' || suffix_ == 's') {
-            if (!checkedLongBounds(longValue_, Short.MIN_VALUE, Short.MAX_VALUE)) {
+            if (outOfBounds(longValue_, Short.MAX_VALUE)) {
+                if (longValue_ == Short.MAX_VALUE + 1L) {
+                    if (suffix_ == 's') {
+                        out_.type = intPrimType_;
+                    } else {
+                        out_.type = intType_;
+                    }
+                    out_.object = new IntStruct(Short.MAX_VALUE + 1);
+                }
                 return out_;
             }
             if (suffix_ == 's') {
@@ -362,7 +391,15 @@ public final class ParsedArgument {
             return out_;
         }
         if (suffix_ == 'B' || suffix_ == 'b') {
-            if (!checkedLongBounds(longValue_, Byte.MIN_VALUE, Byte.MAX_VALUE)) {
+            if (outOfBounds(longValue_, Byte.MAX_VALUE)) {
+                if (longValue_ == Byte.MAX_VALUE + 1L) {
+                    if (suffix_ == 'b') {
+                        out_.type = shortPrimType_;
+                    } else {
+                        out_.type = shortType_;
+                    }
+                    out_.object = new ShortStruct((short) (Byte.MAX_VALUE + 1));
+                }
                 return out_;
             }
             if (suffix_ == 'b') {
@@ -373,7 +410,7 @@ public final class ParsedArgument {
             out_.object = new ByteStruct(longValue_.byteValue());
             return out_;
         }
-        if (!checkedLongBounds(longValue_, Character.MIN_VALUE, Character.MAX_VALUE)) {
+        if (outOfBounds(longValue_, Character.MAX_VALUE)) {
             return out_;
         }
         if (suffix_ == 'c') {
@@ -385,20 +422,14 @@ public final class ParsedArgument {
         return out_;
     }
 
-    static boolean checkedLongBounds(long _value, long _min, long _max) {
-        if (_value < _min) {
-            return false;
-        }
-        return _value <= _max;
+    private static boolean outOfBounds(long _value, long _max) {
+        return _value > _max;
     }
 
 
-    static boolean checkedDoubleBounds(double _value, double _min, double _max) {
+    private static boolean checkedDoubleBounds(double _value) {
         double value_ = Math.abs(_value);
-        if (value_ < _min) {
-            return false;
-        }
-        return !(value_ > _max);
+        return value_ <= (double) Float.MAX_VALUE;
     }
 
     public Struct getStruct() {

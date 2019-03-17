@@ -2940,6 +2940,828 @@ public final class ClassesTest {
         assertEq(1, ctx_.getClasses().staticFieldCount());
     }
     @Test
+    public void calculateStaticField119Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111l:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField120Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=0b1111111111111111111111111111111111111111111111111111111111111111L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField121Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=0b1i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField122Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=0b1I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField123Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0b1s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField124Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0b1S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField125Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=0b1c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField126Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=0b1C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField127Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0b1b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField128Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0b1B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+
+    @Test
+    public void calculateStaticField129Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=01L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField130Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=01I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField131Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=01S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField132Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=01B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField133Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=01C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField134Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=01c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField135Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=0077777C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField136Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=0177777c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField137Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=007777777777i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField138Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=017777777777i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField139Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=027777777777i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField140Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=037777777777i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField141Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0077777s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField142Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0177777s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField143Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0277777s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField144Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=0377777s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField145Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0077b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField146Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0177b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField147Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0277b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField148Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0377b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField149Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=1B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField150Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=1S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField151Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=1C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField152Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=-9223372036854775808l:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField153Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=- -9223372036854775808L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField154Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=-128b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField155Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $char a1=65535c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField156Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=-32768s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField157Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=-2147483648:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField158Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=-128B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField159Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $short a1=-32768S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField160Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=-2147483648I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField161Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $byte a1=0b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField167Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double a1=01.3d:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField168Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double a1=01._3d:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField169Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $long a1=0x1xb:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField170Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=-+1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField171Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=-~1:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(1, ctx_.getClasses().staticFieldCount());
+    }
+    @Test
+    public void calculateStaticField172Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=java.lang.Integer.MAX_VALUE:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField173Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean a1=java.lang.Integer.MAX_VALUE $instanceof java.lang.Integer:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField174Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$super.m():\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField175Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$classchoice(ExSuper)m():\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField176Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$that.m():\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField177Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $public $final $int n(){\n");
+        xml_.append("   $return 3:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$new Inner().n():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField178Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$super.m()):\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField179Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$classchoice(ExSuper)m()):\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField180Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExSuper {\n");
+        xml_.append(" $public $int m(){\n");
+        xml_.append("  $return 2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:ExSuper {\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$that.m()):\n");
+        xml_.append(" $public $final $int m(){\n");
+        xml_.append("  $return 1:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField181Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $public $final $int n(){\n");
+        xml_.append("   $return 3:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $final ExTwo CST = $new ExTwo():\n");
+        xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$new Inner().n()):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).getInstance());
+    }
+    @Test
+    public void calculateStaticField182Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean a1=(5!=4):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDot();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField183Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=(5!=4?0;1):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefault();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField184Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final Object[] a1=(Object[ ])$null:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefault();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void validateElFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -3856,6 +4678,794 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl69FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = -92233720368547758088L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl70FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 09L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl71FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $char cst = 09C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl72FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 09I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl73FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0400B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl74FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 01111B:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl75FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0400000S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl76FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 01111111S:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl77FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0200000C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl78FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 01111111C:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl79FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 040000000000I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl80FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0111111111111I:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl81FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 02000000000000000000000L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl82FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0111111111111111111111111L:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl83FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 111111111111111111:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl84FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = -111111111111111111:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl85FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 11111111s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl86FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = -11111111s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl87FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 11111111c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl88FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = -11111111c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl89FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 1111b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl90FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = -1111b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl91FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = -9223372036854775808:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl92FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $float cst = 1e100f:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl93FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $float cst = -1e100f:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl94FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0b11111111111111111111111111111111111111111111111111111111111111111l:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl95FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0b111111111111111111111111111111111i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl96FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0b11111111111111111s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl97FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0b11111111111111111c:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl98FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 0b111111111b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl99FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $int cst = 01$:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl100FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public classe pkg.Apply {\n");
+        xml_.append(" static final entier4 cst = 0b:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
+        Classes.validateAll(files_, ct_);
+        assertTrue(!ct_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl101FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public classe pkg.Apply {\n");
+        xml_.append(" static final entier4 cst = 0x:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_ = InitializationLgNames.buildStdOne("fr",opt_);
+        Classes.validateAll(files_, ct_);
+        assertTrue(!ct_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl102FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $int a:\n");
+        xml_.append(" $static {a.$static:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl103FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $int a:\n");
+        xml_.append(" $static {a.:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl104FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {$long l = 0x0x:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl105FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {$long l = 0x0x+1:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl106FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {$long l = 0x0xb.1:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl107FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0xffffffffffffffff0l:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl108FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0xffffffff0:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl109FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0xffff0xc:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl110FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0xffff0s:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl111FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final $long cst = 0xff0xb:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl112FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {a.$static:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl113FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static {a.:}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl114FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1<<<<:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl115FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1<<<:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl116FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1<<:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl117FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = $true&&:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl118FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1<:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl119FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1&:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl120FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1+:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl121FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1-:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl122FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = 1-+:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl123FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = pkg.MAX_VALUE:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl124FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = pkg:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl125FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = java.lang.Integer.MAX:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl126FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = java.lang.Integer:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl127FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = java.lang:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl128FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $static $final Object cst = java. .lang:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElSingleDot();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
@@ -3943,6 +5553,32 @@ public final class ClassesTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+    protected static ContextEl contextElSingleDot(int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setSingleInnerParts(true);
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = InitializationLgNames.buildStdOne(opt_);
+        } else {
+            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
+        }
+        return ct_;
+    }
+    protected static ContextEl contextElSingleDotDefault(int... _m) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.NONE);
+        opt_.setSingleInnerParts(true);
         ContextEl ct_;
         if (_m.length == 0) {
             ct_ = InitializationLgNames.buildStdOne(opt_);

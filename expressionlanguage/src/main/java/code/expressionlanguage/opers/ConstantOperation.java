@@ -6,7 +6,6 @@ import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.ParsedArgument;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;

@@ -1477,13 +1477,7 @@ public final class ElRenderUtilTest {
         ElRenderUtil.processEl("getOverridenOne($null)",0, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
-    @Test
-    public void processEl2FailTest() {
-        Configuration context_ = contextEl();
-        addImportingPage(context_);
-        ElRenderUtil.processEl("$(Inexistant)$null",0, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
-    }
+
     @Test
     public void processEl4FailTest() {
         Configuration context_ = contextEl();

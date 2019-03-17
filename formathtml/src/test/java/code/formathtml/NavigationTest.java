@@ -8746,7 +8746,6 @@ public class NavigationTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         nav_.getSession().setContext(context_);
         nav_.getSession().setStandards((BeanLgNames) context_.getStandards());
@@ -8758,7 +8757,6 @@ public class NavigationTest {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        opt_.setUpperLong(true);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
         conf_.setStandards((BeanLgNames) context_.getStandards());

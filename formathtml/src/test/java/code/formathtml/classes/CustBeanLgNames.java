@@ -266,6 +266,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         fields_.put(SELECTED_STRING,new StandardField(SELECTED_STRING,getAliasString(),false,false,cl_));
         fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS,getCustMap(),false,false,cl_));
         fields_.put(TREE,new StandardField(TREE,getCustMap(),false,false,cl_));
+        fields_.put(STRINGS,new StandardField(STRINGS,TYPE_STRING_LIST,false,false,cl_));
         params_ = new StringList(getAliasLong());
         method_ = new StandardMethod(GET_LIST,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);

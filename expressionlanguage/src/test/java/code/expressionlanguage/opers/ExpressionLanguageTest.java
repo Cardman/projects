@@ -5014,6 +5014,131 @@ public final class ExpressionLanguageTest {
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("java.lang.badFormat", err_.getClassName());
     }
+    @Test
+    public void processEl957Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"1.t\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl958Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\".5\")");
+        assertEq(0.5, arg_.getNumber());
+    }
+    @Test
+    public void processEl959Test() {
+        Struct arg_ = directCalculateExc("Double.parseDouble(\"\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat", err_.getClassName());
+    }
+
+    @Test
+    public void processEl960Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1\")");
+        assertEq(-1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl961Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1.5\")");
+        assertEq(-1.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl962Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1.5e1\")");
+        assertEq(-15, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl963Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1.5E1\")");
+        assertEq(-15, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl964Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-15.0e-1\")");
+        assertEq(-1.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl965Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1E1\")");
+        assertEq(-10, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl966Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-5E-1\")");
+        assertEq(-0.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl967Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1e1\")");
+        assertEq(-10, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl968Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-5e-1\")");
+        assertEq(-0.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl969Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-.5\")");
+        assertEq(-0.5, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl970Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-123456789123456789123456789.0\")");
+        assertEq(-1.2345678912345678912e26, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl971Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-0.0e-36\")");
+        assertEq(-0.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl972Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1.0\")");
+        assertEq(-1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl973Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1e-123456789123456789123\")");
+        assertEq(-0.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl974Test() {
+        Argument arg_ = directCalculate("Double.parseDouble(\"-1e123456789123456789123\")");
+        assertEq(Double.NEGATIVE_INFINITY, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl975Test() {
+        Argument arg_ = directCalculate("-0xa");
+        assertEq(-10, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl976Test() {
+        Argument arg_ = directCalculate("$new $int[ ]{2i}");
+        ArrayStruct res_ = (ArrayStruct) arg_.getStruct();
+        assertEq(ARR_INT, res_.getClassName());
+        Struct[] o_ = res_.getInstance();
+        assertEq(1, o_.length);
+        assertEq(2, ((NumberStruct) o_[0]).getInstance().intValue());
+    }
+
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

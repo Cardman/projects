@@ -4,12 +4,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -113,7 +108,7 @@ public interface Analyzable {
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
-    TypeOwnersDepends lookupImportMemberTypeDeps(String _type, AccessingImportingBlock _rooted);
+    TypeOwnersDepends lookupImportMemberTypeDeps(String _type, RootBlock _rooted);
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
     String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
 

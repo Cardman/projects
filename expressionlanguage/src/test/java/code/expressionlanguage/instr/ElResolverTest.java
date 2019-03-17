@@ -4231,6 +4231,171 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("", values_.getVal(2));
         assertEq(ElResolver.MULT_PRIO,seq_.getPriority());
     }
+
+    @Test
+    public void getOperationsSequence229Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "4. ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("4. ", values_.getVal(0));
+    }
+
+    @Test
+    public void checkSyntax230FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "0x2. ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax231FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "[";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax232FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "++";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getAllowedOperatorsIndexes().size());
+    }
+
+    @Test
+    public void checkSyntax233FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "`";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax234FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "\"\n\"";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax235FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "'\t'";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax236FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "\"\r\"";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+    @Test
+    public void checkSyntax237FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "--";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getAllowedOperatorsIndexes().size());
+    }
+
+    @Test
+    public void checkSyntax238FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "-";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getAllowedOperatorsIndexes().size());
+    }
+
+    @Test
+    public void checkSyntax239FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "+";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getAllowedOperatorsIndexes().size());
+    }
+
+    @Test
+    public void checkSyntax240FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+$)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax241FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+$(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax242FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1+$()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(5, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax243FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "(}";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax244FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "}";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(0, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax245FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "(java.lang.Object[)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(18, d_.getBadOffset());
+    }
+    @Test
+    public void checkSyntax246FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "(java.lang.Object[ )";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(19, d_.getBadOffset());
+    }
     @Test
     public void checkSyntaxDelimiters10Test() {
         ContextEl conf_ = contextEl();
@@ -4463,14 +4628,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     @Test
-    public void checkSyntax11FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "a.$static";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
     public void checkSyntax12FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
@@ -4628,14 +4785,6 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "[1";
         assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
-    }
-
-    @Test
-    public void checkSyntax32FailTest() {
-        ContextEl conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "v.";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
