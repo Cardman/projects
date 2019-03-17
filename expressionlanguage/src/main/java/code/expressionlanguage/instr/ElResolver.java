@@ -1077,14 +1077,6 @@ public final class ElResolver {
             char locChar_ = _string.charAt(i_);
             if (!StringList.isDollarWordChar(locChar_)) {
                 if (locChar_ != Templates.PREFIX_VAR_TYPE_CHAR) {
-                    if (locChar_ == DELIMITER_CHAR) {
-                        _d.setBadOffset(i_);
-                        return;
-                    }
-                    if (locChar_ == DELIMITER_STRING) {
-                        _d.setBadOffset(i_);
-                        return;
-                    }
                     int bk_ = i_;
                     boolean spaces_ = false;
                     while (Character.isWhitespace(locChar_)) {
@@ -1429,7 +1421,14 @@ public final class ElResolver {
                         }
                     }
                 }
-                if (!_d.getVariables().isEmpty() && _d.getVariables().last().getLastChar() == prIndex_) {
+                boolean apply_ = false;
+                if (!_d.getVariables().isEmpty()) {
+                    int lastChar_ = _d.getVariables().last().getLastChar();
+                    if (lastChar_ == prChar_ + 1 || lastChar_ == prIndex_) {
+                        apply_ = true;
+                    }
+                }
+                if (apply_) {
                     _d.getVariables().add(info_);
                 } else if (!look_.isEmpty()) {
                     _d.getVariables().add(info_);

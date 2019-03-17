@@ -4397,6 +4397,14 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(19, d_.getBadOffset());
     }
     @Test
+    public void checkSyntax247FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "([v )";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+    @Test
     public void checkSyntaxDelimiters10Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);

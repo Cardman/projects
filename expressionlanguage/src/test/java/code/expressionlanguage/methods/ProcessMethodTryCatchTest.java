@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.variables.VariableSuffix;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -440,7 +441,42 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, ret_.getNumber());
     }
-
+    @Test
+    public void calculateArgument630Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Out {\n");
+        xml_.append("  $public $int sum = 0:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;.;: i;++){\n");
+        xml_.append("   sum;. += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Out o = $new Out():\n");
+        xml_.append("  o;.sum = sum;.:\n");
+        xml_.append("  $throw o;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;.=4:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth(u;.):\n");
+        xml_.append("  } $catch(Out i) {\n");
+        xml_.append("   $return (i;..sum):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
     @Test
     public void calculateArgument64Test() {
         StringBuilder xml_ = new StringBuilder();
