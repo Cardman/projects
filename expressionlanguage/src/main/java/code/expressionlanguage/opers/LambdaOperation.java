@@ -20,8 +20,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -638,7 +636,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             return;
         }
         for (String o: previousResultClass.getNames()) {
-            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, false, _conf);
+            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, _conf);
             owners_.removeDuplicates();
             if (owners_.size() == 1) {
                 ownersMap_.put(o, owners_.first());

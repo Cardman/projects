@@ -336,7 +336,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public final CustList<RootBlock> getSelfAndParentTypes() {
         CustList<RootBlock> pars_ = new CustList<RootBlock>();
         RootBlock c_ = this;
-        while (c_ != null) {
+        while (true) {
             pars_.add(c_);
             if (c_.isStaticType()) {
                 break;
@@ -1103,17 +1103,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 ClassMethodId subInt_ = _localMethodIds.getVal(e.getKey());
                 String name_ = subInt_.getClassName();
                 MethodBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
-                if (sub_.isStaticMethod()) {
-                    continue;
-                }
                 String subType_ = sub_.getImportedReturnType();
                 subType_ = Templates.quickFormat(name_, subType_, _context);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
-                    if (sup_.isStaticMethod()) {
-                        continue;
-                    }
                     String formattedSup_ = Templates.quickFormat(supName_, sup_.getImportedReturnType(), _context);
                     if (!Templates.isReturnCorrect(formattedSup_, subType_,_vars, _context)) {
                         addClass(output_, e.getKey(), subInt_);
@@ -1130,9 +1124,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (!classesRef_.isCustomType(base_)) {
                     StandardType clBound_ = stds_.getStandards().getVal(base_);
                     for (StandardMethod m: clBound_.getMethods().values()) {
-                        if (m.isStaticMethod()) {
-                            continue;
-                        }
                         MethodId id_ = m.getId();
                         if (!id_.eq(cst_)) {
                             continue;
@@ -1142,9 +1133,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     continue;
                 }
                 MethodBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
-                if (sup_.isStaticMethod()) {
-                    continue;
-                }
                 if (sup_.isFinalMethod()) {
                     fClasses_.add(s);
                 }
@@ -1161,9 +1149,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
-                    if (sup_.isStaticMethod()) {
-                        continue;
-                    }
                     String formattedSup_ = Templates.quickFormat(supName_, sup_.getImportedReturnType(), _context);
                     if (!Templates.isReturnCorrect(formattedSup_, subType_,_vars, _context)) {
                         addClass(output_, e.getKey(), subInt_);
@@ -1218,9 +1203,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     continue;
                 }
                 MethodBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
-                if (sup_.isStaticMethod()) {
-                    continue;
-                }
                 if (sup_.isAbstractMethod()) {
                     aClasses_.add(s);
                 }
@@ -1236,12 +1218,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 continue;
             }
             if (fClasses_.size() > 0 && aClasses_.size() > 0) {
-                if (fClasses_.size() == 1) {
-                    String name_ = fClasses_.first().getClassName();
-                    String base_ = Templates.getIdFromAllTypes(name_);
-                    if (classes_.getClassBody(base_) instanceof ClassBlock) {
-                        continue;
-                    }
+                String name_ = fClasses_.first().getClassName();
+                String base_ = Templates.getIdFromAllTypes(name_);
+                if (classes_.getClassBody(base_) instanceof ClassBlock) {
+                    continue;
                 }
                 for (ClassMethodId c: fClasses_) {
                     addClass(output_, cst_, c);
@@ -1260,9 +1240,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
                     MethodBlock sup_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
-                    if (sup_.isStaticMethod()) {
-                        continue;
-                    }
                     String supType_ = sup_.getImportedReturnType();
                     String formattedSupType_ = Templates.quickFormat(s_, supType_, _context);
                     if (!Templates.isReturnCorrect(formattedSupType_,subType_,_vars,_context)) {
@@ -1285,9 +1262,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (ClassMethodId f: e.getValue()) {
                 String f_ = f.getClassName();
                 MethodBlock method_ = Classes.getMethodBodiesById(_context, f_, f.getConstraints()).first();
-                if (method_.isStaticMethod()) {
-                    continue;
-                }
                 if (!Classes.canAccess(_fullName, method_, _context)) {
                     continue;
                 }

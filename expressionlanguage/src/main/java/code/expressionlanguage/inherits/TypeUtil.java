@@ -76,15 +76,6 @@ public final class TypeUtil {
                 _context.getAnalyzing().setOffset(offset_);
                 base_ = _context.resolveAccessibleIdType(base_);
                 RootBlock r_ = classes_.getClassBody(base_);
-                if (r_ == null) {
-                    UnknownClassName undef_;
-                    undef_ = new UnknownClassName();
-                    undef_.setClassName(base_);
-                    undef_.setFileName(d_);
-                    undef_.setIndexFile(_context.getCurrentLocationIndex());
-                    classes_.addError(undef_);
-                    continue;
-                }
                 if (!(r_ instanceof InterfaceBlock)) {
                     BadInheritedClass enum_;
                     enum_ = new BadInheritedClass();
@@ -256,9 +247,7 @@ public final class TypeUtil {
             err_ = new BadReturnTypeInherit();
             err_.setFileName(fileName_);
             GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
-            if (sub_ instanceof MethodBlock) {
-                err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
-            }
+            err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
             err_.setReturnType(sub_.getImportedReturnType());
             err_.setMethod(c.getConstraints());
             err_.setParentClass(c.getClassName());
@@ -394,9 +383,7 @@ public final class TypeUtil {
                         FinalMethod err_;
                         err_ = new FinalMethod();
                         err_.setFileName(fileName_);
-                        if (sub_ instanceof MethodBlock) {
-                            err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
-                        }
+                        err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
                         err_.setClassName(subId_.getClassName());
                         err_.setId(sub_.getId());
                         classesRef_.addError(err_);
@@ -406,9 +393,7 @@ public final class TypeUtil {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(fileName_);
-                        if (sub_ instanceof MethodBlock) {
-                            err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
-                        }
+                        err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
                         err_.setId(sub_.getId());
                         classesRef_.addError(err_);
                         continue;
@@ -417,9 +402,7 @@ public final class TypeUtil {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(fileName_);
-                        if (sub_ instanceof MethodBlock) {
-                            err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
-                        }
+                        err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
                         err_.setMethod(sub_.getId());
                         err_.setParentClass(supId_.getClassName());
@@ -676,11 +659,7 @@ public final class TypeUtil {
                     continue;
                 }
                 for (String t: sub_.getImportedDirectBaseSuperTypes()) {
-                    if (visited_.containsStr(t)) {
-                        continue;
-                    }
-                    visited_.add(t);
-                    new_.add(t);
+                    addIfNotFound(visited_, new_, t);
                 }
             }
             if (new_.isEmpty()) {
@@ -691,7 +670,7 @@ public final class TypeUtil {
         owners_.removeDuplicates();
         return owners_;
     }
-    public static StringList getGenericOwners(boolean _inherits,boolean _protectedInc,String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
+    public static StringList getGenericOwners(boolean _inherits, boolean _protectedInc, String _gl, String _root, String _innerName, Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -706,11 +685,6 @@ public final class TypeUtil {
                 RootBlock sub_ = (RootBlock)g_;
                 boolean add_ = false;
                 for (RootBlock b: Classes.accessedClassMembers(_inherits, _protectedInc, _root,_gl,sub_, _an)) {
-                    if (_staticOnly) {
-                        if (!b.isStaticType()) {
-                            continue;
-                        }
-                    }
                     String name_ = b.getName();
                     if (StringList.quickEq(name_, _innerName)) {
                         owners_.add(s);
@@ -722,11 +696,7 @@ public final class TypeUtil {
                 }
                 for (String t: sub_.getDirectGenericSuperTypes(_an)) {
                     String format_ = Templates.quickFormat(s, t, _an);
-                    if (visited_.containsStr(format_)) {
-                        continue;
-                    }
-                    visited_.add(format_);
-                    new_.add(format_);
+                    addIfNotFound(visited_, new_, format_);
                 }
             }
             if (new_.isEmpty()) {
@@ -737,6 +707,15 @@ public final class TypeUtil {
         owners_.removeDuplicates();
         return owners_;
     }
+
+    private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
+        if (_visited.containsStr(_format)) {
+            return;
+        }
+        _visited.add(_format);
+        _new.add(_format);
+    }
+
     public static TypeOwnersDepends getOwnersDepends(boolean _protectedInc,String _gl, String _root, String _innerName, Analyzable _an) {
         TypeOwnersDepends out_ = new TypeOwnersDepends();
         StringList ids_ = new StringList(_root);
@@ -766,11 +745,7 @@ public final class TypeUtil {
                     depends_.add(s);
                 }
                 for (String t: sub_.getImportedDirectBaseSuperTypes()) {
-                    if (visited_.containsStr(t)) {
-                        continue;
-                    }
-                    visited_.add(t);
-                    new_.add(t);
+                    addIfNotFound(visited_, new_, t);
                 }
             }
             if (new_.isEmpty()) {

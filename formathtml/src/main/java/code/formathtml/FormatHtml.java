@@ -10,16 +10,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.ExecInvokingOperation;
@@ -4499,11 +4490,39 @@ public final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
-            lv_.setStruct(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()));
+            lv_.setStruct(convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.getContext()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
-
+    public static Struct convert(String _toClass, long _arg, ContextEl _context) {
+        return convert(_toClass, _arg, _context.getStandards());
+    }
+    private static Struct convert(String _toClass, long _arg, LgNames _stds) {
+        ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(class_, _stds);
+        if (prim_.matchClass(_stds.getAliasPrimDouble())) {
+            return new DoubleStruct(_arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimFloat())) {
+            return new FloatStruct(_arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimLong())) {
+            return new LongStruct(_arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimInteger())) {
+            return new IntStruct((int) _arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimChar())) {
+            return new CharStruct((char)_arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimShort())) {
+            return new ShortStruct((short) _arg);
+        }
+        if (prim_.matchClass(_stds.getAliasPrimByte())) {
+            return new ByteStruct((byte) _arg);
+        }
+        return NullStruct.NULL_VALUE;
+    }
     private static void removeVarAndLoop(Configuration _conf, Element _forLoop, StringMap<LoopVariable> _vars) {
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
@@ -4738,9 +4757,9 @@ public final class FormatHtml {
                 return;
             }
             realFromValue_ = argFrom_.getLong();
-            fromValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, realFromValue_, _conf.getContext())).getInstance().longValue();
-            long toValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argTo_.getLong(), _conf.getContext())).getInstance().longValue();
-            stepValue_ = ((NumberStruct)PrimitiveTypeUtil.convert(primLong_, argStep_.getLong(), _conf.getContext())).getInstance().longValue();
+            fromValue_ = ((NumberStruct)convert(primLong_, realFromValue_, _conf.getContext())).getInstance().longValue();
+            long toValue_ = ((NumberStruct)convert(primLong_, argTo_.getLong(), _conf.getContext())).getInstance().longValue();
+            stepValue_ = ((NumberStruct)convert(primLong_, argStep_.getLong(), _conf.getContext())).getInstance().longValue();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4886,7 +4905,7 @@ public final class FormatHtml {
             className_ = rest_;
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
-            lv_.setStruct(PrimitiveTypeUtil.convert(className_, int_, _conf.getContext()));
+            lv_.setStruct(convert(className_, int_, _conf.getContext()));
             lv_.setStep(stepValue_);
             varsLoop_.put(var_, lv_);
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {

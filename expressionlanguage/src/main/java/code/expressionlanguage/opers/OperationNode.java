@@ -1104,10 +1104,8 @@ public abstract class OperationNode implements Operable {
         StringMap<StringList> map_;
         map_ = _conf.getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
-        _conf.setAmbigous(false);
         MethodInfo found_ = sortFct(signatures_, gr_);
         if (found_ == null) {
-            _conf.setAmbigous(!signatures_.isEmpty());
             return new ClassMethodIdReturn(false);
         }
         MethodId constraints_ = found_.getConstraints();

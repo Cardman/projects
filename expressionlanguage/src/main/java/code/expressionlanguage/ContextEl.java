@@ -836,11 +836,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public void setAmbigous(boolean _ambigous) {
-        analyzing.setAmbigous(_ambigous);
-    }
-
-    @Override
     public LgNames getStandards() {
         return standards;
     }

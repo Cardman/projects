@@ -9,7 +9,6 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -253,7 +252,7 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             Classes classes_ = _an.getClasses();
             String type_ = getTypeName();
-            StringList foundOwners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, owner_, type_, false, _an);
+            StringList foundOwners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, owner_, type_, _an);
             if (foundOwners_.size() == 1) {
                 String id_ = Templates.getIdFromAllTypes(foundOwners_.first());
                 String in_ = StringList.concat(id_,"..",type_);
@@ -337,7 +336,7 @@ final class NamePartType extends LeafPartType {
         if (i_ == null || i_.getParent() == null) {
             if (ancestorIndex_ != -1) {
                 String a_ = allAncestors_.get(ancestorIndex_);
-                StringList owners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, a_, type_, false, _an);
+                StringList owners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, a_, type_, _an);
                 String newId_ = Templates.getIdFromAllTypes(owners_.first());
                 String f_ = Templates.quickFormat(_globalType, a_, _an);
                 String in_ = StringList.concat(newId_,"..",type_);
@@ -354,7 +353,7 @@ final class NamePartType extends LeafPartType {
             }
         }
         for (String a: allAncestors_) {
-            StringList owners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, a, type_, false, _an);
+            StringList owners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, a, type_, _an);
             if (owners_.size() == 1) {
                 String f_ = Templates.quickFormat(_globalType, a, _an);
                 String newId_ = Templates.getIdFromAllTypes(owners_.first());
@@ -411,7 +410,7 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             Classes classes_ = _an.getClasses();
             String type_ = getTypeName();
-            StringList foundOwners_ = TypeUtil.getGenericOwners(false, true, _globalType, owner_, type_, false, _an);
+            StringList foundOwners_ = TypeUtil.getGenericOwners(false, true, _globalType, owner_, type_, _an);
             if (foundOwners_.size() == 1) {
                 String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
                 String in_ = StringList.concat(idOwner_,"..",type_);
@@ -573,7 +572,7 @@ final class NamePartType extends LeafPartType {
                 p_ = p_.getParentType();
             }
             for (String a: allAncestors_) {
-                StringList owners_ = TypeUtil.getGenericOwners(false, true, _globalType, a, type_, false, _an);
+                StringList owners_ = TypeUtil.getGenericOwners(false, true, _globalType, a, type_, _an);
                 if (owners_.size() == 1) {
                     String genStr_ = owners_.first();
                     String id_ = Templates.getIdFromAllTypes(genStr_);

@@ -10,7 +10,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
@@ -689,11 +688,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setStaticContext(boolean _staticContext) {
         staticContext = _staticContext;
-    }
-
-    @Override
-    public void setAmbigous(boolean _ambigous) {
-        ambigous = _ambigous;
     }
 
     @Override

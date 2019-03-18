@@ -44,8 +44,6 @@ public final class AnalyzedPageEl {
     private int translatedOffset;
     private int indexChildType;
 
-    private boolean ambigous;
-
     private boolean merged;
     private boolean finalVariable;
     private String currentVarSetting;
@@ -336,14 +334,6 @@ public final class AnalyzedPageEl {
         indexChildType = _indexChildType;
     }
 
-    public boolean isAmbigous() {
-        return ambigous;
-    }
-
-    public void setAmbigous(boolean _ambigous) {
-        ambigous = _ambigous;
-    }
-
     public boolean isMerged() {
         return merged;
     }
@@ -366,10 +356,6 @@ public final class AnalyzedPageEl {
 
     public void setCurrentVarSetting(String _currentVarSetting) {
         currentVarSetting = _currentVarSetting;
-    }
-
-    public int getGlobalOffset() {
-        return globalOffset;
     }
 
     public AssignedVariablesBlock getAssignedVariables() {

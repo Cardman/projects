@@ -3,11 +3,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
@@ -120,7 +118,7 @@ public final class StandardInstancingOperation extends
             }
         }
         for (String o: arg_.getNames()) {
-            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, false, _conf);
+            StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, _conf);
             owners_.removeDuplicates();
             if (owners_.size() == 1) {
                 ownersMap_.put(o, owners_.first());

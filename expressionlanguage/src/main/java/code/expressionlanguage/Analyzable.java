@@ -72,7 +72,6 @@ public interface Analyzable {
     GeneType getClassBody(String _type);
     CustList<GeneType> getClassBodies();
 
-    void setAmbigous(boolean _ambigous);
     ClassMetaInfo getExtendedClassMetaInfo(String _name);
     ClassMetaInfo getClassMetaInfo(String _name);
     FieldInfo getFieldInfo(ClassField _classField);

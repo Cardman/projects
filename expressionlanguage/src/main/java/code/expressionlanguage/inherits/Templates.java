@@ -272,15 +272,12 @@ public final class Templates {
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseSubType_);
         String compo_ = dc_.getComponent();
-        GeneType inf_ = _context.getClassBody(compo_);
-        String geneSubType_;
-        String subType_;
-        if (inf_ != null) {
-            geneSubType_ = inf_.getGenericString();
-        } else {
-            geneSubType_ = PrimitiveTypeUtil.toWrapper(compo_,_context.getStandards());
+        if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+            return _superType;
         }
-        subType_ = PrimitiveTypeUtil.getPrettyArrayType(geneSubType_, dc_.getDim());
+        GeneType inf_ = _context.getClassBody(compo_);
+        String geneSubType_ = inf_.getGenericString();
+        String subType_ = PrimitiveTypeUtil.getPrettyArrayType(geneSubType_, dc_.getDim());
         StringList curClasses_ = new StringList(subType_);
         String generic_ = null;
         if (StringList.quickEq(_subType, _superType)) {
