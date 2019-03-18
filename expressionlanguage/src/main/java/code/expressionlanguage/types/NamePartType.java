@@ -93,22 +93,6 @@ final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (parts_.size() > 1) {
-                String p_ = parts_.last().trim();
-                if (_an.getStandards().getStandards().contains(p_)) {
-                    setAnalyzedType(p_);
-                    return;
-                }
-                String out_ = _an.getStandards().getAliasObject();
-                setAnalyzedType(out_);
-                _an.getCurrentBadIndexes().add(getIndexInType());
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -119,8 +103,9 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                String base_ = prev_.getAnalyzedType();
+                base_ = Templates.getIdFromAllTypes(base_);
                 if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                     return;
@@ -297,14 +282,6 @@ final class NamePartType extends LeafPartType {
             analyzeFullType(_an, _rooted, type_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (processKeywordLang(_an, parts_)) {
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -464,14 +441,6 @@ final class NamePartType extends LeafPartType {
             analyzeFullType(_an, _rooted, type_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (processKeywordLang(_an, parts_)) {
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -546,14 +515,6 @@ final class NamePartType extends LeafPartType {
             analyzeFullType(_an, _rooted, type_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (processKeywordLang(_an, parts_)) {
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -582,19 +543,6 @@ final class NamePartType extends LeafPartType {
             base_ = Templates.getIdFromAllTypes(base_);
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
-                return true;
-            }
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean processKeywordLang(Analyzable _an, StringList _parts) {
-        if (_parts.size() > 1) {
-            String p_ = _parts.last().trim();
-            if (_an.getStandards().getStandards().contains(p_)) {
-                setAnalyzedType(p_);
                 return true;
             }
             _an.getCurrentBadIndexes().add(getIndexInType());
@@ -725,19 +673,6 @@ final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        KeyWords keyWords_ = _an.getKeyWords();
-        String keyWordLang_ = keyWords_.getKeyWordLang();
-        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
-            if (parts_.size() > 1) {
-                String p_ = parts_.last().trim();
-                if (_an.getStandards().getStandards().contains(p_)) {
-                    setAnalyzedType(p_);
-                    return;
-                }
-                return;
-            }
-        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -789,9 +724,7 @@ final class NamePartType extends LeafPartType {
                 while (f_.getFirstChild() != null) {
                     f_ = f_.getFirstChild();
                 }
-                if (f_ instanceof LeafPartType) {
-                    pr_.add(((LeafPartType)f_).exportHeader());
-                }
+                pr_.add(((LeafPartType)f_).exportHeader());
                 part_ = part_.getPreviousSibling();
             }
             pr_ = pr_.getReverse();

@@ -1625,7 +1625,7 @@ public final class Classes {
                 }
             }
         }
-        page_.setAssignedStaticFields(true);
+        _context.setAssignedStaticFields(true);
         for (RootBlock c: getClassBodies(_predefined)) {
             page_.setImporting(c);
             String fullName_ = c.getFullName();
@@ -1794,7 +1794,7 @@ public final class Classes {
                 }
             }
         }
-        page_.setAssignedFields(true);
+        _context.setAssignedFields(true);
         AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
         asBlock_.getFinalVariablesGlobal().getFields().clear();
         asBlock_.getFinalVariablesGlobal().getFieldsRoot().clear();

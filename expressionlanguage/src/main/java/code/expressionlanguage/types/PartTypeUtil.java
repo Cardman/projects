@@ -12,6 +12,7 @@ import code.util.StringList;
 
 public final class PartTypeUtil {
 
+    private PartTypeUtil() {}
     public static StringList processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);

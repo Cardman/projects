@@ -30,12 +30,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class TypeUtil {
 
@@ -407,7 +402,7 @@ public final class TypeUtil {
                         classesRef_.addError(err_);
                         continue;
                     }
-                    if (sub_.getAccess().ordinal() > sup_.getAccess().ordinal()) {
+                    if (sup_.getAccess().isStrictMoreAccessibleThan(sub_.getAccess())) {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(fileName_);
@@ -493,81 +488,12 @@ public final class TypeUtil {
             if (!c.mustImplement()) {
                 continue;
             }
-            if (c instanceof EnumBlock) {
-                String en_ = _conf.getStandards().getAliasEnum();
-                if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
-                    eq_.put(name_, new ClassMethodId(en_, _realId));
-                    continue;
-                }
-            }
-            //c is a concrete sub type of type input
-            GeneClass subClassBlock_ = (GeneClass) c;
-            StringList allBaseClasses_ = new StringList(name_);
-            allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
-            boolean foundConcrete_ = false;
-            for (String s: allBaseClasses_) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
-                    continue;
-                }
-                GeneClass r_ = (GeneClass) _conf.getClassBody(s);
-                //r_, as super class of c, is a sub type of type input
-                String gene_ = r_.getGenericString();
-                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
-                MethodId l_ = _realId.quickFormat(v_, _conf);
-                ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
-                if (!ov_.contains(l_)) {
-                    continue;
-                }
-                //r_ inherit the formatted method
-                boolean found_ = false;
-                StringList foundSuperClasses_ = new StringList();
-                StringList allSuperClasses_ = new StringList(gene_);
-                for (String t: r_.getAllSuperClasses()) {
-                    allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, _conf));
-                }
-                EqList<ClassMethodId> list_ = ov_.getVal(l_);
-                //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
-                for (ClassMethodId t: list_) {
-                    String t_ = t.getClassName();
-                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-                    if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
-                        found_ = true;
-                    }
-                    if (_conf.getClassBody(baseSuperType_) instanceof GeneInterface) {
-                        continue;
-                    }
-                    foundSuperClasses_.add(t_);
-                }
-                if (!found_) {
-                    continue;
-                }
-                String classNameFound_;
-                MethodId realId_;
-                foundSuperClasses_.sortElts(new ComparingByTypeList(allSuperClasses_));
-                if (foundSuperClasses_.isEmpty()) {
-                    continue;
-                }
-                classNameFound_ = foundSuperClasses_.first();
-                int i_ = 0;
-                while (true) {
-                    ClassMethodId methId_ = list_.get(i_);
-                    if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
-                        realId_ = methId_.getConstraints();
-                        break;
-                    }
-                    i_++;
-                }
-                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-                if (_conf.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
-                    continue;
-                }
-                foundConcrete_ = true;
-                eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
-                break;
-            }
-            if (foundConcrete_) {
+            ClassMethodId f_ = tryGetUniqueId(baseClassFound_, c, _realId, _conf);
+            if (f_ != null) {
+                eq_.put(name_, f_);
                 continue;
             }
+            GeneClass subClassBlock_ = (GeneClass) c;
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
             for (String s: subClassBlock_.getAllInterfaces()) {
@@ -580,16 +506,12 @@ public final class TypeUtil {
                 String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
                 MethodId l_ = _realId.quickFormat(v_, _conf);
                 ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
-                if (!ov_.contains(l_)) {
-                    continue;
-                }
                 //r_ inherit the formatted method
                 EqList<ClassMethodId> foundSuperClasses_ = new EqList<ClassMethodId>();
                 boolean found_ = false;
-                EqList<ClassMethodId> list_ = ov_.getVal(l_);
                 //if the overridden types contain the type input, then retrieve the sub types of the input type
                 //(which are super types of r_)
-                for (ClassMethodId t: list_) {
+                for (ClassMethodId t: getList(ov_,l_)) {
                     String t_ = t.getClassName();
                     String baseSuperType_ = Templates.getIdFromAllTypes(t_);
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
@@ -643,6 +565,72 @@ public final class TypeUtil {
             }
         }
         return eq_;
+    }
+    public static ClassMethodId tryGetUniqueId(String _subTypeName,GeneType _type,MethodId _realId, ContextEl _conf) {
+        String name_ = _type.getFullName();
+        if (_type instanceof EnumBlock) {
+            String en_ = _conf.getStandards().getAliasEnum();
+            if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
+                return new ClassMethodId(en_, _realId);
+            }
+        }
+        //c is a concrete sub type of type input
+        GeneClass subClassBlock_ = (GeneClass) _type;
+        StringList allBaseClasses_ = new StringList(name_);
+        allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
+        for (String s: allBaseClasses_) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(_subTypeName, s, _conf)) {
+                continue;
+            }
+            GeneClass r_ = (GeneClass) _conf.getClassBody(s);
+            //r_, as super class of c, is a sub type of type input
+            String gene_ = r_.getGenericString();
+            String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
+            MethodId l_ = _realId.quickFormat(v_, _conf);
+            ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+            //r_ inherit the formatted method
+            boolean found_ = false;
+            StringList allSuperClasses_ = new StringList(gene_);
+            for (String t: r_.getAllSuperClasses()) {
+                allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, _conf));
+            }
+            TreeMap<String,MethodId> tree_ = new TreeMap<String,MethodId>(new ComparingByTypeList(allSuperClasses_));
+            //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
+            for (ClassMethodId t: getList(ov_,l_)) {
+                String t_ = t.getClassName();
+                String baseSuperType_ = Templates.getIdFromAllTypes(t_);
+                if (StringList.quickEq(baseSuperType_, _subTypeName)) {
+                    found_ = true;
+                }
+                if (_conf.getClassBody(baseSuperType_) instanceof GeneInterface) {
+                    continue;
+                }
+                tree_.put(t_,t.getConstraints());
+            }
+            if (!found_) {
+                continue;
+            }
+            String classNameFound_;
+            MethodId realId_;
+            if (tree_.isEmpty()) {
+                continue;
+            }
+            classNameFound_ = tree_.firstKey();
+            realId_ = tree_.firstValue();
+            classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+            if (_conf.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
+                continue;
+            }
+            return new ClassMethodId(classNameFound_, realId_);
+        }
+        return null;
+    }
+    private static EqList<ClassMethodId> getList( ObjectMap<MethodId, EqList<ClassMethodId>> _list, MethodId _id) {
+        EqList<ClassMethodId> out_ = _list.getVal(_id);
+        if (out_ == null) {
+            return new EqList<ClassMethodId>();
+        }
+        return out_;
     }
 
     public static StringList getBuiltInners(boolean _protectedInc,String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {

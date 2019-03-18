@@ -4,7 +4,11 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultInitializer;
+import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -95,7 +99,10 @@ public final class ReadConfiguration {
             }
         }
         if (!found_) {
-            ContextEl context_ = new SingleContextEl(stds_);
+            DefaultLockingClass lk_ = new DefaultLockingClass();
+            DefaultInitializer di_ = new DefaultInitializer();
+            KeyWords kw_ = new KeyWords();
+            ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), kw_, stds_,4);
             context_.getOptions().setEndLineSemiColumn(false);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);
@@ -103,7 +110,10 @@ public final class ReadConfiguration {
         }
     }
     static ContextEl loadContext(Element _elt, LgNames _stds) {
-        ContextEl context_ = new SingleContextEl(_stds);
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), kw_, _stds,4);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {

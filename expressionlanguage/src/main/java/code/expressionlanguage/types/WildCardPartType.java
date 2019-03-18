@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
@@ -57,7 +58,8 @@ final class WildCardPartType extends ParentPartType {
             return;
         }
         PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
+        String base_ = prev_.getAnalyzedType();
+        base_ = Templates.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
@@ -79,7 +81,8 @@ final class WildCardPartType extends ParentPartType {
             return;
         }
         PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
+        String base_ = prev_.getAnalyzedType();
+        base_ = Templates.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
@@ -99,7 +102,8 @@ final class WildCardPartType extends ParentPartType {
             return;
         }
         PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
+        String base_ = prev_.getAnalyzedType();
+        base_ = Templates.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
@@ -117,7 +121,8 @@ final class WildCardPartType extends ParentPartType {
             return;
         }
         PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
+        String base_ = prev_.getAnalyzedType();
+        base_ = Templates.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             return;
         }

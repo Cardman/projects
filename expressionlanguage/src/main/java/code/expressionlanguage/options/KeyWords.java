@@ -7,7 +7,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class KeyWords {
-    private String keyWordLang = "$lang";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";
     private String keyWordPublic = "$public";
@@ -392,7 +391,6 @@ public final class KeyWords {
     public StringList allKeyWords() {
         StringList keyWords_ = new StringList();
         keyWords_.add(keyWordVar);
-        keyWords_.add(keyWordLang);
         keyWords_.add(keyWordInterfaces);
         keyWords_.add(keyWordPublic);
         keyWords_.add(keyWordPackage);
@@ -542,12 +540,6 @@ public final class KeyWords {
         return list_.first();
     }
 
-    public String getKeyWordLang() {
-        return keyWordLang;
-    }
-    public void setKeyWordLang(String _keyWordLang) {
-        keyWordLang = _keyWordLang;
-    }
     public String getKeyWordVar() {
         return keyWordVar;
     }

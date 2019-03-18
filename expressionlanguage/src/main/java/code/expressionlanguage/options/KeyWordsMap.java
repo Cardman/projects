@@ -83,8 +83,6 @@ public final class KeyWordsMap {
         fr_.setKeyWordIter("iter");
         en_.setKeyWordLambda("$lambda");
         fr_.setKeyWordLambda("$lambda");
-        en_.setKeyWordLang("$lang");
-        fr_.setKeyWordLang("$langue");
         en_.setKeyWordNbBin("b");
         fr_.setKeyWordNbBin("b");
         en_.setKeyWordNbExpBin("p");

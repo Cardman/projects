@@ -846,11 +846,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public int getGlobalOffset() {
-        return context.getGlobalOffset();
-    }
-
-    @Override
     public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
         return context.getExtendedClassMetaInfo(_name);
     }

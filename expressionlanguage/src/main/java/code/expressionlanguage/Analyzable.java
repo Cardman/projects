@@ -60,7 +60,7 @@ public interface Analyzable {
     boolean isEnabledInternVars();
     StringMap<LocalVariable> getInternVars();
     int getOffset();
-    int getGlobalOffset();
+
 
     void setAnalyzedOffset(int _offset);
 

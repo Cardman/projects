@@ -4,18 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.AbstractMethod;
-import code.expressionlanguage.errors.custom.BadIndexInParser;
-import code.expressionlanguage.errors.custom.BadMethodName;
-import code.expressionlanguage.errors.custom.BadParamName;
-import code.expressionlanguage.errors.custom.CyclicInheritingGraph;
-import code.expressionlanguage.errors.custom.DuplicateConstructor;
-import code.expressionlanguage.errors.custom.DuplicateField;
-import code.expressionlanguage.errors.custom.DuplicateMethod;
-import code.expressionlanguage.errors.custom.DuplicateParamName;
-import code.expressionlanguage.errors.custom.IncompatibilityReturnType;
-import code.expressionlanguage.errors.custom.UndefinedSuperConstructor;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.ComparingByTypeList;
@@ -258,23 +247,69 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public StringList getImportedDirectBaseSuperTypes() {
         return importedDirectBaseSuperTypes;
     }
-    public final AccessEnum getMaximumAccessConstructors() {
-        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof ConstructorBlock) {
-                ctors_.add((ConstructorBlock) b);
+    protected void checkAccess(ContextEl _context) {
+        useSuperTypesOverrides(_context);
+        Classes classesRef_ = _context.getClasses();
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allGenericSuperTypes) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            if (classesRef_.getClassBody(base_) instanceof ClassBlock) {
+                allGenericSuperClasses_.add(s);
             }
         }
-        if (ctors_.isEmpty()) {
-            return getAccess();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        for (TypeVar t: getParamTypesMapValues()) {
+            vars_.put(t.getName(), t.getConstraints());
         }
-        AccessEnum a_ = AccessEnum.PRIVATE;
-        for (ConstructorBlock c: ctors_) {
-            if (c.getAccess().ordinal() < a_.ordinal()) {
-                a_ = c.getAccess();
+        String gene_ = getGenericString();
+        StringList classes_ = new StringList(gene_);
+        classes_.addAllElts(allGenericSuperClasses_);
+        for (EntryCust<MethodId, EqList<ClassMethodId>> e: allOverridingMethods.entryList()) {
+            CustList<ClassMethodId> locGeneInt_ = new CustList<ClassMethodId>();
+            CustList<ClassMethodId> locGeneCl_ = new CustList<ClassMethodId>();
+            for (ClassMethodId c: e.getValue()) {
+                String base_ = Templates.getIdFromAllTypes(c.getClassName());
+                RootBlock r_ = classesRef_.getClassBody(base_);
+                if (r_ instanceof InterfaceBlock) {
+                    locGeneInt_.add(c);
+                }
+                if (r_ instanceof ClassBlock) {
+                    locGeneCl_.add(c);
+                }
+            }
+            for (ClassMethodId i: locGeneInt_) {
+                String name_ = i.getClassName();
+                MethodId id_ = i.getConstraints();
+                GeneMethod supInt_ = _context.getMethodBodiesById(name_, id_).first();
+                for (ClassMethodId c: locGeneCl_) {
+                    String nameCl_ = c.getClassName();
+                    MethodId idCl_ = c.getConstraints();
+                    GeneMethod supCl_ = _context.getMethodBodiesById(nameCl_, idCl_).first();
+                    if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
+                        BadAccessMethod err_;
+                        err_ = new BadAccessMethod();
+                        err_.setFileName(getFile().getFileName());
+                        err_.setIndexFile(((MethodBlock)supCl_).getAccessOffset());
+                        err_.setId(supInt_.getId());
+                        classesRef_.addError(err_);
+                    }
+                    String retInt_ = supInt_.getImportedReturnType();
+                    String retBase_ = supCl_.getImportedReturnType();
+                    String formattedRetDer_ = Templates.quickFormat(nameCl_, retBase_, _context);
+                    String formattedRetBase_ = Templates.quickFormat(name_, retInt_, _context);
+                    if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
+                        BadReturnTypeInherit err_;
+                        err_ = new BadReturnTypeInherit();
+                        err_.setFileName(getFile().getFileName());
+                        err_.setIndexFile(((MethodBlock)supCl_).getReturnTypeOffset());
+                        err_.setReturnType(retBase_);
+                        err_.setMethod(supCl_.getId());
+                        err_.setParentClass(nameCl_);
+                        classesRef_.addError(err_);
+                    }
+                }
             }
         }
-        return a_;
     }
     public final RootBlock getParentType() {
         BracedBlock p_ = getParent();
@@ -749,25 +784,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
             for (String c: upper_) {
                 String base_ = Templates.getIdFromAllTypes(c);
-                if (classesRef_.isCustomType(base_)) {
-                    RootBlock r_ = classesRef_.getClassBody(base_);
+                RootBlock r_ = classesRef_.getClassBody(base_);
+                if (r_ != null) {
                     for (EntryCust<MethodId, EqList<ClassMethodId>> e: r_.getAllOverridingMethods().entryList()) {
                         for (ClassMethodId s: e.getValue()) {
                             String c_ = s.getClassName();
-                            MethodBlock m_ = Classes.getMethodBodiesById(_context, c_, s.getConstraints()).first();
-                            if (!Classes.canAccess(getFullName(), m_, _context)) {
+                            String formattedType_ = Templates.format(c, c_, _context);
+                            if (formattedType_ == null) {
                                 continue;
                             }
-                            if (m_.isStaticMethod()) {
+                            MethodBlock m_ = Classes.getMethodBodiesById(_context, c_, s.getConstraints()).first();
+                            if (!Classes.canAccess(getFullName(), m_, _context)) {
                                 continue;
                             }
                             MethodId id_ =  m_.getWildCardFormattedId(c, _context);
                             if (id_ == null) {
                                 //the method is never callable
-                                continue;
-                            }
-                            String formattedType_ = Templates.format(c, c_, _context);
-                            if (formattedType_ == null) {
                                 continue;
                             }
                             addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId()));
@@ -1026,72 +1058,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (!c.mustImplement()) {
                 continue;
             }
-            if (c instanceof EnumBlock) {
-                String en_ = _conf.getStandards().getAliasEnum();
-                if (!_conf.getMethodBodiesById(en_, _realId).isEmpty()) {
-                    eq_.put(name_, new ClassMethodId(en_, _realId));
-                    continue;
-                }
-            }
-            UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(name_);
-            StringList allBaseClasses_ = new StringList(name_);
-            allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
-            for (String s: allBaseClasses_) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
-                    continue;
-                }
-                UniqueRootedBlock r_ = (UniqueRootedBlock) classes_.getClassBody(s);
-                String gene_ = r_.getGenericString();
-                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
-                MethodId l_ = _realId.quickFormat(v_, _conf);
-                ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
-                if (!ov_.contains(l_)) {
-                    continue;
-                }
-                boolean found_ = false;
-                StringList foundSuperClasses_ = new StringList();
-                StringList allSuperClasses_ = new StringList(gene_);
-                for (String t: r_.getAllSuperClasses()) {
-                    allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, _conf));
-                }
-                EqList<ClassMethodId> list_ = ov_.getVal(l_);
-                //pkg.ExTwo & pkg.Int3
-                for (ClassMethodId t: list_) {
-                    String t_ = t.getClassName();
-                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-                    if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
-                        found_ = true;
-                    }
-                    if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
-                        continue;
-                    }
-                    foundSuperClasses_.add(t_);
-                }
-                if (!found_) {
-                    continue;
-                }
-                String classNameFound_;
-                MethodId realId_;
-                foundSuperClasses_.sortElts(new ComparingByTypeList(allSuperClasses_));
-                if (foundSuperClasses_.isEmpty()) {
-                    continue;
-                }
-                classNameFound_ = foundSuperClasses_.first();
-                int i_ = 0;
-                while (true) {
-                    ClassMethodId methId_ = list_.get(i_);
-                    if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
-                        realId_ = methId_.getConstraints();
-                        break;
-                    }
-                    i_++;
-                }
-                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-                if (Classes.getMethodBodiesById(_conf, classNameFound_, realId_).first().isAbstractMethod()) {
-                    continue;
-                }
-                eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
-                break;
+            ClassMethodId f_ = TypeUtil.tryGetUniqueId(baseClassFound_, c, _realId, _conf);
+            if (f_ != null) {
+                eq_.put(name_, f_);
             }
         }
         return eq_;

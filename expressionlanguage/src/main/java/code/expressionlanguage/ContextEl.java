@@ -98,7 +98,7 @@ import code.util.graphs.SortedGraph;
 
 public abstract class ContextEl implements ExecutableCode {
 
-    static final int DEFAULT_TAB_WIDTH = 4;
+    private static final int DEFAULT_TAB_WIDTH = 4;
     private static final String EMPTY_TYPE = "";
     private static final String EMPTY_PREFIX = "";
 
@@ -138,14 +138,6 @@ public abstract class ContextEl implements ExecutableCode {
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
-
-    public ContextEl(LgNames _stds, int _tabWitdth) {
-        this(CustList.INDEX_NOT_FOUND_ELT, _stds, _tabWitdth);
-    }
-
-    public ContextEl(int _stackOverFlow, LgNames _stds, int _tabWitdth) {
-        this(_stackOverFlow, new DefaultLockingClass(), new Options(),new KeyWords(),_stds, _tabWitdth);
-    }
 
     public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
@@ -1202,15 +1194,7 @@ public abstract class ContextEl implements ExecutableCode {
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = Templates.getIdFromAllTypes(_fromType);
-        RootBlock from_ = classes.getClassBody(idFromType_);
-        if (from_ == null) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName(bl_.getFile().getFileName());
-            un_.setIndexFile(rc_);
-            un_.setType(_in);
-            classes.addError(un_);
-            return standards.getAliasObject();
-        }
+        GeneType from_ = getClassBody(idFromType_);
         for (TypeVar t: from_.getParamTypesMapValues()) {
             varsList_.add(t.getName());
             vars_.put(t.getName(), t.getConstraints());
@@ -1251,26 +1235,9 @@ public abstract class ContextEl implements ExecutableCode {
             return standards.getAliasObject();
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
-        StringList varsList_ = new StringList();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        
-        boolean static_;
-        if (bl_ instanceof InfoBlock) {
-            static_ = ((InfoBlock)bl_).isStaticField();
-        } else {
-            FunctionBlock fct_ = analyzing.getCurrentFct();
-            if (fct_ == null) {
-                static_ = true;
-            } else {
-                static_ = fct_.isStaticContext();
-            }
-        }
-        if (!static_) {
-            for (TypeVar t: r_.getParamTypesMapValues()) {
-                varsList_.add(t.getName());
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+
+        StringMap<StringList> vars_ = getCurrentConstraints();
+        StringList varsList_ = vars_.getKeys();
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
@@ -1325,35 +1292,13 @@ public abstract class ContextEl implements ExecutableCode {
     /**Used at analyzing instructions*/
     @Override
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
-        if (isEnabledInternVars()) {
-            return EMPTY_TYPE;
-        }
-        Block bl_ = getCurrentBlock();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             return EMPTY_TYPE;
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
-        StringList varsList_ = new StringList();
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-
-        boolean static_;
-        if (bl_ instanceof InfoBlock) {
-            static_ = ((InfoBlock)bl_).isStaticField();
-        } else {
-            FunctionBlock fct_ = analyzing.getCurrentFct();
-            if (fct_ == null) {
-                static_ = true;
-            } else {
-                static_ = fct_.isStaticContext();
-            }
-        }
-        if (!static_) {
-            for (TypeVar t: r_.getParamTypesMapValues()) {
-                varsList_.add(t.getName());
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
+        StringMap<StringList> vars_ = getCurrentConstraints();
+        StringList varsList_ = vars_.getKeys();
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
@@ -1754,16 +1699,7 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains("..")) {
@@ -1782,10 +1718,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        if (types_.size() == 1) {
-            return types_.first();
-        }
-        types_.clear();
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains("..")) {
@@ -1804,9 +1736,6 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        if (types_.size() == 1) {
-            return types_.first();
-        }
         return EMPTY_TYPE;
     }
 
@@ -1814,16 +1743,7 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains("..")) {
@@ -1855,8 +1775,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")));
-                String typeLoc_ = StringList.concat(begin_,"..",look_);
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
+                String typeLoc_ = StringList.concat(begin_,look_);
                 String ft_ = exist(typeLoc_, _rooted, _inherits);
                 if (ft_.isEmpty()) {
                     continue;
@@ -1875,16 +1795,7 @@ public abstract class ContextEl implements ExecutableCode {
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
         String keyWordStatic_ = keyWords.getKeyWordStatic();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains(".")) {
@@ -2096,16 +2007,7 @@ public abstract class ContextEl implements ExecutableCode {
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
         String keyWordStatic_ = keyWords.getKeyWordStatic();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains(".")) {
@@ -2185,16 +2087,7 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList s: imports_) {
             for (String i: s) {
@@ -2264,16 +2157,7 @@ public abstract class ContextEl implements ExecutableCode {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(_rooted.getImports());
-        }
-        imports_.add(_rooted.getFile().getImports());
+        fetchImports(_rooted, imports_);
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList s: imports_) {
             for (String i: s) {
@@ -2290,10 +2174,11 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                if (!classes.isCustomType(typeLoc_)) {
+                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
+                if (!classes.isCustomType(foundCandidate_)) {
                     continue;
                 }
-                types_.add(typeLoc_);
+                types_.add(foundCandidate_);
             }
             if (types_.size() == 1) {
                 return types_.first();
@@ -2320,12 +2205,13 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")));
-                String typeLoc_ = StringList.concat(begin_,".",look_);
-                if (!classes.isCustomType(typeLoc_)) {
+                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")+1));
+                String typeLoc_ = StringList.concat(begin_,look_);
+                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
+                if (!classes.isCustomType(foundCandidate_)) {
                     continue;
                 }
-                types_.add(typeLoc_);
+                types_.add(foundCandidate_);
             }
             if (types_.size() == 1) {
                 return types_.first();
@@ -2339,21 +2225,26 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return EMPTY_TYPE;
     }
+
+    private static void fetchImports(AccessingImportingBlock _rooted, CustList<StringList> _imports) {
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            _imports.add(r_.getImports());
+            for (RootBlock r: r_.getAllParentTypes()) {
+                _imports.add(r.getImports());
+            }
+        } else {
+            _imports.add(_rooted.getImports());
+        }
+        _imports.add(_rooted.getFile().getImports());
+    }
+
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
         ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
         AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (type_ instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) type_;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(type_.getImports());
-        }
-        imports_.add(type_.getFile().getImports());
+        fetchImports(type_, imports_);
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         int import_ = 1;
         for (StringList t: imports_) {
@@ -2376,24 +2267,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 StringList typesLoc_ = new StringList(typeLoc_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                for (String s: typesLoc_) {
-                    GeneType super_ = getClassBody(s);
-                    for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                        if (!e.isStaticMethod()) {
-                            continue;
-                        }
-                        if (!StringList.quickEq(end_, e.getId().getName())) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(typeLoc_, e, this)) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(_glClass, e, this)) {
-                            continue;
-                        }
-                        methods_.add(new ClassMethodId(s, e.getId()),import_);
-                    }
-                }
+                fetchImportStaticMethods(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
             }
             import_++;
         }
@@ -2417,29 +2291,33 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 StringList typesLoc_ = new StringList(typeLoc_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                for (String s: typesLoc_) {
-                    GeneType super_ = getClassBody(s);
-                    for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                        if (!e.isStaticMethod()) {
-                            continue;
-                        }
-                        if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(typeLoc_, e, this)) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(_glClass, e, this)) {
-                            continue;
-                        }
-                        ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                        methods_.add(clMet_, import_);
-                    }
-                }
+                fetchImportStaticMethods(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
             }
             import_++;
         }
         return methods_;
+    }
+
+    private void fetchImportStaticMethods(String _glClass, String _method, ObjectMap<ClassMethodId, Integer> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+        for (String s: _typesLoc) {
+            GeneType super_ = getClassBody(s);
+            for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
+                if (!e.isStaticMethod()) {
+                    continue;
+                }
+                if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
+                    continue;
+                }
+                if (!Classes.canAccess(_typeLoc, e, this)) {
+                    continue;
+                }
+                if (!Classes.canAccess(_glClass, e, this)) {
+                    continue;
+                }
+                ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                _methods.add(clMet_, _import);
+            }
+        }
     }
 
     @Override
@@ -2448,16 +2326,7 @@ public abstract class ContextEl implements ExecutableCode {
         int import_ = 1;
         AccessingImportingBlock type_ = analyzing.getImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
-        if (type_ instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) type_;
-            imports_.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                imports_.add(r.getImports());
-            }
-        } else {
-            imports_.add(type_.getImports());
-        }
-        imports_.add(type_.getFile().getImports());
+        fetchImports(type_, imports_);
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
@@ -2479,24 +2348,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 StringList typesLoc_ = new StringList(typeLoc_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                for (String s: typesLoc_) {
-                    GeneType super_ = getClassBody(s);
-                    for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                        if (!e.isStaticField()) {
-                            continue;
-                        }
-                        if (!e.getFieldName().containsStr(end_)) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(typeLoc_, e, this)) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(_glClass, e, this)) {
-                            continue;
-                        }
-                        methods_.add(new ClassField(s, _method),import_);
-                    }
-                }
+                fetchImportStaticFields(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
             }
             import_++;
         }
@@ -2520,29 +2372,33 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 StringList typesLoc_ = new StringList(typeLoc_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                for (String s: typesLoc_) {
-                    GeneType super_ = getClassBody(s);
-                    for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                        if (!e.isStaticField()) {
-                            continue;
-                        }
-                        if (!e.getFieldName().containsStr(_method.trim())) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(typeLoc_, e, this)) {
-                            continue;
-                        }
-                        if (!Classes.canAccess(_glClass, e, this)) {
-                            continue;
-                        }
-                        ClassField field_ = new ClassField(s, _method);
-                        methods_.add(field_, import_);
-                    }
-                }
+                fetchImportStaticFields(_glClass, _method, methods_, import_, typeLoc_, typesLoc_);
             }
             import_++;
         }
         return methods_;
+    }
+
+    private void fetchImportStaticFields(String _glClass, String _method, ObjectMap<ClassField, Integer> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+        for (String s: _typesLoc) {
+            GeneType super_ = getClassBody(s);
+            for (GeneField e: ContextEl.getFieldBlocks(super_)) {
+                if (!e.isStaticField()) {
+                    continue;
+                }
+                if (!e.getFieldName().containsStr(_method.trim())) {
+                    continue;
+                }
+                if (!Classes.canAccess(_typeLoc, e, this)) {
+                    continue;
+                }
+                if (!Classes.canAccess(_glClass, e, this)) {
+                    continue;
+                }
+                ClassField field_ = new ClassField(s, _method);
+                _methods.add(field_, _import);
+            }
+        }
     }
 
     public static boolean isDigit(char _char) {
@@ -2555,11 +2411,6 @@ public abstract class ContextEl implements ExecutableCode {
             b_.append(q.trim());
         }
         return b_.toString();
-    }
-
-    @Override
-    public int getGlobalOffset() {
-        return analyzing.getGlobalOffset();
     }
 
     public ClassMetaInfo getExtendedClassMetaInfo(String _name, String _variableOwner) {
@@ -2808,19 +2659,15 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public boolean isValidToken(String _id) {
         Block b_ = getCurrentBlock();
-        if (b_ != null) {
-            boolean pred_ = b_.getFile().isPredefined();
-            if (pred_) {
-                if (!StringList.isDollarWord(_id)) {
-                    return false;
-                }
-            } else {
-                if (!StringList.isWord(_id)) {
-                    return false;
-                }
+        boolean pred_ = b_.getFile().isPredefined();
+        if (pred_) {
+            if (!StringList.isDollarWord(_id)) {
+                return false;
             }
-        } else if (!StringList.isWord(_id)) {
-            return false;
+        } else {
+            if (!StringList.isWord(_id)) {
+                return false;
+            }
         }
         if (PrimitiveTypeUtil.isPrimitive(_id, this)) {
             return false;
@@ -2839,5 +2686,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
+        getInternGlobal();
+        getInternGlobalClass();
     }
 }

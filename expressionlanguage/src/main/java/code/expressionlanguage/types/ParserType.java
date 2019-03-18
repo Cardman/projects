@@ -15,6 +15,7 @@ public final class ParserType {
     static final int ARR_PRIO = 2;
     static final int INT_PRIO = 3;
     static final int TMP_PRIO = 4;
+    private ParserType(){}
     public static Numbers<Integer> getIndexes(String _input, Analyzable _an) {
         int count_ = 0;
         int len_ = _input.length();

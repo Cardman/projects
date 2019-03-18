@@ -1192,18 +1192,14 @@ public final class ElResolver {
                     }
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
-                        if (_string.substring(i_).trim().charAt(0) != PAR_LEFT) {
-                            type_ = ConstType.WORD;
-                            info_.setKind(type_);
-                            info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                            info_.setName(word_);
-                            i_ += SIMPLE_SIFFIX.length();
-                            _d.getVariables().add(info_);
-                            tolerateDot_ = true;
-                        } else {
-                            other_ = true;
-                        }
+                        type_ = ConstType.WORD;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                        info_.setName(word_);
+                        i_ += SIMPLE_SIFFIX.length();
+                        _d.getVariables().add(info_);
+                        tolerateDot_ = true;
                     } else if (_an.getParameters().contains(word_)) {
                         type_ = ConstType.PARAM;
                         info_.setKind(type_);
@@ -1262,18 +1258,14 @@ public final class ElResolver {
                     tolerateDot_ = true;
                 } else {
                     if (prev_.endsWith(String.valueOf(DOT_VAR))) {
-                        if (_string.substring(i_).trim().charAt(0) != PAR_LEFT) {
-                            type_ = ConstType.WORD;
-                            info_.setKind(type_);
-                            info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                            info_.setName(word_);
-                            i_ += SIMPLE_SIFFIX.length();
-                            _d.getVariables().add(info_);
-                            tolerateDot_ = true;
-                        } else {
-                             other_ = true;
-                        }
+                        type_ = ConstType.WORD;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                        info_.setName(word_);
+                        i_ += SIMPLE_SIFFIX.length();
+                        _d.getVariables().add(info_);
+                        tolerateDot_ = true;
                     } else if (_an.getParameters().contains(word_)) {
                         type_ = ConstType.PARAM;
                         info_.setKind(type_);
