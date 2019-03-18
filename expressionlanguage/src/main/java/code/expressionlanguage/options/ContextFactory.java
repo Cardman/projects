@@ -13,8 +13,8 @@ import code.util.StringMap;
 
 public final class ContextFactory {
 
-    public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock,Initializer _init,
-            Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, int _tabWidth) {
+    public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,
+                                       Options _options, LgNames _undefinedLgNames, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 
         KeyWords kwl_ = km_.getKeyWords(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -24,11 +24,16 @@ public final class ContextFactory {
         } else {
             return null;
         }
-        return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options,_exec, kwl_, _undefinedLgNames, _tabWidth);
+        return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
     }
     public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        ContextEl context_ = build(_stack, _lock, _init, _options,_exec,_definedKw, _definedLgNames, _tabWidth);
+            Options _options,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth) {
+        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames, _tabWidth);
+        return validate(_definedKw, _definedLgNames, _files, contextEl_);
+    }
+
+    public static ContextEl validate(KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
+        validateStds(_contextEl, _definedKw, _definedLgNames);
         StringMap<String> srcFiles_ = new StringMap<String>();
         for (EntryCust<String, String> e: _files.entryList()) {
         	if (!e.getKey().startsWith("src/")) {
@@ -36,47 +41,51 @@ public final class ContextFactory {
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
-        context_.getClasses().addResources(_files);
-        Classes.validateAll(srcFiles_, context_);
-        return context_;
+        _contextEl.getClasses().addResources(_files);
+        Classes.validateAll(srcFiles_, _contextEl);
+        return _contextEl;
     }
-    public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
-        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
-        contextEl_.setStandards(_definedLgNames);
+
+    public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
+                                  Options _options, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
+        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames,_tabWidth);
+        validateStds(contextEl_,_definedKw,_definedLgNames);
+        return contextEl_;
+    }
+    public static void validateStds(ContextEl _context,KeyWords _definedKw, LgNames _definedLgNames) {
+        _context.setStandards(_definedLgNames);
         StringList keyWords_ = _definedKw.allKeyWords();
-        _definedKw.validateKeyWordContents(contextEl_, keyWords_);
+        _definedKw.validateKeyWordContents(_context, keyWords_);
         StringList escapings_ = _definedKw.allEscapings();
-        _definedKw.validateEscapingsContents(contextEl_, escapings_);
+        _definedKw.validateEscapingsContents(_context, escapings_);
         StringList nbWords_ = _definedKw.allNbWords(_definedKw.getKeyWordNbExpDec(), _definedKw.getKeyWordNbExpBin(),_definedKw.getKeyWordNbHex());
-        _definedKw.validateNbWordContents(contextEl_, nbWords_);
-        _definedKw.validateBinarySeparators(contextEl_);
+        _definedKw.validateNbWordContents(_context, nbWords_);
+        _definedKw.validateBinarySeparators(_context);
         StringList prims_ = _definedLgNames.allPrimitives();
-        _definedLgNames.validatePrimitiveContents(contextEl_, prims_);
+        _definedLgNames.validatePrimitiveContents(_context, prims_);
         StringList refTypes_ = _definedLgNames.allRefTypes();
-        _definedLgNames.validateRefTypeContents(contextEl_, refTypes_, prims_);
+        _definedLgNames.validateRefTypeContents(_context, refTypes_, prims_);
         StringMap<StringList> methods_ = _definedLgNames.allTableTypeMethodNames();
-        _definedLgNames.validateMethodsContents(contextEl_, methods_, prims_);
+        _definedLgNames.validateMethodsContents(_context, methods_, prims_);
         StringMap<StringList> fields_ = _definedLgNames.allTableTypeFieldNames();
-        _definedLgNames.validateFieldsContents(contextEl_, fields_, prims_);
+        _definedLgNames.validateFieldsContents(_context, fields_, prims_);
         //duplicates
-        _definedKw.validateKeyWordDuplicates(contextEl_, keyWords_);
-        _definedKw.validateEscapingsDuplicates(contextEl_, escapings_);
+        _definedKw.validateKeyWordDuplicates(_context, keyWords_);
+        _definedKw.validateEscapingsDuplicates(_context, escapings_);
         StringList nbWordsDec_ = _definedKw.allNbWords(_definedKw.getKeyWordNbExpDec());
-        _definedKw.validateNbWordDuplicates(contextEl_, nbWordsDec_);
+        _definedKw.validateNbWordDuplicates(_context, nbWordsDec_);
         StringList nbWordsBin_ = _definedKw.allNbWords(_definedKw.getKeyWordNbExpBin(),_definedKw.getKeyWordNbHex());
-        _definedKw.validateNbWordDuplicates(contextEl_, nbWordsBin_);
-        _definedKw.validateStartsPrefixesDuplicates(contextEl_);
-        _definedLgNames.validatePrimitiveDuplicates(contextEl_, prims_);
-        _definedLgNames.validateRefTypeDuplicates(contextEl_, refTypes_);
-        _definedLgNames.validateMethodsDuplicates(contextEl_, methods_);
-        _definedLgNames.validateFieldsDuplicates(contextEl_, fields_);
-        if (!contextEl_.getClasses().isEmptyStdError()) {
-            return contextEl_;
+        _definedKw.validateNbWordDuplicates(_context, nbWordsBin_);
+        _definedKw.validateStartsPrefixesDuplicates(_context);
+        _definedLgNames.validatePrimitiveDuplicates(_context, prims_);
+        _definedLgNames.validateRefTypeDuplicates(_context, refTypes_);
+        _definedLgNames.validateMethodsDuplicates(_context, methods_);
+        _definedLgNames.validateFieldsDuplicates(_context, fields_);
+        if (!_context.getClasses().isEmptyStdError()) {
+            return;
         }
         _definedLgNames.build();
-        _definedLgNames.setupOverrides(contextEl_);
-        contextEl_.initError();
-        return contextEl_;
+        _definedLgNames.setupOverrides(_context);
+        _context.initError();
     }
 }

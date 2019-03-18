@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
@@ -11,7 +10,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class CustContextFactory {
-    public static ContextEl buildDefKw(String _lang,
+    public static RunnableContextEl buildDefKw(String _lang,
             Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 
         KeyWords kwl_ = km_.getKeyWords(_lang);
@@ -24,7 +23,7 @@ public final class CustContextFactory {
         }
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
-    public static ContextEl buildDefKw(String _lang, Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, int _tabWidth) {
+    public static RunnableContextEl buildDefKw(String _lang, Options _options, ExecutingOptions _exec,LgNames _undefinedLgNames, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 
         KeyWords kwl_ = km_.getKeyWords(_lang);
         if (StringList.quickEq(_lang, "en")) {
@@ -36,15 +35,19 @@ public final class CustContextFactory {
         }
         return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _tabWidth);
     }
-    public static ContextEl build(int _stack,
+    public static RunnableContextEl build(int _stack,
             Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        return ContextFactory.build(_stack, cl_, ci_, _options, _exec,_definedKw, _definedLgNames, _files,_tabWidth);
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        ContextFactory.validate(_definedKw,_definedLgNames,_files,r_);
+        return r_;
     }
-    public static ContextEl build(int _stack, Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
+    public static RunnableContextEl build(int _stack, Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        return ContextFactory.build(_stack, cl_, ci_, _options, _exec,_definedKw, _definedLgNames,_tabWidth);
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        ContextFactory.validateStds(r_,_definedKw, _definedLgNames);
+        return r_;
     }
 }

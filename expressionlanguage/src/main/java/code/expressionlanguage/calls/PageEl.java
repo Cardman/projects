@@ -13,13 +13,13 @@ public abstract class PageEl {
 
     private Argument globalArgument;
 
-    private StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private StringMap<LoopVariable> vars;
 
-    private StringMap<LocalVariable> catchVars = new StringMap<LocalVariable>();
+    private StringMap<LocalVariable> catchVars;
 
-    private StringMap<LocalVariable> localVars = new StringMap<LocalVariable>();
+    private StringMap<LocalVariable> localVars;
 
-    private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
+    private final StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
     public String getGlobalClass() {
         return globalClass;
@@ -29,6 +29,11 @@ public abstract class PageEl {
         globalClass = _globalClass;
     }
 
+    protected PageEl() {
+        setVars(new StringMap<LoopVariable>());
+        setCatchVars(new StringMap<LocalVariable>());
+        setLocalVars(new StringMap<LocalVariable>());
+    }
     public String formatVarType(String _varType, ExecutableCode _cont) {
         if (globalArgument == null) {
             return _varType;
@@ -72,12 +77,8 @@ public abstract class PageEl {
         localVars.removeKey(_key);
     }
 
-    public boolean containsLocalVar(String _key) {
-        return localVars.contains(_key);
-    }
-
     public LocalVariable getLocalVar(String _key) {
-        return localVars.getVal(_key);
+        return getLocalVars().getVal(_key);
     }
 
     public StringMap<LocalVariable> getLocalVars() {

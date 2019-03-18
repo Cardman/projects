@@ -327,7 +327,7 @@ public abstract class OperationNode implements Operable {
             }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isArray()) {
+        if (_op.isArray()) {
             return new ArrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && !_op.getValues().isEmpty()) {

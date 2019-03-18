@@ -85,12 +85,12 @@ public final class FctOperation extends ReflectableInvokingOperation {
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        if (trimMeth_.startsWith(StringList.concat(keyWordSuper_, String.valueOf(DOT_VAR)))) {
-            trimMeth_ = trimMeth_.substring(keyWordSuper_.length() + 1);
+        if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+            trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
             accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(StringList.concat(keyWordThat_, String.valueOf(DOT_VAR)))) {
-            trimMeth_ = trimMeth_.substring(keyWordThat_.length() + 1);
+        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+            trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
         } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));

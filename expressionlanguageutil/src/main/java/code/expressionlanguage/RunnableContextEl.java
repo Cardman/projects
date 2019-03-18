@@ -9,6 +9,8 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -17,6 +19,8 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class RunnableContextEl extends ContextEl implements FieldableStruct, EnumerableStruct,Runnable {
 
@@ -29,20 +33,30 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
 
     private String name;
     private int ordinal;
+    private AtomicBoolean interrupt;
 
+    private ExecutingOptions executing;
+
+    RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
+                      CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+        super(_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
+        custInit = _init;
+        executing = _exec;
+        interrupt = _exec.getInterrupt();
+    }
     RunnableContextEl(ContextEl _context, String _className,
             String _name, int _ordinal,
             ObjectMap<ClassField,Struct> _fields, Struct _parent) {
         setClasses(_context.getClasses());
         setOptions(_context.getOptions());
-        setExecuting(_context.getExecuting());
         setStandards(_context.getStandards());
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
         setMemoryError(_context.getMemoryError());
         setKeyWords(_context.getKeyWords());
         setThrowing(_context.getThrowing());
-        setInterrupt(_context.getInterrupt());
+        executing = ((RunnableContextEl)_context).executing;
+        interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = (CustInitializer) _context.getInit();
         name = _name;
         ordinal = _ordinal;
@@ -59,6 +73,20 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         return custInit;
     }
 
+    public ExecutingOptions getExecuting() {
+        return executing;
+    }
+
+    public void setExecuting(ExecutingOptions _executing) {
+        executing = _executing;
+    }
+    @Override
+    public boolean hasException() {
+        return super.hasException() && !interrupt.get();
+    }
+    public void interrupt() {
+        interrupt.set(true);
+    }
     @Override
     public Struct getParent() {
         return parent;

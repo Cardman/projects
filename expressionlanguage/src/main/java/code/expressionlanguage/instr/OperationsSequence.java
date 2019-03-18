@@ -139,7 +139,7 @@ public final class OperationsSequence {
             addValueIfNotEmpty(beginValuePart_, str_);
             return;
         }
-        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && leftParFirstOperator)) {
+        if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && isLeftParFirstOperator())) {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
@@ -161,7 +161,7 @@ public final class OperationsSequence {
                     int e_ = operators.getKey(i_ + 1);
                     String err_ = _string.substring(b_, e_);
                     if (!err_.trim().isEmpty()) {
-                        errorParts.add(b_);
+                        getErrorParts().add(b_);
                         constType = ConstType.ERROR;
                     }
                 }
@@ -218,9 +218,6 @@ public final class OperationsSequence {
     }
     public int getCountArrays() {
         return countArrays;
-    }
-    public boolean isError() {
-        return priority == ElResolver.BAD_PRIO || !errorParts.isEmpty();
     }
 
     public boolean isInstanceTest() {
@@ -281,10 +278,6 @@ public final class OperationsSequence {
         return str_.charAt(0) == ARR;
     }
 
-    public boolean isDot() {
-        return priority == ElResolver.FCT_OPER_PRIO;
-    }
-
     public int getPriority() {
         return priority;
     }
@@ -295,10 +288,6 @@ public final class OperationsSequence {
 
     public NatTreeMap<Integer, String> getValues() {
         return values;
-    }
-
-    public void setValues(NatTreeMap<Integer, String> _values) {
-        values = _values;
     }
 
     public NatTreeMap<Integer, String> getOperators() {

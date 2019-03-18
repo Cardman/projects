@@ -1482,6 +1482,702 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertEq(10, ret_.getNumber());
     }
     @Test
+    public void calculateArgument75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return (u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $return (p;) * 2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(8, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += (i;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $throw sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Integer i) {\n");
+        xml_.append("   $return (i;):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i : $new $int[]{1,2,3,4}){\n");
+        xml_.append("   sum; += (i;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $throw sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Integer i) {\n");
+        xml_.append("   $return (i;):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument81Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $throw sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a;;;+b;;;:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Integer i) {\n");
+        xml_.append("   $return (i;):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument82Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return (u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument83Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $return (p;) * 2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(8, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument84Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += (i;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument85Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $throw sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Integer i) {\n");
+        xml_.append("   $return (i;):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument86Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i : $new $int[]{1,2,3,4}){\n");
+        xml_.append("   sum; += (i;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument87Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $throw sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Integer i) {\n");
+        xml_.append("   $return (i;):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument88Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $iter ($int i = 0: p;:: 1){\n");
+        xml_.append("   sum; += (i;;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument89Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $iter ($int i = 0: p;:: 1){\n");
+        xml_.append("   sum; += (i;;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=4:\n");
+        xml_.append("  $return exmeth(u;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument90Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument91Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int sum(){$return sum:}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument92Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int sum(){$return sum:}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument93Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int sum(){$return $this.sum:}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument94Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int sum(){$return $this.sum:}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument95Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int othersum(){$return $this.sum:}\n");
+        xml_.append(" $public $int sum(){$return $this.othersum():}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument96Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int othersum(){$return $this.sum:}\n");
+        xml_.append(" $public $int sum(){$return $this.othersum():}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a+b:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.FIELDS);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument97Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int sum:\n");
+        xml_.append(" $public $int sum(){$return sum:}\n");
+        xml_.append(" $public $static $int exmeth($int p){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i = 0: i; <= p;: i;++){\n");
+        xml_.append("   sum; += i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  Ex out = $new Ex():\n");
+        xml_.append("  out;sum = sum;:\n");
+        xml_.append("  $throw out;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int a = 2:\n");
+        xml_.append(" $public $static $int b = 2:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int u:\n");
+        xml_.append("  u;=a;+b;:\n");
+        xml_.append("  $try {\n");
+        xml_.append("   $return exmeth (u;):\n");
+        xml_.append("  } $catch(Ex i) {\n");
+        xml_.append("   $return (i;sum()):\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.MERGED);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(10, ret_.getNumber());
+    }
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

@@ -1,5 +1,4 @@
 package code.expressionlanguage;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
@@ -72,7 +71,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -110,8 +108,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     private Options options;
 
-    private ExecutingOptions executing;
-
     private Struct exception;
 
     private Struct memoryError;
@@ -142,27 +138,24 @@ public abstract class ContextEl implements ExecutableCode {
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
-    private AtomicBoolean interrupt;
 
     public ContextEl(LgNames _stds, int _tabWitdth) {
         this(CustList.INDEX_NOT_FOUND_ELT, _stds, _tabWitdth);
     }
 
     public ContextEl(int _stackOverFlow, LgNames _stds, int _tabWitdth) {
-        this(_stackOverFlow, new DefaultLockingClass(), new Options(), new ExecutingOptions(),new KeyWords(),_stds, _tabWitdth);
+        this(_stackOverFlow, new DefaultLockingClass(), new Options(),new KeyWords(),_stds, _tabWitdth);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, ExecutingOptions _exec,KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
         setOptions(_options);
-        setExecuting(_exec);
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
         setTabWidth(_tabWitdth);
         setKeyWords(_keyWords);
         setClasses(new Classes());
         setThrowing(new LocalThrowing());
-        setInterrupt(_exec.getInterrupt());
         classes.setLocks(_lock);
     }
     protected ContextEl() {
@@ -250,12 +243,7 @@ public abstract class ContextEl implements ExecutableCode {
     public void setInitEnums(boolean _initEnums) {
         initEnums = _initEnums;
     }
-    public AtomicBoolean getInterrupt() {
-		return interrupt;
-	}
-	public void setInterrupt(AtomicBoolean _interrupt) {
-		interrupt = _interrupt;
-	}
+
 
     public void resetInitEnums() {
         failInit = false;
@@ -975,7 +963,7 @@ public abstract class ContextEl implements ExecutableCode {
         return hasException();
     }
     public boolean hasException() {
-        return exception != null && !interrupt.get();
+        return exception != null;
     }
     public boolean isFailInit() {
         return failInit;
@@ -985,9 +973,7 @@ public abstract class ContextEl implements ExecutableCode {
     public void setException(Struct _exception) {
         exception = _exception;
     }
-    public void interrupt() {
-        interrupt.set(true);
-    }
+
     public LocalThrowing getThrowing() {
         return throwing;
     }
@@ -2796,14 +2782,6 @@ public abstract class ContextEl implements ExecutableCode {
     public void setKeyWords(KeyWords _keyWords) {
         keyWords = _keyWords;
     }
-
-    public ExecutingOptions getExecuting() {
-		return executing;
-	}
-
-	public void setExecuting(ExecutingOptions _executing) {
-		executing = _executing;
-	}
 
 	@Override
     public boolean isValidSingleToken(String _id) {

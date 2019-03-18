@@ -369,12 +369,14 @@ public class LgNamesUtils extends LgNames {
         if (StringList.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasPrint)) {
-            	CustInitializer cust_ = (CustInitializer) _cont.getInit();
-                String dtPart_ = cust_.getCurrentTreadIdDate();
-                if (dtPart_ == null) {
-                    dtPart_ = _cont.getExecuting().getMainThread();
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
                 }
-                log(dtPart_, _cont, _instance, _method, _args);
+            	CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                String dtPart_ = cust_.getCurrentFileThread((RunnableContextEl)_cont);
+                log(dtPart_, (RunnableContextEl)_cont, _method, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
                 out_.setResult(NullStruct.NULL_VALUE);
                 return out_;
@@ -386,6 +388,11 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSleep)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 try {
                     Thread.sleep(((NumberStruct)_args[0]).getInstance().longValue());
                     res_.setResult(new BooleanStruct(true));
@@ -451,6 +458,11 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasYield)) {
+                if (_cont.isInitEnums()) {
+                    _cont.failInitEnums();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
                 Thread.yield();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -575,8 +587,8 @@ public class LgNamesUtils extends LgNames {
         return res_;
     }
 
-    private static void log(String _dtPart,ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
+    private static void log(String _dtPart, RunnableContextEl _cont,
+                            ClassMethodId _method, Struct... _args) {
         String stringAppFile_ = buildLog(_cont, _method, _args);
         stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
         String folder_ = _cont.getExecuting().getLogFolder();

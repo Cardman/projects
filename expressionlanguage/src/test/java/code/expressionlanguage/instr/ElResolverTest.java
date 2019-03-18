@@ -54,7 +54,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -71,7 +71,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("abs(4+3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -88,7 +88,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("abs($vararg([$int),4+3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(24));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -105,7 +105,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("abs($vararg([$int),'[')", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(24));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -423,12 +423,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
         assertEq("", opers_.getVal(8));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("[0]", values_.getVal(8));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -441,12 +441,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
         assertEq("", opers_.getVal(12));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[14]", values_.getVal(0));
         assertEq("[5]", values_.getVal(12));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -506,7 +506,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("composite", values_.getVal(0));
         assertEq("integer", values_.getVal(10));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -523,7 +523,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -541,7 +541,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.;", values_.getVal(0));
         assertEq("call()", values_.getVal(6));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -558,7 +558,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -575,7 +575,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("call()", values_.getVal(4));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -593,7 +593,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
 
@@ -611,7 +611,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;.;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(13));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -629,7 +629,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -647,7 +647,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(11));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -684,7 +684,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("call()", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(7));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
 
@@ -702,7 +702,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(0));
         assertEq("intValue()", values_.getVal(28));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
 
@@ -757,7 +757,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.", values_.getVal(0));
         assertEq("[0]", values_.getVal(5));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -775,7 +775,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.;", values_.getVal(0));
         assertEq("[0]", values_.getVal(6));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -793,7 +793,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;;", values_.getVal(0));
         assertEq("[0]", values_.getVal(5));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -811,7 +811,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;", values_.getVal(0));
         assertEq("[0]", values_.getVal(4));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -829,7 +829,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.f", values_.getVal(0));
         assertEq("[0]", values_.getVal(6));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -847,7 +847,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.;f", values_.getVal(0));
         assertEq("[0]", values_.getVal(7));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -865,7 +865,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;;f", values_.getVal(0));
         assertEq("[0]", values_.getVal(6));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -883,7 +883,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;f", values_.getVal(0));
         assertEq("[0]", values_.getVal(5));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -901,7 +901,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.f()", values_.getVal(0));
         assertEq("[0]", values_.getVal(8));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -919,7 +919,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.;f()", values_.getVal(0));
         assertEq("[0]", values_.getVal(9));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -937,7 +937,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;;f()", values_.getVal(0));
         assertEq("[0]", values_.getVal(8));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -954,7 +954,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;f()", values_.getVal(0));
         assertEq("[0]", values_.getVal(7));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -971,7 +971,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("$static(pkg.classname)", values_.getVal(0));
         assertEq("field", values_.getVal(23));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -1603,7 +1603,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("v;", values_.getVal(0));
         assertEq(" a", values_.getVal(2));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -1637,7 +1637,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("a ", values_.getVal(0));
         assertEq("b", values_.getVal(3));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -1968,7 +1968,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("v;.news", values_.getVal(0));
         assertEq("a()", values_.getVal(8));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2010,7 +2010,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("composite", values_.getVal(0));
         assertEq("getOverridenFour(0)", values_.getVal(10));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
 
@@ -2028,7 +2028,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2046,7 +2046,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.;", values_.getVal(0));
         assertEq("f", values_.getVal(6));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2063,7 +2063,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2081,7 +2081,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;", values_.getVal(0));
         assertEq("f", values_.getVal(4));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2296,7 +2296,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("v;.[0i].array", values_.getVal(0));
         assertEq("[0i]", values_.getVal(13));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2314,7 +2314,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("var;.", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(5));
     
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2331,7 +2331,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(4));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -2993,7 +2993,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("$classchoice($math)abs$", values_.getVal(0));
         assertEq("field", values_.getVal(24));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
     public void getOperationsSequence170Test() {
@@ -3595,7 +3595,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex.Ex {\n");
+        xml_.append("$public $class pkg.ExThree.Ex {\n");
         xml_.append(" $public $static $int inst = exmeth(5i):\n");
         xml_.append(" $public $static $int Ex = exmeth(5i):\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
@@ -3608,7 +3608,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst = pkg.Ex.Ex.inst:\n");
+        xml_.append(" $public $static $int inst = pkg.ExThree.Ex.inst:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();
@@ -3634,11 +3634,11 @@ public final class ElResolverTest extends ProcessMethodCommon{
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("inst ", values_.getVal(0));
-        assertEq(" pkg.Ex.Ex.inst", values_.getVal(6));
+        assertEq(" pkg.ExThree.Ex.inst", values_.getVal(6));
         assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
         assertEq("", seq_.getExtractType());
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
-        assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
+        assertEq("pkg.ExThree.Ex", d_.getDelKeyWordStaticExtract().first());
     }
     @Test
     public void getOperationsSequence200Test() {
@@ -3892,7 +3892,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(2, values_.size());
         assertEq("composite.integer", values_.getVal(0));
         assertEq("int", values_.getVal(18));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -3988,12 +3988,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
         assertEq("", opers_.getVal(11));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[0]", values_.getVal(0));
         assertEq("(1)", values_.getVal(11));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
     @Test
     public void getOperationsSequence217Test() {
@@ -4005,12 +4005,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
         assertEq("", opers_.getVal(11));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[0]", values_.getVal(0));
         assertEq("{1}", values_.getVal(11));
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -4193,7 +4193,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("[0]", values_.getVal(3));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -4212,7 +4212,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq("[1]", values_.getVal(6));
         assertTrue(!seq_.isCallDbArray());
         assertTrue(!seq_.isArray());
-        assertTrue(seq_.isDot());
+        assertEq(ElResolver.FCT_OPER_PRIO,seq_.getPriority());
     }
 
     @Test
@@ -4384,9 +4384,9 @@ public final class ElResolverTest extends ProcessMethodCommon{
     public void checkSyntax245FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
-        String el_ = "(java.lang.Object[)";
+        String el_ = "-(java.lang.Object[)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(18, d_.getBadOffset());
+        assertEq(19, d_.getBadOffset());
     }
     @Test
     public void checkSyntax246FailTest() {
@@ -4403,6 +4403,429 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "([v )";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax248FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = " ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax249FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(2, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax250FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(2, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax251FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(3, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax252FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$vararg(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(8, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax253FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$class)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(7, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax254FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$class(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(7, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax255FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$instanceof(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax256FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$id)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax257FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$id(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(4, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax258FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$lambda)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(8, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax259FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$lambda(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(8, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax260FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$static(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(7, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax261FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$static() ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(9, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax262FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$super";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(6, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax263FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$super,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(6, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax264FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(MyClass)method,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(26, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax265FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(MyClass)method";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(26, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax266FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(MyClass)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(19, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax267FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(MyClass";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(19, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax268FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax269FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax270FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(10, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax271FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$that,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(5, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax272FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$that";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(5, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax273FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$that.method";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax274FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$that.method,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax275FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$thisaccess(MyClass) ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(21, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax276FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess(MyClass)method,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(27, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax278FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess(MyClass)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(20, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax279FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess(MyClass";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(20, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax280FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax281FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax282FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax283FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$superaccess(MyClass) ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(22, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax284FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces(MyClass),";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(20, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax285FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces(MyClass) ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(21, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax286FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces(MyClass)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(19, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax287FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces(MyClass";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(19, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax288FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces( ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(13, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax289FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax290FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(10, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax291FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$interfaces(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax292FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$classchoice,";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(12, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax293FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$static()  ";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(11, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax294FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$bool";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(5, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax295FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$bool ean()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(5, d_.getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters10Test() {
@@ -4522,6 +4945,20 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)";
         assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+    }
+    @Test
+    public void checkSyntaxDelimiters4FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "{6*('\\u9fcb'+8\\";
+        assertEq(14, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
+    }
+    @Test
+    public void checkSyntaxDelimiters5FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "{6*('\\u9fcb'+8\\ ";
+        assertEq(14, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters8Test() {

@@ -415,23 +415,24 @@ public final class Classes {
     private static void validatePkgNames(ContextEl _context, boolean _predefined) {
         Classes cl_ = _context.getClasses();
         StringList pkgFound_ = cl_.getPackagesFound();
-        if (_context.getOptions().isSingleInnerParts()) {
-            for (RootBlock r: _context.getClasses().getClassBodies(_predefined)) {
-                if (!(r.getParent() instanceof FileBlock)) {
+        for (RootBlock r: _context.getClasses().getClassBodies(_predefined)) {
+            if (!(r.getParent() instanceof FileBlock)) {
+                continue;
+            }
+            String fullName_ = r.getFullName();
+            for (String p: pkgFound_) {
+                if (!p.startsWith(fullName_)) {
                     continue;
                 }
-                String fullName_ = r.getFullName();
-                for (String p: pkgFound_) {
-                    if (!p.startsWith(fullName_) || StringList.isDollarWordChar(p.charAt(fullName_.length()))) {
-                        continue;
-                    }
-                    //ERROR
-                    DuplicateType d_ = new DuplicateType();
-                    d_.setId(fullName_);
-                    d_.setFileName(r.getFile().getFileName());
-                    d_.setIndexFile(r.getIdRowCol());
-                    cl_.addError(d_);
+                if (fullName_.length() < p.length() && StringList.isDollarWordChar(p.charAt(fullName_.length()))) {
+                    continue;
                 }
+                //ERROR
+                DuplicateType d_ = new DuplicateType();
+                d_.setId(fullName_);
+                d_.setFileName(r.getFile().getFileName());
+                d_.setIndexFile(r.getIdRowCol());
+                cl_.addError(d_);
             }
         }
     }

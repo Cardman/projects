@@ -1079,4 +1079,13 @@ public class Configuration implements ExecutableCode {
             }
         }
     }
+
+    public void setupAnalyzing() {
+        context.setAnalyzing(new AnalyzedPageEl());
+        context.getAnalyzing().setGlobalClass(getGlobalClass());
+        context.getAnalyzing().setLocalVars(getLocalVars());
+        context.getAnalyzing().setVars(getVars());
+        context.getAnalyzing().setCatchVars(getCatchVars());
+        context.getAnalyzing().getParameters().putAllMap(getParameters());
+    }
 }

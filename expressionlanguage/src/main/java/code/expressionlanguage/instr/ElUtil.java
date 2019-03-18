@@ -33,10 +33,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.NatTreeMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ElUtil {
 
@@ -269,18 +266,7 @@ public final class ElUtil {
         if (!_an.isGearConst()) {
             return false;
         }
-        Block bl_ = _an.getCurrentBlock();
-        if (!(bl_ instanceof FieldBlock)) {
-            return false;
-        }
-        if (!(_var instanceof StandardFieldOperable)) {
-            return false;
-        }
-        StandardFieldOperable f_ = (StandardFieldOperable) _var;
-        if (f_.getFieldId() == null) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
+        return isDeclaringField(_var,_an);
     }
     public static boolean isDeclaringField(Operable _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
@@ -324,9 +310,6 @@ public final class ElUtil {
         if (!_an.isMerged()) {
             return false;
         }
-        if (bl_ == null) {
-            return false;
-        }
         if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
             return false;
         }
@@ -335,9 +318,6 @@ public final class ElUtil {
     public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
-            return false;
-        }
-        if (bl_ == null) {
             return false;
         }
         if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
@@ -392,6 +372,7 @@ public final class ElUtil {
         if (cl_ == null) {
             return false;
         }
+        String fieldName_ = cl_.getFieldName();
         if (stepForLoop(_conf)) {
             return true;
         }
@@ -407,10 +388,17 @@ public final class ElUtil {
             } else {
                 if (isDeclaringField(_cst, _conf)) {
                     checkFinal_ = false;
-                } else if (!_ass.contains(cl_.getFieldName())) {
-                    checkFinal_ = false;
                 } else {
-                    checkFinal_ = !_ass.getVal(cl_.getFieldName()).isUnassignedAfter();
+                    checkFinal_ = false;
+                    for (EntryCust<String, Assignment> e: _ass.entryList()) {
+                        if (!StringList.quickEq(e.getKey(),fieldName_)) {
+                            continue;
+                        }
+                        if (e.getValue().isUnassignedAfter()) {
+                            continue;
+                        }
+                        checkFinal_ = true;
+                    }
                 }
             }
         } else if (!fromCurClass_) {
@@ -418,10 +406,17 @@ public final class ElUtil {
         } else {
             if (isDeclaringField(_cst, _conf)) {
                 checkFinal_ = false;
-            } else if (!_ass.contains(cl_.getFieldName())) {
-                checkFinal_ = false;
             } else {
-                checkFinal_ = !_ass.getVal(cl_.getFieldName()).isUnassignedAfter();
+                checkFinal_ = false;
+                for (EntryCust<String, Assignment> e: _ass.entryList()) {
+                    if (!StringList.quickEq(e.getKey(), fieldName_)) {
+                        continue;
+                    }
+                    if (e.getValue().isUnassignedAfter()) {
+                        continue;
+                    }
+                    checkFinal_ = true;
+                }
             }
         }
         return checkFinal_;

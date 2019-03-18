@@ -129,7 +129,7 @@ public final class ImportingPage {
     public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
         while (true) {
-            if (!pageEl.containsLocalVar(StringList.concatNbs(FormatHtml.TMP_VAR,i_))) {
+            if (pageEl.getLocalVar(StringList.concatNbs(FormatHtml.TMP_VAR,i_)) == null) {
                 break;
             }
             i_++;
@@ -217,7 +217,7 @@ public final class ImportingPage {
     }
 
     public boolean containsLocalVar(String _key) {
-        return pageEl.containsLocalVar(_key);
+        return pageEl.getLocalVar(_key) != null;
     }
 
     public LocalVariable getLocalVar(String _key) {

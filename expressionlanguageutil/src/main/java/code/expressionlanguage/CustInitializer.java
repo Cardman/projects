@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.options.ExecutingOptions;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
@@ -53,13 +52,10 @@ public class CustInitializer extends DefaultInitializer {
     	Thread thread_ = Thread.currentThread();
 		return threadIdDate.get(thread_);
 	}
-    public void prExc(ContextEl _cont) {
+    public void prExc(RunnableContextEl _cont) {
     	Struct exception_ = _cont.getException();
         if (exception_ instanceof DisplayableStruct) {
-        	String toFile_ = getCurrentTreadIdDate();
-        	if (toFile_ == null) {
-        		toFile_ = _cont.getExecuting().getMainThread();
-        	}
+        	String toFile_ = getCurrentFileThread(_cont);
         	String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
         	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
         	ExecutingOptions ex_ = _cont.getExecuting();
@@ -70,6 +66,13 @@ public class CustInitializer extends DefaultInitializer {
         }
         Thread thread_ = Thread.currentThread();
         threadIdDate.remove(thread_);
+    }
+    public String getCurrentFileThread(RunnableContextEl _cont) {
+        String toFile_ = getCurrentTreadIdDate();
+        if (toFile_ == null) {
+            toFile_ = _cont.getExecuting().getMainThread();
+        }
+        return toFile_;
     }
 
     void putNewCustTreadIdDate(Thread _id, String _value) {

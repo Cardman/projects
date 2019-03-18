@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadElError;
@@ -36,14 +35,11 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class ElRenderUtil {
+    private ElRenderUtil() {
+    }
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.getContext();
-        context_.setAnalyzing(new AnalyzedPageEl());
-        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
-        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
-        context_.getAnalyzing().setVars(_conf.getVars());
-        context_.getAnalyzing().setCatchVars(_conf.getCatchVars());
-        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
+        _conf.setupAnalyzing();
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
@@ -70,16 +66,6 @@ public final class ElRenderUtil {
         String el_ = str_.toString();
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        if (opTwo_.isError()) {
-            _conf.setOffset(d_.getBadOffset());
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
-            context_.setAnalyzing(null);
-            return Argument.createVoid();
-        }
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
@@ -102,12 +88,7 @@ public final class ElRenderUtil {
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.getContext();
-        context_.setAnalyzing(new AnalyzedPageEl());
-        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
-        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
-        context_.getAnalyzing().setVars(_conf.getVars());
-        context_.getAnalyzing().setCatchVars(_conf.getCatchVars());
-        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
+        _conf.setupAnalyzing();
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
@@ -125,15 +106,6 @@ public final class ElRenderUtil {
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        if (opTwo_.isError()) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
-            context_.setAnalyzing(null);
-            return Argument.createVoid();
-        }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
         if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
@@ -328,14 +300,6 @@ public final class ElRenderUtil {
         }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = createOperationNode(offset_, _index, block_, r_, _context);
-        if (r_.isError()) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(offset_);
-            badEl_.setEl(value_);
-            badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setIndexFile(_context.getCurrentLocationIndex());
-            _context.getClasses().addError(badEl_);
-        }
         return op_;
     }
 
@@ -361,14 +325,6 @@ public final class ElRenderUtil {
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
-        if (r_.isError()) {
-            BadElError badEl_ = new BadElError();
-            badEl_.setOffsetInEl(offset_);
-            badEl_.setEl(value_);
-            badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setIndexFile(_context.getCurrentLocationIndex());
-            _context.getClasses().addError(badEl_);
-        }
         return op_;
     }
     private static OperationsSequence getOperationsSequence(int _offset, String _string,
