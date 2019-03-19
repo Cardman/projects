@@ -3061,6 +3061,109 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!id_.isStaticMethod());
     }
     @Test
+    public void processEl230Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static {\" \".charAt($id(CharSequence,$int),0):}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setAllParametersSort(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        RootBlock r_ = cont_.getClasses().getClassBody("pkg.ExTwo");
+        Line f_ = (Line) r_.getFirstChild().getFirstChild();
+        ExecFctOperation fct_ = getFct(f_.getExp());
+        assertNotNull(fct_);
+        ClassMethodId cid_ = fct_.getClassMethodId();
+        assertEq("java.lang.CharSequence", cid_.getClassName());
+        MethodId id_ = cid_.getConstraints();
+        assertEq("charAt", id_.getName());
+        StringList params_ = id_.getParametersTypes();
+        assertEq(1, params_.size());
+        assertEq("$int", params_.last());
+        assertTrue(!id_.isVararg());
+        assertEq(-1, fct_.getNaturalVararg());
+        assertTrue(!id_.isStaticMethod());
+    }
+    @Test
+    public void processEl231Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static $final String multi=`\n");
+        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`:\n");
+        xml_.append(" $private $static $final String single=\"`\":\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(files_, false);
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.ExClass");
+        FieldBlock f_ = (FieldBlock) r_.getFirstChild();
+        StringList names_ = f_.getFieldName();
+        assertEq(2, names_.size());
+        assertEq("multi", names_.first());
+        assertEq("line", names_.last());
+        f_ = (FieldBlock)f_.getNextSibling();
+        names_ = f_.getFieldName();
+        assertEq(1, names_.size());
+        assertEq("single", names_.first());
+    }
+    @Test
+    public void processEl232Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static $final String multi=`\n");
+        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(files_, false);
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.ExClass");
+        FieldBlock f_ = (FieldBlock) r_.getFirstChild();
+        StringList names_ = f_.getFieldName();
+        assertEq(2, names_.size());
+        assertEq("multi", names_.first());
+        assertEq("line", names_.last());
+    }
+    @Test
+    public void processEl233Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static $final String multi=`\n");
+        xml_.append("  static {``next\"// /*\t)`:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(files_, false);
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.ExClass");
+        FieldBlock f_ = (FieldBlock) r_.getFirstChild();
+        StringList names_ = f_.getFieldName();
+        assertEq(1, names_.size());
+        assertEq("multi", names_.first());
+    }
+    @Test
+    public void processEl234Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex;\n");
+        xml_.append("pkg.ExTwo;\n");
+        xml_.append("$public $class pkgtwo.Toto {\n");
+        xml_.append("\t$private String myf=\"ValueOne\",mys=\"ValueTwo\":\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl(files_, false);
+        RootBlock r_ = cont_.getClasses().getClassBody("pkgtwo.Toto");
+        FieldBlock f_ = (FieldBlock) r_.getFirstChild();
+        StringList names_ = f_.getFieldName();
+        assertEq(2, names_.size());
+        assertEq("myf", names_.first());
+        assertEq("mys", names_.last());
+    }
+    @Test
     public void processEl1FailTest() {
         analyzeIndirectLocalVars("composite.getOverridenOne($null)", "composite", COMPOSITE, true);
     }

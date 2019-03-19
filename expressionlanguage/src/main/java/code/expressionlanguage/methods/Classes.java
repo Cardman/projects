@@ -1884,6 +1884,29 @@ public final class Classes {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
         page_.setGearConst(true);
+
+        for (RootBlock c: getClassBodies(_predefined)) {
+            page_.setImporting(c);
+            CustList<Block> bl_ = getDirectChildren(c);
+            StringList fieldNames_ = new StringList();
+            for (Block b: bl_) {
+                if (!(b instanceof ElementBlock)) {
+                    continue;
+                }
+                ElementBlock e_ = (ElementBlock)b;
+                fieldNames_.addAllElts(e_.getFieldName());
+            }
+            for (Block b: bl_) {
+                if (!(b instanceof FieldBlock)) {
+                    continue;
+                }
+                FieldBlock f_ = (FieldBlock) b;
+                page_.setGlobalClass(c.getGenericString());
+                page_.setCurrentBlock(f_);
+                f_.retrieveNames(_context,fieldNames_);
+            }
+        }
+
         for (RootBlock c: getClassBodies(_predefined)) {
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);

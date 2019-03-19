@@ -532,7 +532,17 @@ public final class TemplatesTest {
         assertEq(second_,Templates.format(first_, second_, context_));
     }
 
-
+    @Test
+    public void format2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T:#U&#V,#U:#W,#V:#W,#W> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number,java.lang.Number,java.lang.Number,java.lang.Number>";
+        String second_ = "#W";
+        assertEq("java.lang.Number",Templates.format(first_, second_, cont_));
+    }
 
 
 
@@ -2808,7 +2818,46 @@ public final class TemplatesTest {
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
     }
-
+    @Test
+    public void isCorrect69Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.getMapping().put("U", new StringList("#T"));
+        m_.getMapping().put("V", new StringList("#U"));
+        m_.setArg("#V");
+        m_.setParam("#T");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
+    @Test
+    public void isCorrect70Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.getMapping().put("U", new StringList("#T"));
+        m_.getMapping().put("V", new StringList("#U"));
+        m_.getMapping().put("W", new StringList("#U"));
+        m_.getMapping().put("X", new StringList("#V","#W"));
+        m_.setArg("#X");
+        m_.setParam("#T");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
     @Test
     public void isCorrect71Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -2830,6 +2879,25 @@ public final class TemplatesTest {
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
+    public void isCorrect72Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.getMapping().put("U", new StringList("#T"));
+        m_.getMapping().put("X", new StringList("#V","#W"));
+        m_.setArg("#X");
+        m_.setParam("#T");
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
     @Test
     public void isCorrect73Test() {

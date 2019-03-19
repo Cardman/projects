@@ -1,12 +1,12 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.BadParamName;
+import code.expressionlanguage.errors.custom.DuplicateField;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -21,10 +21,7 @@ import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.Numbers;
@@ -32,7 +29,7 @@ import code.util.StringList;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 
-    private final StringList fieldName;
+    private final StringList fieldName = new StringList();
 
     private final String className;
 
@@ -62,9 +59,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
     public FieldBlock(ContextEl _importingPage,
-            BracedBlock _m, OffsetAccessInfo _access,
-            OffsetBooleanInfo _static, OffsetBooleanInfo _final,
-            StringList _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
+                      BracedBlock _m, OffsetAccessInfo _access,
+                      OffsetBooleanInfo _static, OffsetBooleanInfo _final,
+                      OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_m, _offset);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
@@ -72,7 +69,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         staticFieldOffset = _static.getOffset();
         finalField = _final.isInfo();
         finalFieldOffset = _final.getOffset();
-        fieldName = _name;
         className = _type.getInfo();
         classNameOffset = _type.getOffset();
         value = _value.getInfo();
@@ -187,6 +183,47 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setOffset(0);
         page_.setCurrentBlock(this);
         importedClassName = _cont.resolveCorrectType(className);
+    }
+    public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        StringList names_ = ElUtil.getFieldNames(value, _cont, Calculation.staticCalculation(staticField));
+        if (names_.isEmpty()) {
+            BadParamName b_;
+            b_ = new BadParamName();
+            b_.setFileName(getFile().getFileName());
+            b_.setIndexFile(getOffset().getOffsetTrim());
+            _cont.getClasses().addError(b_);
+        }
+        StringList idsField_ = new StringList(_fieldNames);
+        for (String n: names_) {
+            String trName_ = n.trim();
+            if (!_cont.isValidToken(trName_)) {
+                BadParamName b_;
+                b_ = new BadParamName();
+                b_.setFileName(getFile().getFileName());
+                b_.setIndexFile(getOffset().getOffsetTrim());
+                b_.setParamName(n);
+                _cont.getClasses().addError(b_);
+            }
+            for (String m: idsField_) {
+                if (StringList.quickEq(m, trName_)) {
+                    int r_ = getOffset().getOffsetTrim();
+                    DuplicateField duplicate_;
+                    duplicate_ = new DuplicateField();
+                    duplicate_.setIndexFile(r_);
+                    duplicate_.setFileName(getFile().getFileName());
+                    duplicate_.setId(n);
+                    _cont.getClasses().addError(duplicate_);
+                }
+            }
+            idsField_.add(trName_);
+        }
+        for (String n: names_) {
+            _fieldNames.add(n);
+        }
+        fieldName.addAllElts(names_);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {

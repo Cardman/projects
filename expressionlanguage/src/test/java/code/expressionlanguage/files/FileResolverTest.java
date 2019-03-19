@@ -278,7 +278,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(137, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(154, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(146, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -352,7 +351,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -615,7 +613,6 @@ public final class FileResolverTest {
         assertTrue(!((FieldBlock) child_).isFinalField());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(149, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(166, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(158, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -878,7 +875,6 @@ public final class FileResolverTest {
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(111, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(102, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(119, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(127, ((FieldBlock) child_).getFieldNameOffset());
@@ -1000,7 +996,6 @@ public final class FileResolverTest {
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(111, ((FieldBlock) child_).getFinalFieldOffset());
         assertEq(102, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(126, ((FieldBlock) child_).getFieldNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(118, ((FieldBlock) child_).getClassNameOffset());
@@ -1133,7 +1128,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(148, ((FieldBlock) child_).getValueOffset());
@@ -1289,7 +1283,6 @@ public final class FileResolverTest {
         assertTrue(!((FieldBlock) child_).isFinalField());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(102, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(119, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(111, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -1433,7 +1426,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertEq(125, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(133, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -1578,7 +1570,6 @@ public final class FileResolverTest {
         assertEq(84, ((FieldBlock) child_).getAccessOffset());
         assertEq(93, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(101, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(116, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(108, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -1747,7 +1738,6 @@ public final class FileResolverTest {
         assertEq(84, ((FieldBlock) child_).getAccessOffset());
         assertEq(93, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(101, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(116, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(108, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -1914,7 +1904,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertEq(125, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(133, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -2051,7 +2040,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertEq(125, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(133, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -2188,7 +2176,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertEq(125, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(133, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -2317,7 +2304,6 @@ public final class FileResolverTest {
         assertEq(107, ((FieldBlock) child_).getAccessOffset());
         assertEq(116, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(124, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(139, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(131, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -2882,7 +2868,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(140, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(157, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(149, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -3047,7 +3032,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(148, ((FieldBlock) child_).getValueOffset());
@@ -3189,7 +3173,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertEq(125, ((FieldBlock) child_).getStaticFieldOffset());
         assertEq(133, ((FieldBlock) child_).getFinalFieldOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -3701,7 +3684,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4098,7 +4080,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(137, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(154, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(146, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4158,7 +4139,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(137, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(154, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(146, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4218,7 +4198,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(137, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(154, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(146, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4332,7 +4311,6 @@ public final class FileResolverTest {
         assertTrue(!((FieldBlock) child_).isFinalField());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(149, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(166, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(158, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4643,7 +4621,6 @@ public final class FileResolverTest {
         assertTrue(!((FieldBlock) child_).isFinalField());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(149, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(166, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(158, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -4989,7 +4966,6 @@ public final class FileResolverTest {
         assertTrue(!((FieldBlock) child_).isFinalField());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(165, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(182, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(174, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -5149,7 +5125,6 @@ public final class FileResolverTest {
         assertEq(1, ((FieldBlock) child_).getAnnotationsIndexes().size());
         assertEq(73, ((FieldBlock) child_).getAnnotationsIndexes().first());
         assertEq(82, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(99, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(91, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -5694,7 +5669,6 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
-        assertEq("exfield", method_.getFieldName().first());
         assertEq(86, method_.getFieldNameOffset());
         assertEq(78, method_.getClassNameOffset());
         assertEq("$String", method_.getClassName());
@@ -5729,7 +5703,6 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
-        assertEq("exfield", method_.getFieldName().first());
         assertEq(78, method_.getFinalFieldOffset());
         assertEq(93, method_.getFieldNameOffset());
         assertEq(85, method_.getClassNameOffset());
@@ -5765,7 +5738,6 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
-        assertEq("exfield", method_.getFieldName().first());
         assertEq(86, method_.getFieldNameOffset());
         assertEq(78, method_.getClassNameOffset());
         assertEq("$String", method_.getClassName());
@@ -5801,7 +5773,6 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotations().size());
         assertEq(0, method_.getAnnotationsIndexes().size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
-        assertEq("exfield", method_.getFieldName().first());
         assertEq(78, method_.getFinalFieldOffset());
         assertEq(93, method_.getFieldNameOffset());
         assertEq(85, method_.getClassNameOffset());
@@ -6183,7 +6154,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(148, ((FieldBlock) child_).getValueOffset());
@@ -6325,7 +6295,6 @@ public final class FileResolverTest {
         assertEq(116, ((FieldBlock) child_).getAccessOffset());
         assertSame(AccessEnum.PRIVATE, ((FieldBlock) child_).getAccess());
         assertEq(148, ((FieldBlock) child_).getFieldNameOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(140, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq(148, ((FieldBlock) child_).getValueOffset());
@@ -6453,7 +6422,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -6590,7 +6558,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isStaticField());
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq("exfield='\\''", ((FieldBlock) child_).getValue());
         assertNull(field_.getNextSibling());
         assertNull(cl_.getNextSibling());
@@ -6623,7 +6590,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isStaticField());
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq("exfield=\"\\\"\"", ((FieldBlock) child_).getValue());
         assertNull(field_.getNextSibling());
         assertNull(cl_.getNextSibling());
@@ -6656,7 +6622,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isStaticField());
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq("$String", ((FieldBlock) child_).getClassName());
         assertEq("exfield=\"\"", ((FieldBlock) child_).getValue());
         assertNull(field_.getNextSibling());
@@ -6819,7 +6784,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -6950,7 +6914,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(99, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(116, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(108, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -7012,7 +6975,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(99, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(116, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(108, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -7067,7 +7029,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -7133,7 +7094,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -7285,7 +7245,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(111, ((FieldBlock) child_).getAccessOffset());
-        assertEq("exfield", ((FieldBlock) child_).getFieldName().first());
         assertEq(128, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(120, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -7421,9 +7380,6 @@ public final class FileResolverTest {
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(49, ((FieldBlock) child_).getAccessOffset());
-        assertEq(2, ((FieldBlock) child_).getFieldName().size());
-        assertEq("myf", ((FieldBlock) child_).getFieldName().first());
-        assertEq("mys", ((FieldBlock) child_).getFieldName().last());
         assertEq(66, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(58, ((FieldBlock) child_).getClassNameOffset());
         assertEq("$String", ((FieldBlock) child_).getClassName());
@@ -8264,8 +8220,6 @@ public final class FileResolverTest {
         assertNull(field_.getNextSibling());
         String expression_ = field_.getValue();
         assertEq("multi=`\n  static {``next\"// /*\t)`", expression_);
-        assertEq(1, field_.getFieldName().size());
-        assertEq("multi", field_.getFieldName().first());
         assertSame(AccessEnum.PACKAGE, cl_.getAccess());
         assertEq(1, countFileTypes(context_));
     }
@@ -8289,9 +8243,6 @@ public final class FileResolverTest {
         assertNull(field_.getNextSibling());
         String expression_ = field_.getValue();
         assertEq("multi=`\n  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`", expression_);
-        assertEq(2, field_.getFieldName().size());
-        assertEq("multi", field_.getFieldName().first());
-        assertEq("line", field_.getFieldName().last());
         assertSame(AccessEnum.PACKAGE, cl_.getAccess());
         assertEq(1, countFileTypes(context_));
     }
@@ -8315,15 +8266,10 @@ public final class FileResolverTest {
         FieldBlock field_ = (FieldBlock) first_;
         String expression_ = field_.getValue();
         assertEq("multi=`\n  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`", expression_);
-        assertEq(2, field_.getFieldName().size());
-        assertEq("multi", field_.getFieldName().first());
-        assertEq("line", field_.getFieldName().last());
         assertTrue(field_.getNextSibling() instanceof FieldBlock);
         field_ = (FieldBlock) field_.getNextSibling();
         expression_ = field_.getValue();
         assertEq("single=\"`\"", expression_);
-        assertEq(1, field_.getFieldName().size());
-        assertEq("single", field_.getFieldName().first());
         assertSame(AccessEnum.PACKAGE, cl_.getAccess());
         assertEq(1, countFileTypes(context_));
     }

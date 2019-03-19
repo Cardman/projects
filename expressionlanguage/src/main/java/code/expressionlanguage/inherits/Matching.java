@@ -1,10 +1,7 @@
 package code.expressionlanguage.inherits;
 
-import code.util.StringList;
-import code.util.ints.Equallable;
 
-
-public final class Matching implements Equallable<Matching> {
+public final class Matching {
 
     private String arg;
     private String param;
@@ -28,11 +25,5 @@ public final class Matching implements Equallable<Matching> {
     public void setMatchEq(MatchingEnum _matchEq) {
         matchEq = _matchEq;
     }
-    @Override
-    public boolean eq(Matching _g) {
-        if (!StringList.quickEq(arg, _g.arg)) {
-            return false;
-        }
-        return StringList.quickEq(param, _g.param);
-    }
+
 }

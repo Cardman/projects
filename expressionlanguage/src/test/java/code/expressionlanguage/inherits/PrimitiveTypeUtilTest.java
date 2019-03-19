@@ -3501,6 +3501,80 @@ public final class PrimitiveTypeUtilTest {
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
+    @Test
+    public void getResultTernary99Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        map_.put("U", new StringList("#T"));
+        map_.put("V", new StringList("#S","#U"));
+        map_.put("W", new StringList("#V"));
+        StringList one_ = new StringList("#W");
+        StringList two_ = new StringList("#V");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(res_.getTypes().containsStr("#V"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary100Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList());
+        map_.put("S", new StringList("#T"));
+        map_.put("U", new StringList("#T"));
+        map_.put("V", new StringList("#S","#U"));
+        map_.put("W", new StringList("#V"));
+        StringList one_ = new StringList("#W");
+        StringList two_ = new StringList("#V");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(res_.getTypes().containsStr("#V"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

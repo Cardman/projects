@@ -37,6 +37,27 @@ public final class ProcessMethodDeclarationTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument111Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $boolean t = $lambda(String,charAt,$int)$instanceof $Fct<CharSequence,$int,?>,u = $lambda($Fct<String,?>,call,Object...)$instanceof $Fct<$Fct<?,String>,Object[],Object>:\n");
+        xml_.append("  $return t;.&&u;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+
+    @Test
     public void calculateArgument2Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

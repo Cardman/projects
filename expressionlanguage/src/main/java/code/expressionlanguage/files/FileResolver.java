@@ -1315,41 +1315,11 @@ public final class FileResolver {
                         meth_ = false;
                     }
                     if (!meth_) {
-                        StringList fieldNames_ = new StringList();
-                        int j_ = 0;
-                        int lenAfterType_ = realFound_.length();
-                        while (j_ < lenAfterType_) {
-                            String sub_ = realFound_.substring(j_);
-                            int next_ = getIndex(sub_, ',');
-                            String foundField_;
-                            if (next_ >= 0) {
-                                foundField_ = sub_.substring(0, next_).trim();
-                            } else {
-                                foundField_ = sub_.trim();
-                            }
-                            int k_ = 0;
-                            int lenField_ = foundField_.length();
-                            StringBuilder fieldNameBuild_ = new StringBuilder();
-                            while (k_ < lenField_) {
-                                char fieldChar_ = foundField_.charAt(k_);
-                                if (!StringList.isDollarWordChar(fieldChar_)) {
-                                    break;
-                                }
-                                fieldNameBuild_.append(fieldChar_);
-                                k_++;
-                            }
-                            fieldNames_.add(fieldNameBuild_.toString());
-                            if (next_ < 0) {
-                                break;
-                            }
-                            j_+=next_+1;
-                        }
                         int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(realFound_) +declaringType_.trim().length() + typeOffset_;
                         br_ = new FieldBlock(_context, currentParent_,
                                 new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                 new OffsetBooleanInfo(-1, true),
                                 new OffsetBooleanInfo(finalOff_, final_),
-                                fieldNames_,
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()),
                                 new OffsetStringInfo(fieldNameOffest_, realFound_.trim()),
                                 new OffsetsBlock(instructionRealLocation_, instructionLocation_));
@@ -1681,43 +1651,46 @@ public final class FileResolver {
         return tryBuiltTypeWithInfos(_context, _file, _instructionLocation, _instructionRealLocation, _currentParent, _len, accessFct_, trFound_, annotationsIndexes_, annotations_, typeOffset_, locIndex_, enLoc_, badIndexes_, staticType_, abstractType_, finalType_, keyWordClass_, keyWordEnum_, keyWordInterface_, keyWordInterfaces_, bk_, type_, categoryOffset_);
     }
 
-    private static RootBlock tryBuiltTypeWithInfos(ContextEl _context, String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len, AccessEnum accessFct_, int trFound_, Numbers<Integer> annotationsIndexes_, StringList annotations_, int typeOffset_, int locIndex_, EnablingSpaces enLoc_, Numbers<Integer> badIndexes_, boolean staticType_, boolean abstractType_, boolean finalType_, String keyWordClass_, String keyWordEnum_, String keyWordInterface_, String keyWordInterfaces_, int bk_, String type_, int categoryOffset_) {
-        ParsedImportedTypes p_ = new ParsedImportedTypes(locIndex_, _file, badIndexes_, enLoc_);
+    private static RootBlock tryBuiltTypeWithInfos(ContextEl _context, String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len, AccessEnum _accessFct, int _trFound,
+                                                   Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, EnablingSpaces _enLoc, Numbers<Integer> _badIndexes,
+                                                   boolean _staticType, boolean _abstractType, boolean _finalType, String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, int _bk, String _type,
+                                                   int _categoryOffset) {
+        ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex, _file, _badIndexes, _enLoc);
         StringList importedTypes_ = p_.getImportedTypes();
         Numbers<Integer> offsetsImports_ = p_.getOffsetsImports();
-        locIndex_ = p_.getNextIndex();
+        int locIndex_ = p_.getNextIndex();
         if (!p_.isOk()) {
-            badIndexes_.add(bk_);
+            _badIndexes.add(_bk);
             return null;
         }
         if (!StringList.isDollarWordChar(_file.charAt(locIndex_))) {
             //ERROR
-            badIndexes_.add(locIndex_);
+            _badIndexes.add(locIndex_);
             return null;
         }
         //insert interfaces static initialization for class and enums
         StringList staticInitInterfaces_ = new StringList();
         Numbers<Integer> staticInitInterfacesOffset_ = new Numbers<Integer>();
-        if (ContextEl.startsWithKeyWord(_file.substring(locIndex_), keyWordInterfaces_)) {
+        if (ContextEl.startsWithKeyWord(_file.substring(locIndex_), _keyWordInterfaces)) {
             int begin_ = _file.indexOf(BEGIN_CALLING, locIndex_);
             if (begin_ < 0) {
                 //ERROR
-                badIndexes_.add(locIndex_);
+                _badIndexes.add(locIndex_);
                 return null;
             }
             int end_ = _file.indexOf(END_CALLING, begin_);
             if (end_ < 0) {
                 //ERROR
-                badIndexes_.add(begin_);
+                _badIndexes.add(begin_);
                 return null;
             }
             int interfaceOffest_ = begin_ + 1;
             String interfacesInfo_ = _file.substring(begin_ + 1, end_);
             for (int i = begin_ + 1; i < end_; i++) {
-                updateAllowedSpaces(i, _file, enLoc_);
-                if (!enLoc_.isOk()) {
+                updateAllowedSpaces(i, _file, _enLoc);
+                if (!_enLoc.isOk()) {
                     //ERROR
-                    badIndexes_.add(i);
+                    _badIndexes.add(i);
                     return null;
                 }
             }
@@ -1728,16 +1701,20 @@ public final class FileResolver {
             }
             locIndex_ = end_ + 1;
         }
-        return tryBuildType(_context, _file, _instructionLocation, _instructionRealLocation, _currentParent, _len, accessFct_, trFound_, annotationsIndexes_, annotations_, typeOffset_, locIndex_, enLoc_, badIndexes_, staticType_, abstractType_, finalType_, keyWordClass_, keyWordEnum_, keyWordInterface_, type_, categoryOffset_, importedTypes_, offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
+        return tryBuildType(_context, _file, _instructionLocation, _instructionRealLocation, _currentParent, _len, _accessFct, _trFound, _annotationsIndexes, _annotations, _typeOffset, locIndex_, _enLoc, _badIndexes, _staticType, _abstractType, _finalType, _keyWordClass, _keyWordEnum, _keyWordInterface, _type, _categoryOffset, importedTypes_, offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
     }
 
-    private static RootBlock tryBuildType(ContextEl _context, String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len, AccessEnum accessFct_, int trFound_, Numbers<Integer> annotationsIndexes_, StringList annotations_, int typeOffset_, int locIndex_, EnablingSpaces enLoc_, Numbers<Integer> badIndexes_, boolean staticType_, boolean abstractType_, boolean finalType_, String keyWordClass_, String keyWordEnum_, String keyWordInterface_, String type_, int categoryOffset_, StringList importedTypes_, Numbers<Integer> offsetsImports_, StringList staticInitInterfaces_, Numbers<Integer> staticInitInterfacesOffset_) {
+    private static RootBlock tryBuildType(ContextEl _context, String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len,
+                                          AccessEnum _accessFct, int _trFound, Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
+                                          EnablingSpaces _enLoc, Numbers<Integer> _badIndexes, boolean _staticType, boolean _abstractType, boolean _finalType,
+                                          String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _type, int _categoryOffset, StringList _importedTypes,
+                                          Numbers<Integer> _offsetsImports, StringList _staticInitInterfaces, Numbers<Integer> _staticInitInterfacesOffset) {
         int bk_;
-        bk_ = locIndex_;
-        locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
+        bk_ = _locIndex;
+        int locIndex_ = skipWhitespace(_locIndex, _file, _enLoc);
         if (locIndex_ < 0) {
             //ERROR
-            badIndexes_.add(bk_);
+            _badIndexes.add(bk_);
             return null;
         }
         StringBuilder str_ = new StringBuilder();
@@ -1751,9 +1728,9 @@ public final class FileResolver {
         int inheritIndex_ = -1;
         while (locIndex_ < _len) {
             char locChar_ = _file.charAt(locIndex_);
-            if (!enLoc_.isOk()) {
+            if (!_enLoc.isOk()) {
                 //ERROR
-                badIndexes_.add(locIndex_);
+                _badIndexes.add(locIndex_);
                 return null;
             }
             if (locChar_ == BEGIN_TEMPLATE) {
@@ -1780,7 +1757,7 @@ public final class FileResolver {
                 }
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
-                locIndex_ = incrementRowCol(locIndex_, _file, enLoc_);
+                locIndex_ = incrementRowCol(locIndex_, _file, _enLoc);
                 inheritIndex_ = locIndex_;
                 continue;
             }
@@ -1790,23 +1767,23 @@ public final class FileResolver {
             }
             if (locChar_ == BEGIN_COMMENT) {
                 //ERROR
-                badIndexes_.add(locIndex_);
+                _badIndexes.add(locIndex_);
                 return null;
             }
             if (foundInherit_) {
                 str_.append(locChar_);
             }
-            locIndex_ = incrementRowCol(locIndex_, _file, enLoc_);
+            locIndex_ = incrementRowCol(locIndex_, _file, _enLoc);
         }
         if (foundInherit_) {
             superTypes_.put(inheritIndex_, str_.toString());
         }
         if (!ok_) {
             //ERROR
-            badIndexes_.add(_len - 1);
+            _badIndexes.add(_len - 1);
             return null;
         }
-        incrementRowCol(locIndex_, _file, enLoc_);
+        incrementRowCol(locIndex_, _file, _enLoc);
         RootBlock typeBlock_;
         String tempDef_ = templateDef_.toString();
         String typeName_ = typeNamePref_.toString();
@@ -1820,21 +1797,21 @@ public final class FileResolver {
             baseName_ = typeName_;
         }
 
-        if (StringList.quickEq(type_, keyWordEnum_)) {
-            typeBlock_ = new EnumBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
-        } else if (StringList.quickEq(type_, keyWordClass_)) {
-            typeBlock_ = new ClassBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_), tempDef_, superTypes_, finalType_, abstractType_, staticType_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
-        } else if (StringList.quickEq(type_, keyWordInterface_)) {
-            typeBlock_ = new InterfaceBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, staticType_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
+        if (StringList.quickEq(_type, _keyWordEnum)) {
+            typeBlock_ = new EnumBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+        } else if (StringList.quickEq(_type, _keyWordClass)) {
+            typeBlock_ = new ClassBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+        } else if (StringList.quickEq(_type, _keyWordInterface)) {
+            typeBlock_ = new InterfaceBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else {
-            typeBlock_ = new AnnotationBlock(_context, _currentParent, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(typeOffset_ - 1, accessFct_) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + trFound_, _instructionLocation + trFound_));
+            typeBlock_ = new AnnotationBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         }
-        typeBlock_.getImports().addAllElts(importedTypes_);
-        typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
-        typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
-        typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
-        typeBlock_.getAnnotations().addAllElts(annotations_);
-        typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+        typeBlock_.getImports().addAllElts(_importedTypes);
+        typeBlock_.getImportsOffset().addAllElts(_offsetsImports);
+        typeBlock_.getStaticInitInterfaces().addAllElts(_staticInitInterfaces);
+        typeBlock_.getStaticInitInterfacesOffset().addAllElts(_staticInitInterfacesOffset);
+        typeBlock_.getAnnotations().addAllElts(_annotations);
+        typeBlock_.getAnnotationsIndexes().addAllElts(_annotationsIndexes);
         BracedBlock br_ = typeBlock_;
         _currentParent.appendChild(br_);
         return typeBlock_;
@@ -2124,40 +2101,11 @@ public final class FileResolver {
             int typeOffest_ = _i - found_.length() + delta_;
             String declaringType_ = getDeclaringTypeBlock(info_);
             String afterType_ = info_.substring(declaringType_.length());
-            StringList fieldNames_ = new StringList();
-            int j_ = 0;
-            int lenAfterType_ = afterType_.length();
-            while (j_ < lenAfterType_) {
-                String sub_ = afterType_.substring(j_);
-                int next_ = getIndex(sub_, ',');
-                String foundField_;
-                if (next_ >= 0) {
-                    foundField_ = sub_.substring(0, next_).trim();
-                } else {
-                    foundField_ = sub_.trim();
-                }
-                int k_ = 0;
-                int lenField_ = foundField_.length();
-                StringBuilder fieldName_ = new StringBuilder();
-                while (k_ < lenField_) {
-                    char fieldChar_ = foundField_.charAt(k_);
-                    if (!StringList.isDollarWordChar(fieldChar_)) {
-                        break;
-                    }
-                    fieldName_.append(fieldChar_);
-                    k_++;
-                }
-                fieldNames_.add(fieldName_.toString());
-                if (next_ < 0) {
-                    break;
-                }
-                j_+=next_+1;
-            }
             int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
             br_ = new FieldBlock(_context, _currentParent,
                     new OffsetAccessInfo(accessOffest_, accessFct_),
                     new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_),
-                    fieldNames_, new OffsetStringInfo(typeOffest_,declaringType_.trim()),
+                    new OffsetStringInfo(typeOffest_,declaringType_.trim()),
                     new OffsetStringInfo(fieldNameOffest_, afterType_.trim()),
                     new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             ((FieldBlock)br_).getAnnotations().addAllElts(annotations_);

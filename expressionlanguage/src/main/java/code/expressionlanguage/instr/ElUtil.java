@@ -53,6 +53,55 @@ public final class ElUtil {
         return _right.getArgument();
     }
 
+    public static StringList getFieldNames(String _el, ContextEl _conf, Calculation _calcul) {
+        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
+        _conf.setStaticContext(hiddenVarTypes_);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+        StringList names_ = new StringList();
+        if (opTwo_.getOperators().isEmpty()) {
+            for (String v: opTwo_.getValues().values()) {
+                names_.add(v.trim());
+            }
+            names_.removeAllString("");
+            return names_;
+        }
+        if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
+            for (String v: opTwo_.getValues().values()) {
+                int k_ = 0;
+                int lenField_ = v.length();
+                StringBuilder fieldName_ = new StringBuilder();
+                while (k_ < lenField_) {
+                    char fieldChar_ = v.charAt(k_);
+                    if (!StringList.isDollarWordChar(fieldChar_)) {
+                        break;
+                    }
+                    fieldName_.append(fieldChar_);
+                    k_++;
+                }
+                names_.add(fieldName_.toString().trim());
+            }
+            names_.removeAllString("");
+            return names_;
+        }
+        if (opTwo_.getPriority() == ElResolver.AFF_PRIO) {
+            String var_ = opTwo_.getValues().firstValue();
+            int lenField_ = var_.length();
+            StringBuilder fieldName_ = new StringBuilder();
+            int k_ = 0;
+            while (k_ < lenField_) {
+                char fieldChar_ = var_.charAt(k_);
+                if (!StringList.isDollarWordChar(fieldChar_)) {
+                    break;
+                }
+                fieldName_.append(fieldChar_);
+                k_++;
+            }
+            names_.add(fieldName_.toString().trim());
+        }
+        names_.removeAllString("");
+        return names_;
+    }
 
     public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();

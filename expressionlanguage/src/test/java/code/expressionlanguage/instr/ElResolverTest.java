@@ -4,7 +4,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.methods.*;
-import code.util.Numbers;
+import code.util.*;
 import org.junit.Test;
 
 import code.expressionlanguage.AnalyzedPageEl;
@@ -12,9 +12,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringMap;
 
 
 public final class ElResolverTest extends ProcessMethodCommon{
@@ -493,7 +490,13 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
-        Block b_ = r_.getFirstChild().getNextSibling().getFirstChild();
+        Block field_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(field_);
+        ((FieldBlock)field_).retrieveNames(conf_, new StringList());
+        RootBlock rTwo_ = classes_.getClassBody("pkg.Composite");
+        conf_.getAnalyzing().setCurrentBlock(rTwo_.getFirstChild());
+        ((FieldBlock)rTwo_.getFirstChild()).retrieveNames(conf_, new StringList());
+        Block b_ = field_.getNextSibling().getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
@@ -1997,7 +2000,10 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
-        Block b_ = r_.getFirstChild().getNextSibling().getFirstChild();
+        Block field_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(field_);
+        ((FieldBlock)field_).retrieveNames(conf_, new StringList());
+        Block b_ = field_.getNextSibling().getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();

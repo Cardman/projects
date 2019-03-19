@@ -5138,7 +5138,106 @@ public final class ExpressionLanguageTest {
         assertEq(1, o_.length);
         assertEq(2, ((NumberStruct) o_[0]).getInstance().intValue());
     }
-
+    @Test
+    public void processEl977Test() {
+        Argument arg_ = directCalculate("$new $int[1] $instanceof $int[][]");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl978Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<String,$int>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl979Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<CharSequence,$int,$char>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl980Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<CharSequence,Object,$char>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl981Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<CharSequence,$int,String>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl982Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<CharSequence,$int,?>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl983Test() {
+        Argument arg_ = directCalculate("($lambda(String,charAt,$int)$instanceof $Fct<CharSequence,?,$char>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl984Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<?,?>,call,Object...)$instanceof $Fct<$Fct<?,?>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl985Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<?,?>,call,Object...)$instanceof $Fct<$Fct<String,?>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl986Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<?,?>,call,Object...)$instanceof $Fct<$Fct<?,String>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl987Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<String,String>,call,Object...)$instanceof $Fct<$Fct<?,?>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl988Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<String,?>,call,Object...)$instanceof $Fct<$Fct<?,String>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl989Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<?,String>,call,Object...)$instanceof $Fct<$Fct<String,?>,Object[],Object>)");
+        assertTrue(arg_.isTrue());
+    }
+    @Test
+    public void processEl990Test() {
+        Argument arg_ = directCalculate("($lambda($Fct<?,String>,call,Object...)$instanceof Integer)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl991Test() {
+        Argument arg_ = directCalculate("(0 $instanceof $Fct<?,String>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl992Test() {
+        Argument arg_ = directCalculate("($new $int[0] $instanceof $Fct<?,String>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl993Test() {
+        Argument arg_ = directCalculate("($new $int[0] $instanceof $Fct<?,String>[])");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl994Test() {
+        Argument arg_ = directCalculate("($new Integer[0] $instanceof $Fct<?,String>)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl995Test() {
+        Argument arg_ = directCalculate("($new Integer[0] $instanceof $Fct<?,String>[])");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl996Test() {
+        Argument arg_ = directCalculate("$lambda(String,charAt,$int)$instanceof $Fct<String,$int>");
+        assertTrue(arg_.isFalse());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

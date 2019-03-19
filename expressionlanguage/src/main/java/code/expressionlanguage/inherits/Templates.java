@@ -242,12 +242,6 @@ public final class Templates {
         }
         StringMap<StringList> mapping_ = new StringMap<StringList>();
         if (_wildCard) {
-            if (className_.startsWith(SUB_TYPE)) {
-                return "";
-            }
-            if (className_.startsWith(SUP_TYPE)) {
-                return "";
-            }
             StringList allArgTypes_ = getAllTypes(className_).mid(1);
             for (String m: allArgTypes_) {
                 if (m.startsWith(SUB_TYPE)) {
@@ -1322,11 +1316,10 @@ public final class Templates {
                             okTree_ = false;
                             break;
                         }
-                        boolean locOk_ = true;
                         for (Matching n: m_.getPairsArgParam()) {
                             if (n.getMatchEq() == MatchingEnum.EQ) {
                                 if (!StringList.quickEq(n.getParam(), n.getArg())) {
-                                    locOk_ = false;
+                                    okTree_ = false;
                                     break;
                                 }
                                 continue;
@@ -1344,8 +1337,7 @@ public final class Templates {
                             }
                             new_.add(n_);
                         }
-                        if (!locOk_) {
-                            okTree_ = false;
+                        if (!okTree_) {
                             break;
                         }
                     }
@@ -1386,11 +1378,10 @@ public final class Templates {
                     okTree_ = false;
                     break;
                 }
-                boolean locOk_ = true;
                 for (Matching n: m_.getPairsArgParam()) {
                     if (n.getMatchEq() == MatchingEnum.EQ) {
                         if (!StringList.quickEq(n.getParam(), n.getArg())) {
-                            locOk_ = false;
+                            okTree_ = false;
                             break;
                         }
                         continue;
@@ -1408,8 +1399,7 @@ public final class Templates {
                     }
                     new_.add(n_);
                 }
-                if (!locOk_) {
-                    okTree_ = false;
+                if (!okTree_) {
                     break;
                 }
             }
@@ -1579,7 +1569,7 @@ public final class Templates {
         return newMappingPairs(generic_, typesParam_);
     }
     private static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
-        EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int len_ = _params.size();
         int argCall_ = len_ - 1;
         for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
@@ -1626,7 +1616,7 @@ public final class Templates {
     private static MappingPairs newMappingPairs(String _generic, StringList _params) {
         int len_;
         StringList foundSuperClass_ = getAllTypes(_generic);
-        EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         len_ = foundSuperClass_.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
@@ -1810,6 +1800,9 @@ public final class Templates {
             int nbParams_ = params_.size() - 1;
             String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
             GeneType current_ = _context.getClassBody(baseArr_);
+            if (current_ == null) {
+                continue;
+            }
             if (current_.isStaticType()) {
                 if (i + 1 < len_) {
                     String idNext_ = getIdFromAllTypes(inners_.get(i+1));

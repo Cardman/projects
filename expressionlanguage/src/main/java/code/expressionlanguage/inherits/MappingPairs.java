@@ -1,18 +1,15 @@
 package code.expressionlanguage.inherits;
 
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.CustList;
 
 public class MappingPairs {
 
-    private StringMap<StringList> paramArgs = new StringMap<StringList>();
-    private EqList<Matching> pairsArgParam = new EqList<Matching>();
+    private CustList<Matching> pairsArgParam = new CustList<Matching>();
 
-    public EqList<Matching> getPairsArgParam() {
+    public CustList<Matching> getPairsArgParam() {
         return pairsArgParam;
     }
-    public void setPairsArgParam(EqList<Matching> _pairsArgParam) {
+    public void setPairsArgParam(CustList<Matching> _pairsArgParam) {
         pairsArgParam = _pairsArgParam;
     }
 

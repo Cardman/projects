@@ -1731,6 +1731,75 @@ public final class RootBlockTest {
         classes_.validateOverridingInherit(cont_, false);
         assertTrue(!classes_.isEmptyErrors());
     }
+    @Test
+    public void test19Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal Integer instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append(" $public $normal $void instancemethod(#T i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateIds(cont_,false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
+    @Test
+    public void test20Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $int instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append(" $public $normal Integer instancemethod(#T i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateIds(cont_,false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
+    @Test
+    public void test21Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append(" $public $normal Integer instancemethod(#T i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateIds(cont_,false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
