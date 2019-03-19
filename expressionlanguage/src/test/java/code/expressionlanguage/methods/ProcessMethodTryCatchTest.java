@@ -1383,7 +1383,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,23:90\npkg.Ex.static catching();1", ret_.getString());
+        assertEq("pkg/Ex:4,23:90\npkg.Ex.$static catching();1", ret_.getString());
     }
     @Test
     public void calculateArgument95Test() {
@@ -1413,7 +1413,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,12:79\npkg.Ex.static catching();pkg/Ex:13,2:286\npkg.ExTwo.;2", ret_.getString());
+        assertEq("pkg/Ex:4,12:79\npkg.Ex.$static catching();pkg/Ex:13,2:286\npkg.ExTwo.;2", ret_.getString());
     }
     @Test
     public void calculateArgument96Test() {
@@ -1443,7 +1443,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,47:114\npkg.Ex.static catching();pkg/Ex:13,2:310\npkg.ExTwo.;2", ret_.getString());
+        assertEq("pkg/Ex:4,47:114\npkg.Ex.$static catching();pkg/Ex:13,2:310\npkg.ExTwo.;2", ret_.getString());
     }
     @Test
     public void calculateArgument97Test() {
@@ -1474,7 +1474,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:5,48:224\npkg.Ex.static catching();:0,0:0\n.;2", ret_.getString());
+        assertEq("pkg/Ex:5,48:224\npkg.Ex.$static catching();:0,0:0\n.;2", ret_.getString());
     }
     @Test
     public void calculateArgument98Test() {
@@ -1536,7 +1536,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$invokeTaget\n\npkg/Ex:5,48:224\npkg.Ex.static catching()\n:0,0:0\n.", ret_.getString());
+        assertEq("java.lang.$invokeTaget\n\npkg/Ex:5,48:224\npkg.Ex.$static catching()\n:0,0:0\n.", ret_.getString());
     }
     @Test
     public void calculateArgument100Test() {
@@ -1566,7 +1566,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$defErrorClass\n\npkg/Ex:4,12:79\npkg.Ex.static catching()\npkg/Ex:13,2:213\npkg.ExTwo.", ret_.getString());
+        assertEq("java.lang.$defErrorClass\n\npkg/Ex:4,12:79\npkg.Ex.$static catching()\npkg/Ex:13,2:213\npkg.ExTwo.", ret_.getString());
     }
     @Test
     public void calculateArgument101Test() {
@@ -1593,7 +1593,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:4,27:94\npkg.Ex.static catching()", ret_.getString());
+        assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:4,27:94\npkg.Ex.$static catching()", ret_.getString());
     }
     @Test
     public void calculateArgument102Test() {

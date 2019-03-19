@@ -139,7 +139,7 @@ public final class FctOperation extends ReflectableInvokingOperation {
                 UndefinedMethodError undefined_ = new UndefinedMethodError();
                 MethodModifier mod_ = MethodModifier.FINAL;
                 undefined_.setClassName(bounds_);
-                undefined_.setId(new MethodId(mod_, trimMeth_, classesNames_));
+                undefined_.setId(new MethodId(mod_, trimMeth_, classesNames_).getSignature(_conf));
                 undefined_.setFileName(_conf.getCurrentFileName());
                 undefined_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(undefined_);
@@ -165,7 +165,7 @@ public final class FctOperation extends ReflectableInvokingOperation {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
                 AbstractMethod abs_ = new AbstractMethod();
                 abs_.setClassName(clMeth_.getRealClass());
-                abs_.setSgn(clMeth_.getRealId().getSignature());
+                abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(abs_);

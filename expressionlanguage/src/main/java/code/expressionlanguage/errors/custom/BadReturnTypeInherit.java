@@ -9,13 +9,13 @@ public class BadReturnTypeInherit extends FoundErrorInterpret {
 
     private String returnType;
 
-    private MethodId method;
+    private String method;
 
     private String parentClass;
 
     @Override
     public String display(Classes _classes) {
-        String for_ = StringList.simpleStringsFormat(CLASS_NAME, returnType, method.getSignature(), parentClass);
+        String for_ = StringList.simpleStringsFormat(CLASS_NAME, returnType, method, parentClass);
         return StringList.concat(super.display(_classes),for_,SEP_INFO);
     }
 
@@ -23,7 +23,7 @@ public class BadReturnTypeInherit extends FoundErrorInterpret {
         returnType = _returnType;
     }
 
-    public void setMethod(MethodId _method) {
+    public void setMethod(String _method) {
         method = _method;
     }
 

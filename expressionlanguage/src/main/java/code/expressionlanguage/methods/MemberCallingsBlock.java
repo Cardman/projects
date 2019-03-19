@@ -74,7 +74,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 deadCode_.setFileName(getFile().getFileName());
                 deadCode_.setIndexFile(en_.getOffset().getOffsetTrim());
                 if (this instanceof Returnable) {
-                    deadCode_.setId(((Returnable)this).getSignature());
+                    deadCode_.setId(((Returnable)this).getId().getSignature(_cont));
                 } else {
                     deadCode_.setId(EMPTY_STRING);
                 }

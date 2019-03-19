@@ -431,7 +431,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             UndefinedMethodError undefined_ = new UndefinedMethodError();
             MethodModifier mod_ = MethodModifier.FINAL;
             undefined_.setClassName(_str);
-            undefined_.setId(new MethodId(mod_, _name, classesNames_));
+            undefined_.setId(new MethodId(mod_, _name, classesNames_).getSignature(_conf));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
@@ -461,7 +461,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             if (_id.isAbstractMethod()) {
                 AbstractMethod abs_ = new AbstractMethod();
                 abs_.setClassName(_id.getRealClass());
-                abs_.setSgn(_id.getRealId().getSignature());
+                abs_.setSgn(_id.getRealId().getSignature(_conf));
                 abs_.setIndexFile(_conf.getCurrentLocationIndex());
                 abs_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(abs_);

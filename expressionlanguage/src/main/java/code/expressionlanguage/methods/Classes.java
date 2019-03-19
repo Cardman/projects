@@ -1303,7 +1303,7 @@ public final class Classes {
                     duplicate_ = new DuplicateMethod();
                     duplicate_.setIndexFile(o.getOffset().getOffsetTrim());
                     duplicate_.setFileName(_context.getCurrentFileName());
-                    duplicate_.setId(id_);
+                    duplicate_.setId(id_.getSignature(_context));
                     _context.getClasses().addError(duplicate_);
                 }
             }
@@ -1434,12 +1434,7 @@ public final class Classes {
             }
             return true;
         }
-        for (StandardField f: _context.getStandards().getStandards().getVal(baseClass_).getFields().values()) {
-            if (f.getFieldName().containsStr(_name)) {
-                return !canAccess(_className, f, _context);
-            }
-        }
-        return true;
+        return false;
     }
     public static CustList<RootBlock> accessedClassMembers(boolean _inherits,boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
         String idRoot_ = Templates.getIdFromAllTypes(_className);

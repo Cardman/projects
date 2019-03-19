@@ -53,11 +53,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public String getSignature() {
-        return getId().getSignature();
-    }
-
-    @Override
     public GeneType belong() {
         return (RootBlock) getParent();
     }
@@ -74,11 +69,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     @Override
     public MethodId getId() {
         return new MethodId(false, getName(), new StringList(), false);
-    }
-
-    @Override
-    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
-        return getId();
     }
 
     @Override

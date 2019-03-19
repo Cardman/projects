@@ -86,7 +86,7 @@ public final class ChoiceFctOperation extends ReflectableInvokingOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             AbstractMethod abs_ = new AbstractMethod();
             abs_.setClassName(clMeth_.getRealClass());
-            abs_.setSgn(clMeth_.getRealId().getSignature());
+            abs_.setSgn(clMeth_.getRealId().getSignature(_conf));
             abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(abs_);

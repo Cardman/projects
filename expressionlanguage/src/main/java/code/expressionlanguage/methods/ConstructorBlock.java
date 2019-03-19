@@ -37,11 +37,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getSignature() {
-        return getId().getSignature();
-    }
-
-    @Override
     public ConstructorId getId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();

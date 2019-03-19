@@ -279,4 +279,38 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         Struct c_ = cause_.getCause();
         assertEq("code.expressionlanguage.exceptions.DivideZeroException",c_.getClassName(cont_));
     }
+    @Test
+    public void initializeClass2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append(" $int $m():\n");
+        xml_.append(" $int $m():\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" :\n");
+        xml_.append(" $public $int $first:\n");
+        xml_.append(" $public $int $first:\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $m($int $p,$int $p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $m($int $p,$int $p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String $name(){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $ordinal(){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex valueOf(String p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex[] values(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

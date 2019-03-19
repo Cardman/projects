@@ -26,11 +26,6 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    @Override
-    public String getSignature() {
-        return getId().getSignature();
-    }
-
     public String getDeclaringType() {
         return getOwner().getFullName();
     }

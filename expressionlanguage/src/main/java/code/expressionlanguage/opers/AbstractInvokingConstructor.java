@@ -74,7 +74,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             }
             ConstructorId constId_ = new ConstructorId(clArg_.getNames().join(""), cl_, false);
             UndefinedConstructorError und_ = new UndefinedConstructorError();
-            und_.setId(constId_);
+            und_.setId(constId_.getSignature(_conf));
             und_.setClassName(clArg_.getNames().join(""));
             und_.setIndexFile(_conf.getCurrentLocationIndex());
             und_.setFileName(_conf.getCurrentFileName());

@@ -6,7 +6,6 @@ import code.expressionlanguage.opers.util.Identifiable;
 public interface GeneFunction extends AccessibleBlock {
 
     String getImportedReturnType();
-    String getSignature();
 
     boolean isVarargs();
 

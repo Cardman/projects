@@ -39,10 +39,10 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         }
     }
     @Override
-    public String getSignature() {
+    public String getSignature(Analyzable _ana) {
         String pref_ = EMPTY;
         if (staticMethod) {
-            pref_ = "static ";
+            pref_ = StringList.concat(_ana.getKeyWords().getKeyWordStatic()," ");
         }
         String suf_ = EMPTY;
         if (vararg) {

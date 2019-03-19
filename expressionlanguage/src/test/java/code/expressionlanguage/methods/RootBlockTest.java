@@ -168,12 +168,12 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#T"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test1() {
@@ -213,12 +213,12 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test2() {
@@ -412,7 +412,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#T"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test7() {
@@ -605,7 +605,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(false,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(false,"instancemethod", new StringList("#E"));
         r_ = classes_.getClassBody("pkg.Ex");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
@@ -614,7 +614,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(false,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test12() {
@@ -805,12 +805,12 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList());
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(false,"instancemethod", new StringList());
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         r_ = classes_.getClassBody("pkg.ExTwo");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
         assertEq(1, concrete_.size());
@@ -818,7 +818,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList());
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test18() {
@@ -866,7 +866,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#F"));
         assertEq("pkg.Int", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test19() {
@@ -946,7 +946,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test21() {
@@ -993,7 +993,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(false,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
@@ -1002,7 +1002,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test22() {
@@ -1049,7 +1049,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(false,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
@@ -1058,7 +1058,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test23() {
@@ -1106,7 +1106,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(false,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
@@ -1115,7 +1115,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void test24() {
@@ -1163,12 +1163,12 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
         id_ = new MethodId(false,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
@@ -1177,7 +1177,7 @@ public final class RootBlockTest {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints());
+        assertEq(resId_, res_.getConstraints(),cont_);
     }
     @Test
     public void overrideFailTest() {
@@ -1687,6 +1687,36 @@ public final class RootBlockTest {
         xml_.append(" $public $abstract String instancemethod(Object i){\n");
         xml_.append("  $return \"\":\n");
         xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(files_, cont_, false);
+        classes_.validateInheritingClasses(cont_, false);
+        classes_.validateIds(cont_,false);
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(!classes_.isEmptyErrors());
+    }
+    @Test
+    public void test18Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExIntTwo {\n");
+        xml_.append(" $public $final Number instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExIntThree {\n");
+        xml_.append(" $public $normal String instancemethod(Object i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExImp:pkg.ExIntTwo:pkg.ExIntThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Options opt_ = new Options();

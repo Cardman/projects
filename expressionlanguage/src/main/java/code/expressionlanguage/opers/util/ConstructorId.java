@@ -53,7 +53,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
     }
 
     @Override
-    public String getSignature() {
+    public String getSignature(Analyzable _ana) {
         String suf_ = EMPTY;
         if (vararg) {
             suf_ = VARARG;

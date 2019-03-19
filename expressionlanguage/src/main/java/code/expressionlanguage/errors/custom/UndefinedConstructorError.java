@@ -10,22 +10,22 @@ public final class UndefinedConstructorError extends FoundErrorInterpret {
 
     private String className;
 
-    private ConstructorId id;
+    private String id;
 
     @Override
     public String display(Classes _classes) {
-        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className,".",id.getSignature(),SEP_INFO);
+        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className,".",id,SEP_INFO);
     }
 
     public void setClassName(String _className) {
         className = _className;
     }
 
-    public ConstructorId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ConstructorId _id) {
+    public void setId(String _id) {
         id = _id;
     }
 }

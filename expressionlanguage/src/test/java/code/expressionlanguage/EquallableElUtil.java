@@ -28,9 +28,9 @@ public final class EquallableElUtil {
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
-    public static void assertEq(MethodId _expected, MethodId _result) {
+    public static void assertEq(MethodId _expected, MethodId _result, Analyzable _an) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.getSignature(),DIFF,_result.getSignature()), _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.getSignature(_an),DIFF,_result.getSignature(_an)), _expected.eq(_result));
     }
     
     public static void assertEq(long _expected, Number _result) {

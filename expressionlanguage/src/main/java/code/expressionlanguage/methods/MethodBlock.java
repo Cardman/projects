@@ -51,11 +51,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return modifierOffset;
     }
 
-    @Override
-    public String getSignature() {
-        return getId().getSignature();
-    }
-
     public MethodModifier getModifier() {
         if (abstractMethod) {
             return MethodModifier.ABSTRACT;
@@ -81,20 +76,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
             if (formatted_ == null) {
                 return null;
             }
-            pTypes_.add(formatted_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
@@ -155,7 +136,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
                 MissingReturnMethod miss_ = new MissingReturnMethod();
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getSignature());
+                miss_.setId(getId().getSignature(_an));
                 miss_.setReturning(getImportedReturnType());
                 _an.getClasses().addError(miss_);
             }

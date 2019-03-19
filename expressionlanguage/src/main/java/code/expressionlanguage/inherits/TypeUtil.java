@@ -249,7 +249,7 @@ public final class TypeUtil {
             GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
             err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
             err_.setReturnType(sub_.getImportedReturnType());
-            err_.setMethod(c.getConstraints());
+            err_.setMethod(c.getConstraints().getSignature(_context));
             err_.setParentClass(c.getClassName());
             classesRef_.addError(err_);
         }
@@ -295,7 +295,7 @@ public final class TypeUtil {
                         String superTypeName_ = Templates.getIdFromAllTypes(u);
                         GeneType super_ = _context.getClassBody(superTypeName_);
                         for (GeneMethod m: ContextEl.getMethodBlocks(super_)) {
-                            MethodId f_ = m.getQuickFormattedId(superType_, _context);
+                            MethodId f_ = m.getId().quickFormat(superType_, _context);
                             if (f_.eq(c.getConstraints().quickFormat(templClass_, _context))) {
                                 OverridingRelation ovRel_ = new OverridingRelation();
                                 ovRel_.setSubMethod(c);
@@ -385,7 +385,7 @@ public final class TypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
                         err_.setClassName(subId_.getClassName());
-                        err_.setId(sub_.getId());
+                        err_.setId(sub_.getId().getSignature(_context));
                         classesRef_.addError(err_);
                         continue;
                     }
@@ -394,7 +394,7 @@ public final class TypeUtil {
                         err_ = new BadAccessMethod();
                         err_.setFileName(fileName_);
                         err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
-                        err_.setId(sub_.getId());
+                        err_.setId(sub_.getId().getSignature(_context));
                         classesRef_.addError(err_);
                         continue;
                     }
@@ -404,7 +404,7 @@ public final class TypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(sub_.getId());
+                        err_.setMethod(sub_.getId().getSignature(_context));
                         err_.setParentClass(supId_.getClassName());
                         classesRef_.addError(err_);
                         continue;
@@ -532,7 +532,7 @@ public final class TypeUtil {
                 String class_ = list_.first();
                 String classBase_ = Templates.getIdFromAllTypes(class_);
                 eq_.put(name_, new ClassMethodId(classBase_, defs_.getVal(class_)));
-            } else if (list_.isEmpty()) {
+            } else {
                 defs_ = new StringMap<MethodId>();
                 list_ = new StringList();
                 for (ClassMethodId v: methods_) {
@@ -770,7 +770,7 @@ public final class TypeUtil {
                 if (b.isStaticMethod()) {
                     continue;
                 }
-                MethodId id_ = b.getQuickFormattedId(s, _classes);
+                MethodId id_ = b.getId().quickFormat(s, _classes);
                 ClassMethodId formatted_ = new ClassMethodId(s, b.getId());
                 if (all_.containsObj(id_)) {
                     list_.add(formatted_);
@@ -799,7 +799,7 @@ public final class TypeUtil {
                     continue;
                 }
                 MethodId m_ = b.getId();
-                addClass(map_, b.getQuickFormattedId(s, _classes), new ClassMethodId(s, m_));
+                addClass(map_, b.getId().quickFormat(s, _classes), new ClassMethodId(s, m_));
             }
         }
         return map_;

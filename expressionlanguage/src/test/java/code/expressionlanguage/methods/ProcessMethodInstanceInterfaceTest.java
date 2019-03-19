@@ -2100,6 +2100,86 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq("TWO", ((StringStruct)field_).getInstance());
     }
     @Test
+    public void instanceArgument901Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>(4i),\n");
+        xml_.append(" TWO<Number>:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public java.lang.String inst=$static($enums).name($valueOf(pkg.Ex,\"TWO\")):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("TWO", ((StringStruct)field_).getInstance());
+    }
+    @Test
+    public void instanceArgument902Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $enum Ex<T> {\n");
+        xml_.append(" ONE<String>(4i),\n");
+        xml_.append(" TWO<Number>:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public java.lang.String inst=$static($enums).name($valueOf(pkg.Outer..Ex,\"TWO\")):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("TWO", ((StringStruct)field_).getInstance());
+    }
+    @Test
     public void instanceArgument91Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");
@@ -4487,6 +4567,77 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(INTEGER, st_.getClassName(cont_));
         assertEq(-1, ((NumberStruct)st_).getInstance());
     }
+    @Test
+    public void instanceArgument1152Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class $interfaces(pkg.Int3,pkg.Int4) pkg.Ex :pkg.Int2{\n");
+        xml_.append("\n");
+        xml_.append(" $public(){\n");
+        xml_.append("  $interfaces(pkg.Int3)():\n");
+        xml_.append("  $interfaces(pkg.Int4)():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkg.Ex inst=$new pkg.Ex():\n");
+        xml_.append(" $public pkg.Ex ance=$new pkg.Ex():\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int :pkg.Int2{}\n");
+        files_.put("pkg/Int", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int2 :pkg.Int3:Int4{}\n");
+        files_.put("pkg/Int2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int3 {\n");
+        xml_.append(" $public $static $int nb=1i:\n");
+        xml_.append(" {\n");
+        xml_.append("  nb;;;++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;;;:\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int4 {\n");
+        xml_.append(" $public $static $int nb=6i:\n");
+        xml_.append(" {\n");
+        xml_.append("  nb;;;++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;;;:\n");
+        xml_.append("}\n");
+        files_.put("pkg/Int3", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExThree", "inst"));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
+        Struct subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.Int3", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)subField_).getInstance());
+        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.Int4", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(7, ((NumberStruct)subField_).getInstance());
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
+        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.Int3", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(3, ((NumberStruct)subField_).getInstance());
+        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.Int4", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(8, ((NumberStruct)subField_).getInstance());
+    }
+
     @Test
     public void instanceArgument116Test() {
         StringMap<String> files_ = new StringMap<String>();

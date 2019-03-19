@@ -706,7 +706,7 @@ public abstract class OperationNode implements Operable {
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
-            undefined_.setId(new ConstructorId(clCurName_, classesNames_, false));
+            undefined_.setId(new ConstructorId(clCurName_, classesNames_, false).getSignature(_conf));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
@@ -757,7 +757,7 @@ public abstract class OperationNode implements Operable {
             mod_ = MethodModifier.FINAL;
         }
         undefined_.setClassName(_classes);
-        undefined_.setId(new MethodId(mod_, _name, classesNames_));
+        undefined_.setId(new MethodId(mod_, _name, classesNames_).getSignature(_conf));
         undefined_.setFileName(_conf.getCurrentFileName());
         undefined_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(undefined_);

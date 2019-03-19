@@ -22,7 +22,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
     private final String currentClassName;
     private final String signature;
 
-    private StackTraceElementStruct(AbstractPageEl _page) {
+    private StackTraceElementStruct(AbstractPageEl _page,ContextEl _context) {
         indexFileType = _page.getTraceIndex();
         FileBlock f_ = _page.getFile();
         if (f_ != null) {
@@ -45,7 +45,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
             FunctionBlock fct_ = bl_.getFunction();
             if (fct_ instanceof NamedFunctionBlock) {
                 Identifiable id_ = ((NamedFunctionBlock)fct_).getId();
-                signature =id_.getSignature();
+                signature =id_.getSignature(_context);
                 return;
             }
         }
@@ -57,7 +57,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
         Struct[] arr_ = new Struct[count_];
         for (int i = 0; i < count_; i++) {
             AbstractPageEl call_ = _context.getCall(i);
-            arr_[i] = new StackTraceElementStruct(call_);
+            arr_[i] = new StackTraceElementStruct(call_,_context);
         }
         String cl_ = _context.getStandards().getAliasStackTraceElement();
         cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);

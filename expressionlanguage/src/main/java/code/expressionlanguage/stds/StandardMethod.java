@@ -53,26 +53,8 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return getOwner().getFullName();
     }
 
-    @Override
-    public String getSignature() {
-        return getId().getSignature();
-    }
-
     public MethodModifier getModifier() {
         return modifier;
-    }
-
-    @Override
-    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            pTypes_.add(n_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
 }

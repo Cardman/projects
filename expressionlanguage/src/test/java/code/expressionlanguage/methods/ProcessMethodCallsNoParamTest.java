@@ -120,6 +120,6 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:3,11:68\npkg.Ex.static exmeth();pkg/Ex:6,31:151\npkg.Ex.static exmethsec();2", ret_.getString());
+        assertEq("pkg/Ex:3,11:68\npkg.Ex.$static exmeth();pkg/Ex:6,31:151\npkg.Ex.$static exmethsec();2", ret_.getString());
     }
 }
