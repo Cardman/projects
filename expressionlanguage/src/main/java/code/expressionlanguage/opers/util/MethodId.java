@@ -67,27 +67,6 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
             return false;
         }
         for (int i = 0; i < len_; i++) {
-            if (!StringList.quickEq(classNames.get(i),_obj.classNames.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean same(MethodId _obj) {
-        if (!StringList.quickEq(_obj.name, name)) {
-            return false;
-        }
-        int len_ = classNames.size();
-        if (len_ != _obj.classNames.size()) {
-            return false;
-        }
-        if (staticMethod != _obj.staticMethod) {
-            return false;
-        }
-        if (vararg != _obj.vararg) {
-            return false;
-        }
-        for (int i = 0; i < len_; i++) {
             String param_ = classNames.get(i);
             String paramOther_ = _obj.classNames.get(i);
             if (param_ == null) {

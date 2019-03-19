@@ -39,18 +39,6 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
         return new ConstructorId(_genericClass, pTypes_, isVararg());
     }
-    
-    public ConstructorId quickFormat(String _genericClass, Analyzable _classes) {
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.quickFormat(_genericClass, n_, _classes);
-            pTypes_.add(formatted_);
-        }
-        return new ConstructorId(_genericClass, pTypes_, isVararg());
-    }
 
     @Override
     public String getSignature(Analyzable _ana) {
@@ -85,35 +73,6 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         return true;
     }
 
-    public boolean same(ConstructorId _obj) {
-        if (!StringList.quickEq(_obj.name, name)) {
-            return false;
-        }
-        if (classNames.size() != _obj.classNames.size()) {
-            return false;
-        }
-        if (vararg != _obj.vararg) {
-            return false;
-        }
-        int len_ = classNames.size();
-        for (int i = 0; i < len_; i++) {
-            String param_ = classNames.get(i);
-            String paramOther_ = _obj.classNames.get(i);
-            if (param_ == null) {
-                if (paramOther_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (paramOther_ == null) {
-                return false;
-            }
-            if (!StringList.quickEq(param_,paramOther_)) {
-                return false;
-            }
-        }
-        return true;
-    }
     @Override
     public StringList getParametersTypes() {
         return new StringList(classNames);

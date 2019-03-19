@@ -697,7 +697,7 @@ public abstract class OperationNode implements Operable {
         }
         StringMap<StringList> map_;
         map_ = _conf.getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
@@ -1103,7 +1103,7 @@ public abstract class OperationNode implements Operable {
         }
         StringMap<StringList> map_;
         map_ = _conf.getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
         MethodInfo found_ = sortFct(signatures_, gr_);
         if (found_ == null) {
             return new ClassMethodIdReturn(false);
@@ -1396,7 +1396,7 @@ public abstract class OperationNode implements Operable {
         int lenMax_ = allMax_.size();
         boolean allOvEq_ = true;
         for (int i = 1; i < lenMax_; i++) {
-            if (!allMax_.get(i).same(id_)) {
+            if (!((MethodInfo)allMax_.get(i)).same(id_)) {
                 allOvEq_ = false;
                 break;
             }

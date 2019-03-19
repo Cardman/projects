@@ -439,9 +439,6 @@ public final class Classes {
     
     public static CustList<Block> getSortedDescNodes(Block _root) {
         CustList<Block> list_ = new CustList<Block>();
-        if (_root == null) {
-            return list_;
-        }
         Block c_ = _root;
         Block f_ = c_.getFirstChild();
         list_.add(c_);
@@ -461,32 +458,18 @@ public final class Classes {
         if (n_ != null) {
             return n_;
         }
-        n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return n_;
-        }
-        n_ = _current.getParent();
-        if (n_ == _root) {
-            return null;
-        }
-        if (n_ != null) {
-            Block next_ = n_.getNextSibling();
-            while (next_ == null) {
-                Block par_ = n_.getParent();
-                if (par_ == _root) {
-                    break;
-                }
-                if (par_ == null) {
-                    break;
-                }
-                next_ = par_.getNextSibling();
-                n_ = par_;
+        Block current_ = _current;
+        while (true) {
+            n_ = current_.getNextSibling();
+            if (n_ != null) {
+                return n_;
             }
-            if (next_ != null) {
-                return next_;
+            n_ = current_.getParent();
+            if (n_ == _root) {
+                return null;
             }
+            current_ = n_;
         }
-        return null;
     }
     public static CustList<GeneMethod> getMethodBlocks(RootBlock _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
@@ -516,9 +499,6 @@ public final class Classes {
         _context.setAnalyzing(new AnalyzedPageEl());
         String objectClassName_ = _context.getStandards().getAliasObject();
         CustList<RootBlock> clBodies_ = classesBodies.values();
-        if (clBodies_.isEmpty()) {
-            return;
-        }
         validateInheritingClassesId(_context, _predefined);
         Classes classes_ = _context.getClasses();
         StringList sorted_ =  _context.getSortedTypes(_predefined);
@@ -587,14 +567,12 @@ public final class Classes {
             }
             if (!allPossibleDirectSuperTypes_.containsAllObj(allDirectSuperTypes_)) {
                 for (String s: allDirectSuperTypes_) {
-                    if (!allPossibleDirectSuperTypes_.containsObj(s)) {
-                        BadInheritedClass enum_;
-                        enum_ = new BadInheritedClass();
-                        enum_.setClassName(s);
-                        enum_.setFileName(c.getFile().getFileName());
-                        enum_.setIndexFile(0);
-                        classes_.addError(enum_);
-                    }
+                    BadInheritedClass enum_;
+                    enum_ = new BadInheritedClass();
+                    enum_.setClassName(s);
+                    enum_.setFileName(c.getFile().getFileName());
+                    enum_.setIndexFile(0);
+                    classes_.addError(enum_);
                 }
             }
         }
@@ -1300,14 +1278,15 @@ public final class Classes {
             StringList l_ = o.getParametersNames();
             StringList seen_ = new StringList();
             for (String v: l_) {
-                if (!StringList.isWord(v)) {
+                if (!_context.isValidToken(v)) {
                     BadParamName b_;
                     b_ = new BadParamName();
                     b_.setFileName(_context.getCurrentFileName());
                     b_.setIndexFile(o.getOffset().getOffsetTrim());
                     b_.setParamName(v);
                     _context.getClasses().addError(b_);
-                } else if (seen_.containsStr(v)){
+                }
+                if (seen_.containsStr(v)){
                     DuplicateParamName b_;
                     b_ = new DuplicateParamName();
                     b_.setFileName(_context.getCurrentFileName());

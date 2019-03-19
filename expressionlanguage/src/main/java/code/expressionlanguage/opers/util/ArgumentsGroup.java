@@ -10,10 +10,8 @@ public final class ArgumentsGroup {
 
     private StringMap<StringList> map;
 
-    private CustList<ClassArgumentMatching> arguments;
 
-    public ArgumentsGroup(Analyzable _context, StringMap<StringList> _map, ClassArgumentMatching[] _elements) {
-        arguments = new CustList<ClassArgumentMatching>(_elements);
+    public ArgumentsGroup(Analyzable _context, StringMap<StringList> _map) {
         context = _context;
         map = _map;
     }
@@ -26,8 +24,5 @@ public final class ArgumentsGroup {
         return map;
     }
 
-    public ClassArgumentMatching get(int _index) {
-        return arguments.get(_index);
-    }
 
 }

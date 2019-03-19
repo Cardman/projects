@@ -71,10 +71,6 @@ public final class ClassArgumentMatching {
         return StringList.equalsSet(className, l_);
     }
 
-    public boolean isUndefined() {
-        return className.containsNull();
-    }
-
     public boolean isVariable() {
         return className.containsStr("");
     }

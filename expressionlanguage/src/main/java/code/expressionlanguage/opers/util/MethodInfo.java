@@ -110,10 +110,9 @@ public final class MethodInfo implements Parametrable {
         return formatted;
     }
 
-    @Override
     public boolean same(Identifiable _id) {
         MethodId id_ = (MethodId) _id;
-        return formatted.same(id_);
+        return formatted.eq(id_);
     }
     public boolean isAbstractMethod() {
         return abstractMethod;

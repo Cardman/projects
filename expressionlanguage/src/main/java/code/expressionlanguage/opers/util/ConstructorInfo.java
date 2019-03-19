@@ -94,10 +94,4 @@ public final class ConstructorInfo implements Parametrable {
         invocation = _invocation;
     }
 
-    @Override
-    public boolean same(Identifiable _id) {
-        ConstructorId id_ = (ConstructorId) _id;
-        return formatted.same(id_);
-    }
-
 }

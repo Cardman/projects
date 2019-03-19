@@ -20,7 +20,6 @@ public interface Parametrable {
     void setVarArgWrap(boolean v);
     void format(StringList _params);
     Identifiable getFormatted();
-    boolean same(Identifiable _id);
     void setInvocation(InvocationMethod _inv);
     InvocationMethod getInvocation();
 }
