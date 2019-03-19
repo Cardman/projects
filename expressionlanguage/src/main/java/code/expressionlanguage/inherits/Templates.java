@@ -300,6 +300,8 @@ public final class Templates {
             StringList next_ = new StringList();
             for (String c: current_) {
                 StringList types_ = getAllTypes(c);
+                type_ = getIdFromAllTypes(c);
+                v_ = StringList.quickEq(type_, fct_);
                 for (String n: types_.mid(1)) {
                     if (!isCorrectTemplate(n, _inherit, _context, v_)) {
                         return false;

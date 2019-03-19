@@ -263,9 +263,6 @@ final class NamePartType extends LeafPartType {
                     return;
                 }
                 if (!Templates.correctNbParameters(owner_, _an)) {
-                    String new_ = foundOwners_.first();
-                    last_.setAnalyzedType(new_);
-                    setAnalyzedType(StringList.concat(new_,"..",type_));
                     return;
                 }
                 String new_ = Templates.quickFormat(owner_, foundOwners_.first(), _an);

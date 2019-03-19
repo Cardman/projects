@@ -1495,9 +1495,6 @@ public abstract class ContextEl implements ExecutableCode {
     private TypeOwnersDepends exist(String _type,
                                     RootBlock _rooted) {
         TypeOwnersDepends out_ = new TypeOwnersDepends();
-        if (_type.isEmpty()) {
-            return null;
-        }
         String trQual_ = _type.trim();
         String typeFound_ = trQual_;
         String keyWordStatic_ = keyWords.getKeyWordStatic();
@@ -1507,6 +1504,9 @@ public abstract class ContextEl implements ExecutableCode {
         }
         StringList inners_ = Templates.getAllInnerTypes(typeFound_);
         String res_ = inners_.first();
+        if (getClassBody(res_) == null) {
+            return null;
+        }
         String fullName_ = _rooted.getFullName();
         int index_ = 1;
         int max_ = inners_.size() - 1;
@@ -1640,9 +1640,6 @@ public abstract class ContextEl implements ExecutableCode {
             prefix_ = getPrefixedMemberType(_type, _root);
         }
         String trQual_ = removeDottedSpaces(prefix_);
-        if (trQual_.isEmpty()) {
-            return null;
-        }
         String typeFound_ = trQual_;
         String keyWordStatic_ = keyWords.getKeyWordStatic();
         boolean stQual_ = startsWithKeyWord(trQual_, keyWordStatic_);
@@ -1690,7 +1687,7 @@ public abstract class ContextEl implements ExecutableCode {
         return out_;
     }
 
-    private static String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+    private static String getPrefixedMemberType(String _type, RootBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1785,7 +1782,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return EMPTY_TYPE;
     }
-    private String getSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+    private String getSinglePrefixedMemberType(String _type, RootBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -1817,12 +1814,9 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            String type_ = removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
-            if (classes.isCustomType(type_)) {
-                return type_;
-            }
+        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
+        if (classes.isCustomType(type_)) {
+            return type_;
         }
         for (StringList s: imports_) {
             for (String i: s) {
@@ -1849,11 +1843,6 @@ public abstract class ContextEl implements ExecutableCode {
                 return types_.first();
             }
             types_.clear();
-        }
-        String defPkg_ = standards.getDefaultPkg();
-        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        if (getClassBody(type_) != null) {
-            return type_;
         }
         return EMPTY_TYPE;
     }
@@ -1940,7 +1929,7 @@ public abstract class ContextEl implements ExecutableCode {
             out_.getTypeOwners().add(type_);
             return out_;
         }
-        return null;
+        return new TypeOwnersDepends();
     }
     private TypeOwnersDepends getRealPrefixedMemberType(String _type, RootBlock _rooted) {
         String look_ = _type.trim();
@@ -1995,7 +1984,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             types_.clear();
         }
-        return null;
+        return new TypeOwnersDepends();
     }
     private String getRealSinglePrefixedMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
         String look_ = _type.trim();

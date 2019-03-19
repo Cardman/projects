@@ -607,9 +607,6 @@ public final class Classes {
         String enumClassName_ = _context.getStandards().getAliasEnum();
         String enumParamClassName_ = _context.getStandards().getAliasEnumParam();
         String annotName_ = _context.getStandards().getAliasAnnotation();
-        if (classesBodies.isEmpty()) {
-            return;
-        }
         CustList<RootBlock> staticClBodies_ = new CustList<RootBlock>();
         CustList<RootBlock> instClBodies_ = new CustList<RootBlock>();
         for (RootBlock r: getClassBodies(_predefined)) {
@@ -754,7 +751,7 @@ public final class Classes {
                         addError(enum_);
                         continue;
                     }
-                    if (StringList.quickEq(f, enumParamClassName_) || StringList.quickEq(f, annotName_)) {
+                    if (isReserved(enumParamClassName_, annotName_, f)) {
                         Boolean exp_ = r_.getExplicitDirectSuperTypes().getVal(offset_);
                         if (exp_) {
                             UnknownClassName undef_;
@@ -798,28 +795,7 @@ public final class Classes {
                 }
                 r_.getAllSuperTypes().add(objectClassName_);
                 if (nbDirectSuperClass_ <= 1) {
-                    String s_ = dirSuper_;
-                    StringList line_ = new StringList();
-                    while (!StringList.quickEq(s_, objectClassName_)) {
-                        if (line_.containsStr(s_)) {
-                            break;
-                        }
-                        line_.add(s_);
-                        r_.getAllSuperClasses().add(s_);
-                        RootBlock sup_ = getClassBody(s_);
-                        if (sup_ == null) {
-                            break;
-                        }
-                        String dirSup_ = objectClassName_;
-                        for (String d: sup_.getImportedDirectBaseSuperTypes()) {
-                            RootBlock sTwo_ = getClassBody(d);
-                            if (sTwo_ instanceof UniqueRootedBlock) {
-                                dirSup_ = d;
-                            }
-                        }
-                        s_ = dirSup_;
-                    }
-                    r_.getAllSuperClasses().add(s_);
+                    prSupTypes(r_,dirSuper_,_context);
                 }
                 for (String t: r_.getAllSuperTypes()) {
                     GeneType g_ = _context.getClassBody(t);
@@ -891,7 +867,7 @@ public final class Classes {
                     v_ = ContextEl.removeDottedSpaces(v_);
                     String base_ = Templates.getIdFromAllTypes(v_);
                     int offset_ = c.getRowColDirectSuperTypes().getKey(index_);
-                    if (StringList.quickEq(base_, enumParamClassName_) || StringList.quickEq(base_, annotName_)) {
+                    if (isReserved(enumParamClassName_, annotName_, base_)) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(base_);
@@ -912,7 +888,11 @@ public final class Classes {
                     }
                     String type_ = base_;
                     base_ = _context.resolveBaseInherits(base_, c, index_, possibleQualifiers_, false);
-                    if (base_ == null || base_.isEmpty()) {
+                    if (base_ == null) {
+                        base_ = "";
+                    }
+                    RootBlock super_ = classesBodies.getVal(base_);
+                    if (super_ == null) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(type_);
@@ -920,7 +900,6 @@ public final class Classes {
                         undef_.setIndexFile(offset_);
                         addError(undef_);
                     } else {
-                        RootBlock super_ = classesBodies.getVal(base_);
                         if (super_ instanceof UniqueRootedBlock) {
                             nbDirectSuperClass_++;
                         }
@@ -945,7 +924,7 @@ public final class Classes {
                         } else {
                             names_.add(base_);
                             RootBlock par_ = c.getParentType();
-                            while (par_ != null) {
+                            while (true) {
                                 if (par_.isStaticType()) {
                                     break;
                                 }
@@ -1013,25 +992,7 @@ public final class Classes {
                     r_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
                 if (nbDirectSuperClass_ <= 1) {
-                    String s_ = dirSuper_;
-                    StringList line_ = new StringList();
-                    while (!StringList.quickEq(s_, objectClassName_)) {
-                        if (line_.containsStr(s_)) {
-                            break;
-                        }
-                        line_.add(s_);
-                        r_.getAllSuperClasses().add(s_);
-                        RootBlock sup_ = getClassBody(s_);
-                        String dirSup_ = objectClassName_;
-                        for (String d: sup_.getImportedDirectBaseSuperTypes()) {
-                            RootBlock sTwo_ = getClassBody(d);
-                            if (sTwo_ instanceof UniqueRootedBlock) {
-                                dirSup_ = d;
-                            }
-                        }
-                        s_ = dirSup_;
-                    }
-                    r_.getAllSuperClasses().add(s_);
+                    prSupTypes(r_,dirSuper_,_context);
                 }
                 for (String t: r_.getAllSuperTypes()) {
                     GeneType g_ = _context.getClassBody(t);
@@ -1052,6 +1013,34 @@ public final class Classes {
         }
     }
 
+    private boolean isReserved(String _enumParamClassName, String _annotName, String _f) {
+        return StringList.quickEq(_f, _enumParamClassName) || StringList.quickEq(_f, _annotName);
+    }
+
+    private void prSupTypes(RootBlock _r, String _dir, ContextEl _context) {
+        String s_ = _dir;
+        String objectClassName_ = _context.getStandards().getAliasObject();
+        StringList line_ = new StringList();
+        while (true) {
+            if (line_.containsStr(s_)) {
+                break;
+            }
+            line_.add(s_);
+            _r.getAllSuperClasses().add(s_);
+            RootBlock sup_ = getClassBody(s_);
+            if (sup_ == null) {
+                break;
+            }
+            String dirSup_ = objectClassName_;
+            for (String d: sup_.getImportedDirectBaseSuperTypes()) {
+                RootBlock sTwo_ = getClassBody(d);
+                if (sTwo_ instanceof UniqueRootedBlock) {
+                    dirSup_ = d;
+                }
+            }
+            s_ = dirSup_;
+        }
+    }
     private void checkTemplatesDef(ContextEl _context, boolean _predefined,
             String _objectClassName) {
         LgNames stds_ = _context.getStandards();

@@ -53,20 +53,9 @@ final class WildCardPartType extends ParentPartType {
     void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
+        if (!processOkInherits(_an)) {
             return;
         }
-        PartType prev_ = getParent().getFirstChild();
-        String base_ = prev_.getAnalyzedType();
-        base_ = Templates.getIdFromAllTypes(base_);
-        if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
-        }
-        String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
-        setAnalyzedType(ch_);
         StringList ts_ = getFirstChild().getTypeNames();
         getTypeNames().addAllElts(ts_);
     }
@@ -75,20 +64,24 @@ final class WildCardPartType extends ParentPartType {
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {
-        String ch_ = getFirstChild().getAnalyzedType();
+        processOkInherits(_an);
+    }
+    private boolean processOkInherits(Analyzable _an) {
         if (!(getParent() instanceof TemplatePartType)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
+            return false;
         }
         PartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
         base_ = Templates.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             _an.getCurrentBadIndexes().add(getIndexInType());
-            return;
+            return false;
         }
+        String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
+        return true;
     }
     @Override
     void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
