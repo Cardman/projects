@@ -6,7 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.*;
+import code.util.StringList;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -5836,5 +5838,22 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         calculateArgument("pkg.Apply", id_, args_, cont_);
         ErrorStruct err_ = (ErrorStruct) cont_.getException();
         assertEq("code.expressionlanguage.exceptions.IllegalArgument",err_.getClassName(cont_));
+    }
+    @Test
+    public void reflectTest() {
+        ContextEl cont_ = contextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        Classes.validateAll(files_, cont_);
+        MethodId id_ = new MethodId(true,"mod",new StringList("$int","$int"));
+        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(Argument.createVoid());
+        Struct[] arr_ = new Struct[2];
+        arr_[0] = new IntStruct(4);
+        arr_[1] = new IntStruct(3);
+        ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
+        args_.add(new Argument(s_));
+        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.METHOD, false);
+        assertEq(1, out_.getNumber());
     }
 }

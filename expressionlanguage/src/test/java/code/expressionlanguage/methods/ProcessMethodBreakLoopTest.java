@@ -297,6 +297,115 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
+    public void calculateArgument31FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  $int i:\n");
+        xml_.append("  $final $int p:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  i;.=0i:\n");
+        xml_.append("  $iter($int i=0:5:5){\n");
+        xml_.append("   t;.+=1i:\n");
+        xml_.append("   p;.=6i:\n");
+        xml_.append("   $if(i;==2){\n");
+        xml_.append("    $break:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=10i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument32FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  $int i:\n");
+        xml_.append("  $final $int p:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  i;.=0i:\n");
+        xml_.append("  $for($int i:{}){\n");
+        xml_.append("   t;.+=1i:\n");
+        xml_.append("   p;.=6i:\n");
+        xml_.append("   $if(i;==2){\n");
+        xml_.append("    $break:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=10i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument33FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  $int i:\n");
+        xml_.append("  $final $int p:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  i;.=0i:\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null:\n");
+        xml_.append("  $for($int i,$int v:it;.){\n");
+        xml_.append("   t;.+=1i:\n");
+        xml_.append("   p;.=6i:\n");
+        xml_.append("   $if(i;==2){\n");
+        xml_.append("    $break:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=10i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument34FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $final $int p:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  $int i:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  i;.=0i:\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null:\n");
+        xml_.append("  $for($int i,$int v:it;.){\n");
+        xml_.append("   t;.+=1i:\n");
+        xml_.append("   p=6i:\n");
+        xml_.append("   $if(i;==2){\n");
+        xml_.append("    $break:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=10i:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void calculateArgument4FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

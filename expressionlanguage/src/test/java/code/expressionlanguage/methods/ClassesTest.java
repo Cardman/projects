@@ -1,8 +1,6 @@
 package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import code.expressionlanguage.structs.*;
 import org.junit.Test;
@@ -37,8 +35,17 @@ public final class ClassesTest {
         assertEq("$void",info_.getName());
         Struct infoField_ = cont_.getClasses().getStaticField(new ClassField("java.lang.$iterable","other"),cont_);
         assertSame(NullStruct.NULL_VALUE,infoField_);
-        assertEq(0, Classes.getOperatorsBodiesById(cont_, new MethodId(true,"",new StringList())).size());
+        MethodId id_ = new MethodId(true, "", new StringList());
+        assertEq(0, Classes.getOperatorsBodiesById(cont_, id_).size());
         assertTrue(Classes.isHiddenField("","java.lang.$iterable","other",cont_));
+        assertNull(cont_.getFieldInfo(new ClassField("","")));
+        assertNull(cont_.getCallCtor());
+        assertNull(cont_.getCallMethod());
+        assertNull(cont_.getReflectMethod());
+        assertNull(cont_.getFile(""));
+        assertEq(0,ContextEl.getConstructorBlocks(null).size());
+        assertEq(0,ContextEl.getFieldBlocks(null).size());
+        assertEq(0,cont_.getMethodBodiesById("java.lang.Number", id_).size());
     }
 
     @Test

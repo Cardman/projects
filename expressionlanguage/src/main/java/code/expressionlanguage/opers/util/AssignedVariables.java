@@ -30,38 +30,20 @@ public class AssignedVariables {
     private StringMap<SimpleAssignment> fieldsRoot = new StringMap<SimpleAssignment>();
 
     public IdList<AffectationOperation> getVariablesBefore(Block _filter, boolean _all) {
-        if (_all) {
-            return filter(variablesBefore.getKeys());
-        }
-        if (_filter instanceof ForIterativeLoop) {
-            return new IdList<AffectationOperation>();
-        }
-        if (_filter instanceof ForEachLoop) {
-            return new IdList<AffectationOperation>();
-        }
-        if (_filter instanceof ForEachTable) {
-            return new IdList<AffectationOperation>();
-        }
-        return filter(variablesBefore.getKeys());
+        return getList(_filter, _all, variablesBefore.getKeys());
     }
+
     public IdList<AffectationOperation> getFieldsBefore(Block _filter, boolean _all) {
-        if (_all) {
-            return filter(fieldsBefore.getKeys());
-        }
-        if (_filter instanceof ForIterativeLoop) {
-            return new IdList<AffectationOperation>();
-        }
-        if (_filter instanceof ForEachLoop) {
-            return new IdList<AffectationOperation>();
-        }
-        if (_filter instanceof ForEachTable) {
-            return new IdList<AffectationOperation>();
-        }
-        return filter(fieldsBefore.getKeys());
+        return getList(_filter,_all,fieldsBefore.getKeys());
     }
+
     public IdList<AffectationOperation> getMutableLoopBefore(Block _filter, boolean _all) {
+        return getList(_filter, _all, mutableLoopBefore.getKeys());
+    }
+
+    private IdList<AffectationOperation> getList(Block _filter, boolean _all, IdList<OperationNode> _list) {
         if (_all) {
-            return filter(mutableLoopBefore.getKeys());
+            return filter(_list);
         }
         if (_filter instanceof ForIterativeLoop) {
             return new IdList<AffectationOperation>();
@@ -72,7 +54,7 @@ public class AssignedVariables {
         if (_filter instanceof ForEachTable) {
             return new IdList<AffectationOperation>();
         }
-        return filter(mutableLoopBefore.getKeys());
+        return filter(_list);
     }
     private IdList<AffectationOperation> filter(IdList<OperationNode> _ops) {
         IdList<AffectationOperation> out_ = new IdList<AffectationOperation>();

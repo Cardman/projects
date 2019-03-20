@@ -202,7 +202,7 @@ public abstract class ContextEl implements ExecutableCode {
             sensibleFields.add(s);
         }
     }
-    static boolean isPossibleSensible(Struct _s) {
+    private static boolean isPossibleSensible(Struct _s) {
         if (_s == NullStruct.NULL_VALUE) {
             return false;
         }
@@ -552,7 +552,7 @@ public abstract class ContextEl implements ExecutableCode {
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
     }
-    private FileBlock getFile(String _class) {
+    public FileBlock getFile(String _class) {
         String idCl_= Templates.getIdFromAllTypes(_class);
         FileBlock file_ = null;
         for (RootBlock c: classes.getClassBodies()) {
@@ -805,9 +805,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public String getCurrentFileName() {
-        if (analyzing.getCurrentBlock() == null) {
-            return null;
-        }
         return analyzing.getCurrentBlock().getFile().getFileName();
     }
     @Override
