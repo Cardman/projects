@@ -43,6 +43,10 @@ public final class Options {
         return varTypeFirst;
     }
 
+    public void setVarTypeFirst(boolean _varTypeFirst) {
+        varTypeFirst = _varTypeFirst;
+    }
+
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
         endLineSemiColumn = _endLineSemiColumn;
     }

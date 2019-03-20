@@ -8013,6 +8013,12 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$operator> $int(pkg.Apply a,pkg.Apply b) {\n");
         xml_.append(" $return 0:\n");
         xml_.append("}\n");
+        xml_.append("$operator<= $int(pkg.Apply a,pkg.Apply b) {\n");
+        xml_.append(" $return 0:\n");
+        xml_.append("}\n");
+        xml_.append("$operator>= $int(pkg.Apply a,pkg.Apply b) {\n");
+        xml_.append(" $return 0:\n");
+        xml_.append("}\n");
         xml_.append("$operator<< $int(pkg.Apply a,pkg.Apply b) {\n");
         xml_.append(" $return 0:\n");
         xml_.append("}\n");
@@ -8059,6 +8065,6 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(28, ret_.getNumber());
     }
 }

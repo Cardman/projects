@@ -2334,6 +2334,25 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
+    @Test
+    public void processEl103Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {");
+        xml_.append(" $private $static String out = m():");
+        xml_.append(" $private $static String m(){");
+        xml_.append("  String v = `\t`: $final $stack[] st = $stack.current():");
+        xml_.append("  $return st;.[0].toString()+st;.[1].toString():");
+        xml_.append(" }");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
+        Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "out"));
+        assertEq("pkg/Ex:1,0:54\npkgtwo.ExClass.pkg/Ex:1,0:133\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
+    }
 
     @Test
     public void calculateArgument0FailTest() {

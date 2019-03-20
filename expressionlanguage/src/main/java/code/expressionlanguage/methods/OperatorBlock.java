@@ -74,7 +74,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     @Override
     public RootBlock belong() {
-        return (RootBlock) getParent();
+        return null;
     }
 
     @Override

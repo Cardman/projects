@@ -3840,6 +3840,30 @@ public final class AnalyzedOperationNodesTest {
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
+    public void processEl1271FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$operator* Object(pkg.ExTwo p){\n");
+        xml_.append(" Inner i:\n");
+        xml_.append(" $return $null:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $package $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append("  $public ExTwo(pkg.ExTwo.Inner v){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setAllParametersSort(false);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void processEl128FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");

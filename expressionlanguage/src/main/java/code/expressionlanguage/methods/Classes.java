@@ -169,7 +169,7 @@ public final class Classes {
         StringList namesFromParent_ = new StringList();
         RootBlock r_ = _root;
         if (!r_.isStaticType()) {
-            while (r_.getParent() instanceof RootBlock) {
+            while (true) {
                 r_ = (RootBlock) r_.getParent();
                 for (TypeVar t: r_.getParamTypes()) {
                     namesFromParent_.add(t.getName());
@@ -428,7 +428,7 @@ public final class Classes {
                 if (!p.startsWith(fullName_)) {
                     continue;
                 }
-                if (fullName_.length() < p.length() && StringList.isDollarWordChar(p.charAt(fullName_.length()))) {
+                if (fullName_.length() < p.length()) {
                     continue;
                 }
                 //ERROR

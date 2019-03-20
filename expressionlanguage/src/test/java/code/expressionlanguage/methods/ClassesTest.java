@@ -37,6 +37,8 @@ public final class ClassesTest {
         assertEq("$void",info_.getName());
         Struct infoField_ = cont_.getClasses().getStaticField(new ClassField("java.lang.$iterable","other"),cont_);
         assertSame(NullStruct.NULL_VALUE,infoField_);
+        assertEq(0, Classes.getOperatorsBodiesById(cont_, new MethodId(true,"",new StringList())).size());
+        assertTrue(Classes.isHiddenField("","java.lang.$iterable","other",cont_));
     }
 
     @Test

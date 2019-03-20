@@ -28,6 +28,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        ProcessMethod.initializeClass("pkg.Ex",cont_);
     }
 
     @Test

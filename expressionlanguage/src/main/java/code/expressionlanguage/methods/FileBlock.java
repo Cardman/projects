@@ -39,20 +39,16 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     public final int getColFile(int _sum, int _row) {
         int r_ = _row * 2;
         int j_ = 0;
-        if (r_ < lineReturns.size() && _sum < lineReturns.get(r_)) {
-            if (r_ > 0) {
-                j_ = leftSpaces.get(_row - 1);
-                int begin_ = lineReturns.get(r_ - 1)+1;
-                for (int j = begin_; j <= _sum; j++) {
-                    if (tabulations.containsObj(j)) {
-                        j_ += tabWidth;
-                        j_ -= j_ % tabWidth;
-                    } else {
-                        j_++;
-                    }
+        if (r_ < lineReturns.size()) {
+            j_ = leftSpaces.get(_row - 1);
+            int begin_ = lineReturns.get(r_ - 1)+1;
+            for (int j = begin_; j <= _sum; j++) {
+                if (tabulations.containsObj(j)) {
+                    j_ += tabWidth;
+                    j_ -= j_ % tabWidth;
+                } else {
+                    j_++;
                 }
-            } else {
-                j_ = _sum;
             }
         }
         return j_;
