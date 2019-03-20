@@ -761,7 +761,6 @@ public abstract class LgNames {
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
-        _cont.setAnalyzing(null);
     }
 
     public abstract void buildOther();

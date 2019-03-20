@@ -8593,6 +8593,37 @@ public final class FileResolverTest {
         assertEq("p", field_.getParametersNames().first());
     }
     @Test
+    public void parseFile134Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $String method(Temp<Other<String>> ... p){\n");
+        file_.append("\t\t$return \"\":\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof MethodBlock);
+        MethodBlock field_ = (MethodBlock) child_;
+        assertTrue(!field_.isStaticMethod());
+        assertTrue(!field_.isFinalMethod());
+        assertTrue(field_.isVarargs());
+        assertTrue(!field_.isAbstractMethod());
+        assertSame(AccessEnum.PRIVATE, field_.getAccess());
+        assertEq("$String", field_.getReturnType());
+        assertEq(1, field_.getParametersTypes().size());
+        assertEq("Temp<Other<String>> ", field_.getParametersTypes().first());
+        assertEq(1, field_.getParametersNames().size());
+        assertEq("p", field_.getParametersNames().first());
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

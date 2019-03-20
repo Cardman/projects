@@ -566,18 +566,15 @@ public abstract class ContextEl implements ExecutableCode {
     public abstract void initError();
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        if (!classes.isCustomType(_name)) {
-            String base_ = Templates.getIdFromAllTypes(_name);
-            LgNames stds_ = getStandards();
-            for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
-                String k_ = c.getKey();
-                if (!StringList.quickEq(k_, base_)) {
-                    continue;
-                }
-                StandardType clblock_ = c.getValue();
-                return getClassMetaInfo(clblock_, _name);
+        String base_ = Templates.getIdFromAllTypes(_name);
+        LgNames stds_ = getStandards();
+        for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, base_)) {
+                continue;
             }
-            return null;
+            StandardType clblock_ = c.getValue();
+            return getClassMetaInfo(clblock_, _name);
         }
         return classes.getClassMetaInfo(_name, this);
     }
@@ -2482,9 +2479,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public StringList getAvailableVariables() {
-        if (analyzing == null) {
-            return new StringList();
-        }
         return analyzing.getAvailableVariables();
     }
 

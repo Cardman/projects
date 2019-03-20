@@ -2352,7 +2352,7 @@ public final class FileResolver {
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
                         new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
-                int nextIndexVar_ = getIndex(variableName_, ',');
+                int nextIndexVar_ = variableName_.indexOf(',');
                 String firstVar_ = variableName_.substring(0, nextIndexVar_);
                 String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                 String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
@@ -2477,7 +2477,7 @@ public final class FileResolver {
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     } else {
-                        int nextIndexVar_ = getIndex(variableName_, ',');
+                        int nextIndexVar_ = variableName_.indexOf(',');
                         String firstVar_ = variableName_.substring(0, nextIndexVar_);
                         String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                         String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
@@ -2523,7 +2523,7 @@ public final class FileResolver {
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     } else {
-                        int nextIndexVar_ = getIndex(variableName_, ',');
+                        int nextIndexVar_ = variableName_.indexOf(',');
                         String firstVar_ = variableName_.substring(0, nextIndexVar_);
                         String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                         String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);

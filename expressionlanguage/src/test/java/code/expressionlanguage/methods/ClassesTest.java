@@ -33,6 +33,10 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getMemoryError());
+        ClassMetaInfo info_ = cont_.getClasses().getClassMetaInfo("", cont_);
+        assertEq("$void",info_.getName());
+        Struct infoField_ = cont_.getClasses().getStaticField(new ClassField("java.lang.$iterable","other"),cont_);
+        assertSame(NullStruct.NULL_VALUE,infoField_);
     }
 
     @Test

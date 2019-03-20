@@ -139,27 +139,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String idClass_ = Templates.getIdFromAllTypes(_className);
         ContextEl cont_ = _conf.getContextEl();
         String curClass_ = cont_.getLastPage().getGlobalClass();
-        if (curClass_ != null) {
-            curClass_ = Templates.getIdFromAllTypes(curClass_);
-            if (StringList.quickEq(curClass_, idClass_)) {
-                return false;
-            }
+        curClass_ = Templates.getIdFromAllTypes(curClass_);
+        if (StringList.quickEq(curClass_, idClass_)) {
+            return false;
         }
         if (classes_.isCustomType(_className)) {
             InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
-            if (res_ == InitClassState.NOT_YET) {
+            if (res_ == InitClassState.NOT_YET || res_ == InitClassState.ERROR) {
                 _conf.getContextEl().failInitEnums();
                 if (_conf.getContextEl().isFailInit()) {
                     return true;
                 }
+            }
+            if (res_ == InitClassState.NOT_YET) {
                 _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                _conf.getContextEl().failInitEnums();
-                if (_conf.getContextEl().isFailInit()) {
-                    return true;
-                }
                 CausingErrorStruct causing_ = new CausingErrorStruct(_className, _conf);
                 _conf.setException(causing_);
                 return true;

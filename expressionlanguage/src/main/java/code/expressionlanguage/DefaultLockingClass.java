@@ -85,7 +85,7 @@ public class DefaultLockingClass {
         String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.ERROR);
     }
-    protected final StringMap<InitClassState> getClasses() {
+    public final StringMap<InitClassState> getClasses() {
         return classes;
     }
 }

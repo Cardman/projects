@@ -34,12 +34,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
             row = 0;
             col = 0;
         }
-        String r_ = _page.getGlobalClass();
-        if (r_ != null) {
-            currentClassName = r_;
-        } else {
-            currentClassName = "";
-        }
+        currentClassName = _page.getGlobalClass();
         Block bl_ = _page.getBlockRoot();
         if (bl_ != null) {
             FunctionBlock fct_ = bl_.getFunction();

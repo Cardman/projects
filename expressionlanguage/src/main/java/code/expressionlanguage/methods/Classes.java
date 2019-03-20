@@ -354,6 +354,10 @@ public final class Classes {
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
                     cl_.staticFields = buildFieldValues(bk_);
+                    InitClassState state_ = dl_.getClasses().getVal(c);
+                    if (state_ != InitClassState.ERROR) {
+                        dl_.getClasses().set(c, InitClassState.NOT_YET);
+                    }
                 } else {
                     success_.add(c);
                     new_.add(c);
@@ -1431,24 +1435,8 @@ public final class Classes {
             String outGl_ = rGl_.getOuter().getFullName();
             String pkgGl_ = rGl_.getPackageName();
             if (r_.getAccess() == AccessEnum.PROTECTED) {
-                boolean okRoot_ = false;
-                if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
-                        okRoot_ = true;
-                    }
-                }
-                if (StringList.quickEq(pkgOwner_, pkgRoot_)){
-                    okRoot_ = true;
-                }
-                boolean okGl_ = false;
-                if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idGl_, _context)) {
-                        okGl_ = true;
-                    }
-                }
-                if (StringList.quickEq(pkgOwner_, pkgGl_)){
-                    okGl_ = true;
-                }
+                boolean okRoot_ = canUseInner(_protectedInc, _context, pkgOwner_, ownerName_, idRoot_, pkgRoot_);
+                boolean okGl_ = canUseInner(_protectedInc, _context, pkgOwner_, ownerName_, idGl_, pkgGl_);
                 if (_inherits && _protectedInc) {
                     okGl_ = true;
                 }
@@ -1474,6 +1462,19 @@ public final class Classes {
             }
         }
         return inners_;
+    }
+
+    private static boolean canUseInner(boolean _protectedInc, Analyzable _context, String _pkgOwner, String _ownerName, String _idGl, String _pkgGl) {
+        boolean okGl_ = false;
+        if (_protectedInc) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(_ownerName, _idGl, _context)) {
+                okGl_ = true;
+            }
+        }
+        if (StringList.quickEq(_pkgOwner, _pkgGl)){
+            okGl_ = true;
+        }
+        return okGl_;
     }
 
     public static boolean canAccessClass(String _className, String _accessedClass, Analyzable _context) {
@@ -1988,7 +1989,6 @@ public final class Classes {
                 }
             }
         }
-        _context.setAnalyzing(null);
     }
     public StringList getPackages(boolean _predefined) {
         StringList pkgs_ = new StringList();
@@ -2286,7 +2286,7 @@ public final class Classes {
             RootBlock clblock_ = c.getValue();
             return getClassMetaInfo(clblock_, _name, _context);
         }
-        return null;
+        return new ClassMetaInfo(_context.getStandards().getAliasVoid(),_context, ClassCategory.VOID,"");
     }
     public static ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
         ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;

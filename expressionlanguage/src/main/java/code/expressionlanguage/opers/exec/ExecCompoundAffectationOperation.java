@@ -40,7 +40,7 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             MethodId id_ = classMethodId.getConstraints();
-            ExecInvokingOperation.checkParameters(_conf, null, id_, null, firstArgs_, 0,false,false,null);
+            ExecInvokingOperation.checkParameters(_conf, "", id_, null, firstArgs_, 0,false,false,null);
             return;
         }
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
