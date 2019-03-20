@@ -3,14 +3,13 @@ package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.structs.*;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
@@ -2288,6 +2287,54 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
     }
+    @Test
+    public void processEl101Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static String out:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $for(String multi=`\n");
+        xml_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`+' '+'\\\\'+\" \"+\"\\\"\"::){\n");
+        xml_.append("   out = multi; + line;:\n");
+        xml_.append("   $return:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $for(String single=\"`\"::){\n");
+        xml_.append("   out += single;:\n");
+        xml_.append("   $return:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
+        Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "out"));
+        assertEq("\n  static {`next\"// /*\t)now\nreturn to line\n`but capture all \\ \"`",((StringStruct)out_).getInstance());
+    }
+    @Test
+    public void processEl102Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static String out = m():\n");
+        xml_.append(" $private $static String m(){\n");
+        xml_.append("  String v = `\t`: $final $stack[] st = $stack.current():\n");
+        xml_.append("  $return st;.[0].toString()+st;.[1].toString():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
+        Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "out"));
+        assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
+    }
+
     @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();

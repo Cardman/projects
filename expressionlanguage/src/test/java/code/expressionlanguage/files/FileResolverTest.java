@@ -8624,6 +8624,346 @@ public final class FileResolverTest {
         assertEq("p", field_.getParametersNames().first());
     }
     @Test
+    public void parseFile135Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tTemp<Other<String>>[] v:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof DeclareVariable);
+        DeclareVariable field_ = (DeclareVariable) child_;
+        assertEq("Temp<Other<String>>[]", field_.getClassName());
+        Block n_ = field_.getNextSibling();
+        assertTrue(n_ instanceof Line);
+        Line line_ = (Line) n_;
+        assertEq("v", line_.getExpression());
+    }
+    @Test
+    public void parseFile136Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tTemp <Other<String>>[] v:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof DeclareVariable);
+        DeclareVariable field_ = (DeclareVariable) child_;
+        assertEq("Temp <Other<String>>[]", field_.getClassName());
+        Block n_ = field_.getNextSibling();
+        assertTrue(n_ instanceof Line);
+        Line line_ = (Line) n_;
+        assertEq("v", line_.getExpression());
+    }
+    @Test
+    public void parseFile137Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tTemp<Other<String>> [] v:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof DeclareVariable);
+        DeclareVariable field_ = (DeclareVariable) child_;
+        assertEq("Temp<Other<String>> []", field_.getClassName());
+        Block n_ = field_.getNextSibling();
+        assertTrue(n_ instanceof Line);
+        Line line_ = (Line) n_;
+        assertEq("v", line_.getExpression());
+    }
+    @Test
+    public void parseFile138Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tTemp<Other<String>>[]v:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof DeclareVariable);
+        DeclareVariable field_ = (DeclareVariable) child_;
+        assertEq("Temp<Other<String>>[]", field_.getClassName());
+        Block n_ = field_.getNextSibling();
+        assertTrue(n_ instanceof Line);
+        Line line_ = (Line) n_;
+        assertEq("v", line_.getExpression());
+    }
+    @Test
+    public void parseFile139Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tv.$new Cl():\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof Line);
+        Line line_ = (Line) child_;
+        assertEq("v.$new Cl()", line_.getExpression());
+    }
+    @Test
+    public void parseFile140Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkgtwo.Toto {\n");
+        file_.append("\t$private $void method(){\n");
+        file_.append("\t\tv.a$new mycl:\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild().getFirstChild();
+        assertTrue(child_ instanceof DeclareVariable);
+        DeclareVariable field_ = (DeclareVariable) child_;
+        assertEq("v.a$new", field_.getClassName());
+        Block n_ = field_.getNextSibling();
+        assertTrue(n_ instanceof Line);
+        Line line_ = (Line) n_;
+        assertEq("mycl", line_.getExpression());
+    }
+    @Test
+    public void parseFile141Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:\n");
+        file_.append("    first();\n");
+        file_.append("    return condition?one:two;\n");
+        file_.append("   case 1:\n");
+        file_.append("   //comment\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
+        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertEq("condition?one:two", ret_.getExpression());
+        assertNull(ret_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile142Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:\n");
+        file_.append("    first();\n");
+        file_.append("    return condition?one:two;\n");
+        file_.append("   case 1:\n");
+        file_.append("   /*comment * */\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
+        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertEq("condition?one:two", ret_.getExpression());
+        assertNull(ret_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile143Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:\n");
+        file_.append("   //comment\n");
+        file_.append("    first();\n");
+        file_.append("    return condition?one:two;\n");
+        file_.append("   case 1:\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
+        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertEq("condition?one:two", ret_.getExpression());
+        assertNull(ret_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile144Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:\n");
+        file_.append("   /*comment * */\n");
+        file_.append("    first();\n");
+        file_.append("    return condition?one:two;\n");
+        file_.append("   case 1:\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof ReturnMehod);
+        ReturnMehod ret_ = (ReturnMehod)line_.getNextSibling();
+        assertEq("condition?one:two", ret_.getExpression());
+        assertNull(ret_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
@@ -8662,6 +9002,24 @@ public final class FileResolverTest {
         file_.append("  }\n");
         file_.append("  $return t;.:\n");
         file_.append(" }\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void parseFile4FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.#Outer {\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), true, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void parseFile5FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer {\t\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);

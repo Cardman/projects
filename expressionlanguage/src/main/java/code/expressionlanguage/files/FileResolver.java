@@ -557,7 +557,7 @@ public final class FileResolver {
                 return out_;
             }
             out_ = new ResultOperatorCreation();
-            int until_ = untilOperator(nextIndex_, _file, enabledSpaces_);
+            int until_ = _file.indexOf(BEGIN_BLOCK,nextIndex_);
             String info_ = _file.substring(nextIndex_, until_);
             int typeOffset_ = nextIndex_;
             int paramOffest_;
@@ -3154,7 +3154,7 @@ public final class FileResolver {
                 i_++;
                 continue;
             }
-            if (i_ == BEGIN_COMMENT && i_ + 1 < len_) {
+            if (cur_ == BEGIN_COMMENT && i_ + 1 < len_) {
                 if (_found.charAt(i_ + 1) == BEGIN_COMMENT) {
                     commentedSingleLine_ = true;
                     i_++;
@@ -3195,16 +3195,7 @@ public final class FileResolver {
             if (_enabledSpaces.isOnlySpacesLine()) {
                 _enabledSpaces.getFile().getLineReturns().add(_enabledSpaces.getBegin());
                 _enabledSpaces.getFile().getLineReturns().add(Math.max(_index - 1,_enabledSpaces.getBegin()));
-                int length_ = 0;
-                for (int i = _enabledSpaces.getBegin() + 1; i < _index; i++) {
-                    char current_ = _file.charAt(i);
-                    if (current_ == TAB) {
-                        length_ += tabWidth_;
-                        length_ -= length_ % tabWidth_;
-                    } else {
-                        length_++;
-                    }
-                }
+                int length_ = getLength(_index, _file, tabWidth_, _enabledSpaces.getBegin() + 1);
                 _enabledSpaces.getFile().getLeftSpaces().add(length_);
             }
             _enabledSpaces.setOnlySpacesLine(true);
@@ -3222,22 +3213,13 @@ public final class FileResolver {
                     _enabledSpaces.getFile().getLineReturns().add(_enabledSpaces.getBegin());
                     _enabledSpaces.getFile().getLineReturns().add(Math.max(_index - 1,_enabledSpaces.getBegin()));
                 }
-                int length_ = 0;
                 int firstIndex_;
                 if (empty_) {
                     firstIndex_ = 0;
                 } else {
                     firstIndex_ = _enabledSpaces.getBegin() + 1;
                 }
-                for (int i = firstIndex_; i < _index; i++) {
-                    char current_ = _file.charAt(i);
-                    if (current_ == TAB) {
-                        length_ += tabWidth_;
-                        length_ -= length_ % tabWidth_;
-                    } else {
-                        length_++;
-                    }
-                }
+                int length_ = getLength(_index, _file, tabWidth_, firstIndex_);
                 _enabledSpaces.getFile().getLeftSpaces().add(length_);
             }
             _enabledSpaces.setOnlySpacesLine(false);
@@ -3255,91 +3237,21 @@ public final class FileResolver {
             }
         }
     }
-    private static int untilOperator(int _from, String _file, EnablingSpaces _enabledSpaces) {
-        int len_ = _file.length();
-        int i_ = _from;
-        Numbers<Integer> localCallings_ = new Numbers<Integer>();
-        boolean localConstChar_ = false;
-        boolean localConstString_ = false;
-        boolean localConstText_ = false;
-        while (i_ < len_) {
-            char locChar_ = _file.charAt(i_);
-            if (localConstChar_) {
-                if (locChar_ == ESCAPE) {
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    continue;
-                }
-                if (locChar_ == DEL_CHAR) {
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    localConstChar_ = false;
-                    continue;
-                }
-                i_=incrementRowCol(i_, _file, _enabledSpaces);
-                continue;
+
+    private static int getLength(int _index, String _file, int _tabWidth, int _firstIndex) {
+        int length_ = 0;
+        for (int i = _firstIndex; i < _index; i++) {
+            char current_ = _file.charAt(i);
+            if (current_ == TAB) {
+                length_ += _tabWidth;
+                length_ -= length_ % _tabWidth;
+            } else {
+                length_++;
             }
-            if (localConstString_) {
-                if (locChar_ == ESCAPE) {
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    continue;
-                }
-                if (locChar_ == DEL_STRING) {
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                    localConstString_ = false;
-                    continue;
-                }
-                i_=incrementRowCol(i_, _file, _enabledSpaces);
-                continue;
-            }
-            if (localConstText_) {
-                if (locChar_ == DEL_TEXT) {
-                    if (i_ + 1 < len_) {
-                        if (_file.charAt(i_ + 1) != DEL_TEXT) {
-                            i_=incrementRowCol(i_, _file, _enabledSpaces);
-                            localConstText_ = false;
-                            continue;
-                        }
-                    }
-                    i_=incrementRowCol(i_, _file, _enabledSpaces);
-                }
-                i_=incrementRowCol(i_, _file, _enabledSpaces);
-                continue;
-            }
-            if (localCallings_.isEmpty() && locChar_ == BEGIN_BLOCK) {
-                return i_;
-            }
-            if (locChar_ == DEL_CHAR) {
-                localConstChar_ = true;
-            }
-            if (locChar_ == DEL_STRING) {
-                localConstString_ = true;
-            }
-            if (locChar_ == DEL_TEXT) {
-                localConstText_ = true;
-            }
-            if (locChar_ == BEGIN_CALLING) {
-                localCallings_.add(i_);
-            }
-            if (locChar_ == END_CALLING) {
-                localCallings_.removeLast();
-            }
-            if (locChar_ == BEGIN_BLOCK) {
-                localCallings_.add(i_);
-            }
-            if (locChar_ == END_BLOCK) {
-                localCallings_.removeLast();
-            }
-            if (locChar_ == BEGIN_ARRAY) {
-                localCallings_.add(i_);
-            }
-            if (locChar_ == END_ARRAY) {
-                localCallings_.removeLast();
-            }
-            i_=incrementRowCol(i_, _file, _enabledSpaces);
         }
-        return -1;
+        return length_;
     }
+
     static int skipWhitespace(int _nextIndex, String _file, EnablingSpaces _enabledSpaces) {
         int nextIndex_ = _nextIndex;
         int len_ = _file.length();
