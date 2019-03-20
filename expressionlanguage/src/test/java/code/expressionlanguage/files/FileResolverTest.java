@@ -158,6 +158,51 @@ public final class FileResolverTest {
         assertNull(r_.getFirstChild());
     }
     @Test
+    public void parseFile1007Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("$class pkgtwo.ExClass {");
+        file_.append("}");
+        file_.append("/* multi line*\n");
+        file_.append("comment*/\n");
+        file_.append("$interface pkgtwo.ExInt {");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
+        assertEq("pkgtwo.ExInt", getCustomTypes(context_, 1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        assertNull(r_.getFirstChild());
+        r_ = context_.getClasses().getClassBody("pkgtwo.ExInt");
+        assertTrue(r_ instanceof InterfaceBlock);
+        assertNull(r_.getFirstChild());
+    }
+    @Test
+    public void parseFile1008Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("$class pkgtwo.ExClass {");
+        file_.append("}");
+        file_.append("// multi line\n");
+        file_.append("$interface pkgtwo.ExInt {");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
+        assertEq("pkgtwo.ExInt", getCustomTypes(context_, 1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        assertNull(r_.getFirstChild());
+        r_ = context_.getClasses().getClassBody("pkgtwo.ExInt");
+        assertTrue(r_ instanceof InterfaceBlock);
+        assertNull(r_.getFirstChild());
+    }
+    @Test
     public void parseFile2Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");
