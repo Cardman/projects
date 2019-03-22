@@ -41,7 +41,7 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode an, CustList<NatTreeMap<Integer, String>> dels_) {
+    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> _dels) {
         return true;
     }
 

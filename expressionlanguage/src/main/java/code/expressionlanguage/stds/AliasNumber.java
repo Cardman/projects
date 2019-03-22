@@ -76,7 +76,7 @@ public final class AliasNumber {
         String aliasPrimLong_ = _lgNames.getAliasPrimLong();
         String aliasPrimFloat_ = _lgNames.getAliasPrimFloat();
         String aliasPrimDouble_ = _lgNames.getAliasPrimDouble();
-        StringMap<StandardType> standards = _lgNames.getStandards();
+        StringMap<StandardType> standards_ = _lgNames.getStandards();
         std_ = new StandardClass(aliasBoolean, fields_, constructors_, methods_, aliasObject_ , MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasBooleanValue, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
@@ -112,7 +112,7 @@ public final class AliasNumber {
         params_ = new StringList(aliasBoolean);
         ctor_ = new StandardConstructor(params_,false, std_);
         constructors_.add(ctor_);
-        standards.put(aliasBoolean, std_);
+        standards_.put(aliasBoolean, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -120,7 +120,7 @@ public final class AliasNumber {
         numbersConstructors(_lgNames,constructors_, aliasPrimByte_, std_);
         numbersValuesMethods(_lgNames,methods_, aliasByte, aliasParseByte, aliasPrimByte_, std_);
         numbersValuesFields(fields_, aliasPrimByte_, std_);
-        standards.put(aliasByte, std_);
+        standards_.put(aliasByte, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -128,7 +128,7 @@ public final class AliasNumber {
         numbersConstructors(_lgNames,constructors_, aliasPrimShort_, std_);
         numbersValuesMethods(_lgNames,methods_, aliasShort, aliasParseShort, aliasPrimShort_, std_);
         numbersValuesFields(fields_, aliasPrimShort_, std_);
-        standards.put(aliasShort, std_);
+        standards_.put(aliasShort, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -136,7 +136,7 @@ public final class AliasNumber {
         numbersConstructors(_lgNames,constructors_, aliasPrimInteger_, std_);
         numbersValuesMethods(_lgNames,methods_, aliasInteger, aliasParseInt, aliasPrimInteger_, std_);
         numbersValuesFields(fields_, aliasPrimInteger_, std_);
-        standards.put(aliasInteger, std_);
+        standards_.put(aliasInteger, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -144,7 +144,7 @@ public final class AliasNumber {
         numbersConstructors(_lgNames,constructors_, aliasPrimLong_, std_);
         numbersValuesMethods(_lgNames,methods_, aliasLong, aliasParseLong, aliasPrimLong_, std_);
         numbersValuesFields(fields_, aliasPrimLong_, std_);
-        standards.put(aliasLong, std_);
+        standards_.put(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -164,7 +164,7 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
         numbersValuesFields(fields_, aliasPrimFloat_, std_);
-        standards.put(aliasFloat, std_);
+        standards_.put(aliasFloat, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
@@ -184,13 +184,13 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
         numbersValuesFields(fields_, aliasPrimDouble_, std_);
-        standards.put(aliasDouble, std_);
+        standards_.put(aliasDouble, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasNumber, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
         numbersAbsMethods(_lgNames,methods_, aliasNumber,std_);
-        standards.put(aliasNumber, std_);
+        standards_.put(aliasNumber, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -257,7 +257,7 @@ public final class AliasNumber {
         constructors_.add(ctor_);
         numbersValuesFields(fields_, aliasPrimChar_, stdcl_);
         std_ = stdcl_;
-        standards.put(aliasCharacter, std_);
+        standards_.put(aliasCharacter, std_);
     }
     private void numbersConstructors(LgNames _lgNames,CustList<StandardConstructor> _ctors, String _primitive, StandardType _type) {
         StringList params_;

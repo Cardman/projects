@@ -257,12 +257,6 @@ public final class StreamTextFile {
         return doc_.getDocumentElement();
     }
 
-    /**@param lignes_
-    @param _saut
-    @param in_
-    @return
-    @throws IOException*/
-
     private static String readingFile(String _saut, BufferedReader _br, long _capacity) {
         try {
             StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
@@ -294,13 +288,13 @@ public final class StreamTextFile {
     }
     public static boolean logToFile(String _nomFichier, String _text) {
         try {
-            FileWriter fw = new FileWriter(_nomFichier, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-            out.println(_text);
-            out.close();
-            bw.close();
-            fw.close();
+            FileWriter fw_ = new FileWriter(_nomFichier, true);
+            BufferedWriter bw_ = new BufferedWriter(fw_);
+            PrintWriter out_ = new PrintWriter(bw_);
+            out_.println(_text);
+            out_.close();
+            bw_.close();
+            fw_.close();
             return true;
         } catch (Exception _0) {
             return false;

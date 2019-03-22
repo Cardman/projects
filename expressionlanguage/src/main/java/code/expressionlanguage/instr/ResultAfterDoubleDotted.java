@@ -28,7 +28,7 @@ public final class ResultAfterDoubleDotted {
         return callCtor;
     }
 
-    public void setCallCtor(boolean callCtor) {
-        this.callCtor = callCtor;
+    public void setCallCtor(boolean _callCtor) {
+        callCtor = _callCtor;
     }
 }

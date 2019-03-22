@@ -73,10 +73,10 @@ public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
         tr_.put(_t, _dis);
         addItem(_dis);
     }
-    public void setSelectedItem(T t) {
+    public void setSelectedItem(T _t) {
         int i_ = 0;
         for (EntryCust<T, String> e: getElements().entryList()) {
-            if (e.getKey() == t) {
+            if (e.getKey() == _t) {
                 selectItem(i_);
                 return;
             }

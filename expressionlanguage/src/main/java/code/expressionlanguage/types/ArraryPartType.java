@@ -35,7 +35,7 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> dels_) {
+    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> _dels) {
         return true;
     }
 

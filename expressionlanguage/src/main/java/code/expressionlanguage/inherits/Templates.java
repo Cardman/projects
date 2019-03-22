@@ -847,10 +847,10 @@ public final class Templates {
         return str_.toString();
     }
 
-    static int getMaxIndex(StringBuilder str_, int max_) {
-        int j_ = max_;
+    static int getMaxIndex(StringBuilder _str, int _max) {
+        int j_ = _max;
         while (j_ >= 0) {
-            if (str_.charAt(j_) != ARR_BEG) {
+            if (_str.charAt(j_) != ARR_BEG) {
                 break;
             }
             j_--;
@@ -858,16 +858,16 @@ public final class Templates {
         return j_;
     }
 
-    static boolean isNotChar(StringBuilder str_, int j_, char subTypeChar) {
-        return j_ >= 0 && str_.charAt(j_) != subTypeChar;
+    static boolean isNotChar(StringBuilder _str, int _j, char _subTypeChar) {
+        return _j >= 0 && _str.charAt(_j) != _subTypeChar;
     }
 
-    static boolean isSubOrSubChar(StringBuilder str_, int j_) {
-        return isSubChar(str_,j_) || isSupChar(str_, j_);
+    static boolean isSubOrSubChar(StringBuilder _str, int _j) {
+        return isSubChar(_str,_j) || isSupChar(_str, _j);
     }
 
-    static boolean isSubChar(StringBuilder str_, int j_) {
-        return j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR;
+    static boolean isSubChar(StringBuilder _str, int _j) {
+        return _j >= 0 && _str.charAt(_j) == SUB_TYPE_CHAR;
     }
 
     static boolean isSupChar(StringBuilder _str, int _j) {
@@ -917,21 +917,21 @@ public final class Templates {
         return str_.toString();
     }
 
-    static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder str_, String sub_) {
-        int j_ = getMaxIndex(str_, str_.length() - 1);
-        String value_ = _varTypes.getVal(sub_);
+    static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
+        int j_ = getMaxIndex(_str, _str.length() - 1);
+        String value_ = _varTypes.getVal(_sub);
         if (value_.startsWith(SUB_TYPE)) {
-            if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                str_.insert(j_ +1, SUB_TYPE);
+            if (j_ >= 0 && _str.charAt(j_) != SUB_TYPE_CHAR && _str.charAt(j_) != SUP_TYPE_CHAR) {
+                _str.insert(j_ +1, SUB_TYPE);
             }
-            str_.append(value_.substring(SUB_TYPE.length()));
+            _str.append(value_.substring(SUB_TYPE.length()));
         } else if (value_.startsWith(SUP_TYPE)) {
-            if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR && str_.charAt(j_) != SUP_TYPE_CHAR) {
-                str_.insert(j_ +1, SUP_TYPE);
+            if (j_ >= 0 && _str.charAt(j_) != SUB_TYPE_CHAR && _str.charAt(j_) != SUP_TYPE_CHAR) {
+                _str.insert(j_ +1, SUP_TYPE);
             }
-            str_.append(value_.substring(SUP_TYPE.length()));
+            _str.append(value_.substring(SUP_TYPE.length()));
         } else {
-            str_.append(value_);
+            _str.append(value_);
         }
     }
 
@@ -1741,10 +1741,10 @@ public final class Templates {
         return generic_;
     }
 
-    private static void addTypeIdNotYet(StringList visitedClasses_, StringList nextClasses_, String geneSuperInterface_) {
-        if (!visitedClasses_.containsStr(geneSuperInterface_)) {
-            nextClasses_.add(geneSuperInterface_);
-            visitedClasses_.add(geneSuperInterface_);
+    private static void addTypeIdNotYet(StringList _visitedClasses, StringList _nextClasses, String _geneSuperInterface) {
+        if (!_visitedClasses.containsStr(_geneSuperInterface)) {
+            _nextClasses.add(_geneSuperInterface);
+            _visitedClasses.add(_geneSuperInterface);
         }
     }
 

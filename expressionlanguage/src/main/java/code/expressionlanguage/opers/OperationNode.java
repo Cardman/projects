@@ -923,9 +923,9 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
-    private static boolean isStaticCandidate(ClassMethodId _uniqueId, String key) {
+    private static boolean isStaticCandidate(ClassMethodId _uniqueId, String _key) {
         if (_uniqueId != null) {
-            if (!StringList.quickEq(_uniqueId.getClassName(), key)) {
+            if (!StringList.quickEq(_uniqueId.getClassName(), _key)) {
                 return true;
             }
         }
@@ -934,12 +934,12 @@ public abstract class OperationNode implements Operable {
 
     private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            MethodInfo stMeth = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
-            if (stMeth == null) {
+            MethodInfo stMeth_ = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
+            if (stMeth_ == null) {
                 continue;
             }
             ClassMethodId clId_ = new ClassMethodId(_cl, e.getId());
-            _methods.add(clId_, stMeth);
+            _methods.add(clId_, stMeth_);
         }
     }
 

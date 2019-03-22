@@ -17,7 +17,7 @@ public interface Parametrable {
     int getImported();
     int getAncestor();
     boolean isVarArgWrap();
-    void setVarArgWrap(boolean v);
+    void setVarArgWrap(boolean _v);
     void format(StringList _params);
     Identifiable getFormatted();
     void setInvocation(InvocationMethod _inv);

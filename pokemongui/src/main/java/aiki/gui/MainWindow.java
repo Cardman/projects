@@ -170,7 +170,7 @@ public final class MainWindow extends NetGroupFrame {
     //private static final boolean COMPILE = false;
 
     private StringMap<String> messages = new StringMap<String>();
-    private final ProgressingDialogPokemon DIALOG = new ProgressingDialogPokemon(this);
+    private final ProgressingDialogPokemon dialog = new ProgressingDialogPokemon(this);
     
 //    private Timer timer;
 
@@ -1593,7 +1593,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public ProgressingDialogPokemon getDialog() {
-        return DIALOG;
+        return dialog;
     }
 
     public MenuItem getZipLoad() {

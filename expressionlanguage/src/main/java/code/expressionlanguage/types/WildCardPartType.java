@@ -37,7 +37,7 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> dels_) {
+    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> _dels) {
         if (!(getParent() instanceof TemplatePartType)) {
             return false;
         }

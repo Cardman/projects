@@ -6,10 +6,10 @@ import code.util.NatTreeMap;
 
 abstract class ParentPartType extends PartType {
 
+    private PartType firstChild;
     ParentPartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);
     }
-    private PartType firstChild;
     void appendChild(PartType _child) {
         if (firstChild == null) {
             firstChild = _child;
@@ -31,5 +31,5 @@ abstract class ParentPartType extends PartType {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ExecutableCode an, CustList<NatTreeMap<Integer,String>> dels_);
+    abstract boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer,String>> _dels);
 }

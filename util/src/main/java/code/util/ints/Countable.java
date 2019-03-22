@@ -4,6 +4,6 @@ public interface Countable {
 
     int size();
 
-    Object get(int index);
+    Object get(int _index);
     boolean isEmpty();
 }

@@ -3161,9 +3161,9 @@ public final class ElResolver {
         return op_;
     }
 
-    private static void addOperIfBegin(NatTreeMap<Integer, String> _operators, int _i, int _first, String arr) {
+    private static void addOperIfBegin(NatTreeMap<Integer, String> _operators, int _i, int _first, String _arr) {
         if (_first == _i) {
-            _operators.put(_i, arr);
+            _operators.put(_i, _arr);
         } else {
             _operators.put(_i, EMPTY_STRING);
         }
@@ -3184,9 +3184,9 @@ public final class ElResolver {
         }
         return aff_;
     }
-    private static boolean isIncrementOperator(char curChar_, int prioOpMult_,
-            char nextChar_) {
-        return prioOpMult_ == ADD_PRIO && nextChar_ == curChar_;
+    private static boolean isIncrementOperator(char _curChar, int _prioOpMult,
+            char _nextChar) {
+        return _prioOpMult == ADD_PRIO && _nextChar == _curChar;
     }
 
     private static boolean isLogicAndOr(char _curChar, boolean _andOr,
