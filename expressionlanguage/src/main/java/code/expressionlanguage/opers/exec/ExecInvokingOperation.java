@@ -1,9 +1,5 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.Initializer;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.CustomFoundAnnotation;
 import code.expressionlanguage.calls.util.CustomFoundConstructor;
@@ -144,13 +140,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return false;
         }
         if (classes_.isCustomType(_className)) {
-            InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
-            if (res_ == InitClassState.NOT_YET || res_ == InitClassState.ERROR) {
-                _conf.getContextEl().failInitEnums();
-                if (_conf.getContextEl().isFailInit()) {
+            DefaultLockingClass locks_ = classes_.getLocks();
+            if (cont_.isInitEnums()) {
+                InitClassState res_ = locks_.getState(idClass_);
+                if (res_ != InitClassState.SUCCESS) {
+                    _conf.getContextEl().failInitEnums();
                     return true;
                 }
+                return false;
             }
+            InitClassState res_ = locks_.getState(_conf.getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
                 _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
                 return true;

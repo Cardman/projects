@@ -22,12 +22,7 @@ public class DefaultLockingClass {
         Classes cl_ = _context.getClasses();
         for (RootBlock r: cl_.getClassBodies()) {
             String name_ = r.getFullName();
-            classes.addEntry(name_, InitClassState.NOT_YET);
-        }
-    }
-    public final void appendSuccess(StringList _success) {
-        for (String c: _success) {
-            classes.set(c, InitClassState.SUCCESS);
+            getClasses().addEntry(name_, InitClassState.NOT_YET);
         }
     }
     public void initAlwaysSuccess() {
@@ -44,23 +39,23 @@ public class DefaultLockingClass {
     }
     public final void initClass(String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        classes.put(base_, InitClassState.PROGRESSING);
+        getClasses().put(base_, InitClassState.PROGRESSING);
     }
     public final InitClassState getState(String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        return classes.getVal(base_);
+        return getClasses().getVal(base_);
     }
     public InitClassState getState(ContextEl _context, String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {
-            classes.put(base_, InitClassState.PROGRESSING);
+            getClasses().put(base_, InitClassState.PROGRESSING);
         }
         return old_;
     }
     public void successClass(ContextEl _context, String _className) {
         String base_ = Templates.getIdFromAllTypes(_className);
-        classes.put(base_, InitClassState.SUCCESS);
+        getClasses().put(base_, InitClassState.SUCCESS);
     }
     public final void processErrorClass(ContextEl _context, Struct _cause) {
         AbstractPageEl pageEl_ = _context.getLastPage();
@@ -83,9 +78,9 @@ public class DefaultLockingClass {
     public void errorClass(ContextEl _context, String _className) {
         _context.failInitEnums();
         String base_ = Templates.getIdFromAllTypes(_className);
-        classes.put(base_, InitClassState.ERROR);
+        getClasses().put(base_, InitClassState.ERROR);
     }
-    public final StringMap<InitClassState> getClasses() {
+    protected final StringMap<InitClassState> getClasses() {
         return classes;
     }
 }

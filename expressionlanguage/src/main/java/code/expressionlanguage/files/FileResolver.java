@@ -877,6 +877,7 @@ public final class FileResolver {
         after_.setEnabledEnumHeader(enableByEndLine_);
         after_.setIndex(i_);
         after_.setParent(currentParent_);
+        int ltGt_ = 0;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (commentedSingleLine_) {
@@ -1068,7 +1069,9 @@ public final class FileResolver {
                     }
                 }
                 if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {
-                    endInstruction_ = true;
+                    if (ltGt_ == 0) {
+                        endInstruction_ = true;
+                    }
                 }
                 if (currentChar_ == END_BLOCK) {
                     endInstruction_ = true;
@@ -1094,6 +1097,14 @@ public final class FileResolver {
                                 }
                             }
                         }
+                    }
+                }
+                if (enableByEndLine_) {
+                    if (currentChar_ == BEGIN_TEMPLATE) {
+                        ltGt_++;
+                    }
+                    if (currentChar_ == END_TEMPLATE) {
+                        ltGt_--;
                     }
                 }
                 //End line
@@ -1237,9 +1248,6 @@ public final class FileResolver {
         }
         boolean enableByEndLine_ = _enabledEnum;
         if (currentParent_ instanceof AnnotationBlock) {
-//            processAnnotationMember(_context, _input, out_, _file, instructionLocation_, instructionRealLocation_,
-//                    found_, instruction_, enabledSpaces_, declType_, currentParent_, len_, trimmedInstruction_,
-//                    currentChar_);
             if (!trimmedInstruction_.isEmpty()) {
                 String fieldName_;
                 int typeOffset_ = instructionLocation_;
@@ -2195,13 +2203,13 @@ public final class FileResolver {
                     _currentParent, new OffsetStringInfo(valueOffest_, exp_.trim()),
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             //if next after i starts with brace or not
-            _bracedSwitchPart.put(caseCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
+            _bracedSwitchPart.put(caseCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK))||_file.charAt(_i) == BEGIN_BLOCK);
             br_ = caseCond_;
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordDefault_)) {
             DefaultCondition defCond_ = new DefaultCondition(_context, _currentParent,
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
-            _bracedSwitchPart.put(defCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK)));
+            _bracedSwitchPart.put(defCond_, _file.substring(_i +1).trim().startsWith(String.valueOf(BEGIN_BLOCK))||_file.charAt(_i) == BEGIN_BLOCK);
             br_ = defCond_;
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordWhile_)) {
@@ -3083,12 +3091,10 @@ public final class FileResolver {
             }
             if (localConstText_) {
                 if (locChar_ == DEL_TEXT) {
-                    if (indexInstr_ + 1 < instrLen_) {
-                        if (_info.charAt(indexInstr_ + 1) != DEL_TEXT) {
-                            indexInstr_++;
-                            localConstText_ = false;
-                            continue;
-                        }
+                    if (indexInstr_ + 1 >= instrLen_ ||_info.charAt(indexInstr_ + 1) != DEL_TEXT) {
+                        indexInstr_++;
+                        localConstText_ = false;
+                        continue;
                     }
                     indexInstr_++;
                 }

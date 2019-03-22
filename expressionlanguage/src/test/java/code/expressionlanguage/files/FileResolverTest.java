@@ -203,6 +203,57 @@ public final class FileResolverTest {
         assertNull(r_.getFirstChild());
     }
     @Test
+    public void parseFile1009Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("// multi line\n");
+        file_.append("$annotation pkgtwo.ExClass {");
+        file_.append(" $enum Inner {:");
+        file_.append(" }");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
+        assertEq("pkgtwo.ExClass..Inner", getCustomTypes(context_, 1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof AnnotationBlock);
+        RootBlock i_ = context_.getClasses().getClassBody("pkgtwo.ExClass..Inner");
+        assertTrue(i_ instanceof EnumBlock);
+        assertSame(i_,r_.getFirstChild());
+    }
+    @Test
+    public void parseFile1010Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$enum pkgtwo.ExClass {\n");
+        file_.append(" ONE<TWO,THREE>(\"\"<\"\"),\n");
+        file_.append(" FOUR<FIVE,SIX>(\"\">\"\"):\n");
+        file_.append(" $public $static $void m(){}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof EnumBlock);
+        Block eltOne_ = r_.getFirstChild();
+        assertTrue(eltOne_ instanceof ElementBlock);
+        ElementBlock eOne_ = (ElementBlock) eltOne_;
+        assertEq("ONE",eOne_.getUniqueFieldName());
+        assertEq("<TWO,THREE>",eOne_.getTempClass());
+        assertEq("\"\"<\"\"",eOne_.getValue());
+        Block eltTwo_ = eltOne_.getNextSibling();
+        assertTrue(eltTwo_ instanceof ElementBlock);
+        ElementBlock eTwo_ = (ElementBlock) eltTwo_;
+        assertEq("FOUR",eTwo_.getUniqueFieldName());
+        assertEq("<FIVE,SIX>",eTwo_.getTempClass());
+        assertEq("\"\">\"\"",eTwo_.getValue());
+        MethodBlock m_ = (MethodBlock) eTwo_.getNextSibling();
+        assertEq("m",m_.getName());
+        assertEq("$void",m_.getReturnType());
+    }
+    @Test
     public void parseFile2Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");

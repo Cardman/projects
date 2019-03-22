@@ -25,9 +25,6 @@ public class CustLockingClass extends DefaultLockingClass {
 
     @Override
     public InitClassState getState(ContextEl _context, String _className) {
-        if (_context.isInitEnums()) {
-            return super.getState(_context, _className);
-        }
         if (getAlwayasInit().containsStr(_className)) {
             return InitClassState.SUCCESS;
         }

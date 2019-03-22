@@ -327,7 +327,6 @@ public final class Classes {
     }
     private static void tryInitStaticlyTypes(ContextEl _context) {
         Classes cl_ = _context.getClasses();
-        StringList success_ = new StringList();
         DefaultLockingClass dl_ = cl_.getLocks();
         dl_.init(_context);
         for (RootBlock c: cl_.getClassBodies()) {
@@ -354,16 +353,10 @@ public final class Classes {
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
                     cl_.staticFields = buildFieldValues(bk_);
-                    InitClassState state_ = dl_.getClasses().getVal(c);
-                    if (state_ != InitClassState.ERROR) {
-                        dl_.getClasses().set(c, InitClassState.NOT_YET);
-                    }
                 } else {
-                    success_.add(c);
                     new_.add(c);
                 }
             }
-            dl_.appendSuccess(new_);
             all_.removeAllElements(new_);
             if (new_.isEmpty()) {
                 break;

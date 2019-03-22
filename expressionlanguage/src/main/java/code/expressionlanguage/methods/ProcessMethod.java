@@ -24,7 +24,6 @@ public final class ProcessMethod {
         _cont.getInit().loopCalling(_cont);
     }
     public static void initializeClassPre(String _class, ContextEl _cont) {
-        _cont.getClasses().getLocks().initClass(_class);
         _cont.getClasses().preInitializeStaticFields(_class, _cont);
         _cont.addPage(_cont.createInstancingClass(_class));
         _cont.getInit().loopCalling(_cont);
