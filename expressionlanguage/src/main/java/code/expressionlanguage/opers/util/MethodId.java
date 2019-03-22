@@ -69,16 +69,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         for (int i = 0; i < len_; i++) {
             String param_ = classNames.get(i);
             String paramOther_ = _obj.classNames.get(i);
-            if (param_ == null) {
-                if (paramOther_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (paramOther_ == null) {
-                return false;
-            }
-            if (!StringList.quickEq(param_,paramOther_)) {
+            if (!StringList.eq(param_,paramOther_)) {
                 return false;
             }
         }

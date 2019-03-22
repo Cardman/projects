@@ -509,6 +509,13 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return strBuilder_.toString();
     }
 
+    public static boolean eq(String _string1,String _string2) {
+        if (_string1 == null) {
+            return _string2 == null;
+        }
+        return quickEq(_string1,_string2);
+    }
+
     public static boolean quickEq(String _string1,String _string2) {
         int lenOne_ = _string1.length();
         int lenTwo_ = _string2.length();

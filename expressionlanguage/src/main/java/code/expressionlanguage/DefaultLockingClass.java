@@ -28,7 +28,7 @@ public class DefaultLockingClass {
     public void initAlwaysSuccess() {
         for (EntryCust<String, InitClassState> e: classes.entryList()) {
             if (e.getValue() == InitClassState.SUCCESS) {
-                alwayasInit.add(e.getKey());
+                getAlwayasInit().add(e.getKey());
             } else {
                 e.setValue(InitClassState.NOT_YET);
             }

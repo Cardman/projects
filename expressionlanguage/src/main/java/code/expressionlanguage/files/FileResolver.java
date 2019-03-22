@@ -1796,23 +1796,15 @@ public final class FileResolver {
         String tempDef_ = templateDef_.toString();
         String typeName_ = typeNamePref_.toString();
         String packageName_ = EMPTY_STRING;
-        String baseName_;
-        int lastDot_ = typeName_.lastIndexOf(PKG);
-        if (lastDot_ >= 0) {
-            packageName_ = typeName_.substring(0, lastDot_);
-            baseName_ = typeName_.substring(lastDot_ + 1);
-        } else {
-            baseName_ = typeName_;
-        }
 
         if (StringList.quickEq(_type, _keyWordEnum)) {
-            typeBlock_ = new EnumBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+            typeBlock_ = new EnumBlock(_context, _currentParent, beginDefinition_, _categoryOffset, typeName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else if (StringList.quickEq(_type, _keyWordClass)) {
-            typeBlock_ = new ClassBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+            typeBlock_ = new ClassBlock(_context, _currentParent, beginDefinition_, _categoryOffset, typeName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else if (StringList.quickEq(_type, _keyWordInterface)) {
-            typeBlock_ = new InterfaceBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+            typeBlock_ = new InterfaceBlock(_context, _currentParent, beginDefinition_, _categoryOffset, typeName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, _staticType, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else {
-            typeBlock_ = new AnnotationBlock(_context, _currentParent, beginDefinition_, _categoryOffset, baseName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
+            typeBlock_ = new AnnotationBlock(_context, _currentParent, beginDefinition_, _categoryOffset, typeName_, packageName_, new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_, new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         }
         typeBlock_.getImports().addAllElts(_importedTypes);
         typeBlock_.getImportsOffset().addAllElts(_offsetsImports);

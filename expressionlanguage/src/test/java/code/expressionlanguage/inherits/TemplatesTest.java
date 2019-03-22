@@ -1336,6 +1336,18 @@ public final class TemplatesTest {
         String second_ = "code.util.CustList<#V>";
         assertEq("code.util.CustList<#V>",Templates.wildCardFormatParam(false, first_, second_, cont_));
     }
+
+    @Test
+    public void wildCardFormat53Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?#E>";
+        String second_ = "[#T";
+        assertEq("[#E",Templates.wildCardFormatReturn(false, first_, second_, context_));
+    }
     @Test
     public void getGenericTypeByBases1Test() {
         ContextEl context_ = simpleContextEl();

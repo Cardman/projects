@@ -51,13 +51,6 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
 
     @Override
     public boolean eq(ConstructorId _obj) {
-        if (!StringList.quickEq(_obj.name, name)) {
-            return false;
-        }
-        return eqPartial(_obj);
-    }
-
-    public boolean eqPartial(ConstructorId _obj) {
         if (classNames.size() != _obj.classNames.size()) {
             return false;
         }

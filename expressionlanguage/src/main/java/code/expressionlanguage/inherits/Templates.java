@@ -921,12 +921,12 @@ public final class Templates {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         String value_ = _varTypes.getVal(_sub);
         if (value_.startsWith(SUB_TYPE)) {
-            if (j_ >= 0 && _str.charAt(j_) != SUB_TYPE_CHAR && _str.charAt(j_) != SUP_TYPE_CHAR) {
+            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
                 _str.insert(j_ +1, SUB_TYPE);
             }
             _str.append(value_.substring(SUB_TYPE.length()));
         } else if (value_.startsWith(SUP_TYPE)) {
-            if (j_ >= 0 && _str.charAt(j_) != SUB_TYPE_CHAR && _str.charAt(j_) != SUP_TYPE_CHAR) {
+            if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
                 _str.insert(j_ +1, SUP_TYPE);
             }
             _str.append(value_.substring(SUP_TYPE.length()));

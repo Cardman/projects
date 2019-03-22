@@ -9724,6 +9724,266 @@ public final class FileResolverTest {
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
     }
     @Test
+    public void parseFile158Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0{}\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        assertNull(case_.getFirstChild());
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile159Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0{}\n");
+        file_.append("   case 1:\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertNull(case_.getFirstChild());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertEq("1", info_.getValue());
+        assertNull(case_.getFirstChild());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile160Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0{\n");
+        file_.append("    call();\n");
+        file_.append("   }\n");
+        file_.append("   case 1:\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("call()", line_.getExpression());
+        assertNull(line_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile161Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0{\n");
+        file_.append("    first();\n");
+        file_.append("    second();\n");
+        file_.append("   }\n");
+        file_.append("   case 1:\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof Line);
+        line_ = (Line) line_.getNextSibling();
+        assertEq("second()", line_.getExpression());
+        assertNull(line_.getNextSibling());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertNull(case_.getFirstChild());
+        assertEq("1", info_.getValue());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile162Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0:\n");
+        file_.append("   case 1{\n");
+        file_.append("    first();\n");
+        file_.append("    second();\n");
+        file_.append("   }\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertNull(case_.getFirstChild());
+        assertTrue(case_.getNextSibling() instanceof CaseCondition);
+        case_ = case_.getNextSibling();
+        info_ = (CaseCondition) case_;
+        assertEq("1", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof Line);
+        line_ = (Line) line_.getNextSibling();
+        assertEq("second()", line_.getExpression());
+        assertNull(line_.getNextSibling());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile163Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("class pkgtwo.ExClass {\n");
+        file_.append(" static {\n");
+        file_.append("  switch (value) {\n");
+        file_.append("   case 0{\n");
+        file_.append("    first();\n");
+        file_.append("    second();\n");
+        file_.append("   }\n");
+        file_.append("   default{\n");
+        file_.append("    third();\n");
+        file_.append("    fourth();\n");
+        file_.append("   }\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        ContextEl context_ = simpleContextEnDefault();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block first_ = cl_.getFirstChild();
+        assertTrue(first_ instanceof StaticBlock);
+        Block switch_ = first_.getFirstChild();
+        assertTrue(switch_ instanceof SwitchBlock);
+        Block case_ = switch_.getFirstChild();
+        assertTrue(case_ instanceof CaseCondition);
+        CaseCondition info_ = (CaseCondition) case_;
+        assertEq("0", info_.getValue());
+        assertTrue(case_.getFirstChild() instanceof Line);
+        Line line_ = (Line) case_.getFirstChild();
+        assertEq("first()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof Line);
+        line_ = (Line) line_.getNextSibling();
+        assertEq("second()", line_.getExpression());
+        assertTrue(case_.getNextSibling() instanceof DefaultCondition);
+        case_ = case_.getNextSibling();
+        assertTrue(case_.getFirstChild() instanceof Line);
+        line_ = (Line) case_.getFirstChild();
+        assertEq("third()", line_.getExpression());
+        assertTrue(line_.getNextSibling() instanceof Line);
+        line_ = (Line) line_.getNextSibling();
+        assertEq("fourth()", line_.getExpression());
+        assertNull(line_.getNextSibling());
+        assertNull(case_.getNextSibling());
+        assertNull(switch_.getNextSibling());
+        assertNull(first_.getNextSibling());
+        assertSame(AccessEnum.PACKAGE, cl_.getAccess());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
@@ -9856,6 +10116,20 @@ public final class FileResolverTest {
         StringMap<String> s_ = new StringMap<String>();
         s_.put("my_file",file_.toString());
         Classes.tryBuildBracedClassesBodies(s_,context_,false);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void parseFile13FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("// multi line\n");
+        file_.append("$annotation pkgtwo.ExClass {");
+        file_.append(" $enum pkg.Inner {:");
+        file_.append(" }");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
     private static int countCustomTypes(ContextEl _cont) {
