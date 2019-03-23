@@ -2,16 +2,17 @@ package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
+import code.expressionlanguage.*;
+import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import org.junit.Test;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
@@ -29,7 +30,9 @@ public final class ClassesTest {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyStdError());
         assertTrue(cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(cont_.getMemoryError());
         ClassMetaInfo info_ = cont_.getClasses().getClassMetaInfo("", cont_);
         assertEq("$void",info_.getName());
@@ -46,8 +49,35 @@ public final class ClassesTest {
         assertEq(0,ContextEl.getConstructorBlocks(null).size());
         assertEq(0,ContextEl.getFieldBlocks(null).size());
         assertEq(0,cont_.getMethodBodiesById("java.lang.Number", id_).size());
+        assertTrue(InitClassState.SUCCESS.isFinished());
+        assertTrue(InitClassState.ERROR.isFinished());
+        assertTrue(!InitClassState.NOT_YET.isFinished());
+        assertTrue(!InitClassState.PROGRESSING.isFinished());
+        assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
+        assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
+        assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
+        assertEq(0, AssignmentsUtil.getOrEmptySimple(new CustList<StringMap<SimpleAssignment>>(),0).size());
+        assertSame(VariableSuffix.DISTINCT, VariableSuffix.getVariableSuffixByName("DISTINCT"));
+        assertSame(VariableSuffix.FIELDS, VariableSuffix.getVariableSuffixByName("FIELDS"));
+        assertSame(VariableSuffix.MERGED, VariableSuffix.getVariableSuffixByName("MERGED"));
+        assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName("NONE"));
+        assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName(""));
     }
 
+    @Test
+    public void failStd(){
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        lgName_.setAliasVoid("");
+        Options opts_ = new Options();
+        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, kw_, lgName_,4);
+        ContextFactory.validateStds(out_,kw_,lgName_);
+        Classes.validateAll(new StringMap<String>(),out_);
+        assertTrue(!out_.getClasses().isEmptyStdError());
+    }
     @Test
     public void resolve1Test() {
         StringMap<String> files_ = new StringMap<String>();

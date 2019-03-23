@@ -4005,6 +4005,27 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("-1<0",((StringStruct) err_.getMessage()).getInstance());
     }
     @Test
+    public void processEl3511Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  $Class.set($new $int[]{0},0,$null):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) cont_.getException();
+        assertEq("code.util.exceptions.NullObjectException",err_.getClassName(cont_));
+    }
+    @Test
     public void processEl352Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

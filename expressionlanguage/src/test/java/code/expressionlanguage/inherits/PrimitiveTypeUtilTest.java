@@ -1,9 +1,13 @@
 package code.expressionlanguage.inherits;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.util.CustList;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -907,6 +911,96 @@ public final class PrimitiveTypeUtilTest {
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
+    @Test
+    public void getQuickComponentType1Test() {
+        ContextEl context_ = simpleContextEl();
+        String int_ = context_.getStandards().getAliasInteger();
+        ClassArgumentMatching arg_ = new ClassArgumentMatching(int_);
+        assertTrue(PrimitiveTypeUtil.getQuickComponentType(arg_).getNames().isEmpty());
+    }
+
+    @Test
+    public void cmpTypes1Test() {
+        ContextEl context_ = simpleContextEl();
+        String int_ = context_.getStandards().getAliasInteger();
+        String nb_ = context_.getStandards().getAliasNumber();
+        assertEq(CustList.SWAP_SORT, PrimitiveTypeUtil.cmpTypes(nb_,int_,context_));
+    }
+
+    @Test
+    public void dafaultValue1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
+    }
+
+    @Test
+    public void dafaultValue2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $void m(){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
+    }
+
+    @Test
+    public void getParent1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"pkg.Ex",new IntStruct(1),c_));
+        assertNotNull(c_.getException());
+    }
+
+    @Test
+    public void getParent2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
+        PrimitiveTypeUtil.getParent(0,"java.lang.Integer",in_,c_);
+        assertNotNull(c_.getException());
+    }
+    @Test
+    public void getParent3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
+        Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner","",-1);
+        PrimitiveTypeUtil.getParent(0,"java.lang.Integer",inTwo_,c_);
+        assertNotNull(c_.getException());
+    }
     @Test
     public void getSubclasses1Test() {
         ContextEl context_ = simpleContextEl();

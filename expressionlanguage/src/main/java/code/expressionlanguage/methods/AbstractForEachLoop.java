@@ -206,8 +206,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
         KeyWords keyWords_ = _cont.getKeyWords();

@@ -1291,7 +1291,7 @@ public final class Templates {
             return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
         }
         if (_m.getArg().isVariable()) {
-            return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
+            return true;
         }
         return isCorrect(_m, _context);
     }

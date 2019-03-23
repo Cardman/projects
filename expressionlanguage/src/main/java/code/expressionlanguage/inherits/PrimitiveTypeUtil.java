@@ -56,25 +56,25 @@ public final class PrimitiveTypeUtil {
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching first_ = new ClassArgumentMatching(_first);
         ClassArgumentMatching second_ = new ClassArgumentMatching(_second);
-        if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(toWrapper(first_, stds_).getNames(), second_.getNames())) {
+        if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(new StringList(toWrapper(first_.getSingleNameOrEmpty(), stds_)), second_.getNames())) {
             return new ResultTernary(_first, false, true);
         }
-        if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(toWrapper(second_, stds_).getNames(), first_.getNames())) {
+        if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(new StringList(toWrapper(second_.getSingleNameOrEmpty(), stds_)), first_.getNames())) {
             return new ResultTernary(_second, true, false);
         }
         if (_first.containsStr(NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
             return new ResultTernary(_second, false, false);
         }
         if (_first.containsStr(NO_SUB_CLASS)) {
-            StringList w_ = toWrapper(second_, stds_).getNames();
-            return new ResultTernary(w_, false, false);
+            String w_ = toWrapper(second_.getSingleNameOrEmpty(), stds_);
+            return new ResultTernary(new StringList(w_), false, false);
         }
         if (_second.containsStr(NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
             return new ResultTernary(_first, false, false);
         }
         if (_second.containsStr(NO_SUB_CLASS)) {
-            StringList w_ = toWrapper(first_, stds_).getNames();
-            return new ResultTernary(w_, false, false);
+            String w_ = toWrapper(first_.getSingleNameOrEmpty(), stds_);
+            return new ResultTernary(new StringList(w_), false, false);
         }
         if (isPrimitiveOrWrapper(first_, _conf) && isPrimitiveOrWrapper(second_, _conf)) {
             String primShort_ = stds_.getAliasPrimShort();
@@ -808,16 +808,6 @@ public final class PrimitiveTypeUtil {
         for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
             if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
                 return e.getKey();
-            }
-        }
-        return _class;
-    }
-    private static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, LgNames _stds) {
-        for (String w: _class.getNames()) {
-            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
-                if (StringList.quickEq(e.getKey(), w)) {
-                    return new ClassArgumentMatching(e.getValue().getWrapper());
-                }
             }
         }
         return _class;

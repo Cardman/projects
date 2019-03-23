@@ -16,12 +16,12 @@ public final class AnalyzedPageEl {
 
     private String globalClass = "";
 
-    private CustList<StringMap<LoopVariable>> vars = new CustList<StringMap<LoopVariable>>();
+    private CustList<StringMap<LoopVariable>> vars;
     private CustList<StringMap<LoopVariable>> mutableVars = new CustList<StringMap<LoopVariable>>();
 
-    private CustList<StringMap<LocalVariable>> catchVars = new CustList<StringMap<LocalVariable>>();
+    private CustList<StringMap<LocalVariable>> catchVars;
 
-    private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
+    private CustList<StringMap<LocalVariable>> localVars;
     private CustList<StringList> localVarsInfers = new CustList<StringList>();
     private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
@@ -59,6 +59,11 @@ public final class AnalyzedPageEl {
     private String lookLocalClass = "";
     private boolean okNumOp;
     private Numbers<Integer> currentBadIndexes = new Numbers<Integer>();
+    public AnalyzedPageEl() {
+        setCatchVars(new CustList<StringMap<LocalVariable>>());
+        setLocalVars(new CustList<StringMap<LocalVariable>>());
+        setVars(new CustList<StringMap<LoopVariable>>());
+    }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -133,9 +138,8 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public void setVars(StringMap<LoopVariable> _localVars) {
-        vars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
-        vars.add(_localVars);
+    public void setVars(CustList<StringMap<LoopVariable>> _localVars) {
+        vars = _localVars;
     }
 
     public void initMutableLoopVars() {
@@ -212,13 +216,7 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isFinalMutableLoopVar(String _key, int _index) {
-        for (StringMap<LoopVariable> m: mutableVars) {
-            LoopVariable l_ = m.getVal(_key);
-            if (l_ != null) {
-                return l_.isFinalVariable();
-            }
-        }
-        return false;
+        return mutableVars.get(_index+1).getVal(_key).isFinalVariable();
     }
 
     public boolean containsLocalVar(String _key) {
@@ -240,25 +238,15 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isFinalLocalVar(String _key, int _index) {
-        for (StringMap<LocalVariable> m: localVars) {
-            LocalVariable l_ = m.getVal(_key);
-            if (l_ != null) {
-                return l_.isFinalVariable();
-            }
-        }
-        return false;
+        return localVars.get(_index).getVal(_key).isFinalVariable();
     }
 
-    public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        localVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
-        localVars.add(_localVars);
-        localVarsInfers = new CustList<StringList>();
-        localVarsInfers.add(new StringList());
+    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
+        localVars = _localVars;
     }
 
-    public void setCatchVars(StringMap<LocalVariable> _localVars) {
-        catchVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
-        catchVars.add(_localVars);
+    public void setCatchVars(CustList<StringMap<LocalVariable>> _localVars) {
+        catchVars = _localVars;
     }
     public void initCatchVars() {
         catchVars.add(new StringMap<LocalVariable>());

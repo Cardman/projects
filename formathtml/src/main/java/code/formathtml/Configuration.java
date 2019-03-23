@@ -1072,9 +1072,15 @@ public class Configuration implements ExecutableCode {
     public void setupAnalyzing() {
         context.setAnalyzing(new AnalyzedPageEl());
         context.getAnalyzing().setGlobalClass(getGlobalClass());
-        context.getAnalyzing().setLocalVars(getLocalVars());
-        context.getAnalyzing().setVars(getVars());
-        context.getAnalyzing().setCatchVars(getCatchVars());
+        CustList<StringMap<LocalVariable>> l_ = new CustList<StringMap<LocalVariable>>();
+        l_.add(getLocalVars());
+        context.getAnalyzing().setLocalVars(l_);
+        CustList<StringMap<LoopVariable>> lv_ = new CustList<StringMap<LoopVariable>>();
+        lv_.add(getVars());
+        context.getAnalyzing().setVars(lv_);
+        CustList<StringMap<LocalVariable>> lc_ = new CustList<StringMap<LocalVariable>>();
+        lc_.add(getCatchVars());
+        context.getAnalyzing().setCatchVars(lc_);
         context.getAnalyzing().getParameters().putAllMap(getParameters());
     }
 }

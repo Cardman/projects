@@ -1788,9 +1788,8 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
         String elr_ = "v;.+=1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1818,8 +1817,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.&=$false";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1847,8 +1845,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.|=$true";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1876,8 +1873,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.&=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1906,8 +1902,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.|=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1936,8 +1931,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.&=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1966,8 +1960,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.|=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -1996,8 +1989,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.==1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2025,8 +2017,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2055,8 +2046,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2087,8 +2077,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2119,8 +2108,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2149,8 +2137,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.+=2i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2181,8 +2168,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.[0i]+=3i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2215,8 +2201,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.+++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2250,8 +2235,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.---v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2285,8 +2269,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.=++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2320,8 +2303,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.= ++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2451,8 +2433,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2480,8 +2461,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2512,8 +2492,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -2544,8 +2523,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5512,8 +5490,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv2_);
         context_.getLastPage().setLocalVars(localVars_);
         ContextEl ctx_ = context_.getContext();
-        ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.getAnalyzing().setLocalVars(localVars_);
+        context_.setupAnalyzing();
         String elr_ = "v;.=v2;.=4i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);

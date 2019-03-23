@@ -415,51 +415,6 @@ public final class TypeUtil {
             }
         }
     }
-    static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
-        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
-        int nbParams_ = _parametersTypes.size();
-        for (GeneType c: _context.getClassBodies()) {
-            if (!StringList.quickEq(c.getFullName(), base_)) {
-                continue;
-            }
-            CustList<GeneMethod> bl_ = ContextEl.getMethodBlocks(c);
-            for (GeneMethod b: bl_) {
-                if (!StringList.quickEq(_methodName, b.getName())) {
-                    continue;
-                }
-                StringList list_ = b.getId().getParametersTypes();
-                if (list_.size() != nbParams_) {
-                    continue;
-                }
-                if (_static != b.isStaticMethod()) {
-                    continue;
-                }
-                if (nbParams_ > 0 && _vararg) {
-                    if (!b.isVarargs()) {
-                        continue;
-                    }
-                } else {
-                    if (b.isVarargs()) {
-                        continue;
-                    }
-                }
-                boolean all_ = true;
-                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.quickFormat(_genericClassName, list_.get(i), _context);
-                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
-                        all_ = false;
-                        break;
-                    }
-                }
-                if (!all_) {
-                    continue;
-                }
-                methods_.add(b);
-            }
-        }
-        return methods_;
-    }
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(GeneType _type,MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
         String baseClassFound_ = _type.getFullName();

@@ -1,10 +1,14 @@
 package code.expressionlanguage.inherits;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.*;
+import code.util.CustList;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
@@ -560,6 +564,27 @@ public final class TemplatesTest {
 
 
 
+    @Test
+    public void format3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "?#W";
+        assertNull(Templates.format(first_, second_, cont_));
+    }
+
+
+    @Test
+    public void format4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "$int";
+        String second_ = "java.lang.Number";
+        assertEq("java.lang.Number",Templates.format(first_, second_, cont_));
+    }
 
 
 
@@ -1664,6 +1689,17 @@ public final class TemplatesTest {
         String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.ExThree", cont_);
         assertEq("pkg.ExThree<#V>", t_);
     }
+
+    @Test
+    public void correctNbParameters1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#W> {$public $static $class Inner<#X> {}}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertTrue(!Templates.correctNbParameters("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",cont_));
+    }
+
     @Test
     public void isCorrect1Test() {
         ContextEl context_ = simpleContextEl();
@@ -4210,6 +4246,76 @@ public final class TemplatesTest {
         StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0));
+    }
+    @Test
+    public void setCheckedElements1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = new IntStruct(0);
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(Argument.createVoid());
+        Templates.setCheckedElements(args_,arr_,cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void okArgs1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(true,"method", new StringList("$int"),true);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = NullStruct.NULL_VALUE;
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(arr_));
+        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_));
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void okArgs2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(true,"method", new StringList("java.lang.Number"),true);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = new StringStruct("");
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(arr_));
+        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_));
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void getErrorWhenContain1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = NullStruct.NULL_VALUE;
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        assertSame(ErrorType.NPE, Templates.getErrorWhenContain(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_));
+    }
+    @Test
+    public void getErrorWhenContain2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = NullStruct.NULL_VALUE;
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        assertSame(ErrorType.CAST, Templates.getErrorWhenContain(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_));
+    }
+    @Test
+    public void getErrorWhenIndex1Test() {
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = NullStruct.NULL_VALUE;
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        assertSame(ErrorType.NPE, Templates.getErrorWhenIndex(arr_, NullStruct.NULL_VALUE));
+    }
+    @Test
+    public void getErrorWhenIndex2Test() {
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = NullStruct.NULL_VALUE;
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        assertSame(ErrorType.CAST, Templates.getErrorWhenIndex(arr_, new StringStruct("")));
     }
     private static ContextEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
