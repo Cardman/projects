@@ -111,6 +111,10 @@ public final class TemplatesTest {
         assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), Templates.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
     }
     @Test
+    public void getAllTypes19Test(){
+        assertEq(new StringList("Map","Map<[String..Character,Rate>","Number"), Templates.getAllTypes("Map<Map<[String..Character,Rate>,Number>"));
+    }
+    @Test
     public void getAllInnerTypesSingleDotted1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
@@ -480,7 +484,16 @@ public final class TemplatesTest {
         assertEq(new StringList("Map<[String..Character,Rate>","Inner<Boolean,Number>"), Templates.getAllInnerTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
     }
 
-    
+    @Test
+    public void getAllSepCommaTypes1Test(){
+        assertEq(new StringList("Number","<<","$int"), Templates.getAllSepCommaTypes("Number,<<,$int"));
+    }
+
+    @Test
+    public void getAllSepCommaTypes2Test(){
+        assertEq(new StringList("Number<Map<$int,$long>>","Number"), Templates.getAllSepCommaTypes("Number<Map<$int,$long>>,Number"));
+    }
+
     @Test
     public void quickFormat1Test() {
         ContextEl context_ = simpleContextEl();
@@ -1347,6 +1360,129 @@ public final class TemplatesTest {
         String first_ = "pkg.Ex<?#E>";
         String second_ = "[#T";
         assertEq("[#E",Templates.wildCardFormatReturn(false, first_, second_, context_));
+    }
+
+    @Test
+    public void wildCardFormat54Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "pkg.Ex<[#T>";
+        assertEq("java.lang.Object",Templates.wildCardFormatReturn(false, first_, second_, context_));
+    }
+
+    @Test
+    public void wildCardFormat55Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "pkg.Ex<[#T>";
+        assertNull(Templates.wildCardFormatParam(false, first_, second_, context_));
+    }
+    @Test
+    public void reflectFormat1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Object>";
+        String second_ = "pkg.Ex<[#T>";
+        assertEq("pkg.Ex<?[java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Object>";
+        String second_ = "pkg.Ex<[#T>";
+        assertEq("pkg.Ex<![java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<[#T>";
+        assertEq("pkg.Ex<?>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<[#E>";
+        assertEq("pkg.Ex<[#E>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "[#E";
+        assertEq("[#E",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Object>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<![java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat7Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Object>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?[java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat8Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Object>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?[java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
+    }
+    @Test
+    public void reflectFormat9Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Object>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<![java.lang.Object>",Templates.reflectFormat(first_,second_,context_));
     }
     @Test
     public void getGenericTypeByBases1Test() {

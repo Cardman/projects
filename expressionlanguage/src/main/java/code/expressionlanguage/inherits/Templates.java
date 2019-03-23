@@ -212,7 +212,8 @@ public final class Templates {
                     i_++;
                     continue;
                 }
-                if (count_ == 0 && curChar_ == Templates.GT) {
+                if (count_ == 0) {
+                    //curChar_ == Templates.GT
                     types_.add(out_.toString());
                     out_.delete(0, out_.length());
                     i_++;
@@ -447,14 +448,15 @@ public final class Templates {
             }
             return objType_;
         }
+        if (typeVar_.size() != types_.size() - 1){
+            return objType_;
+        }
         StringMap<String> varTypes_ = new StringMap<String>();
-        if (typeVar_.size() == types_.size() - 1){
-            int i_ = CustList.FIRST_INDEX;
-            for (TypeVar t: typeVar_) {
-                i_++;
-                String arg_ = types_.get(i_);
-                varTypes_.put(t.getName(), arg_);
-            }
+        int i_ = CustList.FIRST_INDEX;
+        for (TypeVar t: typeVar_) {
+            i_++;
+            String arg_ = types_.get(i_);
+            varTypes_.put(t.getName(), arg_);
         }
         return getWildCardFormattedTypeReturn(_second, varTypes_);
     }
@@ -489,14 +491,15 @@ public final class Templates {
             }
             return null;
         }
+        if (typeVar_.size() != types_.size() - 1){
+            return null;
+        }
         StringMap<String> varTypes_ = new StringMap<String>();
-        if (typeVar_.size() == types_.size() - 1){
-            int i_ = CustList.FIRST_INDEX;
-            for (TypeVar t: typeVar_) {
-                i_++;
-                String arg_ = types_.get(i_);
-                varTypes_.put(t.getName(), arg_);
-            }
+        int i_ = CustList.FIRST_INDEX;
+        for (TypeVar t: typeVar_) {
+            i_++;
+            String arg_ = types_.get(i_);
+            varTypes_.put(t.getName(), arg_);
         }
         return getWildCardFormattedTypeParam(objType_,_second, varTypes_);
     }
@@ -920,7 +923,10 @@ public final class Templates {
     static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         String value_ = _varTypes.getVal(_sub);
-        if (value_.startsWith(SUB_TYPE)) {
+        if (StringList.quickEq(value_,SUB_TYPE)) {
+            _str.delete(j_+1,_str.length());
+            _str.append(value_);
+        } else if (value_.startsWith(SUB_TYPE)) {
             if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
                 _str.insert(j_ +1, SUB_TYPE);
             }
