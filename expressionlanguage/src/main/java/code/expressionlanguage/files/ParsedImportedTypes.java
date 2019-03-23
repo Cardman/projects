@@ -51,11 +51,6 @@ public final class ParsedImportedTypes {
             //ERROR
             return;
         }
-        if (nextIndex > len_) {
-            _badIndexes.add(len_-1);
-            //ERROR
-            return;
-        }
         ok = true;
     }
 
