@@ -99,6 +99,7 @@ public abstract class BeanLgNames extends LgNames {
     private CustList<ExecOperationNode> expsIterator;
     private CustList<ExecOperationNode> expsHasNext;
     private CustList<ExecOperationNode> expsNext;
+    private StringMap<String> iterables = new StringMap<String>();
 
     public static Double parseDouble(String _nb) {
         NumberInfos infos_ = NumParsers.trySplitDouble(_nb);
@@ -277,7 +278,7 @@ public abstract class BeanLgNames extends LgNames {
         cl_ = new StandardClass(custList, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
-        cl_.setIterative(getAliasObject());
+        iterables.put(custList,getAliasObject());
         getStandards().put(custList, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custMap, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
@@ -286,13 +287,13 @@ public abstract class BeanLgNames extends LgNames {
         methods_.put(method_.getId(), method_);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(custEntries);
-        cl_.setIterative(getAliasObject());
+        iterables.put(custMap,getAliasObject());
         getStandards().put(custMap, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custEntries, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
-        cl_.setIterative(custEntry);
+        iterables.put(custEntries,custEntry);
         getStandards().put(custEntries, cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         cl_ = new StandardClass(custEntry, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
@@ -367,6 +368,11 @@ public abstract class BeanLgNames extends LgNames {
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasDisplayable, stdi_);
     }
+
+    public StringMap<String> getIterables() {
+        return iterables;
+    }
+
     @Override
     public void buildIterable(ContextEl _context) {
         super.buildIterable(_context);
@@ -418,15 +424,12 @@ public abstract class BeanLgNames extends LgNames {
     }
     static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
         String baseSubType_ = _subType;
-        LgNames lgNames_ = _context.getStandards();
-        StandardType std_ = lgNames_.getStandards().getVal(baseSubType_);
-        if (std_ == null) {
+        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
+        String it_ = lgNames_.getIterables().getVal(baseSubType_);
+        if (it_ == null) {
             return null;
         }
-        if (std_.getIterative().isEmpty()) {
-            return null;
-        }
-        return StringList.concat(lgNames_.getAliasIterable(),"<",std_.getIterative(),">");
+        return StringList.concat(lgNames_.getAliasIterable(),"<",it_,">");
     }
     public String getIteratorVar() {
         return iteratorVar;
@@ -589,7 +592,7 @@ public abstract class BeanLgNames extends LgNames {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_, getAliasSimpleIterator())) {
                 String typeInst_ = getStructClassName(_instance, _cont);
-                String it_ = getStandards().getVal(typeInst_).getIterative();
+                String it_ = getIterables().getVal(typeInst_);
                 res_.setResult(StdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
                 return res_;
             }

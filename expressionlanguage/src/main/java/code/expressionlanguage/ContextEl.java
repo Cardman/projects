@@ -632,7 +632,7 @@ public abstract class ContextEl implements ExecutableCode {
         ClassCategory cat_ = ClassCategory.CLASS;
         boolean abs_ = _type.isAbstractType();
         boolean final_ = _type.isFinalType();
-        String superClass_ = ((StandardClass) _type).getSuperClass(this);
+        String superClass_ = ((StandardClass) _type).getSuperClass();
         StringList superInterfaces_ = _type.getDirectInterfaces();
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
     }

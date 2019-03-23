@@ -1,13 +1,14 @@
 package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import org.junit.Test;
 
@@ -62,6 +63,19 @@ public final class ClassesTest {
         assertSame(VariableSuffix.MERGED, VariableSuffix.getVariableSuffixByName("MERGED"));
         assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName("NONE"));
         assertSame(VariableSuffix.NONE, VariableSuffix.getVariableSuffixByName(""));
+        StandardClass s_ = new StandardClass("",new StringMap<StandardField>(),new CustList<StandardConstructor>(), new ObjectMap<MethodId, StandardMethod>(),"",MethodModifier.FINAL);
+        assertTrue(s_.getFullName().isEmpty());
+        assertSame(s_.belong(), s_.getOuter());
+        StandardInterface i_ = new StandardInterface("",new ObjectMap<MethodId, StandardMethod>(),new StringList("super"));
+        assertEq(1, i_.getDirectSuperClasses(cont_).size());
+        assertEq("super", i_.getDirectSuperClasses(cont_).first());
+        assertTrue(i_.isAbstractType());
+        assertTrue(!i_.isFinalType());
+        assertTrue(!cont_.getStandards().getStandards().getVal("java.lang.String").getMethods().getVal(new MethodId(false,"replace",new StringList("java.lang.String","java.lang.String"))).isAbstractMethod());
+        StandardMethod sMeth_ = new StandardMethod("abs",new StringList(),"java.lang.Object",false, MethodModifier.ABSTRACT,i_);
+        assertTrue(sMeth_.isAbstractMethod());
+        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Number"),cont_.getStandards().getStandards().getVal("java.lang.Number").getMethods().getVal(new MethodId(false,"byteValue",new StringList())).belong());
+        assertSame(cont_.getStandards().getStandards().getVal("java.lang.Integer"),cont_.getStandards().getStandards().getVal("java.lang.Integer").getFields().getVal("MAX_VALUE").belong());
     }
 
     @Test
@@ -1233,7 +1247,7 @@ public final class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = context_.getClassBody("pkg.Outer..InnerTwo").getAllInterfaces();
+        StringList types_ = ((InterfaceBlock) context_.getClassBody("pkg.Outer..InnerTwo")).getImportedDirectSuperInterfaces();
         assertTrue(types_.containsStr("pkg.OuterThree..InnerThree"));
     }
     @Test

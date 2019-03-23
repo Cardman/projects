@@ -45,7 +45,7 @@ public final class TypeUtil {
             StandardType s_ = s.getValue();
             if (s_ instanceof StandardClass) {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
-                s_.getAllSuperTypes().addAllElts(s_.getAllInterfaces());
+                s_.getAllSuperTypes().addAllElts(((StandardClass)s_).getAllInterfaces());
             } else {
                 s_.getAllSuperTypes().addAllElts(s_.getAllSuperClasses());
             }
@@ -132,14 +132,14 @@ public final class TypeUtil {
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            StringList all_ = bl_.getAllInterfaces();
+            StringList all_ = un_.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
             allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = Templates.getIdFromAllTypes(clName_);
             RootBlock superType_ = classes_.getClassBody(id_);
-            if (superType_ != null) {
-                allCopy_.removeAllElements(superType_.getAllInterfaces());
+            if (superType_ instanceof UniqueRootedBlock) {
+                allCopy_.removeAllElements(((UniqueRootedBlock)superType_).getAllInterfaces());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
@@ -186,7 +186,7 @@ public final class TypeUtil {
         String aliasObject_ = _context.getStandards().getAliasObject();
         if (_type instanceof StandardClass) {
             StandardClass type_ = (StandardClass) _type;
-            String typeName_ = type_.getSuperClass(_context);
+            String typeName_ = type_.getSuperClass();
             while (true) {
                 if (typeName_.isEmpty()) {
                     break;
@@ -196,7 +196,7 @@ public final class TypeUtil {
                     break;
                 }
                 type_ = (StandardClass) _context.getClassBody(typeName_);
-                typeName_ = type_.getSuperClass(_context);
+                typeName_ = type_.getSuperClass();
             }
             type_ = (StandardClass) _type;
             StringList allSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
@@ -434,7 +434,7 @@ public final class TypeUtil {
             GeneClass subClassBlock_ = (GeneClass) c;
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
-            for (String s: subClassBlock_.getAllInterfaces()) {
+            for (String s: ((GeneClass)subClassBlock_).getAllInterfaces()) {
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }

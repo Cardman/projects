@@ -45,10 +45,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return modifier == MethodModifier.ABSTRACT;
     }
 
-    public boolean isNormalMethod() {
-        return modifier == MethodModifier.NORMAL;
-    }
-
     public String getDeclaringType() {
         return getOwner().getFullName();
     }

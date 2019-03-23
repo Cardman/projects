@@ -71,11 +71,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getAllInterfaces() {
-        return getAllSuperClasses();
-    }
-
-    @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
         NatTreeMap<Integer, String> rcs_;
         rcs_ = getRowColDirectSuperTypes();

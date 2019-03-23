@@ -82,24 +82,6 @@ public final class StandardClass extends StandardType implements GeneClass {
         return allInterfaces;
     }
 
-    @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        return getDirectSuperTypes();
-    }
-
-    public String getSuperClass(Analyzable _classes) {
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (_classes.getClassBody(base_) instanceof StandardClass) {
-                return s;
-            }
-        }
-        if (StringList.quickEq(_classes.getStandards().getAliasObject(), getFullName())) {
-            return "";
-        }
-        return _classes.getStandards().getAliasObject();
-    }
-
     public StringList getDirectInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {

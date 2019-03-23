@@ -516,7 +516,6 @@ public final class KeyWords {
         if (list_.isEmpty()) {
             return null;
         }
-        list_.sortElts(new StartsWithComparing());
         return list_.first();
     }
     public String getEscKeyWord(String _string, int _from) {
@@ -536,7 +535,6 @@ public final class KeyWords {
         if (list_.isEmpty()) {
             return null;
         }
-        list_.sortElts(new StartsWithComparing());
         return list_.first();
     }
 

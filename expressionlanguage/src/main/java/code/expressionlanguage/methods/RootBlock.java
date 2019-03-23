@@ -104,6 +104,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
+    public abstract StringList getDirectGenericSuperTypes(Analyzable _classes);
+
     @Override
     public GeneType getOuter() {
         RootBlock t = this;
@@ -737,7 +739,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return allGenericInterfaces_;
     }
 
-    @Override
     public final StringList getAllGenericSuperTypes(Analyzable _classes) {
         StringList list_ = new StringList();
         Classes classes_ = _classes.getClasses();

@@ -25,8 +25,6 @@ public abstract class StandardType implements GeneType {
 
     private final ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
 
-    private String iterative = "";
-
     protected StandardType(String _name,
             StringMap<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
@@ -68,30 +66,6 @@ public abstract class StandardType implements GeneType {
     @Override
     public boolean isStaticType() {
         return true;
-    }
-    @Override
-    public final  StringList getAllGenericSuperTypes(Analyzable _classes) {
-        return getAllSuperTypes(_classes.getStandards());
-    }
-    public final StringList getAllSuperTypes(LgNames _classes) {
-        StringList list_ = new StringList();
-        StringList current_ = new StringList(getFullName());
-        while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                StandardType stdType_ = _classes.getStandards().getVal(c);
-                StringList superTypes_ = stdType_.getDirectSuperTypes();
-                for (String t: superTypes_) {
-                    list_.add(t);
-                    next_.add(t);
-                }
-            }
-            if (next_.isEmpty()) {
-                break;
-            }
-            current_ = next_;
-        }
-        return list_;
     }
 
     @Override
@@ -151,11 +125,5 @@ public abstract class StandardType implements GeneType {
 
     public ObjectMap<MethodId, StandardMethod> getMethods() {
         return methods;
-    }
-    public String getIterative() {
-        return iterative;
-    }
-    public void setIterative(String _iterative) {
-        iterative = _iterative;
     }
 }

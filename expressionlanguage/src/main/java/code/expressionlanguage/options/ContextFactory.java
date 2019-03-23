@@ -13,6 +13,7 @@ import code.util.StringMap;
 
 public final class ContextFactory {
 
+    private ContextFactory(){}
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,
                                        Options _options, LgNames _undefinedLgNames, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 

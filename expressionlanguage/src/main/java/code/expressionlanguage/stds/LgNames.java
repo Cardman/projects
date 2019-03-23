@@ -193,7 +193,7 @@ public abstract class LgNames {
                     _cont.getClasses().addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
-                    if (!StringList.isDollarWordChar(c) && c != '.') {
+                    if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);

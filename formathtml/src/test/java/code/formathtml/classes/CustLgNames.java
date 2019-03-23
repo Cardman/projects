@@ -74,10 +74,10 @@ public final class CustLgNames extends BeanLgNames {
         stdcl_ = new StandardClass(aliasInts, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         method_ = new StandardMethod(aliasAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        stdcl_.setIterative(getAliasInteger());
         stdcl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         std_ = stdcl_;
         getStandards().put(aliasInts, std_);
+        getIterables().put(aliasInts,getAliasInteger());
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -103,9 +103,9 @@ public final class CustLgNames extends BeanLgNames {
 //        params_ = new StringList(aliasSimpleIteratorType);
 //        method_ = new StandardMethod(aliasSimpleIterator, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, aliasGeneObjects);
 //        methods_.put(method_.getId(), method_);
-        stdcl_.setIterative(getAliasObject());
         std_ = stdcl_;
         getStandards().put(aliasGeneObjects, std_);
+        getIterables().put(aliasGeneObjects,getAliasObject());
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();

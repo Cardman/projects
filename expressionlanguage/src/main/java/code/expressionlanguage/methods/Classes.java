@@ -772,13 +772,15 @@ public final class Classes {
                 if (nbDirectSuperClass_ <= 1) {
                     prSupTypes(r_,dirSuper_,_context);
                 }
-                for (String t: r_.getAllSuperTypes()) {
-                    GeneType g_ = _context.getClassBody(t);
-                    if (g_ instanceof GeneInterface) {
-                        r_.getAllInterfaces().add(t);
+                if (r_ instanceof UniqueRootedBlock) {
+                    for (String t: r_.getAllSuperTypes()) {
+                        GeneType g_ = _context.getClassBody(t);
+                        if (g_ instanceof GeneInterface) {
+                            ((UniqueRootedBlock) r_).getAllInterfaces().add(t);
+                        }
                     }
+                    ((UniqueRootedBlock) r_).getAllInterfaces().removeDuplicates();
                 }
-                r_.getAllInterfaces().removeDuplicates();
                 r_.getAllSuperTypes().removeDuplicates();
                 builtTypes_.set(c, true);
                 next_.add(c);
@@ -969,13 +971,15 @@ public final class Classes {
                 if (nbDirectSuperClass_ <= 1) {
                     prSupTypes(r_,dirSuper_,_context);
                 }
-                for (String t: r_.getAllSuperTypes()) {
-                    GeneType g_ = _context.getClassBody(t);
-                    if (g_ instanceof GeneInterface) {
-                        r_.getAllInterfaces().add(t);
+                if (r_ instanceof UniqueRootedBlock) {
+                    for (String t: r_.getAllSuperTypes()) {
+                        GeneType g_ = _context.getClassBody(t);
+                        if (g_ instanceof GeneInterface) {
+                            ((UniqueRootedBlock)r_).getAllInterfaces().add(t);
+                        }
                     }
+                    ((UniqueRootedBlock)r_).getAllInterfaces().removeDuplicates();
                 }
-                r_.getAllInterfaces().removeDuplicates();
                 r_.getAllSuperTypes().removeDuplicates();
             }
             for (RootBlock c: instClBodies_) {
@@ -1676,14 +1680,14 @@ public final class Classes {
             if (c instanceof UniqueRootedBlock) {
                 Classes classes_ = _context.getClasses();
                 UniqueRootedBlock un_ = (UniqueRootedBlock)c;
-                StringList all_ = c.getAllInterfaces();
+                StringList all_ = un_.getAllInterfaces();
                 StringList allCopy_ = new StringList(all_);
                 allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
                 String superClass_ = un_.getImportedDirectGenericSuperClass();
                 String superClassId_ = Templates.getIdFromAllTypes(superClass_);
                 RootBlock superType_ = classes_.getClassBody(superClassId_);
-                if (superType_ != null) {
-                    allCopy_.removeAllElements(superType_.getAllInterfaces());
+                if (superType_ instanceof UniqueRootedBlock) {
+                    allCopy_.removeAllElements(((UniqueRootedBlock)superType_).getAllInterfaces());
                 }
                 for (String i: allCopy_) {
                     RootBlock int_ = classes_.getClassBody(i);

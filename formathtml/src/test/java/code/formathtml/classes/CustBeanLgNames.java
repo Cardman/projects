@@ -174,8 +174,8 @@ public final class CustBeanLgNames extends BeanLgNames {
         cl_ = new StandardClass(TYPE_INTS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
-        cl_.setIterative(getAliasInteger());
         getStandards().put(TYPE_INTS, cl_);
+        getIterables().put(TYPE_INTS,getAliasInteger());
         DefaultInitialization.basicStandards(this);
     }
     @Override
@@ -194,7 +194,6 @@ public final class CustBeanLgNames extends BeanLgNames {
         cl_.getDirectInterfaces().add(getAliasCountable());
         cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         cl_.getDirectInterfaces().add(getAliasDisplayable());
-        cl_.setIterative(getAliasString());
         params_ = new StringList();
         method_ = new StandardMethod(GET_REVERSE,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
@@ -202,6 +201,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         method_ = new StandardMethod(GET,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_STRING_LIST, cl_);
+        getIterables().put(TYPE_STRING_LIST,getAliasString());
         buildBeanOne();
         buildBeanTwo();
         buildBeanThree();
@@ -632,8 +632,8 @@ public final class CustBeanLgNames extends BeanLgNames {
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_ENUM_NUMBERS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasDisplayable());
-        cl_.setIterative(TYPE_ENUM_NUMBER);
         getStandards().put(TYPE_ENUM_NUMBERS, cl_);
+        getIterables().put(TYPE_ENUM_NUMBERS,TYPE_ENUM_NUMBER);
     }
     private void buildGeneObjs() {
         StringMap<StandardField> fields_;
