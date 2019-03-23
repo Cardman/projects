@@ -20,10 +20,8 @@ public final class ContextFactory {
         KeyWords kwl_ = km_.getKeyWords(_lang);
         if (StringList.quickEq(_lang, "en")) {
             km_.initEnStds(_undefinedLgNames);
-        } else if (StringList.quickEq(_lang, "fr")) {
-            km_.initFrStds(_undefinedLgNames);
         } else {
-            return null;
+            km_.initFrStds(_undefinedLgNames);
         }
         return build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
     }

@@ -1,15 +1,21 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.SingleContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public class LgNamesTest {
@@ -1383,5 +1389,64 @@ public class LgNamesTest {
         StringList refTypes_ = lgName_.allRefTypes();
         lgName_.validateRefTypeContents(s_, refTypes_, prims_);
         assertTrue(!s_.getClasses().isEmptyStdError());
+    }
+    @Test
+    public void success1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        Options opts_ = new Options();
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        ContextEl contextEl_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        ContextFactory.validate(kw_,lgName_,all_,contextEl_);
+        assertTrue(contextEl_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId fct_ = new MethodId(true, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_);
+        assertEq(2, ret_.getNumber());
+    }
+    @Test
+    public void success2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.readNames().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        Options opts_ = new Options();
+        srcFiles_.put("src/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        ContextEl contextEl_ =ContextFactory.build(-1, lk_, di_, opts_, kw_, lgName_, all_,4);
+        assertTrue(contextEl_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId fct_ = new MethodId(true, "exmeth",new StringList());
+        Argument argGlLoc_ = new Argument();
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_);
+        assertEq(2, ret_.getNumber());
     }
 }
