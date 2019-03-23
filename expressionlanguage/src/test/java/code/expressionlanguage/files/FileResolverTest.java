@@ -64,7 +64,7 @@ public final class FileResolverTest {
         file_.append("pkg.Ex;\n");
         file_.append("pkg.ExTwo;\n");
         file_.append("/* multi line\n");
-        file_.append("comment*/\n");
+        file_.append("*comment*/\n");
         file_.append("$interface pkgtwo.ExClass {");
         file_.append("}");
         ContextEl context_ = simpleContext();

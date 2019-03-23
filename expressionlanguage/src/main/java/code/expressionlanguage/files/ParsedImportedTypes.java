@@ -15,6 +15,9 @@ public final class ParsedImportedTypes {
     private boolean foundBrace;
     public ParsedImportedTypes(int _nextIndex, String _fullFile, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
+        if (_nextIndex >= _fullFile.length()) {
+            return;
+        }
         if (_fullFile.charAt(_nextIndex) != BEGIN_BLOCK) {
             ok = true;
             return;
