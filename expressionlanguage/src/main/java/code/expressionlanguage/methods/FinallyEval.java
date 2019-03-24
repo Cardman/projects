@@ -67,21 +67,6 @@ public final class FinallyEval extends BracedStack implements Eval {
         CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        for (EntryCust<ReturnMehod, Eval> e: _anEl.getReturnables().entryList()) {
-            for (Block b: prev_) {
-                if (b != e.getValue()) {
-                    continue;
-                }
-                for (EntryCust<String, SimpleAssignment> f: _anEl.getAssignments().getVal(e.getKey()).entryList()) {
-                    SimpleAssignment asLoc_ = f.getValue();
-                    if (asLoc_.isAssignedAfter() || assTar_.getFieldsRoot().getVal(f.getKey()).isAssignedAfter()) {
-                        asLoc_.setAssignedAfter(true);
-                        asLoc_.setUnassignedAfter(false);
-                    }
-                }
-                break;
-            }
-        }
         afterVars_ = buildAssVariablesAfterFinally(prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
