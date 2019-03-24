@@ -244,11 +244,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         boolean static_ = f_.isStaticContext();
+        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.size() == 1) {
             KeyWords keyWords_ = _cont.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -661,8 +660,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         boolean hasNext_ = has_;
 
         if (hasNext_) {
+            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
             incrementLoop(_conf, l_, vars_);
         } else {
+            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(false)));
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
             l_.setEvaluatingKeepLoop(false);

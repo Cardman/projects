@@ -155,6 +155,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             n_ = n_.getPreviousSibling();
         }
         _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont,this);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }

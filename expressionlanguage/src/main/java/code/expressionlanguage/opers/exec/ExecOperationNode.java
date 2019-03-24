@@ -3,11 +3,11 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -481,6 +481,7 @@ public abstract class ExecOperationNode implements Operable {
             _nodes.getVal((ExecOperationNode)n_).setPreviousArgument(_argument);
         }
         _nodes.getVal(this).setArgument(_argument);
+        _conf.getCoverage().passBlockOperation(_conf, this,_argument);
     }
 
     @Override

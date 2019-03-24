@@ -1,0 +1,43 @@
+package code.expressionlanguage.methods.util;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.BooleanStruct;
+
+public final class BooleanCoverageResult extends AbstractCoverageResult {
+    private boolean coverTrue;
+    private boolean coverFalse;
+    @Override
+    public int getCovered() {
+        int c_ = 0;
+        if (coverTrue) {
+            c_++;
+        }
+        if (coverFalse) {
+            c_++;
+        }
+        return c_;
+    }
+
+    @Override
+    public int getFull() {
+        return 2;
+    }
+
+    @Override
+    public void cover(Argument _arg) {
+        if (_arg.getStruct().sameReference(new BooleanStruct(true))) {
+            coverTrue = true;
+        }
+        if (_arg.getStruct().sameReference(new BooleanStruct(false))) {
+            coverFalse = true;
+        }
+    }
+
+    public boolean isCoverFalse() {
+        return coverFalse;
+    }
+
+    public boolean isCoverTrue() {
+        return coverTrue;
+    }
+}

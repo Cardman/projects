@@ -61,6 +61,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     ((BracedBlock)en_).appendChild(empty_);
                 }
             }
+            _cont.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
                 setAssignmentBeforeCall(_cont,anEl_);
                 anEl_.reach(this);

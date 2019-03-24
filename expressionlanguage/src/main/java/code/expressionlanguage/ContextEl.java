@@ -62,6 +62,7 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
+import code.expressionlanguage.methods.util.Coverage;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -138,9 +139,12 @@ public abstract class ContextEl implements ExecutableCode {
     private boolean initEnums;
     private boolean failInit;
     private IdList<Struct> sensibleFields = new IdList<Struct>();
+    private boolean covering;
+    private Coverage coverage;
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+    public ContextEl(boolean _covering, int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
+        setCovering(_covering);
         setOptions(_options);
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
@@ -148,6 +152,7 @@ public abstract class ContextEl implements ExecutableCode {
         setKeyWords(_keyWords);
         setClasses(new Classes());
         setThrowing(new LocalThrowing());
+        setCoverage(new Coverage());
         classes.setLocks(_lock);
     }
     protected ContextEl() {
@@ -775,6 +780,23 @@ public abstract class ContextEl implements ExecutableCode {
     public void setClasses(Classes _classes) {
         classes = _classes;
     }
+
+    public Coverage getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(Coverage _coverage) {
+        coverage = _coverage;
+    }
+
+    public boolean isCovering() {
+        return covering;
+    }
+
+    public void setCovering(boolean _covering) {
+        covering = _covering;
+    }
+
     private void clearPages() {
         importing.clear();
     }

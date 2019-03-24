@@ -39,7 +39,7 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
 
     RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
+        super(_exec.isCovering(),_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
         custInit = _init;
         executing = _exec;
         interrupt = _exec.getInterrupt();
@@ -55,6 +55,8 @@ public final class RunnableContextEl extends ContextEl implements FieldableStruc
         setMemoryError(_context.getMemoryError());
         setKeyWords(_context.getKeyWords());
         setThrowing(_context.getThrowing());
+        setCovering(_context.isCovering());
+        setCoverage(_context.getCoverage());
         executing = ((RunnableContextEl)_context).executing;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = (CustInitializer) _context.getInit();

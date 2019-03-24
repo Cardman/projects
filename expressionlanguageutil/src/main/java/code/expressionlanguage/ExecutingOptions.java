@@ -8,6 +8,7 @@ public final class ExecutingOptions {
     private String mainThread = "main_thread.txt";
     private int tabWidth = 4;
     private AtomicBoolean interrupt = new AtomicBoolean();
+    private boolean covering;
     public String getLogFolder() {
         return logFolder;
     }
@@ -20,4 +21,11 @@ public final class ExecutingOptions {
         return interrupt;
     }
 
+    public boolean isCovering() {
+        return covering;
+    }
+
+    public void setCovering(boolean _covering) {
+        covering = _covering;
+    }
 }

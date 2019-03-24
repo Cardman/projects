@@ -230,6 +230,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        if (!_cont.isGearConst()) {
+            _cont.getCoverage().putBlockOperations(_cont,this);
+        }
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
         if (_cont.isGearConst()) {
             opValue = ElUtil.getReducedNodes(opValue.last());

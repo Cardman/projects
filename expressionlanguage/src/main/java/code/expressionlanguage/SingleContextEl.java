@@ -11,7 +11,7 @@ public final class SingleContextEl extends ContextEl {
 
     public SingleContextEl(int _stackOverFlow, DefaultLockingClass _lock,
             Initializer _init, Options _options, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
+        super(false,_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
         init = _init;
     }
     @Override

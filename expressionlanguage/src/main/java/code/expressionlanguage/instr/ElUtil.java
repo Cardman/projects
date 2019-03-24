@@ -136,7 +136,7 @@ public final class ElUtil {
             ((StandardInstancingOperation)op_).setFieldName(fieldName_);
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
-        return getExecutableNodes(all_);
+        return getExecutableNodes(_conf,all_);
     }
 
     private static boolean processAssign(ContextEl _conf, Block _currentBlock) {
@@ -486,10 +486,12 @@ public final class ElUtil {
             ExecOperationNode o = _nodes.getKey(fr_);
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
+                _context.getCoverage().passBlockOperation(_context,o,Argument.createVoid());
                 fr_++;
                 continue;
             }
             if (pair_.getArgument() != null) {
+                _context.getCoverage().passBlockOperation(_context,o,pair_.getArgument());
                 fr_++;
                 continue;
             }
@@ -549,15 +551,18 @@ public final class ElUtil {
             ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
     }
-    private static CustList<ExecOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
+    private static CustList<ExecOperationNode> getExecutableNodes(Analyzable _an,CustList<OperationNode> _list) {
+        Block bl_ = _an.getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_);
+        _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
                 ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
+                _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -577,6 +582,7 @@ public final class ElUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
+                    _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof DotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {

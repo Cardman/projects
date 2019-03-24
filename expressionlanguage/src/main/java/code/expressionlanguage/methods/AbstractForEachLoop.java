@@ -203,6 +203,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         boolean static_ = f_.isStaticContext();
+        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(ContextEl _cont) {
@@ -256,8 +257,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     }
     public abstract StringList getInferredIterable(StringList _types,ContextEl _cont);
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.size() == 1) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
@@ -560,12 +559,14 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             return;
         }
         if (finished_) {
+            _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
             removeVarAndLoop(ip_);
             _cont.getLastPage().clearCurrentEls();
             l_.setEvaluatingKeepLoop(false);
             processBlock(_cont);
             return;
         }
+        _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(true)));
         StringMap<LoopVariable> vars_ = ip_.getVars();
         incrementLoop(_cont, l_, vars_);
     }
@@ -622,8 +623,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         
         if (hasNext_) {
+            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
             incrementLoop(_conf, l_, vars_);
         } else {
+            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(false)));
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
             l_.setEvaluatingKeepLoop(false);
