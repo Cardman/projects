@@ -43,25 +43,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.FunctionBlock;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.InitBlock;
-import code.expressionlanguage.methods.InstanceBlock;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.ReflectingType;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StaticBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.Coverage;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -350,15 +332,17 @@ public abstract class ContextEl implements ExecutableCode {
         MethodId id_ = _e.getId();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        return createCallingMethod(gl_, cl_, id_, args_);
+        Argument right_ = _e.getRight();
+        return createCallingMethod(gl_, cl_, id_, args_, right_);
     }
-    public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args) {
+    public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args,Argument _right) {
         setCallMethod(null);
         MethodPageEl pageLoc_ = new MethodPageEl(this);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
+        pageLoc_.setRightArgument(_right);
         NamedFunctionBlock methodLoc_;
-        if (!StringList.isDollarWord(_method.getName())) {
+        if (!StringList.isDollarWord(_method.getName()) && _right == null) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
         } else {
             methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
@@ -710,6 +694,9 @@ public abstract class ContextEl implements ExecutableCode {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof MethodBlock) {
                     methods_.add((GeneMethod) b);
+                }
+                if (b instanceof IndexerBlock) {
+                    methods_.add((IndexerBlock) b);
                 }
                 if (b instanceof AnnotationMethodBlock) {
                     methods_.add((GeneMethod) b);

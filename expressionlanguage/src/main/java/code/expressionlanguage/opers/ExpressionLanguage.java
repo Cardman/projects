@@ -4,9 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StandardArgumentsPair;
-import code.expressionlanguage.opers.exec.CallExecSimpleOperation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.exec.ExecPossibleIntermediateDotted;
+import code.expressionlanguage.opers.exec.*;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -48,6 +46,16 @@ public final class ExpressionLanguage {
             return;
         }
         currentOper.setSimpleArgument(_arg, _cont, arguments);
+        index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
+    }
+
+    public void setDirectArgument(Argument _arg, ContextEl _cont) {
+        if (currentOper instanceof ExecSemiAffectationOperation) {
+            ExecSemiAffectationOperation e_ = (ExecSemiAffectationOperation) currentOper;
+            e_.endQuickCalculate(_cont, arguments, _arg);
+        } else {
+            currentOper.setSimpleArgument(_arg, _cont, arguments);
+        }
         index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
     }
 

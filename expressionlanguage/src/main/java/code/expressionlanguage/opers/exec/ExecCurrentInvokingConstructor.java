@@ -32,7 +32,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
-        checkParameters(_conf, calledCtorTemp_, ctorId_, null, firstArgs_, 0, true,false,InstancingStep.USING_THIS);
+        checkParameters(_conf, calledCtorTemp_, ctorId_, null, firstArgs_, 0, true,false,InstancingStep.USING_THIS,null);
         return Argument.createVoid();
     }
 

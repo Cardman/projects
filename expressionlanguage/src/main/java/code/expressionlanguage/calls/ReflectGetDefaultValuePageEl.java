@@ -67,8 +67,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean receive(Argument _argument, ContextEl _context) {
-        return basicReceive(_argument,_context);
+    public boolean receive(Argument _argument, ContextEl _context,Argument _right) {
+        return basicReceive(_argument,_context,_right);
     }
 
 }

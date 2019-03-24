@@ -72,7 +72,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
             if (argPrev_ instanceof ArrayStruct) {
                 int offLoc_ = -1;
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_);
+                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_,null);
             }
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -107,7 +107,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         if (!chidren_.isEmpty()) {
             offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,null);
     }
 
     public ClassMethodId getClassMethodId() {

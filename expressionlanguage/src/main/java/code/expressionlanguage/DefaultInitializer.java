@@ -100,7 +100,9 @@ public class DefaultInitializer implements Initializer {
         if (res_) {
             return true;
         }
-        _owner.processTags();
+        if (!_owner.callsOrException()) {
+            _owner.processTags();
+        }
         AbstractPageEl abs_ = _owner.processAfterOperation();
         if (abs_ != null) {
             addPage(_owner, abs_);

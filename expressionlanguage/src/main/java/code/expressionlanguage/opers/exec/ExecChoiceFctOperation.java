@@ -90,7 +90,7 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
         if (!chidren_.isEmpty()) {
             offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,null);
     }
 
     public ClassMethodId getClassMethodId() {

@@ -6,10 +6,12 @@ import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -89,6 +91,24 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         parametersTypesOffset = _paramTypesOffset;
         parametersNamesOffset = _paramNamesOffset;
+    }
+
+
+    public MethodId getWildCardFormattedId(String _genericClass, ContextEl _context) {
+        String name_ = getName();
+        StringList types_ = getImportedParametersTypes();
+        int len_ = types_.size();
+        StringList pTypes_ = new StringList();
+        boolean isStatic_ = isStaticMethod();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.wildCardFormatParam(isStatic_, _genericClass, n_, _context);
+            if (formatted_ == null) {
+                return null;
+            }
+            pTypes_.add(formatted_);
+        }
+        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
@@ -241,5 +261,20 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<Numbers<Integer>> getAnnotationsIndexesParams() {
         return annotationsIndexesParams;
+    }
+
+    public boolean isStaticMethod() {
+        return false;
+    }
+    public boolean isFinalMethod() {
+        return false;
+    }
+
+    public boolean isConcreteMethod() {
+        return false;
+    }
+
+    public boolean isAbstractMethod() {
+        return false;
     }
 }

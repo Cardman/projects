@@ -474,6 +474,9 @@ public final class Classes {
             if (b instanceof MethodBlock) {
                 methods_.add((MethodBlock) b);
             }
+            if (b instanceof IndexerBlock) {
+                methods_.add((IndexerBlock) b);
+            }
             if (b instanceof AnnotationMethodBlock) {
                 methods_.add((AnnotationMethodBlock) b);
             }
@@ -1799,6 +1802,38 @@ public final class Classes {
                     page_.getParameters().clear();
                     page_.clearAllLocalVars();
                 }
+                if (b instanceof IndexerBlock) {
+                    page_.setGlobalClass(c.getGenericString());
+                    IndexerBlock method_ = (IndexerBlock) b;
+                    StringList params_ = method_.getParametersNames();
+                    StringList types_ = method_.getImportedParametersTypes();
+                    int len_ = params_.size();
+                    if (!method_.isVarargs()) {
+                        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                            String p_ = params_.get(i);
+                            String c_ = types_.get(i);
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setClassName(c_);
+                            page_.getParameters().put(p_, lv_);
+                        }
+                    } else {
+                        for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
+                            String p_ = params_.get(i);
+                            String c_ = types_.get(i);
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setClassName(c_);
+                            page_.getParameters().put(p_, lv_);
+                        }
+                        String p_ = params_.last();
+                        String c_ = types_.last();
+                        LocalVariable lv_ = new LocalVariable();
+                        lv_.setClassName(StringList.concat(c_,VARARG));
+                        page_.getParameters().put(p_, lv_);
+                    }
+                    method_.buildFctInstructions(_context);
+                    page_.getParameters().clear();
+                    page_.clearAllLocalVars();
+                }
             }
         }
         _context.setGlobalClass("");
@@ -2027,14 +2062,14 @@ public final class Classes {
         return null;
     }
 
-    public static CustList<MethodBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
-        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
+    public static CustList<NamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
+        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(base_);
         for (GeneMethod m: Classes.getMethodBlocks(r_)) {
             if (m.getId().eq(_id)) {
-                methods_.add((MethodBlock)m);
+                methods_.add((NamedFunctionBlock)m);
                 break;
             }
         }

@@ -4269,7 +4269,7 @@ public final class TemplatesTest {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_));
+        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_,null));
         assertNotNull(cont_.getException());
     }
     @Test
@@ -4282,7 +4282,7 @@ public final class TemplatesTest {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_));
+        assertTrue(!Templates.okArgs(id_,"",args_,-1,cont_,null));
         assertNotNull(cont_.getException());
     }
     @Test

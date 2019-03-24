@@ -13,11 +13,14 @@ public final class CustomFoundMethod {
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundMethod(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments) {
+    private final Argument right;
+
+    public CustomFoundMethod(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments, Argument _right) {
         gl = _gl;
         className = _className;
         id = _id;
         arguments = _arguments;
+        right = _right;
     }
 
     public Argument getGl() {
@@ -34,5 +37,9 @@ public final class CustomFoundMethod {
 
     public CustList<Argument> getArguments() {
         return arguments;
+    }
+
+    public Argument getRight() {
+        return right;
     }
 }

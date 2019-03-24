@@ -7,6 +7,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class KeyWords {
+    private String keyWordValue = "$value";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";
     private String keyWordPublic = "$public";
@@ -390,6 +391,7 @@ public final class KeyWords {
     }
     public StringList allKeyWords() {
         StringList keyWords_ = new StringList();
+        keyWords_.add(keyWordValue);
         keyWords_.add(keyWordVar);
         keyWords_.add(keyWordInterfaces);
         keyWords_.add(keyWordPublic);
@@ -480,6 +482,9 @@ public final class KeyWords {
         if (StringList.quickEq(_word, keyWordVar)) {
             return false;
         }
+        if (StringList.quickEq(_word, keyWordValue)) {
+            return false;
+        }
         return isKeyWord(_word);
     }
     public boolean isKeyWord(String _word) {
@@ -544,6 +549,15 @@ public final class KeyWords {
     public void setKeyWordVar(String _keyWordVar) {
         keyWordVar = _keyWordVar;
     }
+
+    public String getKeyWordValue() {
+        return keyWordValue;
+    }
+
+    public void setKeyWordValue(String _keyWordValue) {
+        keyWordValue = _keyWordValue;
+    }
+
     public String getKeyWordInterfaces() {
         return keyWordInterfaces;
     }

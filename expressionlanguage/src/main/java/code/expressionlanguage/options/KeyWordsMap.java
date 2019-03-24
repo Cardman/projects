@@ -161,6 +161,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordValueOf("$valeurDe");
         en_.setKeyWordValues("$values");
         fr_.setKeyWordValues("$valeurs");
+        en_.setKeyWordValue("value");
+        fr_.setKeyWordValue("valeur");
         en_.setKeyWordVar("var");
         fr_.setKeyWordVar("var");
         en_.setKeyWordVararg("$vararg");

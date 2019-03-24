@@ -36,7 +36,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             MethodId id_ = classMethodId.getConstraints();
-            ExecInvokingOperation.checkParameters(_conf, "", id_, null, firstArgs_, 0,false,false,null);
+            ExecInvokingOperation.checkParameters(_conf, "", id_, null, firstArgs_, 0,false,false,null,null);
             return;
         }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
@@ -51,6 +51,13 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
+    public void endQuickCalculate(ContextEl _conf,
+                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
+        Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
+        Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
+        setSimpleArgument(out_, _conf, _nodes);
+    }
+
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
         Argument a_ = _right;
         if (_post) {
@@ -58,4 +65,5 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         }
         return a_;
     }
+
 }

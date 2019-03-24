@@ -12,15 +12,7 @@ import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
 import code.expressionlanguage.errors.custom.FinalMethod;
 import code.expressionlanguage.errors.custom.UnknownClassName;
-import code.expressionlanguage.methods.AloneBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -247,7 +239,7 @@ public final class TypeUtil {
             err_ = new BadReturnTypeInherit();
             err_.setFileName(fileName_);
             GeneMethod sub_ = _context.getMethodBodiesById(c.getClassName(), c.getConstraints()).first();
-            err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
+            err_.setIndexFile(((NamedFunctionBlock) sub_).getReturnTypeOffset());
             err_.setReturnType(sub_.getImportedReturnType());
             err_.setMethod(c.getConstraints().getSignature(_context));
             err_.setParentClass(c.getClassName());
@@ -396,6 +388,22 @@ public final class TypeUtil {
                         err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
                         err_.setId(sub_.getId().getSignature(_context));
                         classesRef_.addError(err_);
+                        continue;
+                    }
+                    if (sub_ instanceof IndexerBlock) {
+                        if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
+                            BadReturnTypeInherit err_;
+                            err_ = new BadReturnTypeInherit();
+                            err_.setFileName(fileName_);
+                            err_.setIndexFile(((IndexerBlock) sub_).getReturnTypeOffset());
+                            err_.setReturnType(retDerive_);
+                            err_.setMethod(sub_.getId().getSignature(_context));
+                            err_.setParentClass(supId_.getClassName());
+                            classesRef_.addError(err_);
+                            continue;
+                        }
+                        addClass(_type.getAllOverridingMethods(), key_, subId_);
+                        addClass(_type.getAllOverridingMethods(), key_, supId_);
                         continue;
                     }
                     if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {

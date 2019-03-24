@@ -4,6 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.IndexerBlock;
+import code.expressionlanguage.methods.MemberCallingsBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldResult;
@@ -1382,6 +1384,19 @@ public final class ElResolver {
                 info_.setName(word_);
                 String dot_ = String.valueOf(DOT_VAR);
                 String look_ = _an.getLookLocalClass();
+                MemberCallingsBlock fct_ = _an.getAnalyzing().getCurrentFct();
+                if (fct_ instanceof IndexerBlock) {
+                    IndexerBlock indexer_ = (IndexerBlock) fct_;
+                    if (!indexer_.isIndexerGet()) {
+                        String keyWordValue_ = keyWords_.getKeyWordValue();
+                        if (StringList.quickEq(keyWordValue_, word_)) {
+                            _d.getDelValue().add(beginWord_);
+                            _d.getDelValue().add(i_);
+                            _out.setNextIndex(i_);
+                            return;
+                        }
+                    }
+                }
                 int prChar_ = beginWord_ - 1;
                 while (prChar_ >= 0) {
                     char pr_ = _string.charAt(prChar_);
@@ -3333,6 +3348,16 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelValue().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelValue().indexOfObj(_offset + lastPrintChar_+1);
+        if (delimits(begin_, end_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.VALUE);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);

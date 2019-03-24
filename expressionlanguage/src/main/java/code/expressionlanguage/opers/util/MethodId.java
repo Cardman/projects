@@ -56,25 +56,30 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         if (!StringList.quickEq(_obj.name, name)) {
             return false;
         }
+        return eqPartial(_obj);
+    }
+
+    public boolean eqPartial(MethodId _other) {
         int len_ = classNames.size();
-        if (len_ != _obj.classNames.size()) {
+        if (len_ != _other.classNames.size()) {
             return false;
         }
-        if (staticMethod != _obj.staticMethod) {
+        if (staticMethod != _other.staticMethod) {
             return false;
         }
-        if (vararg != _obj.vararg) {
+        if (vararg != _other.vararg) {
             return false;
         }
         for (int i = 0; i < len_; i++) {
             String param_ = classNames.get(i);
-            String paramOther_ = _obj.classNames.get(i);
+            String paramOther_ = _other.classNames.get(i);
             if (!StringList.eq(param_,paramOther_)) {
                 return false;
             }
         }
         return true;
     }
+
     public MethodId reflectFormat(String _genericClass, Analyzable _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();

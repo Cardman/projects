@@ -191,6 +191,9 @@ public abstract class OperationNode implements Operable {
             if (ct_ == ConstType.NUMBER) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.VALUE) {
+                return new ValueOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.THIS_KEYWORD) {
                 return new ThisOperation(_index, _indexChild, _m, _op);
             }
@@ -738,9 +741,7 @@ public abstract class OperationNode implements Operable {
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     boolean _staticContext, StringList _classes, String _name,
     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
-        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
-        ClassMethodIdReturn res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
+        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _argsClass);
         if (res_.isFoundMethod()) {
             return res_;
         }
@@ -767,6 +768,13 @@ public abstract class OperationNode implements Operable {
         return_.setReturnType(_conf.getStandards().getAliasObject());
         return return_;
     }
+
+    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly, boolean _staticContext, StringList _classes, String _name, boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
+        return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
+    }
+
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
         return getCustResult(_cont, -1, ops_, _op, _argsClass);

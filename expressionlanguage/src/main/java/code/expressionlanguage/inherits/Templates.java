@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InterfaceBlock;
@@ -15,6 +16,7 @@ import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.Identifiable;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardClass;
@@ -974,7 +976,7 @@ public final class Templates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static boolean okArgs(Identifiable _id, String _classNameFound,CustList<Argument> _firstArgs, int _possibleOffset,ExecutableCode _conf) {
+    public static boolean okArgs(Identifiable _id, String _classNameFound,CustList<Argument> _firstArgs, int _possibleOffset,ExecutableCode _conf, Argument _right) {
         StringList params_ = new StringList();
         if (!_id.isStaticMethod()) {
             int i_ = 0;
@@ -1035,6 +1037,23 @@ public final class Templates {
                         }
                         return false;
                     }
+                }
+            }
+        }
+        String name_ = _id.getName();
+        if (StringList.quickEq(StringList.concat(_conf.getKeyWords().getKeyWordThis(),"="),name_)) {
+            String id_ = getIdFromAllTypes(_classNameFound);
+            for (GeneMethod g: ContextEl.getMethodBlocks(_conf.getClassBody(id_))) {
+                if (!StringList.quickEq(_conf.getKeyWords().getKeyWordThis(),g.getId().getName())) {
+                    continue;
+                }
+                if(!g.getId().eqPartial((MethodId) _id)) {
+                    continue;
+                }
+                String type_ = g.getImportedReturnType();
+                type_ = Templates.quickFormat(_classNameFound, type_, _conf);
+                if (!Templates.checkObject(type_, _right, _conf)) {
+                    return false;
                 }
             }
         }

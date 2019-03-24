@@ -28,7 +28,7 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     }
 
     @Override
-    public boolean receive(Argument _argument, ContextEl _context) {
+    public boolean receive(Argument _argument, ContextEl _context,Argument _right) {
         returnedArgument = _argument;
         return true;
     }
@@ -36,7 +36,7 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     @Override
     public final boolean forwardTo(AbstractPageEl _page, ContextEl _context) {
         Argument a_ = getReturnedArgument();
-        return _page.receive(a_, _context);
+        return _page.receive(a_, _context,null);
     }
 
     public CustList<Argument> getArguments() {

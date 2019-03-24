@@ -40,7 +40,7 @@ public final class ProcessMethod {
     }
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args);
+        MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args,null);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

@@ -13,6 +13,8 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
 
     private Argument returnedArgument;
 
+    private Argument rightArgument;
+
     public MethodPageEl(ContextEl _context) {
         Block root_ = getBlockRoot();
         Argument global_ = getGlobalArgument();
@@ -76,7 +78,14 @@ public final class MethodPageEl extends AbstractPageEl implements ForwardPageEl,
     @Override
     public boolean forwardTo(AbstractPageEl _page, ContextEl _context) {
         Argument a_ = getReturnedArgument();
-        return _page.receive(a_, _context);
+        return _page.receive(a_, _context,rightArgument);
     }
 
+    public Argument getRightArgument() {
+        return rightArgument;
+    }
+
+    public void setRightArgument(Argument _rightArgument) {
+        rightArgument = _rightArgument;
+    }
 }

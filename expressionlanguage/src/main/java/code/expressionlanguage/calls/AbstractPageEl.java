@@ -34,12 +34,16 @@ public abstract class AbstractPageEl extends PageEl {
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private FileBlock file;
 
-    public boolean receive(Argument _argument, ContextEl _context) {
-        return basicReceive(_argument,_context);
+    public boolean receive(Argument _argument, ContextEl _context, Argument _right) {
+        return basicReceive(_argument,_context,_right);
     }
 
-    boolean basicReceive(Argument _argument, ContextEl _context) {
-        getLastEl().setArgument(_argument, _context);
+    boolean basicReceive(Argument _argument, ContextEl _context, Argument _right) {
+        if (_right != null) {
+            getLastEl().setDirectArgument(_right,_context);
+        } else {
+            getLastEl().setArgument(_argument, _context);
+        }
         if (_context.isFailInit()) {
             return false;
         }

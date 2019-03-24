@@ -1,12 +1,13 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -15,7 +16,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public final class MethodBlock extends NamedFunctionBlock implements GeneMethod {
+public final class IndexerBlock extends NamedFunctionBlock implements GeneMethod {
 
     private int modifierOffset;
 
@@ -25,15 +26,12 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     private final boolean abstractMethod;
 
     private final boolean normalMethod;
+    private final boolean indexerGet;
 
-    public MethodBlock(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetAccessInfo _access,
-            OffsetStringInfo _retType, OffsetStringInfo _fctName,
-            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
-            OffsetStringInfo _modifier, OffsetsBlock _offset) {
+    public IndexerBlock(ContextEl _importingPage, boolean _indexerGet,BracedBlock _m, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _fctName, StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+                        StringList _paramNames, Numbers<Integer> _paramNamesOffset, OffsetStringInfo _modifier, OffsetsBlock _offset) {
         super(_importingPage, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+        indexerGet = _indexerGet;
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _importingPage.getKeyWords();
@@ -47,24 +45,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
     }
 
-    public int getModifierOffset() {
-        return modifierOffset;
-    }
-
-    public MethodModifier getModifier() {
-        if (abstractMethod) {
-            return MethodModifier.ABSTRACT;
-        }
-        if (finalMethod) {
-            return MethodModifier.FINAL;
-        }
-        if (staticMethod) {
-            return MethodModifier.STATIC;
-        }
-        return MethodModifier.NORMAL;
-    }
-
-
     @Override
     public MethodId getId() {
         String name_ = getName();
@@ -76,10 +56,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
             pTypes_.add(n_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
-    }
-
-    public boolean isConcreteMethod() {
-        return isNormalMethod() || isFinalMethod();
     }
 
     @Override
@@ -97,18 +73,28 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return abstractMethod;
     }
 
-    public boolean isNormalMethod() {
-        return normalMethod;
+    public boolean isIndexerGet() {
+        return indexerGet;
     }
 
-    @Override
-    public boolean isStaticContext() {
-        return staticMethod;
+    public MethodModifier getModifier() {
+        if (abstractMethod) {
+            return MethodModifier.ABSTRACT;
+        }
+        if (finalMethod) {
+            return MethodModifier.FINAL;
+        }
+        return MethodModifier.NORMAL;
     }
 
     @Override
     public RootBlock belong() {
         return (RootBlock) getParent();
+    }
+
+    @Override
+    public boolean isStaticContext() {
+        return staticMethod;
     }
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {

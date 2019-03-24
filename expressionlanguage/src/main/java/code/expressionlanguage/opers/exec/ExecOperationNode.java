@@ -124,6 +124,9 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
+            if (a_.getClassMethodId() != null) {
+                return new ExecCustArrOperation(a_);
+            }
             return new ExecArrOperation(a_);
         }
         if (_anaNode instanceof DeclaringOperation) {
@@ -216,6 +219,10 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
             return new ExecFinalVariableOperation(m_);
+        }
+        if (_anaNode instanceof ValueOperation) {
+            ValueOperation m_ = (ValueOperation) _anaNode;
+            return new ExecValueOperation(m_);
         }
         if (_anaNode instanceof DotOperation) {
             DotOperation m_ = (DotOperation) _anaNode;

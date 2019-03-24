@@ -37,6 +37,7 @@ public final class Delimiters {
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private Numbers<Integer> dimsAddonIndexes = new Numbers<Integer>();
     private Numbers<Integer> escapings = new Numbers<Integer>();
+    private Numbers<Integer> delValue = new Numbers<Integer>();
 
     public int getBadOffset() {
         return badOffset;
@@ -80,6 +81,10 @@ public final class Delimiters {
 
     public Numbers<Integer> getDelCast() {
         return delCast;
+    }
+
+    public Numbers<Integer> getDelValue() {
+        return delValue;
     }
 
     public StringList getDelCastExtract() {

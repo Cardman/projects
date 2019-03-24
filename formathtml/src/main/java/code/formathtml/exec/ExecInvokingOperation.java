@@ -17,14 +17,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.ReflectingType;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -338,7 +331,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_format) {
             className_ = page_.formatVarType(className_, _conf);
         }
-        if (!Templates.okArgs(_constId,className_,_arguments,-1,_conf)) {
+        if (!Templates.okArgs(_constId,className_,_arguments,-1,_conf,null)) {
             return new Argument();
         }
         if (!_conf.getClasses().isCustomType(base_)) {
@@ -404,11 +397,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             }
         }
-        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf)) {
+        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf,null)) {
             return new Argument();
         }
         if (!StringList.isDollarWord(_methodId.getName())) {
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,null));
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
@@ -675,7 +668,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return argRes_;
         }
         ContextEl context_ = _conf.getContextEl();
-        CustList<MethodBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
+        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = context_.getStandards().getAliasEnumValues();
@@ -696,7 +689,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return new Argument(new IntStruct(en_.getOrdinal()));
         }
-        context_.setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
+        context_.setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,null));
         return Argument.createVoid();
     }
 

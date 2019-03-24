@@ -4,49 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadIndexInParser;
 import code.expressionlanguage.errors.custom.DuplicateType;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.AnnotableBlock;
-import code.expressionlanguage.methods.AnnotationBlock;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.BracedBlock;
-import code.expressionlanguage.methods.BreakBlock;
-import code.expressionlanguage.methods.CaseCondition;
-import code.expressionlanguage.methods.CatchEval;
-import code.expressionlanguage.methods.ClassBlock;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.ContinueBlock;
-import code.expressionlanguage.methods.DeclareVariable;
-import code.expressionlanguage.methods.DefaultCondition;
-import code.expressionlanguage.methods.DoBlock;
-import code.expressionlanguage.methods.DoWhileCondition;
-import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.ElseCondition;
-import code.expressionlanguage.methods.ElseIfCondition;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.FinallyEval;
-import code.expressionlanguage.methods.ForEachTable;
-import code.expressionlanguage.methods.ForIterativeLoop;
-import code.expressionlanguage.methods.ForMutableIterativeLoop;
-import code.expressionlanguage.methods.IfCondition;
-import code.expressionlanguage.methods.InstanceBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.NullCatchEval;
-import code.expressionlanguage.methods.OperatorBlock;
-import code.expressionlanguage.methods.ReturnMehod;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.methods.SwitchBlock;
-import code.expressionlanguage.methods.SwitchPartBlock;
-import code.expressionlanguage.methods.Throwing;
-import code.expressionlanguage.methods.TryEval;
-import code.expressionlanguage.methods.WhileCondition;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -1989,7 +1947,17 @@ public final class FileResolver {
                 paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
             }
             if (meth_) {
-                br_ = new MethodBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                String retType_ = declaringType_.trim();
+                String trimMeth_ = methodName_.trim();
+                if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
+                    boolean get_ = !StringList.quickEq(retType_,_context.getStandards().getAliasVoid());
+                    if (!get_) {
+                        trimMeth_ = StringList.concat(trimMeth_,"=");
+                    }
+                    br_ = new IndexerBlock(_context,get_, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                } else {
+                    br_ = new MethodBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                }
             } else {
                 br_ = new ConstructorBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             }

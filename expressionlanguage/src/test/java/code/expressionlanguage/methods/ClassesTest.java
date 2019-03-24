@@ -7779,6 +7779,117 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl169FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new ExSub():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value*2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $protected $long $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl170FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new ExSub():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value*2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value:\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void validateEl171FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new ExSub():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]*2:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
