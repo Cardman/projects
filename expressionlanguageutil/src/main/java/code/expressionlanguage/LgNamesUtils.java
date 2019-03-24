@@ -39,8 +39,6 @@ public class LgNamesUtils extends LgNames {
     private String aliasIsInterrupted;
     private String aliasInterrupt;
     private String aliasGetId;
-    private String aliasIsDaemon;
-    private String aliasSetDaemon;
     private String aliasGetPriority;
     private String aliasSetPriority;
     private String aliasYield;
@@ -109,12 +107,7 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetId, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasIsDaemon, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetPriority, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSetDaemon, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasSetPriority, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -440,20 +433,9 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasIsDaemon)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                res_.setResult(new BooleanStruct(thread_.isDaemon()));
-                return res_;
-            }
             if (StringList.quickEq(name_,aliasSetPriority)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 thread_.setPriority(((NumberStruct)_args[0]).getInstance().intValue());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(name_,aliasSetDaemon)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                thread_.setDaemon(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -632,6 +614,54 @@ public class LgNamesUtils extends LgNames {
         }
         return stringAppFile_;
     }
+    public StringMap<StringList> allTableTypeMethodNames() {
+        StringMap<StringList> m_ = super.allTableTypeMethodNames();
+        m_.put(getAliasThread(), new StringList(
+                getAliasStart(),
+                getAliasIsAlive(),
+                getAliasJoin(),
+                getAliasIsInterrupted(),
+                getAliasInterrupt(),
+                getAliasGetId(),
+                getAliasGetPriority(),
+                getAliasSetPriority(),
+                getAliasYield(),
+                getAliasSleep(),
+                getAliasPrint()));
+        m_.put(getAliasReentrantLock(), new StringList(
+                getAliasLock(),
+                getAliasUnlock(),
+                getAliasIsHeldByCurrentThread()));
+        m_.put(getAliasRunnable(), new StringList(
+                getAliasRun()));
+        m_.put(getAliasAtomicBoolean(), new StringList(
+                getAliasGetAtomic(),
+                getAliasSetAtomic()));
+        m_.put(getAliasAtomicInteger(), new StringList(
+                getAliasGetAtomic(),
+                getAliasSetAtomic()));
+        m_.put(getAliasAtomicLong(), new StringList(
+                getAliasGetAtomic(),
+                getAliasSetAtomic()));
+        m_.put(getAliasFile(), new StringList(
+                getAliasRead(),
+                getAliasWrite(),
+                getAliasAppendToFile()));
+        return m_;
+    }
+
+    @Override
+    public StringList allRefTypes() {
+        StringList ref_ =  super.allRefTypes();
+        ref_.add(getAliasThread());
+        ref_.add(getAliasReentrantLock());
+        ref_.add(getAliasAtomicBoolean());
+        ref_.add(getAliasAtomicInteger());
+        ref_.add(getAliasAtomicLong());
+        ref_.add(getAliasFile());
+        return ref_;
+    }
+
     public String getAliasRunnable() {
         return aliasRunnable;
     }
@@ -694,18 +724,6 @@ public class LgNamesUtils extends LgNames {
     }
     public void setAliasGetId(String _aliasGetId) {
         aliasGetId = _aliasGetId;
-    }
-    public String getAliasIsDaemon() {
-        return aliasIsDaemon;
-    }
-    public void setAliasIsDaemon(String _aliasIsDaemon) {
-        aliasIsDaemon = _aliasIsDaemon;
-    }
-    public String getAliasSetDaemon() {
-        return aliasSetDaemon;
-    }
-    public void setAliasSetDaemon(String _aliasSetDaemon) {
-        aliasSetDaemon = _aliasSetDaemon;
     }
     public String getAliasGetPriority() {
         return aliasGetPriority;
@@ -812,4 +830,63 @@ public class LgNamesUtils extends LgNames {
 		aliasAppendToFile = _aliasAppendToFile;
 	}
 
+    public void otherAlias(String _lang) {
+        if (StringList.quickEq(_lang, "en")) {
+            setAliasPrint("print");
+            setAliasRunnable("$core.Runnable");
+            setAliasRun("run");
+            setAliasThread("$core.Thread");
+            setAliasStart("start");
+            setAliasJoin("join");
+            setAliasSleep("sleep");
+            setAliasIsAlive("isAlive");
+            setAliasIsInterrupted("isInterrupted");
+            setAliasInterrupt("interrupt");
+            setAliasGetId("getId");
+            setAliasGetPriority("getPriority");
+            setAliasSetPriority("setPriority");
+            setAliasYield("yield");
+            setAliasReentrantLock("$core.ReentrantLock");
+            setAliasLock("lock");
+            setAliasUnlock("unlock");
+            setAliasIsHeldByCurrentThread("isHeldByCurrentThread");
+            setAliasAtomicBoolean("$core.AtomicBoolean");
+            setAliasAtomicInteger("$core.AtomicInteger");
+            setAliasAtomicLong("$core.AtomicLong");
+            setAliasSetAtomic("setValue");
+            setAliasGetAtomic("getValue");
+            setAliasFile("$core.File");
+            setAliasRead("read");
+            setAliasWrite("write");
+            setAliasAppendToFile("appendToFile");
+        } else {
+            setAliasPrint("afficher");
+            setAliasRunnable("$coeur.Executable");
+            setAliasRun("executer");
+            setAliasThread("$coeur.Tache");
+            setAliasStart("demarrer");
+            setAliasJoin("attendre");
+            setAliasSleep("dormir");
+            setAliasIsAlive("estActif");
+            setAliasIsInterrupted("estInterrompu");
+            setAliasInterrupt("interrompre");
+            setAliasGetId("valId");
+            setAliasGetPriority("valPriorite");
+            setAliasSetPriority("majPriorite");
+            setAliasYield("declencher");
+            setAliasReentrantLock("$coeur.Verrou");
+            setAliasLock("verrouiller");
+            setAliasUnlock("deverrouiller");
+            setAliasIsHeldByCurrentThread("estActiveeParTacheCourante");
+            setAliasAtomicBoolean("$coeur.AtomicBooleen");
+            setAliasAtomicInteger("$coeur.AtomicEntier4");
+            setAliasAtomicLong("$coeur.AtomicEntier8");
+            setAliasSetAtomic("majValeur");
+            setAliasGetAtomic("valeur");
+            setAliasFile("$coeur.Fichier");
+            setAliasRead("lire");
+            setAliasWrite("ecrire");
+            setAliasAppendToFile("ajouterFinFichier");
+        }
+    }
 }
