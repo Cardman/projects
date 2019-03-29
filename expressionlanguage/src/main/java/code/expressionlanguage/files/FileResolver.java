@@ -1468,6 +1468,10 @@ public final class FileResolver {
             if (!trimmedInstruction_.isEmpty()) {
                 badIndexes_.add(_nextIndex);
             }
+            if (currentParent_ == null) {
+                badIndexes_.add(_nextIndex);
+                return null;
+            }
             currentParent_ = currentParent_.getParent();
         }
         _instruction.delete(0, _instruction.length());
@@ -1952,7 +1956,9 @@ public final class FileResolver {
                 if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
                     boolean get_ = !StringList.quickEq(retType_,_context.getStandards().getAliasVoid());
                     if (!get_) {
-                        trimMeth_ = StringList.concat(trimMeth_,"=");
+                        trimMeth_ = "[]=";
+                    } else {
+                        trimMeth_ = "[]";
                     }
                     br_ = new IndexerBlock(_context,get_, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {

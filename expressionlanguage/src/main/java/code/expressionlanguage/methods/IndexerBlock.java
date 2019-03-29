@@ -1,115 +1,24 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public final class IndexerBlock extends NamedFunctionBlock implements GeneMethod {
+public final class IndexerBlock extends OverridableBlock {
 
-    private int modifierOffset;
-
-    private final boolean staticMethod;
-
-    private final boolean finalMethod;
-    private final boolean abstractMethod;
-
-    private final boolean normalMethod;
     private final boolean indexerGet;
 
     public IndexerBlock(ContextEl _importingPage, boolean _indexerGet,BracedBlock _m, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _fctName, StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
                         StringList _paramNames, Numbers<Integer> _paramNamesOffset, OffsetStringInfo _modifier, OffsetsBlock _offset) {
-        super(_importingPage, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+        super(_importingPage, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset,_modifier, _offset);
         indexerGet = _indexerGet;
-        modifierOffset = _modifier.getOffset();
-        String modifier_ = _modifier.getInfo();
-        KeyWords keyWords_ = _importingPage.getKeyWords();
-        String keyWordStatic_ = keyWords_.getKeyWordStatic();
-        String keyWordFinal_ = keyWords_.getKeyWordFinal();
-        String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
-        String keyWordNormal_ = keyWords_.getKeyWordNormal();
-        staticMethod = StringList.quickEq(modifier_, keyWordStatic_);
-        finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
-        abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
-        normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
-    }
-
-    @Override
-    public MethodId getId() {
-        String name_ = getName();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            pTypes_.add(n_);
-        }
-        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public boolean isStaticMethod() {
-        return staticMethod;
-    }
-
-    @Override
-    public boolean isFinalMethod() {
-        return finalMethod;
-    }
-
-    @Override
-    public boolean isAbstractMethod() {
-        return abstractMethod;
     }
 
     public boolean isIndexerGet() {
         return indexerGet;
     }
 
-    public MethodModifier getModifier() {
-        if (abstractMethod) {
-            return MethodModifier.ABSTRACT;
-        }
-        if (finalMethod) {
-            return MethodModifier.FINAL;
-        }
-        return MethodModifier.NORMAL;
-    }
-
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
-    }
-
-    @Override
-    public boolean isStaticContext() {
-        return staticMethod;
-    }
-    @Override
-    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
-        LgNames stds_ = _an.getStandards();
-        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
-            if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
-                //error
-                MissingReturnMethod miss_ = new MissingReturnMethod();
-                miss_.setIndexFile(getOffset().getOffsetTrim());
-                miss_.setFileName(getFile().getFileName());
-                miss_.setId(getId().getSignature(_an));
-                miss_.setReturning(getImportedReturnType());
-                _an.getClasses().addError(miss_);
-            }
-        }
-    }
 }

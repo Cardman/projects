@@ -375,7 +375,7 @@ public final class TypeUtil {
                         FinalMethod err_;
                         err_ = new FinalMethod();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((MethodBlock) sub_).getNameOffset());
+                        err_.setIndexFile(((OverridableBlock) sub_).getNameOffset());
                         err_.setClassName(subId_.getClassName());
                         err_.setId(sub_.getId().getSignature(_context));
                         classesRef_.addError(err_);
@@ -385,7 +385,7 @@ public final class TypeUtil {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((MethodBlock) sub_).getAccessOffset());
+                        err_.setIndexFile(((OverridableBlock) sub_).getAccessOffset());
                         err_.setId(sub_.getId().getSignature(_context));
                         classesRef_.addError(err_);
                         continue;
@@ -395,7 +395,7 @@ public final class TypeUtil {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(fileName_);
-                            err_.setIndexFile(((IndexerBlock) sub_).getReturnTypeOffset());
+                            err_.setIndexFile(((OverridableBlock) sub_).getReturnTypeOffset());
                             err_.setReturnType(retDerive_);
                             err_.setMethod(sub_.getId().getSignature(_context));
                             err_.setParentClass(supId_.getClassName());
@@ -410,7 +410,7 @@ public final class TypeUtil {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(((MethodBlock) sub_).getReturnTypeOffset());
+                        err_.setIndexFile(((OverridableBlock) sub_).getReturnTypeOffset());
                         err_.setReturnType(retDerive_);
                         err_.setMethod(sub_.getId().getSignature(_context));
                         err_.setParentClass(supId_.getClassName());

@@ -1830,6 +1830,30 @@ public final class Classes {
                         lv_.setClassName(StringList.concat(c_,VARARG));
                         page_.getParameters().put(p_, lv_);
                     }
+                    if (!method_.isIndexerGet()) {
+                        String p_ = _context.getKeyWords().getKeyWordValue();
+                        CustList<IndexerBlock> getIndexers_ = new CustList<IndexerBlock>();
+                        for (Block d: Classes.getDirectChildren(c)) {
+                            if (!(d instanceof IndexerBlock)) {
+                                continue;
+                            }
+                            IndexerBlock i_ = (IndexerBlock) d;
+                            if (!i_.isIndexerGet()) {
+                                continue;
+                            }
+                            if (!i_.getId().eqPartial(method_.getId())) {
+                                continue;
+                            }
+                            getIndexers_.add(i_);
+                        }
+                        if (getIndexers_.size() == 1) {
+                            IndexerBlock matching_ = getIndexers_.first();
+                            String c_ = matching_.getImportedReturnType();
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setClassName(c_);
+                            page_.getParameters().put(p_, lv_);
+                        }
+                    }
                     method_.buildFctInstructions(_context);
                     page_.getParameters().clear();
                     page_.clearAllLocalVars();
@@ -2062,14 +2086,14 @@ public final class Classes {
         return null;
     }
 
-    public static CustList<NamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
-        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
+    public static CustList<OverridableBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
+        CustList<OverridableBlock> methods_ = new CustList<OverridableBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(base_);
         for (GeneMethod m: Classes.getMethodBlocks(r_)) {
             if (m.getId().eq(_id)) {
-                methods_.add((NamedFunctionBlock)m);
+                methods_.add((OverridableBlock)m);
                 break;
             }
         }
@@ -2345,8 +2369,8 @@ public final class Classes {
                     infosFields_.put(f, met_);
                 }
             }
-            if (b instanceof MethodBlock) {
-                MethodBlock method_ = (MethodBlock) b;
+            if (b instanceof OverridableBlock) {
+                OverridableBlock method_ = (OverridableBlock) b;
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
                 AccessEnum acc_ = method_.getAccess();

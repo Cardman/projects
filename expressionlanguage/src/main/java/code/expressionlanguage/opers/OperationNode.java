@@ -14,11 +14,7 @@ import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.OperatorBlock;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -191,8 +187,8 @@ public abstract class OperationNode implements Operable {
             if (ct_ == ConstType.NUMBER) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
-            if (ct_ == ConstType.VALUE) {
-                return new ValueOperation(_index, _indexChild, _m, _op);
+            if (ct_ == ConstType.ACCESS_INDEXER) {
+                return new ForwardOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.THIS_KEYWORD) {
                 return new ThisOperation(_index, _indexChild, _m, _op);
@@ -228,6 +224,16 @@ public abstract class OperationNode implements Operable {
                 return new VariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.PARAM) {
+                MemberCallingsBlock fct_ = _an.getAnalyzing().getCurrentFct();
+                if (fct_ instanceof IndexerBlock) {
+                    IndexerBlock indexer_ = (IndexerBlock) fct_;
+                    if (!indexer_.isIndexerGet()) {
+                        String keyWordValue_ = keyWords_.getKeyWordValue();
+                        if (StringList.quickEq(keyWordValue_, str_)) {
+                            return new ValueOperation(_index, _indexChild, _m, _op);
+                        }
+                    }
+                }
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.CATCH_VAR) {

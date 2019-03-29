@@ -626,6 +626,13 @@ public final class ElResolver {
                 }
                 if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
                     if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                        if (_string.charAt(afterSuper_) == ARR_LEFT) {
+                            _d.getDelAccessIndexers().add(i_);
+                            _d.getDelAccessIndexers().add(afterSuper_);
+                            i_ = afterSuper_;
+                            _out.setNextIndex(i_);
+                            return;
+                        }
                         _d.setBadOffset(afterSuper_);
                         return;
                     }
@@ -710,6 +717,15 @@ public final class ElResolver {
                 }
                 afterClassChoice_++;
             }
+            if (afterClassChoice_ < len_) {
+                if (_string.charAt(afterClassChoice_) == ARR_LEFT) {
+                    _d.getDelAccessIndexers().add(i_);
+                    _d.getDelAccessIndexers().add(afterClassChoice_);
+                    i_ = afterClassChoice_;
+                    _out.setNextIndex(i_);
+                    return;
+                }
+            }
             boolean pass_ = false;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
@@ -785,6 +801,15 @@ public final class ElResolver {
                 }
                 afterClassChoice_++;
             }
+            if (afterClassChoice_ < len_) {
+                if (_string.charAt(afterClassChoice_) == ARR_LEFT) {
+                    _d.getDelAccessIndexers().add(i_);
+                    _d.getDelAccessIndexers().add(afterClassChoice_);
+                    i_ = afterClassChoice_;
+                    _out.setNextIndex(i_);
+                    return;
+                }
+            }
             boolean pass_ = false;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
@@ -859,6 +884,15 @@ public final class ElResolver {
                     break;
                 }
                 afterClassChoice_++;
+            }
+            if (afterClassChoice_ < len_) {
+                if (_string.charAt(afterClassChoice_) == ARR_LEFT) {
+                    _d.getDelAccessIndexers().add(i_);
+                    _d.getDelAccessIndexers().add(afterClassChoice_);
+                    i_ = afterClassChoice_;
+                    _out.setNextIndex(i_);
+                    return;
+                }
             }
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
@@ -957,6 +991,15 @@ public final class ElResolver {
                     break;
                 }
                 afterSuper_++;
+            }
+            if (afterSuper_ < len_) {
+                if (_string.charAt(afterSuper_) == ARR_LEFT) {
+                    _d.getDelAccessIndexers().add(i_);
+                    _d.getDelAccessIndexers().add(afterSuper_);
+                    i_ = afterSuper_;
+                    _out.setNextIndex(i_);
+                    return;
+                }
             }
             if (!foundHat_) {
                 _d.setBadOffset(afterSuper_);
@@ -1384,19 +1427,6 @@ public final class ElResolver {
                 info_.setName(word_);
                 String dot_ = String.valueOf(DOT_VAR);
                 String look_ = _an.getLookLocalClass();
-                MemberCallingsBlock fct_ = _an.getAnalyzing().getCurrentFct();
-                if (fct_ instanceof IndexerBlock) {
-                    IndexerBlock indexer_ = (IndexerBlock) fct_;
-                    if (!indexer_.isIndexerGet()) {
-                        String keyWordValue_ = keyWords_.getKeyWordValue();
-                        if (StringList.quickEq(keyWordValue_, word_)) {
-                            _d.getDelValue().add(beginWord_);
-                            _d.getDelValue().add(i_);
-                            _out.setNextIndex(i_);
-                            return;
-                        }
-                    }
-                }
                 int prChar_ = beginWord_ - 1;
                 while (prChar_ >= 0) {
                     char pr_ = _string.charAt(prChar_);
@@ -3353,11 +3383,11 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelValue().indexOfObj(_offset + firstPrintChar_);
-        end_ = _d.getDelValue().indexOfObj(_offset + lastPrintChar_+1);
+        begin_ = _d.getDelAccessIndexers().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelAccessIndexers().indexOfObj(_offset + lastPrintChar_+1);
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.VALUE);
+            op_.setConstType(ConstType.ACCESS_INDEXER);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);

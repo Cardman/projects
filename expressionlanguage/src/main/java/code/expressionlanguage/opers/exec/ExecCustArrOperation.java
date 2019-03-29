@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -32,6 +33,8 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
 
     private int anc;
 
+    private boolean staticChoiceMethod;
+
     public ExecCustArrOperation(ArrOperation _arr) {
         super(_arr);
         variable = _arr.isVariable();
@@ -40,6 +43,7 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
         lastType = _arr.getLastType();
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
+        staticChoiceMethod = _arr.isStaticChoiceMethod();
     }
 
     @Override
@@ -119,7 +123,7 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
-        MethodId methodId_ = classMethodId.getConstraints();
+        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
@@ -131,21 +135,34 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
             return new Argument();
         }
         String base_ = Templates.getIdFromAllTypes(classNameFound_);
-        Struct previous_ = prev_.getStruct();
-        ContextEl context_ = _conf.getContextEl();
-        ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
-        String argClassName_ = stds_.getStructClassName(previous_, context_);
-        String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-        lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-        methodId_ = methodToCall_.getConstraints();
-        classNameFound_ = methodToCall_.getClassName();
-        int offLoc_ = -1;
-        if (!chidren_.isEmpty()) {
-            offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
+        if (staticChoiceMethod) {
+            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
+            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                String cast_;
+                cast_ = stds_.getAliasCast();
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+                return new Argument();
+            }
+            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            methodId_ = classMethodId.getConstraints();
+        } else {
+            Struct previous_ = prev_.getStruct();
+            ContextEl context_ = _conf.getContextEl();
+            ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
+            String argClassName_ = stds_.getStructClassName(previous_, context_);
+            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            methodId_ = methodToCall_.getConstraints();
+            classNameFound_ = methodToCall_.getClassName();
         }
+        int offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
         if (_right != null) {
-            methodId_ = new MethodId(false,StringList.concat(_conf.getKeyWords().getKeyWordThis(),"="),methodId_.getParametersTypes(),methodId_.isVararg());
+            methodId_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,_right);
     }

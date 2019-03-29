@@ -1041,10 +1041,10 @@ public final class Templates {
             }
         }
         String name_ = _id.getName();
-        if (StringList.quickEq(StringList.concat(_conf.getKeyWords().getKeyWordThis(),"="),name_)) {
+        if (StringList.quickEq("[]=",name_)) {
             String id_ = getIdFromAllTypes(_classNameFound);
             for (GeneMethod g: ContextEl.getMethodBlocks(_conf.getClassBody(id_))) {
-                if (!StringList.quickEq(_conf.getKeyWords().getKeyWordThis(),g.getId().getName())) {
+                if (!StringList.quickEq("[]",g.getId().getName())) {
                     continue;
                 }
                 if(!g.getId().eqPartial((MethodId) _id)) {

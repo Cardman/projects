@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class ReflectMethodPageEl extends AbstractReflectPageEl {
     
@@ -80,15 +81,28 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 a_.setStruct(a);
                 args_.add(a_);
             }
-            if (args_.size() != mid_.getParametersTypes().size()) {
-                LgNames stds_ = _context.getStandards();
-                String null_;
-                null_ = stds_.getAliasIllegalArg();
-                _context.setException(new ErrorStruct(_context,null_));
-                return false;
+            Argument right_ = null;
+            if (!StringList.quickEq(mid_.getName(),"[]=")) {
+                if (args_.size() != mid_.getParametersTypes().size()) {
+                    LgNames stds_ = _context.getStandards();
+                    String null_;
+                    null_ = stds_.getAliasIllegalArg();
+                    _context.setException(new ErrorStruct(_context,null_));
+                    return false;
+                }
+            } else {
+                if (args_.size() != mid_.getParametersTypes().size() + 1) {
+                    LgNames stds_ = _context.getStandards();
+                    String null_;
+                    null_ = stds_.getAliasIllegalArg();
+                    _context.setException(new ErrorStruct(_context,null_));
+                    return false;
+                }
+                right_ = args_.last();
+                args_ = args_.mid(0,args_.size()-1);
             }
             setWrapException(false);
-            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1,null);
+            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1,right_);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;

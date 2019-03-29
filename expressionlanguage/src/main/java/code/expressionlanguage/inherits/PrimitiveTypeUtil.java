@@ -7,6 +7,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
@@ -827,8 +828,8 @@ public final class PrimitiveTypeUtil {
         return NullStruct.NULL_VALUE;
     }
     public static Argument defaultValue(Block _block, Argument _global, ContextEl _context) {
-        if (_block instanceof MethodBlock) {
-            MethodBlock m_ = (MethodBlock) _block;
+        if (_block instanceof OverridableBlock) {
+            OverridableBlock m_ = (OverridableBlock) _block;
             Argument a_ = new Argument();
             a_.setStruct(defaultClass(m_.getImportedReturnType(), _context));
             return a_;

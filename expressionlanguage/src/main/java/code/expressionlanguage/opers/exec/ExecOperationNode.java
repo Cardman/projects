@@ -189,6 +189,10 @@ public abstract class ExecOperationNode implements Operable {
             ThisOperation f_ = (ThisOperation) _anaNode;
             return new ExecThisOperation(f_);
         }
+        if (_anaNode instanceof ForwardOperation) {
+            ForwardOperation f_ = (ForwardOperation) _anaNode;
+            return new ExecForwardOperation(f_);
+        }
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
             if (s_.getFieldId() == null) {

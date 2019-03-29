@@ -528,7 +528,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return argRes_;
         }
         ContextEl context_ = _conf.getContextEl();
-        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
+        CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(context_, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = context_.getStandards().getAliasEnumValues();

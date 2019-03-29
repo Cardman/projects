@@ -342,7 +342,7 @@ public abstract class ContextEl implements ExecutableCode {
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setRightArgument(_right);
         NamedFunctionBlock methodLoc_;
-        if (!StringList.isDollarWord(_method.getName()) && _right == null) {
+        if (!StringList.isDollarWord(_method.getName()) && !_method.getName().startsWith("[]")) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
         } else {
             methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
