@@ -20,6 +20,9 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.IndexerBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -1157,6 +1160,30 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         } else {
             for (String p: params_.mid(start_)) {
                 paramsReturn_.add(p);
+            }
+        }
+        if (StringList.quickEq(id_.getName(),"[]=")) {
+            CustList<IndexerBlock> getIndexers_ = new CustList<IndexerBlock>();
+            String idCl_ = Templates.getIdFromAllTypes(_id.getRealClass());
+            for (Block b: Classes.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
+                if (!(b instanceof IndexerBlock)) {
+                    continue;
+                }
+                IndexerBlock i_ = (IndexerBlock) b;
+                if (!i_.isIndexerGet()) {
+                    continue;
+                }
+                if (!i_.getId().eqPartial(_id.getRealId())) {
+                    continue;
+                }
+                getIndexers_.add(i_);
+            }
+            if (getIndexers_.size() == 1) {
+                IndexerBlock matching_ = getIndexers_.first();
+                String importedReturnType_ = matching_.getImportedReturnType();
+                String real_ = _id.getRealClass();
+                importedReturnType_ = Templates.wildCardFormatReturn(false, real_, importedReturnType_, _an);
+                paramsReturn_.add(importedReturnType_);
             }
         }
         paramsReturn_.add(returnType_);

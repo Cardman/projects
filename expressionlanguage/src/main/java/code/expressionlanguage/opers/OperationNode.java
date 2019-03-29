@@ -1093,7 +1093,6 @@ public abstract class OperationNode implements Operable {
     private static ClassMethodIdReturn getCustResult(Analyzable _conf, int _varargOnly,
             ObjectNotNullMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
-        String glClass_ = _conf.getGlobalClass();
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
         for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
             ClassMethodId key_ = e.getKey();

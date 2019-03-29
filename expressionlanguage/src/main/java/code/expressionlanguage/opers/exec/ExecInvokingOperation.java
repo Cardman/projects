@@ -737,7 +737,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
             return new Argument();
         }
-        if (!StringList.isDollarWord(fid_.getName())) {
+        if (!StringList.isDollarWord(fid_.getName()) && !fid_.getName().startsWith("[]")) {
             ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
             int i_ = 1;
             arr_.getInstance()[0] = instance_.getStruct();
