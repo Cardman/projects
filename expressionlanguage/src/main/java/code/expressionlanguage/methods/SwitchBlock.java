@@ -132,6 +132,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             }
         }
         Block first_ = getFirstChild();
+        boolean def_ = false;
         while (first_ != null) {
             Block elt_ = first_;
             if (elt_ instanceof CaseCondition) {
@@ -139,6 +140,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 continue;
             }
             if (elt_ instanceof DefaultCondition) {
+                def_ = true;
                 first_ = first_.getNextSibling();
                 continue;
             }
@@ -150,6 +152,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             _cont.getClasses().addError(un_);
             first_ = first_.getNextSibling();
         }
+        _cont.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);
     }
 
     @Override
@@ -265,6 +268,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 }
                 if (argRes_.isNull()) {
                     found_ = true;
+                    _cont.getCoverage().passSwitch(_cont,c_,arg_);
                     rw_.setBlock(c_);
                 }
             }
@@ -284,6 +288,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 found_ = true;
+                _cont.getCoverage().passSwitch(_cont,c_,arg_);
                 rw_.setBlock(c_);
             }
         } else {
@@ -298,13 +303,16 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                     continue;
                 }
                 found_ = true;
+                _cont.getCoverage().passSwitch(_cont,c_,arg_);
                 rw_.setBlock(c_);
             }
         }
         if (!found_) {
             if (def_ != null) {
+                _cont.getCoverage().passSwitch(_cont,def_,arg_);
                 rw_.setBlock(def_);
             } else {
+                _cont.getCoverage().passSwitch(_cont,arg_);
                 if_.setFinished(true);
             }
         }

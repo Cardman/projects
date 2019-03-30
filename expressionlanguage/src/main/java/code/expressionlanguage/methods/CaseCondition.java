@@ -64,6 +64,7 @@ public final class CaseCondition extends SwitchPartBlock {
             opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
+        _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         String type_ = resSwitch_.getSingleNameOrEmpty();

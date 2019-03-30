@@ -26,6 +26,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         } else {
+            _cont.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
             Block first_ = b_.getFirstChild();
             while (first_ != this) {
                 if (first_ instanceof DefaultCondition) {
