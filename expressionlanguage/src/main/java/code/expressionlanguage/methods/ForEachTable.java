@@ -550,6 +550,14 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return expression;
     }
 
+    public String getImportedClassNameFirst() {
+        return importedClassNameFirst;
+    }
+
+    public String getImportedClassNameSecond() {
+        return importedClassNameSecond;
+    }
+
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {

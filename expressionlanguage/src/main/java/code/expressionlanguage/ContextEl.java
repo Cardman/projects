@@ -1177,6 +1177,17 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return res_;
     }
+
+    @Override
+    public String resolveAccessibleIdTypeWithoutError(String _in) {
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            return EMPTY_TYPE;
+        }
+        AccessingImportingBlock r_ = analyzing.getImporting();
+        String gl_ = getGlobalClass();
+        return PartTypeUtil.processAnalyzeLine(_in,gl_,this,r_);
+    }
     /**Used at analyzing instructions*/
     @Override
     public String resolveCorrectType(String _in) {

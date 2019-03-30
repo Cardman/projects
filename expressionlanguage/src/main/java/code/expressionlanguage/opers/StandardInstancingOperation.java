@@ -6,14 +6,12 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InnerElementBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
@@ -31,7 +29,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class StandardInstancingOperation extends
-        AbstractInstancingOperation {
+        AbstractInstancingOperation implements PreAnalyzableOperation {
 
     private boolean possibleInitClass;
 
@@ -47,6 +45,8 @@ public final class StandardInstancingOperation extends
     private int naturalVararg = -1;
 
     private String lastType = EMPTY_STRING;
+    private String typeInfer = EMPTY_STRING;
+
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -55,6 +55,95 @@ public final class StandardInstancingOperation extends
 
     public void setFieldName(String _fieldName) {
         fieldName = _fieldName;
+    }
+
+    @Override
+    public void preAnalyze(Analyzable _an) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String className_ = methodName.trim().substring(newKeyWord_.length());
+        String inferForm_ = Templates.getInferForm(className_);
+        if (inferForm_ == null) {
+            return;
+        }
+        if (!isIntermediateDottedOperation()) {
+            String type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
+            if (type_.isEmpty()) {
+                return;
+            }
+            int nbParentsInfer_ = 0;
+            OperationNode current_ = this;
+            MethodOperation m_ = getParent();
+            while (m_ != null) {
+                if (!(m_ instanceof AbstractArrayElementOperation)) {
+                    if (m_ instanceof IdOperation) {
+                        current_ = current_.getParent();
+                        m_ = m_.getParent();
+                        continue;
+                    }
+                    if (m_ instanceof AbstractTernaryOperation) {
+                        if (m_.getFirstChild() == current_) {
+                            break;
+                        }
+                        current_ = current_.getParent();
+                        m_ = m_.getParent();
+                        continue;
+                    }
+                    break;
+                }
+                nbParentsInfer_++;
+                current_ = current_.getParent();
+                m_ = m_.getParent();
+            }
+            String typeAff_ = EMPTY_STRING;
+            Block cur_ = _an.getCurrentBlock();
+            if (m_ == null && cur_ instanceof ReturnMehod) {
+                FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
+                if (f_ instanceof NamedFunctionBlock) {
+                    NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
+                    String ret_ = n_.getImportedReturnType();
+                    String void_ = _an.getStandards().getAliasVoid();
+                    if (!StringList.quickEq(ret_, void_)) {
+                        typeAff_ = ret_;
+                    }
+                }
+            } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
+                AbstractForEachLoop i_ = (AbstractForEachLoop) _an.getCurrentBlock();
+                typeAff_ = i_.getImportedClassName();
+                if (!typeAff_.isEmpty()) {
+                    String iter_ = _an.getStandards().getAliasIterable();
+                    typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
+                }
+            } else if (m_ == null && cur_ instanceof ForEachTable) {
+                ForEachTable i_ = (ForEachTable) _an.getCurrentBlock();
+                String typeAffOne_ = i_.getImportedClassNameFirst();
+                String typeAffTwo_ = i_.getImportedClassNameSecond();
+                if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
+                    String iter_ = _an.getStandards().getAliasIterableTable();
+                    typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
+                }
+            } else if (m_ instanceof AffectationOperation) {
+                AffectationOperation a_ = (AffectationOperation) m_;
+                SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+                if (s_ != null) {
+                    ClassArgumentMatching c_ = s_.getResultClass();
+                    typeAff_ = c_.getSingleNameOrEmpty();
+                }
+            }
+            String keyWordVar_ = keyWords_.getKeyWordVar();
+            if (typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_)) {
+                return;
+            }
+            String cp_ = PrimitiveTypeUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
+            if (cp_ == null) {
+                return;
+            }
+            String infer_ = Templates.tryInfer(type_, cp_, _an);
+            if (infer_ == null) {
+                return;
+            }
+            typeInfer = infer_;
+        }
     }
 
     @Override
@@ -71,7 +160,9 @@ public final class StandardInstancingOperation extends
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
-            if (fieldName.isEmpty()) {
+            if (!typeInfer.isEmpty()) {
+                realClassName_ = typeInfer;
+            } else if (fieldName.isEmpty()) {
                 realClassName_ = _conf.resolveCorrectType(realClassName_);
             } else {
                 realClassName_ = realClassName_.trim();

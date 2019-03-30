@@ -1691,6 +1691,258 @@ public final class TemplatesTest {
     }
 
     @Test
+    public void tryInfer1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<W> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.Number>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive {}\n");
+        xml_.append("$public $interface pkg.ExFive {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive", cont_));
+    }
+
+    @Test
+    public void tryInfer3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive {}\n");
+        xml_.append("$public $interface pkg.ExFive {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        xml_.append("$public $class pkg.ExOther{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExOther", cont_));
+    }
+
+    @Test
+    public void tryInfer4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<?W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<!W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<?>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?>>", cont_));
+    }
+
+    @Test
+    public void tryInfer8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<W[]>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<[java.lang.Number>>", cont_);
+        assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<?W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_));
+    }
+
+    @Test
+    public void tryInfer10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<!W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_));
+    }
+
+    @Test
+    public void tryInfer11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<java.lang.$iterable<W[]>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+    }
+
+    @Test
+    public void tryInfer12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<ExIter<W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+    }
+    @Test
+    public void tryInfer13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<ExIter<W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", cont_);
+        assertEq("pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", inferred_);
+    }
+    @Test
+    public void getInferForm1Test() {
+        assertNull(Templates.getInferForm("java.lang.Number"));
+    }
+    @Test
+    public void getInferForm2Test() {
+        assertNull(Templates.getInferForm("java.lang.Number>"));
+    }
+    @Test
+    public void getInferForm3Test() {
+        assertNull(Templates.getInferForm("java.lang[].Number<>"));
+    }
+    @Test
+    public void getInferForm4Test() {
+        assertEq("java.lang.$iterable",Templates.getInferForm("java.lang.$iterable<>"));
+    }
+    @Test
+    public void getInferForm5Test() {
+        assertEq("java.lang.$iterable",Templates.getInferForm("java.lang .$iterable<>"));
+    }
+    @Test
+    public void getInferForm6Test() {
+        assertEq("java.lang.ExClass..Inner",Templates.getInferForm("java.lang.ExClass..Inner<>"));
+    }
+    @Test
     public void correctNbParameters1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#W> {$public $static $class Inner<#X> {}}\n");

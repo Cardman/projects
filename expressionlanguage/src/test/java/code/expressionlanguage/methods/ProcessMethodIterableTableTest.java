@@ -136,6 +136,41 @@ public class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         assertEq(25, ((NumberStruct)field_).getInstance());
     }
     @Test
+    public void instanceArgument1222Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $int res=25:\n");
+        xml_.append(" {\n");
+        xml_.append("  $for(Number f, Number s: $new CustTable<>()){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(25, ((NumberStruct)field_).getInstance());
+    }
+    @Test
     public void instanceArgument123Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -954,6 +989,52 @@ public class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         xml_.append("   $for[String](String f, String s: $null){\n");
         xml_.append("    res += 0:\n");
         xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument7FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $int res=25:\n");
+        xml_.append(" {\n");
+        xml_.append("  $for(Number f, $var s: $new CustTable<>()){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public CustTable<Number,Number> inst=$new CustTable<Number,Number>():\n");
+        xml_.append(" $public $int res=25:\n");
+        xml_.append(" {\n");
+        xml_.append("  $for($var f, Number s: $new CustTable<>()){\n");
+        xml_.append("   res += f;intValue()+s;intValue():\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");

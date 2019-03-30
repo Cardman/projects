@@ -821,6 +821,11 @@ public class Configuration implements ExecutableCode {
     public String resolveAccessibleIdType(String _in) {
         return resolveDynamicType(_in, null);
     }
+
+    @Override
+    public String resolveAccessibleIdTypeWithoutError(String _in) {
+        return resolveDynamicType(_in, null);
+    }
     @Override
     public String resolveCorrectType(String _in) {
         return resolveDynamicType(_in, null);

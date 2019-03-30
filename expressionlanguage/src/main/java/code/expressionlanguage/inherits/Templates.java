@@ -24,10 +24,7 @@ import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class Templates {
 
@@ -261,6 +258,138 @@ public final class Templates {
         return "";
     }
 
+    public static String getInferForm(String _type) {
+        String tr_ = _type.trim();
+        if (!tr_.endsWith(TEMPLATE_END)) {
+            return null;
+        }
+        tr_ = tr_.substring(0, tr_.length() - 1).trim();
+        if (!tr_.endsWith(TEMPLATE_BEGIN)) {
+            return null;
+        }
+        tr_ = tr_.substring(0, tr_.length() - 1);
+        for (String p: StringList.splitChars(tr_,'.')) {
+            if (p.isEmpty()) {
+                continue;
+            }
+            if (StringList.isDollarWord(p.trim())) {
+                continue;
+            }
+            return null;
+        }
+        return ContextEl.removeDottedSpaces(tr_);
+    }
+    public static String tryInfer(String _erased, String _declaring, Analyzable _context) {
+        GeneType g_ = _context.getClassBody(_erased);
+        String idParam_ = getIdFromAllTypes(_declaring);
+        String gene_ = g_.getGenericString();
+        String type_ = "";
+        if (!StringList.quickEq(idParam_,_erased)) {
+            for (String s: g_.getAllGenericSuperTypes()) {
+                String idSuper_ = getIdFromAllTypes(s);
+                if (StringList.quickEq(idSuper_,idParam_)) {
+                    type_ = s;
+                }
+            }
+        } else {
+            type_ = gene_;
+        }
+        if (type_.isEmpty()) {
+            return null;
+        }
+        CustList<InferenceConstraints> ics_ = new CustList<InferenceConstraints>();
+        CustList<InferenceConstraints> found_ = new CustList<InferenceConstraints>();
+        StringList argTypes_ = new StringList();
+        for (String p: getAllTypes(type_).mid(1)) {
+            argTypes_.add(p);
+        }
+        StringList paramTypes_ = new StringList();
+        for (String p: getAllTypes(_declaring).mid(1)) {
+            paramTypes_.add(p);
+        }
+        int len_ = argTypes_.size();
+        for (int i = 0; i < len_; i++) {
+            InferenceConstraints i_ = new InferenceConstraints();
+            i_.setArg(argTypes_.get(i));
+            i_.setParam(paramTypes_.get(i));
+            ics_.add(i_);
+        }
+        while (true) {
+            CustList<InferenceConstraints> next_ = new CustList<InferenceConstraints>();
+            for (InferenceConstraints i: ics_) {
+                String argLoc_ = i.getArg();
+                String paramLoc_ = i.getParam();
+                if (argLoc_.startsWith(PREFIX_VAR_TYPE)) {
+                    found_.add(i);
+                    continue;
+                }
+                if (argLoc_.startsWith(ARR_BEG_STRING)) {
+                    if (paramLoc_.startsWith(ARR_BEG_STRING)) {
+                        InferenceConstraints n_ = new InferenceConstraints();
+                        n_.setArg(argLoc_.substring(ARR_BEG_STRING.length()));
+                        n_.setParam(paramLoc_.substring(ARR_BEG_STRING.length()));
+                        next_.add(n_);
+                    }
+                    continue;
+                }
+                if (StringList.quickEq(argLoc_,SUB_TYPE)) {
+                    continue;
+                }
+                if (argLoc_.startsWith(SUB_TYPE)) {
+                    if (paramLoc_.startsWith(SUB_TYPE)) {
+                        InferenceConstraints n_ = new InferenceConstraints();
+                        n_.setArg(argLoc_.substring(SUB_TYPE.length()));
+                        n_.setParam(paramLoc_.substring(SUB_TYPE.length()));
+                        next_.add(n_);
+                    }
+                    continue;
+                }
+                if (argLoc_.startsWith(SUP_TYPE)) {
+                    if (paramLoc_.startsWith(SUP_TYPE)) {
+                        InferenceConstraints n_ = new InferenceConstraints();
+                        n_.setArg(argLoc_.substring(SUP_TYPE.length()));
+                        n_.setParam(paramLoc_.substring(SUP_TYPE.length()));
+                        next_.add(n_);
+                    }
+                    continue;
+                }
+                StringList nArgTypes_ = getAllTypes(argLoc_);
+                StringList nParamTypes_ = getAllTypes(paramLoc_);
+                if (!StringList.quickEq(nArgTypes_.first(), nParamTypes_.first())) {
+                    continue;
+                }
+                int lenLoc_ = nArgTypes_.size();
+                for (int j = 1; j < lenLoc_; j++) {
+                    InferenceConstraints i_ = new InferenceConstraints();
+                    i_.setArg(nArgTypes_.get(j));
+                    i_.setParam(nParamTypes_.get(j));
+                    next_.add(i_);
+                }
+            }
+            if (next_.isEmpty()) {
+                break;
+            }
+            ics_ = next_;
+        }
+        StringMap<StringList> multi_ = new StringMap<StringList>();
+        for (String p: getAllTypes(gene_).mid(1)) {
+            multi_.put(p, new StringList());
+        }
+        for (InferenceConstraints i: found_) {
+            String argLoc_ = i.getArg();
+            String paramLoc_ = i.getParam();
+            multi_.getVal(argLoc_).add(paramLoc_);
+            multi_.getVal(argLoc_).removeDuplicates();
+        }
+        StringMap<String> vars_ = new StringMap<String>();
+        for (EntryCust<String,StringList> e: multi_.entryList()) {
+            if (e.getValue().size() != 1) {
+                return null;
+            }
+            vars_.put(e.getKey().substring(1), e.getValue().first());
+        }
+        return getQuickFormattedType(gene_,vars_);
+    }
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = getIdFromAllTypes(_subType);
         String baseSuperType_ = getIdFromAllTypes(_superType);
