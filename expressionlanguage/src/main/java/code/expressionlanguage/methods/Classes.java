@@ -1593,6 +1593,7 @@ public final class Classes {
         for (RootBlock c: getClassBodies(_predefined)) {
             page_.setImporting(c);
             String fullName_ = c.getFullName();
+            _context.getCoverage().putCalls(_context,fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
             ass_ = new StringMap<AssignmentBefore>();
@@ -1727,6 +1728,7 @@ public final class Classes {
                 if (b instanceof ConstructorBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     ConstructorBlock method_ = (ConstructorBlock) b;
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     int len_ = params_.size();
@@ -1768,11 +1770,13 @@ public final class Classes {
         b_.clear();
         for (RootBlock c: getClassBodies(_predefined)) {
             page_.setImporting(c);
+            String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof MethodBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     MethodBlock method_ = (MethodBlock) b;
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     int len_ = params_.size();
@@ -1805,6 +1809,7 @@ public final class Classes {
                 if (b instanceof IndexerBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     IndexerBlock method_ = (IndexerBlock) b;
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     int len_ = params_.size();
@@ -1862,8 +1867,10 @@ public final class Classes {
         }
         _context.setGlobalClass("");
         if (!_predefined) {
+            _context.getCoverage().putCalls(_context,"");
             for (OperatorBlock o : getOperators()) {
                 page_.setImporting(o);
+                _context.getCoverage().putCalls(_context,"",o);
                 StringList params_ = o.getParametersNames();
                 StringList types_ = o.getImportedParametersTypes();
                 int len_ = params_.size();

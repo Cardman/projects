@@ -626,5 +626,89 @@ public final class CoverageTest extends ProcessMethodCommon {
         value_ = map_.lastValue();
         assertTrue(!value_.isFullCovered());
     }
-
+    @Test
+    public void coverage20Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return call():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int call(){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, cont_.getCoverage().getCovers().size());
+        assertEq(1, cont_.getCoverage().getCovers().getValue(1).size());
+        assertTrue(cont_.getCoverage().getCovers().getValue(1).firstValue().isFullCovered());
+    }
+    @Test
+    public void coverage21Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int call(){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(2, cont_.getCoverage().getCalls().getVal("pkg.Ex").size());
+        assertTrue(cont_.getCoverage().getCalls().getVal("pkg.Ex").firstValue());
+        assertTrue(!cont_.getCoverage().getCalls().getVal("pkg.Ex").lastValue());
+    }
+    @Test
+    public void coverage22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" pkg.Ex out = $new pkg.Ex():\n");
+        xml_.append(" out;.field = p;.;field+q;.;field:\n");
+        xml_.append(" $return out;.:\n");
+        xml_.append("}\n");
+        xml_.append("$operator- pkg.Ex (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" pkg.Ex out = $new pkg.Ex():\n");
+        xml_.append(" out;.field = p;.;field-q;.;field:\n");
+        xml_.append(" $return out;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  pkg.Ex one = $new pkg.Ex():\n");
+        xml_.append("  pkg.Ex two = $new pkg.Ex():\n");
+        xml_.append("  one;.field = 1:\n");
+        xml_.append("  two;.field = 2:\n");
+        xml_.append("  $return (one;.+two;.).field:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int call(){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(3, out_.getNumber());
+        assertEq(2, cont_.getCoverage().getCalls().getVal("").size());
+        assertTrue(cont_.getCoverage().getCalls().getVal("").firstValue());
+        assertTrue(!cont_.getCoverage().getCalls().getVal("").lastValue());
+    }
 }

@@ -7,13 +7,16 @@ import code.expressionlanguage.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.IdMap;
+import code.util.StringMap;
 
 public final class Coverage {
     private IdMap<Block,IdMap<ExecOperationNode,AbstractCoverageResult>> covers = new IdMap<Block,IdMap<ExecOperationNode,AbstractCoverageResult>>();
     private IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
+    private StringMap<IdMap<NamedFunctionBlock,Boolean>> calls = new StringMap<IdMap<NamedFunctionBlock,Boolean>>();
     private IdMap<Block,IdMap<Block,StandardCoverageResult>> coverSwitchs = new IdMap<Block,IdMap<Block,StandardCoverageResult>>();
     private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
@@ -63,6 +66,18 @@ public final class Coverage {
             instr_.put(_exec,new StandardCoverageResult());
         }
     }
+    public void putCalls(Analyzable _context, String _type) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        calls.put(_type,new IdMap<NamedFunctionBlock,Boolean>());
+    }
+    public void putCalls(Analyzable _context, String _type,NamedFunctionBlock _block) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        calls.getVal(_type).put(_block,false);
+    }
     public void passLoop(Analyzable _context, Argument _value) {
         if (!_context.getContextEl().isCovering()) {
             return;
@@ -102,7 +117,12 @@ public final class Coverage {
         instr_ = covers.getVal(en_);
         instr_.getVal(_exec).cover(_value);
     }
-
+    public void passCalls(Analyzable _context, String _type,NamedFunctionBlock _block) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        calls.getVal(_type).set(_block,true);
+    }
     public IdMap<Block, IdMap<ExecOperationNode, AbstractCoverageResult>> getCovers() {
         return covers;
     }
@@ -121,5 +141,9 @@ public final class Coverage {
 
     public IdMap<Block, StandardCoverageResult> getCoverNoDefSwitchs() {
         return coverNoDefSwitchs;
+    }
+
+    public StringMap<IdMap<NamedFunctionBlock, Boolean>> getCalls() {
+        return calls;
     }
 }

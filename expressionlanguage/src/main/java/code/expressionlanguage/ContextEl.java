@@ -344,8 +344,11 @@ public abstract class ContextEl implements ExecutableCode {
         NamedFunctionBlock methodLoc_;
         if (!StringList.isDollarWord(_method.getName()) && !_method.getName().startsWith("[]")) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();
+            coverage.passCalls(this,"",methodLoc_);
         } else {
             methodLoc_ = Classes.getMethodBodiesById(this, _class, _method).first();
+            String idCl_ = Templates.getIdFromAllTypes(_class);
+            coverage.passCalls(this,idCl_,methodLoc_);
         }
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
@@ -395,7 +398,9 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
+            String idCl_ = Templates.getIdFromAllTypes(_class);
             method_ = (ConstructorBlock) methods_.first();
+            coverage.passCalls(this,idCl_,method_);
             StringList params_ = method_.getParametersNames();
             StringList types_ = method_.getImportedParametersTypes();
             int len_ = params_.size();
@@ -455,7 +460,9 @@ public abstract class ContextEl implements ExecutableCode {
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
+            String idCl_ = Templates.getIdFromAllTypes(_class);
             method_ = (ConstructorBlock) methods_.first();
+            coverage.passCalls(this,idCl_,method_);
             StringList params_ = method_.getParametersNames();
             StringList types_ = method_.getImportedParametersTypes();
             int len_ = params_.size();
