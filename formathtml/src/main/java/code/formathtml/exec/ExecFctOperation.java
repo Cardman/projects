@@ -159,7 +159,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
                     offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
                 }
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_, null);
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
@@ -190,7 +190,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
         if (!chidren_.isEmpty()) {
             offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_, null);
     }
 
     public ClassMethodId getClassMethodId() {

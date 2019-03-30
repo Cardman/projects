@@ -1,11 +1,15 @@
-package code.expressionlanguage.opers.exec;
+package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomReflectMethod;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -14,7 +18,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class ExecCustArrOperation extends ExecReflectableInvokingOperation implements ExecSettableElResult {
@@ -45,58 +48,16 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         if (resultCanBeSet()) {
             Struct array_;
-            array_ = getPreviousArgument(_nodes,this).getStruct();
+            array_ = getPreviousArgument().getStruct();
             Argument a_ = new Argument();
             a_.setStruct(array_);
-            setQuickSimpleArgument(a_, _conf, _nodes);
+            setQuickSimpleArgument(a_, _conf);
             return;
         }
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf,null);
-        setSimpleArgument(res_, _conf, _nodes);
-    }
-    @Override
-    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        return getArgument(previous_, arguments_, _conf,_right);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
-        Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return Argument.createVoid();
-        }
-        return getArgument(previous_, arguments_, _conf,res_);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
-        Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        return getArgument(previous_, arguments_, _conf,res_);
+        processCalling(_conf, null);
     }
 
     @Override
@@ -105,19 +66,87 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
+        processCalling(_conf, _right);
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        return getArgument(previous_, arguments_, _conf,_right);
+    public void calculateCompoundSetting(ExecutableCode _conf, String _op, Argument _right) {
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument left_ = new Argument();
+        left_.setStruct(store_);
+        ClassArgumentMatching clArg_ = getResultClass();
+        Argument res_;
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        if (_conf.getContextEl().hasException()) {
+            return;
+        }
+        processCalling(_conf,res_);
+    }
+
+    @Override
+    public void calculateSemiSetting(ExecutableCode _conf, String _op, boolean _post) {
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument left_ = new Argument();
+        left_.setStruct(store_);
+        ClassArgumentMatching clArg_ = getResultClass();
+        Argument res_;
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        processCalling(_conf,res_);
+    }
+
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        return endCalculate(_conf,false,null,_right);
+    }
+
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, boolean _post, Argument _stored, Argument _right) {
+        return processCalling(_conf,_right);
+    }
+
+    private Argument processCalling(ExecutableCode _conf, Argument _right) {
+        CustList<ExecDynOperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (ExecDynOperationNode o: chidren_) {
+            arguments_.add(o.getArgument());
+        }
+        Argument previous_ = getPreviousArgument();
+        Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return Argument.createVoid();
+            }
+            argres_ = getArgument(previous_, arguments_, _conf, _right);
+        }
+        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
+        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
+        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
+        Argument res_;
+        if (ctor_ != null) {
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
+        } else if (method_ != null) {
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
+        } else if (ref_ != null) {
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
+        } else {
+            res_ = argres_;
+        }
+        if (_conf.getContextEl().hasException()) {
+            return res_;
+        }
+        setSimpleArgument(res_, _conf);
+        return res_;
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf, Argument _right) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        CustList<ExecDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
@@ -162,7 +191,6 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
         if (_right != null) {
             methodId_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,_right);
+        return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,_right);
     }
-
 }

@@ -381,7 +381,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ClassMethodId(classNameFound_, methodId_);
     }
-    public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
+    public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset, Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -397,11 +397,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             }
         }
-        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf,null)) {
+        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf,_right)) {
             return new Argument();
         }
         if (!StringList.isDollarWord(_methodId.getName())) {
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,null));
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
@@ -689,7 +689,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return new Argument(new IntStruct(en_.getOrdinal()));
         }
-        context_.setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,null));
+        context_.setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
         return Argument.createVoid();
     }
 
