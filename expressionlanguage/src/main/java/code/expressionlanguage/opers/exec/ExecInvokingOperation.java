@@ -785,10 +785,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         ContextEl c_ = _conf.getContextEl();
         CustList<Struct> enums_ = new CustList<Struct>();
         for (Block b: Classes.getDirectChildren(classes_.getClassBody(id_))) {
-            if (!(b instanceof ElementBlock)) {
+            if (!(b instanceof InnerTypeOrElement)) {
                 continue;
             }
-            ElementBlock b_ = (ElementBlock)b;
+            InnerTypeOrElement b_ = (InnerTypeOrElement)b;
             String fieldName_ = b_.getUniqueFieldName();
             Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),c_);
             _conf.getContextEl().addSensibleField(id_, str_);
@@ -818,10 +818,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         ContextEl c_ = _conf.getContextEl();
         Classes classes_ = _conf.getClasses();
         for (Block b: Classes.getDirectChildren(classes_.getClassBody(enumName_))) {
-            if (!(b instanceof ElementBlock)) {
+            if (!(b instanceof InnerTypeOrElement)) {
                 continue;
             }
-            ElementBlock b_ = (ElementBlock)b;
+            InnerTypeOrElement b_ = (InnerTypeOrElement)b;
             String fieldName_ = b_.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Argument argres_ = new Argument();

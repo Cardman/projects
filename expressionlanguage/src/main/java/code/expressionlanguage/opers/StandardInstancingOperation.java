@@ -13,6 +13,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InnerElementBlock;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
@@ -70,7 +71,11 @@ public final class StandardInstancingOperation extends
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
-            realClassName_ = _conf.resolveCorrectType(realClassName_);
+            if (fieldName.isEmpty()) {
+                realClassName_ = _conf.resolveCorrectType(realClassName_);
+            } else {
+                realClassName_ = realClassName_.trim();
+            }
             analyzeCtor(_conf, realClassName_, firstArgs_);
             return;
         }
@@ -198,7 +203,7 @@ public final class StandardInstancingOperation extends
                 _conf.getClasses().addError(call_);
             }
         }
-        if (!g_.isStaticType() && !isIntermediateDottedOperation() && isStaticAccess()) {
+        if (!g_.withoutInstance() && !isIntermediateDottedOperation() && isStaticAccess()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -206,7 +211,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {
+        if (g_.isAbstractType() && !(g_ instanceof EnumBlock || g_ instanceof InnerElementBlock)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(_realClassName);
             call_.setFileName(_conf.getCurrentFileName());

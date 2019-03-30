@@ -119,8 +119,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public String getWildCardElement() {
         StringList allElements_ = new StringList();
         for (Block e: Classes.getDirectChildren(this)) {
-            if (e instanceof ElementBlock) {
-                String type_ = ((ElementBlock)e).getImportedClassName();
+            if (e instanceof InnerTypeOrElement) {
+                String type_ = ((InnerTypeOrElement)e).getImportedClassName();
                 allElements_.add(type_);
             }
         }
@@ -439,7 +439,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
-    public final String getGenericString() {
+    public String getGenericString() {
         String pkg_ = getPackageName();
         StringBuilder generic_ = new StringBuilder();
         addPkgIfNotEmpty(pkg_, generic_);
@@ -496,7 +496,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
-    public final String getFullName() {
+    public String getFullName() {
         String packageName_ = getPackageName();
         Block par_ = this;
         StringList names_ = new StringList(getName());
@@ -543,7 +543,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     continue;
                 }
                 if (b instanceof RootBlock) {
-                    if (((RootBlock)b).isStaticType()) {
+                    if (((RootBlock)b).isStaticType() || this instanceof InnerElementBlock) {
                         int where_ = b.getOffset().getOffsetTrim();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFile().getFileName());
@@ -619,7 +619,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 if (method_ instanceof MethodBlock) {
                     MethodId id_ = ((MethodBlock) method_).getId();
-                    if (this instanceof EnumBlock) {
+                    if (this instanceof EnumBlock || this instanceof InnerElementBlock) {
                         String aliasName_ = _context.getStandards().getAliasEnumName();
                         String ordinal_ = _context.getStandards().getAliasEnumOrdinal();
                         String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();

@@ -254,6 +254,47 @@ public final class FileResolverTest {
         assertEq("$void",m_.getReturnType());
     }
     @Test
+    public void parseFile1011Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$enum pkgtwo.ExClass {\n");
+        file_.append(" ONE<TWO,THREE>(\"\"<\"\"){},\n");
+        file_.append(" FOUR<FIVE,SIX>(\"\">\"\"){}:\n");
+        file_.append(" $public $static $void m(){}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file", file_.toString(), false, context_);
+        assertEq(3, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof EnumBlock);
+        Block eltOne_ = r_.getFirstChild();
+        assertTrue(eltOne_ instanceof InnerElementBlock);
+        InnerElementBlock eOne_ = (InnerElementBlock) eltOne_;
+        assertEq("ONE",eOne_.getUniqueFieldName());
+        assertEq("<TWO,THREE>",eOne_.getTempClass());
+        assertEq("\"\"<\"\"",eOne_.getValue());
+        assertSame(eOne_, getCustomTypes(context_, 1));
+        assertTrue(eOne_.isFinalType());
+        assertEq(24, eOne_.getFieldNameOffset());
+        assertEq(27, eOne_.getTempClassOffset());
+        assertEq(39, eOne_.getValueOffest());
+        Block eltTwo_ = eltOne_.getNextSibling();
+        assertTrue(eltTwo_ instanceof InnerElementBlock);
+        InnerElementBlock eTwo_ = (InnerElementBlock) eltTwo_;
+        assertEq("FOUR",eTwo_.getUniqueFieldName());
+        assertEq("<FIVE,SIX>",eTwo_.getTempClass());
+        assertEq("\"\">\"\"",eTwo_.getValue());
+        assertTrue(eTwo_.isFinalType());
+        assertEq(50, eTwo_.getFieldNameOffset());
+        assertEq(54, eTwo_.getTempClassOffset());
+        assertEq(65, eTwo_.getValueOffest());
+        MethodBlock m_ = (MethodBlock) eTwo_.getNextSibling();
+        assertEq("m",m_.getName());
+        assertEq("$void",m_.getReturnType());
+        assertSame(eTwo_, getCustomTypes(context_, 2));
+        assertSame(r_, eTwo_.belong());
+    }
+    @Test
     public void parseFile2Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkg.Ex;\n");

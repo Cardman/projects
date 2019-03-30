@@ -2207,6 +2207,9 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.ExEnum {\n");
         xml_.append("}\n");
+        xml_.append("$public $enum pkg.ExEnumBis {\n");
+        xml_.append(" ONE{}:\n");
+        xml_.append("}\n");
         xml_.append("$public $annotation pkg.Annot {\n");
         xml_.append("}\n");
         xml_.append("$public $interface pkg.Int<T:Number> {\n");

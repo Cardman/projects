@@ -155,7 +155,7 @@ public final class Classes {
         }
         String className_;
         className_ = _root.getName().trim();
-        if (!_context.isValidToken(className_)) {
+        if (!_context.isValidToken(className_) && !(_root instanceof InnerTypeOrElement)) {
             BadClassName badCl_ = new BadClassName();
             badCl_.setClassName(fullName_);
             badCl_.setFileName(_root.getFile().getFileName());
@@ -245,6 +245,14 @@ public final class Classes {
                 generic_.append(Templates.TEMPLATE_END);
             }
             String type_ = StringList.concat(_context.getStandards().getAliasEnumParam(),Templates.TEMPLATE_BEGIN,generic_,Templates.TEMPLATE_END);
+            _root.getDirectSuperTypes().add(type_);
+            _root.getExplicitDirectSuperTypes().put(-1, false);
+            _root.getRowColDirectSuperTypes().put(-1, type_);
+        }
+        if (_root instanceof InnerElementBlock) {
+            InnerElementBlock i_ = (InnerElementBlock) _root;
+            EnumBlock par_ = (EnumBlock) _root.getParent();
+            String type_ = StringList.concat(par_.getFullName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -841,6 +849,17 @@ public final class Classes {
                 int nbDirectSuperClass_ = 0;
                 int index_ = -1;
                 StringList names_ = new StringList();
+                if (c instanceof InnerElementBlock) {
+                    for (EntryCust<Integer, String> t: c.getRowColDirectSuperTypes().entryList()) {
+                        index_++;
+                        String v_ = t.getValue();
+                        v_ = ContextEl.removeDottedSpaces(v_);
+                        String base_ = Templates.getIdFromAllTypes(v_);
+                        names_.add(base_);
+                    }
+                    dirSuperTypes_.put(d_, names_);
+                    continue;
+                }
                 for (EntryCust<Integer, String> t: c.getRowColDirectSuperTypes().entryList()) {
                     index_++;
                     String v_ = t.getValue();
@@ -1922,10 +1941,10 @@ public final class Classes {
             CustList<Block> bl_ = getDirectChildren(c);
             StringList fieldNames_ = new StringList();
             for (Block b: bl_) {
-                if (!(b instanceof ElementBlock)) {
+                if (!(b instanceof InnerTypeOrElement)) {
                     continue;
                 }
-                ElementBlock e_ = (ElementBlock)b;
+                InnerTypeOrElement e_ = (InnerTypeOrElement)b;
                 fieldNames_.addAllElts(e_.getFieldName());
             }
             for (Block b: bl_) {
@@ -2267,8 +2286,8 @@ public final class Classes {
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
-                if (b instanceof ElementBlock) {
-                    ElementBlock method_ = (ElementBlock) b;
+                if (b instanceof InnerTypeOrElement) {
+                    InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     String m_ = method_.getUniqueFieldName();
                     for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
                         if (StringList.quickEq(f.getKey(), m_)) {

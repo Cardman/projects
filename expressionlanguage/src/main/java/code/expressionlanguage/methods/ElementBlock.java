@@ -20,7 +20,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ElementBlock extends Leaf implements InfoBlock{
+public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private final String fieldName;
 

@@ -73,10 +73,10 @@ public final class CaseCondition extends SwitchPartBlock {
             GeneType g_ = _cont.getClassBody(id_);
             if (g_ instanceof EnumBlock) {
                 for (GeneField f: ContextEl.getFieldBlocks(g_)) {
-                    if (!(f instanceof ElementBlock)) {
+                    if (!(f instanceof InnerTypeOrElement)) {
                         continue;
                     }
-                    ElementBlock e_ = (ElementBlock) f;
+                    InnerTypeOrElement e_ = (InnerTypeOrElement) f;
                     if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
                         continue;
                     }

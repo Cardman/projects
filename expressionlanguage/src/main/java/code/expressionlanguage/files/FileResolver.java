@@ -1337,12 +1337,22 @@ public final class FileResolver {
                     templateOffset_ += fieldName_.trim().length();
                     templateOffset_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
                 }
-                br_ = new ElementBlock(_context, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
-                        new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
-                        new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                if (_currentChar == BEGIN_BLOCK) {
+                    enableByEndLine_ = false;
+                    br_ = new InnerElementBlock(_context, (EnumBlock) currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                            new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
+                            new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                } else {
+                    br_ = new ElementBlock(_context, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                            new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
+                            new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                }
                 ((AnnotableBlock) br_).getAnnotations().addAllElts(annotations_);
                 ((AnnotableBlock) br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                 currentParent_.appendChild(br_);
+                if (_currentChar == BEGIN_BLOCK) {
+                    currentParent_ = (BracedBlock) br_;
+                }
             }
             if (_currentChar == END_BLOCK) {
                 currentParent_ = currentParent_.getParent();
@@ -1471,6 +1481,9 @@ public final class FileResolver {
             if (currentParent_ == null) {
                 badIndexes_.add(_nextIndex);
                 return null;
+            }
+            if (currentParent_ instanceof InnerTypeOrElement) {
+                enableByEndLine_ = true;
             }
             currentParent_ = currentParent_.getParent();
         }
