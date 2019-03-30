@@ -5238,6 +5238,138 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$lambda(String,charAt,$int)$instanceof $Fct<String,$int>");
         assertTrue(arg_.isFalse());
     }
+
+    @Test
+    public void processEl997Test() {
+        Argument arg_ = directCalculate("Byte.parseByteOrNull(\"1\",10)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl998Test() {
+        Argument arg_ = directCalculate("Short.parseShortOrNull(\"1\",10)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl999Test() {
+        Argument arg_ = directCalculate("Integer.parseIntOrNull(\"1\",10)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1000Test() {
+        Argument arg_ = directCalculate("Long.parseLongOrNull(\"1\",10)");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1001Test() {
+        Argument arg_ = directCalculate("Short.parseShortOrNull(\"1\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1002Test() {
+        Argument arg_ = directCalculate("Integer.parseIntOrNull(\"1\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1003Test() {
+        Argument arg_ = directCalculate("Long.parseLongOrNull(\"1\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1004Test() {
+        Argument arg_ = directCalculate("Float.parseFloatOrNull(\"1\")");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1005Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull(\"1\")");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1006Test() {
+        Argument arg_ = directCalculate("Byte.parseByteOrNull(\"1\")");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1007Test() {
+        Argument arg_ = directCalculate("Short.parseShortOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1008Test() {
+        Argument arg_ = directCalculate("Integer.parseIntOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1009Test() {
+        Argument arg_ = directCalculate("Long.parseLongOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1010Test() {
+        Argument arg_ = directCalculate("Float.parseFloatOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1011Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1012Test() {
+        Argument arg_ = directCalculate("Byte.parseByteOrNull($null)");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1013Test() {
+        Argument arg_ = directCalculate("Short.parseShortOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1014Test() {
+        Argument arg_ = directCalculate("Integer.parseIntOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1015Test() {
+        Argument arg_ = directCalculate("Long.parseLongOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1016Test() {
+        Argument arg_ = directCalculate("Float.parseFloatOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1017Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1018Test() {
+        Argument arg_ = directCalculate("Byte.parseByteOrNull(\"\")");
+        assertTrue(arg_.isNull());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

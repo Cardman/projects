@@ -428,6 +428,7 @@ public abstract class LgNames {
                 getAliasIntValue(),
                 getAliasLongValue(),
                 getAliasParseByte(),
+                getAliasParseByteOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasCharSequence(), new StringList(
@@ -485,6 +486,7 @@ public abstract class LgNames {
                 getAliasIsNan(),
                 getAliasLongValue(),
                 getAliasParseDouble(),
+                getAliasParseDoubleOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasFloat(), new StringList(
@@ -499,6 +501,7 @@ public abstract class LgNames {
                 getAliasIsNan(),
                 getAliasLongValue(),
                 getAliasParseFloat(),
+                getAliasParseFloatOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasInteger(), new StringList(
@@ -511,6 +514,7 @@ public abstract class LgNames {
                 getAliasIntValue(),
                 getAliasLongValue(),
                 getAliasParseInt(),
+                getAliasParseIntOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasLong(), new StringList(
@@ -523,6 +527,7 @@ public abstract class LgNames {
                 getAliasIntValue(),
                 getAliasLongValue(),
                 getAliasParseLong(),
+                getAliasParseLongOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasNumber(), new StringList(
@@ -546,6 +551,7 @@ public abstract class LgNames {
                 getAliasIntValue(),
                 getAliasLongValue(),
                 getAliasParseShort(),
+                getAliasParseShortOrNull(),
                 getAliasShortValue(),
                 getAliasToString()));
         map_.put(getAliasString(), new StringList(
@@ -1519,6 +1525,43 @@ public abstract class LgNames {
     public void setAliasParseDouble(String _aliasParseDouble) {
         nbAlias.setAliasParseDouble(_aliasParseDouble);
     }
+    public String getAliasParseByteOrNull() {
+        return nbAlias.getAliasParseByteOrNull();
+    }
+    public void setAliasParseByteOrNull(String _aliasParseByte) {
+        nbAlias.setAliasParseByteOrNull(_aliasParseByte);
+    }
+    public String getAliasParseShortOrNull() {
+        return nbAlias.getAliasParseShortOrNull();
+    }
+    public void setAliasParseShortOrNull(String _aliasParseShort) {
+        nbAlias.setAliasParseShortOrNull(_aliasParseShort);
+    }
+    public String getAliasParseIntOrNull() {
+        return nbAlias.getAliasParseIntOrNull();
+    }
+    public void setAliasParseIntOrNull(String _aliasParseInt) {
+        nbAlias.setAliasParseIntOrNull(_aliasParseInt);
+    }
+    public String getAliasParseLongOrNull() {
+        return nbAlias.getAliasParseLongOrNull();
+    }
+    public void setAliasParseLongOrNull(String _aliasParseLong) {
+        nbAlias.setAliasParseLongOrNull(_aliasParseLong);
+    }
+    public String getAliasParseFloatOrNull() {
+        return nbAlias.getAliasParseFloatOrNull();
+    }
+    public void setAliasParseFloatOrNull(String _aliasParseFloat) {
+        nbAlias.setAliasParseFloatOrNull(_aliasParseFloat);
+    }
+    public String getAliasParseDoubleOrNull() {
+        return nbAlias.getAliasParseDoubleOrNull();
+    }
+    public void setAliasParseDoubleOrNull(String _aliasParseDouble) {
+        nbAlias.setAliasParseDoubleOrNull(_aliasParseDouble);
+    }
+
     public String getAliasBooleanValue() {
         return nbAlias.getAliasBooleanValue();
     }

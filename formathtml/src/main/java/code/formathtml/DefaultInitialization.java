@@ -75,6 +75,12 @@ public final class DefaultInitialization {
         _lgNames.setAliasParseLong("parseLong");
         _lgNames.setAliasParseFloat("parseFloat");
         _lgNames.setAliasParseDouble("parseDouble");
+        _lgNames.setAliasParseByteOrNull("parseByteOrNull");
+        _lgNames.setAliasParseShortOrNull("parseShortOrNull");
+        _lgNames.setAliasParseIntOrNull("parseIntOrNull");
+        _lgNames.setAliasParseLongOrNull("parseLongOrNull");
+        _lgNames.setAliasParseFloatOrNull("parseFloatOrNull");
+        _lgNames.setAliasParseDoubleOrNull("parseDoubleOrNull");
         _lgNames.setAliasBooleanValue("booleanValue");
         _lgNames.setAliasByteValue("byteValue");
         _lgNames.setAliasShortValue("shortValue");

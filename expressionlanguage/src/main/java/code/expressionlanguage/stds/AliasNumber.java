@@ -31,6 +31,12 @@ public final class AliasNumber {
     private String aliasParseLong;
     private String aliasParseFloat;
     private String aliasParseDouble;
+    private String aliasParseByteOrNull;
+    private String aliasParseShortOrNull;
+    private String aliasParseIntOrNull;
+    private String aliasParseLongOrNull;
+    private String aliasParseFloatOrNull;
+    private String aliasParseDoubleOrNull;
     private String aliasBooleanValue;
     private String aliasByteValue;
     private String aliasShortValue;
@@ -118,7 +124,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasByte, fields_, constructors_, methods_, aliasShort, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimByte_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasByte, aliasParseByte, aliasPrimByte_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasByte, aliasParseByte, aliasPrimByte_, std_, true);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasByte, aliasParseByteOrNull, std_, true);
         numbersValuesFields(fields_, aliasPrimByte_, std_);
         standards_.put(aliasByte, std_);
         constructors_ = new CustList<StandardConstructor>();
@@ -126,7 +133,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasShort, fields_, constructors_, methods_, aliasInteger, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimShort_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasShort, aliasParseShort, aliasPrimShort_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasShort, aliasParseShort, aliasPrimShort_, std_, true);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasShort, aliasParseShortOrNull, std_, true);
         numbersValuesFields(fields_, aliasPrimShort_, std_);
         standards_.put(aliasShort, std_);
         constructors_ = new CustList<StandardConstructor>();
@@ -134,7 +142,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasInteger, fields_, constructors_, methods_, aliasLong, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimInteger_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasInteger, aliasParseInt, aliasPrimInteger_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasInteger, aliasParseInt, aliasPrimInteger_, std_, true);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasInteger, aliasParseIntOrNull, std_, true);
         numbersValuesFields(fields_, aliasPrimInteger_, std_);
         standards_.put(aliasInteger, std_);
         constructors_ = new CustList<StandardConstructor>();
@@ -142,7 +151,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasLong, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimLong_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasLong, aliasParseLong, aliasPrimLong_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasLong, aliasParseLong, aliasPrimLong_, std_, true);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasLong, aliasParseLongOrNull, std_, true);
         numbersValuesFields(fields_, aliasPrimLong_, std_);
         standards_.put(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
@@ -150,7 +160,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasFloat, fields_, constructors_, methods_, aliasDouble, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimFloat_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, std_, false);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasFloat, aliasParseFloatOrNull, std_, false);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
@@ -170,7 +181,8 @@ public final class AliasNumber {
         fields_ = new StringMap<StandardField>();
         std_ = new StandardClass(aliasDouble, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimDouble_, std_);
-        numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, std_);
+        numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, std_, false);
+        numbersSafeParsersMethods(_lgNames,methods_, aliasDouble, aliasParseDoubleOrNull, std_, false);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
@@ -275,7 +287,7 @@ public final class AliasNumber {
         field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
         _fields.put(aliasMaxValueField, field_);
     }
-    private void numbersValuesMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, String _primitive, StandardType _type) {
+    private void numbersValuesMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, String _primitive, StandardType _type, boolean _radix) {
         String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
@@ -285,15 +297,31 @@ public final class AliasNumber {
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
-        params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
-        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        if (_radix) {
+            params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
+            method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
+            _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        }
         params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _type);
         _methods.put(new MethodId(MethodModifier.NORMAL, aliasCompareTo, params_), method_);
         params_ = new StringList(_primitive, _primitive);
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _type);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasCompare, params_), method_);
+    }
+    private void numbersSafeParsersMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, StandardType _type, boolean _radix) {
+        String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
+        StringList params_;
+        StandardMethod method_;
+        params_ = new StringList(_lgNames.getAliasString());
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
+        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
+        if (!_radix) {
+            return;
+        }
+        params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _type);
+        _methods.put(new MethodId(MethodModifier.STATIC, _parserName, params_), method_);
     }
     private void numbersAbsMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, StandardType _type) {
         String aliasPrimBoolean_ = _lgNames.getAliasPrimBoolean();
@@ -476,6 +504,42 @@ public final class AliasNumber {
     }
     public void setAliasParseDouble(String _aliasParseDouble) {
         aliasParseDouble = _aliasParseDouble;
+    }
+    public String getAliasParseByteOrNull() {
+        return aliasParseByteOrNull;
+    }
+    public void setAliasParseByteOrNull(String _aliasParseByte) {
+        aliasParseByteOrNull = _aliasParseByte;
+    }
+    public String getAliasParseShortOrNull() {
+        return aliasParseShortOrNull;
+    }
+    public void setAliasParseShortOrNull(String _aliasParseShort) {
+        aliasParseShortOrNull = _aliasParseShort;
+    }
+    public String getAliasParseIntOrNull() {
+        return aliasParseIntOrNull;
+    }
+    public void setAliasParseIntOrNull(String _aliasParseInt) {
+        aliasParseIntOrNull = _aliasParseInt;
+    }
+    public String getAliasParseLongOrNull() {
+        return aliasParseLongOrNull;
+    }
+    public void setAliasParseLongOrNull(String _aliasParseLong) {
+        aliasParseLongOrNull = _aliasParseLong;
+    }
+    public String getAliasParseFloatOrNull() {
+        return aliasParseFloatOrNull;
+    }
+    public void setAliasParseFloatOrNull(String _aliasParseFloat) {
+        aliasParseFloatOrNull = _aliasParseFloat;
+    }
+    public String getAliasParseDoubleOrNull() {
+        return aliasParseDoubleOrNull;
+    }
+    public void setAliasParseDoubleOrNull(String _aliasParseDouble) {
+        aliasParseDoubleOrNull = _aliasParseDouble;
     }
     public String getAliasBooleanValue() {
         return aliasBooleanValue;

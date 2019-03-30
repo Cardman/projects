@@ -231,6 +231,12 @@ public final class KeyWordsMap {
         _lgNames.setAliasParseLong("parseLong");
         _lgNames.setAliasParseFloat("parseFloat");
         _lgNames.setAliasParseDouble("parseDouble");
+        _lgNames.setAliasParseByteOrNull("parseByteOrNull");
+        _lgNames.setAliasParseShortOrNull("parseShortOrNull");
+        _lgNames.setAliasParseIntOrNull("parseIntOrNull");
+        _lgNames.setAliasParseLongOrNull("parseLongOrNull");
+        _lgNames.setAliasParseFloatOrNull("parseFloatOrNull");
+        _lgNames.setAliasParseDoubleOrNull("parseDoubleOrNull");
         _lgNames.setAliasBooleanValue("booleanValue");
         _lgNames.setAliasByteValue("byteValue");
         _lgNames.setAliasShortValue("shortValue");
@@ -486,6 +492,12 @@ public final class KeyWordsMap {
         _lgNames.setAliasParseLong("parseEntier8");
         _lgNames.setAliasParseFloat("parseFlottant");
         _lgNames.setAliasParseDouble("parseDouble");
+        _lgNames.setAliasParseByteOrNull("parseEntier1OuNul");
+        _lgNames.setAliasParseShortOrNull("parseEntier2OuNul");
+        _lgNames.setAliasParseIntOrNull("parseEntier4OuNul");
+        _lgNames.setAliasParseLongOrNull("parseEntier8OuNul");
+        _lgNames.setAliasParseFloatOrNull("parseFlottantOuNul");
+        _lgNames.setAliasParseDoubleOrNull("parseDoubleOuNul");
         _lgNames.setAliasBooleanValue("booleenValue");
         _lgNames.setAliasByteValue("valEntier1");
         _lgNames.setAliasShortValue("valEntier2");
