@@ -19,6 +19,7 @@ public final class Coverage {
     private StringMap<IdMap<NamedFunctionBlock,Boolean>> calls = new StringMap<IdMap<NamedFunctionBlock,Boolean>>();
     private IdMap<Block,IdMap<Block,StandardCoverageResult>> coverSwitchs = new IdMap<Block,IdMap<Block,StandardCoverageResult>>();
     private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
+    private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     public void putBlockOperationsLoops(Analyzable _context, Block _block) {
         if (!_context.getContextEl().isCovering()) {
@@ -78,6 +79,12 @@ public final class Coverage {
         }
         calls.getVal(_type).put(_block,false);
     }
+    public void putCatches(Analyzable _context, Block _block) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        catches.put(_block,false);
+    }
     public void passLoop(Analyzable _context, Argument _value) {
         if (!_context.getContextEl().isCovering()) {
             return;
@@ -123,6 +130,12 @@ public final class Coverage {
         }
         calls.getVal(_type).set(_block,true);
     }
+    public void passCatches(Analyzable _context, Block _block) {
+        if (!_context.getContextEl().isCovering()) {
+            return;
+        }
+        catches.set(_block,true);
+    }
     public IdMap<Block, IdMap<ExecOperationNode, AbstractCoverageResult>> getCovers() {
         return covers;
     }
@@ -145,5 +158,9 @@ public final class Coverage {
 
     public StringMap<IdMap<NamedFunctionBlock, Boolean>> getCalls() {
         return calls;
+    }
+
+    public IdMap<Block, Boolean> getCatches() {
+        return catches;
     }
 }

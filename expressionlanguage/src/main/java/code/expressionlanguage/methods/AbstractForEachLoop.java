@@ -216,6 +216,8 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         } else {
             Mapping mapping_ = new Mapping();
             if (importedClassName.isEmpty()) {
+                mapping_.setArg("");
+                mapping_.setParam("");
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());

@@ -711,4 +711,62 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(cont_.getCoverage().getCalls().getVal("").firstValue());
         assertTrue(!cont_.getCoverage().getCalls().getVal("").lastValue());
     }
+    @Test
+    public void coverage23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(t;.>=0){\n");
+        xml_.append("    $return 1i/0i:\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2:\n");
+        xml_.append("  } $catch(Object o){\n");
+        xml_.append("   t;.=1i:\n");
+        xml_.append("   $return t;.:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, cont_.getCoverage().getCatches().size());
+        assertTrue(cont_.getCoverage().getCatches().firstValue());
+    }
+    @Test
+    public void coverage24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=-1i:\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(t;.>=0){\n");
+        xml_.append("    $return 1i/0i:\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2:\n");
+        xml_.append("  } $catch(Object o){\n");
+        xml_.append("   t;.=1i:\n");
+        xml_.append("   $return t;.:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, cont_.getCoverage().getCatches().size());
+        assertTrue(!cont_.getCoverage().getCatches().firstValue());
+    }
 }

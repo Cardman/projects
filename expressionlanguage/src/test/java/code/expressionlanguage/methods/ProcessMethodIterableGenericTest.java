@@ -2136,7 +2136,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void instanceArgument8FailTest() {
@@ -2170,7 +2170,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void instanceArgument9FailTest() {
@@ -2204,7 +2204,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void instanceArgument10FailTest() {
@@ -2273,7 +2273,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put(CUST_LIST_PATH, getCustomFailList());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void instanceArgument13FailTest() {

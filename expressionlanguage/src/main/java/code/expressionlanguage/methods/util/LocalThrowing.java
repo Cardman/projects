@@ -83,6 +83,7 @@ public final class LocalThrowing implements CallingFinally {
                     try_.setCalling(null);
                     _conf.setException(null);
                     bkIp_.clearCurrentEls();
+                    _conf.getCoverage().passCatches(_conf,catchElt_);
                     Block childCatch_ = catchElt_.getFirstChild();
                     if (catchElt_ instanceof CatchEval) {
                         CatchEval c_ = (CatchEval) catchElt_;

@@ -54,6 +54,7 @@ public final class CatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
+        _cont.getCoverage().putCatches(_cont,this);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
