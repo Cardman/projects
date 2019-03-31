@@ -1388,7 +1388,7 @@ public class LgNamesTest {
         lgName_.validatePrimitiveContents(s_, prims_);
         StringList refTypes_ = lgName_.allRefTypes();
         lgName_.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(!s_.getClasses().isEmptyStdError());
+        assertTrue(s_.getClasses().displayStdErrors(),!s_.getClasses().isEmptyStdError());
     }
     @Test
     public void success1Test() {

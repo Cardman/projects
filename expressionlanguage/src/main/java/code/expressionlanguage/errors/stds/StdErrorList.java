@@ -1,6 +1,7 @@
 package code.expressionlanguage.errors.stds;
 
 import code.util.CustList;
+import code.util.StringList;
 import code.util.ints.Displayable;
 
 public class StdErrorList extends CustList<StdWordError> implements Displayable {
@@ -9,16 +10,11 @@ public class StdErrorList extends CustList<StdWordError> implements Displayable 
 
     @Override
     public String display() {
-        if (isEmpty()) {
-            return EMPTY_STRING;
+        StringList l_ = new StringList();
+        for (StdWordError f: this) {
+            l_.add(f.display());
         }
-        StringBuilder return_ = new StringBuilder(first().display());
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(SEP_INFO);
-            return_.append(get(i).display());
-        }
-        return return_.toString();
+        return l_.join(SEP_INFO);
     }
 
 }

@@ -14,7 +14,7 @@ public final class UndefinedConstructorError extends FoundErrorInterpret {
 
     @Override
     public String display(Classes _classes) {
-        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className,".",id,SEP_INFO);
+        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className,".",getId(),SEP_INFO);
     }
 
     public void setClassName(String _className) {

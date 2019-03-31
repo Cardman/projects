@@ -11,7 +11,11 @@ public final class BadFieldName extends FoundErrorInterpret {
 
     @Override
     public String display(Classes _classes) {
-        return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,name,SEP_INFO);
+        return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,getName(),SEP_INFO);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String _name) {

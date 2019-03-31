@@ -1224,7 +1224,7 @@ public final class RootBlockTest {
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(!classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
     public void test2Fail() {
@@ -1249,7 +1249,7 @@ public final class RootBlockTest {
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(!classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
     public void test3Fail() {
@@ -1274,7 +1274,7 @@ public final class RootBlockTest {
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(!classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
     public void test4Fail() {
@@ -1303,7 +1303,7 @@ public final class RootBlockTest {
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(!classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
     public void test5Fail() {
@@ -1326,7 +1326,7 @@ public final class RootBlockTest {
         classes_.validateIds(cont_,false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateOverridingInherit(cont_, false);
-        assertTrue(!classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
     public void test6Fail() {

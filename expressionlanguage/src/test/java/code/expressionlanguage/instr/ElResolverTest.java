@@ -1987,7 +1987,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $void getOverridenFour($int){}\n");
+        xml_.append(" $public $void getOverridenFour($int p){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = contextEl();

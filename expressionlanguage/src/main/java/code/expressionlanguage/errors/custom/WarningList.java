@@ -2,6 +2,7 @@ package code.expressionlanguage.errors.custom;
 
 import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
+import code.util.StringList;
 
 public class WarningList extends CustList<FoundWarningInterpret> {
 
@@ -11,16 +12,11 @@ public class WarningList extends CustList<FoundWarningInterpret> {
     }
 
     public String display(Classes _classes) {
-        if (isEmpty()) {
-            return EMPTY_STRING;
+        StringList l_ = new StringList();
+        for (FoundWarningInterpret f: this) {
+            l_.add(f.display(_classes));
         }
-        StringBuilder return_ = new StringBuilder(first().display(_classes));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(SEP_INFO);
-            return_.append(get(i).display(_classes));
-        }
-        return return_.toString();
+        return l_.join(SEP_INFO);
     }
 
 }

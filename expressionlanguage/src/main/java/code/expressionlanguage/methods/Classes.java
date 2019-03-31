@@ -292,6 +292,9 @@ public final class Classes {
     public ErrorList getErrorsDet() {
         return errorsDet;
     }
+    public String displayStdErrors() {
+        return stdErrorDet.display();
+    }
     public boolean isEmptyStdError() {
         return stdErrorDet.isEmpty();
     }

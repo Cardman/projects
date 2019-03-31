@@ -4259,6 +4259,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isEmptyErrors());
+        assertTrue(cont_.getClasses().displayErrors(),!cont_.getClasses().isEmptyErrors());
     }
 }

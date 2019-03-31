@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
+import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.BadParamName;
 import code.expressionlanguage.errors.custom.DuplicateField;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -200,11 +201,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         for (String n: names_) {
             String trName_ = n.trim();
             if (!_cont.isValidToken(trName_)) {
-                BadParamName b_;
-                b_ = new BadParamName();
+                BadFieldName b_;
+                b_ = new BadFieldName();
                 b_.setFileName(getFile().getFileName());
                 b_.setIndexFile(getOffset().getOffsetTrim());
-                b_.setParamName(n);
+                b_.setName(trName_);
                 _cont.getClasses().addError(b_);
             }
             for (String m: idsField_) {
