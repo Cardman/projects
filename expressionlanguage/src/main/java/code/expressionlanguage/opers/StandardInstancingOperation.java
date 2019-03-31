@@ -62,88 +62,137 @@ public final class StandardInstancingOperation extends
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String className_ = methodName.trim().substring(newKeyWord_.length());
+        ClassArgumentMatching arg_ = getPreviousResultClass();
+        StringMap<String> ownersMap_ = new StringMap<String>();
+        StringMap<String> vars_ = new StringMap<String>();
+        if (isIntermediateDottedOperation()) {
+            if (className_.trim().startsWith("..")) {
+                return;
+            }
+            if (arg_.isArray()) {
+                return;
+            }
+            String idClass_ = Templates.getIdFromAllTypes(className_).trim();
+            String glClass_ = _an.getGlobalClass();
+            for (String o: arg_.getNames()) {
+                boolean ok_ = true;
+                for (String p: Templates.getAllTypes(o).mid(1)) {
+                    if (p.startsWith(Templates.SUB_TYPE)) {
+                        ok_ = false;
+                    }
+                    if (p.startsWith(Templates.SUP_TYPE)) {
+                        ok_ = false;
+                    }
+                }
+                if (!ok_) {
+                    return;
+                }
+            }
+            for (String o: arg_.getNames()) {
+                StringList owners_ = TypeUtil.getGenericOwners(false,true, glClass_, o, idClass_, _an);
+                owners_.removeDuplicates();
+                if (owners_.size() == 1) {
+                    ownersMap_.put(o, owners_.first());
+                }
+            }
+            if (ownersMap_.size() != 1) {
+                return;
+            }
+            String sup_ = ownersMap_.values().first();
+            vars_ = Templates.getVarTypes(sup_,_an);
+        }
         String inferForm_ = Templates.getInferForm(className_);
         if (inferForm_ == null) {
             return;
         }
+        String type_;
+        int nbParentsInfer_ = 0;
+        OperationNode current_;
+        MethodOperation m_;
         if (!isIntermediateDottedOperation()) {
-            String type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
+            type_ = _an.resolveAccessibleIdTypeWithoutError(inferForm_);
             if (type_.isEmpty()) {
                 return;
             }
-            int nbParentsInfer_ = 0;
-            OperationNode current_ = this;
-            MethodOperation m_ = getParent();
-            while (m_ != null) {
-                if (!(m_ instanceof AbstractArrayElementOperation)) {
-                    if (m_ instanceof IdOperation) {
-                        current_ = current_.getParent();
-                        m_ = m_.getParent();
-                        continue;
-                    }
-                    if (m_ instanceof AbstractTernaryOperation) {
-                        if (m_.getFirstChild() == current_) {
-                            break;
-                        }
-                        current_ = current_.getParent();
-                        m_ = m_.getParent();
-                        continue;
-                    }
-                    break;
-                }
-                nbParentsInfer_++;
-                current_ = current_.getParent();
-                m_ = m_.getParent();
-            }
-            String typeAff_ = EMPTY_STRING;
-            Block cur_ = _an.getCurrentBlock();
-            if (m_ == null && cur_ instanceof ReturnMehod) {
-                FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
-                if (f_ instanceof NamedFunctionBlock) {
-                    NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                    String ret_ = n_.getImportedReturnType();
-                    String void_ = _an.getStandards().getAliasVoid();
-                    if (!StringList.quickEq(ret_, void_)) {
-                        typeAff_ = ret_;
-                    }
-                }
-            } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
-                AbstractForEachLoop i_ = (AbstractForEachLoop) _an.getCurrentBlock();
-                typeAff_ = i_.getImportedClassName();
-                if (!typeAff_.isEmpty()) {
-                    String iter_ = _an.getStandards().getAliasIterable();
-                    typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
-                }
-            } else if (m_ == null && cur_ instanceof ForEachTable) {
-                ForEachTable i_ = (ForEachTable) _an.getCurrentBlock();
-                String typeAffOne_ = i_.getImportedClassNameFirst();
-                String typeAffTwo_ = i_.getImportedClassNameSecond();
-                if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
-                    String iter_ = _an.getStandards().getAliasIterableTable();
-                    typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
-                }
-            } else if (m_ instanceof AffectationOperation) {
-                AffectationOperation a_ = (AffectationOperation) m_;
-                SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-                if (s_ != null) {
-                    ClassArgumentMatching c_ = s_.getResultClass();
-                    typeAff_ = c_.getSingleNameOrEmpty();
-                }
-            }
-            String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_)) {
-                return;
-            }
-            String cp_ = PrimitiveTypeUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
-            if (cp_ == null) {
-                return;
-            }
-            String infer_ = Templates.tryInfer(type_, cp_, _an);
-            if (infer_ == null) {
-                return;
-            }
-            typeInfer = infer_;
+            current_ = this;
+            m_ = getParent();
+        } else {
+            String idClass_ = Templates.getIdFromAllTypes(className_).trim();
+            String sup_ = ownersMap_.values().first();
+            String id_ = Templates.getIdFromAllTypes(sup_);
+            type_ = StringList.concat(id_,"..",idClass_);
+            current_ = getParent();
+            m_ = current_.getParent();
         }
+        while (m_ != null) {
+            if (!(m_ instanceof AbstractArrayElementOperation)) {
+                if (m_ instanceof IdOperation) {
+                    current_ = current_.getParent();
+                    m_ = m_.getParent();
+                    continue;
+                }
+                if (m_ instanceof AbstractTernaryOperation) {
+                    if (m_.getFirstChild() == current_) {
+                        break;
+                    }
+                    current_ = current_.getParent();
+                    m_ = m_.getParent();
+                    continue;
+                }
+                break;
+            }
+            nbParentsInfer_++;
+            current_ = current_.getParent();
+            m_ = m_.getParent();
+        }
+        String typeAff_ = EMPTY_STRING;
+        Block cur_ = _an.getCurrentBlock();
+        if (m_ == null && cur_ instanceof ReturnMehod) {
+            FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
+            if (f_ instanceof NamedFunctionBlock) {
+                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
+                String ret_ = n_.getImportedReturnType();
+                String void_ = _an.getStandards().getAliasVoid();
+                if (!StringList.quickEq(ret_, void_)) {
+                    typeAff_ = ret_;
+                }
+            }
+        } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
+            AbstractForEachLoop i_ = (AbstractForEachLoop) _an.getCurrentBlock();
+            typeAff_ = i_.getImportedClassName();
+            if (!typeAff_.isEmpty()) {
+                String iter_ = _an.getStandards().getAliasIterable();
+                typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
+            }
+        } else if (m_ == null && cur_ instanceof ForEachTable) {
+            ForEachTable i_ = (ForEachTable) _an.getCurrentBlock();
+            String typeAffOne_ = i_.getImportedClassNameFirst();
+            String typeAffTwo_ = i_.getImportedClassNameSecond();
+            if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
+                String iter_ = _an.getStandards().getAliasIterableTable();
+                typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
+            }
+        } else if (m_ instanceof AffectationOperation) {
+            AffectationOperation a_ = (AffectationOperation) m_;
+            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+            if (s_ != null) {
+                ClassArgumentMatching c_ = s_.getResultClass();
+                typeAff_ = c_.getSingleNameOrEmpty();
+            }
+        }
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_)) {
+            return;
+        }
+        String cp_ = PrimitiveTypeUtil.getQuickComponentType(typeAff_, nbParentsInfer_);
+        if (cp_ == null) {
+            return;
+        }
+        String infer_ = Templates.tryInfer(type_,vars_, cp_, _an);
+        if (infer_ == null) {
+            return;
+        }
+        typeInfer = infer_;
     }
 
     @Override
@@ -168,6 +217,10 @@ public final class StandardInstancingOperation extends
                 realClassName_ = realClassName_.trim();
             }
             analyzeCtor(_conf, realClassName_, firstArgs_);
+            return;
+        }
+        if (!typeInfer.isEmpty()) {
+            analyzeCtor(_conf, typeInfer, firstArgs_);
             return;
         }
         realClassName_ = realClassName_.trim();

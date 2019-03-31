@@ -1704,7 +1704,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.Number>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo",new StringMap<String>(), "pkg.ExFive<java.lang.Number>", cont_);
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -1722,7 +1722,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive", cont_));
     }
 
     @Test
@@ -1740,7 +1740,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExOther{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExOther", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExOther", cont_));
     }
 
     @Test
@@ -1757,7 +1757,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -1775,7 +1775,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -1793,7 +1793,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -1811,7 +1811,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?>>", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?>>", cont_));
     }
 
     @Test
@@ -1828,7 +1828,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<[java.lang.Number>>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<[java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -1846,7 +1846,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_));
     }
 
     @Test
@@ -1863,7 +1863,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_));
     }
 
     @Test
@@ -1880,7 +1880,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
     }
 
     @Test
@@ -1898,7 +1898,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(Templates.tryInfer("pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+        assertNull(Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
     }
     @Test
     public void tryInfer13Test() {
@@ -1915,7 +1915,7 @@ public final class TemplatesTest {
         xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = Templates.tryInfer("pkg.ExTwo", "pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", cont_);
+        String inferred_ = Templates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", cont_);
         assertEq("pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", inferred_);
     }
     @Test

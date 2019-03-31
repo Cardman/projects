@@ -279,7 +279,7 @@ public final class Templates {
         }
         return ContextEl.removeDottedSpaces(tr_);
     }
-    public static String tryInfer(String _erased, String _declaring, Analyzable _context) {
+    public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, Analyzable _context) {
         GeneType g_ = _context.getClassBody(_erased);
         String idParam_ = getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
@@ -374,6 +374,12 @@ public final class Templates {
         StringMap<StringList> multi_ = new StringMap<StringList>();
         for (String p: getAllTypes(gene_).mid(1)) {
             multi_.put(p, new StringList());
+        }
+        for (EntryCust<String,String> e: _vars.entryList()) {
+            multi_.put(StringList.concat(PREFIX_VAR_TYPE,e.getKey()), new StringList());
+        }
+        for (EntryCust<String,String> e: _vars.entryList()) {
+            multi_.getVal(StringList.concat(PREFIX_VAR_TYPE,e.getKey())).add(e.getValue());
         }
         for (InferenceConstraints i: found_) {
             String argLoc_ = i.getArg();
@@ -703,7 +709,7 @@ public final class Templates {
         }
         return formatted_;
     }
-    static StringMap<String> getVarTypes(String _className, Analyzable _context) {
+    public static StringMap<String> getVarTypes(String _className, Analyzable _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _context.getClassBody(className_);
