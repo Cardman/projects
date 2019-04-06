@@ -13,11 +13,6 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     @Override
     void analyze(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() != 1) {
-            _error.setIndex(getIndexInEl());
-            _error.setError(true);
-            return;
-        }
         if (chidren_.first().getResultClass()!= MathType.BOOLEAN) {
             _error.setIndex(getIndexInEl());
             _error.setError(true);

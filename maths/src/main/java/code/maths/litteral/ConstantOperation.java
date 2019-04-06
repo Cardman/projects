@@ -55,26 +55,19 @@ public final class ConstantOperation extends OperationNode {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        if (getArgument() != null) {
-            return;
-        }
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
         Argument a_;
         a_ = new Argument();
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
-            if (!Rate.isValid(_conf.getVal(str_))) {
-                _error.setString(_conf.getVal(str_));
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
             a_.setObject(new Rate(_conf.getVal(str_)));
         } else if (getResultClass() == MathType.BOOLEAN) {
             a_.setObject(StringList.quickEq(_conf.getVal(str_), TRUE_STRING));
         } else {
             MathList m_ = new MathList();
-            for (String e: StringList.splitChars(_conf.getVal(str_), DELIMITER_STRING_SEP)) {
+            String value_ = _conf.getVal(str_);
+            value_ = StringList.removeChars(value_,DELIMITER_STRING_BEGIN,DELIMITER_STRING_END);
+            for (String e: StringList.splitChars(value_, DELIMITER_STRING_SEP)) {
                 if (e.isEmpty()) {
                     continue;
                 }
@@ -128,13 +121,7 @@ public final class ConstantOperation extends OperationNode {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(false);
             setArgument(a_);
-            return;
         }
-    }
-
-    @Override
-    public OperationNode getFirstChild() {
-        return null;
     }
 
 }

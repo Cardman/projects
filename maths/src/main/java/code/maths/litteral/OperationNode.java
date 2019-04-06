@@ -104,8 +104,6 @@ abstract class OperationNode {
 
     private OperationNode nextSibling;
 
-    private Argument previousArgument;
-
     private Argument argument;
 
     private OperationsSequence operations;
@@ -113,8 +111,6 @@ abstract class OperationNode {
     private int indexInEl;
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
-
-    private StringMap<String> conf;
 
     private final int indexChild;
 
@@ -125,7 +121,6 @@ abstract class OperationNode {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
-        conf = _importingPage;
         indexChild = _indexChild;
     }
 
@@ -171,8 +166,6 @@ abstract class OperationNode {
         return null;
     }
 
-    public abstract OperationNode getFirstChild();
-
     public final OperationNode getNextSibling() {
         return nextSibling;
     }
@@ -207,10 +200,6 @@ abstract class OperationNode {
         order = _order;
     }
 
-    public StringMap<String> getConf() {
-        return conf;
-    }
-
     public int getIndexInEl() {
         return indexInEl;
     }
@@ -219,24 +208,12 @@ abstract class OperationNode {
         return indexChild;
     }
 
-    public Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
-    public void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
-
     public Argument getArgument() {
         return argument;
     }
 
     public void setArgument(Argument _argument) {
         argument = _argument;
-        OperationNode n_ = getNextSibling();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
     }
 
     public MathType getResultClass() {

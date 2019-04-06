@@ -57,7 +57,9 @@ public final class OperationsSequence {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            if (!str_.isEmpty()) {
+                values.put(beginValuePart_, str_);
+            }
             return;
         }
         int i_ = CustList.SECOND_INDEX;
@@ -84,10 +86,6 @@ public final class OperationsSequence {
         fctName = _fctName;
     }
 
-    public boolean isUseFct() {
-        return useFct;
-    }
-
     public void setUseFct(boolean _useFct) {
         useFct = _useFct;
     }
@@ -102,10 +100,6 @@ public final class OperationsSequence {
 
     public NatTreeMap<Integer, String> getValues() {
         return values;
-    }
-
-    public void setValues(NatTreeMap<Integer, String> _values) {
-        values = _values;
     }
 
     public NatTreeMap<Integer, String> getOperators() {

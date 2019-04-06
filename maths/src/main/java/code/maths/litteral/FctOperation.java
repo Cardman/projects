@@ -209,12 +209,7 @@ public final class FctOperation extends InvokingOperation {
                 _error.setError(true);
                 return;
             }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_.mid(CustList.SECOND_INDEX)){
+            for(OperationNode a:chidren_){
                 if (a.getResultClass() != MathType.RATE) {
                     _error.setIndex(getIndexInEl());
                     _error.setError(true);
@@ -231,12 +226,7 @@ public final class FctOperation extends InvokingOperation {
                 _error.setError(true);
                 return;
             }
-            if (chidren_.first().getResultClass() != MathType.RATE) {
-                _error.setIndex(getIndexInEl());
-                _error.setError(true);
-                return;
-            }
-            for(OperationNode a:chidren_.mid(CustList.SECOND_INDEX)){
+            for(OperationNode a:chidren_){
                 if (a.getResultClass() != MathType.RATE) {
                     _error.setIndex(getIndexInEl());
                     _error.setError(true);
@@ -993,22 +983,19 @@ public final class FctOperation extends InvokingOperation {
             setArgument(arg_);
             return;
         }
-        if (StringList.quickEq(methodName,NON_EQ_NUM)){
-            MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
-            MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
-            if (!textArgOne_.eq(textArgTwo_)) {
-                Argument arg_ = new Argument();
-                arg_.setArgClass(MathType.RATE);
-                arg_.setObject(Rate.one());
-                setArgument(arg_);
-                return;
-            }
+        MathList textArgOne_=(MathList) chidren_.first().getArgument().getObject();
+        MathList textArgTwo_=(MathList) chidren_.last().getArgument().getObject();
+        if (!textArgOne_.eq(textArgTwo_)) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.RATE);
-            arg_.setObject(Rate.zero());
+            arg_.setObject(Rate.one());
             setArgument(arg_);
             return;
         }
+        Argument arg_ = new Argument();
+        arg_.setArgClass(MathType.RATE);
+        arg_.setObject(Rate.zero());
+        setArgument(arg_);
     }
 
     @Override

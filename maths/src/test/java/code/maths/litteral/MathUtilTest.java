@@ -1350,11 +1350,86 @@ public class MathUtilTest {
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test
-    public void eval1Fail(){
+    public void evaluateExp2682Test(){
+        Argument a_ = MathUtil.processEl("+-1", false, new StringMap<String>());
+        assertEq(new Rate("-1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2683Test(){
+        Argument a_ = MathUtil.processEl("-+1", false, new StringMap<String>());
+        assertEq(new Rate("-1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2684Test(){
+        Argument a_ = MathUtil.processEl(" -1", false, new StringMap<String>());
+        assertEq(new Rate("-1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2685Test(){
+        Argument a_ = MathUtil.processEl(" +1", false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2686Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE\\;MY_STRING_TWO})", false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2687Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE\\\\MY_STRING_TWO})", false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2688Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE{MY_STRING_TWO})", false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void evaluateExp2689Test(){
+        Argument a_ = MathUtil.processEl("cardinal({MY_STRING_ONE\\}MY_STRING_TWO})", false, new StringMap<String>());
+        assertEq(new Rate("1"),(Rate)a_.getObject());
+    }
+    @Test
+    public void eval1(){
         StringMap<String> variables_ = new StringMap<String>();
         variables_.put("VARIABLE", "2");
         String numericString_ = "8:VARIABLE";
         assertEq(new Rate("4"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
+    }
+    @Test
+    public void eval2(){
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put("VARIABLE", "STR_ONE;STR_TWO");
+        String numericString_ = "cardinal({VARIABLE})";
+        assertEq(new Rate("2"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
+    }
+    @Test
+    public void eval3(){
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put("VARIABLE", "");
+        String numericString_ = "cardinal({VARIABLE})";
+        assertEq(new Rate("0"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
+    }
+    @Test
+    public void eval4(){
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put("VARIABLE", "{STR_ONE;STR_TWO}");
+        String numericString_ = "cardinal(VARIABLE)";
+        assertEq(new Rate("2"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
+    }
+    @Test
+    public void eval5(){
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put("VARIABLE", "{STR_ONE}");
+        String numericString_ = "cardinal(VARIABLE)";
+        assertEq(new Rate("1"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
+    }
+    @Test
+    public void eval6(){
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put("VARIABLE", "{}");
+        String numericString_ = "cardinal(VARIABLE)";
+        assertEq(new Rate("0"), (Rate)MathUtil.processEl(numericString_, false, variables_).getObject());
     }
     @Test
     public void check1(){
@@ -1685,6 +1760,401 @@ public class MathUtilTest {
     @Test
     public void evaluateExp_unknownVar_1Fail(){
         assertTrue(MathUtil.processEl("VAR__UNDEFINED+1", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_ltLt_Fail(){
+        assertTrue(MathUtil.processEl("1<2<3", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_minMin_Fail(){
+        assertTrue(MathUtil.processEl("--", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_plusPlus_Fail(){
+        assertTrue(MathUtil.processEl("++", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_eq_Fail(){
+        assertTrue(MathUtil.processEl("V!F", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_eq_2_Fail(){
+        assertTrue(MathUtil.processEl("V!", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_set_1_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_set_2_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({\\", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_set_3_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({\\a", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_sep_Fail(){
+        assertTrue(MathUtil.processEl("1,2", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_1_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({}", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_2_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({}))", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_3_Fail(){
+        assertTrue(MathUtil.processEl("cardinal({},{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_4_Fail(){
+        assertTrue(MathUtil.processEl("cardinal(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_5_Fail(){
+        assertTrue(MathUtil.processEl("puis(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_6_Fail(){
+        assertTrue(MathUtil.processEl("puis({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_7_Fail(){
+        assertTrue(MathUtil.processEl("puis(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_8_Fail(){
+        assertTrue(MathUtil.processEl("mod(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_9_Fail(){
+        assertTrue(MathUtil.processEl("mod({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_10_Fail(){
+        assertTrue(MathUtil.processEl("mod(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_11_Fail(){
+        assertTrue(MathUtil.processEl("quot(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_12_Fail(){
+        assertTrue(MathUtil.processEl("quot({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_13_Fail(){
+        assertTrue(MathUtil.processEl("quot(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_14_Fail(){
+        assertTrue(MathUtil.processEl("modtaux(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_15_Fail(){
+        assertTrue(MathUtil.processEl("modtaux({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_16_Fail(){
+        assertTrue(MathUtil.processEl("modtaux(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_17_Fail(){
+        assertTrue(MathUtil.processEl("div(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_18_Fail(){
+        assertTrue(MathUtil.processEl("div({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_19_Fail(){
+        assertTrue(MathUtil.processEl("div(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_20_Fail(){
+        assertTrue(MathUtil.processEl("ent({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_21_Fail(){
+        assertTrue(MathUtil.processEl("ent({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_22_Fail(){
+        assertTrue(MathUtil.processEl("abs({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_23_Fail(){
+        assertTrue(MathUtil.processEl("abs({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_24_Fail(){
+        assertTrue(MathUtil.processEl("troncature({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_25_Fail(){
+        assertTrue(MathUtil.processEl("troncature({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_26_Fail(){
+        assertTrue(MathUtil.processEl("num({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_27_Fail(){
+        assertTrue(MathUtil.processEl("num({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_28_Fail(){
+        assertTrue(MathUtil.processEl("den({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_29_Fail(){
+        assertTrue(MathUtil.processEl("den({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_30_Fail(){
+        assertTrue(MathUtil.processEl("max()", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_31_Fail(){
+        assertTrue(MathUtil.processEl("max({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_32_Fail(){
+        assertTrue(MathUtil.processEl("min()", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_33_Fail(){
+        assertTrue(MathUtil.processEl("min({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_34_Fail(){
+        assertTrue(MathUtil.processEl("moy()", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_35_Fail(){
+        assertTrue(MathUtil.processEl("moy({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_36_Fail(){
+        assertTrue(MathUtil.processEl("var()", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_37_Fail(){
+        assertTrue(MathUtil.processEl("var({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_38_Fail(){
+        assertTrue(MathUtil.processEl("sgn({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_39_Fail(){
+        assertTrue(MathUtil.processEl("sgn({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_40_Fail(){
+        assertTrue(MathUtil.processEl("caracferme({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_41_Fail(){
+        assertTrue(MathUtil.processEl("caracferme({},1,1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_42_Fail(){
+        assertTrue(MathUtil.processEl("caracferme(1,{},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_43_Fail(){
+        assertTrue(MathUtil.processEl("caracferme(1,1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_44_Fail(){
+        assertTrue(MathUtil.processEl("caracouvert({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_45_Fail(){
+        assertTrue(MathUtil.processEl("caracouvert({},1,1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_46_Fail(){
+        assertTrue(MathUtil.processEl("caracouvert(1,{},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_47_Fail(){
+        assertTrue(MathUtil.processEl("caracouvert(1,1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_48_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertg({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_49_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertg({},1,1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_50_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertg(1,{},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_51_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertg(1,1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_52_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertd({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_53_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertd({},1,1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_54_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertd(1,{},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_55_Fail(){
+        assertTrue(MathUtil.processEl("caracsemiouvertd(1,1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_56_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteouvert({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_57_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteouvert({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_58_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteouvert(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_59_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteferme({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_60_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteferme({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_61_Fail(){
+        assertTrue(MathUtil.processEl("caracdroiteferme(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_62_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheouvert({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_63_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheouvert({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_64_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheouvert(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_65_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheferme({})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_66_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheferme({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_67_Fail(){
+        assertTrue(MathUtil.processEl("caracgaucheferme(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_68_Fail(){
+        assertTrue(MathUtil.processEl("inter(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_69_Fail(){
+        assertTrue(MathUtil.processEl("inter({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_70_Fail(){
+        assertTrue(MathUtil.processEl("inter(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_71_Fail(){
+        assertTrue(MathUtil.processEl("union(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_72_Fail(){
+        assertTrue(MathUtil.processEl("union({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_73_Fail(){
+        assertTrue(MathUtil.processEl("union(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_74_Fail(){
+        assertTrue(MathUtil.processEl("complementaire(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_75_Fail(){
+        assertTrue(MathUtil.processEl("complementaire({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_76_Fail(){
+        assertTrue(MathUtil.processEl("complementaire(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_77_Fail(){
+        assertTrue(MathUtil.processEl("inclusnum(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_78_Fail(){
+        assertTrue(MathUtil.processEl("inclusnum({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_79_Fail(){
+        assertTrue(MathUtil.processEl("inclusnum(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+
+    @Test
+    public void evaluateExp_bad_call_80_Fail(){
+        assertTrue(MathUtil.processEl("noninclusnum(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_81_Fail(){
+        assertTrue(MathUtil.processEl("noninclusnum({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_82_Fail(){
+        assertTrue(MathUtil.processEl("noninclusnum(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_83_Fail(){
+        assertTrue(MathUtil.processEl("egalnum(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_84_Fail(){
+        assertTrue(MathUtil.processEl("egalnum({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_85_Fail(){
+        assertTrue(MathUtil.processEl("egalnum(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_86_Fail(){
+        assertTrue(MathUtil.processEl("differentnum(1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_87_Fail(){
+        assertTrue(MathUtil.processEl("differentnum({},1)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_bad_call_88_Fail(){
+        assertTrue(MathUtil.processEl("differentnum(1,{})", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
     @Test
     public void evaluateExp268Test(){
@@ -2185,5 +2655,149 @@ public class MathUtilTest {
     public void evaluateExp367Test(){
         Argument a_ = MathUtil.processEl("1+1!=2&1:0=8", false, new StringMap<String>());
         assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp368Test(){
+        Argument a_ = MathUtil.processEl("!V", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp369Test(){
+        Argument a_ = MathUtil.processEl("!F", false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp370Test(){
+        Argument a_ = MathUtil.processEl("!!V", false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp371Test(){
+        Argument a_ = MathUtil.processEl("!!F", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp372Test(){
+        Argument a_ = MathUtil.processEl("! !V", false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp373Test(){
+        Argument a_ = MathUtil.processEl("! !F", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp374Test(){
+        Argument a_ = MathUtil.processEl("F&V ", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp375Test(){
+        Argument a_ = MathUtil.processEl("V&F", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp376Test(){
+        StringMap<String> vars_ = new StringMap<String>();
+        vars_.put("VARIABLE","F");
+        Argument a_ = MathUtil.processEl("VARIABLE", false, vars_);
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp377Test(){
+        StringMap<String> vars_ = new StringMap<String>();
+        vars_.put("VARIABLE","V");
+        Argument a_ = MathUtil.processEl("VARIABLE", false, vars_);
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp378Test(){
+        Argument a_ = MathUtil.processEl("{}={}", false, new StringMap<String>());
+        assertEq(true,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp379Test(){
+        Argument a_ = MathUtil.processEl("{}={ONE}", false, new StringMap<String>());
+        assertEq(false,(Boolean)a_.getObject());
+    }
+    @Test
+    public void evaluateExp_no_op_56_Fail(){
+        assertTrue(MathUtil.processEl("1#2", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_57_Fail(){
+        assertTrue(MathUtil.processEl("div(2,2)div(3,3)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_58_Fail(){
+        assertTrue(MathUtil.processEl("div(2,2)div", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_59_Fail(){
+        assertTrue(MathUtil.processEl("1!=2!=3", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_60_Fail(){
+        assertTrue(MathUtil.processEl("1!={}", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_61_Fail(){
+        assertTrue(MathUtil.processEl("(div(2,2)div)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_62_Fail(){
+        assertTrue(MathUtil.processEl("(1+div(2,2)div)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_63_Fail(){
+        assertTrue(MathUtil.processEl("!1", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_64_Fail(){
+        assertTrue(MathUtil.processEl("1&2", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_65_Fail(){
+        assertTrue(MathUtil.processEl("-V", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_66_Fail(){
+        assertTrue(MathUtil.processEl("V<1", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_67_Fail(){
+        assertTrue(MathUtil.processEl("1<V", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_68_Fail(){
+        assertTrue(MathUtil.processEl("(1,2)", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_69_Fail(){
+        assertTrue(MathUtil.processEl("V+1", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_70_Fail(){
+        assertTrue(MathUtil.processEl("1+V", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_71_Fail(){
+        assertTrue(MathUtil.processEl("V*1", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_no_op_72_Fail(){
+        assertTrue(MathUtil.processEl("1*V", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_empty_Fail(){
+        assertTrue(MathUtil.processEl("", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
+    public void evaluateExp_empty2_Fail(){
+        assertEq("",((ErrorStatus)MathUtil.processEl("", false, new StringMap<String>()).getObject()).getString());
+    }
+    @Test
+    public void evaluateExp_empty3_Fail(){
+        assertEq(0,((ErrorStatus)MathUtil.processEl("", false, new StringMap<String>()).getObject()).getIndex());
     }
 }

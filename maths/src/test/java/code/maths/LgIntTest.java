@@ -160,7 +160,13 @@ public class LgIntTest {
         assertEqDigits(new Numbers<Long>(12L,1L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
-
+    @Test
+    public void new_LgInt_String_14Test(){
+        LgInt int_ = new LgInt("");
+        Numbers<Long> resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
 
     private static void assertEqDigits(Numbers<Long> _expected, Numbers<Long> _result) {
         int expectedLen_ = _expected.size();

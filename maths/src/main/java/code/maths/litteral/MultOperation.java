@@ -22,6 +22,7 @@ public final class MultOperation extends NumericOperation {
     MathType analyzeOper(MathType _a, String _op, MathType _b, int _offset, ErrorStatus _error) {
         if (_a != MathType.RATE || _b != MathType.RATE) {
             _error.setIndex(_offset);
+            _error.setError(true);
             return MathType.NOTHING;
         }
         return getResultClass(_a, _b);

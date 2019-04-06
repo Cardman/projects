@@ -5,7 +5,6 @@ import code.util.StringList;
 
 public class Delimiters {
 
-    private int indexBegin;
     private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
     private Numbers<Integer> delStringsChars = new Numbers<Integer>();
     private Numbers<Integer> delNumbers = new Numbers<Integer>();
@@ -15,13 +14,6 @@ public class Delimiters {
 
     public Numbers<Integer> getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
-    }
-
-    public int getIndexBegin() {
-        return indexBegin;
-    }
-    public void setIndexBegin(int _indexBegin) {
-        indexBegin = _indexBegin;
     }
 
     public Numbers<Integer> getDelStringsChars() {

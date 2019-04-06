@@ -54,9 +54,6 @@ final class MathUtil {
             if (c_ == null) {
                 break;
             }
-            if (_error.isError()) {
-                return list_;
-            }
             c_ = getAnalyzedNext(c_, _root, list_, _context, _error);
         }
         return list_;
@@ -83,6 +80,9 @@ final class MathUtil {
             }
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _context, _error);
+            if (_error.isError()) {
+                return null;
+            }
             if (next_ != null) {
                 next_.getParent().appendChild(next_);
                 return next_;
@@ -150,10 +150,9 @@ final class MathUtil {
         }
         return op_;
     }
-    public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
+    public static CustList<OperationNode> getDirectChildren(MethodOperation _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        OperationNode firstChild_ = _element.getFirstChild();
-        OperationNode elt_ = firstChild_;
+        OperationNode elt_ = _element.getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
             elt_ = elt_.getNextSibling();
@@ -177,13 +176,5 @@ final class MathUtil {
             Object st_ = res_.getObject();
             fr_ = OperationNode.getNextIndex(o, st_);
         }
-//        for (OperationNode e: _nodes) {
-//            if (!e.isCalculated()) {
-//                e.calculate(_context, _error);
-//                if (_error.isError()) {
-//                    return;
-//                }
-//            }
-//        }
     }
 }

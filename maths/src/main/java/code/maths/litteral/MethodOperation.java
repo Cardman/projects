@@ -25,7 +25,6 @@ public abstract class MethodOperation extends OperationNode {
 
     abstract void calculateChildren();
 
-    @Override
     public final OperationNode getFirstChild() {
         return firstChild;
     }

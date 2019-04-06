@@ -142,9 +142,10 @@ public final class MathResolver {
                         break;
                     }
                     name_.append(last_);
-                    var_.setLastChar(i_);
                     i_++;
                 }
+                var_.setLastChar(i_);
+                var_.setName(name_.toString());
                 d_.getVariables().add(var_);
                 continue;
             }
@@ -153,12 +154,6 @@ public final class MathResolver {
                 d_.getNbInfos().last().insert(0,DOT);
                 i_ = j_;
                 continue;
-            }
-            if (curChar_ == ESCAPE_META_CHAR) {
-                _error.setIndex(i_);
-                _error.setError(true);
-                _error.setString(_string);
-                return d_;
             }
             if (curChar_ == DELIMITER_STRING_BEGIN) {
                 constString_ = true;
@@ -170,12 +165,6 @@ public final class MathResolver {
             }
             if (curChar_ == PAR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
-                    _error.setIndex(i_);
-                    _error.setError(true);
-                    _error.setString(_string);
-                    return d_;
-                }
-                if (parsBrackets_.lastValue() != PAR_LEFT) {
                     _error.setIndex(i_);
                     _error.setError(true);
                     _error.setString(_string);
@@ -290,7 +279,6 @@ public final class MathResolver {
             _error.setString(_string);
             return d_;
         }
-        d_.setIndexBegin(0);
         return d_;
     }
     private static int addNumberInfo(Delimiters _d, int _from, int _begin,String _string) {
@@ -447,6 +435,7 @@ public final class MathResolver {
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
                     useFct_ = true;
                     fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
+                    operators_.clear();
                     operators_.put(i_, String.valueOf(PAR_LEFT));
                 }
                 parsBrackets_.put(i_, curChar_);
@@ -463,10 +452,6 @@ public final class MathResolver {
                 continue;
             }
             if (!parsBrackets_.isEmpty()) {
-                i_++;
-                continue;
-            }
-            if (i_ + 2 > len_) {
                 i_++;
                 continue;
             }
@@ -491,11 +476,9 @@ public final class MathResolver {
                             increment_ = 2;
                         }
                     } else {
-                        if (prio_ > EQ_PRIO) {
-                            prio_ = EQ_PRIO;
-                            clearOperators_ = true;
-                            foundOperator_ = true;
-                        }
+                        prio_ = EQ_PRIO;
+                        clearOperators_ = true;
+                        foundOperator_ = true;
                     }
                 } else {
                     prio_ = EQ_PRIO;
