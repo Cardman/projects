@@ -56,6 +56,7 @@ public class LgNamesUtils extends LgNames {
     private String aliasRead;
     private String aliasWrite;
     private String aliasAppendToFile;
+    private String aliasIllegalThreadStateException;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -213,6 +214,11 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasFile, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasIllegalThreadStateException, fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
+        getStandards().put(aliasIllegalThreadStateException, stdcl_);
     }
     @Override
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
@@ -375,8 +381,12 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasStart)) {
                 Thread thread_ = (Thread)((StdStruct) _instance).getInstance();
-                thread_.start();
-                res_.setResult(NullStruct.NULL_VALUE);
+                try {
+                    thread_.start();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                } catch (Exception e) {
+                    res_.setError(getAliasIllegalThreadStateException());
+                }
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSleep)) {
@@ -388,7 +398,7 @@ public class LgNamesUtils extends LgNames {
                 try {
                     Thread.sleep(((NumberStruct)_args[0]).getInstance().longValue());
                     res_.setResult(new BooleanStruct(true));
-                } catch (InterruptedException _0) {
+                } catch (Exception _0) {
                     res_.setResult(new BooleanStruct(false));
                 }
                 return res_;
@@ -434,8 +444,12 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasSetPriority)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                thread_.setPriority(((NumberStruct)_args[0]).getInstance().intValue());
-                res_.setResult(NullStruct.NULL_VALUE);
+                try {
+                    thread_.setPriority(((NumberStruct)_args[0]).getInstance().intValue());
+                    res_.setResult(NullStruct.NULL_VALUE);
+                } catch (Exception e) {
+                    res_.setError(getAliasIllegalArg());
+                }
                 return res_;
             }
             if (StringList.quickEq(name_,aliasYield)) {
@@ -464,8 +478,12 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasUnlock)) {
                 ReentrantLock re_ = (ReentrantLock) ((StdStruct) _instance).getInstance();
-                re_.unlock();
-                res_.setResult(NullStruct.NULL_VALUE);
+                if (!re_.isHeldByCurrentThread()) {
+                    res_.setError(getAliasIllegalThreadStateException());
+                } else {
+                    re_.unlock();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                }
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
@@ -658,6 +676,7 @@ public class LgNamesUtils extends LgNames {
         ref_.add(getAliasAtomicInteger());
         ref_.add(getAliasAtomicLong());
         ref_.add(getAliasFile());
+        ref_.add(getAliasIllegalThreadStateException());
         return ref_;
     }
 
@@ -829,6 +848,14 @@ public class LgNamesUtils extends LgNames {
 		aliasAppendToFile = _aliasAppendToFile;
 	}
 
+    public String getAliasIllegalThreadStateException() {
+        return aliasIllegalThreadStateException;
+    }
+
+    public void setAliasIllegalThreadStateException(String _aliasIllegalThreadStateException) {
+        aliasIllegalThreadStateException = _aliasIllegalThreadStateException;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -858,6 +885,7 @@ public class LgNamesUtils extends LgNames {
             setAliasRead("read");
             setAliasWrite("write");
             setAliasAppendToFile("appendToFile");
+            setAliasIllegalThreadStateException("$core.IllegalThreadState");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -886,6 +914,7 @@ public class LgNamesUtils extends LgNames {
             setAliasRead("lire");
             setAliasWrite("ecrire");
             setAliasAppendToFile("ajouterFinFichier");
+            setAliasIllegalThreadStateException("$coeur.IllegalEtatTache");
         }
     }
 }
