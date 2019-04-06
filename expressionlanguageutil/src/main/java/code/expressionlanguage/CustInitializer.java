@@ -26,7 +26,7 @@ public class CustInitializer extends DefaultInitializer {
         String base_ = Templates.getIdFromAllTypes(_className);
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
         if (PrimitiveTypeUtil.canBeUseAsArgument(run_, base_, _context)) {
-            return new RunnableContextEl(_context, _className, _fieldName, _ordinal, _fields, _parent);
+            return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent);
         }
         return super.init(_context, _parent, _className, _fieldName, _ordinal, _fields);
     }

@@ -628,7 +628,7 @@ public abstract class LgNames {
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (_cont.getKeyWords().isKeyWord(k)) {
+                if (_cont.getKeyWords().isKeyWordNotVar(k)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.concat("key word ", k));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);

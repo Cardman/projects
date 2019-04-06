@@ -259,14 +259,13 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            Thread thread_ = new Thread((Runnable)_args[0]);
-            CustInitializer init_ = (CustInitializer) _cont.getInit();
-            StringBuilder dtPart_ = new StringBuilder();
-            dtPart_.append(getDateTimeText("_", "_", "_"));
-            dtPart_.append("__");
-            dtPart_.append(init_.increment());
-            dtPart_.append(".txt");
-            init_.putNewCustTreadIdDate(thread_, dtPart_.toString());
+            Struct runnable_ = _args[0];
+            Thread thread_;
+            if (runnable_ instanceof Runnable) {
+                thread_ = new Thread((Runnable) runnable_);
+            } else {
+                thread_ = new Thread((Runnable) null);
+            }
             StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
             res_.setResult(std_);
             return res_;
