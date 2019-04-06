@@ -25,7 +25,6 @@ public final class IdOperation extends MethodOperation {
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.first().getArgument());
-        setNextSiblingsArg(chidren_.first().getArgument());
     }
 
     @Override

@@ -3,7 +3,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 
-public abstract class QuickOperation extends PrimitiveBoolOperation {
+public abstract class QuickOperation extends PrimitiveBoolOperation implements ReductibleOperable{
 
     public QuickOperation(String _el, int _index, StringMap<String> _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -26,7 +26,38 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setArgument(chidren_.last().getArgument());
-        setNextSiblingsArg(chidren_.last().getArgument());
+        OperationNode first_ = chidren_.first();
+        Argument f_ = first_.getArgument();
+        Object abs_ = f_.getObject();
+        if (abs_ == (Boolean)absorbingStruct()) {
+            setArgument(f_);
+            return;
+        }
+        OperationNode last_ = chidren_.last();
+        Argument a_ = last_.getArgument();
+        setArgument(a_);
     }
+
+    @Override
+    public void tryCalculateNode(StringMap<String> _conf, ErrorStatus _error) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode first_ = chidren_.first();
+        OperationNode last_ = chidren_.last();
+        Argument f_ = first_.getArgument();
+        Argument s_ = last_.getArgument();
+        if (f_ == null) {
+            return;
+        }
+        Object v_ = f_.getObject();
+        if (v_ == (Boolean)absorbingStruct()) {
+            setArgument(f_);
+            return;
+        }
+        if (s_ == null) {
+            return;
+        }
+        setArgument(s_);
+    }
+
+    public abstract boolean absorbingStruct();
 }

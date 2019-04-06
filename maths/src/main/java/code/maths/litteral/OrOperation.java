@@ -10,6 +10,11 @@ public class OrOperation extends QuickOperation {
     }
 
     @Override
+    public boolean absorbingStruct() {
+        return true;
+    }
+
+    @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);

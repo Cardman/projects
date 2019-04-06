@@ -36,7 +36,6 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         a_.setArgClass(MathType.BOOLEAN);
         a_.setObject(b_);
         setArgument(a_);
-        setNextSiblingsArg(a_);
     }
 
     @Override

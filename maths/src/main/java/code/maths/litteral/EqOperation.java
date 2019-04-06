@@ -64,7 +64,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
             arg_.setObject(b_);
         }
         setArgument(arg_);
-        setNextSiblingsArg(arg_);
     }
 
     @Override

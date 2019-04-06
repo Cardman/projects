@@ -10,6 +10,11 @@ public final class AndOperation extends QuickOperation {
     }
 
     @Override
+    public boolean absorbingStruct() {
+        return false;
+    }
+
+    @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);

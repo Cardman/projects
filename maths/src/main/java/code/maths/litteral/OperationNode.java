@@ -5,20 +5,13 @@ import code.util.StringMap;
 
 abstract class OperationNode {
 
-    protected static final char ESCAPE_META_CHAR = '\\';
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
     protected static final char DELIMITER_STRING_END = '}';
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
-    protected static final String PAR_RIGHT_STR = ")";
-    protected static final char SEP_ARG = ',';
     protected static final String TRUE_STRING = "V";
     protected static final String FALSE_STRING = "F";
-
-    protected static final String FCT = "(";
-
-    protected static final String ARR = "[";
 
     protected static final String NEG_BOOL = "!";
 
@@ -27,8 +20,6 @@ abstract class OperationNode {
     protected static final String UNARY_MINUS = "-";
 
     protected static final String MULT = "*";
-
-    protected static final String DIV = ":";
 
     protected static final String PLUS = "+";
 
@@ -45,8 +36,6 @@ abstract class OperationNode {
     protected static final String EQ = "=";
 
     protected static final String DIFF = "!=";
-
-    protected static final String AND = "&";
 
     protected static final String OR = "|";
     protected static final String PUIS = "puis";
@@ -129,10 +118,7 @@ abstract class OperationNode {
 
     private final int indexChild;
 
-    private MathType previousResultClass;
     private MathType resultClass;
-
-    private boolean needPrevious;
 
 
     OperationNode(String _el, int _indexInEl, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -148,59 +134,41 @@ abstract class OperationNode {
 
     static OperationNode createOperationNode(String _el, int _index, StringMap<String> _conf,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        String value_ = _el;
         if (_op.getOperators().isEmpty()) {
-            return new ConstantOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new ConstantOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.FCT_OPER_PRIO) {
             if (_op.getFctName().trim().isEmpty()) {
-                return new IdOperation(value_, _index, _conf, _indexChild, _m, _op);
+                return new IdOperation(_el, _index, _conf, _indexChild, _m, _op);
             }
-            return new FctOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new FctOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.UNARY_PRIO) {
             int key_ = _op.getOperators().firstKey();
             if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
-                return new UnaryBooleanOperation(value_, _index, _conf, _indexChild, _m, _op);
+                return new UnaryBooleanOperation(_el, _index, _conf, _indexChild, _m, _op);
             }
-            return new UnaryOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new UnaryOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.MULT_PRIO) {
-            return new MultOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new MultOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.ADD_PRIO) {
-            return new AddOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new AddOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.CMP_PRIO) {
-            return new CmpOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new CmpOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.EQ_PRIO) {
-            return new EqOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new EqOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.AND_PRIO) {
-            return new AndOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new AndOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == MathResolver.OR_PRIO) {
-            return new OrOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new OrOperation(_el, _index, _conf, _indexChild, _m, _op);
         }
         return null;
-    }
-
-    abstract boolean isFirstChild();
-
-    boolean isAnalyzed() {
-        return resultClass != null;
-    }
-
-    boolean isCalculated() {
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
     }
 
     public abstract OperationNode getFirstChild();
@@ -212,52 +180,17 @@ abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static MathType[] getClasses(Argument... _args) {
-        int len_ = _args.length;
-        MathType[] classes_ = new MathType[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getArgClass();
+    static int getNextIndex(OperationNode _operation, Object _value) {
+        MethodOperation par_ = _operation.getParent();
+        if (par_ instanceof QuickOperation) {
+            QuickOperation q_ = (QuickOperation) par_;
+            Boolean bs_ = q_.absorbingStruct();
+            if (bs_ == _value) {
+                return par_.getOrder();
+            }
         }
-        return classes_;
+        return _operation.getOrder() + 1;
     }
-
-    static Object[] getObjects(Argument... _args) {
-        int len_ = _args.length;
-        Object[] classes_ = new Object[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getObject();
-        }
-        return classes_;
-    }
-
-    void setNextSiblingsArg(Argument _arg) {
-        Object o_ = _arg.getObject();
-        if (_arg.getArgClass() != MathType.BOOLEAN) {
-            return;
-        }
-        Boolean b_ = (Boolean) o_;
-        OperationNode par_ = getParent();
-        if (b_ && par_ instanceof OrOperation) {
-            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            for (OperationNode s: MathUtil.getDirectChildren(par_)) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                opers_.get(i).setArgument(_arg);
-            }
-        } else if (!b_ && par_ instanceof AndOperation) {
-            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            for (OperationNode s: MathUtil.getDirectChildren(par_)) {
-                opers_.add(s);
-            }
-            int len_ = opers_.size();
-            for (int i = getIndexChild() + 1; i < len_; i++) {
-                opers_.get(i).setArgument(_arg);
-            }
-        }
-    }
-
     public MethodOperation getParent() {
         return parent;
     }
@@ -306,31 +239,12 @@ abstract class OperationNode {
         }
     }
 
-    public MathType getPreviousResultClass() {
-        return previousResultClass;
-    }
-
-    public void setPreviousResultClass(MathType _previousResultClass) {
-        previousResultClass = _previousResultClass;
-    }
-
     public MathType getResultClass() {
         return resultClass;
     }
 
     public void setResultClass(MathType _resultClass) {
         resultClass = _resultClass;
-        OperationNode n_ = getNextSibling();
-        if (n_ != null) {
-            n_.setPreviousResultClass(resultClass);
-        }
     }
 
-    public boolean isNeedPrevious() {
-        return needPrevious;
-    }
-
-    public void setNeedPrevious(boolean _needPrevious) {
-        needPrevious = _needPrevious;
-    }
 }

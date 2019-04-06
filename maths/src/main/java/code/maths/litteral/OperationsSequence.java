@@ -16,10 +16,16 @@ public final class OperationsSequence {
 
     private NatTreeMap<Integer,String> operators;
 
-    private boolean boolvalue;
-
     private Delimiters delimiter;
 
+    private ConstType constType;
+
+    private int indexCst;
+
+    public void setupValue(String _string) {
+        values = new NatTreeMap<Integer,String>();
+        values.put((int)CustList.FIRST_INDEX, _string);
+    }
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
@@ -37,12 +43,6 @@ public final class OperationsSequence {
             //not unary priority, not identity priority
             str_ = _string.substring(beginValuePart_, endValuePart_);
             values.put(beginValuePart_, str_);
-        } else if (priority != MathResolver.UNARY_PRIO) {
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            if (!str_.trim().isEmpty()) {
-                //let analyze this
-                values.put(beginValuePart_, str_);
-            }
         }
         if (priority == MathResolver.FCT_OPER_PRIO) {
             int afterLastPar_ = operators.lastKey()+1;
@@ -53,13 +53,11 @@ public final class OperationsSequence {
                 return;
             }
         }
-        if (useFct && operators.size() == 2) {
+        if (priority == MathResolver.FCT_OPER_PRIO && operators.size() == 2) {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             endValuePart_ = operators.getKey(CustList.SECOND_INDEX);
             str_ = _string.substring(beginValuePart_, endValuePart_);
-            if (!str_.trim().isEmpty()) {
-                values.put(beginValuePart_, str_);
-            }
+            values.put(beginValuePart_, str_);
             return;
         }
         int i_ = CustList.SECOND_INDEX;
@@ -118,14 +116,6 @@ public final class OperationsSequence {
         operators = _operators;
     }
 
-    public boolean isBoolvalue() {
-        return boolvalue;
-    }
-
-    public void setBoolvalue(boolean _boolvalue) {
-        boolvalue = _boolvalue;
-    }
-
     public Delimiters getDelimiter() {
         return delimiter;
     }
@@ -134,4 +124,19 @@ public final class OperationsSequence {
         delimiter = _delimiter;
     }
 
+    public ConstType getConstType() {
+        return constType;
+    }
+
+    public void setConstType(ConstType _constType) {
+        constType = _constType;
+    }
+
+    public int getIndexCst() {
+        return indexCst;
+    }
+
+    public void setIndexCst(int _indexCst) {
+        indexCst = _indexCst;
+    }
 }

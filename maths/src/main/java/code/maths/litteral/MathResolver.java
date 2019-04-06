@@ -1,8 +1,5 @@
 package code.maths.litteral;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class MathResolver {
@@ -53,19 +50,13 @@ public final class MathResolver {
     private MathResolver(){
     }
 
-    static Delimiters checkSyntax(String _string, int _elOffest, ErrorStatus _error) {
+    static Delimiters checkSyntax(String _string, ErrorStatus _error) {
         Delimiters d_ = new Delimiters();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
         boolean constString_ = false;
         boolean escapedMeta_ = false;
         int len_ = _string.length();
-        if (len_ == CustList.SIZE_EMPTY) {
-            _error.setIndex(_elOffest);
-            _error.setError(true);
-            _error.setString(_string);
-            return d_;
-        }
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
@@ -81,7 +72,7 @@ public final class MathResolver {
             return d_;
         }
         i_ = CustList.FIRST_INDEX;
-        int beginCharString_ = 0;
+        StringBuilder elt_ = new StringBuilder();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constString_) {
@@ -98,25 +89,36 @@ public final class MathResolver {
                         continue;
                     }
                     if (curChar_ == DELIMITER_STRING_END) {
+                        d_.getDelStringsChars().add(i_);
+                        d_.getStringInfo().last().add(elt_.toString());
+                        elt_.delete(0, elt_.length());
                         constString_ = false;
-                        d_.getDelimitersStringsChars().put(beginCharString_, i_);
                         i_++;
                         continue;
+                    }
+                    if (curChar_ == DELIMITER_STRING_SEP) {
+                        d_.getStringInfo().last().add(elt_.toString());
+                        elt_.delete(0, elt_.length());
+                    } else {
+                        elt_.append(curChar_);
                     }
                     i_++;
                     continue;
                 }
                 if (curChar_ == DELIMITER_STRING_END) {
+                    elt_.append(curChar_);
                     escapedMeta_ = false;
                     i_++;
                     continue;
                 }
                 if (curChar_ == DELIMITER_STRING_SEP) {
+                    elt_.append(curChar_);
                     escapedMeta_ = false;
                     i_++;
                     continue;
                 }
                 if (curChar_ == ESCAPE_META_CHAR) {
+                    elt_.append(curChar_);
                     escapedMeta_ = false;
                     i_++;
                     continue;
@@ -127,30 +129,29 @@ public final class MathResolver {
                 return d_;
             }
             if (StringList.isWordChar(curChar_)) {
-                if (i_ + 1 < len_) {
-                    if (Character.isWhitespace(_string.charAt(i_ + 1))) {
-                        int j_ = i_ + 2;
-                        while (j_ < len_) {
-                            if (Character.isWhitespace(_string.charAt(j_))) {
-                                j_++;
-                                continue;
-                            }
-                            if (StringList.isWordChar(_string.charAt(j_))) {
-                                _error.setIndex(j_);
-                                _error.setError(true);
-                                _error.setString(_string);
-                                return d_;
-                            }
-                            break;
-                        }
-                    }
+                if (Character.isDigit(curChar_)) {
+                    i_ = addNumberInfo(d_,i_,i_,_string);
+                    continue;
                 }
+                VariableInfo var_ = new VariableInfo();
+                var_.setFirstChar(i_);
+                StringBuilder name_ = new StringBuilder();
                 while (i_ < len_) {
-                    if (!StringList.isWordChar(_string.charAt(i_))) {
+                    char last_ = _string.charAt(i_);
+                    if (!StringList.isWordChar(last_)) {
                         break;
                     }
+                    name_.append(last_);
+                    var_.setLastChar(i_);
                     i_++;
                 }
+                d_.getVariables().add(var_);
+                continue;
+            }
+            if (curChar_ == DOT) {
+                int j_ = addNumberInfo(d_, i_ + 1, i_,_string);
+                d_.getNbInfos().last().insert(0,DOT);
+                i_ = j_;
                 continue;
             }
             if (curChar_ == ESCAPE_META_CHAR) {
@@ -161,25 +162,8 @@ public final class MathResolver {
             }
             if (curChar_ == DELIMITER_STRING_BEGIN) {
                 constString_ = true;
-                beginCharString_ = i_;
-            }
-            if (curChar_ == NEG_BOOL_CHAR || curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                int j_ = i_ + 1;
-                boolean exist_ = false;
-                while (j_ < len_) {
-                    if (Character.isWhitespace(_string.charAt(j_))) {
-                        exist_ = true;
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(j_) == EQ_CHAR && exist_) {
-                        _error.setIndex(j_);
-                        _error.setError(true);
-                        _error.setString(_string);
-                        return d_;
-                    }
-                    break;
-                }
+                d_.getDelStringsChars().add(i_);
+                d_.getStringInfo().add(new StringList());
             }
             if (curChar_ == PAR_LEFT) {
                 parsBrackets_.put(i_, curChar_);
@@ -197,7 +181,6 @@ public final class MathResolver {
                     _error.setString(_string);
                     return d_;
                 }
-                d_.getCallings().put(parsBrackets_.lastKey(), i_);
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
@@ -290,9 +273,6 @@ public final class MathResolver {
             if (curChar_ == PAR_RIGHT) {
                 idOp_ = true;
             }
-            if (curChar_ == SEP_ARG) {
-                idOp_ = true;
-            }
             if (idOp_) {
                 d_.getAllowedOperatorsIndexes().add(i_);
             }
@@ -310,9 +290,53 @@ public final class MathResolver {
             _error.setString(_string);
             return d_;
         }
-        d_.setIndexBegin(_elOffest);
-        d_.setIndexEnd(i_-1);
+        d_.setIndexBegin(0);
         return d_;
+    }
+    private static int addNumberInfo(Delimiters _d, int _from, int _begin,String _string) {
+        StringBuilder nbInfo_ = new StringBuilder();
+        int len_ = _string.length();
+        int i_ = _from;
+        boolean stop_ = false;
+        while (i_ < len_) {
+            char cur_ = _string.charAt(i_);
+            if (Character.isDigit(cur_)) {
+                nbInfo_.append(cur_);
+                i_++;
+                continue;
+            }
+            if (cur_ == DOT) {
+                nbInfo_.append(cur_);
+                i_++;
+                break;
+            }
+            if (cur_ == SEP_RATE) {
+                nbInfo_.append(cur_);
+                i_++;
+                break;
+            }
+            stop_ = true;
+            break;
+        }
+        if (i_ >= len_ || stop_) {
+            _d.getDelNumbers().add(_begin);
+            _d.getDelNumbers().add(i_);
+            _d.getNbInfos().add(nbInfo_);
+            return i_;
+        }
+        while (i_ < len_) {
+            char cur_ = _string.charAt(i_);
+            if (Character.isDigit(cur_)) {
+                nbInfo_.append(cur_);
+                i_++;
+                continue;
+            }
+            break;
+        }
+        _d.getDelNumbers().add(_begin);
+        _d.getDelNumbers().add(i_);
+        _d.getNbInfos().add(nbInfo_);
+        return i_;
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
             StringMap<String> _conf, Delimiters _d) {
@@ -333,51 +357,67 @@ public final class MathResolver {
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
-        while (lastPrintChar_ >= 0) {
-            if (!Character.isWhitespace(_string.charAt(lastPrintChar_))) {
-                break;
-            }
+        while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         len_ = lastPrintChar_+1;
-        if (isFloatingNumber(_string, firstPrintChar_, lastPrintChar_)) {
+        int begin_;
+        int end_;
+        begin_ = _d.getDelStringsChars().indexOfObj(firstPrintChar_+_offset);
+        end_ = _d.getDelStringsChars().indexOfObj(lastPrintChar_+_offset);
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setIndexCst(begin_/2);
+            op_.setConstType(ConstType.STRING);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isConstant(_string, TRUE ,firstPrintChar_, lastPrintChar_)) {
+        begin_ = _d.getDelNumbers().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelNumbers().indexOfObj(_offset + lastPrintChar_ + 1);
+        if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setIndexCst(begin_/2);
+            op_.setConstType(ConstType.NUMBER);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isConstant(_string, FALSE ,firstPrintChar_, lastPrintChar_)) {
+        String sub_ = _string.substring(firstPrintChar_, len_);
+        if (StringList.quickEq(sub_,TRUE)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isVariable(_string, _conf.getKeys(), firstPrintChar_, lastPrintChar_)) {
+        if (StringList.quickEq(sub_, FALSE)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isConstant(_string, firstPrintChar_, lastPrintChar_, DELIMITER_STRING_BEGIN, DELIMITER_STRING_END)) {
+        for (VariableInfo v: _d.getVariables()) {
+            if (v.getFirstChar() != _offset + firstPrintChar_) {
+                continue;
+            }
+            int iVar_ = v.getLastChar();
+            if (iVar_ != _offset + lastPrintChar_ + 1) {
+                break;
+            }
             OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.LOC_VAR);
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
+            op_.setupValue(v.getName());
             op_.setDelimiter(_d);
             return op_;
         }
@@ -386,6 +426,10 @@ public final class MathResolver {
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
+            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
+        } else if (_string.charAt(firstPrintChar_) == PLUS_CHAR) {
+            prio_ = UNARY_PRIO;
+            operators_.put(firstPrintChar_, String.valueOf(PLUS_CHAR));
             i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             prio_ = UNARY_PRIO;
@@ -474,10 +518,10 @@ public final class MathResolver {
             if (prioOpMult_ > 0) {
                 builtOperator_.append(curChar_);
                 if (prio_ > prioOpMult_) {
-                    clearOperators_ = true;
                     prio_ = prioOpMult_;
                 }
                 if (prio_ == prioOpMult_) {
+                    clearOperators_ = true;
                     foundOperator_ = true;
                 }
             }
@@ -516,110 +560,25 @@ public final class MathResolver {
         return op_;
     }
 
+    private static boolean delimits(int _begin, int _end) {
+        return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
+    }
+
     static int incrementUnary(String _string, int _from, int _to) {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
             if (ch_ != MINUS_CHAR) {
-                if (ch_ != NEG_BOOL_CHAR) {
-                    if (!Character.isWhitespace(ch_)) {
-                        break;
+                if (ch_ != PLUS_CHAR) {
+                    if (ch_ != NEG_BOOL_CHAR) {
+                        if (!Character.isWhitespace(ch_)) {
+                            break;
+                        }
                     }
                 }
             }
             j_++;
         }
         return j_;
-    }
-
-    static boolean isFloatingNumber(String _string, int _from, int _to) {
-        int i_ = _from;
-        if (!Character.isDigit(_string.charAt(i_))) {
-            if (_string.charAt(i_) != MINUS_CHAR) {
-                return false;
-            }
-            i_++;
-        }
-        if (i_ <= _to) {
-            if (!Character.isDigit(_string.charAt(i_))) {
-                return false;
-            }
-        }
-        int nbDots_ = 0;
-        while (i_ <= _to) {
-            if (!Character.isDigit(_string.charAt(i_))) {
-                if (Character.isLetter(_string.charAt(i_))) {
-                    if (nbDots_ == 0) {
-                        return false;
-                    }
-                    i_++;
-                    continue;
-                }
-                if (_string.charAt(i_) != DOT && _string.charAt(i_) != SEP_RATE || nbDots_ > 0) {
-                    return false;
-                }
-                nbDots_++;
-                i_++;
-                continue;
-            }
-            i_++;
-        }
-        return true;
-    }
-    static boolean isVariable(String _string, StringList _variables, int _from, int _to) {
-        int i_ = _from;
-        StringBuilder str_ = new StringBuilder();
-        while (i_ <= _to) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                break;
-            }
-            str_.append(_string.charAt(i_));
-            i_++;
-        }
-        if (i_ <= _to) {
-            return false;
-        }
-        return _variables.containsObj(str_.toString());
-    }
-    static boolean isConstant(String _string, String _token, int _from, int _to) {
-        int i_ = _from;
-        StringBuilder str_ = new StringBuilder();
-        while (i_ <= _to) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                break;
-            }
-            str_.append(_string.charAt(i_));
-            i_++;
-        }
-        if (i_ <= _to) {
-            return false;
-        }
-        return StringList.quickEq(_token, str_.toString());
-    }
-    static boolean isConstant(String _string, int _from, int _to, char _delimiter, char _delimiterEnd) {
-        int i_ = _from;
-        if (_string.charAt(i_) != _delimiter) {
-            return false;
-        }
-        i_++;
-        boolean escaped_ = false;
-        while (i_ < _to) {
-            if (escaped_) {
-                i_++;
-                escaped_ = false;
-                continue;
-            }
-            if (_string.charAt(i_) == ESCAPE_META_CHAR) {
-                escaped_ = true;
-            }
-            if (_string.charAt(i_) == _delimiterEnd) {
-                return false;
-            }
-            i_++;
-        }
-        if (_string.charAt(_to) != _delimiterEnd) {
-            return false;
-        }
-        return true;
     }
 }

@@ -46,12 +46,12 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     }
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {
-        return (Rate) MathUtil.processEl(_numExp, 0, false, new StringMap<String>()).getObject();
+        return (Rate) MathUtil.processEl(_numExp, false, new StringMap<String>()).getObject();
     }
 
     @Override
     public Boolean evaluateDirectlyBoolean(String _booleanExp) {
-        return (Boolean) MathUtil.processEl(_booleanExp, 0, false, new StringMap<String>()).getObject();
+        return (Boolean) MathUtil.processEl(_booleanExp, false, new StringMap<String>()).getObject();
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     @Override
     public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
         if (obj_ instanceof Rate) {
             return (Rate) obj_;
         }
@@ -94,7 +94,7 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     @Override
     public Rate evaluatePositiveOrZeroExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
         if (!(obj_ instanceof Rate)) {
             return _default.absNb();
         }
@@ -108,7 +108,7 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     @Override
     public Rate evaluatePositiveExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
-        Object obj_ = MathUtil.processEl(_numericString, 0, false, _variables).getObject();
+        Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
         if (!(obj_ instanceof Rate)) {
             return _default.absNb();
         }
@@ -125,7 +125,7 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     @Override
     public Boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
-        Object obj_ = MathUtil.processEl(_booleanString, 0, false, _variables).getObject();
+        Object obj_ = MathUtil.processEl(_booleanString, false, _variables).getObject();
         if (!(obj_ instanceof Boolean)) {
             return _default;
         }

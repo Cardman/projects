@@ -8,18 +8,17 @@ final class MathUtil {
     private MathUtil() {
     }
 
-    static Argument processEl(String _el, int _index, boolean _onlycheckSyntax, StringMap<String> _conf) {
+    static Argument processEl(String _el, boolean _onlycheckSyntax, StringMap<String> _conf) {
         ErrorStatus err_ = new ErrorStatus();
-        Delimiters d_ = MathResolver.checkSyntax(_el, _index, err_);
+        Delimiters d_ = MathResolver.checkSyntax(_el, err_);
         if (err_.isError()) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.NOTHING);
             arg_.setObject(err_);
             return arg_;
         }
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = MathResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationsSequence opTwo_ = MathResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_el, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         if (op_ == null) {
             Argument arg_ = new Argument();
             arg_.setArgClass(MathType.NOTHING);
@@ -78,6 +77,10 @@ final class MathUtil {
             if (_error.isError()) {
                 return null;
             }
+            current_.setOrder(_sortedNodes.size());
+            if (current_ instanceof ReductibleOperable) {
+                ((ReductibleOperable)current_).tryCalculateNode(_context,_error);
+            }
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _context, _error);
             if (next_ != null) {
@@ -89,6 +92,10 @@ final class MathUtil {
                 par_.analyze(_context, _error);
                 if (_error.isError()) {
                     return null;
+                }
+                par_.setOrder(_sortedNodes.size());
+                if (par_ instanceof ReductibleOperable) {
+                    ((ReductibleOperable)par_).tryCalculateNode(_context,_error);
                 }
                 _sortedNodes.add(par_);
                 return null;
@@ -104,13 +111,12 @@ final class MathUtil {
             return null;
         }
         MethodOperation block_ = (MethodOperation) _block;
-        if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+        if (block_.getChildren().isEmpty()) {
             return null;
         }
         String value_ = block_.getChildren().getValue(0);
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
-        d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, CustList.FIRST_INDEX, block_, r_);
@@ -134,7 +140,6 @@ final class MathUtil {
         String value_ = children_.getValue(_block.getIndexChild() + 1);
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + 1);
-        d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(value_, offset_, _context, _block.getIndexChild() + 1, p_, r_);
@@ -156,13 +161,29 @@ final class MathUtil {
         return list_;
     }
     static void calculate(CustList<OperationNode> _nodes, StringMap<String> _context, ErrorStatus _error) {
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                e.calculate(_context, _error);
-                if (_error.isError()) {
-                    return;
-                }
+        int fr_ = 0;
+        int len_ = _nodes.size();
+        while (fr_ < len_) {
+            OperationNode o = _nodes.get(fr_);
+            if (o.getArgument() != null) {
+                fr_++;
+                continue;
             }
+            o.calculate(_context, _error);
+            if (_error.isError()) {
+                return;
+            }
+            Argument res_ = o.getArgument();
+            Object st_ = res_.getObject();
+            fr_ = OperationNode.getNextIndex(o, st_);
         }
+//        for (OperationNode e: _nodes) {
+//            if (!e.isCalculated()) {
+//                e.calculate(_context, _error);
+//                if (_error.isError()) {
+//                    return;
+//                }
+//            }
+//        }
     }
 }

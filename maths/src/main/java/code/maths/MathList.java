@@ -20,10 +20,6 @@ public final class MathList extends CustList<String> implements Equallable<MathL
         super(_list);
     }
 
-    public MathList(String... _strings) {
-        super(_strings);
-    }
-
     public static boolean eq(MathList _one, MathList _two) {
         StringList cone_ = new StringList(_one);
         StringList ctwo_ = new StringList(_two);

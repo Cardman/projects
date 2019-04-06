@@ -18,7 +18,7 @@ final class EvolvedNumString implements NumericableString<Rate> {
     }
     @Override
     public void evaluateExp(boolean _checkSyntax) {
-        arg = MathUtil.processEl(numericString.toString(), 0, _checkSyntax, new StringMap<String>());
+        arg = MathUtil.processEl(numericString.toString(), _checkSyntax, new StringMap<String>());
     }
 
     @Override

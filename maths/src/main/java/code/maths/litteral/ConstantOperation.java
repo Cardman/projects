@@ -13,11 +13,6 @@ public final class ConstantOperation extends OperationNode {
     }
 
     @Override
-    boolean isFirstChild() {
-        return getIndexChild() == CustList.FIRST_INDEX;
-    }
-
-    @Override
     void analyze(StringMap<String> _conf, ErrorStatus _error) {
         analyzeCalculate(_error);
         if (getArgument() != null) {
@@ -64,7 +59,7 @@ public final class ConstantOperation extends OperationNode {
             return;
         }
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-        Argument a_ = new Argument();
+        Argument a_;
         a_ = new Argument();
         a_.setArgClass(getResultClass());
         if (getResultClass() == MathType.RATE) {
@@ -88,10 +83,33 @@ public final class ConstantOperation extends OperationNode {
             a_.setObject(m_);
         }
         setArgument(a_);
-        setNextSiblingsArg(a_);
     }
 
     private void analyzeCalculate(ErrorStatus _error) {
+        if (getOperations().getConstType() == ConstType.STRING) {
+            int begin_ = getOperations().getIndexCst();
+            StringList info_ = getOperations().getDelimiter().getStringInfo().get(begin_);
+            if (info_.size() == 1 && info_.first().trim().isEmpty()) {
+                MathList m_ = new MathList();
+                Argument a_ = new Argument();
+                a_.setArgClass(MathType.SET);
+                a_.setObject(m_);
+                setArgument(a_);
+                return;
+            }
+            MathList m_ = new MathList(info_);
+            Argument a_ = new Argument();
+            a_.setArgClass(MathType.SET);
+            a_.setObject(m_);
+            setArgument(a_);
+            return;
+        }
+        if (getOperations().getConstType() == ConstType.NUMBER) {
+            int begin_ = getOperations().getIndexCst();
+            String nb_ = getOperations().getDelimiter().getNbInfos().get(begin_).toString();
+            setArgument(Argument.numberToArgument(nb_));
+            return;
+        }
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
         if (str_.isEmpty()) {
             _error.setString(str_);
@@ -104,54 +122,13 @@ public final class ConstantOperation extends OperationNode {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(true);
             setArgument(a_);
-            setNextSiblingsArg(a_);
             return;
         }
         if (StringList.quickEq(str_, FALSE_STRING)) {
             a_.setArgClass(MathType.BOOLEAN);
             a_.setObject(false);
             setArgument(a_);
-            setNextSiblingsArg(a_);
             return;
-        }
-        if (str_.startsWith(String.valueOf(DELIMITER_STRING_BEGIN))) {
-            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING_END));
-            if (str_.isEmpty()) {
-                a_.setArgClass(MathType.SET);
-                a_.setObject(new MathList());
-                setArgument(a_);
-                setNextSiblingsArg(a_);
-                return;
-            }
-            MathList m_ = new MathList();
-            StringBuilder element_ = new StringBuilder();
-            boolean escaped_ = false;
-            for (char c: str_.toCharArray()) {
-                if (escaped_) {
-                    element_.append(c);
-                    escaped_ = false;
-                    continue;
-                }
-                if (c == ESCAPE_META_CHAR) {
-                    escaped_ = true;
-                    continue;
-                }
-                if (c == DELIMITER_STRING_SEP) {
-                    m_.add(element_.toString());
-                    element_ = new StringBuilder();
-                } else {
-                    element_.append(c);
-                }
-            }
-            m_.add(element_.toString());
-            a_.setArgClass(MathType.SET);
-            a_.setObject(m_);
-            setArgument(a_);
-            setNextSiblingsArg(a_);
-            return;
-        }
-        if (Rate.isValid(str_)) {
-            setArgument(Argument.numberToArgument(str_));
         }
     }
 

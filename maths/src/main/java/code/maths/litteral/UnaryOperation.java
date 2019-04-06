@@ -2,6 +2,7 @@ package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
@@ -29,7 +30,12 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         Argument a_ = new Argument();
         Object o_ = arg_.getObject();
         a_.setArgClass(MathType.RATE);
-        a_.setObject(((Rate)o_).opposNb());
+        int key_ = getOperations().getOperators().firstKey();
+        if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
+            a_.setObject(((Rate)o_).opposNb());
+        } else {
+            a_.setObject(o_);
+        }
         setArgument(a_);
         return;
     }
