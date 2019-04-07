@@ -156,6 +156,24 @@ public abstract class PaintableLabel extends CustComponent {
     }
 
     @Override
+    public int getHeight() {
+        int h_ = super.getHeight();
+        if (h_ > 0) {
+            return h_;
+        }
+        return getPreferredSize().height;
+    }
+
+    @Override
+    public int getWidth() {
+        int w_ = super.getWidth();
+        if (w_ > 0) {
+            return w_;
+        }
+        return getPreferredSize().width;
+    }
+
+    @Override
     public JLabel getComponent() {
         return label;
     }
