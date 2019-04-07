@@ -276,7 +276,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         r_ = new PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>>();
         r_.setFirst(new PairEq<LgInt,LgInt>(zero(),zero()));
         r_.setSecond(new PairEq<LgInt,LgInt>(zero(),zero()));
-        if (_b.isZero()) {
+        if (_b.isZero() || isZero()) {
             return r_;
         }
         EqList<LgInt> quot_ = new EqList<LgInt>();
@@ -301,7 +301,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             r_.getSecond().setSecond(new LgInt(minMax_.getSecond()));
             return r_;
         }
-        LgInt a_=new LgInt(this);
+        LgInt a_;
         LgInt b_=_b;
         quot_.add(0, qr_.getQuot());
         while(!rem_.isZero()) {

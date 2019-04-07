@@ -2251,6 +2251,9 @@ public class LgIntTest {
         assertEq(1,combinatoire_.size());
         assertEq(0, combinatoire_.firstKey().size());
         assertEq(new LgInt(1), combinatoire_.firstValue());
+        SortableCustList<LgInt> other_ = new SortableCustList<LgInt>();
+        other_.add(LgInt.one());
+        assertTrue(new ComparatorEvents().compare(new SortableCustList<LgInt>(),other_) != 0);
     }
     @Test
     public void multiplyDouble1Test(){
