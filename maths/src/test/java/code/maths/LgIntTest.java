@@ -2418,4 +2418,126 @@ public class LgIntTest {
         assertEq(new LgInt("-16"), intOne_);
         assertEq(new LgInt("4"), intTwo_);
     }
+    @Test
+    public void getDividers1Test() {
+        LgInt int_ = new LgInt(42);
+        EqList<LgInt> div_ = int_.getDividers();
+        assertEq(8, div_.size());
+        assertEq(new LgInt(1), div_.get(0));
+        assertEq(new LgInt(42), div_.get(1));
+        assertEq(new LgInt(2), div_.get(2));
+        assertEq(new LgInt(21), div_.get(3));
+        assertEq(new LgInt(3), div_.get(4));
+        assertEq(new LgInt(14), div_.get(5));
+        assertEq(new LgInt(6), div_.get(6));
+        assertEq(new LgInt(7), div_.get(7));
+    }
+    @Test
+    public void inRange1(){
+        assertTrue(new LgInt(2).inRange(new LgInt(1),new LgInt(3)));
+    }
+    @Test
+    public void inRange2(){
+        assertTrue(!new LgInt(0).inRange(new LgInt(1),new LgInt(3)));
+    }
+    @Test
+    public void inRange3(){
+        assertTrue(!new LgInt(4).inRange(new LgInt(1),new LgInt(3)));
+    }
+    @Test
+    public void inRange4(){
+        assertTrue(new LgInt(1).inRange(new LgInt(1),new LgInt(3)));
+    }
+    @Test
+    public void inRange5(){
+        assertTrue(new LgInt(3).inRange(new LgInt(1),new LgInt(3)));
+    }
+    @Test
+    public void inRange6(){
+        assertTrue(new LgInt(2).inRange(new LgInt(1),null));
+    }
+    @Test
+    public void inRange7(){
+        assertTrue(!new LgInt(0).inRange(new LgInt(1),null));
+    }
+    @Test
+    public void inRange8(){
+        assertTrue(new LgInt(2).inRange(null,new LgInt(3)));
+    }
+    @Test
+    public void inRange9(){
+        assertTrue(!new LgInt(4).inRange(null,new LgInt(3)));
+    }
+    @Test
+    public void inRange10(){
+        assertTrue(new LgInt(1).inRange(new LgInt(1),null));
+    }
+    @Test
+    public void inRange11(){
+        assertTrue(new LgInt(3).inRange(null,new LgInt(3)));
+    }
+    @Test
+    public void inRange12(){
+        assertTrue(new LgInt(2).inRange(null,null));
+    }
+    @Test
+    public void isValid1Test() {
+        assertTrue(!LgInt.isValid(""));
+    }
+    @Test
+    public void isValid2Test() {
+        assertTrue(!LgInt.isValid(null));
+    }
+    @Test
+    public void isValid3Test() {
+        assertTrue(LgInt.isValid("0"));
+    }
+    @Test
+    public void isValid4Test() {
+        assertTrue(LgInt.isValid("1"));
+    }
+    @Test
+    public void isValid5Test() {
+        assertTrue(LgInt.isValid("-1"));
+    }
+    @Test
+    public void isValid6Test() {
+        assertTrue(!LgInt.isValid("a"));
+    }
+    @Test
+    public void isValid7Test() {
+        assertTrue(!LgInt.isValid("-a"));
+    }
+    @Test
+    public void isValid8Test() {
+        assertTrue(!LgInt.isValid("1a"));
+    }
+    @Test
+    public void isValid9Test() {
+        assertTrue(!LgInt.isValid("-"));
+    }
+    @Test
+    public void isPrime1Test() {
+        assertTrue(!new LgInt(1).isPrime());
+    }
+    @Test
+    public void isPrime2Test() {
+        assertTrue(new LgInt(2).isPrime());
+    }
+    @Test
+    public void isPrime3Test() {
+        assertTrue(new LgInt(3).isPrime());
+    }
+    @Test
+    public void isPrime4Test() {
+        assertTrue(!new LgInt(4).isPrime());
+    }
+    @Test
+    public void isPrime5Test() {
+        assertTrue(new LgInt(5).isPrime());
+    }
+    @Test
+    public void isPrime6Test() {
+        assertTrue(!new LgInt(6).isPrime());
+    }
 }

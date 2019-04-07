@@ -336,6 +336,38 @@ public class RateTest {
         assertTrue(!Rate.isValid(null));
     }
     @Test
+    public void isValid7(){
+        assertTrue(Rate.isValid("-1"));
+    }
+    @Test
+    public void isValid8(){
+        assertTrue(!Rate.isValid("1/1a"));
+    }
+    @Test
+    public void isValid9(){
+        assertTrue(!Rate.isValid("1/-a"));
+    }
+    @Test
+    public void isValid10(){
+        assertTrue(!Rate.isValid("1/"));
+    }
+    @Test
+    public void isValid11(){
+        assertTrue(!Rate.isValid("1.a"));
+    }
+    @Test
+    public void isValid12(){
+        assertTrue(!Rate.isValid("1#"));
+    }
+    @Test
+    public void isValid13(){
+        assertTrue(!Rate.isValid(".a"));
+    }
+    @Test
+    public void isValid14(){
+        assertTrue(!Rate.isValid("-"));
+    }
+    @Test
     public void toString1Test(){
         Rate rate_ = new Rate("1");
         String str_ = rate_.toNumberString();
@@ -1968,5 +2000,122 @@ public class RateTest {
     @Test
     public void percent3(){
         assertEq(new LgInt("33"),new Rate("1/3").percent());
+    }
+    @Test
+    public void inRange1(){
+        assertTrue(new Rate(2).inRange(new Rate(1),new Rate(3)));
+    }
+    @Test
+    public void inRange2(){
+        assertTrue(!new Rate(0).inRange(new Rate(1),new Rate(3)));
+    }
+    @Test
+    public void inRange3(){
+        assertTrue(!new Rate(4).inRange(new Rate(1),new Rate(3)));
+    }
+    @Test
+    public void inRange4(){
+        assertTrue(new Rate(1).inRange(new Rate(1),new Rate(3)));
+    }
+    @Test
+    public void inRange5(){
+        assertTrue(new Rate(3).inRange(new Rate(1),new Rate(3)));
+    }
+    @Test
+    public void inRange6(){
+        assertTrue(new Rate(2).inRange(new Rate(1),null));
+    }
+    @Test
+    public void inRange7(){
+        assertTrue(!new Rate(0).inRange(new Rate(1),null));
+    }
+    @Test
+    public void inRange8(){
+        assertTrue(new Rate(2).inRange(null,new Rate(3)));
+    }
+    @Test
+    public void inRange9(){
+        assertTrue(!new Rate(4).inRange(null,new Rate(3)));
+    }
+    @Test
+    public void inRange10(){
+        assertTrue(new Rate(1).inRange(new Rate(1),null));
+    }
+    @Test
+    public void inRange11(){
+        assertTrue(new Rate(3).inRange(null,new Rate(3)));
+    }
+    @Test
+    public void inRange12(){
+        assertTrue(new Rate(2).inRange(null,null));
+    }
+    @Test
+    public void signumToLong1Test() {
+        assertEq(1, new Rate(2).signumToLong());
+    }
+    @Test
+    public void signumToLong2Test() {
+        assertEq(-1, new Rate(-2).signumToLong());
+    }
+    @Test
+    public void signumToLong3Test() {
+        assertEq(0, new Rate(0).signumToLong());
+    }
+    @Test
+    public void eqStatic1Test() {
+        assertTrue(Rate.eq(null,null));
+    }
+    @Test
+    public void eqStatic2Test() {
+        assertTrue(!Rate.eq(null,new Rate(2)));
+    }
+    @Test
+    public void eqStatic3Test() {
+        assertTrue(!Rate.eq(new Rate(2),new Rate(3)));
+    }
+    @Test
+    public void eqStatic4Test() {
+        assertTrue(Rate.eq(new Rate(2),new Rate(2)));
+    }
+    @Test
+    public void getPpcmDens1Test() {
+        EqList<Rate> r_ = new EqList<Rate>();
+        r_.add(new Rate(2));
+        r_.add(new Rate(3));
+        assertEq(new LgInt(1), Rate.getPpcmDens(r_,1));
+    }
+    @Test
+    public void isZeroOrLt1Test() {
+        assertTrue(!new Rate(2).isZeroOrLt());
+    }
+    @Test
+    public void isZeroOrLt2Test() {
+        assertTrue(new Rate(0).isZeroOrLt());
+    }
+    @Test
+    public void isZeroOrLt3Test() {
+        assertTrue(new Rate(-2).isZeroOrLt());
+    }
+    @Test
+    public void getDividersNumerator1Test() {
+        Rate int_ = new Rate(42);
+        EqList<LgInt> div_ = int_.getDividersNumerator();
+        assertEq(8, div_.size());
+        assertEq(new LgInt(1), div_.get(0));
+        assertEq(new LgInt(42), div_.get(1));
+        assertEq(new LgInt(2), div_.get(2));
+        assertEq(new LgInt(21), div_.get(3));
+        assertEq(new LgInt(3), div_.get(4));
+        assertEq(new LgInt(14), div_.get(5));
+        assertEq(new LgInt(6), div_.get(6));
+        assertEq(new LgInt(7), div_.get(7));
+    }
+    @Test
+    public void newRate1Test() {
+        assertEq(new Rate(0), Rate.newRate("0"));
+    }
+    @Test
+    public void displayTest() {
+        assertEq("1",new Rate(1).display());
     }
 }

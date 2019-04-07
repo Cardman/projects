@@ -331,7 +331,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         return p_;
     }
 
-    public static LgInt getPpcm(EqList<Rate> _numbers, int _maxIncludedIndex) {
+    public static LgInt getPpcmDens(EqList<Rate> _numbers, int _maxIncludedIndex) {
         Rate mainRate_=_numbers.first();
         LgInt ppcmDenom_=mainRate_.denominateur;
         long deg_=_maxIncludedIndex;
@@ -347,14 +347,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
 
     public LgInt getDenominatorCopy() {
         return new LgInt(denominateur);
-    }
-
-    public String getNumeratorString() {
-        return numerateur.toNumberString();
-    }
-
-    public String getDenominatorString() {
-        return denominateur.toNumberString();
     }
 
     public EqList<LgInt> getDividersNumerator() {
@@ -675,13 +667,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
             return true;
         }
         return LgInt.lowerEq(numerateur, denominateur);
-    }
-
-    public static PairEq<Rate,Rate> minMax(Rate _a, Rate _b) {
-        if (strGreater(_a, _b)) {
-            return new PairEq<Rate,Rate>(_b, _a);
-        }
-        return new PairEq<Rate,Rate>(_a, _b);
     }
 
     public static boolean strGreater(Rate _celuiCi, Rate _autre) {

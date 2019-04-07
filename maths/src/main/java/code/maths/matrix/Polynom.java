@@ -385,7 +385,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 //        for(int i=1;i<=deg_;i++) {
 //            ppcmDenom_=LgInt.ppcm(ppcmDenom_, numbers.get(i).getDenominatorCopy());
 //        }
-        LgInt ppcmDenom_ = Rate.getPpcm(numbers, (int) deg_);
+        LgInt ppcmDenom_ = Rate.getPpcmDens(numbers, (int) deg_);
         Polynom polEnt_ = new Polynom();
         for(Rate r:numbers) {
             polEnt_.add(Rate.multiply(r, new Rate(ppcmDenom_)));

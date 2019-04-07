@@ -257,14 +257,16 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     public boolean isPrime(){
         LgInt abs_=absNb();
+        if (abs_.eq(LgInt.one())) {
+            return false;
+        }
         LgInt nbTwo_ = new LgInt(2);
         LgInt r_=rootAbs(nbTwo_);
-        LgInt i_=nbTwo_;
-        while (lowerEq(i_, r_)) {
-            if (remain(abs_, i_).isZero()) {
+        while (lowerEq(nbTwo_, r_)) {
+            if (remain(abs_, nbTwo_).isZero()) {
                 return false;
             }
-            i_.increment();
+            nbTwo_.increment();
         }
         return true;
     }
@@ -376,7 +378,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             QuotModLgInt qr_=abs_.divisionEuclidienneGeneralise(init_);
             if(qr_.getMod().isZero()) {
-                divs_.add(init_);
+                divs_.add(new LgInt(init_));
+                divs_.add(qr_.getQuot());
             }
             init_.increment();
         }
@@ -1670,28 +1673,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             return true;
         }
         return SIGNE_POSITIF != signum;
-    }
-
-    /** */
-    public LgInt signum() {
-        if (isZero()) {
-            return zero();
-        }
-        if (isZeroOrGt()) {
-            return one();
-        }
-        return minusOne();
-    }
-
-    /** */
-    public long signumToLong() {
-        if (isZero()) {
-            return 0L;
-        }
-        if (isZeroOrGt()) {
-            return 1L;
-        }
-        return -1L;
     }
 
     private void removeBeginningZeros() {
