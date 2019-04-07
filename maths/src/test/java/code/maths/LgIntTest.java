@@ -2053,6 +2053,22 @@ public class LgIntTest {
         assertEq(new LgInt("6"), intTwo_);
     }
     @Test
+    public void among9Test(){
+        LgInt intOne_ = new LgInt("1");
+        LgInt intTwo_ = new LgInt("1000000000");
+        assertEq(new LgInt("1000000000"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("1"), intOne_);
+        assertEq(new LgInt("1000000000"), intTwo_);
+    }
+    @Test
+    public void among10Test(){
+        LgInt intOne_ = new LgInt("1000000000");
+        LgInt intTwo_ = new LgInt("1");
+        assertEq(new LgInt("0"), LgInt.among(intOne_, intTwo_));
+        assertEq(new LgInt("1000000000"), intOne_);
+        assertEq(new LgInt("1"), intTwo_);
+    }
+    @Test
     public void seqAmong1(){
         EqList<LgInt> repartitions_ = new EqList<LgInt>();
         repartitions_.add(new LgInt(8));
@@ -2222,6 +2238,19 @@ public class LgIntTest {
         assertEq(new LgInt(2),combinatoire_.getKey(17).get(4));
         assertEq(new LgInt(478),combinatoire_.getValue(17));
 
+    }
+    @Test
+    public void seqAmong3(){
+        EqList<LgInt> repartitions_ = new EqList<LgInt>();
+        repartitions_.add(new LgInt(-4));
+        repartitions_.add(new LgInt(-4));
+        repartitions_.add(new LgInt(-4));
+        repartitions_.add(new LgInt(-4));
+        LgInt sommeTotale_ = new LgInt(8);
+        TreeMap<SortableCustList<LgInt>,LgInt> combinatoire_ = LgInt.seqAmong(repartitions_, sommeTotale_);
+        assertEq(1,combinatoire_.size());
+        assertEq(0, combinatoire_.firstKey().size());
+        assertEq(new LgInt(1), combinatoire_.firstValue());
     }
     @Test
     public void multiplyDouble1Test(){

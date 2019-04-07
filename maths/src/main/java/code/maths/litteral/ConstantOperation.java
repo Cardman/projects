@@ -100,7 +100,13 @@ public final class ConstantOperation extends OperationNode {
         if (getOperations().getConstType() == ConstType.NUMBER) {
             int begin_ = getOperations().getIndexCst();
             String nb_ = getOperations().getDelimiter().getNbInfos().get(begin_).toString();
-            setArgument(Argument.numberToArgument(nb_));
+            if (Rate.isValid(nb_)) {
+                setArgument(Argument.numberToArgument(nb_));
+                return;
+            }
+            _error.setString(nb_);
+            _error.setIndex(getIndexInEl());
+            _error.setError(true);
             return;
         }
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();

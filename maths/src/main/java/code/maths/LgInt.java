@@ -202,9 +202,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             reste_ = nombre_ - quotient_ * BASE;
             l_.grDigits.add(CustList.FIRST_INDEX, reste_);
         }
-        if (quotient_ != 0) {
-            l_.grDigits.add(CustList.FIRST_INDEX, quotient_);
-        }
+        l_.grDigits.add(CustList.FIRST_INDEX, quotient_);
+        l_.removeBeginningZeros();
         l_.signum = SIGNE_POSITIF;
         return l_;
     }
@@ -402,24 +401,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public static TreeMap<SortableCustList<LgInt>,LgInt> seqAmong(
             EqList<LgInt> _repartitions,
             LgInt _sommeTotale) {
-//        TreeMap<CustList<LgInt>,LgInt> loiProba_ = new TreeMap<new>(new Comparator<CustList<LgInt>>() {
-//            @Override
-//            public int compare(CustList<LgInt> _o1, CustList<LgInt> _o2) {
-//                int res_ = Integer.compare(_o1.size(), _o2.size());
-//                if (res_ != 0) {
-//                    return res_;
-//                }
-//                int len_;
-//                len_ = _o1.size();
-//                for (int i = CustList.FIRST_INDEX; i <len_; i++) {
-//                    res_ = _o1.get(i).compareTo(_o2.get(i));
-//                    if (res_ != 0) {
-//                        return res_;
-//                    }
-//                }
-//                return 0;
-//            }
-//        });
         TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
         int i_ = CustList.FIRST_INDEX;
         int nbIterations_ = _repartitions.size();

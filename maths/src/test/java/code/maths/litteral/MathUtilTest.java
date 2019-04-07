@@ -2789,6 +2789,10 @@ public class MathUtilTest {
         assertTrue(MathUtil.processEl("1*V", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }
     @Test
+    public void evaluateExp_no_op_73_Fail(){
+        assertTrue(MathUtil.processEl("1/0", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
+    }
+    @Test
     public void evaluateExp_empty_Fail(){
         assertTrue(MathUtil.processEl("", false, new StringMap<String>()).getObject() instanceof ErrorStatus);
     }

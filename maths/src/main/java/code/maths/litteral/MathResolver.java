@@ -459,30 +459,24 @@ public final class MathResolver {
             boolean clearOperators_ = false;
             boolean foundOperator_ = false;
             int increment_ = 1;
-            if (curChar_ == NEG_BOOL_CHAR) {
-                builtOperator_.append(NEG_BOOL_CHAR);
-                if (i_ + 1 < _string.length()) {
+            boolean eq_ = false;
+            if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
+                builtOperator_.append(curChar_);
+                if (curChar_ == NEG_BOOL_CHAR && i_ + 1 < _string.length()) {
                     char nextChar_ = _string.charAt(i_ + 1);
                     if (nextChar_ == EQ_CHAR) {
-                        if (prio_ > EQ_PRIO) {
-                            clearOperators_ = true;
-                            prio_ = EQ_PRIO;
-                        }
-                        if (prio_ == EQ_PRIO) {
-                            builtOperator_.append(EQ_CHAR);
-                            foundOperator_ = true;
-                        }
-                        if (foundOperator_) {
-                            increment_ = 2;
-                        }
-                    } else {
-                        prio_ = EQ_PRIO;
-                        clearOperators_ = true;
-                        foundOperator_ = true;
+                        builtOperator_.append(EQ_CHAR);
+                        increment_++;
                     }
-                } else {
-                    prio_ = EQ_PRIO;
+                }
+                eq_ = true;
+            }
+            if (eq_) {
+                if (prio_ > EQ_PRIO) {
                     clearOperators_ = true;
+                    prio_ = EQ_PRIO;
+                }
+                if (prio_ == EQ_PRIO) {
                     foundOperator_ = true;
                 }
             }
@@ -493,8 +487,6 @@ public final class MathResolver {
                 prioOpMult_ = MULT_PRIO;
             } else if (curChar_ == AND_CHAR) {
                 prioOpMult_ = AND_PRIO;
-            } else if (curChar_ == EQ_CHAR) {
-                prioOpMult_ = EQ_PRIO;
             } else if (curChar_ == OR_CHAR) {
                 prioOpMult_ = OR_PRIO;
             }

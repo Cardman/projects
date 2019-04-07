@@ -304,6 +304,14 @@ public class RateTest {
         assertEq(false,rate_.isZero());
     }
     @Test
+    public void new_Rate_String_18Test(){
+        Rate rate_ = new Rate("1/0");
+        assertEq(new LgInt(0L), rate_.getNumerator());
+        assertEq(new LgInt(1L), rate_.getDenominator());
+        assertEq(true,rate_.isZeroOrGt());
+        assertEq(true,rate_.isZero());
+    }
+    @Test
     public void isValid1(){
         assertTrue(Rate.isValid("1"));
     }
@@ -1786,6 +1794,11 @@ public class RateTest {
         assertEq("-1.5E1",rate_.evaluate(2));
     }
     @Test
+    public void evaluate13Test(){
+        Rate rate_ = new Rate("31/2");
+        assertEq("",rate_.evaluate(-1));
+    }
+    @Test
     public void evaluatePoint1Test(){
         Rate rate_ = new Rate("0");
         assertEq("0",rate_.evaluatePoint(0));
@@ -1914,6 +1927,11 @@ public class RateTest {
     public void evaluatePoint26Test(){
         Rate rate_ = new Rate("31/2");
         assertEq("15.500000",rate_.evaluatePoint(6));
+    }
+    @Test
+    public void evaluatePoint27Test(){
+        Rate rate_ = new Rate("31/2");
+        assertEq("",rate_.evaluatePoint(-1));
     }
     @Test
     public void greaterThanOne1(){
