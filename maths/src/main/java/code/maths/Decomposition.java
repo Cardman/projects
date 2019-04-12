@@ -4,17 +4,17 @@ import code.util.PairEq;
 
 public final class Decomposition {
 
-    private final boolean prime;
+    private final boolean signum;
 
     private final EqList<PairEq<LgInt,LgInt>> factors;
 
-    public Decomposition(boolean _prime, EqList<PairEq<LgInt,LgInt>> _factors) {
-        prime = _prime;
+    public Decomposition(boolean _signum, EqList<PairEq<LgInt,LgInt>> _factors) {
+        signum = _signum;
         factors = _factors;
     }
 
-    public boolean isPrime() {
-        return prime;
+    public boolean isPositive() {
+        return signum == LgInt.SIGNE_POSITIF;
     }
 
     public EqList<PairEq<LgInt,LgInt>> getFactors() {

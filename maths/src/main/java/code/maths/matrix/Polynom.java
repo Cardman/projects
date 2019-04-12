@@ -23,7 +23,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 
     public Polynom(Rate _rate, int _repeat) {
         for(int i=0;i<_repeat;i++) {
-            numbers.add(_rate);
+            numbers.add(new Rate(_rate));
         }
     }
 
@@ -258,67 +258,44 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.get(_index);
     }
 
-    public PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> idBezoutPgcdPpcm(Polynom _b) {
-        PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom> > coeffs_;
-        coeffs_ = new PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom> >();
-        coeffs_.setFirst(new PairEq<Polynom,Polynom>(new Polynom(),new Polynom()));
-        coeffs_.setSecond(new PairEq<Polynom,Polynom>(new Polynom(),new Polynom()));
+    public PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
+        PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> r_;
+        r_ = new PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>>();
+        if (_a.isZero()) {
+            r_.setFirst(new PairEq<Polynom,Polynom>(one(),one()));
+            r_.setSecond(new PairEq<Polynom,Polynom>(_b,zero()));
+            return r_;
+        }
         if (_b.isZero()) {
-            return coeffs_;
+            r_.setFirst(new PairEq<Polynom,Polynom>(one(),one()));
+            r_.setSecond(new PairEq<Polynom,Polynom>(_a,zero()));
+            return r_;
         }
-        EqList<Polynom> quots_ = new EqList<Polynom>();
-        PairEq<Polynom,Polynom> qrinit_;
-        if(dg()>_b.dg()) {
-            qrinit_=divisionEuclidienne(_b);
-        } else {
-            qrinit_=_b.divisionEuclidienne(this);
-        }
-        Polynom rem_=qrinit_.getSecond();
-        if(rem_.isZero()) {
-            if(dg()>_b.dg()) {
-                coeffs_.getFirst().setFirst(new Polynom());
-                coeffs_.getFirst().setSecond(new Polynom(Rate.one()));
-                coeffs_.getSecond().setFirst(new Polynom(_b));
-                coeffs_.getSecond().setSecond(new Polynom(this));
-            } else {
-                coeffs_.getFirst().setFirst(new Polynom(Rate.one()));
-                coeffs_.getFirst().setSecond(new Polynom());
-                coeffs_.getSecond().setFirst(new Polynom(this));
-                coeffs_.getSecond().setSecond(new Polynom(_b));
+        Polynom r0_ = _a;
+        Polynom r1_ = _b;
+        Polynom u0_ = one();
+        Polynom u1_ = zero();
+        Polynom v0_ = zero();
+        Polynom v1_ = one();
+        while (true) {
+            PairEq<Polynom,Polynom> qr_ = r0_.divisionEuclidienne(r1_);
+            Polynom q_ = qr_.getFirst();
+            Polynom r2_ = qr_.getSecond();
+            Polynom u2_ = u0_.minusPolynom(q_.multiplyPolynom(u1_));
+            Polynom v2_ = v0_.minusPolynom(q_.multiplyPolynom(v1_));
+            if (r2_.isZero()) {
+                break;
             }
-            return coeffs_;
+            u0_ = u1_;
+            v0_ = v1_;
+            r0_ = r1_;
+            u1_ = u2_;
+            v1_ = v2_;
+            r1_ = r2_;
         }
-        Polynom at_= new Polynom(this);
-        Polynom bt_=_b;
-        quots_.add(0, qrinit_.getFirst());
-        while(!rem_.isZero()) {
-            at_=bt_;
-            bt_=rem_;
-            PairEq<Polynom,Polynom> qr_=at_.divisionEuclidienne(bt_);
-            quots_.add(0, qr_.getFirst());
-            rem_=qr_.getSecond();
-        }
-        coeffs_.getFirst().setFirst(new Polynom(Rate.one()));
-        coeffs_.getFirst().setSecond(new Polynom(quots_.get(1)));
-        for(int i=2;i<quots_.size();i++) {
-            if(i%2==0) {
-                coeffs_.getFirst().getFirst().addPol(quots_.get(i).multiplyPolynom(coeffs_.getFirst().getSecond()));
-//                coeffs.getFirst().first=coeffs.getFirst().first+quotients.get(i)*coeffs.getFirst().second;
-            } else {
-                coeffs_.getFirst().getSecond().addPol(quots_.get(i).multiplyPolynom(coeffs_.getFirst().getFirst()));
-//                coeffs.first.second=coeffs.first.second+quotients[i]*coeffs.first.first;
-            }
-        }
-        coeffs_.getFirst().setSecond(coeffs_.getFirst().getSecond().minusPolynom());
-//        coeffs.first.second=-coeffs.first.second;
-        if(quots_.size()%2==1) {
-            Polynom tmp_=coeffs_.getFirst().getFirst();
-            coeffs_.getFirst().setFirst(coeffs_.getFirst().getSecond());
-            coeffs_.getFirst().setSecond(tmp_);
-        }
-        coeffs_.getSecond().setFirst(bt_);
-        coeffs_.getSecond().setSecond(divisionEuclidienne(bt_).getFirst().multiplyPolynom(_b));
-        return coeffs_;
+        r_.setFirst(new PairEq<Polynom,Polynom>(u1_,v1_));
+        r_.setSecond(new PairEq<Polynom, Polynom>(r1_,_a.dividePolynom(r1_).multiplyPolynom(_b)));
+        return r_;
     }
 //    QString Polynome::chaine_racines()const
 //    {
@@ -446,6 +423,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                     }
                 }
                 if(Rate.eq(image_,imageTwo_.opposNb())) {
+                    cand_=new Rate(c,m);
                     RootPol rLoc_=new RootPol(cand_,1);
                     if(!r_.containsObj(rLoc_)) {
                         mult_++;
@@ -481,6 +459,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     public Rate image(Rate _x) {
         Rate y_ = Rate.zero();
         long dg_=dg();
+        if (dg_ < 0) {
+            return y_;
+        }
         for(int i=0;i<dg_;i++) {
             y_.addNb(get(i));
             y_.multiplyBy(_x);
@@ -513,6 +494,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 line_.add(Rate.zero());
             }
             m_.addLineRef(line_);
+        }
+        if (dg_ < 0) {
+            return m_;
         }
         for(int i=0;i<dg_;i++) {
             m_ = m_.addMatrix(id_.multMatrix(get(i)));
@@ -552,14 +536,14 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         long degAfter_;
         long degDiv_=_div.dg();
         while(dividende_.dg()>=degDiv_) {
-            if(dividende_.isZero()) {
-                break;
-            }
             degBef_=dividende_.dg();
             Rate rate_= Rate.divide(dividende_.get(0), _div.get(0));
             dividende_ = dividende_.minusPolynom(_div.prodMonom(rate_, dividende_.dg()-degDiv_));
             quot_.add(rate_);
             degAfter_=dividende_.dg();
+            if (degAfter_ < 0) {
+                break;
+            }
             long diffDg_=degBef_-degAfter_-1;
             for(int i=0;i<diffDg_;i++) {
                 quot_.add(Rate.zero());
@@ -694,7 +678,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         Polynom pol_ = new Polynom();
         long deg_ = dg();
         for(int i=0;i<=deg_;i++) {
-            pol_.add(Rate.minus(get(i), _rate));
+            pol_.add(Rate.multiply(get(i), _rate));
         }
         for(int i=0;i<_deg;i++) {
             pol_.add(Rate.zero());

@@ -334,8 +334,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
     public static LgInt getPpcmDens(EqList<Rate> _numbers, int _maxIncludedIndex) {
         Rate mainRate_=_numbers.first();
         LgInt ppcmDenom_=mainRate_.denominateur;
-        long deg_=_maxIncludedIndex;
-        for(int i=1;i<=deg_;i++) {
+        for(int i = 1; i<= _maxIncludedIndex; i++) {
             ppcmDenom_=LgInt.ppcm(ppcmDenom_, _numbers.get(i).denominateur);
         }
         return ppcmDenom_;

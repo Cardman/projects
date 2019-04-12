@@ -271,89 +271,58 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return true;
     }
 
-    public PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>> identiteBezoutPgcdPpcm(LgInt _b) {
+    public static PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>> identiteBezoutPgcdPpcm(LgInt _a,LgInt _b) {
         PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>> r_;
         r_ = new PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>>();
-        r_.setFirst(new PairEq<LgInt,LgInt>(zero(),zero()));
-        r_.setSecond(new PairEq<LgInt,LgInt>(zero(),zero()));
-        if (_b.isZero() || isZero()) {
+        if (_a.isZero()) {
+            r_.setFirst(new PairEq<LgInt,LgInt>(one(),one()));
+            r_.setSecond(new PairEq<LgInt,LgInt>(_b,zero()));
             return r_;
         }
-        EqList<LgInt> quot_ = new EqList<LgInt>();
-        QuotModLgInt qr_;
-        boolean greater_ = strGreater(this, _b);
-        if(greater_) {
-            qr_=divisionEuclidienneGeneralise(_b);
-        } else {
-            qr_=_b.divisionEuclidienneGeneralise(this);
-        }
-        LgInt rem_=qr_.getMod();
-        if(rem_.isZero()) {
-            if(greater_) {
-                r_.getFirst().setFirst(zero());
-                r_.getFirst().setSecond(one());
-            } else {
-                r_.getFirst().setFirst(one());
-                r_.getFirst().setSecond(zero());
-            }
-            PairEq<LgInt,LgInt> minMax_=minMax(this,_b);
-            r_.getSecond().setFirst(new LgInt(minMax_.getFirst()));
-            r_.getSecond().setSecond(new LgInt(minMax_.getSecond()));
+        if (_b.isZero()) {
+            r_.setFirst(new PairEq<LgInt,LgInt>(one(),one()));
+            r_.setSecond(new PairEq<LgInt,LgInt>(_a,zero()));
             return r_;
         }
-        LgInt a_;
-        LgInt b_=_b;
-        quot_.add(0, qr_.getQuot());
-        while(!rem_.isZero()) {
-            a_=b_;
-            b_=rem_;
-            qr_=a_.divisionEuclidienneGeneralise(b_);
-            quot_.add(0, qr_.getQuot());
-            rem_=qr_.getMod();
-        }
-        r_.getFirst().setFirst(one());
-        r_.getFirst().setSecond(quot_.get(1));
-        int len_ = quot_.size();
-        for(int i=2;i<len_;i++) {
-            if(i%2==0) {
-                r_.getFirst().getFirst().addNb(multiply(quot_.get(i), r_.getFirst().getSecond()));
-            } else {
-                r_.getFirst().getSecond().addNb(multiply(quot_.get(i), r_.getFirst().getFirst()));
+        LgInt r0_ = _a;
+        LgInt r1_ = _b;
+        LgInt u0_ = one();
+        LgInt u1_ = zero();
+        LgInt v0_ = zero();
+        LgInt v1_ = one();
+        while (true) {
+            QuotModLgInt qr_ = r0_.divisionEuclidienneGeneralise(r1_);
+            LgInt q_ = qr_.getQuot();
+            LgInt r2_ = qr_.getMod();
+            LgInt u2_ = minus(u0_,multiply(q_,u1_));
+            LgInt v2_ = minus(v0_,multiply(q_,v1_));
+            if (r2_.isZeroOrLt()) {
+                break;
             }
+            u0_ = u1_;
+            v0_ = v1_;
+            r0_ = r1_;
+            u1_ = u2_;
+            v1_ = v2_;
+            r1_ = r2_;
         }
-        r_.getFirst().getSecond().changeSignum();
-        if(quot_.size()%2==1) {
-            LgInt t_=r_.getFirst().getFirst();
-            r_.getFirst().setFirst(r_.getFirst().getSecond());
-            r_.getFirst().setSecond(t_);
-        }
-        r_.getSecond().setFirst(new LgInt(b_));
-        r_.getSecond().setSecond(multiply(divide(this, b_), _b));
+        r_.setFirst(new PairEq<LgInt,LgInt>(u1_,v1_));
+        r_.setSecond(new PairEq<LgInt, LgInt>(r1_,multiply(divide(_a, r1_), _b)));
         return r_;
     }
 
     public Decomposition decompoPrim() {
         LgInt copy_=absNb();
         EqList<PairEq<LgInt,LgInt>> divs_ = new EqList<PairEq<LgInt,LgInt>>();
-        LgInt one_ = one();
-        LgInt two_ = new LgInt(2);
-        PairEq<LgInt,LgInt> p_ = new PairEq<LgInt,LgInt>();
-        p_.setFirst(zero());
-        p_.setSecond(zero());
-        while (true) {
-            if (copy_.eq(one())) {
-                break;
+        for (LgInt d: getDividers()) {
+            if (!d.isPrime()) {
+                continue;
             }
-            if(copy_.isPrime()) {
-                p_.setFirst(copy_);
-                p_.setSecond(one_);
-                divs_.add(p_);
-                break;
-            }
-            p_.setFirst(two_);
+            PairEq<LgInt,LgInt> p_ = new PairEq<LgInt,LgInt>();
+            p_.setFirst(d);
             p_.setSecond(zero());
             while (true) {
-                QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(two_);
+                QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(d);
                 if(!qr_.getMod().isZeroOrLt()) {
                     break;
                 }
@@ -362,11 +331,20 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             divs_.add(p_);
         }
+        if (absNb().eq(one())) {
+            PairEq<LgInt,LgInt> p_ = new PairEq<LgInt,LgInt>();
+            p_.setFirst(one());
+            p_.setSecond(one());
+            divs_.add(p_);
+        }
         return new Decomposition(getSignum(), divs_);
     }
 
     public EqList<LgInt> getDividers() {
         EqList<LgInt> divs_ = new EqList<LgInt>();
+        if (isZero()) {
+            return divs_;
+        }
         LgInt rootAbs_=rootAbs(new LgInt(2));
         LgInt abs_=absNb();
         LgInt init_ = new LgInt(2);
@@ -470,12 +448,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return loiProba_;
     }
 
-    public static PairEq<LgInt,LgInt> minMax(LgInt _a, LgInt _b) {
-        if (strGreater(_a, _b)) {
-            return new PairEq<LgInt,LgInt>(_b, _a);
-        }
-        return new PairEq<LgInt,LgInt>(_a, _b);
-    }
     /**
     Cette methode equivaut a l'operateur &gt;.<br/>
 
@@ -787,13 +759,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             reste_ = remain(a_, b_);
         }
         return b_;
-    }
-
-    public static boolean eq(LgInt _one, LgInt _two) {
-        if (_one == null) {
-            return _two == null;
-        }
-        return _one.eq(_two);
     }
 
     public static boolean sameSignum(LgInt _one, LgInt _two) {
