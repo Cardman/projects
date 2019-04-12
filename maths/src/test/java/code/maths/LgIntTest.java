@@ -2656,4 +2656,14 @@ public class LgIntTest {
         assertEq(new LgInt(1),dec_.getFactors().get(0).getFirst());
         assertEq(new LgInt(1),dec_.getFactors().get(0).getSecond());
     }
+    @Test
+    public void newLgIntStringTest() {
+        LgInt a_ = LgInt.newLgInt("0");
+        assertEq(new LgInt(0),a_);
+    }
+    @Test
+    public void displayTest() {
+        LgInt a_ = new LgInt(0);
+        assertEq("0",a_.display());
+    }
 }

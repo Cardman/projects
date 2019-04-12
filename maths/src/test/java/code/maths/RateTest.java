@@ -2060,21 +2060,12 @@ public class RateTest {
     @Test
     public void signumToLong3Test() {
         assertEq(0, new Rate(0).signumToLong());
-    }
-    @Test
+    }@Test
     public void eqStatic1Test() {
-        assertTrue(Rate.eq(null,null));
-    }
-    @Test
-    public void eqStatic2Test() {
-        assertTrue(!Rate.eq(null,new Rate(2)));
-    }
-    @Test
-    public void eqStatic3Test() {
         assertTrue(!Rate.eq(new Rate(2),new Rate(3)));
     }
     @Test
-    public void eqStatic4Test() {
+    public void eqStatic2Test() {
         assertTrue(Rate.eq(new Rate(2),new Rate(2)));
     }
     @Test

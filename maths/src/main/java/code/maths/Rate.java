@@ -622,9 +622,6 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public static boolean eq(Rate _tx1,Rate _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
         return _tx1.eq(_tx2);
     }
 
