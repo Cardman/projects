@@ -1147,7 +1147,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         // _max>=2
         LgInt prod_ = _diviseur.multiplyBy(_max);
-        if (superieurOuEgal(prod_)) {
+        if (quickCmp(prod_) != CustList.NO_SWAP_SORT) {
             return _max;
         }
         long max_ = _max;
@@ -1157,7 +1157,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         while (min_ < max_ - 1) {
             quotient_ = (min_ + max_) / 2;
             prod_ = _diviseur.multiplyBy(quotient_);
-            if (!superieurOuEgal(prod_)) {
+            int res_ = quickCmp(prod_);
+            if (res_ == CustList.EQ_CMP) {
+                return quotient_;
+            }
+            if (res_ == CustList.NO_SWAP_SORT) {
                 max_ = quotient_;
             } else {
                 min_ = quotient_;
@@ -1214,12 +1218,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return false;
     }
 
-    private boolean superieurOuEgal(LgInt _autre) {
+    private int quickCmp(LgInt _autre) {
         if (grDigits.size() > _autre.grDigits.size()) {
-            return true;
+            return CustList.SWAP_SORT;
         }
         if (grDigits.size() < _autre.grDigits.size()) {
-            return false;
+            return CustList.NO_SWAP_SORT;
         }
         int len_;
         len_ = grDigits.size();
@@ -1227,13 +1231,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             long entier_ = grDigits.get(i);
             long entierAutre_ = _autre.grDigits.get(i);
             if (entier_ < entierAutre_) {
-                return false;
+                return CustList.NO_SWAP_SORT;
             }
             if (entier_ > entierAutre_) {
-                return true;
+                return CustList.SWAP_SORT;
             }
         }
-        return true;
+        return CustList.EQ_CMP;
     }
 
     private boolean inferieurOuEgal(LgInt _autre) {

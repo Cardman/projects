@@ -1629,6 +1629,14 @@ public class LgIntTest {
         assertEq(new LgInt("12345678901234567890"), intTwo_);
     }
     @Test
+    public void divide14Test(){
+        LgInt intOne_ = new LgInt("631392784410367070");
+        LgInt intTwo_ = new LgInt("1120937545");
+        assertEq(new LgInt("563272046"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("631392784410367070"), intOne_);
+        assertEq(new LgInt("1120937545"), intTwo_);
+    }
+    @Test
     public void remain1Test(){
         LgInt intOne_ = new LgInt("0");
         LgInt intTwo_ = new LgInt("20");
@@ -1731,6 +1739,14 @@ public class LgIntTest {
         assertEq(new LgInt("11234567890"), LgInt.remain(intOne_, intTwo_));
         assertEq(new LgInt("11234567890"), intOne_);
         assertEq(new LgInt("12345678901234567890"), intTwo_);
+    }
+    @Test
+    public void remain14Test(){
+        LgInt intOne_ = new LgInt("631392784410367070");
+        LgInt intTwo_ = new LgInt("1120937545");
+        assertEq(new LgInt("0"), LgInt.remain(intOne_, intTwo_));
+        assertEq(new LgInt("631392784410367070"), intOne_);
+        assertEq(new LgInt("1120937545"), intTwo_);
     }
     @Test
     public void powNb1Test(){

@@ -513,6 +513,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if (_string1 == null) {
             return _string2 == null;
         }
+        if (_string2 == null) {
+            return false;
+        }
         return quickEq(_string1,_string2);
     }
 
