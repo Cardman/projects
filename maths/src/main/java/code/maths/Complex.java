@@ -37,22 +37,24 @@ public final class Complex implements Equallable<Complex>, Displayable {
         return new Complex(real, imag.opposNb());
     }
     public Rate squareMod() {
-        Rate r_ = Rate.plus(Rate.multiply(real, real), Rate.multiply(imag, imag));
-        return r_;
+        return Rate.plus(Rate.multiply(real, real), Rate.multiply(imag, imag));
+    }
+    public Complex inv() {
+        Rate mod_= squareMod();
+        return new Complex(Rate.divide(real,mod_),Rate.divide(imag,mod_).opposNb());
     }
     public Complex divide(Complex _o) {
-        Rate mod_= _o.squareMod();
-        return multiply(new Complex(Rate.divide(_o.real,mod_),Rate.divide(_o.imag,mod_).opposNb()));
+        return multiply(_o.inv());
     }
     public Complex multiply(Complex _o) {
         Rate r_ = Rate.minus(Rate.multiply(real, _o.real), Rate.multiply(imag, _o.imag));
-        Rate i_  = Rate.minus(Rate.multiply(real, _o.imag), Rate.multiply(imag, _o.real));
+        Rate i_  = Rate.plus(Rate.multiply(real, _o.imag), Rate.multiply(imag, _o.real));
         return new Complex(r_, i_);
     }
     public Complex minus(Complex _complex) {
-        return add(_complex.minus());
+        return add(_complex.opposite());
     }
-    public Complex minus() {
+    public Complex opposite() {
         return new Complex(real.opposNb(), imag.opposNb());
     }
     public Complex add(Complex _complex) {
@@ -66,23 +68,10 @@ public final class Complex implements Equallable<Complex>, Displayable {
         return imag;
     }
     public static boolean eq(Complex _tx1,Complex _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
-        return _tx1.isEqualTo(_tx2);
+        return _tx1.eq(_tx2);
     }
     @Override
     public boolean eq(Complex _o) {
-        if (!Rate.eq(_o.real, real)) {
-            return false;
-        }
-        if (!Rate.eq(_o.imag, imag)) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isEqualTo(Complex _o) {
         if (!Rate.eq(_o.real, real)) {
             return false;
         }

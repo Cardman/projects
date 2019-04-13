@@ -38,7 +38,17 @@ public final class EquallableMathUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
     }
-    
+
+    public static void assertEq(Complex _expected, Complex _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+    }
+
+    public static void assertEq(BigDec _expected, BigDec _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+    }
+
     public static void assertEq(CustPoint _expected, CustPoint _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));

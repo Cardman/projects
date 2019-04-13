@@ -1,5 +1,6 @@
 package code.maths;
 import static code.maths.EquallableMathUtil.assertEq;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import code.util.*;
@@ -162,6 +163,15 @@ public class LgIntTest {
         Numbers<Long> resDigits_ = int_.getGrDigits();
         assertEqDigits(new Numbers<Long>(0L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
+    public void new_LgInt_copy_Test() {
+        LgInt i_ = new LgInt(2);
+        LgInt j_ = new LgInt(i_);
+        Numbers<Long> resDigits_ = j_.getGrDigits();
+        assertEqDigits(new Numbers<Long>(2L), resDigits_);
+        assertEq(LgInt.SIGNE_POSITIF, j_.getSignum());
+        assertNotSame(i_.getGrDigits(),resDigits_);
     }
 
     private static void assertEqDigits(Numbers<Long> _expected, Numbers<Long> _result) {

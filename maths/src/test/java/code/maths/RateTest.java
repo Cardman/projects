@@ -1,7 +1,9 @@
 package code.maths;
 import static code.maths.EquallableMathUtil.assertEq;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import code.util.Numbers;
 import org.junit.Test;
 
 import code.util.CustList;
@@ -310,6 +312,15 @@ public class RateTest {
         assertEq(new LgInt(1L), rate_.getDenominator());
         assertEq(true,rate_.isZeroOrGt());
         assertEq(true,rate_.isZero());
+    }
+    @Test
+    public void new_Rate_copy_Test() {
+        Rate i_ = new Rate(2);
+        Rate j_ = new Rate(i_);
+        assertEq(new LgInt(2L), j_.getNumerator());
+        assertEq(new LgInt(1L), j_.getDenominator());
+        assertNotSame(i_.getNumerator(),j_.getNumerator());
+        assertNotSame(i_.getDenominator(),j_.getDenominator());
     }
     @Test
     public void isValid1(){
