@@ -410,7 +410,7 @@ public class ScenePanel extends Panel {
     }
 
     public void setMessages() {
-        endGame.setText(Game.getEndGameMessage(facade.getData()));
+        endGame.setText(facade.getEndGameMessage());
         useKeyPad.setText(messages.getVal(CLICK_SCENE));
         team.setTextAndSize(messages.getVal(TEAM));
         items.setTextAndSize(messages.getVal(ITEMS));
@@ -440,7 +440,7 @@ public class ScenePanel extends Panel {
     }
 
     public void drawGameWalking(boolean _setPreferredSize) {
-        endGame.setText(Game.getEndGameMessage(facade.getData()));
+        endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
         if (beginGame != null) {
@@ -873,7 +873,7 @@ public class ScenePanel extends Panel {
     }
 
     public void interact() {
-        endGame.setText(Game.getEndGameMessage(facade.getData()));
+        endGame.setText(facade.getEndGameMessage());
         endGame.setVisible(facade.isShowEndGame());
         placeName.setText(facade.getCurrentPlace());
         initInteraction();

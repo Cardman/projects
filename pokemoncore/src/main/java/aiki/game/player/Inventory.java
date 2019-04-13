@@ -17,20 +17,23 @@ public final class Inventory {
     private NumberMap<Short,Boolean> hm;
 
     public Inventory() {
+        setItems(new StringMap<LgInt>());
+        setTm(new NumberMap<Short,Boolean>());
+        setHm(new NumberMap<Short,Boolean>());
     }
 
     public Inventory(DataBase _dataBase) {
-        items = new StringMap<LgInt>();
+        setItems(new StringMap<LgInt>());
         for (String o: _dataBase.getItems().getKeys()) {
-            items.put(o, LgInt.zero());
+            getItems().put(o, LgInt.zero());
         }
-        tm = new NumberMap<Short,Boolean>();
+        setTm(new NumberMap<Short,Boolean>());
         for (short t: _dataBase.getTm().getKeys()) {
-            tm.put(t, false);
+            getTm().put(t, false);
         }
-        hm = new NumberMap<Short,Boolean>();
+        setHm(new NumberMap<Short,Boolean>());
         for (short t: _dataBase.getHm().getKeys()) {
-            hm.put(t, false);
+            getHm().put(t, false);
         }
     }
 
@@ -44,16 +47,6 @@ public final class Inventory {
         StringList objData_ = _data.getItems().getKeys();
         if (!StringList.equalsSet(obj_, objData_)) {
             return false;
-        }
-        for (Object o: tm.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
-        for (Object o: hm.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
         }
         if (!Numbers.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
             return false;

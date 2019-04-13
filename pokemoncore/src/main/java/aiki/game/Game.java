@@ -86,6 +86,8 @@ public final class Game {
 
     public static final String GAME = "aiki.game.game";
 
+    public static final String END_GAME = "endGame";
+
     private static final int NB_HOSTED_POKEMON = 2;
 
     private static final String NO_BEATEN_TRAINER = "noBeatenTrainer";
@@ -121,8 +123,6 @@ public final class Game {
     private static final String CAUGHT_PK = "caughtPk";
 
     private static final String NOT_CAUGHT_PK = "notCaughtPk";
-
-    private static final String END_GAME = "endGame";
 
     private static final String WON_MONEY = "wonMoney";
 
@@ -194,10 +194,10 @@ public final class Game {
 
     public Game(){
         difficulty = new Difficulty();
-        beatGymTrainer = new NumberMap<Short,EqList<Point>>();
+        setBeatGymTrainer(new NumberMap<Short,EqList<Point>>());
         reinitInteraction=false;
-        interfaceType=InterfaceType.RIEN;
-        visitedPlaces = new ObjectMap<Coords,Boolean>();
+        setInterfaceType(InterfaceType.RIEN);
+        setVisitedPlaces(new ObjectMap<Coords,Boolean>());
         playerCoords = new Coords();
     }
 
@@ -954,30 +954,6 @@ public final class Game {
         }
     }
 
-//    void recevoirPokemon(DataBase _d){
-//        DataMap d_=_d.getMap();
-//        Coords voisin_=d_.closestTile(playerCoords,getOrientationUtilisateur());
-//        Level lev_ = d_.getPlaces().get(voisin_.getNumberPlace()).getLevelByCoords(voisin_);
-//        lev_.
-//        Lieu lieu_=d_.getPartLieux(voisin_.lieu());
-//        Plateau plateau_=lieu_.getPartPlateaux(voisin_.plateau());
-//        Environnement env_=plateau_.getPartEnvironnements(voisin_.getEnvironnement());
-//        Pokemon pk_=env_.getPartLieuxDonsPokemon(voisin_.getTuile());
-//        //Integer nbEq_=player.equipe_ut().size()+player.oeufs().size();
-//        Booleen etaitPlein_=player.boitesToutesPleines();
-//        player.recevoirPokemon(pk_,difficulty,_d);
-//        if(!etaitPlein_){
-//            prendrePokemon(voisin_);
-//        }
-        //if(nbEq_)
-        /*if(!utilis().recevoir_pokemon(pk_,difficulty,_d,_commentaire)){
-            suppr_=false;
-        }
-        if(suppr_){
-            prendre_pokemon(voisin_);
-        }*/
-//    }
-
     public void takeObject(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_ = closestTile(d_);
@@ -1083,15 +1059,9 @@ public final class Game {
         if (!voisin_.isValid()) {
             return false;
         }
-//        if (!d_.getPlaces().contains(voisin_.getNumberPlace())) {
-//            return false;
-//        }
         Place pl_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             League league_ = (League) pl_;
-//            if (voisin_.getLevel().getLevelIndex() >= ((League)pl_).getRooms().size()) {
-//                return false;
-//            }
             LevelLeague level_ = league_.getRooms().get(voisin_.getLevel().getLevelIndex());
             return Point.eq(level_.getTrainerCoords(), voisin_.getLevel().getPoint());
         }
@@ -1139,20 +1109,6 @@ public final class Game {
             return _d.getTrainer(tr_.getImageMaxiFileName());
         }
         if (pl_ instanceof City) {
-//            if (voisin_.isInside()) {
-//                Level l_ = pl_.getLevelByCoords(voisin_);
-//                if (l_ instanceof LevelIndoorGym) {
-//                    LevelIndoorGym gym_ = (LevelIndoorGym) l_;
-//                    if(gym_.getGymTrainers().contains(voisin_.getLevel().getPoint())) {
-//                        GymTrainer gymTr_ = gym_.getGymTrainers().getVal(voisin_.getLevel().getPoint());
-//                        return _d.getTrainer(gymTr_.getImageMaxiFileName());
-//                    } else {
-//                        //if(Point.eq(gym_.getGymLeaderCoords(),voisin_.getLevel().getPoint()))
-//                        GymLeader gymTr_ = gym_.getGymLeader();
-//                        return _d.getTrainer(gymTr_.getImageMaxiFileName());
-//                    }
-//                }
-//            }
             Level l_ = pl_.getLevelByCoords(voisin_);
             LevelIndoorGym gym_ = (LevelIndoorGym) l_;
             if(gym_.getGymTrainers().contains(voisin_.getLevel().getPoint())) {
@@ -1176,28 +1132,6 @@ public final class Game {
         CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
         TrainerMultiFights dr_=(TrainerMultiFights)ch_;
         return _d.getTrainer(dr_.getImageMaxiFileName());
-//        if(l_.getCharacters().contains(voisin_.getLevel().getPoint())) {
-//            CharacterInRoadCave ch_ = l_.getCharacters().getVal(voisin_.getLevel().getPoint());
-//            //if (ch_ instanceof TrainerMultiFights) {
-////                int nb_=0;
-////                for(NbFightCoords d:beatTrainer.getKeys()){
-////                    if(Coords.eq(d.getCoords(),voisin_)){
-////                        if(!beatTrainer.getVal(new NbFightCoords(d.getCoords(),nb_))){
-////                            break;
-////                        }
-////                        nb_++;
-////                    }
-////                }
-//                //TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-////                if (!dr_.getTeamsRewards().isValidIndex(nb_)) {
-////                    nb_ = dr_.getTeamsRewards().size() - 1;
-////                }
-//                //return _d.getTrainer(dr_.getImageMaxiFileName());
-//            //}
-//            TrainerMultiFights dr_=(TrainerMultiFights)ch_;
-//            return _d.getTrainer(dr_.getImageMaxiFileName());
-//        }
-//        return DataBase.EMPTY_STRING;
     }
 
     public void initFishing(DataBase _d) {
@@ -1258,11 +1192,6 @@ public final class Game {
         FightFacade.deselect(fight);
     }
 
-//    //Not used
-//    public void validateSwitch() {
-//        FightFacade.validateSwitch(fight);
-//    }
-
     public void setFirstChosenMoveFoeTarget(byte _cible){
         FightFacade.setFirstChosenMoveFoeTarget(fight,_cible);
     }
@@ -1299,21 +1228,9 @@ public final class Game {
         return FightFacade.sortedFightersBeginRound(fight, _data);
     }
 
-//    //not used
-//    public TreeMap<TeamPosition,ActionMove>
-//        sortedFightersUsingMoveDependingOnPlayerChoices(
-//            DataBase _data) {
-//        return FightFacade.sortedFightersUsingMoveDependingOnPlayerChoices(fight, _data);
-//    }
-
     public void setSubstituteEndRound(byte _remplacant){
         FightFacade.setSubstituteEndRound(fight,_remplacant);
     }
-
-//    //Not used
-//    public void cancelChooseBackFighterWhileRound() {
-//        FightFacade.cancelChooseBackFighterWhileRound(fight);
-//    }
 
     public void endFight(DataBase _import) {
         boolean existBall_ = player.existBall(_import);
@@ -1602,7 +1519,6 @@ public final class Game {
         DataMap map_ = _import.getMap();
         EqList<Coords> accessible_ = new EqList<Coords>();
         EqList<Coords> inaccessible_ = new EqList<Coords>();
-//        CustList<Coords> beaten_ = beatGymLeader.getKeys(true);
         EqList<Coords> beaten_ = getBeatenGymLeader();
         for (Coords c: map_.getAccessibility().getKeys()) {
             if (!map_.getAccessibility().getVal(c).containsObj(_coords)) {
@@ -1766,16 +1682,6 @@ public final class Game {
     public NatTreeMap<Byte,Fighter> getPlayerBackTeamForSubstituting() {
         return FightFacade.getPlayerBackTeamForSubstituting(fight);
     }
-
-//    //Not used
-//    public TreeMap<Byte,Fighter> getAllyFrontTeam() {
-//        return FightFacade.getAllyFrontTeam(fight);
-//    }
-//
-//    //Not used
-//    public TreeMap<Byte,Fighter> getAllyBackTeam() {
-//        return FightFacade.getAllyBackTeam(fight);
-//    }
 
     public boolean isChosableForLearningAndEvolving(byte _key) {
         return FightFacade.isChosableForLearningAndEvolving(fight, _key);
@@ -1948,9 +1854,6 @@ public final class Game {
         if(!attrape_){
             return false;
         }
-//        if (!beatGymLeader.getKeys(false).isEmpty()) {
-//            return false;
-//        }
         if (!getUnBeatenGymLeader().isEmpty()) {
             return false;
         }
@@ -1965,7 +1868,6 @@ public final class Game {
                 }
             }
         }
-//        if (!visitedPlaces.getKeys(false).isEmpty())
         if (!getUnVisited().isEmpty()) {
             return false;
         }
@@ -2082,7 +1984,6 @@ public final class Game {
     void incrementPeriod(AreaApparition _area, DataBase _d) {
         indexStep++;
         if(indexStep >= _area.getAvgNbSteps()){
-//            newIndex(true, indexPeriod, _area.getWildPokemonList(), _d);
             newIndex(true, indexPeriod, _area, _d);
             indexStep=0;
         }
@@ -2120,7 +2021,6 @@ public final class Game {
         }
         StringMap<String> mess_ = _db.getMessagesGame();
         if(map_.getAccessCondition().contains(voisin_)){
-//            CustList<Coords> leaders_ = beatGymLeader.getKeys(true);
             EqList<Coords> leaders_ = getBeatenGymLeader();
             if (!leaders_.containsAllObj(map_.getAccessCondition().getVal(voisin_))) {
                 EqList<Coords> noBeaten_ = new EqList<Coords>(map_.getAccessCondition().getVal(voisin_));
@@ -2168,7 +2068,6 @@ public final class Game {
             Cave cave_ = (Cave) nextPl_;
             if (cave_.getLinksWithOtherPlaces().contains(voisin_.getLevel())) {
                 nbSteps++;
-//                playerCoords.affect(_map.closestTile(cave_.getLinksWithOtherPlaces().getVal(voisin_.getLevel())));
                 playerCoords.affect(cave_.getLinksWithOtherPlaces().getVal(voisin_.getLevel()).getCoords());
                 placeChanged = true;
                 return;
@@ -2178,7 +2077,6 @@ public final class Game {
             if (((InitializedPlace)nextPl_).getLinksWithCaves().contains(nextPt_)) {
                 Link to_ = ((InitializedPlace)nextPl_).getLinksWithCaves().getVal(nextPt_);
                 nbSteps++;
-//                playerCoords.affect(_map.closestTile(to_));
                 playerCoords.affect(to_.getCoords());
                 placeChanged = true;
                 return;
@@ -2187,7 +2085,7 @@ public final class Game {
         if (nextlevel_.getBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
             return;
         }
-        if (playerCoords.isInside()) {
+        if (nextPl_ instanceof City && playerCoords.isInside()) {
             Point inside_ = playerCoords.getInsideBuilding();
             Building building_ = ((City)nextPl_).getBuildings().getVal(inside_);
             if (Point.eq(building_.getExitCity(),nextPt_)) {
@@ -2207,15 +2105,7 @@ public final class Game {
             playerCoords.getLevel().getPoint().affect(nextPt_);
             return;
         }
-        if(nextPl_ instanceof InitializedPlace) {
-//            if (((InitializedPlace)nextPl_).getLinksWithCaves().contains(nextPt_)) {
-//                Link to_ = ((InitializedPlace)nextPl_).getLinksWithCaves().getVal(nextPt_);
-//                nbSteps++;
-////                playerCoords.affect(_map.closestTile(to_));
-//                playerCoords.affect(to_.getCoords());
-//                placeChanged = true;
-//                return;
-//            }
+        if(!(nextPl_ instanceof Cave)) {
             if (!isEmpty(map_, voisin_)) {
                 return;
             }
@@ -2225,13 +2115,6 @@ public final class Game {
         }
         //nextPl_ instanceof Cave
         Cave cave_ = (Cave) nextPl_;
-//        if (cave_.getLinksWithOtherPlaces().contains(voisin_.getLevel())) {
-//            nbSteps++;
-////            playerCoords.affect(_map.closestTile(cave_.getLinksWithOtherPlaces().getVal(voisin_.getLevel())));
-//            playerCoords.affect(cave_.getLinksWithOtherPlaces().getVal(voisin_.getLevel()).getCoords());
-//            placeChanged = true;
-//            return;
-//        }
         LevelPoint lPoint_ = voisin_.getLevel();
         LevelCave levelCave_ = (LevelCave)cave_.getLevelsMap().getVal(lPoint_.getLevelIndex());
         if (levelCave_.getLinksOtherLevels().contains(lPoint_.getPoint())) {
@@ -2557,13 +2440,8 @@ public final class Game {
             return false;
         }
         DataMap d_ = _data.getMap();
-        Coords voisin_ = closestTile(d_);
         interfaceType = InterfaceType.RIEN;
-        if (voisin_.isValid()) {
-            directInteraction(voisin_, d_);
-        } else {
-            interfaceType = InterfaceType.RIEN;
-        }
+        directInteraction(d_);
         showEndGame = false;
         if (!getFight().getFightType().isExisting()) {
             if (endGame(_data)) {
@@ -2646,11 +2524,6 @@ public final class Game {
 
     void visitPlace(Coords _coords) {
         visitedPlaces.set(_coords, true);
-    }
-
-    public static String getEndGameMessage(DataBase _db) {
-        StringMap<String> mess_ = _db.getMessagesGame();
-        return mess_.getVal(END_GAME);
     }
 
     public Player getPlayer() {
@@ -2757,10 +2630,6 @@ public final class Game {
         return reinitInteraction;
     }
 
-    public void setReinitInteraction(boolean _reinitInteraction) {
-        reinitInteraction = _reinitInteraction;
-    }
-
     public ObjectMap<Coords,Boolean> getVisitedPlaces() {
         return visitedPlaces;
     }
@@ -2773,16 +2642,8 @@ public final class Game {
         return nbSteps;
     }
 
-    public void setNbSteps(int _nbSteps) {
-        nbSteps = _nbSteps;
-    }
-
     public boolean isPlaceChanged() {
         return placeChanged;
-    }
-
-    public void setPlaceChanged(boolean _placeChanged) {
-        placeChanged = _placeChanged;
     }
 
     public InterfaceType getInterfaceType() {
@@ -2803,10 +2664,6 @@ public final class Game {
 
     public void setPlayerOrientation(Direction _playerOrientation) {
         playerOrientation = _playerOrientation;
-    }
-
-    public void setShowEndGame(boolean _showEndGame) {
-        showEndGame = _showEndGame;
     }
 
     public ObjectMap<NbFightCoords,Boolean> getBeatTrainer() {

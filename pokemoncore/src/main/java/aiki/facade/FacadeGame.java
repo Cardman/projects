@@ -3148,6 +3148,11 @@ public class FacadeGame implements WithMathFactory {
         return data.getMap();
     }
 
+    public String getEndGameMessage() {
+        StringMap<String> mess_ = data.getMessagesGame();
+        return mess_.getVal(Game.END_GAME);
+    }
+
     public DataBase getData() {
         return data;
     }

@@ -5608,6 +5608,12 @@ public class GameTest extends InitializationDataBase {
         assertEq(1, game_.getCommentGame().getMessages().size());
     }
 
+    @Test
+    public void new_Game_Test() {
+        Game game_ = new Game();
+        assertEq(0, game_.getBeatGymTrainer().size());
+    }
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

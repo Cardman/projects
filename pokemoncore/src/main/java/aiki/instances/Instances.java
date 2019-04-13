@@ -281,7 +281,7 @@ public final class Instances {
 
     public static EffectWhileSendingWithStatistic newEffectWhileSendingWithStatistic() {
         EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
-        object_.setEffect(new EffectStatistic());
+        object_.setEffect(newEffectStatistic());
         object_.setEnabledWeather(DataBase.EMPTY_STRING);
         object_.setMultWeight(Rate.zero());
         return object_;
@@ -1134,7 +1134,7 @@ public final class Instances {
         Game object_ = new Game();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setZippedRom(DataBase.EMPTY_STRING);
-        object_.setPlayer(new Player());
+        object_.setPlayer(newPlayer());
         object_.setBeatGymTrainer(new NumberMap<Short,EqList<Point>>(cap_));
         object_.setBeatGymLeader(new ObjectMap<Coords,Boolean>(cap_));
         object_.setBeatTrainer(new ObjectMap<NbFightCoords,Boolean>(cap_));
@@ -1143,16 +1143,16 @@ public final class Instances {
         object_.setPlayerCoords(new Coords());
         object_.setPlayerOrientation(Direction.UP);
         object_.setHostedPk(new ObjectMap<Coords,HostPokemonDuo>(cap_));
-        object_.setFight(new Fight());
-        object_.setDifficulty(new Difficulty());
+        object_.setFight(newFight());
+        object_.setDifficulty(newDifficulty());
         object_.setVisitedPlaces(new ObjectMap<Coords,Boolean>(cap_));
         return object_;
     }
 
     public static HostPokemonDuo newHostPokemonDuo() {
         HostPokemonDuo object_ = new HostPokemonDuo();
-        object_.setFirstPokemon(new PokemonPlayer());
-        object_.setSecondPokemon(new PokemonPlayer());
+        object_.setFirstPokemon(newPokemonPlayer());
+        object_.setSecondPokemon(newPokemonPlayer());
         return object_;
     }
 
@@ -1333,7 +1333,7 @@ public final class Instances {
         object_.setNickname(DataBase.EMPTY_STRING);
         object_.setTeam(new CustList<UsablePokemon>(cap_));
         object_.setBox(new CustList<UsablePokemon>(cap_));
-        object_.setInventory(new Inventory());
+        object_.setInventory(newInventory());
         object_.setCaughtPk(new StringMap<Boolean>(cap_));
         object_.setMoney(LgInt.zero());
         return object_;
@@ -1352,13 +1352,13 @@ public final class Instances {
         object_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>(cap_));
         object_.setUnlockedCity(DataBase.EMPTY_STRING);
         object_.setBegin(new Coords());
-        object_.setFirstPokemon(new WildPk());
+        object_.setFirstPokemon(newWildPk());
         return object_;
     }
 
     public static Gym newGym() {
         Gym object_ = new Gym();
-        object_.setLevel(new LevelIndoorGym());
+        object_.setLevel(newLevelIndoorGym());
         object_.setImageFileName(DataBase.EMPTY_STRING);
         object_.setExitCity(new Point());
         return object_;
@@ -1366,7 +1366,7 @@ public final class Instances {
 
     public static PokemonCenter newPokemonCenter() {
         PokemonCenter object_ = new PokemonCenter();
-        object_.setLevel(new LevelIndoorPokemonCenter());
+        object_.setLevel(newLevelIndoorPokemonCenter());
         object_.setImageFileName(DataBase.EMPTY_STRING);
         object_.setExitCity(new Point());
         return object_;
@@ -1391,8 +1391,8 @@ public final class Instances {
     public static DualFight newDualFight() {
         DualFight object_ = new DualFight();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setAlly(new Ally());
-        object_.setFoeTrainer(new TempTrainer());
+        object_.setAlly(newAlly());
+        object_.setFoeTrainer(newTempTrainer());
         object_.setNames(new StringList(cap_));
         object_.setPt(new Point());
         return object_;
@@ -1504,7 +1504,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setGymTrainers(new ObjectMap<Point,GymTrainer>(cap_));
         object_.setGymLeaderCoords(new Point());
-        object_.setGymLeader(new GymLeader());
+        object_.setGymLeader(newGymLeader());
         object_.setBlocks(new ObjectMap<Point,Block>(cap_));
         return object_;
     }
@@ -1522,7 +1522,7 @@ public final class Instances {
         LevelLeague object_ = new LevelLeague();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTrainerCoords(new Point());
-        object_.setTrainer(new TrainerLeague());
+        object_.setTrainer(newTrainerLeague());
         object_.setAccessPoint(new Point());
         object_.setNextLevelTarget(new Point());
         object_.setFileName(DataBase.EMPTY_STRING);
@@ -1564,7 +1564,7 @@ public final class Instances {
         City object_ = new City();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setBuildings(new ObjectMap<Point,Building>(cap_));
-        object_.setLevel(new LevelOutdoor());
+        object_.setLevel(newLevelOutdoor());
         object_.setName(DataBase.EMPTY_STRING);
         object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
         object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
@@ -1586,7 +1586,7 @@ public final class Instances {
         Road object_ = new Road();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setName(DataBase.EMPTY_STRING);
-        object_.setLevel(new LevelRoad());
+        object_.setLevel(newLevelRoad());
         object_.setLinksWithCaves(new ObjectMap<Point,Link>(cap_));
         object_.setSavedlinks(new ObjectMap<PlaceInterConnect,Coords>(cap_));
         return object_;

@@ -2726,7 +2726,9 @@ public class PlayerTest extends InitializationDataBase {
         addPokemonToUser1(player_, diff_);
         PokemonPlayer pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
         assertEq(LIMAGMA, pkUserTeam_.getNickname());
+        assertTrue(!player_.isValidPkPlayerChoice());
         player_.setChosenTeamPokemon((short) 2);
+        assertTrue(player_.isValidPkPlayerChoice());
         player_.nickname(NULL_REF, _data_);
         pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
         assertEq(LIMAGMA, pkUserTeam_.getNickname());
@@ -2843,6 +2845,7 @@ public class PlayerTest extends InitializationDataBase {
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.setChosenTeamPokemon((short) 1);
+        assertTrue(!player_.isValidPkPlayerChoice());
         assertTrue(!player_.enabledSwitchObjectsTeam());
     }
 
@@ -4554,6 +4557,8 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(MELOFEE, ((PokemonPlayer)player_.getTeam().get(1)).getName());
         assertEq(5, ((PokemonPlayer)player_.getTeam().get(1)).getMovesToBeKeptEvo().size());
         assertEq(0, ((PokemonPlayer)player_.getTeam().get(1)).getNewAbilitiesToBeChosen().size());
+        StringList abs_ = player_.getNewAbilitiesToBeChosen();
+        assertEq(0, abs_.size());
     }
     @Test
     public void choosePokemonForEvolution3Test() {
@@ -4578,6 +4583,8 @@ public class PlayerTest extends InitializationDataBase {
         assertEq(PIERRE_SOLEIL, player_.getSelectedObject());
         assertEq(new LgInt("1"), player_.getInventory().getNumber(PIERRE_SOLEIL));
         assertEq(MELOFEE, ((PokemonPlayer)player_.getTeam().get(1)).getName());
+        StringList abs_ = player_.getNewAbilitiesToBeChosen();
+        assertEq(2, abs_.size());
     }
 
     @Test

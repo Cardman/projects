@@ -956,8 +956,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public LgInt rateRemainHp(DataBase _import) {
         Rate r_ = Rate.divide(remainingHp, pvMax(_import));
-//        r_.multiplyBy(new Rate(CENT));
-//        return r_.intPart();
         return r_.percent();
     }
 
@@ -1054,24 +1052,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         return movesToBeKeptEvo;
     }
 
-    public void setMovesToBeKeptEvo(StringMap<Boolean> _movesToBeKeptEvo) {
-        movesToBeKeptEvo = _movesToBeKeptEvo;
-    }
-
     public String getPossibleEvolution() {
         return possibleEvolution;
     }
 
-    public void setPossibleEvolution(String _possibleEvolution) {
-        possibleEvolution = _possibleEvolution;
-    }
-
     public StringList getNewAbilitiesToBeChosen() {
         return newAbilitiesToBeChosen;
-    }
-
-    public void setNewAbilitiesToBeChosen(StringList _newAbilitiesToBeChosen) {
-        newAbilitiesToBeChosen = _newAbilitiesToBeChosen;
     }
 
     public void clearComment() {

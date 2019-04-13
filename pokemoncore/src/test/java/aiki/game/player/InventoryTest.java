@@ -59,10 +59,32 @@ public class InventoryTest extends InitializationDataBase{
     }
 
     @Test
+    public void getTm2Test() {
+        Inventory obj_ = new Inventory(_data_);
+        assertEq(0,obj_.gotTm().size());
+        assertTrue(!obj_.gotTm().containsObj((short) 1));
+    }
+
+    @Test
     public void getHm1Test() {
         Inventory obj_ = new Inventory(_data_);
         obj_.getHm((short) 1);
         assertEq(1,obj_.gotHm().size());
         assertTrue(obj_.gotHm().containsObj((short) 1));
+    }
+
+    @Test
+    public void getHm2Test() {
+        Inventory obj_ = new Inventory(_data_);
+        assertEq(0,obj_.gotHm().size());
+        assertTrue(!obj_.gotHm().containsObj((short) 1));
+    }
+
+    @Test
+    public void new_Inventory_Test() {
+        Inventory obj_ = new Inventory();
+        assertEq(0,obj_.getHm().size());
+        assertEq(0,obj_.getTm().size());
+        assertEq(0,obj_.getItems().size());
     }
 }

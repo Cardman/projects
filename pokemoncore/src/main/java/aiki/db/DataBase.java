@@ -3958,6 +3958,12 @@ public class DataBase implements WithMathFactory {
         }
         return StringList.simpleStringsFormat(value_, _name);
     }
+
+    public String getEndGameMessage(String _endGame) {
+        StringMap<String> mess_ = getMessagesGame();
+        return mess_.getVal(_endGame);
+    }
+
     public StringMap<String> getMessagesFight() {
         return messagesFight;
     }

@@ -2,6 +2,7 @@ package aiki.map.pokemon;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.LgInt;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -318,6 +319,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(new Rate("3037/100"), fPk_.stat(pk_.getLevel(), Statistic.HP, pk_.getEv().getVal(Statistic.HP), pk_.getIv().getVal(Statistic.HP)));
         assertEq(new Rate("3037/100"), fPk_.statHp(pk_.getLevel(), pk_.getEv(), pk_.getIv()));
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
+        assertEq(new LgInt(100), pk_.rateRemainHp(_data_));
     }
 
     @Test

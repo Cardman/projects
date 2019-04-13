@@ -3958,8 +3958,18 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(game_.checkAndInitialize(_data_));
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
     }
+
     @Test
     public void checkAndInitialize16Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(1, 0, 1, 1,-1,0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
+    @Test
+    public void checkAndInitialize17Test(){
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
         //invalid

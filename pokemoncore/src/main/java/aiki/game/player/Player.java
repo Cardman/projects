@@ -161,8 +161,8 @@ public final class Player {
             DataMap donnees_=_import.getMap();
             initTeam(_sexeHeros, _diff, donnees_.getFirstPokemon(), _import);
         }
-        money=_import.getDefaultMoney().intPart();
-        inventory=new Inventory(_import);
+        setMoney(_import.getDefaultMoney().intPart());
+        setInventory(new Inventory(_import));
         remainingRepelSteps=0;
     }
 
@@ -1544,11 +1544,6 @@ public final class Player {
         copy_.putAllMap(map_);
         Numbers<Byte> indexes_;
         indexes_ = new Numbers<Byte>(copy_.getKeys());
-//        Numbers<Byte> values_ = new Numbers<>(map_.values());
-//        values_.sort();
-//        for (byte k: values_) {
-//            indexes_.add(map_.getKeys(k).first());
-//        }
         swap(indexes_);
     }
 
@@ -1661,10 +1656,6 @@ public final class Player {
         return chosenMoves;
     }
 
-    public void setChosenMoves(StringMap<Short> _chosenMoves) {
-        chosenMoves = _chosenMoves;
-    }
-
     public StringMap<Boolean> getSelectedMoves() {
         return selectedMoves;
     }
@@ -1677,10 +1668,6 @@ public final class Player {
         chosenTeamPokemon = _chosenTeamPokemon;
     }
 
-    public String getChosenAbilityForEvolution() {
-        return chosenAbilityForEvolution;
-    }
-
     public void setChosenAbilityForEvolution(String _chosenAbilityForEvolution) {
         chosenAbilityForEvolution = _chosenAbilityForEvolution;
     }
@@ -1689,24 +1676,8 @@ public final class Player {
         return indexesOfPokemonTeam;
     }
 
-    public void setIndexesOfPokemonTeam(Numbers<Byte> _indexesOfPokemonTeam) {
-        indexesOfPokemonTeam = _indexesOfPokemonTeam;
-    }
-
     public NumberMap<Byte,Boolean> getIndexesOfPokemonTeamMoves() {
         return indexesOfPokemonTeamMoves;
-    }
-
-    public void setIndexesOfPokemonTeamMoves(NumberMap<Byte,Boolean> _indexesOfPokemonTeamMoves) {
-        indexesOfPokemonTeamMoves = _indexesOfPokemonTeamMoves;
-    }
-
-    public StringMap<Boolean> getMovesToBeKeptEvo() {
-        return ((PokemonPlayer) team.get(chosenTeamPokemon)).getMovesToBeKeptEvo();
-    }
-
-    public String getPossibleEvolution() {
-        return ((PokemonPlayer) team.get(chosenTeamPokemon)).getPossibleEvolution();
     }
 
     public StringList getNewAbilitiesToBeChosen() {
