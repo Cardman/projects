@@ -484,6 +484,9 @@ public final class FightFacade {
                         }
                     }
                 } else {
+                    if (!fighter_.getMovesAbilitiesEvos().contains(choice_.getName())) {
+                        return false;
+                    }
                     StringList possible_ = new StringList();
                     possible_.addAllElts(fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getMoves());
                     possible_.addAllElts(fighter_.getMovesSet());
@@ -2607,15 +2610,6 @@ public final class FightFacade {
             return;
         }
         _fight.setError(false);
-        if (_fight.getEnvType() == null) {
-            _fight.setEnvType(EnvironmentType.ROAD);
-        }
-        if (_fight.getCatchingBall() == null) {
-            _fight.setCatchingBall(DataBase.EMPTY_STRING);
-        }
-        if (_fight.getCurrentUser() == null) {
-            _fight.setCurrentUser(new TeamPosition());
-        }
         _fight.setFullHealing(false);
         _fight.setSuccessfulEffects(new ObjectMap<NbEffectFighterCoords,Boolean>());
         _fight.setDamageByCurrentUser(new ObjectMap<TeamPosition,Rate>());
@@ -2641,7 +2635,6 @@ public final class FightFacade {
         _fight.setRemainingFighters(new EqList<TeamPosition>());
         _fight.setChosablePlayerTargets(new BooleanList());
         _fight.setChosableFoeTargets(new BooleanList());
-        _fight.setBackPartners(new BooleanList());
         _fight.setChosenFoeTarget(Fighter.BACK);
         _fight.setChosenPlayerTarget(Fighter.BACK);
         _fight.setChosenIndexBack(Fighter.BACK);

@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.comments.Comment;
 import org.junit.Test;
 
 import aiki.game.fight.enums.FightState;
@@ -54,9 +55,6 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(2, fight_.getKos().size());
         assertTrue(!fight_.getKos().getVal(Fight.FOE));
         assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
-//        assertEq(2, fight_.getKos().getKeys(false).size());
-//        assertTrue(fight_.getKos().contains(Fight.FOE));
-//        assertTrue(fight_.getKos().contains(Fight.PLAYER));
     }
 
     @Test
@@ -1138,4 +1136,53 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_FIGHTER_THREE, userTeam_.get(2));
     }
 
+    @Test
+    public void addComment1Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initMultiplicity(fight_,(byte) 4);
+        fight_.setEnabledMessages(true);
+        Comment c_ = new Comment();
+        c_.addMessage("");
+        fight_.addComment(c_);
+        assertEq(1, fight_.getComment().getMessages().size());
+    }
+
+    @Test
+    public void addComment2Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initMultiplicity(fight_,(byte) 4);
+        fight_.setEnabledMessages(false);
+        Comment c_ = new Comment();
+        c_.addMessage("");
+        fight_.addComment(c_);
+        assertEq(0, fight_.getComment().getMessages().size());
+    }
 }

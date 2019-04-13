@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.*;
 import org.junit.Test;
 
 import aiki.game.params.Difficulty;
@@ -15,11 +16,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 
 
 public class TeamTest extends InitializationDataBase {
@@ -131,6 +127,8 @@ public class TeamTest extends InitializationDataBase {
 //        assertTrue(listUsesRound_.contains(AIRE_D_HERBE));
         assertEq(1, team_.getNbUsesMoves().size());
         assertEq(0, team_.getNbUsesMoves().getVal(CASSE).intValue());
+        assertEq(0, team_.getHealAfterSet().size());
+        assertEq(0, team_.getMovesAnticipationSet().size());
     }
 
     @Test
@@ -164,6 +162,10 @@ public class TeamTest extends InitializationDataBase {
         assertEq(0, stack_.getNbRounds());
         assertTrue(!stack_.isFirstStacked());
         assertTrue(!stack_.isLastStacked());
+        assertEq(1, team_.getHealAfterSet().size());
+        assertEq(1, team_.getMovesAnticipationSet().size());
+        assertTrue(team_.getMovesAnticipationSet().containsObj(PRESCIENCE));
+        assertTrue(team_.getHealAfterSet().containsObj(VOEU));
     }
 
     @Test
@@ -712,7 +714,7 @@ public class TeamTest extends InitializationDataBase {
         Fighter fighter_ = team_.getMembers().getVal((byte) 0);
         assertEq(22, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, fighter_.getNbStatusRelatByRounds((short) 0));
+        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());
@@ -722,7 +724,7 @@ public class TeamTest extends InitializationDataBase {
         fighter_ = team_.getMembers().getVal((byte) 1);
         assertEq(22, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, fighter_.getNbStatusRelatByRounds((short) 0));
+        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());
@@ -756,6 +758,10 @@ public class TeamTest extends InitializationDataBase {
         assertEq(0, team_.getPlayerFightersAgainstFoe().getVal((byte) 0).size());
         assertEq(1, team_.getPlayerFightersAgainstFoe().getVal((byte) 1).size());
         assertTrue(team_.getPlayerFightersAgainstFoe().getVal((byte) 1).containsObj((byte) 0));
+        assertEq(2, team_.getPlayerFightersAgainstFoeSet().size());
+        assertEq(0, team_.getPlayerFightersAgainstFoeVal((byte) 0).size());
+        assertEq(1, team_.getPlayerFightersAgainstFoeVal((byte) 1).size());
+        assertTrue(team_.getPlayerFightersAgainstFoeVal((byte) 1).containsObj((byte) 0));
     }
 
     @Test
@@ -1531,5 +1537,15 @@ public class TeamTest extends InitializationDataBase {
         Numbers<Byte> list_ = team_.notKoPartnersWithoutStatus((byte) 0);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj((byte) 3));
+    }
+
+    int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+        int i_ = CustList.SIZE_EMPTY;
+        for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+            if (Numbers.eq(e.getValue().shortValue(), _nbRounds)) {
+                i_++;
+            }
+        }
+        return i_;
     }
 }

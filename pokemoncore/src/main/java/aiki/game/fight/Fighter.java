@@ -570,18 +570,6 @@ public final class Fighter {
     //This class is covered
     //byte _user, in back
     public boolean validate(DataBase _data, byte _numberTeam, Fight _fight) {
-        if (gender == null) {
-            return false;
-        }
-        if (action == null) {
-            return false;
-        }
-        if (currentGender == null) {
-            return false;
-        }
-        if (nickname == null) {
-            return false;
-        }
         if (!_data.getPokedex().contains(name)) {
             return false;
         }
@@ -868,11 +856,6 @@ public final class Fighter {
                 return false;
             }
         }
-        for (Object o: enabledMovesForAlly.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
         if (!StringList.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys())) {
             return false;
         }
@@ -1004,11 +987,6 @@ public final class Fighter {
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
-            }
-        }
-        for (Object o :incrUserAccuracy.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
             }
         }
         if (!MoveTeamPosition.equalsSet(incrUserAccuracy.getKeys(), relMovesTh_)) {
@@ -2388,17 +2366,6 @@ public final class Fighter {
         return list_;
     }
 
-    StringList enabledIndividualImmuMoves() {
-        StringList list_ = new StringList();
-        for(String m:enabledMovesProt.getKeys()){
-            if(!enabledMovesProt.getVal(m).isEnabled()){
-                continue;
-            }
-            list_.add(m);
-        }
-        return list_;
-    }
-
     StringList enabledIndividualAntiImmuMoves() {
         StringList list_ = new StringList();
         for(String m:enabledMovesUnprot.getKeys()){
@@ -2657,16 +2624,6 @@ public final class Fighter {
         return statusRelat.contains(_status);
     }
 
-    int getNbStatusRelatByRounds(short _nbRounds) {
-        int i_ = CustList.SIZE_EMPTY;
-        for (EntryCust<MoveTeamPosition, Short> e: statusRelat.entryList()) {
-            if (Numbers.eq(e.getValue().shortValue(), _nbRounds)) {
-                i_++;
-            }
-        }
-        return i_;
-    }
-
     public ObjectMap<MoveTeamPosition,Short> getStatusRelat() {
         return statusRelat;
     }
@@ -2891,10 +2848,6 @@ public final class Fighter {
 
     public void setGroundPlace(byte _groundPlace) {
         groundPlace = _groundPlace;
-    }
-
-    public boolean isBackGroundPlaceSubst() {
-        return groundPlaceSubst == BACK;
     }
 
     public byte getGroundPlaceSubst() {

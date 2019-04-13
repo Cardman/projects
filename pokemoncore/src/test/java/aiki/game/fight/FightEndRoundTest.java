@@ -440,6 +440,75 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
     }
 
+    @Test
+    public void processActivity12Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SIPHON, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)4,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        affected_.setMove(SEISME);
+        affected_.getActivity().enableReset();
+        fight_.setCurrentActivity(affected_.getActivity());
+        affected_.getActivity().setNbTurn((short)8);
+        FightEndRound.processActivity(fight_, thrower_, ENCORE, POKEMON_PLAYER_FIGHTER_ZERO, true, _data_);
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+    }
+
+    @Test
+    public void processActivity13Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SIPHON, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)4,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = processActivity(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        AffectedMove affected_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO));
+        affected_.setMove(SEISME);
+        affected_.getActivity().enableReset();
+        fight_.setCurrentActivity(affected_.getActivity());
+        affected_.getActivity().setNbTurn((short)7);
+        FightEndRound.processActivity(fight_, thrower_, ENCORE, POKEMON_PLAYER_FIGHTER_ZERO, true, _data_);
+        ActivityOfMove activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity();
+        assertEq(8, activity_.getNbTurn());
+        assertTrue(activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+        activity_ = fight_.getFighter(thrower_).refPartAttaquesSurCombatAtt(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ONE)).getActivity();
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+    }
     private static Fight incrementNumberRounds(
             CustList<LevelMoves> _userMoves,
             CustList<LevelMoves> _partnerMoves,
@@ -2910,6 +2979,59 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(anim_.isKoUser());
     }
 
+    @Test
+    public void effectEndRoundSingleRelation17Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SIPHON, (short) 10);
+        moves_.put(CHARGE, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)4,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = effectEndRoundSingleRelation(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_FOE_TARGET_ZERO);
+        fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), true);
+        fighter_ = fight_.getFighter(target_);
+        fighter_.setRemainedHp(new Rate("46/5"));
+        fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
+        FightRound.initRound(fight_);
+        FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
+        fighter_ = fight_.getFighter(thrower_);
+        assertTrue(fighter_.isSuccessfulMove());
+        ActivityOfMove activity_;
+        activity_ = fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, target_));
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+        assertEq(0, activity_.getNbTurn());
+        fighter_ = fight_.getFighter(target_);
+        assertEq(new Rate("17466/2675"),fighter_.getRemainingHp());
+        fighter_.setClone(Rate.one());
+        EffectEndRoundSingleRelation eff_;
+        eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
+        fight_.getEffects().clear();
+        FightEndRound.effectEndRoundSingleRelation(fight_, thrower_, eff_, SIPHON, diff_, _data_);
+        assertEq(new Rate("17466/2675"),fighter_.getRemainingHp());
+        assertEq(Rate.one(),fighter_.getClone());
+        fighter_ = fight_.getFighter(thrower_);
+        activity_ = fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, target_));
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+        assertEq(0, activity_.getNbTurn());
+        //104000 52937/3250
+        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getEffects().size());
+    }
     @Test
     public void effectEndRoundSingleRelation1SimulationTest() {
         Difficulty diff_= new Difficulty();

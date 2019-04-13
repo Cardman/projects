@@ -589,7 +589,7 @@ final class FightEndRound {
             Rate max_ = law_.maximum();
             Rate taux_=Rate.plus(nbRounds_,max_);
             activity_.keepEnabled(activity_.getNbTurn() < taux_.ll());
-            _fight.addDisabledTeamMoveMessage(_team, _move, activity_, true, _import);
+            _fight.addDisabledTeamMoveMessage(_team, _move, activity_, _import);
             return;
         }
         LgInt maxRd_ = _import.getMaxRd();
@@ -605,7 +605,7 @@ final class FightEndRound {
             resterActif_=loiSachant_.editNumber(maxRd_);
         }
         activity_.keepEnabled(resterActif_);
-        _fight.addDisabledTeamMoveMessage(_team, _move, activity_, true, _import);
+        _fight.addDisabledTeamMoveMessage(_team, _move, activity_, _import);
     }
 
     static void incrementNumberRoundsGlobal(Fight _fight, String _move, DataBase _import) {
@@ -1062,7 +1062,7 @@ final class FightEndRound {
             if(tirer_){
                 MonteCarloNumber loi_=_effet.getLawForEnablingEffect();
                 MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(actifNbTour_.getNbTurn()));
-                boolean resterActif_=false;
+                boolean resterActif_;
                 if(_fight.getSimulation()){
                     if(loiSachant_.events().size()==1){
                         resterActif_=loiSachant_.editNumber(maxRd_);
@@ -1073,12 +1073,12 @@ final class FightEndRound {
                     resterActif_=loiSachant_.editNumber(maxRd_);
                 }
                 actifNbTour_.keepEnabled(resterActif_);
-                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, wasEnabled_, _import);
+                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, _import);
             }else{
                 ItemForBattle objet_=(ItemForBattle)creatureLanceur_.ficheObjet(_import);
                 Rate taux_=Rate.plus(new Rate(objet_.getIncreasingMaxNbRoundTrap().getVal(c.getMove())),_effet.getLawForEnablingEffect().maximum());
                 actifNbTour_.keepEnabled(actifNbTour_.getNbTurn() < taux_.ll());
-                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, wasEnabled_, _import);
+                _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, _import);
             }
             if(actifNbTour_.getNbTurn()==0){
                 continue;

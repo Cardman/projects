@@ -211,12 +211,6 @@ public final class Player {
     }
 
     public boolean validate(DataBase _data) {
-        if (nickname == null) {
-            return false;
-        }
-        if (sex == null) {
-            return false;
-        }
         if (team.isEmpty()) {
             return false;
         }
@@ -228,19 +222,9 @@ public final class Player {
             if (e instanceof PokemonPlayer) {
                 nbPkPlayers_++;
             }
-//            if (!(e instanceof PokemonPlayer)) {
-//                if (!(e instanceof Egg)) {
-//                    return false;
-//                }
-//            } else {
-//                nbPkPlayers_ ++;
-//            }
             if (!e.validate(_data)){
                 return false;
             }
-//            if (!e.isValid(_data)) {
-//                return false;
-//            }
         }
         if (Numbers.eq(nbPkPlayers_, CustList.SIZE_EMPTY)) {
             return false;
@@ -249,22 +233,7 @@ public final class Player {
             if (p instanceof PokemonPlayer) {
                 ((PokemonPlayer)p).fullHeal(_data);
             }
-//            if (!(p instanceof PokemonPlayer)) {
-//                if (!(p instanceof Egg)) {
-//                    return false;
-//                }
-//            } else {
-//                ((PokemonPlayer)p).fullHeal(_data);
-//            }
             if (!p.validate(_data)) {
-                return false;
-            }
-//            if (!p.isValid(_data)) {
-//                return false;
-//            }
-        }
-        for (Object o: caughtPk.values()) {
-            if (!(o instanceof Boolean)) {
                 return false;
             }
         }

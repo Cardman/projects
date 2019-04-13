@@ -491,9 +491,6 @@ public final class Fight {
     private BooleanList chosableFoeTargets = new BooleanList();
 
     /***/
-    private BooleanList backPartners = new BooleanList();
-
-    /***/
     private byte chosenPlayerTarget = Fighter.BACK;
 
     /***/
@@ -620,28 +617,11 @@ public final class Fight {
         }
         positions_.sort();
         EqList<TeamPosition> list_ = new EqList<TeamPosition>();
-//        for (Byte p: teams.getVal(_team).getMembers().getKeys()) {
-//            list_.add(new TeamPosition(_team, p));
-//        }
         for (byte p: positions_) {
             list_.add(new TeamPosition(_team, p));
         }
-//        list_.sort(new Comparator<TeamPosition>() {
-//            @Override
-//            public int compare(TeamPosition _o1, TeamPosition _o2) {
-//                return Integer.compare(_o1.getPosition(), _o2.getPosition());
-//            }
-//        });
         return list_;
     }
-
-    /*public void majPlaceTerrainFinTour(Byte _pos,Byte _place){
-        firstPositPlayerFighters.put(_pos,_place);
-    }
-
-    public void majPlaceArriereFinTour(Byte _pos){
-        firstPositPlayerFighters.put(_pos,Fighter.BACK);
-    }*/
 
     void enableGlobalMove(String _move) {
         enabledMoves.getVal(_move).enable();
@@ -690,14 +670,6 @@ public final class Fight {
     public void setMult(byte _mult) {
         mult = _mult;
     }
-
-//    public Map<String, TeamPosition> getLanceursGlobaux() {
-//        return lanceursGlobaux;
-//    }
-//
-//    public void setLanceursGlobaux(Map<String, TeamPosition> lanceursGlobaux) {
-//        lanceursGlobaux = _lanceursGlobaux;
-//    }
 
     public byte getPlayerMaxNumberFrontFighters() {
         return playerMaxNumberFrontFighters;
@@ -778,14 +750,6 @@ public final class Fight {
     public void setSuccessfulEffects(ObjectMap<NbEffectFighterCoords,Boolean> _successfulEffects) {
         successfulEffects = _successfulEffects;
     }
-
-//    public boolean getEntres() {
-//        return entres;
-//    }
-//
-//    public void setEntres(boolean _entres) {
-//        entres = _entres;
-//    }
 
     public ObjectMap<TeamPosition,Rate> getDamageByCurrentUser() {
         return damageByCurrentUser;
@@ -1056,14 +1020,6 @@ public final class Fight {
 
     void setChosableFoeTargets(BooleanList _chosableFoeTargets) {
         chosableFoeTargets = _chosableFoeTargets;
-    }
-
-    public BooleanList getBackPartners() {
-        return backPartners;
-    }
-
-    public void setBackPartners(BooleanList _backPartners) {
-        backPartners = _backPartners;
     }
 
     public byte getChosenPlayerTarget() {
@@ -1383,10 +1339,6 @@ public final class Fight {
         }
     }
 
-    public boolean noComment() {
-        return comment.getMessages().isEmpty();
-    }
-
     public void addHelpAllyMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
@@ -1397,10 +1349,7 @@ public final class Fight {
     public void addCreateCloneMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         Rate clone_ = getFighter(_fighter).getClone();
-        if (!clone_.isZero()) {
-            addMessage(_import, CREATE_CLONE, name_, clone_.toNumberString());
-        }
-
+        addMessage(_import, CREATE_CLONE, name_, clone_.toNumberString());
     }
 
     public void addImmuStatTeamMessage(TeamPosition _fighter, String _status, String _move, DataBase _import) {
@@ -1815,11 +1764,9 @@ public final class Fight {
         }
     }
 
-    public void addDisabledTeamMoveMessage(byte _team,String _move, ActivityOfMove _activity, boolean _wasEnabled, DataBase _import) {
-        if (_wasEnabled) {
-            if (!_activity.isEnabled()) {
-                addDisabledTeamMoveMessage(_team, _move, _import);
-            }
+    public void addDisabledTeamMoveMessage(byte _team, String _move, ActivityOfMove _activity, DataBase _import) {
+        if (!_activity.isEnabled()) {
+            addDisabledTeamMoveMessage(_team, _move, _import);
         }
     }
 
@@ -1842,7 +1789,6 @@ public final class Fight {
     }
 
     public void addSwitchPlacesMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
-        _fighter.getTeam();
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
         addMessage(_import, SWITCH_PLACES, name_, other_);
@@ -1899,11 +1845,9 @@ public final class Fight {
         addMessage(_import, DISABLED_MOVE, name_, move_);
     }
 
-    public void messageDisabling(ActivityOfMove _activity, TeamPosition _fighter, String _move, TeamPosition _other, boolean _wasEnabled, DataBase _import) {
-        if (_wasEnabled) {
-            if (!_activity.isEnabled()) {
-                addDisabledMoveRelMessage(_fighter, _move, _other, _import);
-            }
+    public void messageDisabling(ActivityOfMove _activity, TeamPosition _fighter, String _move, TeamPosition _other, DataBase _import) {
+        if (!_activity.isEnabled()) {
+            addDisabledMoveRelMessage(_fighter, _move, _other, _import);
         }
     }
 
@@ -1923,18 +1867,6 @@ public final class Fight {
         }
     }
 
-    public void addNoPrivateMovesMessage(TeamPosition _fighter, String _move, DataBase _import) {
-        String name_ = getFighterName(_fighter, _import);
-        String move_ = _import.translateMove(_move);
-        addMessage(_import, NO_PRIVATE_MOVES, name_, move_);
-    }
-
-    public void addPrivateMovesMessage(TeamPosition _fighter, String _move, DataBase _import) {
-        String name_ = getFighterName(_fighter, _import);
-        String move_ = _import.translateMove(_move);
-        addMessage(_import, PRIVATE_MOVES, name_, move_);
-    }
-
     public void addMoveTypesMessage(TeamPosition _fighter, StringList _types, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         StringList types_ = new StringList();
@@ -1951,16 +1883,6 @@ public final class Fight {
             types_.add(_import.translateType(t));
         }
         addMessage(_import, CHANGED_TYPES, name_, types_.join(SEPARATOR_COMMENTS));
-    }
-
-    public void addReEnableItemMessage(TeamPosition _fighter, DataBase _import) {
-        String name_ = getFighterName(_fighter, _import);
-        addMessage(_import, RE_ENABLE_ITEM, name_);
-    }
-
-    public void addDisableItemMessage(TeamPosition _fighter, DataBase _import) {
-        String name_ = getFighterName(_fighter, _import);
-        addMessage(_import, DISABLE_ITEM, name_);
     }
 
     public void addSwitchItemsMessage(TeamPosition _fighter, String _oldItem, String _newItem, DataBase _import) {
@@ -2123,10 +2045,6 @@ public final class Fight {
 
     void setEnabledMessages(boolean _enabledMessages) {
         enabledMessages = _enabledMessages;
-    }
-
-    boolean isEnabledMessages() {
-        return enabledMessages;
     }
 
     ActivityOfMove getCurrentActivity() {

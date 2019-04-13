@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.*;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -22,11 +23,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
 
 
 public class FighterTest extends InitializationDataBase {
@@ -230,6 +226,33 @@ public class FighterTest extends InitializationDataBase {
         assertEq(Rate.zero(), fighter_.getWonExpSinceLastLevel());
     }
 
+    @Test
+    public void initCreature2Test() {
+        Fighter fighter_ = new Fighter();
+        fighter_.setEnabledChangingTypesMoves(new StringMap<ActivityOfMove>());
+        fighter_.setEnabledCounteringMoves(new StringMap<ActivityOfMove>());
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PIKACHU);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        fighter_.initCreature(pokemon_);
+        assertEq(PIKACHU, fighter_.getName());
+        assertEq(PIKACHU, fighter_.getCurrentName());
+        assertEq(PARATONNERRE, fighter_.getAbility());
+        assertEq(PARATONNERRE, fighter_.getCurrentAbility());
+        assertEq(MAGNET, fighter_.getItem());
+        assertEq(Gender.NO_GENDER, fighter_.getGender());
+        assertEq(Gender.NO_GENDER, fighter_.getCurrentGender());
+        assertEq(3, fighter_.getLevel());
+        assertEq(0, fighter_.getStatus().size());
+        assertEq(0, fighter_.getStatusRelat().size());
+        assertEq(0, fighter_.getIncrUserAccuracy().size());
+        assertEq(0, fighter_.getTrackingMoves().size());
+        assertEq(0, fighter_.getPrivateMoves().size());
+        assertEq(0, fighter_.getTrappingMoves().size());
+    }
     @Test
     public void initUserMoves1Test() {
         Fighter fighter_ = new Fighter();
@@ -708,7 +731,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.ajouterRelationAutre(fighterCoords_, _data_);
         assertEq(11, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(11, fighter_.getNbStatusRelatByRounds((short) 0));
+        assertEq(11, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU,fighterCoords_)));
@@ -776,7 +799,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initCreatureRelationsAutre(fightersCoords_, _data_);
         assertEq(22, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, fighter_.getNbStatusRelatByRounds((short) 0));
+        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_MOU,fighterCoordsOne_)));
@@ -6889,5 +6912,15 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.getRemainingHp().affectZero();
         assertTrue(fighter_.isKoAt((byte) 0));
+    }
+
+    int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
+        int i_ = CustList.SIZE_EMPTY;
+        for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
+            if (Numbers.eq(e.getValue().shortValue(), _nbRounds)) {
+                i_++;
+            }
+        }
+        return i_;
     }
 }

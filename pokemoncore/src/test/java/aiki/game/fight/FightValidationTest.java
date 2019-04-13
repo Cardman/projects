@@ -5693,7 +5693,58 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.setState(FightState.REDESSIN_SCENE);
         assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
     }
-
+    @Test
+    public void validate219Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual4(Sex.GIRL, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(BROUHAHA, _data_);
+        game_.roundAllThrowers(_data_, false);
+        game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
+        game_.setEvolution(TETARTE);
+        //invalid data
+        fight_.getChoices().getVal((byte) 0).setName(PIKACHU);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
+    }
+    @Test
+    public void validate220Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual4(Sex.BOY, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(BROUHAHA, _data_);
+        game_.roundAllThrowers(_data_, false);
+        game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
+        game_.setEvolution(TETARTE);
+        //invalid data
+        fight_.getChoices().getVal((byte) 0).setName(PIKACHU);
+        assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
+    }
 
     private static void addBackFoeFighter(PkTrainer _pk, Game _game) {
         Fight fight_ = _game.getFight();

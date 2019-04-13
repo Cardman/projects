@@ -5221,6 +5221,41 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.EVASINESS).intValue());
     }
 
+    @Test
+    public void effectTeam6Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Fight fight_ = effectTeam(diff_);
+        fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
+        fight_.getUserTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
+        fight_.getUserTeam().getNbUsesMoves().put(CASSE, 1);
+        TeamPosition teamPosition_ = POKEMON_FOE_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(teamPosition_);
+        fighter_.affecterStatut(GEL);
+        fighter_.getStatisBoost().put(Statistic.ACCURACY,(byte) 1);
+        fighter_.getStatisBoost().put(Statistic.EVASINESS,(byte) -1);
+        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, CAUCHEMAR);
+        fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
+        EffectTeam eff_ = (EffectTeam) _data_.getMove(ANTI_BRUME).getEffects().last();
+        FightEffects.effectTeam(fight_, teamPosition_, eff_, ANTI_BRUME, _data_);
+        fighter_ = fight_.getFighter(teamPosition_);
+        ActivityOfMove activity_;
+        activity_ = fight_.getUserTeam().getEnabledMoves().getVal(MUR_LUMIERE);
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(!activity_.isEnabled());
+        assertEq(LgInt.zero(), fight_.getUserTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
+        assertEq(1, fighter_.getStatusNbRound(GEL).intValue());
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)).intValue());
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(CAUCHEMAR, POKEMON_PLAYER_FIGHTER_ZERO)).intValue());
+        assertEq(1, fight_.getUserTeam().getNbUsesMoves().getVal(CASSE).intValue());
+        activity_ = fight_.getFoeTeam().getEnabledMoves().getVal(ANTI_BRUME);
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(activity_.isEnabled());
+        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY).intValue());
+        assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.EVASINESS).intValue());
+    }
+
     private static Fight effectEndRound(Difficulty _diff) {
         Player player_ = new Player(NICKNAME,null,_diff,false,_data_);
         Pokemon pokemon_ = new WildPk();
