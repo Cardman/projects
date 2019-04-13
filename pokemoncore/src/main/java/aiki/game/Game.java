@@ -198,6 +198,7 @@ public final class Game {
         reinitInteraction=false;
         interfaceType=InterfaceType.RIEN;
         visitedPlaces = new ObjectMap<Coords,Boolean>();
+        playerCoords = new Coords();
     }
 
     public Game(DataBase _d){
@@ -260,12 +261,7 @@ public final class Game {
         initUtilisateur(_pseudo, _sexeHeros, _diff, _import);
         visitFirstPlaces(_import);
         DataMap d_ = _import.getMap();
-        Coords voisin_ = closestTile(d_);
-        if (voisin_.isValid()) {
-            directInteraction(voisin_, d_);
-        } else {
-            interfaceType = InterfaceType.RIEN;
-        }
+        directInteraction(d_);
     }
 
     public void initUtilisateur(String _pseudo,Sex _sexeHeros,Difficulty _diff,DataBase _import){
@@ -277,14 +273,6 @@ public final class Game {
     }
 
     public boolean validate(DataBase _data) {
-        for (Object o: visitedPlaces.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
-        if (playerOrientation == null) {
-            playerOrientation = Direction.UP;
-        }
         visitFirstPlaces(_data);
         if (!player.validate(_data)) {
             return false;
@@ -316,7 +304,13 @@ public final class Game {
 //        for (Coords c: visitedPlaces.getKeys(true))
         for (Coords c: getVisited()) {
             Condition cond_ = new Condition();
-            cond_.addAllElts(map_.getAccessibility().getVal(c));
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
+                if (!Coords.eq(e.getKey(),c)) {
+                    continue;
+                }
+                cond_.addAllElts(e.getValue());
+            }
+//            cond_.addAllElts(map_.getAccessibility().getVal(c));
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                return false;
@@ -336,26 +330,6 @@ public final class Game {
         if (!NbFightCoords.equalsSet(beatTrainer.getKeys(), map_.getBeatTrainer())) {
             return false;
         }
-        for (Object o: beatGymLeader.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
-        for (Object o: beatTrainer.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
-        for (Object o: takenPokemon.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
-        for (Object o: takenObjects.values()) {
-            if (!(o instanceof Boolean)) {
-                return false;
-            }
-        }
         if (!Coords.equalsSet(beatGymLeader.getKeys(), map_.getBeatGymLeader())) {
             return false;
         }
@@ -370,7 +344,12 @@ public final class Game {
                 coords_.getLevel().setPoint(ext_);
                 coords_.outside();
             }
-            cond_.addAllElts(map_.getAccessibility().getVal(coords_));
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
+                if (!Coords.eq(e.getKey(),coords_)) {
+                    continue;
+                }
+                cond_.addAllElts(e.getValue());
+            }
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                return false;
@@ -394,15 +373,37 @@ public final class Game {
         }
         boolean correctCoords_ = true;
         Place curPlace_ = _data.getMap().getPlaces().getVal(playerCoords.getNumberPlace());
-        Level curLevel_ = curPlace_.getLevelByCoords(playerCoords);
-        if (!curLevel_.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid()) {
+        if (curPlace_ == null) {
             correctCoords_ = false;
+        } else {
+            if (playerCoords.isInside()) {
+                if (curPlace_ instanceof City) {
+                    Point bIncome_ = playerCoords.getInsideBuilding();
+                    if (!((City)curPlace_).getBuildings().contains(bIncome_)) {
+                        correctCoords_ = false;
+                    } else {
+                        Level lev_ = ((City) curPlace_).getBuildings().getVal(bIncome_).getLevel();
+                        correctCoords_ = checkLevel(lev_);
+                    }
+                } else {
+                    correctCoords_ = false;
+                }
+            } else {
+                if (!curPlace_.getLevelsList().isValidIndex(playerCoords.getLevel().getLevelIndex())) {
+                    correctCoords_ = false;
+                } else {
+                    Level curLevel_ = curPlace_.getLevelsList().get(playerCoords.getLevel().getLevelIndex());
+                    correctCoords_ = checkLevel(curLevel_);
+                }
+            }
         }
         Coords coords_ = new Coords(playerCoords);
-        if (!isEmpty(_data.getMap(), playerCoords)) {
-//            if (fight.getFightType().isExisting()) {
-//                return false;
-//            }
+        if (correctCoords_) {
+            if (!isEmpty(_data.getMap(), playerCoords)) {
+                playerCoords.affect(map_.getBegin());
+                rankLeague = 0;
+            }
+        } else {
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
         }
@@ -418,7 +419,12 @@ public final class Game {
         }
         Condition cond_ = new Condition();
         if (correctCoords_) {
-            cond_.addAllElts(map_.getAccessibility().getVal(coords_));
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
+                if (!Coords.eq(e.getKey(),coords_)) {
+                    continue;
+                }
+                cond_.addAllElts(e.getValue());
+            }
         } else {
 //            if (fight.getFightType().isExisting()) {
 //                return false;
@@ -469,7 +475,12 @@ public final class Game {
 //                coords_.outside();
 //            }
             cond_ = new Condition();
-            cond_.addAllElts(map_.getAccessibility().getVal(coords_));
+            for (EntryCust<Coords,Condition> e: map_.getAccessibility().entryList()) {
+                if (!Coords.eq(e.getKey(),coords_)) {
+                    continue;
+                }
+                cond_.addAllElts(e.getValue());
+            }
             cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                return false;
@@ -503,6 +514,13 @@ public final class Game {
         return true;
     }
 
+    private boolean checkLevel(Level _l) {
+        boolean correctCoords_ = true;
+        if (!_l.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid()) {
+            correctCoords_ = false;
+        }
+        return correctCoords_;
+    }
     public void calculateImagesFromTiles(DataBase _data, int _dx, int _dy) {
         DataMap map_ = _data.getMap();
         for (ScreenCoords k: map_.getTiles().getKeys()) {
@@ -1421,8 +1439,11 @@ public final class Game {
                 directInteraction(closestTile(_import.getMap()), _import.getMap());
                 return;
             }
-            if(l_.getCharacters().contains(coordsFoe_.getLevel().getPoint())) {
-                CharacterInRoadCave ch_ = l_.getCharacters().getVal(coordsFoe_.getLevel().getPoint());
+            for (EntryCust<Point, CharacterInRoadCave> e:l_.getCharacters().entryList()) {
+                if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
+                    continue;
+                }
+                CharacterInRoadCave ch_ = e.getValue();
                 //ch_ instanceof TrainerMultiFights
                 int nb_=0;
                 for(NbFightCoords d:beatTrainer.getKeys()){
@@ -1446,8 +1467,8 @@ public final class Game {
                 //player.obtentionCs(gymTr_.getCs());
                 FightFacade.endFight(fight);
                 directInteraction(closestTile(_import.getMap()), _import.getMap());
-                return;
             }
+            return;
         }
         if(FightFacade.equality(fight)){
             if (pl_ instanceof League) {
@@ -1542,8 +1563,11 @@ public final class Game {
             directInteraction(closestTile(_import.getMap()), _import.getMap());
             return;
         }
-        if(l_.getCharacters().contains(coordsFoe_.getLevel().getPoint())) {
-            CharacterInRoadCave ch_ = l_.getCharacters().getVal(coordsFoe_.getLevel().getPoint());
+        for (EntryCust<Point, CharacterInRoadCave> e:l_.getCharacters().entryList()) {
+            if (!Point.eq(e.getKey(),coordsFoe_.getLevel().getPoint())) {
+                continue;
+            }
+            CharacterInRoadCave ch_ = e.getValue();
             //ch_ instanceof TrainerMultiFights
             int nb_=0;
             for(NbFightCoords d:beatTrainer.getKeys()){
@@ -2510,15 +2534,6 @@ public final class Game {
         nbSteps = 0;
         placeChanged = false;
         showEndGame = false;
-        if (partiallyAccessiblePlaces == null) {
-            partiallyAccessiblePlaces = new StringList();
-        }
-        if (fullAccessiblePlaces == null) {
-            fullAccessiblePlaces = new StringList();
-        }
-        if (interfaceType == null) {
-            interfaceType = InterfaceType.RIEN;
-        }
         getPlayer().initIv(getDifficulty(), _data);
         commentGame.addComment(getPlayer().getCommentGame());
         for (HostPokemonDuo h: hostedPk.values()) {

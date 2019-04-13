@@ -1137,6 +1137,127 @@ public class FightInitializationTest extends InitializationDataBase {
     }
 
     @Test
+    public void getFighterKey1Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, _data_);
+        assertEq(Fight.toUserFighter((byte) 0), fight_.getFighterKey(TargetCoords.toUserTarget((short) 0)));
+    }
+
+    @Test
+    public void getFighterKey2Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, _data_);
+        assertEq(Fight.toFoeFighter((byte) 0), fight_.getFighterKey(TargetCoords.toFoeTarget((short) 0)));
+    }
+    @Test
+    public void getFighterKey3Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 3);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel((short) 4);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, _data_);
+        assertEq(new TeamPosition(), fight_.getFighterKey(TargetCoords.toUserTarget((short) 4)));
+    }
+    @Test
     public void addComment1Test() {
         Difficulty diff_= new Difficulty();
         Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
@@ -1184,5 +1305,47 @@ public class FightInitializationTest extends InitializationDataBase {
         c_.addMessage("");
         fight_.addComment(c_);
         assertEq(0, fight_.getComment().getMessages().size());
+    }
+    @Test
+    public void getBeginRound1Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initMultiplicity(fight_,(byte) 4);
+        fight_.setState(FightState.SWITCH_PROPOSE);
+        assertTrue(fight_.getBeginRound());
+    }
+    @Test
+    public void getBeginRound2Test() {
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,true,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(MAGNET);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initMultiplicity(fight_,(byte) 4);
+        fight_.setState(FightState.APPRENDRE_EVOLUER);
+        assertTrue(fight_.getBeginRound());
     }
 }

@@ -3,6 +3,9 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.util.Coords;
+import aiki.util.LevelPoint;
+import aiki.util.Point;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -60,6 +63,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, fight_.getUsedItemsWhileRound().size());
     }
 
+    @Test
+    public void newFight2Test() {
+        Fight fight_ = FightFacade.newFight();
+        fight_.getKos().put(Fight.PLAYER,false);
+        fight_.getKos().put(Fight.FOE,false);
+        assertEq(FightType.NOTHING,fight_.getFightType());
+        assertEq(Rate.zero(),fight_.getWinningMoney());
+        assertTrue(!fight_.getSimulation());
+        assertTrue(!fight_.getAcceptableChoices());
+        assertEq(0, fight_.getUsedItemsWhileRound().size());
+        assertTrue(FightFacade.stopSimulation(fight_));
+    }
     @Test
     public void initFightGymLeader1Test() {
         Difficulty diff_= new Difficulty();
@@ -8417,6 +8432,114 @@ public class FightFacadeTest extends InitializationDataBase {
     }
 
     @Test
+    public void isChosableForLearningAndEvolving1Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowedSwitchPlacesEndRound(false);
+        diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_,moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        lasPk_.setHappiness((short) 140);
+        lasPk_.setWonExpSinceLastLevel(new Rate("1"));
+        player_.getTeam().add(lasPk_);
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
+        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
+        FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
+        assertTrue(FightFacade.isChosableForLearningAndEvolving(fight_, (byte) 0));
+    }
+
+    @Test
+    public void isChosableForLearningAndEvolving2Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowedSwitchPlacesEndRound(false);
+        diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_,moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        lasPk_.setHappiness((short) 140);
+        lasPk_.setWonExpSinceLastLevel(new Rate("1"));
+        player_.getTeam().add(lasPk_);
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
+        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
+        FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
+        assertTrue(!FightFacade.isChosableForLearningAndEvolving(fight_, (byte) -1));
+    }
+
+    @Test
+    public void isChosableForLearningAndEvolving3Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowedSwitchPlacesEndRound(false);
+        diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 32);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DETECTION, (short) 10);
+        moves_.put(ULTRASON, (short) 10);
+        moves_.put(BROUHAHA, (short) 10);
+        moves_.put(POURSUITE, (short) 10);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_,moves_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        lasPk_.setHappiness((short) 140);
+        lasPk_.setWonExpSinceLastLevel(new Rate("1"));
+        player_.getTeam().add(lasPk_);
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
+        FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
+        FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
+        assertTrue(!FightFacade.isChosableForLearningAndEvolving(fight_, (byte) -1));
+    }
+
+    @Test
     public void choosePokemonForLearningAndEvolving1Test() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
@@ -13295,6 +13418,76 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.FIN_CBT_SAUVAGE, FightFacade.fightStatement(fight_, false, diff_));
     }
 
+    @Test
+    public void keepLoop1Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowCatchingKo(true);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightStatement(player_, PIKACHU, (short) 1, diff_);
+        fight_.setState(FightState.SWITCH_PROPOSE);
+        assertTrue(!FightFacade.keepLoop(fight_,true));
+    }
+
+    @Test
+    public void keepLoop2Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowCatchingKo(true);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightStatement(player_, PIKACHU, (short) 1, diff_);
+        fight_.setState(FightState.SWITCH_PROPOSE);
+        fight_.getKos().put(Fight.FOE,true);
+        assertTrue(!FightFacade.keepLoop(fight_,true));
+    }
+
+    @Test
+    public void keepLoop3Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setAllowCatchingKo(true);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 1);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        Fight fight_ = fightStatement(player_, PIKACHU, (short) 1, diff_);
+        fight_.setState(FightState.SWITCH_PROPOSE);
+        FightKo.setKo(fight_,Fight.toUserFighter((byte) 0),diff_,_data_);
+        assertTrue(!FightFacade.keepLoop(fight_,false));
+    }
     private static Fight endFight(
             Player _player,
             String _name,
@@ -13830,6 +14023,65 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction().isActionMove());
     }
 
+    @Test
+    public void initTypeEnv4Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 24);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        player_.recupererOeufPensions(new Egg(PTITARD));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = initTypeEnv(partnersMoves_, foesMoves_, player_, diff_);
+        FightFacade.initTypeEnv(fight_, new Coords(), diff_, _data_);
+        assertEq(EnvironmentType.ROAD, fight_.getEnvType());
+        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction().isActionMove());
+    }
+
+    @Test
+    public void initTypeEnv5Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PTITARD);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 24);
+        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,_data_);
+        lasPk_.initIv(diff_);
+        lasPk_.initPvRestants(_data_);
+        player_.getTeam().add(lasPk_);
+        player_.recupererOeufPensions(new Egg(PTITARD));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = initTypeEnv(partnersMoves_, foesMoves_, player_, diff_);
+        Coords c_ = new Coords();
+        c_.setNumberPlace((byte)1);
+        c_.setLevel(new LevelPoint());
+        c_.getLevel().setPoint(new Point((byte)-1,(byte)0));
+        FightFacade.initTypeEnv(fight_, c_, diff_, _data_);
+        assertEq(EnvironmentType.ROAD, fight_.getEnvType());
+        assertTrue(fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getAction().isActionMove());
+    }
     private static Fight initializeFromSavedGame(
             Player _player,
             String _name,

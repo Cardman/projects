@@ -584,17 +584,7 @@ public final class Fight {
         if (fighter_.isBelongingToPlayer()) {
             return name_;
         }
-        StringMap<String> messages_ = _import.getMessagesFight();
-        String value_;
-        if (Numbers.eq(_teamPosition.getTeam(), FOE)) {
-            value_ = messages_.getVal(FIGHTER_FOE);
-        } else {
-            value_ = messages_.getVal(FIGHTER_ALLY);
-        }
-        if (value_ == null) {
-            return DataBase.EMPTY_STRING;
-        }
-        return StringList.simpleStringsFormat(value_, name_);
+        return _import.getFighterName(Numbers.eq(_teamPosition.getTeam(), FOE),FIGHTER_FOE,FIGHTER_ALLY,name_);
     }
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {

@@ -3909,7 +3909,63 @@ public class GameValidationTest extends InitializationDataBase {
         assertTrue(game_.isShowEndGame());
     }
 
+    @Test
+    public void checkAndInitialize11Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(-1, 0, 0, 0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
 
+    @Test
+    public void checkAndInitialize12Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(0, -1, 0, 0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
+
+    @Test
+    public void checkAndInitialize13Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(0, 0, -1, 0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
+
+    @Test
+    public void checkAndInitialize14Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(0, 0, 0, 0,0,0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
+
+    @Test
+    public void checkAndInitialize15Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.setPlayerCoords(newCoords(1, 0, 0, 0,0,0));
+        assertTrue(game_.checkAndInitialize(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+    }
+    @Test
+    public void checkAndInitialize16Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.getPlayer().getTeam().clear();
+        assertTrue(!game_.checkAndInitialize(_data_));
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

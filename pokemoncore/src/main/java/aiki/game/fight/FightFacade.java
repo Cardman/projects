@@ -831,29 +831,6 @@ public final class FightFacade {
                 _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
                 return;
             }
-//            CustList<Byte> list_ = new CustList<>();
-//            for (Byte b: equipe_.getMembers().getKeys()) {
-//                Fighter fighter_ = equipe_.getMembers().getVal(b);
-//                if (!Numbers.eq(fighter_.getGroundPlaceSubst(), _place)) {
-//                    continue;
-//                }
-//                list_.add(b);
-//            }
-//            if (list_.isEmpty()) {
-//                _fight.setPossibleActionsCurFighter(new CustList<ActionType>());
-//                _fight.setCurrentFighterMoves(new TreeMap<String,ChosenMoveInfos>(new));
-//                _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-//                _fight.setChosableFoeTargets(new CustList<Boolean>());
-//                _fight.setChosablePlayerTargets(new CustList<Boolean>());
-//                _fight.setChosenIndexFront(Fighter.BACK);
-//                _fight.setChosenSubstitute(Fighter.BACK);
-//                _fight.setChosenFoeTarget(Fighter.BACK);
-//                _fight.setChosenPlayerTarget(Fighter.BACK);
-//                _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
-//                _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
-//                return;
-//            }
-//            _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(list_.first()));
             _fight.setChosenSubstitute(_fight.getFirstPositPlayerFighters().getVal(substitute_));
             return;
         }
@@ -862,7 +839,6 @@ public final class FightFacade {
         _fight.getPossibleActionsCurFighter().add(ActionType.HEALING);
         _fight.getPossibleActionsCurFighter().add(ActionType.NOTHING);
         Team playerTeam_ = _fight.getUserTeam();
-//        CustList<Byte> fighters_ = playerTeam_.fightersAtCurrentPlace(_place);
         Numbers<Byte> fighters_ = playerTeam_.fightersAtCurrentPlaceIndex(_place, true);
         if (fighters_.isEmpty()) {
             _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
@@ -880,11 +856,6 @@ public final class FightFacade {
             return;
         }
         Fighter fighter_ = playerTeam_.getMembers().getVal(fighters_.first());
-        if (!fighter_.isBelongingToPlayer()) {
-            _fight.setChosenIndexFront(Fighter.BACK);
-            _fight.getPossibleActionsCurFighter().clear();
-            return;
-        }
         AbstractAction action_ = fighter_.getAction();
         if (action_ instanceof ActionMove) {
             _fight.setCurrentFighterMoves(frontFighterMoves(_fight, _place, _import));
@@ -2565,17 +2536,10 @@ public final class FightFacade {
     }
 
     static boolean keepLoop(Fight _fight, boolean _test) {
-        //
+        if (existKoPlayer(_fight)) {
+            return false;
+        }
         if (_fight.getState() == FightState.ATTAQUES) {
-            Team equipeUt_ = _fight.getUserTeam();
-            for(byte c:equipeUt_.getMembers().getKeys()){
-                Fighter creatureLanceur_=equipeUt_.getMembers().getVal(c);
-                if(!creatureLanceur_.estKo()){
-                    continue;
-                }
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
-                _fight.setAcceptableChoices(false);
-            }
             return false;
         }
         if(win(_fight)){
@@ -2586,23 +2550,23 @@ public final class FightFacade {
             _fight.setAcceptableChoices(false);
             return false;
         }
-        boolean ko_ = false;
+        return true;
+    }
+
+    static boolean existKoPlayer(Fight _fight) {
         Team equipeUt_ = _fight.getUserTeam();
+        boolean exist_ = false;
         for(byte c:equipeUt_.getMembers().getKeys()){
             Fighter creatureLanceur_=equipeUt_.getMembers().getVal(c);
             if(!creatureLanceur_.estKo()){
                 continue;
             }
-            ko_ = true;
-        }
-        if (ko_) {
             _fight.setIssue(IssueSimulation.KO_PLAYER);
             _fight.setAcceptableChoices(false);
-            return false;
+            exist_ = true;
         }
-        return true;
+        return exist_;
     }
-
     public static void initializeFromSavedGame(Fight _fight, Difficulty _diff,Player _user,DataBase _data) {
         _fight.setAcceptableChoices(true);
         _fight.setIssue(IssueSimulation.NOTHING);

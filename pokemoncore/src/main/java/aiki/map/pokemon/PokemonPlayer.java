@@ -369,12 +369,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     @Override
     public boolean validate(DataBase _data) {
-        if (gender == null) {
-            return false;
-        }
-        if (nickname == null) {
-            return false;
-        }
         if (hasJustBeenCreated()) {
             return false;
         }

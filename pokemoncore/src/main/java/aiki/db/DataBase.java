@@ -3945,6 +3945,19 @@ public class DataBase implements WithMathFactory {
     public StringMap<String> getMessagesTeam() {
         return messagesTeam;
     }
+    public String getFighterName(boolean _foe, String _foeStr, String _allyStr, String _name) {
+        StringMap<String> messages_ = getMessagesFight();
+        String value_;
+        if (_foe) {
+            value_ = messages_.getVal(_foeStr);
+        } else {
+            value_ = messages_.getVal(_allyStr);
+        }
+        if (value_ == null) {
+            return DataBase.EMPTY_STRING;
+        }
+        return StringList.simpleStringsFormat(value_, _name);
+    }
     public StringMap<String> getMessagesFight() {
         return messagesFight;
     }
