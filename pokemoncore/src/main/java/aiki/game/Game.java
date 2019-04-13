@@ -198,6 +198,12 @@ public final class Game {
         reinitInteraction=false;
         setInterfaceType(InterfaceType.RIEN);
         setVisitedPlaces(new ObjectMap<Coords,Boolean>());
+        setBeatGymLeader(new ObjectMap<Coords, Boolean>());
+        setTakenObjects(new ObjectMap<Coords, Boolean>());
+        setTakenPokemon(new ObjectMap<Coords, Boolean>());
+        setBeatTrainer(new ObjectMap<NbFightCoords, Boolean>());
+        setHostedPk(new ObjectMap<Coords, HostPokemonDuo>());
+        setFight(new Fight());
         playerCoords = new Coords();
     }
 

@@ -870,7 +870,59 @@ public class GameFightTest extends InitializationDataBase {
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
     @Test
-    public void choosePokemonForLearningAndEvolving1(){
+    public void isChosableForLearningAndEvolving1Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(5, 0, 1, 4));
+        game_.setPlayerOrientation(Direction.DOWN);
+        Pokemon pk_ = new WildPk();
+        pk_.setName(NINGALE);
+        pk_.setItem(MULTI_EXP);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setAbility(ABSORB_EAU);
+        pk_.setLevel((short) 100);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), _data_);
+        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().switchTeamOrder((short) 1);
+        PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
+        pkPl_.learnMove(SEISME, FAUX_CHAGE, _data_);
+        game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.initTrainerFight(_data_);
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.chooseMove(SEISME, _data_);
+        game_.roundAllThrowers(_data_, false);
+        game_.deselect();
+        assertTrue(game_.isChosableForLearningAndEvolving((byte) 0));
+    }
+    @Test
+    public void isChosableForLearningAndEvolving2Test(){
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(5, 0, 1, 4));
+        game_.setPlayerOrientation(Direction.DOWN);
+        Pokemon pk_ = new WildPk();
+        pk_.setName(NINGALE);
+        pk_.setItem(MULTI_EXP);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setAbility(ABSORB_EAU);
+        pk_.setLevel((short) 100);
+        game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), _data_);
+        game_.getPlayer().setChosenTeamPokemon((short) 0);
+        game_.getPlayer().switchTeamOrder((short) 1);
+        PokemonPlayer pkPl_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
+        pkPl_.learnMove(SEISME, FAUX_CHAGE, _data_);
+        game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.initTrainerFight(_data_);
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.chooseMove(SEISME, _data_);
+        game_.roundAllThrowers(_data_, false);
+        game_.deselect();
+        assertTrue(!game_.isChosableForLearningAndEvolving((byte) 1));
+    }
+    @Test
+    public void choosePokemonForLearningAndEvolving1Test(){
         Game game_ = new Game(_data_);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));

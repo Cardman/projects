@@ -1,5 +1,6 @@
 package aiki.map.pokemon;
 import aiki.db.DataBase;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -22,7 +23,7 @@ public final class Egg implements UsablePokemon, Displayable {
         name = list_.first();
         String steps_ = list_.last();
         if (StringList.isNumber(steps_)) {
-            steps = Integer.parseInt(steps_);
+            steps = Numbers.parseInt(steps_);
         }
     }
 

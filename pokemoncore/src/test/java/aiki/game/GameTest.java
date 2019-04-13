@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.map.pokemon.*;
 import org.junit.Test;
 
 import aiki.comments.Comment;
@@ -22,10 +23,6 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Campaign;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
@@ -826,6 +823,18 @@ public class GameTest extends InitializationDataBase {
         assertEq(new LgInt("1"), game_.getPlayer().getInventory().getNumber(HYPER_BALL));
     }
 
+    @Test
+    public void healTeamWithoutUsingObjectTest() {
+        Game game_ = new Game(_data_);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 2));
+        game_.setPlayerOrientation(Direction.UP);
+        game_.getDifficulty().setRandomWildFight(false);
+        PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
+        pk_.setRemainedHp(Rate.one());
+        game_.healTeamWithoutUsingObject(_data_);
+        assertEq(new Rate("3037/100"), pk_.getRemainingHp());
+    }
     private int nbTakenObjects(ObjectMap<Coords,Boolean> _map,boolean _taken) {
         int n_ = CustList.FIRST_INDEX;
         if (_taken) {
