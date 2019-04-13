@@ -833,15 +833,6 @@ public class SimulationBean extends CommonBean {
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
-    public void cancelFoeChoice() {
-        DataBase data_ = (DataBase) getDataBase();
-        simulation = new FightSimulation(difficulty, data_);
-        coords = null;
-        ok = true;
-        getForms().removeKey(COORDS);
-        getForms().put(SIMULATION_STATE, SimulationSteps.FOE);
-        stepNumber--;
-    }
     public String selectPk() {
         if (selectedAction == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
@@ -1012,11 +1003,6 @@ public class SimulationBean extends CommonBean {
         for (String e: evos_.getKeys()) {
             availableEvos.put(e, map_.getVal(e));
         }
-    }
-    public String getPokemonEvo(Long _index) {
-        DataBase data_ = (DataBase) getDataBase();
-        String pk_ = availableEvos.getKey(_index.intValue());
-        return data_.getTranslatedPokemon().getVal(getLanguage()).getVal(pk_);
     }
     public void validateEvo() {
 //        if (!getForms().contains(POKEMON_INDEX_EDIT)) {
@@ -1491,9 +1477,6 @@ public class SimulationBean extends CommonBean {
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber = 2;
     }
-    public boolean proponeEvolutions() {
-        return simulation.proponeEvolutions();
-    }
     public boolean isIssue() {
         return simulation.getProbleme();
     }
@@ -1530,80 +1513,6 @@ public class SimulationBean extends CommonBean {
         }
         list_.sort();
         return list_;
-    }
-    public NatTreeMap<Byte, StringList> getAllEvolutionsAfterFight() {
-        DataBase data_ = (DataBase) getDataBase();
-        NatTreeMap<Byte, StringList> tree_;
-        tree_ = new NatTreeMap<Byte, StringList>();
-        NatTreeMap<Byte, StringList> recTree_ = simulation.getEvolutionsAfterFight();
-        for (byte b: recTree_.getKeys()) {
-            StringList pk_ = new StringList();
-            for (String m: recTree_.getVal(b)) {
-                pk_.add(data_.translatePokemon(m));
-            }
-            pk_.sort();
-            tree_.put(b, pk_);
-        }
-        return tree_;
-    }
-    public NatTreeMap<Byte, StringList> getMovesNoEvoAfterFight() {
-        DataBase data_ = (DataBase) getDataBase();
-        NatTreeMap<Byte, StringList> tree_;
-        tree_ = new NatTreeMap<Byte, StringList>();
-        NatTreeMap<Byte, StringList> recTree_ = simulation.getMovesNoEvoAfterFight();
-        for (byte b: recTree_.getKeys()) {
-            StringList moves_ = new StringList();
-            for (String m: recTree_.getVal(b)) {
-                moves_.add(data_.translateMove(m));
-            }
-            moves_.sort();
-            tree_.put(b, moves_);
-        }
-        return tree_;
-    }
-    public NatTreeMap<Byte, NatStringTreeMap< StringList>> getAllAbilitiesAfterFight() {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> ab_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        NatTreeMap<Byte, NatStringTreeMap< StringList>> tree_;
-        tree_ = new NatTreeMap<Byte, NatStringTreeMap< StringList>>();
-        NatTreeMap<Byte,StringMap<StringList>> recTree_;
-        recTree_ = simulation.getAbilitiesAfterFight();
-        for (byte b: recTree_.getKeys()) {
-            NatStringTreeMap< StringList> tr_ = new NatStringTreeMap< StringList>();
-            for (String e: recTree_.getVal(b).getKeys()) {
-                StringList abilities_ = new StringList();
-                for (String m: recTree_.getVal(b).getVal(e)) {
-                    abilities_.add(ab_.getVal(m));
-                }
-                abilities_.sort();
-                tr_.put(pk_.getVal(e), abilities_);
-            }
-            tree_.put(b, tr_);
-        }
-        return tree_;
-    }
-    public NatTreeMap<Byte, NatStringTreeMap< StringList>> getAllMovesAfterFight() {
-        DataBase data_ = (DataBase) getDataBase();
-        StringMap<String> mv_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        NatTreeMap<Byte, NatStringTreeMap< StringList>> tree_;
-        tree_ = new NatTreeMap<Byte, NatStringTreeMap< StringList>>();
-        NatTreeMap<Byte,StringMap<StringList>> recTree_;
-        recTree_ = simulation.getMovesAfterFight();
-        for (byte b: recTree_.getKeys()) {
-            NatStringTreeMap< StringList> tr_ = new NatStringTreeMap< StringList>();
-            for (String e: recTree_.getVal(b).getKeys()) {
-                StringList moves_ = new StringList();
-                for (String m: recTree_.getVal(b).getVal(e)) {
-                    moves_.add(mv_.getVal(m));
-                }
-                moves_.sort();
-                tr_.put(pk_.getVal(e), moves_);
-            }
-            tree_.put(b, tr_);
-        }
-        return tree_;
     }
     public boolean isRulesIssue() {
         return simulation.getIssue().isRules();

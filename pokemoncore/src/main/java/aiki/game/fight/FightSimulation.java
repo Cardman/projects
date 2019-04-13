@@ -35,13 +35,11 @@ import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.PairNumber;
@@ -52,9 +50,6 @@ import code.util.comparators.ComparatorPairNumber;
 
 public class FightSimulation {
 
-//    private static final String BEGIN_REG_EXP = "^";
-//    private static final String END_REG_EXP = "$";
-//    private static final String END_WORD_REG_EXP = "/\\w+$";
     private static final String SEPARATOR_PK = "/";
 
     private Game game;
@@ -195,7 +190,7 @@ public class FightSimulation {
         usedStones.clear();
         foeTeams.clear();
         if (place_ instanceof League) {
-            for (Level l: ((League)place_).getLevelsList()) {
+            for (Level l: place_.getLevelsList()) {
                 LevelLeague level_ = (LevelLeague) l;
                 byte mult_ = level_.getTrainer().getMultiplicityFight();
                 maxActions.add((int) mult_);
@@ -252,7 +247,7 @@ public class FightSimulation {
         foeTeams.clear();
         allyTeam.clear();
         if (place_ instanceof League) {
-            LevelLeague l_ = (LevelLeague)((League)place_).getLevelsList().get(foeCoords.getLevel().getLevelIndex());
+            LevelLeague l_ = (LevelLeague) place_.getLevelsList().get(foeCoords.getLevel().getLevelIndex());
             foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
             byte mult_ = l_.getTrainer().getMultiplicityFight();
             maxActions.add((int) mult_);
@@ -317,7 +312,7 @@ public class FightSimulation {
 
     public void nextFight(DataBase _import) {
         Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
-        CustList<Level> list_ = ((League)place_).getLevelsList();
+        CustList<Level> list_ = place_.getLevelsList();
         byte index_ = foeCoords.getLevel().getLevelIndex();
         index_++;
         LevelLeague l_ = (LevelLeague)list_.get(index_);
@@ -347,7 +342,7 @@ public class FightSimulation {
         if (!(place_ instanceof League)) {
             return false;
         }
-        CustList<Level> list_ = ((League)place_).getLevelsList();
+        CustList<Level> list_ = place_.getLevelsList();
         byte index_ = foeCoords.getLevel().getLevelIndex();
         index_++;
         if (!list_.isValidIndex(index_)) {
@@ -362,7 +357,6 @@ public class FightSimulation {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(basePk_, _level, true, _import);
         StringList keys_ = new StringList(evos_.getKeys());
         StringList moves_ = new StringList();
-//        StringList res_ = keys_.filter(PokemonPlayer.SEPARATOR+_name+END_REG_EXP);
         StringList res_ = keys_.filterEndsWith(StringList.concat(PokemonPlayer.SEPARATOR,_name));
         if (res_.isEmpty() || _level < evos_.getVal(res_.first())) {
             for (LevelMove p: data_.getLevMoves()) {
@@ -439,18 +433,6 @@ public class FightSimulation {
         evolutions.add(new EqList<NameLevel>());
     }
 
-    public void setPokemonPlayerName(int _index, String _name) {
-        team.get(_index).setName(_name);
-    }
-
-    public void setPokemonPlayerLevel(int _index, short _level) {
-        team.get(_index).setLevel(_level);
-    }
-
-    public void setPokemonPlayerAbility(int _index, String _name) {
-        team.get(_index).setAbility(_name);
-    }
-
     public void setPokemonPlayerObject(int _index, String _object) {
         team.get(_index).setItem(_object);
         for (StringList l: items) {
@@ -460,10 +442,6 @@ public class FightSimulation {
 
     public void setPokemonPlayerObjectAfterFight(int _fight, int _index, String _object) {
         items.get(_fight + 1).set(_index, _object);
-    }
-
-    public void setPokemonPlayerGender(int _index, Gender _gender) {
-        team.get(_index).setGender(_gender);
     }
 
     public void setInitialMoves(int _index, StringList _moves, DataBase _import) {
@@ -513,14 +491,12 @@ public class FightSimulation {
             StringMap<Short> evos_;
             evos_ = PokemonPlayer.getAllEvolutions(p.getName(), p.getLevel(), true, _import);
             StringList keys_ = new StringList(evos_.getKeys());
-//            keys_ = keys_.filter(BEGIN_REG_EXP+p.getName()+END_WORD_REG_EXP);
-            keys_ = getNextEvos(keys_, p.getName());
+            keys_ = getNextEvos(keys_);
             StringMap<Short> direct_ = new StringMap<Short>();
             for (String k: keys_) {
                 String prefix_ = StringList.concat(p.getName(),SEPARATOR_PK);
                 String rep_ = StringList.replaceBegin(k, prefix_);
                 direct_.put(rep_, evos_.getVal(k));
-//                direct_.put(k.replaceAll(BEGIN_REG_EXP+p.getName()+SEPARATOR_PK, DataBase.EMPTY_STRING), evos_.getVal(k));
             }
             list_.add(direct_);
         }
@@ -549,14 +525,12 @@ public class FightSimulation {
         StringMap<Short> nextEvos_;
         nextEvos_ = PokemonPlayer.getAllEvolutions(_currentEvo, _level, true, _import);
         StringList keys_ = new StringList(nextEvos_.getKeys());
-//        keys_ = keys_.filter(BEGIN_REG_EXP+_currentEvo+END_WORD_REG_EXP);
-        keys_ = getNextEvos(keys_, _currentEvo);
+        keys_ = getNextEvos(keys_);
         StringMap<Short> direct_ = new StringMap<Short>();
         for (String k: keys_) {
             String prefix_ = StringList.concat(_currentEvo,SEPARATOR_PK);
             String rep_ = StringList.replaceBegin(k, prefix_);
             direct_.put(rep_, nextEvos_.getVal(k));
-//            direct_.put(k.replaceAll(BEGIN_REG_EXP+_currentEvo+SEPARATOR_PK, DataBase.EMPTY_STRING), nextEvos_.getVal(k));
         }
         availableEvolutions.get(_index).clear();
         availableEvolutions.get(_index).putAllMap(direct_);
@@ -581,14 +555,12 @@ public class FightSimulation {
         StringMap<Short> nextEvos_;
         nextEvos_ = PokemonPlayer.getAllEvolutions(previous_.getName(), previous_.getLevel(), true, _import);
         StringList keys_ = new StringList(nextEvos_.getKeys());
-//        keys_ = keys_.filter(BEGIN_REG_EXP+previous_.getFirst()+END_WORD_REG_EXP);
-        keys_ = getNextEvos(keys_, previous_.getName());
+        keys_ = getNextEvos(keys_);
         StringMap<Short> direct_ = new StringMap<Short>();
         for (String k: keys_) {
             String prefix_ = StringList.concat(previous_.getName(),SEPARATOR_PK);
             String rep_ = StringList.replaceBegin(k, prefix_);
             direct_.put(rep_, nextEvos_.getVal(k));
-//            direct_.put(k.replaceAll(BEGIN_REG_EXP+previous_.getFirst()+SEPARATOR_PK, DataBase.EMPTY_STRING), nextEvos_.getVal(k));
         }
         availableEvolutions.get(_index).clear();
         availableEvolutions.get(_index).putAllMap(direct_);
@@ -597,20 +569,11 @@ public class FightSimulation {
         }
     }
 
-    private static StringList getNextEvos(StringList _evos, String _word) {
+    private static StringList getNextEvos(StringList _evos) {
         StringList list_ = new StringList();
         for (String e : _evos) {
             StringList sep_ = StringList.getWordsSeparators(e);
             if (sep_.size() != 4) {
-                continue;
-            }
-            if (!sep_.first().isEmpty()) {
-                continue;
-            }
-            if (!StringList.quickEq(sep_.get(1), _word)) {
-                continue;
-            }
-            if (!StringList.quickEq(sep_.get(2), SEPARATOR_PK)) {
                 continue;
             }
             list_.add(e);
@@ -663,7 +626,6 @@ public class FightSimulation {
             PseudoFight pseudoFight_;
             pseudoFight_ = new PseudoFight(foeTeams.get(i), pseudoPlayer_, mult.get(i), frontFighters.get(i));
             pseudoFight_.presimulateFight(game.getDifficulty(), _import);
-            //Numbers<Byte> indexes_ = indexesFight(i);
             byte i_ = CustList.FIRST_INDEX;
             for (PseudoPlayerFighter f: pseudoFight_.getPlayerFighters()) {
                 infosRealEvolutions.get(i_).addAllElts(f.getInfosRealEvolutions());
@@ -673,58 +635,29 @@ public class FightSimulation {
                 pseudoPlayer_.getTeam().get(i_).setName(f.getName());
                 pseudoPlayer_.getTeam().get(i_).getWonPointsSinceLastLevel().affect(f.getWonExpSinceLastLevel());
                 TreeMap<PairNumber<Byte,Byte>,String> treeEvos_;
-//                treeEvos_ = new TreeMap<Pair<Byte,Byte>,String>(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getSecond().compareTo(_o2.getSecond());
-//                    }
-//                });
                 treeEvos_ = new TreeMap<PairNumber<Byte,Byte>,String>(new ComparatorPairNumber<Byte,Byte>());
                 for (byte o: f.getEvolutions().getKeys()) {
                     treeEvos_.put(new PairNumber<Byte, Byte>(i, o), f.getEvolutions().getVal(o));
                 }
                 evolutionsWhileFight.put(i_, treeEvos_);
-//                if (moves.contains(indexes_.get(i_))) {
                 TreeMap<PairNumber<Byte,Byte>,StringList> treeMoves_;
-//                treeMoves_ = new TreeMap<Pair<Byte,Byte>,StringList>(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getSecond().compareTo(_o2.getSecond());
-//                    }
-//                });
                 treeMoves_ = new TreeMap<PairNumber<Byte,Byte>,StringList>(new ComparatorPairNumber<Byte,Byte>());
                 byte iRound_ = CustList.FIRST_INDEX;
                 for (StringList o: f.getMoves()) {
                     treeMoves_.put(new PairNumber<Byte, Byte>(i, iRound_), o);
                     iRound_++;
                 }
-//                moves.put(indexes_.get(i_), tree_);
                 moves.put(i_, treeMoves_);
                 StringMap<Boolean> choicesMoves_;
                 StringList initMoves_ = new StringList(team.get(i_).getMoves().getKeys());
                 choicesMoves_ = movesToBeChosen(treeMoves_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
                 PairNumber<Byte,Byte> firstFightRound_;
                 firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-//                availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
                 availableMoves.put(i_, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
-//                treeMoves_ = new TreeMap<Pair<Byte,Byte>,StringList>(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getSecond().compareTo(_o2.getSecond());
-//                    }
-//                });
                 treeMoves_ = new TreeMap<PairNumber<Byte,Byte>,StringList>(new ComparatorPairNumber<Byte,Byte>());
                 treeMoves_.put(firstFightRound_, new StringList(initMoves_));
-//                keptMoves.put(indexes_.get(i_), tree_);
                 keptMoves.put(i_, treeMoves_);
-//                if (abilities.contains(indexes_.get(i_))) {
                 TreeMap<PairNumber<Byte,Byte>,StringList> treeAbilities_;
-//                treeAbilities_ = new TreeMap<Pair<Byte,Byte>,StringList>(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getSecond().compareTo(_o2.getSecond());
-//                    }
-//                });
                 treeAbilities_ = new TreeMap<PairNumber<Byte,Byte>,StringList>(new ComparatorPairNumber<Byte,Byte>());
                 iRound_ = CustList.FIRST_INDEX;
                 for (StringList o: f.getAbilities()) {
@@ -733,20 +666,12 @@ public class FightSimulation {
                     }
                     iRound_++;
                 }
-//                abilities.put(indexes_.get(i_), tree_);
                 abilities.put(i_, treeAbilities_);
                 TreeMap<PairNumber<Byte,Byte>,String> treeKept_;
-//                treeKept_ = new TreeMap<Pair<Byte,Byte>,String>(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getSecond().compareTo(_o2.getSecond());
-//                    }
-//                });
                 treeKept_ = new TreeMap<PairNumber<Byte,Byte>,String>(new ComparatorPairNumber<Byte,Byte>());
                 for (PairNumber<Byte, Byte> k: treeAbilities_.getKeys()) {
                     treeKept_.put(new PairNumber<Byte, Byte>(k), treeAbilities_.getVal(k).first());
                 }
-//                keptAbilities.put(indexes_.get(i_), treeKept_);
                 keptAbilities.put(i_, treeKept_);
                 currentFights.put(i_, (byte) 0);
                 i_++;
@@ -967,108 +892,14 @@ public class FightSimulation {
                 i_++;
             }
             usedStones.set(i, usedStones_);
-            if (index_ >= items.size()) {
-                break;
-            }
-            i_ = CustList.FIRST_INDEX;
-            for (PseudoPokemonPlayer p: pseudoPlayer_.getTeam()) {
-                p.setItem(items.get(index_).get(i_));
-                i_++;
+            if (index_ < items.size()) {
+                i_ = CustList.FIRST_INDEX;
+                for (PseudoPokemonPlayer p: pseudoPlayer_.getTeam()) {
+                    p.setItem(items.get(index_).get(i_));
+                    i_++;
+                }
             }
         }
-
-//        currentKeys.clear();
-//        int i_ = CustList.FIRST_INDEX;
-//        for (PokemonPlayer p: team) {
-//            CustList<Pair<String,Short>> l_ = realEvolutions.get(i_);
-//            CustList<Pair<Pair<String,Short>, Pair<StringList,StringList>>> movesAbilities_;
-//            movesAbilities_ = new CustList<>();
-//            int maxLevelBase_ = pseudoPlayer_.getTeam().get(i_).getLevel();
-//            if (!l_.isEmpty()) {
-//                maxLevelBase_ = l_.first().getSecond();
-//            }
-//            String name_ = p.getName();
-//            PokemonData data_ = _import.getPokemon(name_);
-//            Map<Short,StringList> moves_;
-//            moves_ = new Map<>();
-//            for (Pair<Short,String> p2: data_.getLevMoves()) {
-//                if (p2.getFirst() > maxLevelBase_) {
-//                    continue;
-//                }
-//                if (p2.getFirst() < p.getLevel()) {
-//                    continue;
-//                }
-//                if (moves_.contains(p2.getFirst())) {
-//                    moves_.getVal(p2.getFirst()).add(p2.getSecond());
-//                } else {
-//                    moves_.put(p2.getFirst(), new StringList(p2.getSecond()));
-//                }
-//            }
-//            Numbers<Short> keys_ = new Numbers<>(moves_.getKeys());
-//            keys_.sort();
-//            for (Short k: keys_) {
-//                movesAbilities_.add(new Pair<>(new Pair<>(name_,k), new Pair<>(moves_.getVal(k), new StringList())));
-//            }
-//            if (!l_.isEmpty()) {
-//                Pair<String,Short> first_ = l_.first();
-//                String nameEvo_ = first_.getFirst();
-//                short minLevel_ = first_.getSecond();
-//                for (int i = CustList.SECOND_INDEX; i < l_.size(); i++) {
-//                    short maxLevel_ = l_.get(i).getSecond();
-//                    PokemonData dataEvo_ = _import.getPokemon(nameEvo_);
-//                    moves_ = new Map<>();
-//                    for (Pair<Short,String> p2: dataEvo_.getLevMoves()) {
-//                        if (p2.getFirst() > maxLevel_) {
-//                            continue;
-//                        }
-//                        if (moves_.contains(p2.getFirst())) {
-//                            moves_.getVal(p2.getFirst()).add(p2.getSecond());
-//                        } else {
-//                            moves_.put(p2.getFirst(), new StringList(p2.getSecond()));
-//                        }
-//                    }
-//                    keys_ = new Numbers<>(moves_.getKeys());
-//                    keys_.sort();
-//                    if (!keys_.containsObj(minLevel_)) {
-//                        movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,minLevel_), new Pair<>(new StringList(), dataEvo_.getAbilities())));
-//                    } else {
-//                        movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,minLevel_), new Pair<>(moves_.getVal(minLevel_), dataEvo_.getAbilities())));
-//                        keys_.removeObj(minLevel_);
-//                    }
-//                    for (Short k: keys_) {
-//                        movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,k), new Pair<>(moves_.getVal(k), new StringList())));
-//                    }
-//                    nameEvo_ = l_.get(i).getFirst();
-//                    minLevel_ = l_.get(i).getSecond();
-//                }
-//                maxLevelBase_ = pseudoPlayer_.getTeam().get(i_).getLevel();
-//                PokemonData dataEvo_ = _import.getPokemon(nameEvo_);
-//                moves_ = new Map<>();
-//                for (Pair<Short,String> p2: dataEvo_.getLevMoves()) {
-//                    if (p2.getFirst() > maxLevelBase_) {
-//                        continue;
-//                    }
-//                    if (moves_.contains(p2.getFirst())) {
-//                        moves_.getVal(p2.getFirst()).add(p2.getSecond());
-//                    } else {
-//                        moves_.put(p2.getFirst(), new StringList(p2.getSecond()));
-//                    }
-//                }
-//                keys_ = new Numbers<>(moves_.getKeys());
-//                keys_.sort();
-//                if (!keys_.containsObj(minLevel_)) {
-//                    movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,minLevel_), new Pair<>(new StringList(), dataEvo_.getAbilities())));
-//                } else {
-//                    movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,minLevel_), new Pair<>(moves_.getVal(minLevel_), dataEvo_.getAbilities())));
-//                    keys_.removeObj(minLevel_);
-//                }
-//                for (Short k: keys_) {
-//                    movesAbilities_.add(new Pair<>(new Pair<>(nameEvo_,k), new Pair<>(moves_.getVal(k), new StringList())));
-//                }
-//            }
-//            i_++;
-//            availableMovesAbilities.add(movesAbilities_);
-//        }
     }
 
     boolean validFrontFighters() {
@@ -1094,12 +925,23 @@ public class FightSimulation {
                 if (places_.size() > mult.get(index_)) {
                     return false;
                 }
-                Numbers<Byte> copyPlaces_ = new Numbers<Byte>(places_);
-                copyPlaces_.sort();
-                if (copyPlaces_.getMinimum().intValue() != 0) {
+                if (places_.isEmpty()) {
                     return false;
                 }
-                if (copyPlaces_.getMaximum().intValue() != copyPlaces_.size() - 1) {
+                int min_ = places_.first();
+                int max_ = places_.first();
+                for (byte p: places_) {
+                    if (p < min_) {
+                        min_ = p;
+                    }
+                    if (p > max_) {
+                        max_ = p;
+                    }
+                }
+                if (min_ != 0) {
+                    return false;
+                }
+                if (max_ != places_.size() - 1) {
                     return false;
                 }
                 if (front_.size() > nbActions_) {
@@ -1130,11 +972,6 @@ public class FightSimulation {
     Numbers<Byte> indexesFight(byte _fight) {
         NumberMap<Byte,Byte> fighters_;
         fighters_ = frontFighters.get(_fight).first();
-//        Map<Byte,Byte> map_;
-//        map_ = new Map<>(fighters_);
-//        for (Byte k: fighters_.getKeys()) {
-//            map_.put(k, fighters_.getVal(k));
-//        }
         Numbers<Byte> indexes_;
         indexes_ = new Numbers<Byte>();
         Numbers<Byte> indexesBack_;
@@ -1148,20 +985,6 @@ public class FightSimulation {
         }
         indexesBack_.sort();
         indexes_.addAllElts(indexesBack_);
-//        TreeMap<Byte,CustList<Byte>> reverseMap_;
-////        reverseMap_ = new TreeMap<Byte, CustList<Byte>>(map_.reverseMap());
-//        reverseMap_ = new TreeMap<Byte, CustList<Byte>>(fighters_.reverseMap());
-//        for (byte k: reverseMap_.getKeys()) {
-//            if (Numbers.eq(k, Fighter.BACK)) {
-//                continue;
-//            }
-//            indexes_.add(reverseMap_.getVal(k).first());
-//        }
-//        if (reverseMap_.contains(Fighter.BACK)) {
-//            Numbers<Byte> indexesBack_ = new Numbers<>(reverseMap_.getVal(Fighter.BACK));
-//            indexesBack_.sort();
-//            indexes_.addAllElts(indexesBack_);
-//        }
         return indexes_;
     }
 
@@ -1241,16 +1064,12 @@ public class FightSimulation {
     public void cancelAllMovesOneFight(int _index, DataBase _import) {
         TreeMap<PairNumber<Byte,Byte>, StringList> tree_;
         tree_ = moves.getVal((byte) _index);
-//        byte iRound_ = CustList.FIRST_INDEX;
         StringMap<Boolean> choicesMoves_;
         StringList initMoves_ = new StringList(team.get((byte) _index).getMoves().getKeys());
         choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
         PairNumber<Byte,Byte> firstFightRound_;
         firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         availableMoves.put((byte) _index, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
-//        availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
-        //tree_.put(firstFightRound_, new StringList(initMoves_));
-//        keptMoves.put(indexes_.get(i_), tree_);
         tree_ = new TreeMap<PairNumber<Byte,Byte>,StringList>(new ComparatorPairNumber<Byte,Byte>());
         tree_.put(firstFightRound_, new StringList(initMoves_));
         keptMoves.put((byte) _index, tree_);
@@ -1268,21 +1087,14 @@ public class FightSimulation {
         TreeMap<PairNumber<Byte,Byte>, StringList> tree_;
         tree_ = moves.getVal((byte) _index);
         if (!tree_.contains(previousPrevKey_)) {
-            //keptMoves.getVal((byte) _index).getVal(previousKey_).clear();
             StringMap<Boolean> choicesMoves_;
             StringList initMoves_= new StringList(team.get(_index).getMoves().getKeys());
-//            choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
-//            Pair<Byte,Byte> firstFightRound_;
-//            firstFightRound_ = new Pair<>((byte)CustList.FIRST_INDEX, (byte)CustList.FIRST_INDEX);
-            //initMoves_ = keptMoves.getVal((byte) _index).getVal(key_);
             choicesMoves_ = movesToBeChosen(tree_.getVal(previousKey_), initMoves_, _import.getNbMaxMoves());
             availableMoves.getVal((byte) _index).setFirst(previousKey_);
             availableMoves.getVal((byte) _index).getMoves().clear();
             availableMoves.getVal((byte) _index).getMoves().putAllMap(choicesMoves_);
             keptMoves.getVal((byte) _index).put(previousKey_, getChosenMoves(choicesMoves_));
             keptMoves.getVal((byte) _index).getVal(key_).clear();
-//            availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
-//            availableMoves.put((byte) CustList.FIRST_INDEX, new Pair<>(firstFightRound_,choicesMoves_));
             return;
         }
         StringList initMoves_ = keptMoves.getVal((byte) _index).getVal(previousPrevKey_);
@@ -1291,7 +1103,6 @@ public class FightSimulation {
         availableMoves.getVal((byte) _index).setFirst(previousKey_);
         availableMoves.getVal((byte) _index).getMoves().clear();
         availableMoves.getVal((byte) _index).getMoves().putAllMap(choicesMoves_);
-        //keptMoves.getVal((byte) _index)
         keptMoves.getVal((byte) _index).getVal(key_).clear();
     }
 
@@ -1323,23 +1134,11 @@ public class FightSimulation {
         TreeMap<PairNumber<Byte,Byte>, StringList> tree_;
         tree_ = moves.getVal((byte) _index);
         for (PairNumber<Byte,Byte> k: tree_.getKeys()) {
-            if (k == null) {
-                continue;
-            }
-            if (k.getFirst() == null) {
-                continue;
-            }
-            if (k.getSecond() == null) {
-                continue;
-            }
             if (Numbers.eq(k.getFirst().byteValue(), nextKey_.getFirst().byteValue())) {
                 if (Numbers.eq(k.getSecond().byteValue(), nextKey_.getSecond().byteValue())) {
                     betweenFights_ = false;
                 }
             }
-//            if (Pair.eq(k, nextKey_)) {
-//                betweenFights_ = false;
-//            }
         }
         if (!betweenFights_) {
             StringList initMoves_ = keptMoves.getVal((byte) _index).getVal(key_);
@@ -1374,13 +1173,6 @@ public class FightSimulation {
 
             availableMovesBetweenFights.removeKey((byte) _index);
             availableMovesBetweenFights.put((byte) _index, choicesMoves_);
-
-//            if (!availableMovesBetweenFights.contains((byte) _index)) {
-//                availableMovesBetweenFights.put((byte) _index, choicesMoves_);
-//            } else {
-//                availableMovesBetweenFights.getVal((byte) _index).clear();
-//                availableMovesBetweenFights.getVal((byte) _index).putAllMap(choicesMoves_);
-//            }
             return;
         }
         validateKeptMoves(_index, _import, currentFight_, nextKey_, tree_);
@@ -1497,12 +1289,6 @@ public class FightSimulation {
                         nextFront_.add(k);
                     }
                 }
-//                orderedFronts_.sort(new Comparator<Pair<Byte,Byte>>() {
-//                    @Override
-//                    public int compare(Pair<Byte, Byte> _o1, Pair<Byte, Byte> _o2) {
-//                        return _o1.getFirst().compareTo(_o2.getFirst());
-//                    }
-//                });
                 orderedFronts_.sortElts(new ComparatorPairNumber<Byte,Byte>());
                 for (PairNumber<Byte,Byte> k: orderedFronts_) {
                     byte f_ = k.getSecond();
@@ -1545,7 +1331,6 @@ public class FightSimulation {
                 actionsBeforeRound_ = new CustList<ActionMove>();
                 NumberMap<Byte,Byte> map_;
                 map_ = frontFighters.get(f).get(i);
-//                int nbOrderFronts_ = map_.size() - map_.getKeys(Fighter.BACK).size();
                 int nbOrderFronts_ = getNbFrontFighters(map_);
                 for (byte k = CustList.FIRST_INDEX; k < nbOrderFronts_; k++) {
                     ActionMove action_;
@@ -1644,9 +1429,6 @@ public class FightSimulation {
         int index_ = keys_.indexOfObj(currentKey_);
         index_--;
         return keptMovesBefore_.getVal(keys_.get(index_));
-//        Pair<Byte,Byte> previousKey_;
-//        previousKey_ = keptMovesBefore_.lowerKey(currentKey_);
-//        return keptMovesBefore_.getVal(previousKey_);
     }
 
     public void chooseMoveFirstFight(int _round, int _index, String _move, boolean _ally, int _foeTarget, DataBase _data) {
@@ -1678,9 +1460,7 @@ public class FightSimulation {
         }
         setComment(new StringList());
         CustList<Fightable> trainers_;
-//        CustList<DualFight> duals_;
         trainers_ = new CustList<Fightable>();
-//        duals_ = new CustList<>();
         if (freeTeams) {
             if (!allyTeam.isEmpty()) {
                 DualFight dual_;
@@ -1733,30 +1513,6 @@ public class FightSimulation {
                 }
             }
         }
-//        Map<String,Short> pps_;
-//        pps_ = new Map<>();
-//        for (Entry<String,MoveData> m: _import.getMoves().entrySet()) {
-//            pps_.put(m.getKey(), m.getValue().getPp());
-//        }
-//        if (!duals_.isEmpty()) {
-//            Player player_ = game.getPlayer();
-//            Numbers<Byte> indexes_ = indexesFight((byte) CustList.FIRST_INDEX);
-//            player_.swap(indexes_);
-//            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), duals_.first(), _import);
-//            FightFacade.initTypeEnv(game.getFight(), _coords, game.getDifficulty(), _import);
-//            game.simuler(actionsBeforeRound.get(CustList.FIRST_INDEX), actionsSubstitutingFront.get(CustList.FIRST_INDEX),
-//                    actionsSubstitutingBack.get(CustList.FIRST_INDEX), movesAbilities.get(CustList.FIRST_INDEX), _import);
-//            if (!game.getFight().getAcceptableChoices()) {
-//                probleme = true;
-//                return;
-//            }
-//            if (game.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
-//                return;
-//            }
-//            FightFacade.endFight(game.getFight());
-//            player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
-//            return;
-//        }
         Player player_ = game.getPlayer();
         Numbers<Byte> indexes_ = indexesFight(CustList.FIRST_INDEX);
         player_.swap(indexes_);
@@ -1848,8 +1604,6 @@ public class FightSimulation {
         if (!duals_.isEmpty()) {
             int nbFoes_ = foeTeams.size();
             for (byte i = CustList.FIRST_INDEX; i < nbFoes_; i++) {
-//                int index_ = i;
-//                index_++;
                 Player player_ = game.getPlayer();
                 Numbers<Byte> indexes_ = indexesFight(i);
                 player_.swap(indexes_);
@@ -1864,32 +1618,6 @@ public class FightSimulation {
                 FightFacade.endFight(game.getFight());
                 player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
                 player_.restore(indexes_);
-//                byte i_ = CustList.FIRST_INDEX;
-//                byte iPk_ = CustList.FIRST_INDEX;
-//                for (UsablePokemon p: player_.getTeam()) {
-//                    i_ = CustList.FIRST_INDEX;
-//                    for (String e: evolutionsBetweenFights.getVal(iPk_).get(i)) {
-//                        PokemonPlayer pk_;
-//                        pk_ = (PokemonPlayer) p;
-//                        pk_.setName(e);
-//                        pk_.setAbility(keptAbilitiesBetweenFights.getVal(iPk_).get(i).get(i_));
-//                        StringList moves_;
-//                        moves_ = keptMovesBetweenFights.getVal(iPk_).get(i).get(i_);
-//                        pk_.getMoves().clear();
-//                        for (String m: moves_) {
-//                            pk_.getMoves().put(m, new UsesOfMove(pps_.getVal(m)));
-//                        }
-//                        i_++;
-//                    }
-//                    iPk_++;
-//                }
-//                if (index_ < items.size()) {
-//                    i_ = CustList.FIRST_INDEX;
-//                    for (UsablePokemon p: player_.getTeam()) {
-//                        ((Pokemon) p).setItem(items.get(index_).get(i_));
-//                        i_++;
-//                    }
-//                }
             }
             return;
         }
@@ -1921,7 +1649,7 @@ public class FightSimulation {
             FightFacade.endFight(game.getFight());
             player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
             player_.restore(indexes_);
-            byte i_ = CustList.FIRST_INDEX;
+            byte i_;
             byte iPk_ = CustList.FIRST_INDEX;
             for (UsablePokemon p: player_.getTeam()) {
                 i_ = CustList.FIRST_INDEX;
@@ -2007,71 +1735,6 @@ public class FightSimulation {
         return list_;
     }
 
-    public NatTreeMap<Byte, StringList> getEvolutionsAfterFight() {
-        NatTreeMap<Byte, StringList> tree_;
-        tree_ = new NatTreeMap<Byte, StringList>();
-        for (byte f: game.getFight().getUserTeam().getMembers().getKeys()) {
-            Fighter f_ = game.getFight().getUserTeam().getMembers().getVal(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            //the value contains only evolutions names
-            tree_.put(f, new StringList(f_.getMovesAbilitiesEvos().getKeys()));
-        }
-        return tree_;
-    }
-
-    public NatTreeMap<Byte, StringList> getMovesNoEvoAfterFight() {
-        NatTreeMap<Byte, StringList> tree_;
-        tree_ = new NatTreeMap<Byte, StringList>();
-        for (byte f: game.getFight().getUserTeam().getMembers().getKeys()) {
-            Fighter f_ = game.getFight().getUserTeam().getMembers().getVal(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            StringList list_ = new StringList(f_.getMovesToBeLearnt());
-            list_.addAllElts(f_.getMovesSet());
-            tree_.put(f, list_);
-        }
-        return tree_;
-    }
-
-    public NatTreeMap<Byte,StringMap<StringList>> getAbilitiesAfterFight() {
-        NatTreeMap<Byte,StringMap<StringList>> tree_;
-        tree_ = new NatTreeMap<Byte,StringMap<StringList>>();
-        for (byte f: game.getFight().getUserTeam().getMembers().getKeys()) {
-            Fighter f_ = game.getFight().getUserTeam().getMembers().getVal(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            StringMap<StringList> tr_ = new StringMap<StringList>();
-            for (String e: f_.getMovesAbilitiesEvos().getKeys()) {
-                tr_.put(e, new StringList(f_.getMovesAbilitiesEvos().getVal(e).getAbilities()));
-            }
-            tree_.put(f, tr_);
-        }
-        return tree_;
-    }
-
-    public NatTreeMap<Byte,StringMap<StringList>> getMovesAfterFight() {
-        NatTreeMap<Byte,StringMap<StringList>> tree_;
-        tree_ = new NatTreeMap<Byte,StringMap<StringList>>();
-        for (byte f: game.getFight().getUserTeam().getMembers().getKeys()) {
-            Fighter f_ = game.getFight().getUserTeam().getMembers().getVal(f);
-            if (!f_.isBelongingToPlayer()) {
-                continue;
-            }
-            StringMap<StringList> tr_ = new StringMap<StringList>();
-            for (String e: f_.getMovesAbilitiesEvos().getKeys()) {
-                StringList list_ = new StringList(f_.getMovesAbilitiesEvos().getVal(e).getMoves());
-                list_.addAllElts(f_.getMovesSet());
-                tr_.put(e, list_);
-            }
-            tree_.put((byte) tree_.size(), tr_);
-        }
-        return tree_;
-    }
-
     public boolean isAcceptableChoices() {
         return game.getFight().getAcceptableChoices();
     }
@@ -2084,24 +1747,12 @@ public class FightSimulation {
         return game.getFight().getIssue();
     }
 
-//    public Map<Byte, ChoiceOfEvolutionAndMoves> getChoices() {
-//        return game.getFight().getChoices();
-//    }
-
     Game getGame() {
         return game;
     }
 
-    void setGame(Game _game) {
-        game = _game;
-    }
-
     public Coords getFoeCoords() {
         return foeCoords;
-    }
-
-    void setFoeCoords(Coords _foeCoords) {
-        foeCoords = _foeCoords;
     }
 
     public CustList<CustList<PkTrainer>> getFoeTeams() {
@@ -2128,20 +1779,12 @@ public class FightSimulation {
         return noFight;
     }
 
-    void setNoFight(int _noFight) {
-        noFight = _noFight;
-    }
-
     public CustList<PokemonPlayer> getTeamAfterFight() {
         return new CustList<PokemonPlayer>(game.getPlayer().getPokemonPlayerList().values());
     }
 
     public CustList<PokemonPlayer> getTeam() {
         return team;
-    }
-
-    public void setTeam(CustList<PokemonPlayer> _team) {
-        team = _team;
     }
 
     public EqList<StringList> getItems() {
@@ -2238,10 +1881,6 @@ public class FightSimulation {
 
     public boolean getProbleme() {
         return probleme;
-    }
-
-    public void setProbleme(boolean _probleme) {
-        probleme = _probleme;
     }
 
     public StringList getComment() {

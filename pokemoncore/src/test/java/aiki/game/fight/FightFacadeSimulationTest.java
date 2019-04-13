@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -2020,6 +2021,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(_data_);
         fightSimulation_.simulateFight(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertTrue(!fightSimulation_.isOk());
     }
 
     @Test
@@ -2080,6 +2082,11 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
+        assertSame(IssueSimulation.NOTHING, fightSimulation_.getIssue());
+        assertTrue(!fightSimulation_.getComment().isEmpty());
     }
 
     @Test
@@ -2132,6 +2139,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2184,6 +2194,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2233,6 +2246,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2285,6 +2301,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2352,6 +2371,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2412,6 +2434,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertEq(0, fightSimulation_.getKoFoes().size());
+        assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(1, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2461,6 +2486,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertEq(1, fightSimulation_.getKoFoes().size());
+        assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2510,7 +2538,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
-
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
         //ABSORB_EAU
 //        fightSimulation_.validateMovesOneFight(1, data);
 //        //fightSimulation_.validateMoves(1, data);
@@ -2578,7 +2608,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getGame().getFight().getAcceptableChoices());
         assertTrue(fightSimulation_.getProbleme());
         assertTrue(fightSimulation_.isOk());
-
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
         //ABSORB_EAU
 //        fightSimulation_.validateMovesOneFight(1, data);
 //        //fightSimulation_.validateMoves(1, data);
@@ -2669,6 +2701,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -2737,6 +2772,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFight(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(1, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3167,6 +3205,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.validateAllMoves(_data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertTrue(fightSimulation_.isOk());
+        assertTrue(!fightSimulation_.isAcceptableChoices());
     }
 
     @Test
@@ -3227,6 +3267,11 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
+        assertTrue(fightSimulation_.isAcceptableChoices());
+        assertEq(3,fightSimulation_.getTeamAfterFight().size());
     }
 
     @Test
@@ -3279,6 +3324,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3331,6 +3379,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3380,6 +3431,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3432,6 +3486,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3499,6 +3556,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(!fightSimulation_.getProbleme());
+        assertEq(2, fightSimulation_.getKoFoes().size());
+        assertEq(0, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3559,6 +3619,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(1, 1, 2, CHARGE, POKEMON_FOE_TARGET_ZERO, _data_);
         fightSimulation_.simulateFights(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertEq(0, fightSimulation_.getKoFoes().size());
+        assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(1, fightSimulation_.getKoPlayers().size());
     }
 
     @Test
@@ -3608,6 +3671,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         //fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO);
         fightSimulation_.simulateFights(_data_);
         assertTrue(fightSimulation_.getProbleme());
+        assertEq(1, fightSimulation_.getKoFoes().size());
+        assertEq(1, fightSimulation_.getNotKoFrontFoes().size());
+        assertEq(0, fightSimulation_.getKoPlayers().size());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

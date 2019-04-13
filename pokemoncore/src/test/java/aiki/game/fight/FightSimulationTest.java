@@ -88,6 +88,9 @@ public class FightSimulationTest extends InitializationDataBase {
 //        assertEq(0, usedStones_.get(1).size());
         CustList<PkTrainer> allyNumbers_ = fightSimulation_.getAllyTeam();
         assertEq(0, allyNumbers_.size());
+        assertEq(2, fightSimulation_.getFoeTeam().size());
+        assertEq(1, fightSimulation_.getFirstMult());
+        assertEq(2, fightSimulation_.nbRounds());
     }
 
     @Test
@@ -1020,6 +1023,53 @@ public class FightSimulationTest extends InitializationDataBase {
     }
 
     @Test
+    public void setInitialMoves1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(MULTI_EXP);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObject(0, OEUF_CHANCE);
+        fightSimulation_.setInitialMoves(0, new StringList(CHARGEUR),_data_);
+        assertEq(1, fightSimulation_.getTeam().size());
+        PokemonPlayer pk_ = fightSimulation_.getTeam().first();
+        assertEq(PTITARD, pk_.getName());
+        assertEq(Gender.NO_GENDER, pk_.getGender());
+        assertEq(3, pk_.getLevel());
+        assertEq(OEUF_CHANCE, pk_.getItem());
+        assertEq(ABSORB_EAU, pk_.getAbility());
+        assertEq(1, pk_.getMoves().size());
+        assertEq(20, pk_.getMoves().getVal(CHARGEUR).getCurrent());
+        assertEq(20, pk_.getMoves().getVal(CHARGEUR).getMax());
+        assertEq(2, fightSimulation_.getItems().size());
+        assertEq(1, fightSimulation_.getItems().first().size());
+        assertEq(OEUF_CHANCE, fightSimulation_.getItems().first().first());
+        assertEq(1, fightSimulation_.getItems().last().size());
+        assertEq(OEUF_CHANCE, fightSimulation_.getItems().first().first());
+    }
+
+    @Test
+    public void removePokemonPlayer1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(MULTI_EXP);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObject(0, OEUF_CHANCE);
+        fightSimulation_.removePokemonPlayer(0);
+        assertEq(0, fightSimulation_.getTeam().size());
+    }
+    @Test
     public void getFirstNextEvolutions1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
@@ -1508,6 +1558,47 @@ public class FightSimulationTest extends InitializationDataBase {
     }
 
     @Test
+    public void validFrontFighters9Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), 0, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 30);
+        pokemon_.setName(TARTARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(MULTI_EXP);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)1);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, (byte)0);
+        assertTrue(!fightSimulation_.validFrontFighters());
+    }
+    @Test
+    public void validFrontFighters10Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(2, 0, 2, 0), 0, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 30);
+        pokemon_.setName(TARTARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(MULTI_EXP);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.initializeFrontFighters();
+        assertTrue(!fightSimulation_.validFrontFighters());
+    }
+
+    @Test
     public void indexesFight1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
@@ -1975,6 +2066,42 @@ public class FightSimulationTest extends InitializationDataBase {
 //        assertEq(100, fightSimulation_.getInfosRealEvolutions().get(2).get(0).getSecond().intValue());
     }
 
+    @Test
+    public void prepareMovesToBeLearntOneFight2Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        //fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.prepareMovesToBeLearntOneFight(_data_);
+        assertTrue(!fightSimulation_.isOk());
+    }
     @Test
     public void prepareMovesToBeLearnt1Test() {
         Difficulty diff_ = new Difficulty();
@@ -2593,6 +2720,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearnt(_data_);
+        assertTrue(fightSimulation_.isAvailableMoves(0));
         fightSimulation_.addMove(0, PLAQUAGE);
         assertEq(14, fightSimulation_.getAvailableMoves().getVal((byte)0).getMoves().size());
         assertTrue(fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().getVal(PLAQUAGE));
@@ -2601,6 +2729,52 @@ public class FightSimulationTest extends InitializationDataBase {
         assertTrue(fightSimulation_.getKeptMoves().getVal((byte)0).getVal(new PairNumber<Byte,Byte>((byte)0,(byte)0)).containsObj(CHARGE));
     }
 
+    @Test
+    public void isAvailableMovesTest() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 100);
+        pokemon_.setName(TARTARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)1, (byte)0);
+        fightSimulation_.getFrontFighters().last().first().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)2, (byte)0);
+        fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.prepareMovesToBeLearnt(_data_);
+        assertTrue(!fightSimulation_.isAvailableMoves(0));
+    }
     @Test
     public void deleteMove1Test() {
         Difficulty diff_ = new Difficulty();
@@ -2654,6 +2828,41 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(1, fightSimulation_.getKeptMoves().getVal((byte)0).getVal(new PairNumber<Byte,Byte>((byte)0,(byte)0)).size());
         assertTrue(fightSimulation_.getKeptMoves().getVal((byte)0).getVal(new PairNumber<Byte,Byte>((byte)0,(byte)0)).containsObj(PLAQUAGE));
     }
+    @Test
+    public void cancelEvolutionsAll1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.cancelEvolutions();
+        assertEq(0, fightSimulation_.getAvailableEvolutions().size());
+    }
 
     @Test
     public void keepMoves1Test() {
@@ -2695,6 +2904,8 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearntOneFight(_data_);
         assertEq(14, fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().size());
+        assertTrue(fightSimulation_.isAvailableAbilities((byte) 0));
+        assertEq(2, fightSimulation_.getAvailableAbilities((byte) 0).size());
         fightSimulation_.keepMoves(0, new StringList(CHARGE, PLAQUAGE, BULLES_D_O, PISTOLET_A_O), _data_);
         assertEq(2, fightSimulation_.getKeptMoves().getVal((byte) 0).size());
         assertEq(4, fightSimulation_.getKeptMoves().getVal((byte) 0).getVal(new PairNumber<Byte,Byte>((byte)0,(byte)0)).size());
@@ -4390,6 +4601,171 @@ public class FightSimulationTest extends InitializationDataBase {
     }
 
     @Test
+    public void initializeAllMoves1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)1, (byte)0);
+        fightSimulation_.getFrontFighters().last().first().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)2, (byte)0);
+        fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.prepareMovesToBeLearnt(_data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
+        fightSimulation_.addMoveBetweenFights(1, 0, SACRIFICE);
+        fightSimulation_.addMoveBetweenFights(1, 0, TORGNOLES);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.deleteMove(0, CHARGE);
+        fightSimulation_.addMove(0, PLAQUAGE);
+        fightSimulation_.addMove(0, REVEIL_FORCE);
+        fightSimulation_.addMove(0, BULLES_D_O);
+        fightSimulation_.addMove(0, PISTOLET_A_O);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.deleteMove(2, CHARGE);
+        fightSimulation_.addMove(2, BALL_OMBRE);
+        fightSimulation_.addMove(2, TUNNEL);
+        fightSimulation_.addMove(2, OMBRE_PORTEE);
+        fightSimulation_.addMove(2, GRIFFE_ACIER);
+        fightSimulation_.initializeAllMoves(_data_);
+        assertEq(2, fightSimulation_.getActionsSubstitutingFront().size());
+        assertEq(1, fightSimulation_.getActionsSubstitutingFront().first().size());
+        assertEq(1, fightSimulation_.getActionsSubstitutingFront().first().first().size());
+        assertEq(0, fightSimulation_.getActionsSubstitutingFront().first().first().first().getSubstitute());
+        assertEq(1, fightSimulation_.getActionsSubstitutingFront().last().size());
+        assertEq(1, fightSimulation_.getActionsSubstitutingFront().last().first().size());
+        assertEq(Fighter.BACK, fightSimulation_.getActionsSubstitutingFront().last().first().first().getSubstitute());
+        assertEq(2, fightSimulation_.getActionsSubstitutingBack().size());
+        assertEq(1, fightSimulation_.getActionsSubstitutingBack().first().size());
+        assertEq(2, fightSimulation_.getActionsSubstitutingBack().first().first().size());
+        assertEq(Fighter.BACK, fightSimulation_.getActionsSubstitutingBack().first().first().first().getSubstitute());
+        assertEq(Fighter.BACK, fightSimulation_.getActionsSubstitutingBack().first().first().last().getSubstitute());
+        assertEq(1, fightSimulation_.getActionsSubstitutingBack().last().size());
+        assertEq(2, fightSimulation_.getActionsSubstitutingBack().last().first().size());
+        assertEq(Fighter.BACK, fightSimulation_.getActionsSubstitutingBack().last().first().first().getSubstitute());
+        assertEq(0, fightSimulation_.getActionsSubstitutingBack().last().first().last().getSubstitute());
+        assertEq(2, fightSimulation_.getActionsBeforeRound().size());
+        assertEq(2, fightSimulation_.getActionsBeforeRound().first().size());
+        assertEq(1, fightSimulation_.getActionsBeforeRound().first().first().size());
+        assertEq(1, fightSimulation_.getActionsBeforeRound().first().last().size());
+        assertEq(2, fightSimulation_.getActionsBeforeRound().last().size());
+        assertEq(1, fightSimulation_.getActionsBeforeRound().last().first().size());
+        assertEq(1, fightSimulation_.getActionsBeforeRound().last().last().size());
+        ChoiceOfEvolutionAndMoves choice_;
+        assertEq(2, fightSimulation_.getMovesAbilities().size());
+        assertEq(2, fightSimulation_.getMovesAbilities().first().size());
+        assertEq(3, fightSimulation_.getMovesAbilities().first().first().size());
+        choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)0);
+        assertEq(TETARTE, choice_.getName());
+        assertEq(ABSORB_EAU, choice_.getAbility());
+        assertEq(4, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(PLAQUAGE));
+        assertTrue(choice_.getKeptMoves().containsObj(REVEIL_FORCE));
+        assertTrue(choice_.getKeptMoves().containsObj(BULLES_D_O));
+        assertTrue(choice_.getKeptMoves().containsObj(PISTOLET_A_O));
+        choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)1);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        choice_ = fightSimulation_.getMovesAbilities().first().first().getVal((byte)2);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        assertEq(3, fightSimulation_.getMovesAbilities().first().last().size());
+        choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)0);
+        assertEq(TARPAUD, choice_.getName());
+        assertEq(ABSORB_EAU, choice_.getAbility());
+        assertEq(4, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(PLAQUAGE));
+        assertTrue(choice_.getKeptMoves().containsObj(REVEIL_FORCE));
+        assertTrue(choice_.getKeptMoves().containsObj(BULLES_D_O));
+        assertTrue(choice_.getKeptMoves().containsObj(PISTOLET_A_O));
+        choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)1);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        choice_ = fightSimulation_.getMovesAbilities().first().last().getVal((byte)2);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        assertEq(2, fightSimulation_.getMovesAbilities().last().size());
+        assertEq(3, fightSimulation_.getMovesAbilities().last().first().size());
+        choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)0);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(4, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(BULLES_D_O));
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        assertTrue(choice_.getKeptMoves().containsObj(SACRIFICE));
+        assertTrue(choice_.getKeptMoves().containsObj(TORGNOLES));
+        choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)1);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(4, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(PLAQUAGE));
+        assertTrue(choice_.getKeptMoves().containsObj(REVEIL_FORCE));
+        assertTrue(choice_.getKeptMoves().containsObj(BULLES_D_O));
+        assertTrue(choice_.getKeptMoves().containsObj(PISTOLET_A_O));
+        choice_ = fightSimulation_.getMovesAbilities().last().first().getVal((byte)2);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        assertEq(3, fightSimulation_.getMovesAbilities().last().last().size());
+        choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)0);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)1);
+        assertEq(NULL_REF, choice_.getName());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+        choice_ = fightSimulation_.getMovesAbilities().last().last().getVal((byte)2);
+        assertEq(MUNJA, choice_.getName());
+        assertEq(GARDE_MYSTIK, choice_.getAbility());
+        assertEq(1, choice_.getKeptMoves().size());
+        assertTrue(choice_.getKeptMoves().containsObj(CHARGE));
+    }
+    @Test
     public void possibleMoves1Test() {
         Difficulty diff_ = new Difficulty();
         FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
@@ -5079,6 +5455,236 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
     }
 
+    @Test
+    public void chooseMoveFirstFight1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)1, (byte)0);
+        fightSimulation_.getFrontFighters().last().first().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)2, (byte)0);
+        fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.prepareMovesToBeLearnt(_data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
+        fightSimulation_.addMoveBetweenFights(1, 0, SACRIFICE);
+        fightSimulation_.addMoveBetweenFights(1, 0, TORGNOLES);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.deleteMove(0, CHARGE);
+        fightSimulation_.addMove(0, PLAQUAGE);
+        fightSimulation_.addMove(0, REVEIL_FORCE);
+        fightSimulation_.addMove(0, BULLES_D_O);
+        fightSimulation_.addMove(0, PISTOLET_A_O);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.deleteMove(2, CHARGE);
+        fightSimulation_.addMove(2, BALL_OMBRE);
+        fightSimulation_.addMove(2, TUNNEL);
+        fightSimulation_.addMove(2, OMBRE_PORTEE);
+        fightSimulation_.addMove(2, GRIFFE_ACIER);
+        fightSimulation_.validateAllMoves(_data_);
+        fightSimulation_.chooseMoveFirstFight(0, 0, BULLES_D_O, false,0, _data_);
+        ActionMove action_;
+        action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
+        assertEq(BULLES_D_O, action_.getFirstChosenMove());
+        assertEq(1, action_.getChosenTargets().size());
+        assertEq(POKEMON_FOE_TARGET_ZERO, action_.getChosenTargets().first());
+    }
+
+    @Test
+    public void chooseMoveFirstFight2Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)1, (byte)0);
+        fightSimulation_.getFrontFighters().last().first().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)2, (byte)0);
+        fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.prepareMovesToBeLearnt(_data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
+        fightSimulation_.addMoveBetweenFights(1, 0, SACRIFICE);
+        fightSimulation_.addMoveBetweenFights(1, 0, TORGNOLES);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.deleteMove(0, CHARGE);
+        fightSimulation_.addMove(0, PLAQUAGE);
+        fightSimulation_.addMove(0, REVEIL_FORCE);
+        fightSimulation_.addMove(0, BULLES_D_O);
+        fightSimulation_.addMove(0, PISTOLET_A_O);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.deleteMove(2, CHARGE);
+        fightSimulation_.addMove(2, BALL_OMBRE);
+        fightSimulation_.addMove(2, TUNNEL);
+        fightSimulation_.addMove(2, OMBRE_PORTEE);
+        fightSimulation_.addMove(2, GRIFFE_ACIER);
+        fightSimulation_.validateAllMoves(_data_);
+        fightSimulation_.chooseMoveFirstFight(0, 0, BULLES_D_O, true,0, _data_);
+        ActionMove action_;
+        action_ = fightSimulation_.getActionsBeforeRound().get(0).first().first();
+        assertEq(BULLES_D_O, action_.getFirstChosenMove());
+        assertEq(1, action_.getChosenTargets().size());
+        assertEq(POKEMON_PLAYER_TARGET_ZERO, action_.getChosenTargets().first());
+    }
+    @Test
+    public void cancelAllMovesOneFight1Test() {
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, _data_);
+        fightSimulation_.initializeFights(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, _data_);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel((short) 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
+        fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
+        fightSimulation_.setFirstEvolutions(_data_);
+        fightSimulation_.setNextEvolutions(0, TETARTE, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(0, TARPAUD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(1, TARTARD, (short) 25, _data_);
+        fightSimulation_.setNextEvolutions(2, MUNJA, (short) 20, _data_);
+        fightSimulation_.initializeFrontFighters();
+        fightSimulation_.getFrontFighters().first().first().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().first().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)0, (byte)0);
+        fightSimulation_.getFrontFighters().first().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.getFrontFighters().first().last().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)1, (byte)0);
+        fightSimulation_.getFrontFighters().last().first().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().first().put((byte)2, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)2, (byte)0);
+        fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
+        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
+        fightSimulation_.prepareMovesToBeLearnt(_data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
+        fightSimulation_.addMoveBetweenFights(1, 0, SACRIFICE);
+        fightSimulation_.addMoveBetweenFights(1, 0, TORGNOLES);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.validateMoves(1, _data_);
+        fightSimulation_.deleteMove(0, CHARGE);
+        fightSimulation_.addMove(0, PLAQUAGE);
+        fightSimulation_.addMove(0, REVEIL_FORCE);
+        fightSimulation_.addMove(0, BULLES_D_O);
+        fightSimulation_.addMove(0, PISTOLET_A_O);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(0, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.validateMoves(2, _data_);
+        fightSimulation_.deleteMove(2, CHARGE);
+        fightSimulation_.addMove(2, BALL_OMBRE);
+        fightSimulation_.addMove(2, TUNNEL);
+        fightSimulation_.addMove(2, OMBRE_PORTEE);
+        fightSimulation_.addMove(2, GRIFFE_ACIER);
+        fightSimulation_.cancelAllMovesOneFight(0,_data_);
+        StringList action_;
+        action_ = fightSimulation_.getKeptMoves().getValue(0).getValue(0);
+        assertEq(1, action_.size());
+        assertEq(CHARGE, action_.first());
+    }
     @Test
     public void validChoicesMoves1Test() {
         Difficulty diff_ = new Difficulty();
