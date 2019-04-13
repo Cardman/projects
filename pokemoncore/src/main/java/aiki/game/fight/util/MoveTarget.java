@@ -22,10 +22,9 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
     }
 
     public MoveTarget(String _move, TargetCoords _target) {
-        move = _move;
-        target = _target;
+        setMove(_move);
+        setTarget(_target);
     }
-
     
     public static MoveTarget newMoveTarget(String _string) {
         return new MoveTarget(_string);
@@ -59,7 +58,6 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
     }
 
     @Override
-    
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(move);

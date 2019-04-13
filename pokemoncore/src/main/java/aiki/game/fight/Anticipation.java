@@ -25,7 +25,7 @@ public final class Anticipation implements Displayable{
     public Anticipation(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
         damage = new Rate(elts_.first());
-        nbRounds = Byte.parseByte(elts_.get(CustList.SECOND_INDEX));
+        nbRounds = (byte) Numbers.parseInt(elts_.get(CustList.SECOND_INDEX));
         targetPosition = new TargetCoords(elts_.last());
         incrementing = !Numbers.eq(targetPosition.getPosition(), Fighter.BACK);
     }
@@ -40,9 +40,6 @@ public final class Anticipation implements Displayable{
             return false;
         }
         if (nbRounds < 0) {
-            return false;
-        }
-        if (targetPosition == null) {
             return false;
         }
         return true;

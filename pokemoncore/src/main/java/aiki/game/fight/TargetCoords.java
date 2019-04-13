@@ -13,7 +13,7 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
 
     private final short position;
 
-    TargetCoords() {
+    public TargetCoords() {
         team = CustList.SIZE_EMPTY;
         position = CustList.SIZE_EMPTY;
     }
@@ -25,8 +25,8 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
 
     public TargetCoords(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        team = Short.parseShort(elts_.first());
-        position = Short.parseShort(elts_.last());
+        team = (short) Numbers.parseInt(elts_.first());
+        position = (short) Numbers.parseInt(elts_.last());
     }
 
     
@@ -43,9 +43,6 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
     }
 
     public static boolean eq(TargetCoords _tp1, TargetCoords _tp2) {
-        if (_tp1 == null) {
-            return _tp2 == null;
-        }
         return _tp1.eq(_tp2);
     }
 

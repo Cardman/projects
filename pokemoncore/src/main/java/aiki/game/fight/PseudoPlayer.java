@@ -38,10 +38,6 @@ public class PseudoPlayer {
         return team;
     }
 
-    public void setTeam(CustList<PseudoPokemonPlayer> _team) {
-        team = _team;
-    }
-
     public EqList<StringList> getItems() {
         return items;
     }
@@ -54,15 +50,7 @@ public class PseudoPlayer {
         return usedStones;
     }
 
-    public void setUsedStones(CustList<EqList<StringList>> _usedStones) {
-        usedStones = _usedStones;
-    }
-
     public CustList<EqList<NameLevel>> getEvolutions() {
         return evolutions;
-    }
-
-    public void setEvolutions(CustList<EqList<NameLevel>> _evolutions) {
-        evolutions = _evolutions;
     }
 }

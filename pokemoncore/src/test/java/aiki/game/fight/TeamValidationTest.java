@@ -1,6 +1,7 @@
 package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.Rate;
 import org.junit.Test;
 
 import aiki.game.Game;
@@ -953,8 +954,48 @@ public class TeamValidationTest extends InitializationDataBase {
         game_.getFight().getUserTeam().getMembers().clear();
         assertTrue(!game_.getFight().getUserTeam().validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
-
+    @Test
+    public void validate123Test(){
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
+        Team team_ = game_.getFight().getUserTeam();
+        NumberMap<Byte,Anticipation> map_;
+        map_ = new NumberMap<Byte,Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setDamage(new Rate(-1));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate124Test(){
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Team team_ = game_.getFight().getUserTeam();
+        NumberMap<Byte,Anticipation> map_;
+        map_ = new NumberMap<Byte,Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setDamage(new Rate(-1));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate125Test(){
+        Game game_ = newGameInFightTrainer(Sex.GIRL);
+        Team team_ = game_.getFight().getFoeTeam();
+        NumberMap<Byte,Anticipation> map_;
+        map_ = new NumberMap<Byte,Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        team_.getMovesAnticipation().clear();
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
+    @Test
+    public void validate126Test(){
+        Game game_ = newGameInFightTrainer(Sex.BOY);
+        Team team_ = game_.getFight().getFoeTeam();
+        NumberMap<Byte,Anticipation> map_;
+        map_ = new NumberMap<Byte,Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        team_.getMovesAnticipation().clear();
+        assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
+    }
     private static Game newGameInFightTrainer2(Sex _sex) {
         return newGameInFightTrainer2(_sex, new Difficulty());
     }

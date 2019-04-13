@@ -4,8 +4,6 @@ import code.maths.Rate;
 
 public final class BallNumberRate {
 
-//    private static final Rate CENT = new Rate(100);
-
     private LgInt number;
 
     private Rate rate;
@@ -25,25 +23,12 @@ public final class BallNumberRate {
         return number;
     }
 
-    public void setNumber(LgInt _number) {
-        number = _number;
-    }
-
     public Rate getRate() {
         return rate;
     }
 
-    public void setRate(Rate _rate) {
-        rate = _rate;
-        percent = rate.percent().toNumberString();
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
     }
 
     public String getPercent() {

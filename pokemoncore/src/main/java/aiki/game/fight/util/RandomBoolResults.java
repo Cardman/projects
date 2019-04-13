@@ -1,7 +1,6 @@
 package aiki.game.fight.util;
-import code.util.ints.Equallable;
 
-public final class RandomBoolResults implements Equallable<RandomBoolResults> {
+public final class RandomBoolResults {
 
     private final boolean successful;
 
@@ -18,16 +17,5 @@ public final class RandomBoolResults implements Equallable<RandomBoolResults> {
 
     public boolean isEffectIfFail() {
         return effectIfFail;
-    }
-
-    @Override
-    public boolean eq(RandomBoolResults _g) {
-        if (successful != _g.successful) {
-            return false;
-        }
-        if (effectIfFail != _g.effectIfFail) {
-            return false;
-        }
-        return true;
     }
 }

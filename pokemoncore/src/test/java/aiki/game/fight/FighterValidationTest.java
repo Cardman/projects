@@ -3090,7 +3090,20 @@ public class FighterValidationTest extends InitializationDataBase {
         figther_.getCurrentMoves().put(ECLAIR, new UsesOfMove((byte)15));
         assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
     }
-
+    @Test
+    public void validate365Test(){
+        Game game_ = newGameInFightTrainer2(Sex.GIRL);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getIncrUserAccuracy().clear();
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate366Test(){
+        Game game_ = newGameInFightTrainer2(Sex.BOY);
+        Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        figther_.getIncrUserAccuracy().clear();
+        assertTrue(!figther_.validate(_data_, Fight.PLAYER, game_.getFight()));
+    }
 
     private static Game newGameInFightTrainer2(Sex _sex) {
         return newGameInFightTrainer2(_sex, new Difficulty());

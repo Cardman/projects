@@ -1,4 +1,5 @@
 package aiki.game.fight.util;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -16,14 +17,13 @@ public final class CopiedMove implements Displayable {
     public CopiedMove(String _str) {
         StringList list_ = StringList.splitChars(_str, SEPARATOR);
         move = list_.first();
-        pp = Short.parseShort(list_.last());
+        pp = (short) Numbers.parseInt(list_.last());
     }
 
     public CopiedMove(String _move, short _pp) {
-        move = _move;
-        pp = _pp;
+        setMove(_move);
+        setPp(_pp);
     }
-
     
     public static CopiedMove newCopiedMove(String _string) {
         return new CopiedMove(_string);

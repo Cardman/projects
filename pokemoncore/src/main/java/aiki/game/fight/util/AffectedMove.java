@@ -18,7 +18,7 @@ public final class AffectedMove implements Displayable {
     }
 
     public AffectedMove(String _move, ActivityOfMove _activity) {
-        move = _move;
+        setMove(_move);
         activity = _activity;
     }
 

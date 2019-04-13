@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -23,7 +24,7 @@ public final class StacksOfUses implements Displayable {
 
     public StacksOfUses(String _value) {
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        nbRounds = Byte.parseByte(elts_.first());
+        nbRounds = (byte) Numbers.parseInt(elts_.first());
         firstStacked = StringList.quickEq(elts_.get(CustList.SECOND_INDEX), TRUE);
         lastStacked = StringList.quickEq(elts_.last(), TRUE);
     }

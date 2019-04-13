@@ -15,7 +15,7 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
 
     public NbEffectFighterCoords(String _str) {
         StringList list_ = StringList.splitChars(_str, SEPARATOR);
-        number = Integer.parseInt(list_.first());
+        number = Numbers.parseInt(list_.first());
         position = new TeamPosition(list_.last());
     }
 

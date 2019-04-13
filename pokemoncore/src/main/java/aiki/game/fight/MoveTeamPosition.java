@@ -12,11 +12,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
 
     private final TeamPosition teamPosition;
 
-    public MoveTeamPosition(MoveTeamPosition _pair) {
-        move = _pair.move;
-        teamPosition = _pair.teamPosition;
-    }
-
     public MoveTeamPosition(String _move, TeamPosition _cbt) {
         move = _move;
         teamPosition = _cbt;
@@ -32,13 +27,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         for (MoveTeamPosition a: _list2) {
             boolean contains_ = false;
             for (MoveTeamPosition b: _list1) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;
@@ -51,13 +39,6 @@ public final class MoveTeamPosition implements Equallable<MoveTeamPosition>, Dis
         for (MoveTeamPosition a: _list1) {
             boolean contains_ = false;
             for (MoveTeamPosition b: _list2) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;

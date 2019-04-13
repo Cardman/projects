@@ -23,10 +23,6 @@ public class PseudoPokemonPlayer {
         return wonPointsSinceLastLevel;
     }
 
-    public void setWonPointsSinceLastLevel(Rate _wonPointsSinceLastLevel) {
-        wonPointsSinceLastLevel = _wonPointsSinceLastLevel;
-    }
-
     public short getLevel() {
         return level;
     }

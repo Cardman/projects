@@ -232,10 +232,6 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return wonExpSinceLastLevel;
     }
 
-    public void setWonExpSinceLastLevel(Rate _wonExpSinceLastLevel) {
-        wonExpSinceLastLevel = _wonExpSinceLastLevel;
-    }
-
     public boolean isFront() {
         return front;
     }
@@ -246,9 +242,5 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     public Numbers<Byte> getFoes() {
         return foes;
-    }
-
-    public void setFoes(Numbers<Byte> _foes) {
-        foes = _foes;
     }
 }

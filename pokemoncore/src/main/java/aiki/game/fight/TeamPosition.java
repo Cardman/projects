@@ -22,7 +22,7 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
         team = CustList.SIZE_EMPTY;
         position = CustList.SIZE_EMPTY;
     }
-    TeamPosition(byte _team, byte _position) {
+    public TeamPosition(byte _team, byte _position) {
         team = _team;
         position = _position;
         valid = _team != Fighter.BACK && _position != Fighter.BACK;
@@ -36,8 +36,8 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
             return;
         }
         StringList elts_ = StringList.splitChars(_value, SEPARATOR);
-        team = Byte.parseByte(elts_.first());
-        position = Byte.parseByte(elts_.last());
+        team = (byte) Numbers.parseInt(elts_.first());
+        position = (byte) Numbers.parseInt(elts_.last());
         valid = true;
     }
 
@@ -50,9 +50,6 @@ public final class TeamPosition implements Equallable<TeamPosition>, Displayable
         return valid;
     }
     public static boolean eq(TeamPosition _tp1, TeamPosition _tp2) {
-        if (_tp1 == null) {
-            return _tp2 == null;
-        }
         return _tp1.eq(_tp2);
     }
 
