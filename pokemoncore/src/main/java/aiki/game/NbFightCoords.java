@@ -14,15 +14,10 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
 
     private final int nbFight;
 
-    public NbFightCoords() {
-        coords = null;
-        nbFight = 0;
-    }
-
     public NbFightCoords(String _string) {
         StringList elements_ = StringList.splitChars(_string, SEPARATOR);
         coords = new Coords(elements_.first());
-        nbFight = Integer.parseInt(elements_.last());
+        nbFight = Numbers.parseInt(elements_.last());
     }
 
     public NbFightCoords(Coords _coords, int _nbFight) {
@@ -34,13 +29,6 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         for (NbFightCoords a: _list2) {
             boolean contains_ = false;
             for (NbFightCoords b: _list1) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;
@@ -53,13 +41,6 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
         for (NbFightCoords a: _list1) {
             boolean contains_ = false;
             for (NbFightCoords b: _list2) {
-                if (a == null) {
-                    if (b == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
                 if (a.eq(b)) {
                     contains_ = true;
                     break;
@@ -79,12 +60,6 @@ public final class NbFightCoords implements Equallable<NbFightCoords>, Displayab
 
     @Override
     public boolean eq(NbFightCoords _obj) {
-        if (getCoords() == null) {
-            if (_obj.getCoords() != null) {
-                return false;
-            }
-            return Numbers.eq(getNbFight(), _obj.getNbFight());
-        }
         //getCoords() != null
         if (!Coords.eq(getCoords(), _obj.getCoords())) {
             return false;

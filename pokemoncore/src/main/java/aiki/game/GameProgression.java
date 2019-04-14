@@ -76,13 +76,11 @@ public final class GameProgression {
             partialFamiliesBaseNotCaught.put(b, uncaughtPokemonStages_);
         }
         beatenImportantTrainers = new EqList<TrainerPlaceNames>();
-//        for (Coords c: _game.getBeatGymLeader().getKeys(true))
         for (Coords c: _game.getBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
         }
         unBeatenImportantTrainers = new EqList<TrainerPlaceNames>();
-//        for (Coords c: _game.getBeatGymLeader().getKeys(false))
         for (Coords c: _game.getUnBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
@@ -109,12 +107,10 @@ public final class GameProgression {
         }
         visitedPlaces = new StringList();
         unVisitedPlaces = new StringList();
-//        for (Coords c: _game.getVisitedPlaces().getKeys(true))
         for (Coords c: _game.getVisited()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             visitedPlaces.add(pl_.getName());
         }
-//        for (Coords c: _game.getVisitedPlaces().getKeys(false))
         for (Coords c: _game.getUnVisited()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             unVisitedPlaces.add(pl_.getName());

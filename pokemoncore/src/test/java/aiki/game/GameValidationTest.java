@@ -3976,6 +3976,14 @@ public class GameValidationTest extends InitializationDataBase {
         game_.getPlayer().getTeam().clear();
         assertTrue(!game_.checkAndInitialize(_data_));
     }
+    @Test
+    public void checkAndInitialize18Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid
+        game_.getBeatTrainer().clear();
+        assertTrue(!game_.checkAndInitialize(_data_));
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

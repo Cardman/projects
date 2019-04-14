@@ -6,8 +6,6 @@ import code.util.ints.Listable;
 public final class Numbers<T extends Number> extends CustList<T> implements Displayable {
 
     private static final int DEFAULT_RADIX = 10;
-    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
-    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
 
     public Numbers() {
     }
@@ -224,9 +222,6 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
             return CustList.SWAP_SORT;
         }
         return CustList.EQ_CMP;
-    }
-    public static byte[] wrapByteArray(byte... _ints) {
-        return _ints;
     }
 
     public static int[] wrapIntArray(int... _ints) {

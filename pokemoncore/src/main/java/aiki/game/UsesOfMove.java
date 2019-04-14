@@ -1,4 +1,5 @@
 package aiki.game;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -11,13 +12,10 @@ public final class UsesOfMove implements Displayable{
 
     private short max;
 
-    UsesOfMove() {
-    }
-
     public UsesOfMove(String _string) {
         StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        current = Short.parseShort(elements_.first());
-        max = Short.parseShort(elements_.last());
+        current = (short) Numbers.parseInt(elements_.first());
+        max = (short) Numbers.parseInt(elements_.last());
     }
 
     public UsesOfMove(short _max) {
@@ -40,14 +38,6 @@ public final class UsesOfMove implements Displayable{
     }
     public void fullHeal() {
         current = max;
-    }
-
-    public void useOne() {
-        current--;
-    }
-
-    public void use(short _nb) {
-        current-=_nb;
     }
 
     public void boost(short _nb) {

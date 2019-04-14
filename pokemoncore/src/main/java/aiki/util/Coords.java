@@ -84,7 +84,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
 
     public void affectInside(Point _pt) {
         if (_pt == null) {
-            insideBuilding = _pt;
+            insideBuilding = null;
         } else if (insideBuilding == null) {
             insideBuilding = new Point(_pt);
         } else {
@@ -123,9 +123,6 @@ public final class Coords implements Equallable<Coords>, Displayable {
     }
 
     public static boolean eq(Coords _c1,Coords _c2) {
-        if (_c1 == null) {
-            return _c2 == null;
-        }
         return _c1.eq(_c2);
     }
 
@@ -142,10 +139,8 @@ public final class Coords implements Equallable<Coords>, Displayable {
             if (_g.isInside()) {
                 return false;
             }
-        } else if (isInside()) {
-            if (!_g.isInside()) {
-                return false;
-            }
+        } else {
+            return false;
         }
         if (!LevelPoint.eq(level,_g.level)) {
             return false;
