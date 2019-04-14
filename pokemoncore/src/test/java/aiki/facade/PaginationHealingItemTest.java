@@ -2051,4 +2051,11 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
+
+    @Test
+    public void cmpNbTest() {
+        PaginationHealingItem pagination_;
+        pagination_ = new PaginationHealingItem();
+        assertEq(13, pagination_.getNbComparators());
+    }
 }

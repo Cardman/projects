@@ -610,4 +610,11 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }
+
+    @Test
+    public void cmpNbTest() {
+        PaginationItem pagination_;
+        pagination_ = new PaginationItem();
+        assertEq(4, pagination_.getNbComparators());
+    }
 }

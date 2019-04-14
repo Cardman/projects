@@ -17,6 +17,14 @@ public class LevelPointTest {
     }
 
     @Test
+    public void new_LevelPoint_String_2Test() {
+        LevelPoint lpt_ = LevelPoint.newLevelPoint(StringList.concat("2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"));
+        assertEq(2, lpt_.getLevelIndex());
+        assertEq(3, lpt_.getPoint().getx());
+        assertEq(1, lpt_.getPoint().gety());
+    }
+
+    @Test
     public void toString1Test() {
         Point pt_ = new Point();
         pt_.setx((short) 3);

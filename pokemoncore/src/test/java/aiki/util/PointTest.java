@@ -16,6 +16,13 @@ public class PointTest {
     }
 
     @Test
+    public void new_Point_String_2Test() {
+        Point pt_ = Point.newPoint(StringList.concat("3",String.valueOf(Point.SEPARATOR),"1"));
+        assertEq(3, pt_.getx());
+        assertEq(1, pt_.gety());
+    }
+
+    @Test
     public void toString1Test() {
         Point pt_ = new Point();
         pt_.setx((short) 3);

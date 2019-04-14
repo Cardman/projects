@@ -79,6 +79,13 @@ public class CoordsTest {
     }
 
     @Test
+    public void new_Coords_String_4Test() {
+        Coords pt_ = Coords.newCoords(Coords.INVALID);
+        assertTrue(!pt_.isValid());
+        assertNull(pt_.getLevel());
+    }
+
+    @Test
     public void toString1Test() {
         Coords pt_ = new Coords();
         assertEq(Coords.INVALID, pt_.display());
