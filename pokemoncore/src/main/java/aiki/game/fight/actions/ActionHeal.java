@@ -10,10 +10,6 @@ public abstract class ActionHeal extends AbstractAction implements ChosenHealing
     private boolean team;
 
     @Override
-    public boolean isEmpty() {
-        return false;
-    }
-    @Override
     public String getChosenHealingItem() {
         return chosenHealingItem;
     }

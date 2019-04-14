@@ -35,10 +35,10 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
     }
     public static String toString(Number _nb) {
         if (_nb instanceof Double) {
-            return ((Double)_nb).toString();
+            return _nb.toString();
         }
         if (_nb instanceof Float) {
-            return ((Float)_nb).toString();
+            return _nb.toString();
         }
         return Long.toString(_nb.longValue());
     }
@@ -247,42 +247,28 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         if (_string.isEmpty()) {
             return 0;
         }
-        long result_ = 0;
         boolean negative_ = false;
         int i_ = 0;
         int max_ = _string.length();
-        long limit_;
-        long multmin_;
         int digit_;
 
         if (_string.charAt(0) == '-') {
             negative_ = true;
-            limit_ = Long.MIN_VALUE;
             i_++;
-        } else {
-            limit_ = -Long.MAX_VALUE;
         }
-        if (negative_) {
-            multmin_ = MULTMIN_RADIX_TEN;
-        } else {
-            multmin_ = N_MULTMAX_RADIX_TEN;
+        if (i_ >= _string.length()) {
+            return 0;
         }
         int ch_ = _string.charAt(i_);
         i_++;
         digit_ = ch_ - '0';
-        result_ = -digit_;
+        long result_ = -digit_;
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
             ch_ = _string.charAt(i_);
             i_++;
             digit_ = ch_ - '0';
-            if (result_ < multmin_) {
-                return 0;
-            }
             result_ *= DEFAULT_RADIX;
-            if (result_ < limit_ + digit_) {
-                return 0;
-            }
             result_ -= digit_;
         }
         if (negative_) {

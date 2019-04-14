@@ -19,12 +19,12 @@ public final class ExchangedData {
     public ExchangedData(){}
 
     public ExchangedData(DataBase _dataBase) {
-        genderRepartitions = new StringMap<GenderRepartition>();
+        setGenderRepartitions(new StringMap<GenderRepartition>());
         for (String p: _dataBase.getPokedex().getKeys()) {
             genderRepartitions.put(p, _dataBase.getPokedex().getVal(p).getGenderRep());
         }
-        abilities = new StringList(_dataBase.getAbilities().getKeys());
-        items = new StringList(_dataBase.getItems().getKeys());
+        setAbilities(new StringList(_dataBase.getAbilities().getKeys()));
+        setItems(new StringList(_dataBase.getItems().getKeys()));
     }
 
     public NatTreeMap<Byte,PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {

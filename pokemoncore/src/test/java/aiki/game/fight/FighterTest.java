@@ -2,16 +2,12 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.actions.*;
 import code.util.*;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.ActionHealMove;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSimpleHeal;
-import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.LevelExpPoints;
 import aiki.game.fight.util.MovesAbilities;
@@ -2554,7 +2550,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
     }
 
     @Test
@@ -2634,7 +2630,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.cancelActions();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
     }
 
     @Test
@@ -2649,7 +2645,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(SEISME);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_.isActionMove());
+        assertTrue(action_ instanceof ActionMove);
     }
 
     @Test
@@ -2690,7 +2686,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.setChosenHealingObjectMove(HUILE, DEMI_TOUR);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_.isActionHealMove());
+        assertTrue(action_ instanceof ActionHealMove);
     }
 
     @Test
@@ -2717,7 +2713,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setSubstitute((byte) 1);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
     }
 
     @Test

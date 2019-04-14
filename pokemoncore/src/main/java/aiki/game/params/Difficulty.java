@@ -101,15 +101,6 @@ public final class Difficulty {
         if (ivFoe > _data.getMaxIv()) {
             ivFoe = (short) _data.getMaxIv();
         }
-        if (damageRatePlayer == null) {
-            damageRatePlayer=DifficultyModelLaw.CONSTANT_MAX;
-        }
-        if (damageRateLawFoe == null) {
-            damageRateLawFoe=DifficultyModelLaw.CONSTANT_MIN;
-        }
-        if (diffWinningExpPtsFight == null) {
-            diffWinningExpPtsFight=DifficultyWinPointsFight.DIFFICILE;
-        }
     }
 
     public MonteCarloNumber loi(short _team, short _player, DataBase _import) {

@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.actions.Action;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -4908,9 +4909,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         assertTrue(action_.getChosenTargets().containsObj(POKEMON_PLAYER_TARGET_ZERO));
         assertEq(Fighter.BACK, action_.getSubstitute());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
-        assertTrue(fighter_.getAction().isEmpty());
+        assertTrue(fighter_.getAction() instanceof Action);
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
-        assertTrue(fighter_.getAction().isEmpty());
+        assertTrue(fighter_.getAction() instanceof Action);
     }
 
     @Test

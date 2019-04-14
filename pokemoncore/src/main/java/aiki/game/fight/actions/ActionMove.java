@@ -18,18 +18,6 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
     private byte substitute;
 
     @Override
-    public boolean isActionMove() {
-        return true;
-    }
-    @Override
-    public boolean isActionHealMove() {
-        return false;
-    }
-    @Override
-    public boolean isActionSwitch() {
-        return false;
-    }
-    @Override
     public String getFirstChosenMove() {
         return firstChosenMove;
     }
@@ -65,8 +53,4 @@ public final class ActionMove extends AbstractAction implements ChosenMove,Chose
         substitute = _substitute;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
 }

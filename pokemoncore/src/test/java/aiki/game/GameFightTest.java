@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.actions.*;
 import org.junit.Test;
 
 import aiki.db.ImageHeroKey;
@@ -10,10 +11,6 @@ import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.TeamPosition;
-import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSimpleHeal;
-import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
@@ -292,7 +289,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, _data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(0, game_.getFight().getChosenIndexFront());
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
@@ -420,7 +417,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, _data_);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(0, game_.getFight().getChosenIndexFront());
         assertEq(ActionType.SWITCH, game_.getFight().getSelectedActionCurFighter());
@@ -480,7 +477,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_.isEmpty());
+        assertTrue(action_ instanceof Action);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexFront());
         assertEq(ActionType.NOTHING, game_.getFight().getSelectedActionCurFighter());

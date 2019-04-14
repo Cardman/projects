@@ -2,10 +2,8 @@ package aiki.map;
 import aiki.util.Coords;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.ints.Equallable;
-import code.util.ints.Listable;
 
-public final class Condition extends CustList<Coords> implements Equallable<Condition> {
+public final class Condition extends CustList<Coords> {
 
     public Condition() {
     }
@@ -14,20 +12,11 @@ public final class Condition extends CustList<Coords> implements Equallable<Cond
         super(_coords);
     }
 
-    Condition(Listable<Coords> _coords) {
-        super(_coords);
-    }
-
     public boolean exists(EqList<Coords> _gymLeaders) {
         return !_gymLeaders.containsAllObj(this);
     }
     public static boolean equalsSet(Condition _list1,Condition _list2) {
         return Coords.equalsSet(_list1, _list2);
-    }
-
-    @Override
-    public boolean eq(Condition _g) {
-        return equalsSet(this, _g);
     }
 
 
@@ -60,18 +49,6 @@ public final class Condition extends CustList<Coords> implements Equallable<Cond
             }
         }
         return INDEX_NOT_FOUND_ELT;
-    }
-
-    public Condition subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
-
-    @Override
-    public Condition sub(int _from, int _to) {
-        if (_from > _to) {
-            return new Condition();
-        }
-        return new Condition(super.sub(_from, _to));
     }
 
     public boolean containsObj(Coords _coords) {
