@@ -58,6 +58,10 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         String aliasPrimChar_ = lgNames_.getAliasPrimChar();
+        if (StringList.quickEq(name_, lgNames_.getAliasSame())) {
+            _res.setResult(new BooleanStruct(_args[0] == _args[1]));
+            return;
+        }
         StringBuilderStruct one_ = (StringBuilderStruct) _struct;
         if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
             if (list_.size() == 1 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {

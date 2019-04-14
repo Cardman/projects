@@ -58,6 +58,7 @@ public final class AliasCharSequence {
     private String aliasReverse;
     private String aliasSetCharAt;
     private String aliasSetLength;
+    private String aliasSame;
     private String aliasTrimToSize;
 
     private String aliasReplacement;
@@ -385,6 +386,9 @@ public final class AliasCharSequence {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_);
         method_ = new StandardMethod(aliasEnsureCapacity, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasStringBuilder,aliasStringBuilder);
+        method_ = new StandardMethod(aliasSame, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_, false, std_);
@@ -732,6 +736,14 @@ public final class AliasCharSequence {
 
     public void setAliasSetLength(String _aliasSetLength) {
         aliasSetLength = _aliasSetLength;
+    }
+
+    public String getAliasSame() {
+        return aliasSame;
+    }
+
+    public void setAliasSame(String _aliasSame) {
+        aliasSame = _aliasSame;
     }
 
     public String getAliasTrimToSize() {

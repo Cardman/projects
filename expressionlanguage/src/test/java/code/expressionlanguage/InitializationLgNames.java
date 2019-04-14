@@ -173,6 +173,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasReverse("reverse");
         _lgNames.setAliasSetCharAt("setCharAt");
         _lgNames.setAliasSetLength("setLength");
+        _lgNames.setAliasSame("same");
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");

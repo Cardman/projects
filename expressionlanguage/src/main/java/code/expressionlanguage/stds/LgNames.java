@@ -615,6 +615,7 @@ public abstract class LgNames {
                 getAliasReverse(),
                 getAliasSetCharAt(),
                 getAliasSetLength(),
+                getAliasSame(),
                 getAliasTrimToSize()));
         return map_;
     }
@@ -1915,6 +1916,12 @@ public abstract class LgNames {
     }
     public void setAliasSetLength(String _aliasSetLength) {
         charSeq.setAliasSetLength(_aliasSetLength);
+    }
+    public String getAliasSame() {
+        return charSeq.getAliasSame();
+    }
+    public void setAliasSame(String _aliasSetLength) {
+        charSeq.setAliasSame(_aliasSetLength);
     }
     public String getAliasTrimToSize() {
         return charSeq.getAliasTrimToSize();

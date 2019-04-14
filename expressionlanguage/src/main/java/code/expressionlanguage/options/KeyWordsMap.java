@@ -296,6 +296,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasReverse("reverse");
         _lgNames.setAliasSetCharAt("setCharAt");
         _lgNames.setAliasSetLength("setLength");
+        _lgNames.setAliasSame("same");
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasErrorInitClass("$core.DefErrorClass");
         _lgNames.setAliasClone("clone");
@@ -557,6 +558,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasReverse("inverser");
         _lgNames.setAliasSetCharAt("majCaractere");
         _lgNames.setAliasSetLength("majLongueur");
+        _lgNames.setAliasSame("meme");
         _lgNames.setAliasTrimToSize("trimmerTaille");
         _lgNames.setAliasErrorInitClass("$coeur.ErrorDefClasse");
         _lgNames.setAliasClone("clone");
