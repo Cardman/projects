@@ -45,7 +45,7 @@ public final class PaginationPokemonPlayer
     private TreeMap<SortingPokemonPlayer, PokemonPlayer> pokemon = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
             new ComparatorPokemonPlayer());
 
-    private EqList<SortingPokemonPlayer> rendered = new EqList<SortingPokemonPlayer>();
+    private CustList<SortingPokemonPlayer> rendered = new CustList<SortingPokemonPlayer>();
 
     private CriteriaForSearchingPokemon criteria;
 
@@ -80,7 +80,6 @@ public final class PaginationPokemonPlayer
             s_.setName(translatedPokemon.getVal(pk_.getName()));
             s_.setKeyName(pk_.getName());
             s_.setAbility(translatedAbilities.getVal(pk_.getAbility()));
-            s_.setKeyAbility(pk_.getAbility());
             if (!pk_.getItem().isEmpty()) {
                 s_.setItem(translatedItems.getVal(pk_.getItem()));
             } else {
@@ -179,42 +178,6 @@ public final class PaginationPokemonPlayer
 
     @Override
     public void sort() {
-        // TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new
-        // TreeMap<new>(new Comparator<SortingPokemonPlayer>() {
-        // @Override
-        // public int compare(SortingPokemonPlayer _o1, SortingPokemonPlayer
-        // _o2) {
-        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-        // if (cmpLevel.getPriority() == i) {
-        // int res_ = cmpLevel.compare(_o1.getLevel(), _o2.getLevel());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpName.getPriority() == i) {
-        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpAbility.getPriority() == i) {
-        // int res_ = cmpAbility.compare(_o1.getAbility(), _o2.getAbility());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpItem.getPriority() == i) {
-        // int res_ = cmpItem.compare(_o1.getItem(), _o2.getItem());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpGender.getPriority() == i) {
-        // int res_ = cmpGender.compare(_o1.getGender(), _o2.getGender());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // }
-        // }
-        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
-        // }
-        // });
         TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
                 new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
                         cmpItem, cmpGender, cmpPossEvos, nbComparators));
@@ -226,57 +189,29 @@ public final class PaginationPokemonPlayer
         return cmpLevel;
     }
 
-    public void setCmpLevel(LongFieldComparator _cmpLevel) {
-        cmpLevel = _cmpLevel;
-    }
-
     public StringFieldComparator getCmpName() {
         return cmpName;
-    }
-
-    public void setCmpName(StringFieldComparator _cmpName) {
-        cmpName = _cmpName;
     }
 
     public StringFieldComparator getCmpAbility() {
         return cmpAbility;
     }
 
-    public void setCmpAbility(StringFieldComparator _cmpAbility) {
-        cmpAbility = _cmpAbility;
-    }
-
     public StringFieldComparator getCmpItem() {
         return cmpItem;
-    }
-
-    public void setCmpItem(StringFieldComparator _cmpItem) {
-        cmpItem = _cmpItem;
     }
 
     public EnumFieldComparator<Gender> getCmpGender() {
         return cmpGender;
     }
 
-    public void setCmpGender(EnumFieldComparator<Gender> _cmpGender) {
-        cmpGender = _cmpGender;
-    }
-
     public LongFieldComparator getCmpPossEvos() {
         return cmpPossEvos;
     }
 
-    public void setCmpPossEvos(LongFieldComparator _cmpPossEvos) {
-        cmpPossEvos = _cmpPossEvos;
-    }
-
     @Override
-    public EqList<SortingPokemonPlayer> getRendered() {
+    public CustList<SortingPokemonPlayer> getRendered() {
         return rendered;
-    }
-
-    public void setRendered(EqList<SortingPokemonPlayer> _rendered) {
-        rendered = _rendered;
     }
 
     @Override

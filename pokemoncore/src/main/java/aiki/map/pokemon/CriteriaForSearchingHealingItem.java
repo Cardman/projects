@@ -95,60 +95,6 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
             return false;
         }
         return hp_.inRange(minHp, maxHp);
-//        return CriteriaForSearching.<Rate>match(minHp, maxHp, hp_);
-//        List<Rate> values_ = new List<>();
-//        if (_item instanceof HealingHp) {
-//            if (relativeRateHp == SelectedBoolean.YES) {
-//                return false;
-//            }
-//            hp_ = ((HealingHp)_item).getHp();
-//            return match(minHp, maxHp, hp_);
-//        }
-//        if (_item instanceof Berry) {
-//            if (relativeRateHp == SelectedBoolean.YES) {
-//                values_.add(((Berry)_item).getHealHpBySuperEffMove());
-//                values_.add(((Berry)_item).getHealHpRate());
-//                values_.removeDuplicates();
-//                values_.sort(new NaturalComparator<Rate>());
-//                if (values_.last().isZero()) {
-//                    return false;
-//                }
-//                for (Rate v: values_) {
-//                    if (match(minHp, maxHp, v)) {
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//            if (relativeRateHp == SelectedBoolean.NO) {
-//                hp_ = ((Berry)_item).getHealHp();
-//                if (hp_.isZero()) {
-//                    return false;
-//                }
-//                if (match(minHp, maxHp, hp_)) {
-//                    return true;
-//                }
-//                return false;
-//            }
-//            hp_ = ((Berry)_item).getHealHpBySuperEffMove();
-//            if (match(minHp, maxHp, hp_)) {
-//                return true;
-//            }
-//            hp_ = ((Berry)_item).getHealHp();
-//            if (match(minHp, maxHp, hp_)) {
-//                return true;
-//            }
-//            hp_ = ((Berry)_item).getHealHpRate();
-//            if (match(minHp, maxHp, hp_)) {
-//                return true;
-//            }
-//            return false;
-//        }
-//        if (relativeRateHp == SelectedBoolean.YES_AND_NO) {
-//            hp_ = Rate.zero();
-//            return match(minHp, maxHp, hp_);
-//        }
-//        return false;
     }
 
     public boolean matchRateHp(Item _item) {
@@ -311,9 +257,6 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
     }
 
     private static boolean match(Statistic _enum, Statistic _element) {
-        if (_enum == null) {
-            return true;
-        }
         return _enum == _element;
     }
 
@@ -324,104 +267,52 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
         return match(ko, false);
     }
 
-    SearchingMode getSearchModeStatus() {
-        return searchModeStatus;
-    }
-
     public void setSearchModeStatus(SearchingMode _searchModeStatus) {
         searchModeStatus = _searchModeStatus;
-    }
-
-    String getContentOfStatus() {
-        return contentOfStatus;
     }
 
     public void setContentOfStatus(String _contentOfStatus) {
         contentOfStatus = _contentOfStatus;
     }
 
-    SelectedBoolean getRelativeRateHp() {
-        return relativeRateHp;
-    }
-
     public void setRelativeRateHp(SelectedBoolean _relativeRateHp) {
         relativeRateHp = _relativeRateHp;
-    }
-
-    Rate getMinHp() {
-        return minHp;
     }
 
     public void setMinHp(Rate _minHp) {
         minHp = _minHp;
     }
 
-    Rate getMaxHp() {
-        return maxHp;
-    }
-
     public void setMaxHp(Rate _maxHp) {
         maxHp = _maxHp;
-    }
-
-    Rate getMinRateHp() {
-        return minRateHp;
     }
 
     public void setMinRateHp(Rate _minRateHp) {
         minRateHp = _minRateHp;
     }
 
-    Rate getMaxRateHp() {
-        return maxRateHp;
-    }
-
     public void setMaxRateHp(Rate _maxRateHp) {
         maxRateHp = _maxRateHp;
-    }
-
-    SelectedBoolean getRelativeRatePp() {
-        return relativeRatePp;
     }
 
     public void setRelativeRatePp(SelectedBoolean _relativeRatePp) {
         relativeRatePp = _relativeRatePp;
     }
 
-    SelectedBoolean getHealOneMove() {
-        return healOneMove;
-    }
-
     public void setHealOneMove(SelectedBoolean _healOneMove) {
         healOneMove = _healOneMove;
-    }
-
-    Long getMinPp() {
-        return minPp;
     }
 
     public void setMinPp(Long _minPp) {
         minPp = _minPp;
     }
 
-    Long getMaxPp() {
-        return maxPp;
-    }
-
     public void setMaxPp(Long _maxPp) {
         maxPp = _maxPp;
     }
 
-    Statistic getStatistic() {
-        return statistic;
-    }
-
     public void setStatistic(Statistic _statistic) {
         statistic = _statistic;
-    }
-
-    SelectedBoolean getKo() {
-        return ko;
     }
 
     public void setKo(SelectedBoolean _ko) {

@@ -39,12 +39,10 @@ public final class PaginationMove extends
 
     private final int nbComparators = 6;
 
-    private boolean enabledTechnicalMove;
-
     private TreeMap<SortingMove, String> moves = new TreeMap<SortingMove, String>(
             new ComparatorMove());
 
-    private EqList<SortingMove> rendered = new EqList<SortingMove>();
+    private CustList<SortingMove> rendered = new CustList<SortingMove>();
 
     private CriteriaForSearchingMove criteria;
 
@@ -78,10 +76,6 @@ public final class PaginationMove extends
                     price_ = (int) _data.getTmPrice().getVal(tm_).ll();
                 }
             }
-            /*
-             * if (!getCriteria().matchTechnicalMove(!tmKeys_.isEmpty())) {
-             * continue; }
-             */
             if (!getCriteria().matchPrice(price_)) {
                 continue;
             }
@@ -94,10 +88,6 @@ public final class PaginationMove extends
             if (!getCriteria().matchTargetChoice(i_.getTargetChoice())) {
                 continue;
             }
-            /*
-             * if (!getCriteria().matchSwitchType(i_.getSwitchType())) {
-             * continue; }
-             */
             if (!getCriteria().matchPrio(i_.getPriority())) {
                 continue;
             }
@@ -108,15 +98,6 @@ public final class PaginationMove extends
             if (!getCriteria().matchTypes(types_)) {
                 continue;
             }
-            /*
-             * if
-             * (!getCriteria().matchDisappearingRound(i_.getDisappearBeforeUse
-             * ())) { continue; } if
-             * (!getCriteria().matchRechargeRound(i_.getRechargeRound())) {
-             * continue; } if
-             * (!getCriteria().matchConstUserChoice(i_.getConstUserChoice())) {
-             * continue; }
-             */
             if (!match(translatedMove.getVal(_list.get(i)))) {
                 continue;
             }
@@ -134,7 +115,6 @@ public final class PaginationMove extends
         search(new StringList(moves.values()));
     }
 
-    // @Override
     protected void search(Listable<String> _list) {
         if (!_list.isEmpty()) {
             setNumberPage(CustList.FIRST_INDEX);
@@ -192,48 +172,6 @@ public final class PaginationMove extends
 
     @Override
     protected void sort() {
-        // TreeMap<SortingMove, String> items_ = new TreeMap<new>(new
-        // Comparator<SortingMove>() {
-        // @Override
-        // public int compare(SortingMove _o1, SortingMove _o2) {
-        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-        // if (cmpPrice.getPriority() == i) {
-        // int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpPpp.getPriority() == i) {
-        // int res_ = cmpPpp.compare(_o1.getPp(), _o2.getPp());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpPrio.getPriority() == i) {
-        // int res_ = cmpPrio.compare(_o1.getPriority(), _o2.getPriority());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpTargetChoice.getPriority() == i) {
-        // int res_ = cmpTargetChoice.compare(_o1.getTargetChoice(),
-        // _o2.getTargetChoice());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpName.getPriority() == i) {
-        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpDescription.getPriority() == i) {
-        // int res_ = cmpDescription.compare(_o1.getMoveClass(),
-        // _o2.getMoveClass());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // }
-        // }
-        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
-        // }
-        // });
         TreeMap<SortingMove, String> items_ = new TreeMap<SortingMove, String>(
                 new ComparatorMove(cmpName, cmpPrice, cmpDescription, cmpPpp,
                         cmpPrio, cmpTargetChoice, nbComparators));
@@ -245,57 +183,24 @@ public final class PaginationMove extends
         return cmpName;
     }
 
-    public void setCmpName(StringFieldComparator _cmpName) {
-        cmpName = _cmpName;
-    }
-
     public LongFieldComparator getCmpPrice() {
         return cmpPrice;
-    }
-
-    public void setCmpPrice(LongFieldComparator _cmpPrice) {
-        cmpPrice = _cmpPrice;
     }
 
     public LongFieldComparator getCmpDescription() {
         return cmpDescription;
     }
 
-    public void setCmpDescription(LongFieldComparator _cmpDescription) {
-        cmpDescription = _cmpDescription;
-    }
-
     public LongFieldComparator getCmpPpp() {
         return cmpPpp;
-    }
-
-    public void setCmpPpp(LongFieldComparator _cmpPpp) {
-        cmpPpp = _cmpPpp;
     }
 
     public LongFieldComparator getCmpPrio() {
         return cmpPrio;
     }
 
-    public void setCmpPrio(LongFieldComparator _cmpPrio) {
-        cmpPrio = _cmpPrio;
-    }
-
     public EnumFieldComparator<TargetChoice> getCmpTargetChoice() {
         return cmpTargetChoice;
-    }
-
-    public void setCmpTargetChoice(
-            EnumFieldComparator<TargetChoice> _cmpTargetChoice) {
-        cmpTargetChoice = _cmpTargetChoice;
-    }
-
-    public boolean isEnabledTechnicalMove() {
-        return enabledTechnicalMove;
-    }
-
-    public void setEnabledTechnicalMove(boolean _enabledTechnicalMove) {
-        enabledTechnicalMove = _enabledTechnicalMove;
     }
 
     public int getNbComparators() {
@@ -308,7 +213,7 @@ public final class PaginationMove extends
     }
 
     @Override
-    protected EqList<SortingMove> getRendered() {
+    protected CustList<SortingMove> getRendered() {
         return rendered;
     }
 

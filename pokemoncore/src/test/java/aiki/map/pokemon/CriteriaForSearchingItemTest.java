@@ -1,6 +1,7 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
+import aiki.fight.items.HealingItem;
 import org.junit.Test;
 
 import aiki.fight.items.Ball;
@@ -122,5 +123,26 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
         criteria_.setSelectedClass(HealingPp.ITEM);
         assertTrue(criteria_.matchClass(_data_.getItem(HUILE)));
+    }
+
+    @Test
+    public void matchClass5Test() {
+        CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
+        criteria_.setSelectedClass(HealingItem.ITEM);
+        assertTrue(criteria_.matchClass(_data_.getItem(REVEIL)));
+    }
+
+    @Test
+    public void matchClass6Test() {
+        CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
+        criteria_.setSelectedClass(HealingItem.ITEM);
+        assertTrue(criteria_.matchClass(_data_.getItem(PETIT_RAPPEL)));
+    }
+
+    @Test
+    public void matchClass7Test() {
+        CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
+        criteria_.setSelectedClass(HealingItem.ITEM);
+        assertTrue(!criteria_.matchClass(_data_.getItem(POKE_BALL)));
     }
 }

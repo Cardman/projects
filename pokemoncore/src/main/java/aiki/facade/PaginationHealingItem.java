@@ -69,7 +69,7 @@ public final class PaginationHealingItem extends
     private TreeMap<SortingHealingItem, String> items = new TreeMap<SortingHealingItem, String>(
             new ComparatorHealingItem());
 
-    private EqList<SortingHealingItem> rendered = new EqList<SortingHealingItem>();
+    private CustList<SortingHealingItem> rendered = new CustList<SortingHealingItem>();
 
     private CriteriaForSearchingHealingItem criteria;
 
@@ -158,14 +158,6 @@ public final class PaginationHealingItem extends
                 hpRate_.addNb(((Berry) i_).getHealHpRate());
                 hp_.addNb(((Berry) i_).getHealHp());
             }
-            /*
-             * if (i_ instanceof Berry) {
-             * hp_.affect(((Berry)i_).getHealHpBySuperEffMove());
-             * s_.setRelativeRateHp(true); if (hp_.isZero()) {
-             * hp_.affect(((Berry)i_).getHealHp()); s_.setRelativeRateHp(false);
-             * if (hp_.isZero()) { hp_.affect(((Berry)i_).getHealHpRate());
-             * s_.setRelativeRateHp(true); } } }
-             */
             if (i_ instanceof HealingHpStatus) {
                 HealingHpStatus healingHp_ = (HealingHpStatus) i_;
                 hpRate_.addNb(healingHp_.getHealedHpRate());
@@ -205,9 +197,6 @@ public final class PaginationHealingItem extends
                     s_.setPp(new Rate(healing_.getHealPp()));
                 }
             }
-            /*
-             * if (!hp_.isZero()) { s_.setHp(hp_); }
-             */
             s_.setHp(hp_);
             s_.setHpRate(hpRate_);
             s_.setNbHealedStatus(0);
@@ -243,7 +232,6 @@ public final class PaginationHealingItem extends
         search(new StringList(items.values()));
     }
 
-    // @Override
     protected void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
             setNumberPage(CustList.FIRST_INDEX);
@@ -322,87 +310,6 @@ public final class PaginationHealingItem extends
 
     @Override
     protected void sort() {
-        // TreeMap<SortingHealingItem, String> items_ = new TreeMap<new>(new
-        // Comparator<SortingHealingItem>() {
-        // @Override
-        // public int compare(SortingHealingItem _o1, SortingHealingItem _o2) {
-        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-        // if (cmpPrice.getPriority() == i) {
-        // int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpName.getPriority() == i) {
-        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpHealOneMove.getPriority() == i) {
-        // int res_ = cmpHealOneMove.compare(_o1.isHealOneMove(),
-        // _o2.isHealOneMove());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpHp.getPriority() == i) {
-        // int res_ = cmpHp.compare(_o1.getHp(), _o2.getHp());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpRateHp.getPriority() == i) {
-        // int res_ = cmpRateHp.compare(_o1.getHpRate(), _o2.getHpRate());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpKo.getPriority() == i) {
-        // int res_ = cmpKo.compare(_o1.isKo(), _o2.isKo());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpStatistics.getPriority() == i) {
-        // int res_ = cmpStatistics.compare(_o1.getNbStatistics(),
-        // _o2.getNbStatistics());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpNumber.getPriority() == i) {
-        // int res_ = cmpNumber.compare(_o1.getNumber(), _o2.getNumber());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpNbHealedStatus.getPriority() == i) {
-        // int res_ = cmpNbHealedStatus.compare(_o1.getNbHealedStatus(),
-        // _o2.getNbHealedStatus());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpPp.getPriority() == i) {
-        // int res_ = cmpPp.compare(_o1.getPp(), _o2.getPp());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpRelativeRateHp.getPriority() == i) {
-        // int res_ = cmpRelativeRateHp.compare(_o1.isRelativeRateHp(),
-        // _o2.isRelativeRateHp());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpRelativeRatePp.getPriority() == i) {
-        // int res_ = cmpRelativeRatePp.compare(_o1.isRelativeRatePp(),
-        // _o2.isRelativeRatePp());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpDescription.getPriority() == i) {
-        // int res_ = cmpDescription.compare(_o1.getItemClass(),
-        // _o2.getItemClass());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // }
-        // }
-        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
-        // }
-        // });
         TreeMap<SortingHealingItem, String> items_ = new TreeMap<SortingHealingItem, String>(
                 new ComparatorHealingItem(cmpName, cmpDescription, cmpPrice,
                         cmpNbHealedStatus, cmpRelativeRateHp, cmpHp, cmpRateHp,
@@ -474,7 +381,7 @@ public final class PaginationHealingItem extends
     }
 
     @Override
-    protected EqList<SortingHealingItem> getRendered() {
+    protected CustList<SortingHealingItem> getRendered() {
         return rendered;
     }
 

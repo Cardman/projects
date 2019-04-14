@@ -13,6 +13,7 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
     private Point point;
 
     public LevelPoint() {
+        point = new Point();
     }
 
     public LevelPoint(LevelPoint _levelPoint) {
@@ -33,25 +34,10 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
 
     public void affect(LevelPoint _levelPoint) {
         levelIndex = _levelPoint.levelIndex;
-        if (_levelPoint.point != null) {
-            if (point != null) {
-                point.affect(_levelPoint.point);
-            } else {
-                point = new Point(_levelPoint.point);
-            }
-        } else {
-            point = null;
-        }
-    }
-
-    public boolean isValid() {
-        return point != null;
+        point.affect(_levelPoint.point);
     }
 
     public static boolean eq(LevelPoint _lp1,LevelPoint _lp2) {
-        if (_lp1 == null) {
-            return _lp2 == null;
-        }
         return _lp1.eq(_lp2);
     }
 

@@ -5,7 +5,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Cmp;
 
-public final class SortingPokemonPlayer implements Sorting,Cmp<SortingPokemonPlayer> {
+public final class SortingPokemonPlayer implements Sorting {
 
     private int index;
 
@@ -17,8 +17,6 @@ public final class SortingPokemonPlayer implements Sorting,Cmp<SortingPokemonPla
 
     private String ability;
 
-    private String keyAbility;
-
     private String item;
 
     private String keyItem;
@@ -26,16 +24,6 @@ public final class SortingPokemonPlayer implements Sorting,Cmp<SortingPokemonPla
     private Gender gender;
 
     private short nbPossEvos;
-
-    @Override
-    public boolean eq(SortingPokemonPlayer _g) {
-        return cmp(_g) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SortingPokemonPlayer _o2) {
-        return Numbers.compare(getIndex(), _o2.getIndex());
-    }
 
     @Override
     public int getIndex() {
@@ -77,14 +65,6 @@ public final class SortingPokemonPlayer implements Sorting,Cmp<SortingPokemonPla
 
     public void setAbility(String _ability) {
         ability = _ability;
-    }
-
-    public String getKeyAbility() {
-        return keyAbility;
-    }
-
-    public void setKeyAbility(String _keyAbility) {
-        keyAbility = _keyAbility;
     }
 
     public String getItem() {

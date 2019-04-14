@@ -2,6 +2,7 @@ package aiki.facade;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import aiki.fight.items.Berry;
@@ -132,8 +133,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -171,8 +172,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(METRONOME_OBJ, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -210,8 +211,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -245,8 +246,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCmpNumber().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -278,8 +279,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getResults().put(sorting_, itemName_);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -307,13 +308,14 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_MEPO, itemName_);
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
         assertEq(BAIE_MEPO, sorted_.get(0).getName());
+        assertEq(BAIE_MEPO, sorted_.get(0).getKeyName());
         assertEq(200, sorted_.get(0).getPrice());
         assertEq(LgInt.one(), sorted_.get(0).getNumber());
         assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
@@ -342,7 +344,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingItem> sorted_;
+        CustList<SortingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -372,8 +374,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_MEPO, itemName_);
         sorted_ = pagination_.getRendered();
@@ -408,8 +410,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(3, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -448,8 +450,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(3, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -495,8 +497,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(6, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -547,8 +549,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(MULTI_EXP, itemName_);
         sorted_ = pagination_.getRendered();
@@ -583,8 +585,8 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(5, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingItem> sorted_;
-        sorted_ = new EqList<SortingItem>(pagination_.getResults().getKeys());
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));

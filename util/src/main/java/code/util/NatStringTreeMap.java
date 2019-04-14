@@ -60,16 +60,6 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
     }
 
     @Override
-    public V getValue(int _index) {
-        return getList().get(_index).getValue();
-    }
-
-    @Override
-    public String getKey(int _index) {
-        return getList().get(_index).getKey();
-    }
-
-    @Override
     public StringList getKeys() {
         StringList s_ = new StringList();
         for (EntryCust<String, V> e: getList()) {

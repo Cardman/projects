@@ -407,7 +407,6 @@ public class FacadeGame implements WithMathFactory {
         changeToFightScene = false;
         comment.clearMessages();
         if (game.getInterfaceType() == InterfaceType.ACHATS_CT) {
-            paginationMove.setEnabledTechnicalMove(true);
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.PK_LEG) {
             game.initLegendaryPokemonFight(data);
@@ -431,7 +430,6 @@ public class FacadeGame implements WithMathFactory {
         } else if (game.getInterfaceType() == InterfaceType.SOIN_PK) {
             healTeamWithoutUsingObject();
         } else if (game.getInterfaceType() == InterfaceType.ACHATS) {
-            paginationMove.setEnabledTechnicalMove(false);
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.PENSION) {
             enabledMovingHero = false;
@@ -857,7 +855,7 @@ public class FacadeGame implements WithMathFactory {
         return firstPaginationPk.pages();
     }
 
-    public EqList<SortingPokemonPlayer> getRenderedFirstBox() {
+    public CustList<SortingPokemonPlayer> getRenderedFirstBox() {
         return firstPaginationPk.getRendered();
     }
 
@@ -1070,7 +1068,7 @@ public class FacadeGame implements WithMathFactory {
         return paginationEgg.pages();
     }
 
-    public EqList<SortingEgg> getRenderedEgg() {
+    public CustList<SortingEgg> getRenderedEgg() {
         return paginationEgg.getRendered();
     }
 
@@ -1594,7 +1592,7 @@ public class FacadeGame implements WithMathFactory {
         return paginationItem.pages();
     }
 
-    public EqList<SortingItem> getRenderedItem() {
+    public CustList<SortingItem> getRenderedItem() {
         return paginationItem.getRendered();
     }
 
@@ -1828,7 +1826,7 @@ public class FacadeGame implements WithMathFactory {
         return paginationMove.pages();
     }
 
-    public EqList<SortingMove> getRenderedMove() {
+    public CustList<SortingMove> getRenderedMove() {
         return paginationMove.getRendered();
     }
 
@@ -1970,14 +1968,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setTechnicalMoveMove(SelectedBoolean _technicalMove) {
         paginationMove.getCriteria().setTechnicalMove(_technicalMove);
-    }
-
-    public void setMinPrepaRoundMove(Integer _minPrepaRound) {
-        paginationMove.getCriteria().setMinPrepaRound(_minPrepaRound);
-    }
-
-    public void setMaxPrepaRoundMove(Integer _maxPrepaRound) {
-        paginationMove.getCriteria().setMaxPrepaRound(_maxPrepaRound);
     }
 
     public void clearFiltersMove() {
@@ -2481,7 +2471,7 @@ public class FacadeGame implements WithMathFactory {
         return paginationHealingItem.pages();
     }
 
-    public EqList<SortingHealingItem> getRenderedHealingItem() {
+    public CustList<SortingHealingItem> getRenderedHealingItem() {
         return paginationHealingItem.getRendered();
     }
 

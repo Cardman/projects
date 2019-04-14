@@ -1,11 +1,8 @@
 package aiki.util;
 import aiki.facade.Sorting;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.ints.Cmp;
 
 
-public final class SortingEgg implements Sorting,Cmp<SortingEgg> {
+public final class SortingEgg implements Sorting {
 
     private int index;
 
@@ -14,16 +11,6 @@ public final class SortingEgg implements Sorting,Cmp<SortingEgg> {
     private String name;
 
     private String keyName;
-
-    @Override
-    public boolean eq(SortingEgg _obj) {
-        return cmp(_obj) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SortingEgg _o2) {
-        return Numbers.compare(getIndex(), _o2.getIndex());
-    }
 
     @Override
     public int getIndex() {

@@ -588,7 +588,7 @@ public final class PaginatorMove extends Paginator {
 //            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
 //        }
         getHeader().addString(getMessages().getVal(NAME), FIRST_PIXEL);
-        EqList<SortingMove> rendered_ = getFacade().getRenderedMove();
+        CustList<SortingMove> rendered_ = getFacade().getRenderedMove();
         CustList<TmLabel> list_ = new CustList<TmLabel>();
         int nb_ = rendered_.size();
         for (int i = CustList.FIRST_INDEX; i < nb_; i++) {

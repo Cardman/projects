@@ -285,4 +285,10 @@ public class CriteriaForSearchingTest {
     public void matchStringList24Test() {
         assertTrue(CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "", new StringList("STRING_ONE","STRING_TWO")));
     }
+
+    @Test
+    public void matchStringList25Test() {
+        assertTrue(!CriteriaForSearching.match(SearchingMode.MATCH_SPACE, "STRING", new StringList((String)null)));
+    }
+
 }

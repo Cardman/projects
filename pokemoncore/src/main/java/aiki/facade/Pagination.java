@@ -9,8 +9,6 @@ public abstract class Pagination<T extends Sorting,U> {
 
     public static final int MIN_PRIORITY = 1;
 
-    protected static final int EQUALS_ELEMENTS = 0;
-
     private int numberPage = CustList.INDEX_NOT_FOUND_ELT;
 
     private int nbResultsPerPage = 1;
@@ -71,8 +69,6 @@ public abstract class Pagination<T extends Sorting,U> {
             return null;
         }
         int index_ = numberPage * nbResultsPerPage + line;
-//        CustList<T> list_ = new CustList<>(getResults().getKeys());
-//        return getResults().getVal(list_.get(index_));
         return getResults().getValue(index_);
     }
 
@@ -145,7 +141,7 @@ public abstract class Pagination<T extends Sorting,U> {
 
     protected abstract TreeMap<T,U> getResults();
 
-    protected abstract Listable<T> getRendered();
+    protected abstract CustList<T> getRendered();
 
     public abstract CriteriaForSearching getCriteria();
 

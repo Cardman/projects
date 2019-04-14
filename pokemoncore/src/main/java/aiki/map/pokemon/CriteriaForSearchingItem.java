@@ -73,64 +73,32 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
         return StringList.quickEq(selectedClass, _item.getItemType());
     }
 
-    public SearchingMode getSearchModeName() {
-        return searchModeName;
-    }
-
     public void setSearchModeName(SearchingMode _searchModeName) {
         searchModeName = _searchModeName;
-    }
-
-    public String getContentOfName() {
-        return contentOfName;
     }
 
     public void setContentOfName(String _contentOfName) {
         contentOfName = _contentOfName;
     }
 
-    public SearchingMode getSearchModeDescription() {
-        return searchModeDescription;
-    }
-
     public void setSearchModeDescription(SearchingMode _searchModeDescription) {
         searchModeDescription = _searchModeDescription;
-    }
-
-    public String getContentOfDescription() {
-        return contentOfDescription;
     }
 
     public void setContentOfDescription(String _contentOfDescription) {
         contentOfDescription = _contentOfDescription;
     }
 
-    public Integer getMinPrice() {
-        return minPrice;
-    }
-
     public void setMinPrice(Integer _minPrice) {
         minPrice = _minPrice;
-    }
-
-    public Integer getMaxPrice() {
-        return maxPrice;
     }
 
     public void setMaxPrice(Integer _maxPrice) {
         maxPrice = _maxPrice;
     }
 
-    public LgInt getMinNumber() {
-        return minNumber;
-    }
-
     public void setMinNumber(LgInt _minNumber) {
         minNumber = _minNumber;
-    }
-
-    public LgInt getMaxNumber() {
-        return maxNumber;
     }
 
     public void setMaxNumber(LgInt _maxNumber) {

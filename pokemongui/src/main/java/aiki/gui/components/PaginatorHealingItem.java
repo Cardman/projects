@@ -782,7 +782,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
 
 
-        EqList<SortingHealingItem> rendered_ = getFacade().getRenderedHealingItem();
+        CustList<SortingHealingItem> rendered_ = getFacade().getRenderedHealingItem();
         CustList<HealingItemLabel> list_ = new CustList<HealingItemLabel>();
         int thirdColumn_ = CustList.SIZE_EMPTY;
         int fourthColumn_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));

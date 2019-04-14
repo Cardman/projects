@@ -35,14 +35,6 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
         }
     }
 
-//    @Override
-//    public boolean contains(K _key) {
-//        return getEntryByKey(_key) != null;
-//    }
-
-//    public boolean has(V _value) {
-//        return containsValue(_value);
-//    }
     @Override
     public Listable<K> getKeysNullValue() {
         Listable<K> list_ = new CustList<K>();
@@ -65,16 +57,6 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
             }
         }
         return c_;
-    }
-
-    @Override
-    public V getValue(int _index) {
-        return getList().get(_index).getValue();
-    }
-
-    @Override
-    public K getKey(int _index) {
-        return getList().get(_index).getKey();
     }
 
     @Override
@@ -237,15 +219,4 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
         return getList().last();
     }
 
-    public void applyChanges() {
-        for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-            for (int j = i + 1; j < getList().size(); j++) {
-                Number c_ = getList().get(i).getKey();
-                int res_ = Numbers.compare(c_,getList().get(j).getKey());
-                if (res_ > CustList.EQ_CMP) {
-                    getList().swapIndexes(i, j);
-                }
-            }
-        }
-    }
 }

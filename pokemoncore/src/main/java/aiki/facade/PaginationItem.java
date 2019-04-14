@@ -37,7 +37,7 @@ public final class PaginationItem extends
     private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(
             new ComparatorItem());
 
-    private EqList<SortingItem> rendered = new EqList<SortingItem>();
+    private CustList<SortingItem> rendered = new CustList<SortingItem>();
 
     private CriteriaForSearchingItem criteria;
 
@@ -89,7 +89,6 @@ public final class PaginationItem extends
         search(new StringList(items.values()));
     }
 
-    // @Override
     protected void search(Listable<String> _items) {
         if (!_items.isEmpty()) {
             setNumberPage(CustList.FIRST_INDEX);
@@ -141,37 +140,6 @@ public final class PaginationItem extends
 
     @Override
     protected void sort() {
-        // TreeMap<SortingItem, String> items_ = new TreeMap<new>(new
-        // Comparator<SortingItem>() {
-        // @Override
-        // public int compare(SortingItem _o1, SortingItem _o2) {
-        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-        // if (cmpPrice.getPriority() == i) {
-        // int res_ = cmpPrice.compare(_o1.getPrice(), _o2.getPrice());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpName.getPriority() == i) {
-        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpDescription.getPriority() == i) {
-        // int res_ = cmpDescription.compare(_o1.getItemClass(),
-        // _o2.getItemClass());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpNumber.getPriority() == i) {
-        // int res_ = cmpNumber.compare(_o1.getNumber(), _o2.getNumber());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // }
-        // }
-        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
-        // }
-        // });
         TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(
                 new ComparatorItem(cmpName, cmpPrice, cmpDescription,
                         cmpNumber, nbComparators));
@@ -183,57 +151,20 @@ public final class PaginationItem extends
         return cmpName;
     }
 
-    public void setCmpName(StringFieldComparator _cmpName) {
-        cmpName = _cmpName;
-    }
-
     public LongFieldComparator getCmpPrice() {
         return cmpPrice;
-    }
-
-    public void setCmpPrice(LongFieldComparator _cmpPrice) {
-        cmpPrice = _cmpPrice;
     }
 
     public StringFieldComparator getCmpDescription() {
         return cmpDescription;
     }
 
-    public void setCmpDescription(StringFieldComparator _cmpDescription) {
-        cmpDescription = _cmpDescription;
-    }
-
     public FieldCustComparator<LgInt> getCmpNumber() {
         return cmpNumber;
     }
 
-    public void setCmpNumber(FieldCustComparator<LgInt> _cmpNumber) {
-        cmpNumber = _cmpNumber;
-    }
-
-    public StringMap<String> getTranslatedItem() {
-        return translatedItem;
-    }
-
-    public void setTranslatedItem(StringMap<String> _translatedItem) {
-        translatedItem = _translatedItem;
-    }
-
-    public StringMap<String> getTranslatedDescription() {
-        return translatedDescription;
-    }
-
-    public void setTranslatedDescription(
-            StringMap<String> _translatedDescription) {
-        translatedDescription = _translatedDescription;
-    }
-
     public int getNbComparators() {
         return nbComparators;
-    }
-
-    public void setRendered(EqList<SortingItem> _rendered) {
-        rendered = _rendered;
     }
 
     @Override
@@ -242,7 +173,7 @@ public final class PaginationItem extends
     }
 
     @Override
-    protected EqList<SortingItem> getRendered() {
+    protected CustList<SortingItem> getRendered() {
         return rendered;
     }
 }

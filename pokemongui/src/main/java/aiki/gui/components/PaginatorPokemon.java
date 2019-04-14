@@ -589,7 +589,7 @@ public final class PaginatorPokemon extends Paginator {
         getHeader().clearStrings();
         getResultsLabels().clear();
         //results.add(header);
-        EqList<SortingPokemonPlayer> rendered_ = getFacade().getRenderedFirstBox();
+        CustList<SortingPokemonPlayer> rendered_ = getFacade().getRenderedFirstBox();
         CustList<PokemonLabel> list_ = new CustList<PokemonLabel>();
         //Header header_ = new Header();
         int nb_ = rendered_.size();

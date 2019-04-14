@@ -7,7 +7,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Cmp;
 
-public final class SortingHealingItem implements Sorting,Cmp<SortingHealingItem> {
+public final class SortingHealingItem implements Sorting {
 
     private int index;
 
@@ -42,16 +42,6 @@ public final class SortingHealingItem implements Sorting,Cmp<SortingHealingItem>
     private int price;
 
     private LgInt number = LgInt.zero();
-
-    @Override
-    public boolean eq(SortingHealingItem _obj) {
-        return cmp(_obj) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SortingHealingItem _o2) {
-        return Numbers.compare(getIndex(), _o2.getIndex());
-    }
 
     @Override
     public int getIndex() {

@@ -21,10 +21,6 @@ public final class EnumFieldComparator<E extends Enum<E>> {
         return CustList.EQ_CMP;
     }
 
-    public SelectedBoolean getIncreasing() {
-        return increasing;
-    }
-
     public void setIncreasing(SelectedBoolean _increasing) {
         increasing = _increasing;
     }
@@ -35,10 +31,6 @@ public final class EnumFieldComparator<E extends Enum<E>> {
 
     public void setPriority(int _priority) {
         priority = _priority;
-    }
-
-    public EnumMap<E, String> getTranslations() {
-        return translations;
     }
 
     public void setTranslations(EnumMap<E, String> _translations) {

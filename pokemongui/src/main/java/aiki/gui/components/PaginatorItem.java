@@ -425,7 +425,7 @@ public final class PaginatorItem extends Paginator {
     private void refreshResults() {
         results.removeAll();
         getResultsLabels().clear();
-        EqList<SortingItem> rendered_ = getFacade().getRenderedItem();
+        CustList<SortingItem> rendered_ = getFacade().getRenderedItem();
         CustList<ItemLabel> list_ = new CustList<ItemLabel>();
         int nb_ = rendered_.size();
         for (int i = CustList.FIRST_INDEX; i < nb_; i++) {

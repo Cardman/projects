@@ -20,32 +20,16 @@ public final class CriteriaForSearchingEgg extends CriteriaForSearching {
         return CriteriaForSearching.match(minSteps, maxSteps, _steps);
     }
 
-    public SearchingMode getSearchModeName() {
-        return searchModeName;
-    }
-
     public void setSearchModeName(SearchingMode _searchModeName) {
         searchModeName = _searchModeName;
-    }
-
-    public String getContentOfName() {
-        return contentOfName;
     }
 
     public void setContentOfName(String _contentOfName) {
         contentOfName = _contentOfName;
     }
 
-    public Integer getMinSteps() {
-        return minSteps;
-    }
-
     public void setMinSteps(Integer _minSteps) {
         minSteps = _minSteps;
-    }
-
-    public Integer getMaxSteps() {
-        return maxSteps;
     }
 
     public void setMaxSteps(Integer _maxSteps) {

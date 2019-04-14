@@ -79,112 +79,56 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
         return CriteriaForSearching.match(minNbPossEvols, maxNbPossEvols, (short) _level);
     }
 
-    public SearchingMode getSearchModeName() {
-        return searchModeName;
-    }
-
     public void setSearchModeName(SearchingMode _searchModeName) {
         searchModeName = _searchModeName;
-    }
-
-    public String getContentOfName() {
-        return contentOfName;
     }
 
     public void setContentOfName(String _contentOfName) {
         contentOfName = _contentOfName;
     }
 
-    public SearchingMode getSearchModeAbility() {
-        return searchModeAbility;
-    }
-
     public void setSearchModeAbility(SearchingMode _searchModeAbility) {
         searchModeAbility = _searchModeAbility;
-    }
-
-    public String getContentOfAbility() {
-        return contentOfAbility;
     }
 
     public void setContentOfAbility(String _contentOfAbility) {
         contentOfAbility = _contentOfAbility;
     }
 
-    public SelectedBoolean getWithItem() {
-        return withItem;
-    }
-
     public void setWithItem(SelectedBoolean _withItem) {
         withItem = _withItem;
-    }
-
-    public SearchingMode getSearchModeItem() {
-        return searchModeItem;
     }
 
     public void setSearchModeItem(SearchingMode _searchModeItem) {
         searchModeItem = _searchModeItem;
     }
 
-    public String getContentOfItem() {
-        return contentOfItem;
-    }
-
     public void setContentOfItem(String _contentOfItem) {
         contentOfItem = _contentOfItem;
-    }
-
-    public SearchingMode getSearchModeMove() {
-        return searchModeMove;
     }
 
     public void setSearchModeMove(SearchingMode _searchModeMove) {
         searchModeMove = _searchModeMove;
     }
 
-    public String getContentOfMove() {
-        return contentOfMove;
-    }
-
     public void setContentOfMove(String _contentOfMove) {
         contentOfMove = _contentOfMove;
-    }
-
-    public Short getMinLevel() {
-        return minLevel;
     }
 
     public void setMinLevel(Short _minLevel) {
         minLevel = _minLevel;
     }
 
-    public Short getMaxLevel() {
-        return maxLevel;
-    }
-
     public void setMaxLevel(Short _maxLevel) {
         maxLevel = _maxLevel;
-    }
-
-    public Gender getGender() {
-        return gender;
     }
 
     public void setGender(Gender _gender) {
         gender = _gender;
     }
 
-    public Short getMinNbPossEvols() {
-        return minNbPossEvols;
-    }
-
     public void setMinNbPossEvols(Short _minNbPossEvols) {
         minNbPossEvols = _minNbPossEvols;
-    }
-
-    public Short getMaxNbPossEvols() {
-        return maxNbPossEvols;
     }
 
     public void setMaxNbPossEvols(Short _maxNbPossEvols) {

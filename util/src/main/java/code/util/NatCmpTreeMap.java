@@ -11,17 +11,6 @@ import code.util.ints.SortableMap;
 */
 public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
-    public NatCmpTreeMap() {
-    }
-
-    public NatCmpTreeMap(ListableEntries<K,V> _map) {
-        putAllMap(_map);
-    }
-    
-    public NatCmpTreeMap(CollCapacity _capacity) {
-        super(_capacity);
-    }
-
     @Override
     public void putAllMap(ListableEntries<K, V> _m) {
         for (EntryCust<K,V> e: _m.entryList()) {
@@ -35,14 +24,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         }
     }
 
-//    @Override
-//    public boolean contains(K _key) {
-//        return getEntryByKey(_key) != null;
-//    }
-
-//    public boolean has(V _value) {
-//        return containsValue(_value);
-//    }
     @Override
     public Listable<K> getKeysNullValue() {
         Listable<K> list_ = new CustList<K>();
@@ -66,37 +47,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         }
         return c_;
     }
-//    @Override
-//    public V getVal(K _key) {
-//        EntryCust<K,V> e_ = getEntryByKey(_key);
-//        if (e_ == null) {
-//            return null;
-//        }
-//        return e_.getValue();
-//    }
-//
-//    @Override
-//    public void removeKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//    }
-
-//    public V removedKey(K _key) {
-//        return remove(_key);
-//    }
-
-    @Override
-    public V getValue(int _index) {
-        return getList().get(_index).getValue();
-    }
-
-    @Override
-    public K getKey(int _index) {
-        return getList().get(_index).getKey();
-    }
 
     @Override
     public Listable<K> getKeys() {
@@ -106,11 +56,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         }
         return s_;
     }
-
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return getList();
-//    }
 
     @Override
     public void put(K _key, V _value) {
@@ -267,39 +212,4 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         return getList().last();
     }
 
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setModified()
-//
-//    @Override
-//    public void setModified() {
-//        modified = true;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setUnmodified()
-//
-//    @Override
-//    public void setUnmodified() {
-//        modified = false;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#isModified()
-//
-//    @Override
-//    public boolean isModified() {
-//        return modified;
-//    }
-
-    public void applyChanges() {
-        for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-            for (int j = i + 1; j < getList().size(); j++) {
-                Cmp<K> c_ = getList().get(i).getKey();
-                int res_ = c_.cmp(getList().get(j).getKey());
-                if (res_ > CustList.EQ_CMP) {
-                    getList().swapIndexes(i, j);
-                }
-            }
-        }
-    }
 }

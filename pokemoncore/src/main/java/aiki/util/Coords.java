@@ -21,6 +21,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
 
     public Coords() {
         numberPlace = INVALID_NUMBER;
+        level = new LevelPoint();
     }
 
     public Coords(Coords _coords) {
@@ -85,33 +86,15 @@ public final class Coords implements Equallable<Coords>, Displayable {
     public void affectInside(Point _pt) {
         if (_pt == null) {
             insideBuilding = null;
-        } else if (insideBuilding == null) {
-            insideBuilding = new Point(_pt);
         } else {
-            insideBuilding.affect(_pt);
+            insideBuilding = new Point(_pt);
         }
     }
 
     public void affect(Coords _coords) {
         numberPlace = _coords.numberPlace;
-        if (_coords.level != null) {
-            if (level != null) {
-                level.affect(_coords.level);
-            } else {
-                level = new LevelPoint(_coords.level);
-            }
-        } else {
-            level = null;
-        }
-        if (_coords.insideBuilding != null) {
-            if (insideBuilding != null) {
-                insideBuilding.affect(_coords.insideBuilding);
-            } else {
-                insideBuilding = new Point(_coords.insideBuilding);
-            }
-        } else {
-            insideBuilding = null;
-        }
+        level.affect(_coords.level);
+        affectInside(_coords.insideBuilding);
     }
 
     public boolean isInside() {

@@ -101,6 +101,30 @@ public class CriteriaForSearchingMoveTest extends InitializationDataBase {
     }
 
     @Test
+    public void matchSwitchType2Test() {
+        CriteriaForSearchingMove criteria_;
+        criteria_ = new CriteriaForSearchingMove();
+        criteria_.setSwitchType(SwitchType.LANCEUR);
+        assertTrue(!criteria_.matchSwitchType(SwitchType.CIBLE));
+    }
+
+    @Test
+    public void matchSwitchType3Test() {
+        CriteriaForSearchingMove criteria_;
+        criteria_ = new CriteriaForSearchingMove();
+        criteria_.setSwitchType(null);
+        assertTrue(criteria_.matchSwitchType(SwitchType.LANCEUR));
+    }
+
+    @Test
+    public void matchSwitchType4Test() {
+        CriteriaForSearchingMove criteria_;
+        criteria_ = new CriteriaForSearchingMove();
+        criteria_.setSwitchType(null);
+        assertTrue(criteria_.matchSwitchType(SwitchType.CIBLE));
+    }
+
+    @Test
     public void matchTargetChoice1Test() {
         CriteriaForSearchingMove criteria_;
         criteria_ = new CriteriaForSearchingMove();

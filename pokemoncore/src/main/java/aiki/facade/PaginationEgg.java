@@ -7,7 +7,6 @@ import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.SortingEgg;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -26,7 +25,7 @@ public final class PaginationEgg extends
     private TreeMap<SortingEgg, Egg> eggs = new TreeMap<SortingEgg, Egg>(
             new ComparatorEgg());
 
-    private EqList<SortingEgg> rendered = new EqList<SortingEgg>();
+    private CustList<SortingEgg> rendered = new CustList<SortingEgg>();
 
     private CriteriaForSearchingEgg criteria;
 
@@ -104,26 +103,6 @@ public final class PaginationEgg extends
 
     @Override
     public void sort() {
-        // TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<new>(new
-        // Comparator<SortingEgg>() {
-        // @Override
-        // public int compare(SortingEgg _o1, SortingEgg _o2) {
-        // for (int i = nbComparators; i >= MIN_PRIORITY; i--) {
-        // if (cmpSteps.getPriority() == i) {
-        // int res_ = cmpSteps.compare(_o1.getSteps(), _o2.getSteps());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // } else if (cmpName.getPriority() == i) {
-        // int res_ = cmpName.compare(_o1.getName(), _o2.getName());
-        // if (res_ != EQUALS_ELEMENTS) {
-        // return res_;
-        // }
-        // }
-        // }
-        // return Integer.compare(_o1.getIndex(), _o2.getIndex());
-        // }
-        // });
         TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
                 new ComparatorEgg(cmpSteps, cmpName, nbComparators));
         eggs_.putAllTreeMap(eggs);
@@ -134,25 +113,13 @@ public final class PaginationEgg extends
         return cmpSteps;
     }
 
-    public void setCmpSteps(LongFieldComparator _cmpSteps) {
-        cmpSteps = _cmpSteps;
-    }
-
     public StringFieldComparator getCmpName() {
         return cmpName;
     }
 
-    public void setCmpName(StringFieldComparator _cmpName) {
-        cmpName = _cmpName;
-    }
-
     @Override
-    public EqList<SortingEgg> getRendered() {
+    public CustList<SortingEgg> getRendered() {
         return rendered;
-    }
-
-    public void setRendered(EqList<SortingEgg> _rendered) {
-        rendered = _rendered;
     }
 
     @Override

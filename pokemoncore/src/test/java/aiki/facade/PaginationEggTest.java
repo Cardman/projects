@@ -4,6 +4,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.map.pokemon.Pokemon;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.enums.Gender;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -141,8 +145,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getResults().put(sorting_, egg_);
         pagination_.sort();
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(LIMAGMA, egg_.getName());
         assertEq(20, egg_.getSteps());
@@ -195,8 +199,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(LIMAGMA, egg_.getName());
         assertEq(20, egg_.getSteps());
@@ -249,8 +253,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PTITARD, egg_.getName());
         assertEq(10, egg_.getSteps());
@@ -305,8 +309,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(LIMAGMA, egg_.getName());
         assertEq(30, egg_.getSteps());
@@ -362,7 +366,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(2, sorted_.size());
         assertEq(LIMAGMA, sorted_.get(0).getName());
@@ -414,7 +418,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
         assertEq(LIMAGMA, sorted_.get(0).getName());
@@ -463,7 +467,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(3, sorted_.size());
         assertEq(LIMAGMA, sorted_.get(0).getName());
@@ -518,7 +522,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(4, sorted_.size());
         assertEq(LIMAGMA, sorted_.get(0).getName());
@@ -577,7 +581,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.sort();
         pagination_.setNumberPage(1);
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(2, sorted_.size());
         assertEq(PIKACHU, sorted_.get(0).getName());
@@ -599,7 +603,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
     }
@@ -616,7 +620,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.sort();
         pagination_.setNumberPage(1);
         pagination_.calculateRendered();
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
     }
@@ -799,8 +803,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.search(player_.getBox());
         assertEq(3, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -816,6 +820,7 @@ public class PaginationEggTest extends InitializationDataBase {
         sorted_ = pagination_.getRendered();
         assertEq(2, sorted_.size());
         assertEq(PIKACHU, sorted_.get(0).getName());
+        assertEq(PIKACHU, sorted_.get(0).getKeyName());
         assertEq(15, sorted_.get(0).getSteps());
         assertEq(0, sorted_.get(0).getIndex());
         assertEq(PTITARD, sorted_.get(1).getName());
@@ -866,8 +871,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.search(player_.getBox());
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -937,8 +942,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
         pagination_.search(player_.getBox());
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -1015,6 +1020,132 @@ public class PaginationEggTest extends InitializationDataBase {
         assertEq(-1, pagination_.getLine());
     }
 
+    @Test
+    public void search5Test() {
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Egg egg_;
+        egg_ = new Egg(PIKACHU);
+        egg_.versEclosion((short) 15);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(LIMAGMA);
+        egg_.versEclosion((short) 8);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 5);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(NUCLEOS);
+        egg_.versEclosion((short) 10);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 30);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 30);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(LIMAGMA);
+        player_.getBox().add(egg_);
+        Pokemon pk_ = new WildPk();
+        pk_.setName(NUCLEOS);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setLevel((short) 2);
+        pk_.setAbility(ABSORB_EAU);
+        pk_.setItem(NULL_REF);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        player_.getBox().add(pkPlayer_);
+        PaginationEgg pagination_;
+        pagination_ = new PaginationEgg();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setNbResultsPerPage(2);
+        pagination_.getCriteria().setContentOfName("*Z*");
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpSteps().setPriority(1);
+        pagination_.getCmpSteps().setIncreasing(SelectedBoolean.NO);
+        pagination_.search(player_.getBox());
+        assertEq(0, pagination_.getResults().size());
+        assertEq(0, pagination_.getRendered().size());
+        assertEq(-1, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search6Test() {
+        Difficulty diff_ = new Difficulty();
+        diff_.setIvPlayer((byte) 31);
+        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Egg egg_;
+        egg_ = new Egg(PIKACHU);
+        egg_.versEclosion((short) 15);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(LIMAGMA);
+        egg_.versEclosion((short) 8);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 5);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(NUCLEOS);
+        egg_.versEclosion((short) 10);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 30);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        egg_.versEclosion((short) 30);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(PTITARD);
+        player_.getBox().add(egg_);
+        egg_ = new Egg(LIMAGMA);
+        player_.getBox().add(egg_);
+        PaginationEgg pagination_;
+        pagination_ = new PaginationEgg();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setNbResultsPerPage(2);
+        pagination_.getCriteria().setContentOfName("*P*");
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES_AND_NO);
+        pagination_.getCmpSteps().setPriority(2);
+        pagination_.getCmpSteps().setIncreasing(SelectedBoolean.YES_AND_NO);
+        pagination_.search(player_.getBox());
+        assertEq(4, pagination_.getResults().size());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
+        egg_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(PIKACHU, egg_.getName());
+        assertEq(15, egg_.getSteps());
+        assertEq(0, sorted_.get(0).getIndex());
+        egg_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(PTITARD, egg_.getName());
+        assertEq(5, egg_.getSteps());
+        assertEq(2, sorted_.get(1).getIndex());
+        egg_ = pagination_.getResults().getVal(sorted_.get(2));
+        assertEq(PTITARD, egg_.getName());
+        assertEq(30, egg_.getSteps());
+        assertEq(4, sorted_.get(2).getIndex());
+        egg_ = pagination_.getResults().getVal(sorted_.get(3));
+        assertEq(PTITARD, egg_.getName());
+        assertEq(30, egg_.getSteps());
+        assertEq(5, sorted_.get(3).getIndex());
+        sorted_ = pagination_.getRendered();
+        assertEq(2, sorted_.size());
+        egg_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(PIKACHU, egg_.getName());
+        assertEq(15, egg_.getSteps());
+        assertEq(0, sorted_.get(0).getIndex());
+        egg_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(PTITARD, egg_.getName());
+        assertEq(5, egg_.getSteps());
+        assertEq(2, sorted_.get(1).getIndex());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
     @Test
     public void checkLine1Test() {
         Difficulty diff_ = new Difficulty();
@@ -1191,8 +1322,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.search(player_.getBox());
         pagination_.changePage(1);
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -1266,8 +1397,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.checkLine(0);
         pagination_.changePage(1);
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -1341,8 +1472,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.checkLine(0);
         pagination_.changePage(0);
         assertEq(4, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PIKACHU, egg_.getName());
         assertEq(15, egg_.getSteps());
@@ -2426,8 +2557,8 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCriteria().setContentOfName("*T*");
         pagination_.newSearch();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
-        sorted_ = new EqList<SortingEgg>(pagination_.getResults().getKeys());
+        CustList<SortingEgg> sorted_;
+        sorted_ = new CustList<SortingEgg>(pagination_.getResults().getKeys());
         egg_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(PTITARD, egg_.getName());
         assertEq(30, egg_.getSteps());
@@ -2488,7 +2619,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.getCriteria().setContentOfName("*L*");
         pagination_.newSearch();
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingEgg> sorted_;
+        CustList<SortingEgg> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());

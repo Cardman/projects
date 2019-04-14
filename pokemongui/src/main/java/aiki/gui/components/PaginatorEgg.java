@@ -316,7 +316,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().clearStrings();
         getResultsLabels().clear();
         results.removeAll();
-        EqList<SortingEgg> rendered_ = getFacade().getRenderedEgg();
+        CustList<SortingEgg> rendered_ = getFacade().getRenderedEgg();
         CustList<EggLabel> list_ = new CustList<EggLabel>();
         int h_ = Math.max(getFacade().getMap().getSideLength(), HEIGTH_CHARS);
         int nb_ = rendered_.size();

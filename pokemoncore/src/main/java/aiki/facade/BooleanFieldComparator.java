@@ -19,10 +19,6 @@ public final class BooleanFieldComparator {
         return 0;
     }
 
-    public SelectedBoolean getIncreasing() {
-        return increasing;
-    }
-
     public void setIncreasing(SelectedBoolean _increasing) {
         increasing = _increasing;
     }

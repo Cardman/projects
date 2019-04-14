@@ -43,9 +43,6 @@ public final class Point implements Equallable<Point>, Displayable {
     }
 
     public static boolean eq(Point _pt1,Point _pt2) {
-        if (_pt1 == null) {
-            return _pt2 == null;
-        }
         return _pt1.eq(_pt2);
     }
 

@@ -1,4 +1,5 @@
 package aiki.facade;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
@@ -45,64 +46,22 @@ public abstract class CriteriaForSearching {
         return true;
     }
 
-    protected static boolean match(Integer _min, Integer _max, Integer _number) {
+    protected static boolean match(Number _min, Number _max, Number _number) {
         if (_min == null) {
             if (_max == null) {
                 return true;
             }
-            if (_max.compareTo(_number) < 0) {
+            if (Numbers.compare(_max,_number) < 0) {
                 return false;
             }
             return true;
         }
         if (_max != null) {
-            if (_max.compareTo(_number) < 0) {
+            if (Numbers.compare(_max,_number) < 0) {
                 return false;
             }
         }
-        if (_min.compareTo(_number) > 0) {
-            return false;
-        }
-        return true;
-    }
-
-    protected static boolean match(Long _min, Long _max, Long _number) {
-        if (_min == null) {
-            if (_max == null) {
-                return true;
-            }
-            if (_max.compareTo(_number) < 0) {
-                return false;
-            }
-            return true;
-        }
-        if (_max != null) {
-            if (_max.compareTo(_number) < 0) {
-                return false;
-            }
-        }
-        if (_min.compareTo(_number) > 0) {
-            return false;
-        }
-        return true;
-    }
-
-    protected static boolean match(Short _min, Short _max, Short _number) {
-        if (_min == null) {
-            if (_max == null) {
-                return true;
-            }
-            if (_max.compareTo(_number) < 0) {
-                return false;
-            }
-            return true;
-        }
-        if (_max != null) {
-            if (_max.compareTo(_number) < 0) {
-                return false;
-            }
-        }
-        if (_min.compareTo(_number) > 0) {
+        if (Numbers.compare(_min,_number) > 0) {
             return false;
         }
         return true;

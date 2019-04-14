@@ -5,7 +5,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Cmp;
 
-public final class SortingItem implements Sorting,Cmp<SortingItem> {
+public final class SortingItem implements Sorting {
 
     private int index;
 
@@ -18,16 +18,6 @@ public final class SortingItem implements Sorting,Cmp<SortingItem> {
     private int price;
 
     private LgInt number = LgInt.zero();
-
-    @Override
-    public boolean eq(SortingItem _g) {
-        return cmp(_g) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SortingItem _o2) {
-        return Numbers.compare(getIndex(), _o2.getIndex());
-    }
 
     @Override
     public int getIndex() {

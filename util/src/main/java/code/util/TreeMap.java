@@ -64,16 +64,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     }
 
     @Override
-    public V getValue(int _index) {
-        return getList().get(_index).getValue();
-    }
-
-    @Override
-    public K getKey(int _index) {
-        return getList().get(_index).getKey();
-    }
-
-    @Override
     public Listable<K> getKeys() {
         Listable<K> l_ = new CustList<K>();
         for (EntryCust<K, V> e: getList()) {
@@ -237,14 +227,4 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         return getList().last();
     }
 
-    public void applyChanges() {
-        for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-            for (int j = i + 1; j < getList().size(); j++) {
-                int res_ = comparator.compare(getList().get(i).getKey(), getList().get(j).getKey());
-                if (res_ > CustList.EQ_CMP) {
-                    getList().swapIndexes(i, j);
-                }
-            }
-        }
-    }
 }

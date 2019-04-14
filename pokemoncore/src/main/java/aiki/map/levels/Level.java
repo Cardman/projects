@@ -159,7 +159,13 @@ public abstract class Level {
             if (ComparatorBoolean.diff(access_.isInside(), _coords.isInside())) {
                 continue;
             }
-            if (!Point.eq(access_.getInsideBuilding(),
+            if (access_.getInsideBuilding() == null) {
+                if (_coords.getInsideBuilding() != null) {
+                    continue;
+                }
+            } else if (_coords.getInsideBuilding() == null){
+                continue;
+            } else if (!Point.eq(access_.getInsideBuilding(),
                     _coords.getInsideBuilding())) {
                 continue;
             }

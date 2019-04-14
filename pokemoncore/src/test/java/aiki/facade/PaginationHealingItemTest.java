@@ -2,6 +2,7 @@ package aiki.facade;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -228,8 +229,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -269,8 +270,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -310,8 +311,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpHp().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -352,8 +353,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpHealOneMove().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -394,8 +395,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpHealOneMove().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(ELIXIR, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -436,8 +437,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpKo().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -477,8 +478,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpPp().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -519,8 +520,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpNbHealedStatus().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(ELIXIR, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -561,8 +562,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpStatistics().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(ELIXIR, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -603,8 +604,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpRelativeRateHp().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -645,8 +646,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpRelativeRatePp().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(HUILE, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -686,8 +687,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(BAIE_ORAN, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -726,8 +727,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpNumber().setIncreasing(SelectedBoolean.YES);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
@@ -766,14 +767,96 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.getCmpRateHp().setIncreasing(SelectedBoolean.NO);
         pagination_.sort();
         assertEq(2, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         itemName_ = pagination_.getResults().getVal(sorted_.get(0));
         assertEq(POTION, itemName_);
         itemName_ = pagination_.getResults().getVal(sorted_.get(1));
         assertEq(BAIE_ORAN, itemName_);
     }
 
+    @Test
+    public void sort15Test() {
+        PaginationHealingItem pagination_;
+        pagination_ = new PaginationHealingItem();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingHealingItem sorting_;
+        String itemName_;
+        sorting_ = new SortingHealingItem();
+        sorting_.setName(BAIE_ORAN);
+        sorting_.setItemClass(BERRY);
+        sorting_.setPrice(50);
+        sorting_.setHp(new Rate("20"));
+        sorting_.setHpRate(Rate.zero());
+        sorting_.setPp(Rate.zero());
+        sorting_.setIndex(0);
+        itemName_ = BAIE_ORAN;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingHealingItem();
+        sorting_.setName(POTION);
+        sorting_.setItemClass(HEALING_ITEM);
+        sorting_.setPrice(25);
+        sorting_.setHp(new Rate("30"));
+        sorting_.setHpRate(Rate.zero());
+        sorting_.setPp(Rate.zero());
+        sorting_.setIndex(1);
+        itemName_ = POTION;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpHp().setPriority(2);
+        pagination_.getCmpHp().setIncreasing(SelectedBoolean.YES_AND_NO);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(BAIE_ORAN, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(POTION, itemName_);
+    }
+
+    @Test
+    public void sort16Test() {
+        PaginationHealingItem pagination_;
+        pagination_ = new PaginationHealingItem();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingHealingItem sorting_;
+        String itemName_;
+        sorting_ = new SortingHealingItem();
+        sorting_.setName(HUILE);
+        sorting_.setItemClass(PP);
+        sorting_.setPrice(50);
+        sorting_.setHp(new Rate("20"));
+        sorting_.setHpRate(Rate.zero());
+        sorting_.setPp(new Rate("10"));
+        sorting_.setIndex(0);
+        itemName_ = HUILE;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingHealingItem();
+        sorting_.setName(HUILE_MAX);
+        sorting_.setItemClass(PP);
+        sorting_.setPrice(25);
+        sorting_.setHp(new Rate("30"));
+        sorting_.setHpRate(Rate.zero());
+        sorting_.setPp(new Rate("10"));
+        sorting_.setRelativeRatePp(true);
+        sorting_.setIndex(1);
+        itemName_ = HUILE_MAX;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpRelativeRatePp().setPriority(2);
+        pagination_.getCmpRelativeRatePp().setIncreasing(SelectedBoolean.YES_AND_NO);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(HUILE, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(HUILE_MAX, itemName_);
+    }
     @Test
     public void search1Test() {
         StringList items_;
@@ -802,9 +885,9 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(4, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         SortingHealingItem elt_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(BAIE_MEPO, itemName_);
@@ -912,8 +995,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(6, pagination_.getResults().size());
         String itemName_;
         SortingHealingItem elt_;
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(BAIE_ORAN, itemName_);
@@ -1054,8 +1137,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(4, pagination_.getResults().size());
         String itemName_;
         SortingHealingItem elt_;
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(BAIE_ORAN, itemName_);
@@ -1163,8 +1246,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(4, pagination_.getResults().size());
         String itemName_;
         SortingHealingItem elt_;
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(HUILE, itemName_);
@@ -1272,8 +1355,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(3, pagination_.getResults().size());
         String itemName_;
         SortingHealingItem elt_;
-        EqList<SortingHealingItem> sorted_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        CustList<SortingHealingItem> sorted_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(REVEIL, itemName_);
@@ -1366,7 +1449,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -1405,7 +1488,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -1443,7 +1526,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
         assertEq(REVEIL, sorted_.get(0).getName());
@@ -1483,7 +1566,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
         assertEq(BAIE_LANSAT, sorted_.get(0).getName());
@@ -1522,7 +1605,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -1557,7 +1640,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(1, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(1, sorted_.size());
         assertEq(RAPPEL, sorted_.get(0).getName());
@@ -1596,7 +1679,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -1635,9 +1718,9 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(4, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         SortingHealingItem elt_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(BAIE_MEPO, itemName_);
@@ -1743,7 +1826,7 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         sorted_ = pagination_.getRendered();
         assertEq(0, sorted_.size());
         assertEq(-1, pagination_.getNumberPage());
@@ -1779,9 +1862,9 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_.search(items_, _data_);
         assertEq(4, pagination_.getResults().size());
         String itemName_;
-        EqList<SortingHealingItem> sorted_;
+        CustList<SortingHealingItem> sorted_;
         SortingHealingItem elt_;
-        sorted_ = new EqList<SortingHealingItem>(pagination_.getResults().getKeys());
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
         elt_ = sorted_.get(0);
         itemName_ = pagination_.getResults().getVal(elt_);
         assertEq(POTION_MAX, itemName_);
@@ -1893,4 +1976,79 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         assertEq(-1, pagination_.getLine());
     }
 
+    @Test
+    public void search16Test() {
+        StringList items_;
+        items_ = new StringList();
+        items_.add(BAIE_ORAN);
+        items_.add(BAIE_MEPO);
+        items_.add(POTION);
+        items_.add(HUILE);
+        items_.add(HUILE_MAX);
+        items_.add(ELIXIR);
+        items_.add(REVEIL);
+        items_.add(BAIE_LANSAT);
+        items_.add(POTION_MAX);
+        items_.add(RAPPEL);
+        items_.add(BAIE_GOWAV);
+        items_.add(PETIT_RAPPEL);
+        Inventory inv_;
+        inv_ = new Inventory(_data_);
+        inv_.getItem(BAIE_MEPO);
+        PaginationHealingItem pagination_;
+        pagination_ = new PaginationHealingItem();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setMaxRateHp(new Rate("3/8"));
+        //pagination_.getCriteria().setSelectedClass(Berry.class);
+        pagination_.setInventory(inv_);
+        pagination_.search(items_, _data_);
+        assertEq(10, pagination_.getResults().size());
+        String itemName_;
+        CustList<SortingHealingItem> sorted_;
+        SortingHealingItem elt_;
+        sorted_ = new CustList<SortingHealingItem>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(BAIE_ORAN, itemName_);
+        assertEq(BAIE_ORAN, elt_.getName());
+        assertEq(BAIE_ORAN, elt_.getKeyName());
+        assertEq(LgInt.zero(), elt_.getNumber());
+        assertEq(0, elt_.getNbHealedStatus());
+        assertEq(0, elt_.getNbStatistics());
+        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(200, elt_.getPrice());
+        assertTrue(!elt_.isHealOneMove());
+        assertTrue(!elt_.isKo());
+        //assertTrue(elt_.isRelativeRateHp());
+        assertTrue(!elt_.isRelativeRatePp());
+        assertEq(new Rate(10),elt_.getHp());
+        assertEq(Rate.zero(), elt_.getPp());
+        assertEq(new Rate("0"), elt_.getHpRate());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(BAIE_MEPO, itemName_);
+        assertEq(BAIE_MEPO, elt_.getName());
+        assertEq(BAIE_MEPO, elt_.getKeyName());
+        assertEq(LgInt.one(), elt_.getNumber());
+        assertEq(0, elt_.getNbHealedStatus());
+        assertEq(0, elt_.getNbStatistics());
+        assertEq(Berry.ITEM, elt_.getItemClass());
+        assertEq(200, elt_.getPrice());
+        assertTrue(elt_.isHealOneMove());
+        assertTrue(!elt_.isKo());
+        //assertTrue(elt_.isRelativeRateHp());
+        assertTrue(!elt_.isRelativeRatePp());
+        assertEq(Rate.zero(),elt_.getHp());
+        assertEq(new Rate("10"), elt_.getPp());
+        assertEq(new Rate("0"), elt_.getHpRate());
+
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(BAIE_ORAN, sorted_.get(0).getName());
+        assertEq(200, sorted_.get(0).getPrice());
+        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
 }

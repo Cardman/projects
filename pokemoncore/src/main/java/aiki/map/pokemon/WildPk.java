@@ -30,19 +30,7 @@ public final class WildPk extends Pokemon implements Equallable<WildPk> {
         item = DataBase.EMPTY_STRING;
     }
 
-//    public WildPk(Pokemon _pk) {
-////        super(_pk);
-//        name = _pk.getName();
-//        level = _pk.getLevel();
-//        gender = _pk.getGender();
-//        ability = _pk.getAbility();
-//        item = _pk.getItem();
-//    }
-
     public static boolean eq(WildPk _wildOne, WildPk _wildTwo) {
-        if (_wildOne == null) {
-            return _wildTwo == null;
-        }
         return _wildOne.eq(_wildTwo);
     }
 
@@ -117,16 +105,4 @@ public final class WildPk extends Pokemon implements Equallable<WildPk> {
         item = _item;
     }
 
-//    @Override
-//    public void beforeSave() {
-//        name = getName();
-//        level = getLevel();
-//        ability = getAbility();
-//        gender = getGender();
-//        item = getItem();
-//    }
-//
-//    @Override
-//    public void afterLoad() {
-//    }
 }
