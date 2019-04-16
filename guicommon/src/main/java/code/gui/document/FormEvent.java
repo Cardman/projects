@@ -9,6 +9,7 @@ import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 public class FormEvent extends MouseAdapter {
@@ -38,9 +39,9 @@ public class FormEvent extends MouseAdapter {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(true);
         String nbForm_ = form.getAttribute("n-f");
-        htmlPage_.setUrl(Long.parseLong(nbForm_));
+        htmlPage_.setUrl(Numbers.parseLongZero(nbForm_));
         NatTreeMap<Long,NodeContainer> inputsMap_;
-        inputsMap_ = htmlPage_.getContainers().getVal(Long.parseLong(nbForm_));
+        inputsMap_ = htmlPage_.getContainers().getVal(Numbers.parseLongZero(nbForm_));
         DualComponent current_ = form_.getChildren().first();
         while (true) {
             if (current_ instanceof DualInput) {

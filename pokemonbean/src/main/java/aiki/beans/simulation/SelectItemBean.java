@@ -6,6 +6,7 @@ import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -61,7 +62,7 @@ public class SelectItemBean extends CommonBean {
     }
     public String search() {
         if (!typedPrice.isEmpty()) {
-            price = Integer.parseInt(typedPrice);
+            price = Numbers.parseInt(typedPrice);
         } else {
             price = null;
         }

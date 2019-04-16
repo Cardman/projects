@@ -1,4 +1,5 @@
 package aiki.fight.util;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -12,8 +13,8 @@ public final class StatBaseEv implements Displayable{
 
     public StatBaseEv(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        base = Short.parseShort(elements_.first());
-        ev = Short.parseShort(elements_.last());
+        base = (short) Numbers.parseInt(elements_.first());
+        ev = (short) Numbers.parseInt(elements_.last());
     }
 
     public StatBaseEv(short _base, short _ev) {

@@ -11,6 +11,7 @@ import java.util.zip.ZipOutputStream;
 import javax.imageio.ImageIO;
 
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -65,13 +66,13 @@ public final class StreamImageFile {
     public static BufferedImage imageTxtToBuffer(String _imgTxt) {
         try {
             StringList infos_ = StringList.splitStrings(_imgTxt, COMMA);
-            int w_ = Integer.parseInt(infos_.first());
+            int w_ = Numbers.parseInt(infos_.first());
             int h_ = (infos_.size() - 1) / w_;
             BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
             int n_ = 1;
             for (int i = CustList.FIRST_INDEX;i<h_;i++) {
                 for (int j = CustList.FIRST_INDEX;j<w_;j++) {
-                    image_.setRGB(j, i, Integer.parseInt(infos_.get(n_)));
+                    image_.setRGB(j, i, Numbers.parseInt(infos_.get(n_)));
                     n_++;
                 }
             }

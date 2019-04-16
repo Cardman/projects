@@ -1,5 +1,6 @@
 package code.maths.geo;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -27,10 +28,10 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
     
     public static Rect newRect(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
-        int left_ = Integer.parseInt(elts_.first());
-        int top_ = Integer.parseInt(elts_.get(1));
-        int width_ = Integer.parseInt(elts_.get(2));
-        int height_ = Integer.parseInt(elts_.last());
+        int left_ = Numbers.parseInt(elts_.first());
+        int top_ = Numbers.parseInt(elts_.get(1));
+        int width_ = Numbers.parseInt(elts_.get(2));
+        int height_ = Numbers.parseInt(elts_.last());
         Rect r_ = new Rect();
         r_.left = left_;
         r_.top = top_;

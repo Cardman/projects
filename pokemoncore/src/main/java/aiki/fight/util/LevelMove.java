@@ -17,7 +17,7 @@ public final class LevelMove implements Equallable<LevelMove>, Displayable {
 
     public LevelMove(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        level = Short.parseShort(elements_.first());
+        level = (short) Numbers.parseInt(elements_.first());
         move = elements_.last();
     }
 

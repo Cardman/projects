@@ -669,7 +669,7 @@ public final class Navigation {
             Struct obj_ = nCont_.getTypedStruct();
             Numbers<Long> indexes_ = new Numbers<Long>();
             for (String n: positiveNumbers(simpleKey_)) {
-                indexes_.add(Long.parseLong(n));
+                indexes_.add(Numbers.parseLongZero(n));
             }
             String changingValue_ = EMPTY_STRING;
             nCont_.getNodeInformation().setChanging(changingValue_);
@@ -748,7 +748,7 @@ public final class Navigation {
             if (idInput_.isEmpty()) {
                 continue;
             }
-            NodeContainer nCont_ = containers_.getVal(Long.parseLong(idInput_));
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),TEXT)) {
                 elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
                 continue;
@@ -789,7 +789,7 @@ public final class Navigation {
             if (idInput_.isEmpty()) {
                 continue;
             }
-            NodeContainer nCont_ = containers_.getVal(Long.parseLong(idInput_));
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
             ElementList options_ = elt_.getElementsByTagName(TAG_OPTION);
             int optionsLen_ = options_.getLength();
             for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
@@ -809,7 +809,7 @@ public final class Navigation {
             if (idInput_.isEmpty()) {
                 continue;
             }
-            NodeContainer nCont_ = containers_.getVal(Long.parseLong(idInput_));
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = CustList.FIRST_INDEX; j < ch_; j++) {

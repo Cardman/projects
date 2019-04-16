@@ -1,4 +1,5 @@
 package code.images;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -21,7 +22,7 @@ public final class ImageDelay implements Displayable {
     public ImageDelay(String _str) {
         StringList infos_ = StringList.splitChars(_str, SEPARATOR_IMAGE_DELAY);
         image = new Image(infos_.first());
-        delay = Long.parseLong(infos_.last());
+        delay = Numbers.parseLongZero(infos_.last());
     }
 
     

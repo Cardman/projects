@@ -1,4 +1,5 @@
 package code.maths.geo;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -21,9 +22,9 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims>,
     
     public static CustPointThreeDims newCustPointThreeDims(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
-        int x_ = Integer.parseInt(elts_.first());
-        int y_ = Integer.parseInt(elts_.get(1));
-        int z_ = Integer.parseInt(elts_.last());
+        int x_ = Numbers.parseInt(elts_.first());
+        int y_ = Numbers.parseInt(elts_.get(1));
+        int z_ = Numbers.parseInt(elts_.last());
         return new CustPointThreeDims(x_, y_, z_);
     }
 

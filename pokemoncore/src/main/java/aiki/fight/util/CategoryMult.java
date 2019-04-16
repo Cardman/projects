@@ -23,7 +23,7 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
     public CategoryMult(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
         category = elements_.first();
-        mult = Short.parseShort(elements_.last());
+        mult = (short) Numbers.parseInt(elements_.last());
     }
 
     

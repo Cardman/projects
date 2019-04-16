@@ -12,6 +12,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 
 public class TargetLabel {
@@ -214,7 +215,7 @@ public class TargetLabel {
             g_.setColor(Color.BLUE);
             g_.drawString(percentExp.toNumberString(), 0, h_);
             h_ += heightString_;
-            int rate_ = Integer.parseInt(percentHp.toNumberString());
+            int rate_ = Numbers.parseInt(percentHp.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;

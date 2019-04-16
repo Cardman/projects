@@ -916,7 +916,7 @@ public final class DocumentBuilder {
                 if (equals_) {
                     String strValue_ = k.getValue();
                     strValue_ = strValue_.substring(2, strValue_.length() - 1);
-                    int ascii_ = Integer.parseInt(strValue_);
+                    int ascii_ = Numbers.parseInt(strValue_);
                     char char_ = (char) ascii_;
                     str_.append(char_);
                     i_++;
@@ -3700,7 +3700,7 @@ public final class DocumentBuilder {
                                 nbArg_.append(charArg_);
                                 charArg_ = arg_.charAt(j_);
                             }
-                            int intArg_ = Integer.parseInt(nbArg_.toString());
+                            int intArg_ = Numbers.parseInt(nbArg_.toString());
                             formatted_.append((char)intArg_);
                             j_++;
                             continue;
@@ -3714,7 +3714,7 @@ public final class DocumentBuilder {
                         }
                         String convered_ = DocumentBuilder.encodeHtml(strArg_.append(END_ESCAPED).toString());
                         convered_ = convered_.substring(CustList.SECOND_INDEX + 1, convered_.length() - 1);
-                        int intArg_ = Integer.parseInt(convered_);
+                        int intArg_ = Numbers.parseInt(convered_);
                         formatted_.append((char)intArg_);
                         j_++;
                         continue;

@@ -7,6 +7,7 @@ import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.Numbers;
 
 public class AnchorEvent extends MouseAdapter {
 
@@ -38,7 +39,7 @@ public class AnchorEvent extends MouseAdapter {
         }
         long na_ = CustList.INDEX_NOT_FOUND_ELT;
         if (anchor.hasAttribute("n-a")) {
-            na_ = Long.parseLong(anchor.getAttribute("n-a"));
+            na_ = Numbers.parseLongZero(anchor.getAttribute("n-a"));
         }
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);

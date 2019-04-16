@@ -2165,7 +2165,7 @@ public class DataBase implements WithMathFactory {
         for (String l : tmHm_) {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = Short.parseShort(infos_.first().substring(2));
+                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
                 tm.put(cle_, infos_.get(1));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
@@ -2178,7 +2178,7 @@ public class DataBase implements WithMathFactory {
             }
             if (l.startsWith(CS)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = Short.parseShort(infos_.first().substring(2));
+                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
                 hm.put(cle_, infos_.get(1));
             }
         }
@@ -2556,7 +2556,7 @@ public class DataBase implements WithMathFactory {
             }
             lawsDamageRate.put(
                     DifficultyModelLaw.getModelByName(infos_.first()),
-                    new LawNumber(law_, Short.parseShort(infos_.last())));
+                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType, String>();
         StringList courbes_ = StringList.splitChars(
@@ -2927,7 +2927,7 @@ public class DataBase implements WithMathFactory {
         for (String l : tmHm_) {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = Short.parseShort(infos_.first().substring(2));
+                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
                 tm.put(cle_, infos_.get(1));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
@@ -2940,7 +2940,7 @@ public class DataBase implements WithMathFactory {
             }
             if (l.startsWith(CS)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = Short.parseShort(infos_.first().substring(2));
+                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
                 hm.put(cle_, infos_.get(1));
             }
         }
@@ -3117,7 +3117,7 @@ public class DataBase implements WithMathFactory {
             }
             lawsDamageRate.put(
                     DifficultyModelLaw.getModelByName(infos_.first()),
-                    new LawNumber(law_, Short.parseShort(infos_.last())));
+                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType, String>();
         StringList courbes_ = StringList.splitChars(ResourceFiles

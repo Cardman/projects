@@ -14,8 +14,8 @@ public final class MiniMapCoords implements Equallable<MiniMapCoords>, Displayab
 
     MiniMapCoords(String _value) {
         StringList list_ = StringList.splitChars(_value, SEPARATOR);
-        xCoords = Short.parseShort(list_.first());
-        yCoords = Short.parseShort(list_.last());
+        xCoords = (short) Numbers.parseInt(list_.first());
+        yCoords = (short) Numbers.parseInt(list_.last());
     }
 
     public MiniMapCoords(short _x, short _y) {

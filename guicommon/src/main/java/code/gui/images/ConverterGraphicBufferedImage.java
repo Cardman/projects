@@ -107,7 +107,7 @@ public final class ConverterGraphicBufferedImage {
     }
     public static BufferedImage toRenderedImageQuick(String _txt) {
         StringList lines_ = StringList.splitChars(_txt, Image.SEPARATOR_CHAR);
-        int w_ = Integer.parseInt(lines_.first());
+        int w_ = Numbers.parseInt(lines_.first());
         int h_;
         if (w_ == 0) {
             h_ = 0;
@@ -118,7 +118,7 @@ public final class ConverterGraphicBufferedImage {
         for (int i = CustList.FIRST_INDEX;i<h_;i++) {
             for (int j = CustList.FIRST_INDEX;j<w_;j++) {
                 int index_ = j + w_ * i + 1;
-                int int_ = Integer.parseInt(lines_.get(index_));
+                int int_ = Numbers.parseInt(lines_.get(index_));
                 if (int_ == -1) {
                     image_.setRGB(j, i, getTransparentWhite().getRGB());
                 } else {

@@ -20,6 +20,7 @@ import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -59,7 +60,7 @@ public class ItemsBean extends CommonBean {
     }
     public String search() {
         if (!typedPrice.isEmpty()) {
-            price = Integer.parseInt(typedPrice);
+            price = Numbers.parseInt(typedPrice);
         } else {
             price = null;
         }

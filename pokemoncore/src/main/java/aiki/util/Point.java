@@ -28,8 +28,8 @@ public final class Point implements Equallable<Point>, Displayable {
 
     public Point(String _string) {
         StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        setx(Short.parseShort(elements_.first()));
-        sety(Short.parseShort(elements_.last()));
+        setx((short) Numbers.parseInt(elements_.first()));
+        sety((short) Numbers.parseInt(elements_.last()));
     }
 
     

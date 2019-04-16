@@ -38,7 +38,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
             return;
         }
         StringList elements_ = StringList.splitChars(_string,SEPARATOR);
-        numberPlace = Short.parseShort(elements_.first());
+        numberPlace = (short) Numbers.parseInt(elements_.first());
         if (_string.indexOf(SEPARATOR) == _string.lastIndexOf(SEPARATOR)) {
             insideBuilding = null;
         } else {

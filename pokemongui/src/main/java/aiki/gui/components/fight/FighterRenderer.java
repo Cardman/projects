@@ -13,6 +13,7 @@ import code.gui.GraphicListable;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.Numbers;
 import code.util.StringList;
 
 public class FighterRenderer extends CustCellRender {
@@ -75,7 +76,7 @@ public class FighterRenderer extends CustCellRender {
             _g.setColor(Color.BLACK);
             _g.drawString(KO, sideLength, getHeight());
         } else {
-            int rate_ = Integer.parseInt(intRate.toNumberString());
+            int rate_ = Numbers.parseInt(intRate.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;

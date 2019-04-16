@@ -1,5 +1,6 @@
 package aiki.fight.util;
 import code.maths.Rate;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -13,7 +14,7 @@ public final class BoostHpRate implements Displayable {
 
     public BoostHpRate(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        boost = Byte.parseByte(elements_.first());
+        boost = (byte) Numbers.parseInt(elements_.first());
         hpRate = new Rate(elements_.last());
     }
 

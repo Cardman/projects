@@ -23,7 +23,7 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
 
     public LevelPoint(String _string) {
         StringList elements_ = StringList.splitChars(_string, SEPARATOR);
-        levelIndex = Byte.parseByte(elements_.first());
+        levelIndex = (byte) Numbers.parseInt(elements_.first());
         point = new Point(elements_.last());
     }
 

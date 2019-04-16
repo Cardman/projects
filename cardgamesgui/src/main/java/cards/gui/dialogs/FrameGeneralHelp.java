@@ -114,7 +114,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         StringList cheminsActuels_ = new StringList();
         cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
         HelpIndexes indices_ = new HelpIndexes();
-        indices_.add(Integer.parseInt(element_.getAttribute(POSITION)));
+        indices_.add(Numbers.parseInt(element_.getAttribute(POSITION)));
 //            CustList<CustList<Integer>> cheminsNumeriques_ = new CustList<CustList<Integer>>();
 //            cheminsNumeriques_.add(indices_);
         CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();

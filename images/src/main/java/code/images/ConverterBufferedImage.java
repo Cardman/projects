@@ -180,7 +180,7 @@ public final class ConverterBufferedImage {
         StringList list_ = StringList.splitStrings(_color,_separatorRgb);
         Numbers<Integer> ints_ = new Numbers<Integer>();
         for (String c: list_) {
-            ints_.add(Integer.parseInt(c));
+            ints_.add(Numbers.parseInt(c));
         }
         int rgb_ = Numbers.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
         int[][] pixels_ = new int[_sideLength][_sideLength];

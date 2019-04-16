@@ -91,8 +91,11 @@ final class FightEndRound {
         }
         int nbFrontPk_ = 0;
         boolean notFullTeam_ = false;
-        for(TeamPosition c:FightOrder.fighters(_fight, Fight.FOE)){
+        for(TeamPosition c:FightOrder.fighters(_fight, _team)){
             Fighter creature_=_fight.getFighter(c);
+            if (creature_.isBelongingToPlayer()) {
+                continue;
+            }
             if(creature_.estKo()){
                 continue;
             }
