@@ -737,10 +737,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(info_.getPlace()), error_);
             return;
         }
-        try {
-            game_.changerConfiance();
-        } catch (RuntimeException _0) {
-        }
+        game_.changerConfiance();
         game_.ajouterUneCarteDansPliEnCours(info_.getPlace(), card_);
         if (info_.getChoosenHandful() != Handfuls.NO) {
             EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>();

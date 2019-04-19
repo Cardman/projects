@@ -111,7 +111,7 @@ public final class ResultsTarot extends ResultsGame {
                 scoresDeal_.add((short)0);
             }
         }
-        if(game.getType()==GameType.RANDOM&&game.getNombre()==0|| game.getType() == GameType.EDIT && game.getNombre() <= game.getRegles().getNombreParties()) {
+        if(game.getType()==GameType.RANDOM&&game.getNumber()==0|| game.getType() == GameType.EDIT && game.getNumber() <= game.getRegles().getNombreParties()) {
             long variance9_=0;
             long esperance_=0;
             getScores().add(new Numbers<Long>());

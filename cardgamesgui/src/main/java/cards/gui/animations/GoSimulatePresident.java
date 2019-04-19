@@ -149,24 +149,22 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 if (t_.getNombreDeCartesParJoueur() == 0) {
                     continue;
                 }
+                if (!partie_.getLastStatusDeals().isValidIndex(noDeal_)) {
+                    continue;
+                }
+                if (!partie_.getLastStatusDeals().get(noDeal_).isValidIndex(i)) {
+                    continue;
+                }
                 NumberMap<Integer,NumberMap<Byte,Playing>> lastStatus_;
-                try {
-                    lastStatus_ = partie_.getLastStatusDeals().get(noDeal_).get(i);
-                } catch (RuntimeException _0) {
+                lastStatus_ = partie_.getLastStatusDeals().get(noDeal_).get(i);
+                if (!partie_.getNextPlayerDeals().isValidIndex(noDeal_)) {
+                    continue;
+                }
+                if (!partie_.getNextPlayerDeals().get(noDeal_).isValidIndex(i)) {
                     continue;
                 }
                 NumberMap<Integer,Byte> nextPlayer_;
-                try {
-                    nextPlayer_ = partie_.getNextPlayerDeals().get(noDeal_).get(i);
-                } catch (RuntimeException _0) {
-                    continue;
-                }
-//                CustList<HandPresident> userHands_;
-//                try {
-//                    userHands_ = partie_.getUserHands().get(noDeal_).get(i+1);
-//                } catch (Exception e_) {
-//                    continue;
-//                }
+                nextPlayer_ = partie_.getNextPlayerDeals().get(noDeal_).get(i);
                 byte player_ = t_.getEntameur();
 //                int noUserHand_ = CustList.FIRST_INDEX;
                 int noHand_ = CustList.FIRST_INDEX;

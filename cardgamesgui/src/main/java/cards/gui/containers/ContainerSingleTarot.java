@@ -691,10 +691,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getHelpGame().setEnabledMenu(true);
         //Activer les conseils
         getConsulting().setEnabledMenu(true);
-        try {
-            partieTarot().changerConfiance();
-        } catch (RuntimeException _0) {
-        }
+        partieTarot().changerConfiance();
         getOwner().getTricksHands().setEnabledMenu(true);
         getOwner().getTeams().setEnabledMenu(true);
         afficherMainUtilisateurTarot(true);
@@ -1108,7 +1105,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
-        nombreParties_=partie_.getNombre();
+        nombreParties_=partie_.getNumber();
         int nombreTotalParties_=partie_.getRegles().getNombreParties();
         if(type_==GameType.EDIT&&nombreParties_<nombreTotalParties_) {
             addButtonKeepPlayingEditedDealTarot(buttons_, getMessages().getVal(MainWindow.KEEP_PLAYING_EDITED_DEAL));

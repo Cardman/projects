@@ -80,12 +80,8 @@ public class PokemonRenderer extends CustCellRender {
             int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName());
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(img_);
             remainHp = pk_.getRemainingHp().toNumberString();
-            try {
-                intRate = pk_.rateRemainHp(facade.getData());
-                rateRemain = StringList.concat(intRate.toNumberString(),PER_CENT);
-            } catch (RuntimeException _0) {
-                rateRemain = DataBase.EMPTY_STRING;
-            }
+            intRate = pk_.rateRemainHp(facade.getData());
+            rateRemain = StringList.concat(intRate.toNumberString(),PER_CENT);
             gender = facade.translateGenders(pk_.getGender());
             withItem = !pk_.getItem().isEmpty();
             if (withItem) {
