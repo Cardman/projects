@@ -10,6 +10,6 @@ public enum TeamCrud {
                 return e;
             }
         }
-        return null;
+        return NOTHING;
     }
 }

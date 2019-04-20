@@ -18,10 +18,6 @@ public final class CheckerGamePresidentWithRules {
     }
     public static void check(GamePresident _loadedGame, String _lg) {
         RulesPresident rules_ = _loadedGame.getRegles();
-        if (rules_ == null) {
-            _loadedGame.setError(MESSAGE_ERROR);
-            return;
-        }
         if (!rules_.isValidRules()) {
             _loadedGame.setError(MESSAGE_ERROR);
             return;

@@ -76,27 +76,6 @@ public final class RulesTarot {
         nbDeals = _reglesTarot.nbDeals;
     }
     public boolean isValidRules() {
-        if (mixedCards == null) {
-            return false;
-        }
-        if (miseres == null) {
-            return false;
-        }
-        if (allowedBids == null) {
-            return false;
-        }
-        if (mode == null) {
-            return false;
-        }
-        if (dealing == null) {
-            return false;
-        }
-        if (allowedHandfuls == null) {
-            return false;
-        }
-        if (endDealTarot == null) {
-            return false;
-        }
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
             if (!allowedHandfuls.contains(p)) {
                 return false;

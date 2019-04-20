@@ -27,7 +27,7 @@ public final class NullStruct implements DisplayableStruct, ExportableStringStru
 
     @Override
     public String getClassName(ExecutableCode _contextEl) {
-        return null;
+        return "";
     }
 
     @Override

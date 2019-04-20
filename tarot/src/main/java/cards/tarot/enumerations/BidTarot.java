@@ -76,9 +76,6 @@ public enum BidTarot {
             if (e.getCoefficient() < 0) {
                 continue;
             }
-            if (e.getJeuChien() == null) {
-                continue;
-            }
             if (e.isJouerDonne()) {
                 if (e.getCoefficient() == 0) {
                     continue;

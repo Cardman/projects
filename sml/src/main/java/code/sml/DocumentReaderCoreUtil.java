@@ -11,6 +11,8 @@ import code.util.StringMap;
 
 public final class DocumentReaderCoreUtil {
 
+    private DocumentReaderCoreUtil() {
+    }
     public static boolean isNull(Element _elt) {
         return StringList.quickEq(_elt.getTagName(), "null");
     }

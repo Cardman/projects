@@ -425,6 +425,7 @@ public final class DocumentReaderCardsMultiUtil {
             for (Element c: childElements_) {
                 DocumentReaderPresidentUtil.getResultsPresident(object_,c.getAttribute(ATTR_FIELD),c);
             }
+            return object_;
         }
         if (StringList.quickEq(tagName_, TYPE_TRICKS_HANDS_PRESIDENT)) {
             return DocumentReaderPresidentUtil.getTricksHandsPresident(elt_);
@@ -435,6 +436,7 @@ public final class DocumentReaderCardsMultiUtil {
             for (Element c: childElements_) {
                 DocumentReaderTarotUtil.getResultsTarot(object_,c.getAttribute(ATTR_FIELD),c);
             }
+            return object_;
         }
         if (StringList.quickEq(tagName_, TYPE_TRICKS_HANDS_TAROT)) {
             return DocumentReaderTarotUtil.getTricksHandsTarot(elt_);

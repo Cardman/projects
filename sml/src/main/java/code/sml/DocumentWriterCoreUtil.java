@@ -11,6 +11,8 @@ import code.util.StringMap;
 
 public final class DocumentWriterCoreUtil {
 
+    private DocumentWriterCoreUtil() {
+    }
     public static Element setNull(String _fieldName, Document _document) {
         Element elt_ = _document.createElement("null");
         setFieldName(elt_, _fieldName);

@@ -96,7 +96,7 @@ public final class DocumentReaderAikiMultiUtil {
         if (StringList.quickEq(tagName_, TYPE_SENT_POKEMON)) {
             return getSentPokemon(elt_);
         }
-        return new Bye();
+        return null;
     }
 
     private static ExchangedData getExchangedData(Element _element) {
@@ -248,7 +248,7 @@ public final class DocumentReaderAikiMultiUtil {
             }
             return object_;
         }
-        return new Ready();
+        return null;
     }
 
     private static void getPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Element _element) {
@@ -269,7 +269,7 @@ public final class DocumentReaderAikiMultiUtil {
             }
             return object_;
         }
-        return new Quit();
+        return null;
     }
 
     private static void getPlayerActionGame(PlayerActionGame _object, String _fieldName, Element _element) {

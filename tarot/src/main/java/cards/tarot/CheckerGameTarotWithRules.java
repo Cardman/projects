@@ -32,7 +32,6 @@ public final class CheckerGameTarotWithRules {
     private static final String BAD_COUNT_FOR_REMAINING_CARDS = "Bad count for remaining cards";
     private static final String BAD_COUNT_FOR_DEAL = "Bad count for deal";
     private static final String INVALID_RULES = "invalid rules";
-    private static final String NULL_RULE = "null rule";
     private static final String BAD_CARD = "bad card";
 
     private CheckerGameTarotWithRules() {
@@ -43,10 +42,6 @@ public final class CheckerGameTarotWithRules {
     }
     public static void check(GameTarot _loadedGame, String _lg) {
         RulesTarot rules_ = _loadedGame.getRegles();
-        if (rules_ == null) {
-            _loadedGame.setError(NULL_RULE);
-            return;
-        }
         if (!rules_.isValidRules()) {
             _loadedGame.setError(INVALID_RULES);
             return;

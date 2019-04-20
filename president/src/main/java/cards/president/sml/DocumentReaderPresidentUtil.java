@@ -342,7 +342,7 @@ public final class DocumentReaderPresidentUtil {
                 return e;
             }
         }
-        return null;
+        return CardPresident.WHITE;
     }
 
     private static EqualtyPlaying getEqualtyPlaying(Element _elt) {
@@ -351,7 +351,7 @@ public final class DocumentReaderPresidentUtil {
                 return e;
             }
         }
-        return null;
+        return EqualtyPlaying.SKIP_ALWAYS_NEXT;
     }
 
     public static Playing getPlaying(Element _elt) {
@@ -360,7 +360,7 @@ public final class DocumentReaderPresidentUtil {
                 return e;
             }
         }
-        return null;
+        return Playing.CAN_PLAY;
     }
 
     private static CustList<TrickPresident> getListTrickPresident(Element _elt) {

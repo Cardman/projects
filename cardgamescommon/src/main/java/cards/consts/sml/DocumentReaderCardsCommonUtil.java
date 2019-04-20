@@ -18,7 +18,7 @@ public final class DocumentReaderCardsCommonUtil {
                 return e;
             }
         }
-        return null;
+        return GameType.RANDOM;
     }
 
     public static MixCardsChoice getMixCardsChoice(Element _elt) {
@@ -27,7 +27,7 @@ public final class DocumentReaderCardsCommonUtil {
                 return e;
             }
         }
-        return null;
+        return MixCardsChoice.NEVER;
     }
 
     public static Order getOrder(Element _elt) {
@@ -36,7 +36,7 @@ public final class DocumentReaderCardsCommonUtil {
                 return e;
             }
         }
-        return null;
+        return Order.NOTHING;
     }
 
     public static Suit getSuit(Element _elt) {
@@ -45,7 +45,7 @@ public final class DocumentReaderCardsCommonUtil {
                 return e;
             }
         }
-        return null;
+        return Suit.UNDEFINED;
     }
 
     public static EnumList<Suit> getListSuit(Element _elt) {

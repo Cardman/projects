@@ -44,12 +44,6 @@ public final class RulesPresident {
     }
 
     public boolean isValidRules() {
-        if (mixedCards == null) {
-            return false;
-        }
-        if (equalty == null) {
-            return false;
-        }
         if (nbPlayers < NB_MIN_PLAYERS) {
             return false;
         }

@@ -365,7 +365,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return BidTarot.FOLD;
     }
 
     public static CardTarot getCardTarot(Element _elt) {
@@ -374,7 +374,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return CardTarot.WHITE;
     }
 
     public static DealingTarot getDealingTarot(Element _elt) {
@@ -383,7 +383,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return DealingTarot.DEAL_2_VS_3_CALL_KING;
     }
 
     private static EndDealTarot getEndDealTarot(Element _elt) {
@@ -392,7 +392,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return EndDealTarot.ZERO;
     }
 
     public static Handfuls getHandfuls(Element _elt) {
@@ -401,7 +401,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return Handfuls.NO;
     }
 
     private static Miseres getMiseres(Element _elt) {
@@ -410,7 +410,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return Miseres.TRUMP;
     }
 
     private static ModeTarot getModeTarot(Element _elt) {
@@ -419,7 +419,7 @@ public final class DocumentReaderTarotUtil {
                 return e;
             }
         }
-        return null;
+        return ModeTarot.NORMAL;
     }
 
     private static CustList<TrickTarot> getListTrickTarot(Element _elt) {

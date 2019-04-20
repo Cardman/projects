@@ -397,7 +397,7 @@ public final class DocumentReaderBeloteUtil {
                 return e;
             }
         }
-        return null;
+        return BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP;
     }
 
     private static BidBelote getBidBelote(Element _elt) {
@@ -406,7 +406,7 @@ public final class DocumentReaderBeloteUtil {
                 return e;
             }
         }
-        return null;
+        return BidBelote.FOLD;
     }
 
     public static CardBelote getCardBelote(Element _elt) {
@@ -415,7 +415,7 @@ public final class DocumentReaderBeloteUtil {
                 return e;
             }
         }
-        return null;
+        return CardBelote.WHITE;
     }
 
     public static DealingBelote getDealingBelote(Element _elt) {
@@ -424,7 +424,7 @@ public final class DocumentReaderBeloteUtil {
                 return e;
             }
         }
-        return null;
+        return DealingBelote.CLASSIC_2_VS_2;
     }
 
     private static DeclaresBelote getDeclaresBelote(Element _elt) {
@@ -433,7 +433,7 @@ public final class DocumentReaderBeloteUtil {
                 return e;
             }
         }
-        return null;
+        return DeclaresBelote.UNDEFINED;
     }
 
     private static CustList<TrickBelote> getListTrickBelote(Element _elt) {

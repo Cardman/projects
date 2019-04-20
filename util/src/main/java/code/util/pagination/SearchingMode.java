@@ -10,6 +10,6 @@ public enum SearchingMode {
                 return e;
             }
         }
-        return null;
+        return WHOLE_STRING;
     }
 }

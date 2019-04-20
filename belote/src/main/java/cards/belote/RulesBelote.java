@@ -47,21 +47,6 @@ public final class RulesBelote {
         nbDeals = _reglesBelote.nbDeals;
     }
     public boolean isValidRules() {
-        if (mixedCards == null) {
-            return false;
-        }
-        if (allowedDeclares == null) {
-            return false;
-        }
-        if (trumpPartner == null) {
-            return false;
-        }
-        if (allowedBids == null) {
-            return false;
-        }
-        if (dealing == null) {
-            return false;
-        }
         for(DeclaresBelote a:DeclaresBelote.annoncesValides()){
             if (!allowedDeclares.contains(a)) {
                 return false;
