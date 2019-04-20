@@ -1140,10 +1140,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
             if(index_==_string.length()){
                 return true;
             }
-            if(index_<_string.length()){
-                if(lastSep_.contains(String.valueOf(SPACE_CHAR))){
-                    return true;
-                }
+            if(lastSep_.contains(String.valueOf(SPACE_CHAR))){
+                return true;
             }
             return false;
         }
@@ -1297,9 +1295,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             if(lastSep_.contains(String.valueOf(STRING))){
                 return true;
             }
-            if(_string.length()<=index_+nbZeroOne_){
-                return true;
-            }
+            return _string.length() <= index_ + nbZeroOne_;
         }
         return false;
     }

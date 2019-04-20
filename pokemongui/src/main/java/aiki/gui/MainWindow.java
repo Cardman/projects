@@ -794,16 +794,11 @@ public final class MainWindow extends NetGroupFrame {
         if (fileName_.isEmpty()) {
             return;
         }
-        try {
-            facade.setLoading(true);
-            LoadingThread load_ = new LoadingThread(this, fileName_);
-            LoadGame opening_ = new LoadGame(this);
-            load_.start();
-            opening_.start();
-        } catch (RuntimeException _0) {
-            //if there is no image for the video
-            _0.printStackTrace();
-        }
+        facade.setLoading(true);
+        LoadingThread load_ = new LoadingThread(this, fileName_);
+        LoadGame opening_ = new LoadGame(this);
+        load_.start();
+        opening_.start();
     }
 
     public void loadGame() {
@@ -843,26 +838,18 @@ public final class MainWindow extends NetGroupFrame {
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        try {
-            facade.setLoading(true);
-            Game game_ = load(fileName_, db_);
-            if (game_ != null) {
-                facade.load(game_);
-                gameSave.setEnabledMenu(true);
-                facade.changeCamera();
-                drawGame();
-                savedGame = true;
-                if (battle != null) {
-                    battle.resetWindows();
-                }
-            } else {
-                error_ = true;
+        facade.setLoading(true);
+        Game game_ = load(fileName_, db_);
+        if (game_ != null) {
+            facade.load(game_);
+            gameSave.setEnabledMenu(true);
+            facade.changeCamera();
+            drawGame();
+            savedGame = true;
+            if (battle != null) {
+                battle.resetWindows();
             }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            error_ = true;
-        } catch (VirtualMachineError _0) {
-            _0.printStackTrace();
+        } else {
             error_ = true;
         }
         facade.setLoading(false);

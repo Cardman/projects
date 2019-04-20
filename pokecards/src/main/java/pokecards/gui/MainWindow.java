@@ -93,12 +93,9 @@ public final class MainWindow extends GroupFrame {
             setLanguageKey(_language);
             SoftApplicationCore.saveLanguage(LaunchingPokecards.getTempFolder(), _language);
             int i_ = CustList.SECOND_INDEX;
-            try {
-                while (true) {
-                    GroupFrame.getFrame(i_).changeLanguage(_language);
-                    i_ ++;
-                }
-            } catch (RuntimeException _0) {
+            while (i_ < GroupFrame.getFrameCount()) {
+                GroupFrame.getFrame(i_).changeLanguage(_language);
+                i_ ++;
             }
             selectLangagueButton(_language);
         } else {

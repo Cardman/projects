@@ -56,6 +56,10 @@ public abstract class GroupFrame extends CommonFrame {
         return FRAMES.get(_i);
     }
 
+    protected static int getFrameCount() {
+        return FRAMES.size();
+    }
+
     public abstract void quit();
 
     public abstract String getApplicationName();

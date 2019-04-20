@@ -32,10 +32,10 @@ public final class Image implements Displayable {
 //        string_ = string_.replace(RETURN_LINE2, EMPTY_STRING);
         String string_ = StringList.removeStrings(_contentFile, RETURN_LINE, RETURN_LINE2);
         StringList lines_ = StringList.splitChars(string_, SEPARATOR_CHAR);
-        width = Integer.parseInt(lines_.first());
+        width = Numbers.parseInt(lines_.first());
         int len_ = lines_.size();
         for (int i=CustList.SECOND_INDEX;i<len_;i++) {
-            pixels.add(Integer.parseInt(lines_.get(i)));
+            pixels.add(Numbers.parseInt(lines_.get(i)));
         }
     }
 
@@ -57,12 +57,10 @@ public final class Image implements Displayable {
     public static boolean isValid(String _img) {
         int nb_ = 0;
         for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            try {
-                Integer.parseInt(s);
-                nb_ ++;
-            } catch (Exception _0) {
+            if (!StringList.isNumber(s)) {
                 return false;
             }
+            nb_ ++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
@@ -73,7 +71,7 @@ public final class Image implements Displayable {
             return StringList.quickEq(_img,EMPTY_IMAGE);
         }
         String w_ = _img.substring(0, i_);
-        int width_ = Integer.parseInt(w_);
+        int width_ = Numbers.parseInt(w_);
         if (width_ <= 0) {
             return false;
         }
@@ -92,12 +90,10 @@ public final class Image implements Displayable {
         }
         int nb_ = 0;
         for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            try {
-                Integer.parseInt(s);
-                nb_ ++;
-            } catch (Exception _0) {
+            if (!StringList.isNumber(s)) {
                 return false;
             }
+            nb_ ++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
@@ -122,14 +118,13 @@ public final class Image implements Displayable {
         int nb_ = 0;
         int w_ = -1;
         for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            try {
-                int int_ = Integer.parseInt(s);
-                nb_ ++;
-                if (w_ < 0) {
-                    w_ = int_;
-                }
-            } catch (Exception _0) {
+            if (!StringList.isNumber(s)) {
                 return false;
+            }
+            int int_ = Numbers.parseInt(s);
+            nb_ ++;
+            if (w_ < 0) {
+                w_ = int_;
             }
         }
         if (_img.charAt(0) == MINUS) {
@@ -155,12 +150,10 @@ public final class Image implements Displayable {
         }
         int nb_ = 0;
         for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            try {
-                Integer.parseInt(s);
-                nb_ ++;
-            } catch (Exception _0) {
+            if (!StringList.isNumber(s)) {
                 return false;
             }
+            nb_ ++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
@@ -175,12 +168,10 @@ public final class Image implements Displayable {
     public static boolean isValidNotEmptyScale(String _img, int _sideLength) {
         int nb_ = 0;
         for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            try {
-                Integer.parseInt(s);
-                nb_ ++;
-            } catch (Exception _0) {
+            if (!StringList.isNumber(s)) {
                 return false;
             }
+            nb_ ++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
@@ -191,7 +182,7 @@ public final class Image implements Displayable {
             return false;
         }
         String w_ = _img.substring(0, i_);
-        int width_ = Integer.parseInt(w_);
+        int width_ = Numbers.parseInt(w_);
         if (width_ % _sideLength != 0) {
             return false;
         }
@@ -203,7 +194,7 @@ public final class Image implements Displayable {
         int nb_ = StringList.splitChars(_img, SEPARATOR_CHAR).size() - 1;
         int i_ = _img.indexOf(SEPARATOR_CHAR);
         String w_ = _img.substring(0, i_);
-        int width_ = Integer.parseInt(w_);
+        int width_ = Numbers.parseInt(w_);
         int heigth_ = nb_ / width_;
         return new PairNumber<Integer,Integer>(width_/_sideLength, heigth_/_sideLength);
     }
@@ -227,7 +218,7 @@ public final class Image implements Displayable {
     public static String clip(String _image,int _x,int _y,int _w,int _h) {
         StringList list_ = StringList.splitChars(_image, SEPARATOR_CHAR);
         int nb_ = list_.size() - 1;
-        int width_ = Integer.parseInt(list_.first());
+        int width_ = Numbers.parseInt(list_.first());
         int heigth_ = nb_ / width_;
         int xp_ = Math.min(_x+_w,width_);
         int yp_ = Math.min(_y+_h,heigth_);
