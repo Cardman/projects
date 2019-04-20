@@ -211,8 +211,8 @@ public final class BeloteStandards extends BeanLgNames {
         getStandards().put(TYPE_RULES_BELOTE, std_);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_BELOTE_BEAN)) {
             DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();

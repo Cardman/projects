@@ -46,7 +46,7 @@ public enum SelectedBoolean {
                 return e;
             }
         }
-        return null;
+        return YES_AND_NO;
     }
     public boolean isSelected() {
         return selected;

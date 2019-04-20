@@ -51,7 +51,6 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
             }
         }
         for (EntryCust<Long, Rate> e : rateDamageFunctionOfNbRounds.entryList()) {
-            e.getKey().longValue();
             if (!e.getValue().isZeroOrGt()) {
                 _data.setError(true);
                 return;
@@ -62,7 +61,6 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

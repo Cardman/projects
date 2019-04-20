@@ -24,10 +24,7 @@ import code.gui.LabelButton;
 import code.gui.NumComboBox;
 import code.gui.Panel;
 import code.gui.ScrollPane;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.StringList;
+import code.util.*;
 import code.util.pagination.SearchingMode;
 
 public final class PaginatorPokemon extends Paginator {
@@ -469,16 +466,16 @@ public final class PaginatorPokemon extends Paginator {
 
     @Override
     public void changeDeltaPage() {
-        try {
-            int nbDelta_ = Integer.parseInt(getDelta().getText());
-            if (nbDelta_ <= 0) {
-                return;
-            }
-            getFacade().setDeltaFirstBox(nbDelta_);
-//        }catch(Exception _e){
-        }catch(NumberFormatException _0){
+        String text_ = getDelta().getText();
+        if (text_.isEmpty()) {
             getFacade().setDeltaFirstBox(1);
+            return;
         }
+        int nbDelta_ = Numbers.parseInt(text_);
+        if (nbDelta_ <= 0) {
+            return;
+        }
+        getFacade().setDeltaFirstBox(nbDelta_);
     }
 
     public void refreshLang() {
@@ -700,19 +697,6 @@ public final class PaginatorPokemon extends Paginator {
     }
     private void changeNav() {
         changeNav(getFacade().enabledPreviousFirstBox(), getFacade().enabledNextFirstBox(), getFacade().pagesPk(), getFacade().getNumberPageFirstBox());
-//        previous.setEnabled(getFacade().enabledPreviousFirstBox());
-//        next.setEnabled(getFacade().enabledNextFirstBox());
-//        previousDelta.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        nextDelta.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        begin.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        end.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        adding = true;
-//        try {
-//            pages.setSelectedIndex(getFacade().getNumberPageFirstBox());
-//        } catch (Exception e_) {
-//            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
-//        }
-//        adding = false;
     }
 
     @Override

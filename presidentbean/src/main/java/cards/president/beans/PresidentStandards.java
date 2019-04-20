@@ -109,8 +109,8 @@ public final class PresidentStandards extends BeanLgNames {
         getStandards().put(TYPE_RULES_PRESIDENT, std_);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
@@ -124,7 +124,7 @@ public final class PresidentStandards extends BeanLgNames {
             res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        return super.getOtherResult(_cont, _method, _args);
+        return super.getOtherResultBean(_cont, _method, _args);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {

@@ -24,11 +24,6 @@ public abstract class Status {
     private String fail;
 
     public void validate(DataBase _data) {
-        if (statusType == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
             _data.setError(true);

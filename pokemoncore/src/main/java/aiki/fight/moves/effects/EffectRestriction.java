@@ -13,14 +13,8 @@ public final class EffectRestriction extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (choiceRestriction == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
 
         }
     }

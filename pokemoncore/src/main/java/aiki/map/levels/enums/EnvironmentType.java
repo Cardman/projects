@@ -39,7 +39,7 @@ public enum EnvironmentType {
                 return e;
             }
         }
-        return null;
+        return NOTHING;
     }
     public static EnumList<EnvironmentType> getEnvironments() {
         return new EnumList<EnvironmentType>(values());

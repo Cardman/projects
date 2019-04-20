@@ -913,6 +913,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static AbilityData getAbilityData(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newAbilityData();
+        }
         return getAbilityData(doc_.getDocumentElement());
     }
 
@@ -1274,7 +1277,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newEffectWhileSendingSimple();
     }
 
     private static void getEffectWhileSending(EffectWhileSending _object, String _fieldName, Element _element) {
@@ -1314,7 +1317,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return Statistic.SPEED;
     }
 
     private static void getBall(Ball _object, String _fieldName, Element _element) {
@@ -1475,6 +1478,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static Item getItem(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newItemForBattle();
+        }
         return getItem(doc_.getDocumentElement());
     }
     private static Item getItem(Element _element) {
@@ -1579,7 +1585,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newItemForBattle();
     }
 
     private static void getItem(Item _object, String _fieldName, Element _element) {
@@ -1799,6 +1805,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static MoveData getMoveData(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newDamagingMoveData();
+        }
         return getMoveData(doc_.getDocumentElement());
     }
 
@@ -1820,7 +1829,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newDamagingMoveData();
     }
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
@@ -2259,7 +2268,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newEffectDamage();
     }
 
     private static void getEffect(Effect _object, String _fieldName, Element _element) {
@@ -2531,7 +2540,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newEffectEndRoundIndividual();
     }
 
     private static void getEffectEndRound(EffectEndRound _object, String _fieldName, Element _element) {
@@ -2653,7 +2662,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newEffectEndRoundSingleStatus();
     }
 
     private static void getEffectEndRoundStatus(EffectEndRoundStatus _object, String _fieldName, Element _element) {
@@ -3200,7 +3209,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return ConstValuesType.NOTHING;
     }
 
     private static ExchangeType getExchangeType(Element _elt) {
@@ -3209,7 +3218,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return ExchangeType.NOTHING;
     }
 
     private static MoveChoiceRestrictionType getMoveChoiceRestrictionType(Element _elt) {
@@ -3218,7 +3227,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return MoveChoiceRestrictionType.NOTHING;
     }
 
     private static MoveItemType getMoveItemType(Element _elt) {
@@ -3227,7 +3236,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return MoveItemType.REUSE_LAST_OBJECT;
     }
 
     private static PointViewChangementType getPointViewChangementType(Element _elt) {
@@ -3236,7 +3245,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return PointViewChangementType.NOTHING;
     }
 
     private static SwitchType getSwitchType(Element _elt) {
@@ -3245,7 +3254,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return SwitchType.NOTHING;
     }
 
     private static TargetChoice getTargetChoice(Element _elt) {
@@ -3254,11 +3263,14 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return TargetChoice.NOTHING;
     }
 
     public static PokemonData getPokemonData(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newPokemonData();
+        }
         return getPokemonData(doc_.getDocumentElement());
     }
 
@@ -3364,7 +3376,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return ExpType.M;
     }
 
     private static GenderRepartition getGenderRepartition(Element _elt) {
@@ -3373,7 +3385,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return GenderRepartition.NO_GENDER;
     }
 
     private static Evolution getEvolution(Element _element) {
@@ -3443,7 +3455,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newEvolutionHappiness();
     }
 
     private static void getEvolution(Evolution _object, String _fieldName, Element _element) {
@@ -3509,6 +3521,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static Status getStatus(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newStatusSimple();
+        }
         return getStatus(doc_.getDocumentElement());
     }
 
@@ -3537,7 +3552,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newStatusSimple();
     }
 
     private static void getStatus(Status _object, String _fieldName, Element _element) {
@@ -3625,7 +3640,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return StatusType.INDIVIDUEL;
     }
 
     private static EffectPartnerStatus getEffectPartnerStatus(Element _element) {
@@ -3702,6 +3717,13 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static Game getGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return null;
+        }
+        String tagName_ = doc_.getDocumentElement().getTagName();
+        if (StringList.quickEq(tagName_,"LoadingGame")) {
+            return null;
+        }
         return getGame(doc_.getDocumentElement());
     }
 
@@ -4340,7 +4362,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newAction();
     }
 
     private static void getAbstractAction(AbstractAction _object, String _fieldName, Element _element) {
@@ -4401,7 +4423,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return FightState.RIEN;
     }
 
     private static FightType getFightType(Element _elt) {
@@ -4410,7 +4432,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return FightType.NOTHING;
     }
 
     private static AffectedMove getAffectedMove(Element _elt) {
@@ -4527,6 +4549,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static LoadingGame getLoadingGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
+        if (doc_ == null) {
+            return Instances.newLoadingGame();
+        }
         return getLoadingGame(doc_.getDocumentElement());
     }
 
@@ -4592,7 +4617,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return DifficultyModelLaw.UNIFORME;
     }
 
     private static DifficultyWinPointsFight getDifficultyWinPointsFight(Element _elt) {
@@ -4601,7 +4626,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return DifficultyWinPointsFight.TRES_FACILE;
     }
 
     private static Inventory getInventory(Element _element) {
@@ -4673,12 +4698,13 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static Sex getSex(Element _elt) {
-        for (Sex e: Sex.values()) {
+        Sex[] values_ = Sex.values();
+        for (Sex e: values_) {
             if (StringList.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
                 return e;
             }
         }
-        return null;
+        return values_[0];
     }
 
     public static DataMap getDataMap(String _string) {
@@ -4760,7 +4786,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newPokemonCenter();
     }
 
     private static void getBuilding(Building _object, String _fieldName, Element _element) {
@@ -4824,7 +4850,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newDealerItem();
     }
 
     private static void getDealerItem(DealerItem _object, String _fieldName, Element _element) {
@@ -4976,7 +5002,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newDealerItem();
     }
 
     private static void getPerson(Person _object, String _fieldName, Element _element) {
@@ -5074,7 +5100,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return GeranceType.HEAL;
     }
 
     private static SellType getSellType(Element _elt) {
@@ -5083,7 +5109,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return SellType.ITEM;
     }
 
     private static Direction getDirection(Element _elt) {
@@ -5092,7 +5118,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return Direction.UP;
     }
 
     private static AreaApparition getAreaApparition(Element _element) {
@@ -5326,7 +5352,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return EnvironmentType.NOTHING;
     }
 
     private static void getCave(Cave _object, String _fieldName, Element _element) {
@@ -5422,7 +5448,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newRoad();
     }
 
     private static void getRoad(Road _object, String _fieldName, Element _element) {
@@ -5592,7 +5618,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return null;
+        return Instances.newPokemonPlayer();
     }
 
     private static WildPk getWildPk(Element _element) {
@@ -5634,7 +5660,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return e;
             }
         }
-        return null;
+        return Gender.NO_GENDER;
     }
 
     private static MiniMapCoords getMiniMapCoords(Element _elt) {

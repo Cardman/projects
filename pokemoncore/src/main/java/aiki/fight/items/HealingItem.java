@@ -26,11 +26,6 @@ public abstract class HealingItem extends Item {
 
             }
             Item obj_ = _data.getItem(k);
-            if (obj_ == null) {
-                _data.setError(true);
-                return;
-
-            }
             if (!(obj_ instanceof Ball)) {
                 _data.setError(true);
                 return;

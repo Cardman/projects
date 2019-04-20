@@ -98,7 +98,6 @@ public final class EffectStatus extends Effect {
         events_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
-            return;
 
         }
     }

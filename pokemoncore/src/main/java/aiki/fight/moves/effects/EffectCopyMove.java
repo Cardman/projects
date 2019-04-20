@@ -36,7 +36,6 @@ public final class EffectCopyMove extends Effect {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

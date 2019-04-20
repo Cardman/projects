@@ -54,16 +54,6 @@ public abstract class MoveData {
             return;
 
         }
-        if (switchType == null) {
-            _data.setError(true);
-            return;
-
-        }
-        if (targetChoice == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (targetChoice == TargetChoice.NOTHING) {
             _data.setError(true);
             return;
@@ -143,7 +133,7 @@ public abstract class MoveData {
                     return;
 
                 }
-                if (e.getMinimum() <= index_) {
+                if (e.getMinimum(-2) <= index_) {
                     _data.setError(true);
                     return;
 
@@ -242,7 +232,7 @@ public abstract class MoveData {
                 }
             } else {
                 if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
-                    if (effect_.getRequiredSuccessfulEffects().getMaximum() >= i) {
+                    if (effect_.getRequiredSuccessfulEffects().getMaximum(nbEffects_) >= i) {
                         _data.setError(true);
                         return;
 

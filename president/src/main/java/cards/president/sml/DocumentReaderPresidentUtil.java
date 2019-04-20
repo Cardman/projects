@@ -86,6 +86,9 @@ public final class DocumentReaderPresidentUtil {
 
     public static DisplayingPresident getDisplayingPresident(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new DisplayingPresident();
+        }
         return getDisplayingPresident(doc_.getDocumentElement());
     }
 
@@ -171,6 +174,9 @@ public final class DocumentReaderPresidentUtil {
 
     public static HandPresident getHandPresident(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new HandPresident();
+        }
         return getHandPresident(doc_.getDocumentElement());
     }
 
@@ -212,6 +218,9 @@ public final class DocumentReaderPresidentUtil {
 
     public static RulesPresident getRulesPresident(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new RulesPresident();
+        }
         return getRulesPresident(doc_.getDocumentElement());
     }
 

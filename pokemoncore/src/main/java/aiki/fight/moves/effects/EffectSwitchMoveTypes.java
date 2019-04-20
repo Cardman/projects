@@ -28,7 +28,6 @@ public final class EffectSwitchMoveTypes extends Effect {
         }
         if (!_data.getTypes().containsAllObj(replacingTypes)) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -10,6 +10,6 @@ public enum ExpType {
                 return e;
             }
         }
-        return null;
+        return M;
     }
 }

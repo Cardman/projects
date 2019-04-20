@@ -17,7 +17,6 @@ public abstract class Item {
     public void validate(DataBase _data) {
         if (price < 0) {
             _data.setError(true);
-            return;
 
         }
     }

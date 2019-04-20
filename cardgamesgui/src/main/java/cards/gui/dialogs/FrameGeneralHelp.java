@@ -105,7 +105,6 @@ public final class FrameGeneralHelp extends ChildFrame {
         messages = getMessages(_w,FileConst.FOLDER_MESSAGES_GUI);
         String lg_ = _w.getLanguageKey();
         elementsBis.clear();
-//        try {
         Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,
                 StreamTextFile.SEPARATEUR,XML_FILE_PATHS)));
         Element element_ = doc_.getDocumentElement();
@@ -115,14 +114,10 @@ public final class FrameGeneralHelp extends ChildFrame {
         cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
         HelpIndexes indices_ = new HelpIndexes();
         indices_.add(Numbers.parseInt(element_.getAttribute(POSITION)));
-//            CustList<CustList<Integer>> cheminsNumeriques_ = new CustList<CustList<Integer>>();
-//            cheminsNumeriques_.add(indices_);
         CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
         cheminsNumeriquesActuels_.add(indices_);
         ElementHelp elementRacine_ = new ElementHelp(element_
                 .getAttribute(TEXTE));
-//            elementRacine_.ajouterInfo(StreamTextFile.ressourceFichier(
-//                    FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage(), element_.getNodeName() + FileConst.TXT_EXT));
         elementRacine_.ajouterInfo(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_, StreamTextFile.SEPARATEUR,
                 element_.getTagName(), FileConst.XML_EXT));
         elementsBis.put(indices_, elementRacine_);
@@ -136,20 +131,11 @@ public final class FrameGeneralHelp extends ChildFrame {
                 HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
                         .get(j_);
                 for (Element e2_ : e.getChildElements()) {
-//                        NamedNodeMap attributs_ = e2_.getAttributes();
                     if (e2_.hasAttributes()) {
-                        //Node typeNoeud_ = attributs_.getNamedItem(TYPE);
-//                            String typeInfo_ = EMPTY_STRING;
-//                            if (typeNoeud_ != null) {
-//                                typeInfo_ = typeNoeud_.getNodeValue();
-//                            }
                         ElementHelp noeud_ = new ElementHelp(e2_
                                 .getAttribute(TEXTE));
                         nouveauxChemins_.add(StringList.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName()));
-                        // + infos
-//                            noeud_.ajouterInfo(StreamTextFile.ressourceFichier(
-//                                    cheminCourant_, e2.getNodeName() + FileConst.TXT_EXT));
                         noeud_.ajouterInfo(StringList.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName(), FileConst.XML_EXT));
                         nouveauxElements_.add(e2_);
@@ -165,9 +151,6 @@ public final class FrameGeneralHelp extends ChildFrame {
                 }
                 j_++;
             }
-//                for (CustList<Integer> c : nouveauxCheminsNum_) {
-//                    cheminsNumeriques_.add(c);
-//                }
             if (nouveauxElements_.isEmpty()) {
                 break;
             }
@@ -175,10 +158,6 @@ public final class FrameGeneralHelp extends ChildFrame {
             cheminsActuels_ = nouveauxChemins_;
             cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
         }
-
-//        } catch (RuntimeException _0) {
-//            _0.printStackTrace();
-//        }
         setFocusable(true);
         setFocusableWindowState(true);
         CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
@@ -200,24 +179,19 @@ public final class FrameGeneralHelp extends ChildFrame {
         for (HelpIndexes chemin_ : cles_) {
             Numbers<Integer> cheminSansNoeud_ = chemin_.mid(CustList.FIRST_INDEX,
                     chemin_.getLastIndex());
-            NodeHelp noeudLoc_ = null;
-            DefaultMutableTreeNode noeudLocGraphique_ = null;
-            try {
-                noeudLoc_ = racineBis.element(cheminSansNoeud_);
-                if (cheminSansNoeud_.isEmpty()) {
-                    noeudLocGraphique_ = root_;
-                } else {
-                    noeudLocGraphique_ = (DefaultMutableTreeNode) root_
-                            .getChildAt(cheminSansNoeud_.first());
-                    int lengthPath_ = cheminSansNoeud_.size();
-                    for (int indice_ = CustList.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
-                        noeudLocGraphique_ = (DefaultMutableTreeNode) noeudLocGraphique_
-                                .getChildAt(cheminSansNoeud_.get(indice_));
-                    }
-                }
-            } catch (RuntimeException _0) {
-                noeudLoc_ = racineBis;
+            NodeHelp noeudLoc_;
+            DefaultMutableTreeNode noeudLocGraphique_;
+            noeudLoc_ = racineBis.element(cheminSansNoeud_);
+            if (cheminSansNoeud_.isEmpty()) {
                 noeudLocGraphique_ = root_;
+            } else {
+                noeudLocGraphique_ = (DefaultMutableTreeNode) root_
+                        .getChildAt(cheminSansNoeud_.first());
+                int lengthPath_ = cheminSansNoeud_.size();
+                for (int indice_ = CustList.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
+                    noeudLocGraphique_ = (DefaultMutableTreeNode) noeudLocGraphique_
+                            .getChildAt(cheminSansNoeud_.get(indice_));
+                }
             }
             ElementHelp elementLoc_ = elementsBis.getVal(chemin_);
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
@@ -225,51 +199,31 @@ public final class FrameGeneralHelp extends ChildFrame {
             noeudLocGraphique_.add(new DefaultMutableTreeNode(
                     elementLoc_.nom()));
         }
-//        arbre_.addTreeSelectionListener(new EcouteCliqueArbre());
-//        JTextArea zone_ = new JTextArea(EMPTY_STRING, 50, 100);
-//        zone_.setEditable(false);
-//        zone_.setFocusable(false);
-//        zone_.append(racineBis.infos());
-//        JSplitPane separateur_ = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-//                new JScrollPane(arbre_), new JScrollPane(zone_));
         if (wasNull_) {
             editor = new RenderedPage(new JScrollPane());
         }
         JTree arbre_ = new JTree(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
-//        try {
-//            editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
         editor.setLanguage(lg_);
         BeanLgNames bean_ = new GeneralHelpLgNames();
         DefaultInitialization.basicStandards(bean_);
         editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {
             field = new JTextField(20);
-//                search = new LabelButton(MainWindow.OK);
             search = new LabelButton();
             editor.setSearchText(search);
             editor.setField(field);
             editor.addFinder();
         }
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
-//        } catch (RuntimeException _0) {
-//            _0.printStackTrace();
-//        }
-        //if (wasNull_) {
         JSplitPane separateur_ = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 new JScrollPane(arbre_), editor.getScroll());
         separateur_.setPreferredSize(new Dimension(600, 550));
         separateur_.setDividerLocation(150);
         container_.add(separateur_);
-        //}
-        //if (field != null) {
         container_.add(field);
-        //}
-        //if (search != null) {
         container_.add(search);
-        //}
         if (wasNull_) {
             setContentPane(container_);
         }

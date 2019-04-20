@@ -43,7 +43,6 @@ public final class EffectTeamWhileSendFoe extends Effect {
                 return;
 
             }
-            e.getKey().shortValue();
         }
         for (EntryCust<Statistic, Byte> s : statistics.entryList()) {
             if (!s.getKey().isBoost()) {
@@ -51,7 +50,6 @@ public final class EffectTeamWhileSendFoe extends Effect {
                 return;
 
             }
-            s.getValue().byteValue();
         }
     }
 

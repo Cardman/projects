@@ -38,63 +38,6 @@ public final class ConfirmDialog extends Dialog {
     private ConfirmDialog() {
     }
 
-//    private ConfirmDialog(Dialog _frame, String _message, String _title, String _language, int _option) {
-//        //super(_frame,true);
-//        try {
-//            setIconImage(_frame.getIconImages().get(List.FIRST_INDEX));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        setModal(true);
-//        setLocationRelativeTo(_frame);
-//        init(_message, _title, _language, _option);
-//    }
-//
-//    private ConfirmDialog(Frame _frame, String _message, String _title, String _language, int _option) {
-//        //super(_frame,true);
-//        try {
-//            setIconImage(_frame.getIconImages().get(List.FIRST_INDEX));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        setModal(true);
-//        setLocationRelativeTo(_frame);
-//        init(_message, _title, _language, _option);
-//    }
-//
-//    private ConfirmDialog(Dialog _frame) {
-//        //super(_frame,true);
-//        try {
-//            setIconImage(_frame.getIconImages().get(List.FIRST_INDEX));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        setModal(true);
-//        setLocationRelativeTo(_frame);
-//    }
-//
-//    private ConfirmDialog(Frame _frame) {
-//        //super(_frame,true);
-//        try {
-//            setIconImage(_frame.getIconImages().get(List.FIRST_INDEX));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        setModal(true);
-//        setLocationRelativeTo(_frame);
-//    }
-//
-//    private ConfirmDialog(Frame _frame, String _value, String _message, String _title, String _language) {
-//        //super(_frame,true);
-//        try {
-//            setIconImage(_frame.getIconImages().get(List.FIRST_INDEX));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        setModal(true);
-//        setLocationRelativeTo(_frame);
-//        init(_message, _value, _title, _language);
-//    }
 
     public static void showMessage(Dialog _frame, String _message, String _title, String _language, int _option) {
 //        ConfirmDialog conf_;

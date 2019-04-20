@@ -35,7 +35,6 @@ public final class EffectSwitchPointView extends Effect {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

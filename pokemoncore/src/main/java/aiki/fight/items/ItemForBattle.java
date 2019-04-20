@@ -112,16 +112,12 @@ public final class ItemForBattle extends Item {
                 return;
 
             }
-            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatRank.getKeys())) {
             _data.setError(true);
             return;
 
-        }
-        for (EntryCust<Statistic, Byte> e : multStatRank.entryList()) {
-            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
@@ -181,7 +177,6 @@ public final class ItemForBattle extends Item {
                 return;
 
             }
-            e.getValue().byteValue();
         }
         for (String t : boostStatisTypes.getKeys()) {
             if (!_data.getTypes().containsObj(t)) {
@@ -196,7 +191,6 @@ public final class ItemForBattle extends Item {
                     return;
 
                 }
-                s.getValue().byteValue();
             }
         }
         if (!_data.getStatus().containsAllAsKeys(immuStatus)) {
@@ -287,7 +281,6 @@ public final class ItemForBattle extends Item {
         }
         if (!damageRecoil.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

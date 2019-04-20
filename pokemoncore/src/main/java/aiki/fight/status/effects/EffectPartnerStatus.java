@@ -20,7 +20,6 @@ public final class EffectPartnerStatus {
         }
         if (!restoredHpRateLovedAlly.isZeroOrGt()) {
             _dataBase.setError(true);
-            return;
 
         }
     }

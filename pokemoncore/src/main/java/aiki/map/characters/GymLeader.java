@@ -18,11 +18,6 @@ public final class GymLeader extends TrainerOneFight implements Fightable {
             return;
 
         }
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
     }
 
     public short getTm() {

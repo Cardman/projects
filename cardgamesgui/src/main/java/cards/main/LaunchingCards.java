@@ -42,19 +42,7 @@ public class LaunchingCards extends SoftApplicationCore {
         increment();
         MainWindow window_;
         installer();
-        TopLeftFrame coordonnees_;
-        try {
-            coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
-            if (coordonnees_ == null) {
-                coordonnees_ = new TopLeftFrame();
-            }
-        } catch(ClassCastException _0) {
-            _0.printStackTrace();
-            coordonnees_ = new TopLeftFrame();
-        } catch(Throwable _0) {
-            _0.printStackTrace();
-            coordonnees_ = new TopLeftFrame();
-        }
+        TopLeftFrame coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
         window_ = new MainWindow(_language);
 
         SoftApplicationCore.setLocation(window_, coordonnees_);

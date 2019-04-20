@@ -157,21 +157,4 @@ public final class AreaApparition {
         return wildPokemonRandFishing;
     }
 
-    // @Override
-    // public void beforeSave() {
-    // // List<Pokemon> l_ = new List<>();
-    // // for (Pokemon p: wildPokemon) {
-    // // l_.add(new WildPk(p));
-    // // }
-    // // wildPokemon = l_;
-    // // l_ = new List<>();
-    // // for (Pokemon p: wildPokemonFishing) {
-    // // l_.add(new WildPk(p));
-    // // }
-    // // wildPokemonFishing = l_;
-    // }
-    //
-    // @Override
-    // public void afterLoad() {
-    // }
 }

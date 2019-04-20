@@ -172,7 +172,6 @@ public abstract class LevelWithWildPokemon extends Level {
         keys_.removeDuplicates();
         if (size_ != keys_.size()) {
             _data.setError(true);
-            return;
 
         }
     }
@@ -406,7 +405,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     public AreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();
-        if (index_ < 0) {
+        if (!wildPokemonAreas.isValidIndex(index_)) {
             return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
@@ -414,7 +413,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     public AreaApparition getAreaByPoint(Point _point) {
         int index_ = getBlockByPoint(_point).getIndexApparition();
-        if (index_ < 0) {
+        if (!wildPokemonAreas.isValidIndex(index_)) {
             return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
@@ -476,14 +475,4 @@ public abstract class LevelWithWildPokemon extends Level {
         hm = _hm;
     }
 
-    // @Override
-    // public void beforeSave() {
-    // // for (EntryCust<Point, Pokemon> p: legendaryPks.entryList()) {
-    // // p.setValue(new WildPk(p.getValue()));
-    // // }
-    // }
-    //
-    // @Override
-    // public void afterLoad() {
-    // }
 }

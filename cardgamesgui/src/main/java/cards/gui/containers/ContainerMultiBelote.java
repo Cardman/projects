@@ -292,15 +292,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         JScrollPane scroll_ = new JScrollPane();
         editor = new RenderedPage(scroll_);
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesBeloteMulti);
-            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesBeloteMulti);
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -375,15 +369,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesBeloteMulti);
-            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesBeloteMulti);
+        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -873,26 +861,18 @@ public class ContainerMultiBelote extends ContainerBelote implements
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         BeloteStandards stds_;
-        try {
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            stds_ = new BeloteStandards();
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        stds_ = new BeloteStandards();
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         JScrollPane ascenseur_=new JScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        try {
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            stds_ = new BeloteStandards();
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,stds_);
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        stds_ = new BeloteStandards();
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,stds_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
@@ -941,12 +921,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE);
-//        try {
-//            nb_=chargerNombreDeParties(GameEnum.BELOTE);
-//        } catch (Exception exc_) {
-//            exc_.printStackTrace();
-//            nb_=0;
-//        }
         GameBelote game_=Net.getGames().partieBelote();
         DealBelote deal_=new DealBelote(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getNombreDeJoueurs());
@@ -1011,13 +985,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Chargement de la pile de cartes depuis un fichier sinon
         on la cree
         */
-        try {
-            pile_ = chargerPileBelote();
-            if (!pile_.validStack()) {
-                pile_ = HandBelote.pileBase();
-            }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        pile_ = chargerPileBelote();
+        if (!pile_.validStack()) {
             pile_ = HandBelote.pileBase();
         }
         DealBelote deal_ = new DealBelote(0, pile_);

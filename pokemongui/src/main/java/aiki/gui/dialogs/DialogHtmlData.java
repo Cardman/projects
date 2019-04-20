@@ -108,27 +108,10 @@ public final class DialogHtmlData extends Dialog {
         pack();
     }
 
-//    public void initSession(boolean _successfulCompile) {
-//        session.setFrame(this);
-//        try {
-//            if (_successfulCompile) {
-//                session.initialize(Resources.CONFIG_PK);
-//            } else {
-//                session.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-//            }
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
-//        setVisible(true);
-//    }
     public void initSession() {
         session.setFrame(this);
         session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK, new PokemonStandards());
-//        try {
-//            session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK);
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
+
         setVisible(true);
     }
 }

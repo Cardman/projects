@@ -56,11 +56,6 @@ public final class City extends Place implements InitializedPlace {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         boolean existPkCenter_ = false;
         int nbGyms_ = 0;
@@ -115,12 +110,6 @@ public final class City extends Place implements InitializedPlace {
             return;
 
         }
-        // for (Point p :linksWithCaves.getKeys()) {
-        // if (!levelArea_.isValid(p,true)) {
-        // _data.setError(true);
-
-        // }
-        // }
         for (Point p : linksWithCaves.getKeys()) {
             if (!levelArea_.isValid(p, false)) {
                 _data.setError(true);
@@ -128,6 +117,10 @@ public final class City extends Place implements InitializedPlace {
 
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
+            if (!_data.getMap().existCoords(c_)) {
+                _data.setError(true);
+                return;
+            }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {

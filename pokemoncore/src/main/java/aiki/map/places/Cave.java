@@ -34,11 +34,6 @@ public final class Cave extends Campaign {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (levels.isEmpty()) {
             _data.setError(true);
             return;
@@ -49,11 +44,17 @@ public final class Cave extends Campaign {
             return;
 
         }
-        levels.getKeys().getMinimum().byteValue();
+        if (levels.isEmpty()) {
+            _data.setError(true);
+            return;
+        }
         int nbLevels_ = levels.size();
         for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.getVal(i);
             level_.validate(_data, _placeArea.getLevel(i));
+            if (_data.isError()) {
+                return;
+            }
             for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
@@ -91,12 +92,6 @@ public final class Cave extends Campaign {
 
             }
             LevelPoint k_ = e.getKey();
-            // if
-            // (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
-            // true)) {
-            // _data.setError(true);
-
-            // }
             if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
                     false)) {
                 _data.setError(true);
@@ -104,6 +99,10 @@ public final class Cave extends Campaign {
 
             }
             Coords c_ = link_.getCoords();
+            if (!_data.getMap().existCoords(c_)) {
+                _data.setError(true);
+                return;
+            }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
@@ -182,10 +181,7 @@ public final class Cave extends Campaign {
         }
         int len_ = ids_.size();
         ids_.removeDuplicates();
-        if (len_ != ids_.size()) {
-            return false;
-        }
-        return true;
+        return len_ == ids_.size();
     }
 
     public void addNewLevel() {

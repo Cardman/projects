@@ -632,16 +632,16 @@ public final class PaginatorHealingItem extends Paginator {
 
     @Override
     public void changeDeltaPage() {
-        try {
-            int nbDelta_ = Integer.parseInt(getDelta().getText());
-            if (nbDelta_ <= 0) {
-                return;
-            }
-            getFacade().setDeltaHealingItem(nbDelta_);
-//        }catch(Exception _e){
-        }catch(NumberFormatException _0){
+        String text_ = getDelta().getText();
+        if (text_.isEmpty()) {
             getFacade().setDeltaHealingItem(1);
+            return;
         }
+        int nbDelta_ = Integer.parseInt(text_);
+        if (nbDelta_ <= 0) {
+            return;
+        }
+        getFacade().setDeltaHealingItem(nbDelta_);
     }
 
     public void refreshLang() {
@@ -836,19 +836,6 @@ public final class PaginatorHealingItem extends Paginator {
     }
     private void changeNav() {
         changeNav(getFacade().enabledPreviousHealingItem(), getFacade().enabledNextHealingItem(), getFacade().pagesHealingItem(), getFacade().getNumberPageHealingItem());
-//        previous.setEnabled(getFacade().enabledPreviousHealingItem());
-//        next.setEnabled(getFacade().enabledNextHealingItem());
-//        previousDelta.setEnabled(getFacade().pagesHealingItem() > CustList.FIRST_INDEX);
-//        nextDelta.setEnabled(getFacade().pagesHealingItem() > CustList.FIRST_INDEX);
-//        begin.setEnabled(getFacade().pagesHealingItem() > CustList.FIRST_INDEX);
-//        end.setEnabled(getFacade().pagesHealingItem() > CustList.FIRST_INDEX);
-//        adding = true;
-//        try {
-//            pages.setSelectedIndex(getFacade().getNumberPageHealingItem());
-//        } catch (Exception e_) {
-//            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
-//        }
-//        adding = false;
     }
 
     @Override

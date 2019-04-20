@@ -25,7 +25,6 @@ public final class HealingHpStatus extends HealingStatus {
         }
         if (!healedHpRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

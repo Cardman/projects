@@ -19,7 +19,6 @@ public final class Repel extends Item {
         super.validate(_data);
         if (steps <= 0) {
             _data.setError(true);
-            return;
 
         }
     }

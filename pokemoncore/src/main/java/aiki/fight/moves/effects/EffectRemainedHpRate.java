@@ -13,7 +13,6 @@ public final class EffectRemainedHpRate extends Effect {
         super.validate(_data);
         if (rateHp.isZero()) {
             _data.setError(true);
-            return;
 
         }
     }

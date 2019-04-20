@@ -26,11 +26,6 @@ public final class League extends Place {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (rooms.isEmpty()) {
             _data.setError(true);
             return;

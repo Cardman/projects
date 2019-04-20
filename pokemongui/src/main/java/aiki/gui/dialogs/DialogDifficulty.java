@@ -28,8 +28,6 @@ public final class DialogDifficulty extends Dialog {
 
     private static final String SEARCH_LABEL = "searchLabel";
 
-//    private Timer timer;
-
     private MainWindow window;
 
     private StringMap<String> messages;
@@ -62,27 +60,6 @@ public final class DialogDifficulty extends Dialog {
         session.setFrame(this);
         session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DIFF, new PokemonStandards());
-//        try {
-////            session.setFiles(_facade.getData().getWebGame(), Resources.ACCESS_TO_DEFAULT_FILES);
-//            session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-////            if (_window.isSuccessfulCompile()) {
-////                session.initialize(Resources.CONFIG_DIFF);
-////            } else {
-////                session.initialize(Resources.ACCESS_TO_DEFAULT_DIFF);
-////            }
-//            session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DIFF);
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
-
-//        try {
-//            session_.setFiles(_facade.getData().getWebGame(), new Map<String,String>());
-//            session_.initialize(Resources.CONFIG_DIFF);
-//        } catch (Exception e_) {
-//            CompilingBeans.loadDefaultClassesAndClear();
-//            session_.setRelativeFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//            session_.initialize(Resources.ACCESS_TO_DEFAULT_DIFF);
-//        }
         Panel panel_ = new Panel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;

@@ -20,7 +20,6 @@ public final class EffectCopyFighter extends Effect {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

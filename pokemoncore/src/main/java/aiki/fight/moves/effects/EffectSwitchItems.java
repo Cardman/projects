@@ -38,7 +38,6 @@ public final class EffectSwitchItems extends Effect {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

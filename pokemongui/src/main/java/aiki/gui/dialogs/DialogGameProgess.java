@@ -55,29 +55,6 @@ public final class DialogGameProgess extends Dialog {
         session.setFrame(this);
         session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG, new PokemonStandards());
-//        try {
-////            session.setFiles(_facade.getData().getWebProg(), Resources.ACCESS_TO_DEFAULT_FILES);
-//            session.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-////            if (_window.isSuccessfulCompile()) {
-//////                session_.initializeOnlyConf(Resources.CONFIG_PROG);
-////                session.initialize(Resources.CONFIG_PROG);
-////            } else {
-//////                session_.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG);
-////                session.initialize(Resources.ACCESS_TO_DEFAULT_PROG);
-////            }
-//            session.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PROG);
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
-
-//        try {
-//            session_.setFiles(_facade.getData().getWebGame(), new Map<String,String>());
-//            session_.initialize(Resources.CONFIG_DIFF);
-//        } catch (Exception e_) {
-//            CompilingBeans.loadDefaultClassesAndClear();
-//            session_.setRelativeFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//            session_.initialize(Resources.ACCESS_TO_DEFAULT_DIFF);
-//        }
         Panel panel_ = new Panel();
         JLabel area_ = new JLabel(TEXT);
         JTextField field_;

@@ -337,8 +337,8 @@ public final class TarotStandards extends BeanLgNames {
         getStandards().put(TYPE_RULES_TAROT, std_);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_TAROT_BEAN)) {
             DetailsResultsTarotBean details_ = new DetailsResultsTarotBean();

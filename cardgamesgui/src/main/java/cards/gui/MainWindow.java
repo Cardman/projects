@@ -554,83 +554,35 @@ public final class MainWindow extends NetGroupFrame {
         setImageIconFrame(LaunchingCards.getIcon());
         clock = new Clock();
         lastSavedGameDate = new JLabel();
-        try{
-            reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE)));
-            if (!reglesBelote.isValidRules()) {
-                reglesBelote = new RulesBelote();
-                StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote));
-            }
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
+        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE)));
+        if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote));
         }
-        try{
-            displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE)));
-            displayingBelote.validate();
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
-            displayingBelote = new DisplayingBelote();
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote));
-        }
-        try{
-            reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT)));
-            if (!reglesPresident.isValidRules()) {
-                reglesPresident = new RulesPresident();
-                StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident));
-            }
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
+        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE)));
+        displayingBelote.validate();
+        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT)));
+        if (!reglesPresident.isValidRules()) {
             reglesPresident = new RulesPresident();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident));
         }
-        try{
-            displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT)));
-            displayingPresident.validate();
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
-            displayingPresident = new DisplayingPresident();
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident));
-        }
-        try{
-            reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT)));
-            if (!reglesTarot.isValidRules()) {
-                reglesTarot = new RulesTarot();
-                StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot));
-            }
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
+        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT)));
+        displayingPresident.validate();
+        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT)));
+        if (!reglesTarot.isValidRules()) {
             reglesTarot = new RulesTarot();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot));
         }
-        try{
-            displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT)));
-            displayingTarot.validate();
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
-            displayingTarot = new DisplayingTarot();
-            StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot));
-        }
-        try {
-            parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS)));
-            parametres.setDelays();
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            parametres = new SoftParams();
-            parametres.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS));
-        }
+        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT)));
+        displayingTarot.validate();
+        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS)));
+        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
         lastSavedGameDate.setText(StringList.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
 
-        try{
-            pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS)));
-            if (!pseudosJoueurs.isValidNicknames()) {
-                pseudosJoueurs = new Nicknames(getLanguageKey());
-                pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
-            }
-        }catch(RuntimeException _0) {
-            _0.printStackTrace();
+        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS)));
+        if (!pseudosJoueurs.isValidNicknames()) {
             pseudosJoueurs = new Nicknames(getLanguageKey());
             pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
         }
@@ -1256,46 +1208,6 @@ public final class MainWindow extends NetGroupFrame {
     public void loadGameBegin(String _file, Object _deal) {
         containerGame = new ContainerGame(this);
         tryToLoadDeal(_file, _deal);
-//        try {
-//            try {
-//                containerGame = new ContainerSingleBelote(this,_file);
-//                containerGame.load();
-//                partieSauvegardee=false;
-//                change.setEnabled(true);
-//                return;
-//            } catch (GameLoadingException e2) {
-//            } catch (Exception e2) {
-//                containerGame = new ContainerGame(this);
-//                throw e2;
-//            }
-//            try {
-//                containerGame = new ContainerSinglePresident(this,_file);
-//                containerGame.load();
-//                partieSauvegardee=false;
-//                change.setEnabled(true);
-//                return;
-//            } catch (GameLoadingException e2) {
-//            } catch (Exception e2) {
-//                containerGame = new ContainerGame(this);
-//                throw e2;
-//            }
-//            try {
-//                containerGame = new ContainerSingleTarot(this,_file);
-//                containerGame.load();
-//                partieSauvegardee=false;
-//                change.setEnabled(true);
-//                return;
-//            } catch (GameLoadingException e2) {
-//            } catch (Exception e2) {
-//                containerGame = new ContainerGame(this);
-//                throw e2;
-//            }
-////            throw new Exception(EMPTY_STRING);
-//        } catch (Exception e1) {
-////            e1.printStackTrace();
-////            erreurDeChargement(_file);
-//        }
-//        erreurDeChargement(_file);
     }
     private void initFileMenu() {
         /* Fichier */
@@ -1349,52 +1261,6 @@ public final class MainWindow extends NetGroupFrame {
             }
         } else if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
             tryToLoadDeal();
-//            String nomFichier_=dialogueFichierChargement();
-//            if(nomFichier_.isEmpty()) {
-//                return;
-//            }
-            /*Si l'utilisateur a ouvert la fenetre de chargement de fichier sans charger un fichier,
-            une exception se leve et l'eventuelle partie en cours n'est pas affectee*/
-//            try {
-//                try {
-//                    containerGame = new ContainerSingleBelote(this,nomFichier_);
-//                    containerGame.load();
-//                    partieSauvegardee=false;
-//                    change.setEnabled(true);
-//                    return;
-//                } catch (GameLoadingException e2) {
-//                } catch (Exception e2) {
-//                    containerGame = new ContainerGame(this);
-//                    throw e2;
-//                }
-//                try {
-//                    containerGame = new ContainerSinglePresident(this,nomFichier_);
-//                    containerGame.load();
-//                    partieSauvegardee=false;
-//                    change.setEnabled(true);
-//                    return;
-//                } catch (GameLoadingException e2) {
-//                } catch (Exception e2) {
-//                    containerGame = new ContainerGame(this);
-//                    throw e2;
-//                }
-//                try {
-//                    containerGame = new ContainerSingleTarot(this,nomFichier_);
-//                    containerGame.load();
-//                    partieSauvegardee=false;
-//                    change.setEnabled(true);
-//                    return;
-//                } catch (GameLoadingException e2) {
-//                } catch (Exception e2) {
-//                    containerGame = new ContainerGame(this);
-//                    throw e2;
-//                }
-////                throw new Exception(EMPTY_STRING);
-//            } catch (Exception e1) {
-////                e1.printStackTrace();
-////                erreurDeChargement(nomFichier_);
-//            }
-//            erreurDeChargement(nomFichier_);
         }
     }
 
@@ -1404,13 +1270,7 @@ public final class MainWindow extends NetGroupFrame {
         if (nomFichier_.isEmpty()) {
             return;
         }
-        Object par_ = null;
-        try {
-            par_ = DocumentReaderCardsUnionUtil.getObject(nomFichier_);
-        } catch (RuntimeException _0) {
-            erreurDeChargement(nomFichier_);
-            return;
-        }
+        Object par_ = DocumentReaderCardsUnionUtil.getObject(nomFichier_);
         tryToLoadDeal(nomFichier_, par_);
     }
 
@@ -1962,20 +1822,16 @@ public final class MainWindow extends NetGroupFrame {
 
     public void displayHelp() {
         //On indique a l utilisatteur comment utiliser le logiciel et jouer aux cartes
-        try{
-            if (!helpFrames.isEmpty()) {
-                if (!helpFrames.first().isVisible()) {
-                    helpFrames.first().setTitle(getMessages().getVal(GENERAL_HELP));
-                    helpFrames.first().voir(this);
-                }
-                return;
+        if (!helpFrames.isEmpty()) {
+            if (!helpFrames.first().isVisible()) {
+                helpFrames.first().setTitle(getMessages().getVal(GENERAL_HELP));
+                helpFrames.first().voir(this);
             }
-            FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(GENERAL_HELP),this);
-            aide_.voir(this);
-            helpFrames.add(aide_);
-        }catch(RuntimeException _0) {
-            ConfirmDialog.showMessage(this, getMessages().getVal(NOT_FOUND_FILE), getMessages().getVal(NOT_HELP), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(GENERAL_HELP),this);
+        aide_.voir(this);
+        helpFrames.add(aide_);
     }
 
     /**Initialise la barre de menus*/

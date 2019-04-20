@@ -26,10 +26,7 @@ import code.gui.LabelButton;
 import code.gui.NumComboBox;
 import code.gui.Panel;
 import code.gui.ScrollPane;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.StringList;
+import code.util.*;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
@@ -452,16 +449,16 @@ public final class PaginatorMove extends Paginator {
 
     @Override
     public void changeDeltaPage() {
-        try {
-            int nbDelta_ = Integer.parseInt(getDelta().getText());
-            if (nbDelta_ <= 0) {
-                return;
-            }
-            getFacade().setDeltaMove(nbDelta_);
-//        }catch(Exception _e){
-        }catch(NumberFormatException _0){
+        String text_ = getDelta().getText();
+        if (text_.isEmpty()) {
             getFacade().setDeltaMove(1);
+            return;
         }
+        int nbDelta_ = Numbers.parseInt(text_);
+        if (nbDelta_ <= 0) {
+            return;
+        }
+        getFacade().setDeltaMove(nbDelta_);
     }
 
     public void refreshLang() {
@@ -662,19 +659,6 @@ public final class PaginatorMove extends Paginator {
     }
     private void changeNav() {
         changeNav(getFacade().enabledPreviousMove(), getFacade().enabledNextMove(), getFacade().pagesMove(), getFacade().getNumberPageMove());
-//        previous.setEnabled(getFacade().enabledPreviousMove());
-//        next.setEnabled(getFacade().enabledNextMove());
-//        previousDelta.setEnabled(getFacade().pagesMove() > CustList.FIRST_INDEX);
-//        nextDelta.setEnabled(getFacade().pagesMove() > CustList.FIRST_INDEX);
-//        begin.setEnabled(getFacade().pagesMove() > CustList.FIRST_INDEX);
-//        end.setEnabled(getFacade().pagesMove() > CustList.FIRST_INDEX);
-//        adding = true;
-//        try {
-//            pages.setSelectedIndex(getFacade().getNumberPageMove());
-//        } catch (Exception e_) {
-//            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
-//        }
-//        adding = false;
     }
 
     @Override

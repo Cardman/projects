@@ -48,72 +48,38 @@ public class LaunchingPokemon extends SoftApplicationCore {
         String zip_ = DataBase.EMPTY_STRING;
         String gameSavePath_ = DataBase.EMPTY_STRING;
         //String pathConfig_ = DataBase.EMPTY_STRING;
-        try {
-//            String gameSave_ = _args[List.FIRST_INDEX];
-//            gameSavePath_ = new File(gameSave_).getAbsolutePath().replace(StreamTextFile.SEPARATEUR_WIN, StreamTextFile.SEPARATEUR);
-//            String xmlString_ = StreamTextFile.contentsOfFile(gameSave_);
-//            Game game_ = (Game) SerializeXmlObject.newObjectFromXmlString(xmlString_);
+        if (!_args.isEmpty()) {
             gameSavePath_ = _args.getKeys().first();
-            Game game_ = (Game) _args.values().first();
-            zip_ = game_.getZippedRom();
-            if (zip_ == null) {
-                zip_ = DataBase.EMPTY_STRING;
+            if (_args.values().first() instanceof Game) {
+                Game game_ = (Game) _args.values().first();
+                zip_ = game_.getZippedRom();
+                if (zip_ == null) {
+                    zip_ = DataBase.EMPTY_STRING;
+                }
+                if (zip_.isEmpty() || new File(zip_).exists()) {
+                    fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
+                }
             }
-            if (zip_.isEmpty() || new File(zip_).exists()) {
-                fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
-            }
-        } catch (RuntimeException _0) {
         }
         if (fileConfig_.isEmpty()) {
-            try {
-//                fileConfig_ = _args[List.FIRST_INDEX];
+            if (!_args.isEmpty() && _args.values().first() instanceof LoadingGame) {
                 fileConfig_ = _args.getKeys().first();
-//                String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
-//                param_ = (LoadingGame) SerializeXmlObject.newObjectFromXmlStringOrNull(xmlString_);
                 param_ = (LoadingGame) _args.values().first();
-                //pathConfig_ = new File(fileConfig_).getParentFile().getAbsolutePath().replace(StreamTextFile.B_SEPARATEUR, StreamTextFile.SEPARATEUR);
-            } catch (RuntimeException _0) {
-                param_ = null;
+            } else {
                 fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
             }
         } else {
-            try {
-//                String xmlString_ = StreamTextFile.contentsOfFile(getFolderJarPath()+fileConfig_);
-                String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),fileConfig_));
-                param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
-                param_.setLastSavedGame(gameSavePath_);
-                param_.setLastRom(zip_);
-            } catch (RuntimeException _0) {
-                param_ = new LoadingGame();
-                param_.setLastSavedGame(gameSavePath_);
-                param_.setLastRom(zip_);
-            }
+            String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),fileConfig_));
+            param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
+            param_.setLastSavedGame(gameSavePath_);
+            param_.setLastRom(zip_);
         }
         if (param_ == null) {
-            try {
-                String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
-//                param_ = (LoadingGame) SerializeXmlObject.newObjectFromXmlStringOrNull(xmlString_);
-                param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
-            } catch (RuntimeException _0) {
-            }
-        }
-        if (param_ == null) {
-            param_ = new LoadingGame();
+            String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
+            param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
         }
         //String path_ = getFolderJarPath();
-        TopLeftFrame topLeft_;
-        try {
-            topLeft_ = loadCoords(getTempFolder(), Resources.COORDS);
-            if (topLeft_ == null) {
-                topLeft_ = new TopLeftFrame();
-            }
-        } catch(ClassCastException _0) {
-            topLeft_ = new TopLeftFrame();
-            _0.printStackTrace();
-        } catch (Throwable _0) {
-            topLeft_ = new TopLeftFrame();
-            _0.printStackTrace();
-        }
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(), Resources.COORDS);
         //path_ = pathConfig_;
         String path_ = ConstFiles.getInitFolder();
 //        if (!_args.isEmpty()) {

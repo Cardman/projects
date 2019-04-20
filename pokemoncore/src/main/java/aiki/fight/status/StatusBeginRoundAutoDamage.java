@@ -43,7 +43,6 @@ public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
         }
         if (!defense.isWithBaseStatistic()) {
             _data.setError(true);
-            return;
 
         }
     }

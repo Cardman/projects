@@ -145,6 +145,9 @@ public final class DocumentReaderBeloteUtil {
 
     public static DisplayingBelote getDisplayingBelote(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new DisplayingBelote();
+        }
         return getDisplayingBelote(doc_.getDocumentElement());
     }
 
@@ -238,6 +241,9 @@ public final class DocumentReaderBeloteUtil {
 
     public static HandBelote getHandBelote(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new HandBelote();
+        }
         return getHandBelote(doc_.getDocumentElement());
     }
 
@@ -279,6 +285,9 @@ public final class DocumentReaderBeloteUtil {
 
     public static RulesBelote getRulesBelote(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new RulesBelote();
+        }
         return getRulesBelote(doc_.getDocumentElement());
     }
 

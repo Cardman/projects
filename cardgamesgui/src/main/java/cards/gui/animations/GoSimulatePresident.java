@@ -292,14 +292,9 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         res_.setMessages(lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        try {
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);
         panneau_.add(stopButton);

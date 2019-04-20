@@ -342,43 +342,6 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             }
         }
         SwingUtilities.invokeLater(new EndSimulation(this));
-//        ResultsTarot res_ = new ResultsTarot();
-//        res_.setGame(partie_);
-//        res_.initialize(new CustList<>(pseudos_), container.getScores());
-//        res_.setUser(DealTarot.NUMERO_UTILISATEUR);
-//        res_.setMessages(Constants.getLanguage());
-//        SessionEditorPane editor_ = new SessionEditorPane();
-//        try {
-//            editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setFiles(FileConst.RESOURCES_HTML_FOLDER);
-//            editor_.setLanguage(Constants.getLanguage());
-//            editor_.setDataBase(res_);
-//            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        editor_.setEditable(false);
-//        JScrollPane scroll_=new JScrollPane(editor_);
-//        scroll_.setPreferredSize(new Dimension(300,300));
-//
-//        JPanel panneau_=new JPanel();
-//        panneau_.setLayout(new BoxLayout(panneau_, BoxLayout.PAGE_AXIS));
-//        panneau_.add(scroll_);
-//
-//        LabelButton bouton_=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
-//        bouton_.addMouseListener(new MouseAdapter() {
-//
-//            @Override
-//            public void mouseReleased(MouseEvent _e) {
-//                container.setArretDemo(true);
-//                arretDemo();
-//            }
-//        });
-//        panneau_.add(bouton_);
-//        panneau_.add(container.getOwner().getClock());
-//        panneau_.add(container.getOwner().getLastSavedGameDate());
-//        container.setContentPane(panneau_);
-//        PackingWindowAfter.pack(container);
     }
 
 
@@ -541,15 +504,9 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         res_.setMessages(lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        try {
-//            editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
 
         Panel panneau_=new Panel();

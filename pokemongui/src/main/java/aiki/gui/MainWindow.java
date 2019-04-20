@@ -520,22 +520,13 @@ public final class MainWindow extends NetGroupFrame {
     public void loadOnlyRom(String _file) {
         if (!_file.isEmpty()) {
             //startThread = true;
-            try {
-                StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
-                facade.loadRomAndCheck(_file, files_);
-                if (!facade.isLoadedData()) {
-                    facade.loadResources();
-                }
-                if (!facade.isLoading()) {
-                    return;
-                }
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
-                //startThread = false;
+            StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
+            facade.loadRomAndCheck(_file, files_);
+            if (!facade.isLoadedData()) {
                 facade.loadResources();
-                if (!facade.isLoading()) {
-                    return;
-                }
+            }
+            if (!facade.isLoading()) {
+                return;
             }
         } else {
             facade.loadResources();
@@ -568,22 +559,13 @@ public final class MainWindow extends NetGroupFrame {
             }
             path_ = StringList.replaceBackSlash(path_);
             //startThread = true;
-            try {
-                StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
-                facade.loadRomAndCheck(path_, files_);
-                if (!facade.isLoadedData()) {
-                    facade.loadResources();
-                }
-                if (!facade.isLoading()) {
-                    return;
-                }
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
-                //startThread = false;
+            StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
+            facade.loadRomAndCheck(path_, files_);
+            if (!facade.isLoadedData()) {
                 facade.loadResources();
-                if (!facade.isLoading()) {
-                    return;
-                }
+            }
+            if (!facade.isLoading()) {
+                return;
             }
         } else {
             path_ = _configuration.getLastRom();
@@ -891,6 +873,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public static Game load(String _fileName,DataBase _data) {
         Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName));
+        if (game_ == null) {
+            return null;
+        }
         if (!game_.checkAndInitialize(_data)) {
             return null;
         }
@@ -1046,16 +1031,6 @@ public final class MainWindow extends NetGroupFrame {
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade.getData());
         session_.setProcess(videoLoading.getVideo());
-//        try {
-//            session_.setFiles(facade.getData().getWebFiles());
-//            if (successfulCompile) {
-//                session_.initialize(Resources.CONFIG_DATA);
-//            } else {
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_DATA);
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         dialog_.initSession(Resources.ACCESS_TO_DEFAULT_DATA);
@@ -1076,18 +1051,6 @@ public final class MainWindow extends NetGroupFrame {
         htmlDialogs.first().getSession().setDataBase(facade.getData());
         htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
         htmlDialogs.first().pack();
-//        try {
-////            if (successfulCompile) {
-////                htmlDialogs.first().getSession().initialize(Resources.CONFIG_DATA);
-////            } else {
-////                htmlDialogs.first().getSession().initialize(Resources.ACCESS_TO_DEFAULT_DATA);
-////            }
-////            htmlDialogs.first().getSession().initialize(Resources.ACCESS_TO_DEFAULT_DATA);
-//            htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA);
-//            htmlDialogs.first().revalidate();
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
     }
 
     private boolean openedHmlFrames() {
@@ -1107,21 +1070,13 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void processLoad(String _fileName) {
-        try {
-            StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
-            facade.loadRomAndCheck(_fileName, files_);
-            if (!facade.isLoadedData()) {
-                facade.loadResources();
-            }
-            if (!facade.isLoading()) {
-                return;
-            }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
+        facade.loadRomAndCheck(_fileName, files_);
+        if (!facade.isLoadedData()) {
             facade.loadResources();
-            if (!facade.isLoading()) {
-                return;
-            }
+        }
+        if (!facade.isLoading()) {
+            return;
         }
         facade.clearGame();
         inBattle = false;

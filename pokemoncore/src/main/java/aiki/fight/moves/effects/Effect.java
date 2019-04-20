@@ -17,16 +17,9 @@ public abstract class Effect {
      * @param _data
      */
     public void validate(DataBase _data) {
-        if (targetChoice == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (!requiredSuccessfulEffects.isEmpty()) {
-            if (requiredSuccessfulEffects.getMinimum() < 0) {
+            if (requiredSuccessfulEffects.getMinimum(-1) < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

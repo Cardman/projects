@@ -56,7 +56,7 @@ public enum TargetChoice {
                 return e;
             }
         }
-        return null;
+        return NOTHING;
     }
     public boolean isWithChoice() {
         return withChoice;

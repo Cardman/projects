@@ -522,7 +522,6 @@ public final class FormatHtml {
 
     static String processHtml(Document _docOrig, String _beanName, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
         Struct bean_ = getBean(_conf, _beanName);
-        Struct mainBean_ = bean_;
 
         ImportingPage ip_ = new ImportingPage(false);
         int tabWidth_ = getTabWidth(_conf);
@@ -560,73 +559,49 @@ public final class FormatHtml {
             if (_conf.isInterrupt()) {
                 return null;
             }
-            try {
+            ip_ = _conf.getLastPage();
+            if (ip_.getReadWrite() == null) {
+                ImportingPage last_ = _conf.getLastPage();
+                _conf.removeLastPage();
+                if (_conf.noPages()) {
+                    break;
+                }
                 ip_ = _conf.getLastPage();
-                if (ip_.getReadWrite() == null) {
-                    ImportingPage last_ = _conf.getLastPage();
-                    _conf.removeLastPage();
-                    if (_conf.noPages()) {
+                for (EntryCust<String, LocalVariable> e: last_.getReturnedValues().entryList()) {
+                    ip_.putLocalVar(e.getKey(), e.getValue());
+                }
+                processBlock(_conf, ip_);
+                if (_conf.getContext().getException() != null) {
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
+                }
+                continue;
+            }
+            rw_ = ip_.getReadWrite();
+            en_ = rw_.getRead();
+            ip_.setProcessingNode(en_);
+            ip_.setProcessingAttribute(EMPTY_STRING);
+            ip_.setOffset(0);
+            currentNode_ = rw_.getWrite();
+            if (en_ instanceof Comment) {
+                processElementOrText(_conf, ip_, true);
+                if (_conf.getContext().getException() != null) {
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
+                }
+                continue;
+            }
+            if (en_ instanceof Element) {
+                if (((Element) en_).getTagName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
+                    if (StringList.quickEq(((Element) en_).getTagName(),StringList.concat(ip_.getPrefix(),EXIT_TAG))) {
+                        _conf.clearPages();
                         break;
                     }
-                    ip_ = _conf.getLastPage();
-                    for (EntryCust<String, LocalVariable> e: last_.getReturnedValues().entryList()) {
-                        ip_.putLocalVar(e.getKey(), e.getValue());
-                    }
-                    processBlock(_conf, ip_);
-                    if (_conf.getContext().getException() != null) {
-                        throwException(_conf);
-                        if (_conf.getContext().getException() != null) {
-                            return null;
-                        }
-                    }
-                    continue;
-                }
-                rw_ = ip_.getReadWrite();
-                en_ = rw_.getRead();
-                ip_.setProcessingNode(en_);
-                ip_.setProcessingAttribute(EMPTY_STRING);
-                ip_.setOffset(0);
-                currentNode_ = rw_.getWrite();
-                if (en_ instanceof Comment) {
-                    processElementOrText(_conf, ip_, true);
-                    if (_conf.getContext().getException() != null) {
-                        throwException(_conf);
-                        if (_conf.getContext().getException() != null) {
-                            return null;
-                        }
-                    }
-                    continue;
-                }
-                if (en_ instanceof Element) {
-                    if (((Element) en_).getTagName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
-                        if (StringList.quickEq(((Element) en_).getTagName(),StringList.concat(ip_.getPrefix(),EXIT_TAG))) {
-                            _conf.clearPages();
-                            break;
-                        }
-                        ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
-                        if (_conf.getContext().getException() != null) {
-                            throwException(_conf);
-                            if (_conf.getContext().getException() != null) {
-                                return null;
-                            }
-                            continue;
-                        }
-                        if (ret_ != null) {
-                            ip_ = ret_;
-                            continue;
-                        }
-                    }
-                    appendChild(doc_, _conf, currentNode_, (Element) en_);
-                    Element tag_ = (Element) currentNode_.getLastChild();
-                    if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
-                        curForm_ = tag_;
-                        containersMap_.put(currentForm_, containers_);
-                        containers_ = new NatTreeMap<Long, NodeContainer>();
-                        currentForm_ ++;
-                        indexes_.setInput(0);
-                    }
-                    processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
-                            indexes_, containersMap_, containers_, _resourcesFolder);
+                    ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, bean_, _loc, _files, _resourcesFolder);
                     if (_conf.getContext().getException() != null) {
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
@@ -634,47 +609,48 @@ public final class FormatHtml {
                         }
                         continue;
                     }
-                    if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
-                        curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-                    }
-                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
-                        currentAnchor_ = indexes_.getAnchor();
-                        tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
-                        currentAnchor_++;
-                        indexes_.setAnchor(currentAnchor_);
-                    }
-                    processElementOrText(_conf, ip_, true);
-                    if (_conf.getContext().getException() != null) {
-                        throwException(_conf);
-                        if (_conf.getContext().getException() != null) {
-                            return null;
-                        }
-                    }
-                    continue;
-                }
-                String content_ = en_.getTextContent();
-                if (content_.trim().isEmpty()) {
-                    Text t_ = doc_.createTextNode(content_);
-                    currentNode_.appendChild(t_);
-                    processElementOrText(_conf, ip_, true);
-                    if (_conf.getContext().getException() != null) {
-                        throwException(_conf);
-                        if (_conf.getContext().getException() != null) {
-                            return null;
-                        }
-                    }
-                    continue;
-                }
-                if (interpretBrackets((CharacterData) en_)) {
-                    content_ = ExtractObject.formatNumVariables(content_, _conf, ip_);
-                    if (_conf.getContext().getException() != null) {
-                        throwException(_conf);
-                        if (_conf.getContext().getException() != null) {
-                            return null;
-                        }
+                    if (ret_ != null) {
                         continue;
                     }
                 }
+                appendChild(doc_, _conf, currentNode_, (Element) en_);
+                Element tag_ = (Element) currentNode_.getLastChild();
+                if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
+                    curForm_ = tag_;
+                    containersMap_.put(currentForm_, containers_);
+                    containers_ = new NatTreeMap<Long, NodeContainer>();
+                    currentForm_ ++;
+                    indexes_.setInput(0);
+                }
+                processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
+                        indexes_, containersMap_, containers_, _resourcesFolder);
+                if (_conf.getContext().getException() != null) {
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
+                    continue;
+                }
+                if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
+                    curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+                }
+                if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+                    currentAnchor_ = indexes_.getAnchor();
+                    tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
+                    currentAnchor_++;
+                    indexes_.setAnchor(currentAnchor_);
+                }
+                processElementOrText(_conf, ip_, true);
+                if (_conf.getContext().getException() != null) {
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
+                }
+                continue;
+            }
+            String content_ = en_.getTextContent();
+            if (content_.trim().isEmpty()) {
                 Text t_ = doc_.createTextNode(content_);
                 currentNode_.appendChild(t_);
                 processElementOrText(_conf, ip_, true);
@@ -684,9 +660,22 @@ public final class FormatHtml {
                         return null;
                     }
                 }
-            } catch (OutOfMemoryError _0){
-                ContextEl cont_ = _conf.getContext();
-                cont_.setException(cont_.getMemoryError());
+                continue;
+            }
+            if (interpretBrackets((CharacterData) en_)) {
+                content_ = ExtractObject.formatNumVariables(content_, _conf, ip_);
+                if (_conf.getContext().getException() != null) {
+                    throwException(_conf);
+                    if (_conf.getContext().getException() != null) {
+                        return null;
+                    }
+                    continue;
+                }
+            }
+            Text t_ = doc_.createTextNode(content_);
+            currentNode_.appendChild(t_);
+            processElementOrText(_conf, ip_, true);
+            if (_conf.getContext().getException() != null) {
                 throwException(_conf);
                 if (_conf.getContext().getException() != null) {
                     return null;
@@ -694,7 +683,7 @@ public final class FormatHtml {
             }
         }
         containersMap_.put(currentForm_, containers_);
-        containersMap_.removeKey(0l);
+        containersMap_.removeKey(0L);
         if (currentForm_ > 1) {
             curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
         }

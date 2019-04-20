@@ -148,11 +148,6 @@ public final class AbilityData {
             return;
 
         }
-        if (multVarBoost == null) {
-            _data.setError(true);
-            return;
-
-        }
         StringList events_ = new StringList(singleStatus.events());
         events_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
@@ -412,28 +407,17 @@ public final class AbilityData {
 
                 }
             }
-            // if (!forwardStatus.values().containsAllObj(failStatus.getKeys()))
-            // {
-            // _data.setError(true);
             return;
-
-            // }
         }
         if (!_data.getAllCategories().containsAllObj(increasedPrio.getKeys())) {
             _data.setError(true);
             return;
 
         }
-        for (EntryCust<String, Short> e : increasedPrio.entryList()) {
-            e.getValue().shortValue();
-        }
         if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
             _data.setError(true);
             return;
 
-        }
-        for (EntryCust<String, Short> e : increasedPrioTypes.entryList()) {
-            e.getValue().shortValue();
         }
         if (!typeForMoves.isEmpty()) {
             if (!_data.getTypes().containsObj(typeForMoves)) {
@@ -516,21 +500,6 @@ public final class AbilityData {
             _data.setError(true);
             return;
 
-        }
-        for (EntryCust<Statistic, Byte> e : bonusStatRank.entryList()) {
-            e.getValue().byteValue();
-        }
-        for (EntryCust<Statistic, Byte> e : boostStatRankProtected.entryList()) {
-            e.getValue().byteValue();
-        }
-        for (EntryCust<Statistic, Byte> e : boostStatRankEndRound.entryList()) {
-            e.getValue().byteValue();
-        }
-        for (EntryCust<Statistic, Byte> e : multStatIfKoFoe.entryList()) {
-            e.getValue().byteValue();
-        }
-        for (EntryCust<Statistic, Byte> e : multStatIfLowStat.entryList()) {
-            e.getValue().byteValue();
         }
         for (StatisticStatus k : multStatIfStatutRank.getKeys()) {
             if (!k.getStatistic().isBoost()) {

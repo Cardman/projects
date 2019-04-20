@@ -134,7 +134,6 @@ public final class CheckNumericStringsFight {
         num_.evaluateExp(true);
         if (!num_.isValid()) {
             _data.setError(true);
-            return;
 
         }
     }
@@ -173,12 +172,6 @@ public final class CheckNumericStringsFight {
                 StringMap<String> map_ = new StringMap<String>();
                 map_.putAllMap(_varsFighter);
                 chBool_ = _data.createBooleanString(fail_, map_);
-                // if
-                // (Pattern.compile(_varRegExp).matcher(chBool_.toString()).find())
-                // {
-                // _data.setError(true);
-
-                // }
                 checkIfVarPresent(_data, chBool_.beforeEvaluated());
                 checkTranslations(_data, chBool_.beforeEvaluated());
                 chBool_.evaluateExp(true);
@@ -293,37 +286,6 @@ public final class CheckNumericStringsFight {
                                 userFighterLoc_.getNbRepeatingSuccessfulMoves()
                                         .toNumberString());
                     }
-                    // switch (s) {
-                    // case SPEED:
-                    // case ACCURACY:
-                    // case EVASINESS:
-                    // loc_ = new Map<>(_varsFighter);
-                    // break;
-                    // default:
-                    // Fighter userFighterLoc_ =
-                    // _fight.getFighter(_userFighter);
-                    // String cat_ =
-                    // _data.getMove(_data.getDefaultMove()).getCategory();
-                    // StringList types_ =
-                    // _data.getMove(_data.getDefaultMove()).getTypes();
-                    // loc_ = new Map<>(_varsDiff);
-                    // loc_.putAllMap(_varsFighter);
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE),
-                    // cat_);
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM),
-                    // userFighterLoc_.getName());
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES),
-                    // types_.join(NumericString.SEPARATOR_SET_CHAR));
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM),
-                    // _data.getDefaultMove());
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE),
-                    // DataBase.getDefaultPower().toString());
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF),
-                    // DataBase.defRateProduct().toString());
-                    // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF),
-                    // userFighterLoc_.getNbRepeatingSuccessfulMoves().toString());
-                    // break;
-                    // }
                     checkNumString(_data, loc_, str_);
                 }
                 for (String v : o_.getFailStatus().values()) {
@@ -481,36 +443,6 @@ public final class CheckNumericStringsFight {
                             Fight.NB_UTILISATION_CONSECUTIF), userFighterLoc_
                             .getNbRepeatingSuccessfulMoves().toNumberString());
                 }
-                // switch (s) {
-                // case SPEED:
-                // case ACCURACY:
-                // case EVASINESS:
-                // loc_ = new Map<>(_varsFighter);
-                // break;
-                // default:
-                // Fighter userFighterLoc_ = _fight.getFighter(_userFighter);
-                // String cat_ =
-                // _data.getMove(_data.getDefaultMove()).getCategory();
-                // StringList types_ =
-                // _data.getMove(_data.getDefaultMove()).getTypes();
-                // loc_ = new Map<>(_varsDiff);
-                // loc_.putAllMap(_varsFighter);
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE),
-                // cat_);
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM),
-                // userFighterLoc_.getName());
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES),
-                // types_.join(NumericString.SEPARATOR_SET_CHAR));
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM),
-                // _data.getDefaultMove());
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE),
-                // DataBase.getDefaultPower().toString());
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COEFF_EFF),
-                // DataBase.defRateProduct().toString());
-                // loc_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_UTILISATION_CONSECUTIF),
-                // userFighterLoc_.getNbRepeatingSuccessfulMoves().toString());
-                // break;
-                // }
                 checkNumString(_data, loc_, str_);
             }
             for (String v : a.getFailStatus().values()) {
@@ -584,12 +516,6 @@ public final class CheckNumericStringsFight {
                     chNum_ = _data.createNumericableString(m_.getAccuracy(),
                             _varsDiff);
                 }
-                // if
-                // (Pattern.compile(_varRegExp).matcher(chNum_.toString()).find())
-                // {
-                // _data.setError(true);
-
-                // }
                 checkIfVarPresent(_data, chNum_.beforeEvaluated());
                 checkTranslations(_data, chNum_.beforeEvaluated());
                 chNum_.evaluateExp(true);
@@ -618,12 +544,6 @@ public final class CheckNumericStringsFight {
                         map_.putAllMap(_boolVarsDiffNotSending);
                         chBool_ = _data.createBooleanString(fail_, map_);
                     }
-                    // if
-                    // (Pattern.compile(_varRegExp).matcher(chBool_.toString()).find())
-                    // {
-                    // _data.setError(true);
-
-                    // }
                     checkIfVarPresent(_data, chBool_.beforeEvaluated());
                     checkTranslations(_data, chBool_.beforeEvaluated());
                     chBool_.evaluateExp(true);
@@ -648,12 +568,6 @@ public final class CheckNumericStringsFight {
                 } else if (!eff_.getPower().isEmpty()) {
                     chNum_ = _data.createNumericableString(eff_.getPower(),
                             _varsDiff);
-                    // if
-                    // (Pattern.compile(_varRegExp).matcher(chNum_.toString()).find())
-                    // {
-                    // throw new DataException(chNum_.toString());
-                    // }
-                    // String bef_ = chNum_.beforeEvaluated();
                     checkIfVarPresent(_data, chNum_.beforeEvaluated());
                     checkTranslations(_data, chNum_.beforeEvaluated());
                     chNum_.evaluateExp(true);
@@ -819,12 +733,6 @@ public final class CheckNumericStringsFight {
                         SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
                         rates_.add(rate_);
                         rates_.add(Rate.zero());
-                        // rates_.sort(new NaturalComparator<Rate>() {
-                        // @Override
-                        // public int compare(Rate _o1, Rate _o2) {
-                        // return _o1.compareTo(_o2);
-                        // }
-                        // });
                         rates_.sort();
                         if (rates_.last().isZero()) {
                             _data.setError(true);
@@ -861,16 +769,11 @@ public final class CheckNumericStringsFight {
         map_.putAllMap(_variablesSame);
         map_.putAllMap(_boolVarsSending);
         chBool_ = _data.createBooleanString(_fail, map_);
-        // if (Pattern.compile(_varRegExp).matcher(chBool_.toString()).find()) {
-        // _data.setError(true);
-
-        // }
         checkIfVarPresent(_data, chBool_.beforeEvaluated());
         checkTranslations(_data, chBool_.beforeEvaluated());
         chBool_.evaluateExp(true);
         if (!chBool_.isValid()) {
             _data.setError(true);
-            return;
 
         }
     }
@@ -903,12 +806,6 @@ public final class CheckNumericStringsFight {
             SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
             rates_.add(res_);
             rates_.add(Rate.zero());
-            // rates_.sort(new NaturalComparator<Rate>() {
-            // @Override
-            // public int compare(Rate _o1, Rate _o2) {
-            // return _o1.compareTo(_o2);
-            // }
-            // });
             rates_.sort();
             if (rates_.last().isZero()) {
                 _data.setError(true);
@@ -942,12 +839,6 @@ public final class CheckNumericStringsFight {
             SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
             rates_.add(res_);
             rates_.add(Rate.zero());
-            // rates_.sort(new NaturalComparator<Rate>() {
-            // @Override
-            // public int compare(Rate _o1, Rate _o2) {
-            // return _o1.compareTo(_o2);
-            // }
-            // });
             rates_.sort();
             if (rates_.last().isZero()) {
                 _data.setError(true);
@@ -972,14 +863,9 @@ public final class CheckNumericStringsFight {
                 _numString, _variablesDiff);
         checkIfVarPresent(_data, num_.beforeEvaluated());
         checkTranslations(_data, num_.beforeEvaluated());
-        // if (Pattern.compile(_varRegExp).matcher(num_.toString()).find()) {
-        // _data.setError(true);
-
-        // }
         num_.evaluateExp(true);
         if (!num_.isValid()) {
             _data.setError(true);
-            return;
 
         }
     }
@@ -1061,14 +947,6 @@ public final class CheckNumericStringsFight {
                 return;
 
             }
-            // if (Pattern.compile(_varRegExp).matcher(num_.toString()).find())
-            // {
-            // _data.setError(true);
-
-            // }
-            // if (!num_.toString().isEmpty()) {
-            // num_.getResult();
-            // }
             vars_ = FightRound.calculateCatchingVariables(_fight, true, _data);
             num_ = _data.createNumericableString(b_.getCatchingRate(), vars_);
             checkIfVarPresent(_data, num_.beforeEvaluated());
@@ -1079,17 +957,7 @@ public final class CheckNumericStringsFight {
                 return;
 
             }
-            // if (Pattern.compile(_varRegExp).matcher(num_.toString()).find())
-            // {
-            // _data.setError(true);
-
-            // }
-            // if (!num_.toString().isEmpty()) {
-            // num_.getResult();
-            // }
             vars_.clear();
-
-            // FightRound.calculateCatchingRate(fight_, b, false, diff_, _data);
         }
         vars_ = FightRound.calculateFleeingVariable(_fight, _data);
         numericExp_ = _data.getFleeingFormula();
@@ -1097,7 +965,6 @@ public final class CheckNumericStringsFight {
         num_.evaluateExp(true);
         if (!num_.isValid()) {
             _data.setError(true);
-            return;
 
         }
     }
@@ -1136,7 +1003,6 @@ public final class CheckNumericStringsFight {
                 DataBase.VAR_PREFIX);
         if (list_.size() != CustList.ONE_ELEMENT) {
             _data.setError(true);
-            return;
 
         }
     }

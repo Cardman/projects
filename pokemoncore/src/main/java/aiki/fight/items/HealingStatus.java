@@ -31,7 +31,6 @@ public abstract class HealingStatus extends HealingItem {
                 return;
             }
             _data.setError(true);
-            return;
 
         }
     }

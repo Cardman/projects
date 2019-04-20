@@ -41,7 +41,6 @@ public final class EffectUnprotectFromTypes extends Effect {
         }
         if (!_data.getTypes().containsAllObj(attackTargetWithTypes)) {
             _data.setError(true);
-            return;
 
         }
     }

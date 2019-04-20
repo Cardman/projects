@@ -123,7 +123,6 @@ public final class EffectTeam extends Effect {
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 cancelChgtStatTeam)) {
             _data.setError(true);
-            return;
 
         }
     }

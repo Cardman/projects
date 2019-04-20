@@ -29,39 +29,6 @@ public final class SendReceiveServer extends BasicServer {
         super(_socket, _net);
     }
 
-//    public void run() {
-//        try {
-//            InputStreamReader isr_ = new InputStreamReader(getSocket().getInputStream());
-//            BufferedReader in_ = new BufferedReader(isr_);
-//            String input_;
-//
-//            while (true) {
-//                input_ = in_.readLine();
-//                if (input_ == null) {
-//                    break;
-//                }
-//                Object readObject_ = null;
-//                try {
-//                    readObject_ = SerializeXmlObject.fromXmlStringObject(input_);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    continue;
-//                }
-//                loop(input_, readObject_);
-//            }
-//            in_.close();
-//            isr_.close();
-//            getSocket().close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
-
     @Override
     public void loopServer(String _input, Object _object) {
         LOCK.lock();

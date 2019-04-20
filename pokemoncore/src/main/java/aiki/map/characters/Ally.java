@@ -42,17 +42,5 @@ public final class Ally {
         team = _team;
     }
 
-    // @Override
-    // public void beforeSave() {
-    // // List<PokemonTrainer> l_ = new List<>();
-    // // for (PokemonTrainer p: team) {
-    // // l_.add(new PkTrainer(p, p.getMoves()));
-    // // }
-    // // team = l_;
-    // }
-    //
-    // @Override
-    // public void afterLoad() {
-    // }
 
 }

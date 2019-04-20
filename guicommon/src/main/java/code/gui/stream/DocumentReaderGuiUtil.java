@@ -15,6 +15,9 @@ public final class DocumentReaderGuiUtil {
 
     public static TopLeftFrame getTopLeftFrame(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new TopLeftFrame();
+        }
         return getTopLeftFrame(doc_.getDocumentElement());
     }
 

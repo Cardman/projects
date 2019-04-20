@@ -59,7 +59,6 @@ public abstract class StatusBeginRound extends Status {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

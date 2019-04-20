@@ -1911,7 +1911,7 @@ public final class PokemonStandards extends BeanLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
         if (StringList.quickEq(name_,AikiBeansAbilitiesStd.TYPE_ABILITIES_BEAN)) {

@@ -149,12 +149,19 @@ public final class DataMap {
             error = true;
             return;
         }
-        places.getKeys().getMinimum().shortValue();
+        if (places.isEmpty()) {
+            error = true;
+            return;
+        }
         initInteractiveElements();
         firstPokemon.validate(_d, true);
 
         tree = new Tree();
         tree.initialize(this);
+        if (!existCoords(begin)) {
+            error = true;
+            return;
+        }
         Place plBegin_ = places.getVal(begin.getNumberPlace());
         Level lBegin_ = plBegin_.getLevelByCoords(begin);
         if (!lBegin_.isEmptyForAdding(begin.getLevel().getPoint())) {
@@ -166,6 +173,9 @@ public final class DataMap {
         int nbPlaces_ = places.size();
         for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
             places.getVal(p).validate(_d, tree.getPlace(p));
+            if (_d.isError()) {
+                return;
+            }
             if (places.getVal(p) instanceof InitializedPlace) {
                 if (!((InitializedPlace) places.getVal(p)).validLinks(tree)) {
                     error = true;
@@ -333,6 +343,10 @@ public final class DataMap {
         }
         initializeAccessibility();
         if (error) {
+            return;
+        }
+        if (leagues.isEmpty()) {
+            error = true;
             return;
         }
         League firstLeague_ = (League) places.getVal(leagues.first()
@@ -673,6 +687,9 @@ public final class DataMap {
                 }
                 for (int[][] k : images_.get(i)) {
                     int height_ = k.length;
+                    if (height_ == 0) {
+                        continue;
+                    }
                     int width_ = k[0].length;
                     for (int[][] l : images_.get(j)) {
                         if (height_ != l.length) {
@@ -799,6 +816,68 @@ public final class DataMap {
         }
     }
 
+    public boolean existCoords(Coords _c) {
+        Place plBegin_ = places.getVal(_c.getNumberPlace());
+        if (plBegin_ == null) {
+            return false;
+        }
+        boolean correctCoords_;
+        if (_c.isInside()) {
+            if (plBegin_ instanceof City) {
+                Point bIncome_ = _c.getInsideBuilding();
+                if (!((City)plBegin_).getBuildings().contains(bIncome_)) {
+                    correctCoords_ = false;
+                } else {
+                    Level lev_ = ((City) plBegin_).getBuildings().getVal(bIncome_).getLevel();
+                    correctCoords_ = checkLevel(lev_,_c);
+                }
+            } else {
+                correctCoords_ = false;
+            }
+        } else {
+            if (!plBegin_.getLevelsList().isValidIndex(_c.getLevel().getLevelIndex())) {
+                correctCoords_ = false;
+            } else {
+                Level curLevel_ = plBegin_.getLevelsList().get(_c.getLevel().getLevelIndex());
+                correctCoords_ = checkLevel(curLevel_,_c);
+            }
+        }
+        return correctCoords_;
+    }
+
+    public boolean existLevel(Coords _c) {
+        Place plBegin_ = places.getVal(_c.getNumberPlace());
+        if (plBegin_ == null) {
+            return false;
+        }
+        boolean correctCoords_;
+        if (_c.isInside()) {
+            if (plBegin_ instanceof City) {
+                Point bIncome_ = _c.getInsideBuilding();
+                if (!((City)plBegin_).getBuildings().contains(bIncome_)) {
+                    correctCoords_ = false;
+                } else {
+                    correctCoords_ = true;
+                }
+            } else {
+                correctCoords_ = false;
+            }
+        } else {
+            if (!plBegin_.getLevelsList().isValidIndex(_c.getLevel().getLevelIndex())) {
+                correctCoords_ = false;
+            } else {
+                correctCoords_ = true;
+            }
+        }
+        return correctCoords_;
+    }
+    private static boolean checkLevel(Level _l, Coords _c) {
+        boolean correctCoords_ = true;
+        if (!_l.getEnvBlockByPoint(_c.getLevel().getPoint()).isValid()) {
+            correctCoords_ = false;
+        }
+        return correctCoords_;
+    }
     public AreaApparition getAreaByCoords(Coords _coords) {
         if (!_coords.isValid()) {
             return new AreaApparition();
@@ -1349,32 +1428,6 @@ public final class DataMap {
                 if (allTiles_.contains(c)) {
                     continue;
                 }
-                /*
-                 * for (Coords l: newLeaders_) { Place place_ =
-                 * getPlaces().getVal(l.getNumberPlace()); if (place_ instanceof
-                 * League) { League league_ = (League)place_; byte ind_ =
-                 * l.getLevel().getLevelIndex(); if
-                 * (Numbers.eq(ind_+1,league_.getRooms().size())) {
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 * } continue; } Level l_ =
-                 * getPlaces().getVal(l.getNumberPlace()).getLevelByCoords(l);
-                 * if (l_ instanceof LevelWithWildPokemon) { if
-                 * (((LevelWithWildPokemon
-                 * )l_).getDualFights().contains(l.getLevel().getPoint())) {
-                 * 
-                 * } } if (l_ instanceof LevelIndoorGym) { City city_ = (City)
-                 * getPlaces().getVal(l.getNumberPlace()); Coords coords_ = new
-                 * Coords(l);
-                 * coords_.getLevel().setPoint(city_.getBuildings().getVal
-                 * (l.getInsideBuilding()).getExitCity());
-                 * coordsCondBis_.getVal(c).addAll(allTiles_.getVal(coords_));
-                 * 
-                 * } }
-                 */
                 for (Coords a : newLeaders_.getKeys()) {
                     if (!accessCondition.getVal(c).containsObj(a)) {
                         continue;
@@ -1383,12 +1436,6 @@ public final class DataMap {
                     coordsCondBis_.getVal(c).addAllElts(allTiles_.getVal(c_));
 
                 }
-                /*
-                 * for (Coords l: newLeaders_) { if
-                 * (accessCondition.getVal(c).containsObj(l)) {
-                 * coordsCondBis_.getVal(c).add(l); } else { } }
-                 */
-
                 coordsCondBis_.getVal(c).removeDuplicates();
             }
             for (Coords c : accessibleLeaders_) {
@@ -1542,37 +1589,8 @@ public final class DataMap {
         return list_;
     }
 
-    public EqList<Coords> accessibleLeaders(EqList<Coords> _accessibleCoords) {
-        EqList<Coords> list_ = new EqList<Coords>();
-        for (Coords c : _accessibleCoords) {
-            Place place_ = getPlaces().getVal(c.getNumberPlace());
-            if (place_ instanceof League) {
-                League league_ = (League) place_;
-                byte ind_ = c.getLevel().getLevelIndex();
-                if (Numbers.eq(ind_ + 1, league_.getRooms().size())) {
-                    list_.add(c);
-                }
-                continue;
-            }
-            Level l_ = getPlaces().getVal(c.getNumberPlace()).getLevelByCoords(
-                    c);
-            if (l_ instanceof LevelWithWildPokemon) {
-                if (((LevelWithWildPokemon) l_).getDualFights().contains(
-                        c.getLevel().getPoint())) {
-                    list_.add(c);
-                }
-            }
-            if (l_ instanceof LevelIndoorGym) {
-                list_.add(c);
-            }
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-
     public ObjectMap<Coords, Condition> getNext(Coords _id, Condition _condition) {
         ObjectMap<Coords, Condition> return_ = new ObjectMap<Coords, Condition>();
-        Condition gymCond_ = _condition;
         Place place_ = places.getVal(_id.getNumberPlace());
         Point pt_ = _id.getLevel().getPoint();
         for (EntryCust<Short, Place> e : places.entryList()) {
@@ -1587,7 +1605,7 @@ public final class DataMap {
                 coords_.getLevel().setLevelIndex((byte) 0);
                 coords_.getLevel().setPoint(
                         new Point(((League) pl_).getBegin()));
-                Condition condition_ = initCondition(coords_, gymCond_);
+                Condition condition_ = initCondition(coords_, _condition);
                 return_.put(coords_, condition_);
                 break;
             }
@@ -1597,13 +1615,13 @@ public final class DataMap {
             if (pl_.getLinksWithCaves().contains(pt_)) {
                 Link link_ = pl_.getLinksWithCaves().getVal(pt_);
                 Coords coords_ = link_.getCoords();
-                Condition cond_ = initCondition(coords_, gymCond_);
+                Condition cond_ = initCondition(coords_, _condition);
                 return_.put(coords_, cond_);
             }
-            Level level_ = place_.getLevelByCoords(_id);
             ObjectMap<PlaceInterConnect, Coords> links_ = pl_
                     .getPointsWithCitiesAndOtherRoads();
             if (!_id.isInside()) {
+                Level level_ = place_.getLevelByCoords(_id);
                 for (Direction d : Direction.values()) {
                     Point ptNext_ = new Point(pt_);
                     ptNext_.moveTo(d);
@@ -1622,7 +1640,7 @@ public final class DataMap {
                             if (levelNext_.getEnvBlockByPoint(newPoint_)
                                     .isValid()) {
                                 Condition cond_ = initCondition(coords_,
-                                        gymCond_);
+                                        _condition);
                                 return_.put(coords_, cond_);
                             }
                         }
@@ -1638,7 +1656,7 @@ public final class DataMap {
                                 coords_.getLevel().setPoint(
                                         building_.getExitCity());
                                 Condition cond_ = initCondition(coords_,
-                                        gymCond_);
+                                        _condition);
                                 return_.put(coords_, cond_);
                                 continue;
                             }
@@ -1646,14 +1664,14 @@ public final class DataMap {
                         if (pl_.getLinksWithCaves().contains(ptNext_)) {
                             Coords coords_ = new Coords(_id);
                             coords_.getLevel().setPoint(ptNext_);
-                            Condition cond_ = initCondition(coords_, gymCond_);
+                            Condition cond_ = initCondition(coords_, _condition);
                             return_.put(coords_, cond_);
                         }
                         continue;
                     }
                     Coords coords_ = new Coords(_id);
                     coords_.getLevel().setPoint(ptNext_);
-                    Condition cond_ = initCondition(coords_, gymCond_);
+                    Condition cond_ = initCondition(coords_, _condition);
                     return_.put(coords_, cond_);
                 }
             }
@@ -1663,7 +1681,7 @@ public final class DataMap {
                 Link link_ = cave_.getLinksWithOtherPlaces().getVal(
                         _id.getLevel());
                 Coords coords_ = link_.getCoords();
-                Condition cond_ = initCondition(coords_, gymCond_);
+                Condition cond_ = initCondition(coords_, _condition);
                 return_.put(coords_, cond_);
             }
             LevelCave level_ = (LevelCave) cave_.getLevelsMap().getVal(
@@ -1673,7 +1691,7 @@ public final class DataMap {
                 Link link_ = level_.getLinksOtherLevels().getVal(
                         _id.getLevel().getPoint());
                 Coords coords_ = link_.getCoords();
-                Condition cond_ = initCondition(coords_, gymCond_);
+                Condition cond_ = initCondition(coords_, _condition);
                 return_.put(coords_, cond_);
             }
             for (Direction d : Direction.values()) {
@@ -1689,14 +1707,14 @@ public final class DataMap {
                         coords_.getLevel().setPoint(ptNext_);
                         if (cave_.getLinksWithOtherPlaces().contains(
                                 coords_.getLevel())) {
-                            Condition cond_ = initCondition(coords_, gymCond_);
+                            Condition cond_ = initCondition(coords_, _condition);
                             return_.put(coords_, cond_);
                         }
                         continue;
                     }
                     Coords coords_ = new Coords(_id);
                     coords_.getLevel().setPoint(ptNext_);
-                    Condition cond_ = initCondition(coords_, gymCond_);
+                    Condition cond_ = initCondition(coords_, _condition);
                     return_.put(coords_, cond_);
                 }
             }
@@ -1711,7 +1729,7 @@ public final class DataMap {
                     Coords coords_ = new Coords(_id);
                     coords_.getLevel().setLevelIndex(levelIndex_);
                     coords_.getLevel().setPoint(level_.getNextLevelTarget());
-                    Condition cond_ = initCondition(coords_, gymCond_);
+                    Condition cond_ = initCondition(coords_, _condition);
                     return_.put(coords_, cond_);
                 }
             }
@@ -1724,7 +1742,7 @@ public final class DataMap {
                 if (level_.getEnvBlockByPoint(ptNext_).isValid()) {
                     Coords coords_ = new Coords(_id);
                     coords_.getLevel().setPoint(ptNext_);
-                    Condition cond_ = initCondition(coords_, gymCond_);
+                    Condition cond_ = initCondition(coords_, _condition);
                     return_.put(coords_, cond_);
                 }
             }
@@ -3321,28 +3339,10 @@ public final class DataMap {
         return closestTile(_link.getCoords(), _link.getDir());
     }
 
-    public Coords checkTile(Coords _currentCoords, Direction _direction) {
-        Place currentPlace_ = places.getVal(_currentCoords.getNumberPlace());
-        Level currentLevel_ = currentPlace_.getLevelByCoords(_currentCoords);
-        Point closestPoint_ = _currentCoords.getLevel().getPoint();
-        if (!currentLevel_.getBlockByPoint(closestPoint_).isValid()) {
-            if (currentPlace_ instanceof InitializedPlace) {
-                if (!_currentCoords.isInside()) {
-                    ObjectMap<PlaceInterConnect, Coords> rc_ = ((InitializedPlace) currentPlace_)
-                            .getPointsWithCitiesAndOtherRoads();
-                    PlaceInterConnect key_ = new PlaceInterConnect(
-                            _currentCoords.getLevel().getPoint(), _direction);
-                    if (rc_.contains(key_)) {
-                        return new Coords(rc_.getVal(key_));
-                    }
-                }
-            }
+    public Coords closestTile(Coords _currentCoords, Direction _direction) {
+        if (!existLevel(_currentCoords)) {
             return new Coords();
         }
-        return new Coords(_currentCoords);
-    }
-
-    public Coords closestTile(Coords _currentCoords, Direction _direction) {
         Place currentPlace_ = places.getVal(_currentCoords.getNumberPlace());
         Level currentLevel_ = currentPlace_.getLevelByCoords(_currentCoords);
         Coords closestCoords_ = new Coords(_currentCoords);

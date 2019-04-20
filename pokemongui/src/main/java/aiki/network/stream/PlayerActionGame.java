@@ -5,7 +5,7 @@ public abstract class PlayerActionGame {
 
     private byte place;
 
-    private String locale;
+    private String locale = "";
 
     public byte getPlace() {
         return place;

@@ -76,7 +76,7 @@ public enum Statistic {
                 return e;
             }
         }
-        return null;
+        return SPEED;
     }
     public boolean isWithBaseStatistic() {
         return withBaseStatistic;

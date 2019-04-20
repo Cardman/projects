@@ -56,7 +56,6 @@ public final class EffectInvoke extends Effect {
         }
         if (!rateInvokationMove.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

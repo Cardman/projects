@@ -53,7 +53,6 @@ public final class EffectCounterAttack extends Effect {
         }
         if (!sufferingDamageDirectMove.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

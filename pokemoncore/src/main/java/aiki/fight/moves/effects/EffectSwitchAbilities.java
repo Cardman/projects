@@ -13,16 +13,6 @@ public final class EffectSwitchAbilities extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (exchangeAbility == null) {
-            _data.setError(true);
-            return;
-
-        }
-        if (constAbility == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (!constAbility.isEmpty()) {
             if (!_data.getAbilities().contains(constAbility)) {
                 _data.setError(true);
@@ -44,7 +34,6 @@ public final class EffectSwitchAbilities extends Effect {
             if (!constAbility.isEmpty()) {
                 if (!_data.getAbilities().contains(constAbility)) {
                     _data.setError(true);
-                    return;
 
                 }
             }

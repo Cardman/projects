@@ -33,9 +33,6 @@ public final class Block {
         if (width <= 0 || height <= 0) {
             return false;
         }
-        if (type == null) {
-            return false;
-        }
         if (type == EnvironmentType.NOTHING) {
             return indexApparition == CustList.INDEX_NOT_FOUND_ELT;
         }

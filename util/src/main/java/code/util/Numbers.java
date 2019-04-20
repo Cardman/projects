@@ -333,6 +333,33 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         return max_;
     }
 
+    public T getMinimum(T _def) {
+        if (isEmpty()) {
+            return _def;
+        }
+        T min_ = get(FIRST_INDEX);
+        int size_ = size();
+        for (int i=SECOND_INDEX;i<size_;i++) {
+            if (min_.longValue()>get(i).longValue()) {
+                min_ = get(i);
+            }
+        }
+        return min_;
+    }
+
+    public T getMaximum(T _def) {
+        if (isEmpty()) {
+            return _def;
+        }
+        T max_ = get(FIRST_INDEX);
+        int size_ = size();
+        for (int i=SECOND_INDEX;i<size_;i++) {
+            if (max_.longValue()<get(i).longValue()) {
+                max_ = get(i);
+            }
+        }
+        return max_;
+    }
     public void removeOneNumber(long _n) {
         for (Number e:this) {
             long lg_ = e.longValue();

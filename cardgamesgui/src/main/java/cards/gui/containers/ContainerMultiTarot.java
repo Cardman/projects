@@ -288,15 +288,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         JScrollPane scroll_ = new JScrollPane();
         editor = new RenderedPage(scroll_);
 
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesTarotMulti);
-            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesTarotMulti);
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -356,15 +350,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesTarotMulti);
-            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesTarotMulti);
+        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
@@ -630,10 +618,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().add(miseres_);
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_declaration.getTakerIndex());
-        try {
-            getMini().setStatus(Status.TAKER, relative_);
-        } catch (RuntimeException _0) {
-        }
+        getMini().setStatus(Status.TAKER, relative_);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
@@ -669,10 +654,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         panelToSet_.validate();
         relative_ = relative(card_.getTakerIndex());
-        try {
-            getMini().setStatus(Status.TAKER, relative_);
-        } catch (RuntimeException _0) {
-        }
+        getMini().setStatus(Status.TAKER, relative_);
         //pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
@@ -1144,28 +1126,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setScores(res_.getScores());
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        try {
-            //editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new JScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        try {
-            //editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
@@ -1215,12 +1185,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.TAROT);
-//        try {
-//            nb_=chargerNombreDeParties(GameEnum.TAROT);
-//        } catch (Exception exc_) {
-//            nb_=0;
-//            exc_.printStackTrace();
-//        }
         GameTarot game_ = Net.getGames().partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
@@ -1280,13 +1244,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        try {
-            pile_ = chargerPileTarot();
-            if (!pile_.validStack()) {
-                pile_ = HandTarot.pileBase();
-            }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        pile_ = chargerPileTarot();
+        if (!pile_.validStack()) {
             pile_ = HandTarot.pileBase();
         }
         DealTarot deal_ = new DealTarot(0,pile_);

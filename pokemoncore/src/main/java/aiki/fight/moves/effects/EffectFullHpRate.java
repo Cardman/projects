@@ -26,7 +26,6 @@ public final class EffectFullHpRate extends Effect {
         if (!leftUserHp.isZero()) {
             if (!restoredHp.isEmpty()) {
                 _data.setError(true);
-                return;
 
             }
         }

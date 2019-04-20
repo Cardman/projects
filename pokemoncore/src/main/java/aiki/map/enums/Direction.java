@@ -11,16 +11,16 @@ public enum Direction {
         yCoords = _y;
     }
     public Direction getOpposite() {
-        for (Direction d: values()) {
-            if (d.getx()+getx() != 0) {
-                continue;
-            }
-            if (d.gety()+gety() != 0) {
-                continue;
-            }
-            return d;
+        if (this == UP) {
+            return DOWN;
         }
-        return null;
+        if (this == DOWN) {
+            return UP;
+        }
+        if (this == LEFT) {
+            return RIGHT;
+        }
+        return LEFT;
     }
     public static Direction getDirectionByName(String _env) {
         for (Direction e: values()) {
@@ -28,7 +28,7 @@ public enum Direction {
                 return e;
             }
         }
-        return null;
+        return UP;
     }
     public byte getx() {
         return xCoords;

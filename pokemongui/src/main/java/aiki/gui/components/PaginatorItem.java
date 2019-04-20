@@ -324,16 +324,16 @@ public final class PaginatorItem extends Paginator {
 
     @Override
     public void changeDeltaPage() {
-        try {
-            int nbDelta_ = Integer.parseInt(getDelta().getText());
-            if (nbDelta_ <= 0) {
-                return;
-            }
-            getFacade().setDeltaItem(nbDelta_);
-//        }catch(Exception _e){
-        }catch(NumberFormatException _0){
+        String text_ = getDelta().getText();
+        if (text_.isEmpty()) {
             getFacade().setDeltaItem(1);
+            return;
         }
+        int nbDelta_ = Integer.parseInt(text_);
+        if (nbDelta_ <= 0) {
+            return;
+        }
+        getFacade().setDeltaItem(nbDelta_);
     }
 
     public void refreshLang() {
@@ -454,19 +454,6 @@ public final class PaginatorItem extends Paginator {
     }
     private void changeNav() {
         changeNav(getFacade().enabledPreviousItem(), getFacade().enabledNextItem(), getFacade().pagesItem(), getFacade().getNumberPageItem());
-//        previous.setEnabled(getFacade().enabledPreviousItem());
-//        next.setEnabled(getFacade().enabledNextItem());
-//        previousDelta.setEnabled(getFacade().pagesItem() > CustList.FIRST_INDEX);
-//        nextDelta.setEnabled(getFacade().pagesItem() > CustList.FIRST_INDEX);
-//        begin.setEnabled(getFacade().pagesItem() > CustList.FIRST_INDEX);
-//        end.setEnabled(getFacade().pagesItem() > CustList.FIRST_INDEX);
-//        adding = true;
-//        try {
-//            pages.setSelectedIndex(getFacade().getNumberPageItem());
-//        } catch (Exception e_) {
-//            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
-//        }
-//        adding = false;
     }
 
     @Override

@@ -72,8 +72,6 @@ public abstract class Level {
         }
         if (sum_ != _level.size()) {
             _data.setError(true);
-            return;
-
         }
     }
 

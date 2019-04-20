@@ -11,11 +11,7 @@ import code.util.StringList;
 
 public final class ThreadActions extends Thread {
 
-    private static final int DELTA = 200;
-
     private static final String RETURN_LINE = "\n";
-
-    private static final String TAB = "\t";
 
     private RenderedPage page;
 
@@ -54,34 +50,28 @@ public final class ThreadActions extends Thread {
     }
     @Override
     public void run() {
-        try {
-            if (refresh) {
-                page.getNavigation().refresh();
-                afterAction();
-                return;
-            }
-            if (usedFirstUrl) {
-                page.getNavigation().loadConfiguration(fileName, stds);
-                if (!page.getNavigation().isError()) {
-                    HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
-                    htmlPage_.setUrl(-1);
-                    page.getNavigation().initializeSession();
-                }
-                afterAction();
-                return;
-            }
-            if (form) {
-                page.getNavigation().processFormRequest();
-                afterAction();
-                return;
-            }
-            page.getNavigation().processAnchorRequest(anchor);
+        if (refresh) {
+            page.getNavigation().refresh();
             afterAction();
-        } catch (RuntimeException _0) {
-            processErrors(_0);
-        } catch (Error _0) {
-            processErrors(_0);
+            return;
         }
+        if (usedFirstUrl) {
+            page.getNavigation().loadConfiguration(fileName, stds);
+            if (!page.getNavigation().isError()) {
+                HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
+                htmlPage_.setUrl(-1);
+                page.getNavigation().initializeSession();
+            }
+            afterAction();
+            return;
+        }
+        if (form) {
+            page.getNavigation().processFormRequest();
+            afterAction();
+            return;
+        }
+        page.getNavigation().processAnchorRequest(anchor);
+        afterAction();
     }
     private void afterAction() {
         if (page.getNavigation().getSession().getContext().getException() != null) {
@@ -103,18 +93,6 @@ public final class ThreadActions extends Thread {
         Document doc_ = page.getNavigation().getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
         SwingUtilities.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
-    }
-    private void processErrors(Throwable _t) {
-        if (page.getArea() != null) {
-            page.getArea().append(StringList.concat(TAB, _t.getMessage(), RETURN_LINE));
-            for (StackTraceElement s : _t.getStackTrace()) {
-                page.getArea().append(StringList.concat(
-                      TAB, s.getFileName(), TAB, s.getClassName(),
-                      TAB, s.getClassName(), TAB, s.getMethodName(), TAB, Long.toString(s.getLineNumber()), RETURN_LINE));
-            }
-        }
-        _t.printStackTrace();
-        finish();
     }
 
     void finish() {

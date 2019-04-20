@@ -21,7 +21,6 @@ public final class EffectAlly extends Effect {
         }
         if (!multAllyDamage.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

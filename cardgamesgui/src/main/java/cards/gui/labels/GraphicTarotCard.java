@@ -69,33 +69,6 @@ public class GraphicTarotCard extends PaintableLabel {
         g_.drawRect(0,0, 99, 149);
         g_.dispose();
         return img_;
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), _card.getImageFileName(FileConst.TXT_EXT));
-//            img_ = ConverterBufferedImage.decodeToImage(file_);
-//            if (img_ == null) {
-//                throw new BadImageCardException();
-//            }
-//            Graphics2D g_ = img_.createGraphics();
-//            g_.setColor(Color.BLACK);
-//            g_.drawRect(0,0, 99, 149);
-//            g_.dispose();
-//            return img_;
-//        } catch (Exception e_) {
-////            try{
-////                img_ = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+_card.getImageFileName(FileConst.PNG_EXT));
-////                if (img_ == null) {
-////                    throw new Exception();
-////                }
-////                Graphics2D g_ = img_.createGraphics();
-////                g_.setColor(Color.BLACK);
-////                g_.drawRect(0,0, 99, 149);
-////                g_.dispose();
-////                return img_;
-////            }catch(Exception _e) {
-////                return getDefaultImage(_card);
-////            }
-//            return getDefaultImage(_card);
-//        }
     }
 
     public static BufferedImage getDefaultImage(String _lg,CardTarot _card) {

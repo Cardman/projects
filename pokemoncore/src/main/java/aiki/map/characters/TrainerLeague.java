@@ -1,21 +1,9 @@
 package aiki.map.characters;
 
-import aiki.db.DataBase;
-
 
 public final class TrainerLeague extends TrainerOneFight implements Fightable {
 
     private String name;
-
-    @Override
-    public void validate(DataBase _data) {
-        super.validate(_data);
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
-    }
 
     public String getName() {
         return name;

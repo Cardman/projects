@@ -97,6 +97,9 @@ public final class DocumentReaderTarotUtil {
 
     public static DisplayingTarot getDisplayingTarot(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new DisplayingTarot();
+        }
         return getDisplayingTarot(doc_.getDocumentElement());
     }
 
@@ -202,6 +205,9 @@ public final class DocumentReaderTarotUtil {
 
     public static HandTarot getHandTarot(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new HandTarot();
+        }
         return getHandTarot(doc_.getDocumentElement());
     }
 
@@ -243,6 +249,9 @@ public final class DocumentReaderTarotUtil {
 
     public static RulesTarot getRulesTarot(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new RulesTarot();
+        }
         return getRulesTarot(doc_.getDocumentElement());
     }
 

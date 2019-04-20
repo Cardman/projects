@@ -34,7 +34,14 @@ public final class DamagingMoveData extends MoveData {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        if (_data.isError()) {
+            return;
+        }
         int index_ = indexOfPrimaryEffect();
+        if (index_ < 0) {
+            _data.setError(true);
+            return;
+        }
         if (!(getEffet(index_) instanceof EffectDamage)) {
             _data.setError(true);
             return;
@@ -112,11 +119,6 @@ public final class DamagingMoveData extends MoveData {
 
             }
         }
-        // if (category == null) {
-        // _data.setError(true);
-        return;
-
-        // }
     }
 
     @Override

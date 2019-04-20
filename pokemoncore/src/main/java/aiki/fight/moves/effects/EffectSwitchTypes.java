@@ -31,11 +31,6 @@ public final class EffectSwitchTypes extends Effect {
             return;
 
         }
-        if (constValuesType == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (!chgtTypeByEnv.isEmpty()) {
             if (constValuesType != ConstValuesType.NOTHING) {
                 _data.setError(true);
@@ -88,7 +83,6 @@ public final class EffectSwitchTypes extends Effect {
                 return;
             }
             _data.setError(true);
-            return;
 
         }
     }

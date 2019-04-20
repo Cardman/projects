@@ -27,7 +27,6 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
                 return;
 
             }
-            e.getValue().isZero();
         }
         for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
@@ -40,7 +39,6 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
                 return;
 
             }
-            e.getValue().isZero();
         }
     }
 

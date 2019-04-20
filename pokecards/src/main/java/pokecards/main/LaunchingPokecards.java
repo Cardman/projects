@@ -42,41 +42,27 @@ public class LaunchingPokecards extends SoftApplicationCore {
 
     @Override
     protected final void launch(String _language, StringMap<Object> _args) {
-        TopLeftFrame topLeft_;
-        try {
-            topLeft_ = loadCoords(getTempFolder(),COORDS);
-            if (topLeft_ == null) {
-                topLeft_ = new TopLeftFrame();
-            }
-        } catch (ClassCastException _0) {
-            topLeft_ = new TopLeftFrame();
-        } catch (Throwable _0) {
-            topLeft_ = new TopLeftFrame();
-        }
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
         MainWindow w_ = getWindow(_language);
         setLocation(w_, topLeft_);
         if (!_args.isEmpty()) {
-            try {
-                Object readObject_ = _args.values().first();
-                boolean isCardGameSave_ = false;
-                if (readObject_ instanceof GameBelote) {
-                    isCardGameSave_ = true;
-                } else if (readObject_ instanceof GameTarot) {
-                    isCardGameSave_ = true;
-                } else if (readObject_ instanceof GamePresident) {
-                    isCardGameSave_ = true;
-                }
-                if (isCardGameSave_) {
-                    LaunchingCards launch_ = new LaunchingCards();
-                    //w_.hideRadioButtons();
-                    launch_.launchWithoutLanguage(_language, _args);
-                } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
-                    LaunchingPokemon launch_ = new LaunchingPokemon();
-                    //w_.hideRadioButtons();
-                    launch_.launchWithoutLanguage(_language, _args);
-                }
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
+            Object readObject_ = _args.values().first();
+            boolean isCardGameSave_ = false;
+            if (readObject_ instanceof GameBelote) {
+                isCardGameSave_ = true;
+            } else if (readObject_ instanceof GameTarot) {
+                isCardGameSave_ = true;
+            } else if (readObject_ instanceof GamePresident) {
+                isCardGameSave_ = true;
+            }
+            if (isCardGameSave_) {
+                LaunchingCards launch_ = new LaunchingCards();
+                //w_.hideRadioButtons();
+                launch_.launchWithoutLanguage(_language, _args);
+            } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
+                LaunchingPokemon launch_ = new LaunchingPokemon();
+                //w_.hideRadioButtons();
+                launch_.launchWithoutLanguage(_language, _args);
             }
         }
     }

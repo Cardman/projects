@@ -1,6 +1,5 @@
 package aiki.fight.moves.effects;
 
-import aiki.db.DataBase;
 import code.maths.Rate;
 
 
@@ -8,15 +7,6 @@ public abstract class EffectEndRoundStatus extends EffectEndRound {
 
     private Rate inflictedRateHpTarget;
 
-    @Override
-    public void validate(DataBase _data) {
-        super.validate(_data);
-        if (inflictedRateHpTarget == null) {
-            _data.setError(true);
-            return;
-
-        }
-    }
 
     public Rate getInflictedRateHpTarget() {
         return inflictedRateHpTarget;

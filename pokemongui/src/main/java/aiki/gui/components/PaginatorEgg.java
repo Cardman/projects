@@ -221,16 +221,16 @@ public final class PaginatorEgg extends Paginator {
 
     @Override
     public void changeDeltaPage() {
-        try {
-            int nb_ = Integer.parseInt(getDelta().getText());
-            if (nb_ <= 0) {
-                return;
-            }
-            getFacade().setDeltaEgg(nb_);
-//        }catch(Exception _e){
-        }catch(NumberFormatException _0){
+        String text_ = getDelta().getText();
+        if (text_.isEmpty()) {
             getFacade().setDeltaEgg(1);
+            return;
         }
+        int nb_ = Integer.parseInt(text_);
+        if (nb_ <= 0) {
+            return;
+        }
+        getFacade().setDeltaEgg(nb_);
     }
 
     public void refreshLang() {
@@ -366,19 +366,6 @@ public final class PaginatorEgg extends Paginator {
     }
     private void changeNav() {
         changeNav(getFacade().enabledPreviousEgg(), getFacade().enabledNextEgg(), getFacade().pagesEgg(), getFacade().getNumberPageEgg());
-//        previous.setEnabled(getFacade().enabledPreviousEgg());
-//        next.setEnabled(getFacade().enabledNextEgg());
-//        previousDelta.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        nextDelta.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        begin.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        end.setEnabled(getFacade().pagesPk() > CustList.FIRST_INDEX);
-//        adding = true;
-//        try {
-//            pages.setSelectedIndex(getFacade().getNumberPageEgg());
-//        } catch (Exception e_) {
-//            pages.setSelectedIndex(CustList.INDEX_NOT_FOUND_ELT);
-//        }
-//        adding = false;
     }
 
     @Override

@@ -18,7 +18,6 @@ public final class EffectProtectFromTypes extends Effect {
         }
         if (!_data.getTypes().containsAllObj(immuAgainstTypes)) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -182,31 +182,14 @@ public class ContainerGame implements Packable, Containable {
 
     }
     protected static long chargerNombreDeParties(GameEnum _jeu) {
-        try {
-            String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-            String content_ = StreamTextFile.contentsOfFile(fileName_);
-            StringList lines_ = StringList.splitChars(content_, LINE_RETURN);
-            lines_.removeAllString(EMPTY_STRING);
-            return Long.parseLong(lines_.get(_jeu.ordinal()));
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+        String content_ = StreamTextFile.contentsOfFile(fileName_);
+        if (content_ == null) {
             return 0L;
         }
-//        long nb_;
-//        File fe_=new File(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);
-//        BufferedReader br_=new BufferedReader(new FileReader(fe_));
-//        String chaine_=EMPTY_STRING;
-//        int nbGames_ = GameEnum.values().length;
-//        for(byte indice_=CustList.FIRST_INDEX;indice_<nbGames_;indice_++) {
-//            chaine_=br_.readLine();
-//            if(indice_==_jeu.ordinal()) {
-//                break;
-//            }
-//        }
-//        nb_=Long.parseLong(chaine_);
-//        br_.close();
-//
-//        return nb_;
+        StringList lines_ = StringList.splitChars(content_, LINE_RETURN);
+        lines_.removeAllString(EMPTY_STRING);
+        return Numbers.parseLongZero(lines_.get(_jeu.ordinal()));
     }
     public void aideAuJeu() {}
     public void showTricksHands() {}

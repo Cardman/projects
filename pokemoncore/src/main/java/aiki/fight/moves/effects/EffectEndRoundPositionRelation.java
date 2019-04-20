@@ -25,7 +25,6 @@ public final class EffectEndRoundPositionRelation extends EffectEndRound {
         }
         if (healHp.isZero()) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -35,7 +35,6 @@ public final class EffectEndRoundStatusRelation extends EffectEndRoundStatus {
             return;
 
         }
-        return;
     }
 
     @Override

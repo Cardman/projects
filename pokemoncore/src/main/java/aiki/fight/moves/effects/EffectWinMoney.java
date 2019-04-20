@@ -18,7 +18,6 @@ public final class EffectWinMoney extends Effect {
         }
         if (!winningRateBySumTargetUser.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

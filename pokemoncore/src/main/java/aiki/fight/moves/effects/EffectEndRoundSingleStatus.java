@@ -28,7 +28,6 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
                 return;
 
             }
-            e.getValue().isZero();
         }
         if (!getInflictedRateHpTarget().isZeroOrGt()) {
             _data.setError(true);
@@ -45,7 +44,6 @@ public final class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
         }
         if (!getInflictedRateHpTarget().isZero()) {
             _data.setError(true);
-            return;
 
         }
     }

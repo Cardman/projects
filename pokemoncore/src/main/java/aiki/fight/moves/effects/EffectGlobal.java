@@ -206,7 +206,6 @@ public final class EffectGlobal extends Effect {
         }
         if (!_data.getTypes().containsAllObj(changedTypesTerrain)) {
             _data.setError(true);
-            return;
 
         }
     }

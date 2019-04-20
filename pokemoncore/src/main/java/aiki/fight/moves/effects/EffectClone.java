@@ -24,7 +24,6 @@ public final class EffectClone extends Effect {
         }
         if (!hpRateClone.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

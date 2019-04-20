@@ -41,9 +41,11 @@ public final class DocumentReaderCardsUnionUtil {
     public static Object getObject(String _fileName) {
         String content_ = StreamTextFile.contentsOfFile(_fileName);
         Document doc_ = DocumentBuilder.parseSax(content_);
+        if (doc_ == null) {
+            return null;
+        }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringList.quickEq(tagName_, "GameBelote")) {
             return DocumentReaderBeloteUtil.getGameBelote(doc_);
         }
@@ -91,8 +93,11 @@ public final class DocumentReaderCardsUnionUtil {
         }
     }
 
-    public static Nicknames getNicknames(String _string) {
+    public static Nicknames getNicknames(String _lg,String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new Nicknames(_lg);
+        }
         return getNicknames(doc_.getDocumentElement());
     }
 
@@ -126,6 +131,9 @@ public final class DocumentReaderCardsUnionUtil {
 
     public static SoftParams getSoftParams(String _string) {
         Document doc_ = DocumentBuilder.parseSax(_string);
+        if (doc_ == null) {
+            return new SoftParams();
+        }
         return getSoftParams(doc_.getDocumentElement());
     }
 

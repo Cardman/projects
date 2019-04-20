@@ -25,7 +25,6 @@ public final class HealingHp extends HealingItem {
         }
         if (!hp.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

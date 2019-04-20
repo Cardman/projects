@@ -19,6 +19,7 @@ public class LevelWithWildPokemonTest {
     public void getAreaByPoint1FailTest() {
         LevelWithWildPokemon level_ = new LevelRoad();
         level_.setBlocks(new ObjectMap<Point,Block>());
+        level_.setWildPokemonAreas(new CustList<AreaApparition>());
         assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 
@@ -28,6 +29,7 @@ public class LevelWithWildPokemonTest {
         level_.setBlocks(new ObjectMap<Point,Block>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
+        level_.setWildPokemonAreas(new CustList<AreaApparition>());
         assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 

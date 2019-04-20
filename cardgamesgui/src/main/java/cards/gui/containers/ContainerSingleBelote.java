@@ -540,23 +540,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getConsulting().setEnabledMenu(false);
         HandBelote pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        try {
-            pile_ = chargerPileBelote();
-            if (!pile_.validStack()) {
-                pile_ = HandBelote.pileBase();
-            }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        pile_ = chargerPileBelote();
+        if (!pile_.validStack()) {
             pile_ = HandBelote.pileBase();
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.BELOTE);
-//        try {
-//            nb_=chargerNombreDeParties(GameEnum.BELOTE);
-//        } catch (Exception exc_) {
-//            exc_.printStackTrace();
-//            nb_=0;
-//        }
         DealBelote donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
@@ -726,31 +715,19 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         BeloteStandards stds_;
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        try {
-//            editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            stds_ = new BeloteStandards();
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        stds_ = new BeloteStandards();
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=new JScrollPane();
             editor_ = new RenderedPage(scroll_);
-            try {
-//                editor_.setMainClass(SoftApplication.getMainClass());
-//                editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-                editor_.setLanguage(lg_);
-                editor_.setDataBase(res_);
-                stds_ = new BeloteStandards();
-                editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE, stds_);
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
-            }
+            editor_.setLanguage(lg_);
+            editor_.setDataBase(res_);
+            stds_ = new BeloteStandards();
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE, stds_);
             scroll_.setPreferredSize(new Dimension(300,300));
             onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),scroll_);
         }
@@ -847,40 +824,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.setNombre();
         setContentPane(container_);
     }
-//    private void changerNombreDePartiesBelote() {
-//        CustList<Long> vl_=new CustList<Long>();
-//        File fichier_=new File(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);
-//        int total_=GameEnum.values().length;
-//        boolean lu_=false;
-//        try {
-//            BufferedReader br_=new BufferedReader(new FileReader(fichier_));
-//            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-//                vl_.add(Long.parseLong(br_.readLine()));
-//            }
-//            lu_=true;
-//            br_.close();
-//        } catch (Exception exc_) {
-//            if(!lu_) {
-//                vl_=new CustList<Long>();
-//                for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
-//                    vl_.add((long)0);
-//                }
-//            }
-//        }
-//        //Si l'action de battre les cartes est faite a chaque lancement
-//        //de logiciel alors le nombre de parties est remis a zero lors
-//        //d'une fermeture de logiciel
-//        GameBelote partie_=partieBelote();
-//        vl_.set(GameEnum.BELOTE.ordinal(), partie_.getDistribution().getNombreDeParties()+1);
-//        try {
-//            BufferedWriter bw_=new BufferedWriter(new FileWriter(fichier_));
-//            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-//                bw_.write(vl_.get(indice_).toString());
-//                bw_.newLine();
-//            }
-//            bw_.close();
-//        } catch (Exception exc_) {}
-//    }
     /**Pseudos utilis&eacute;s*/
     public StringList pseudosBelote() {
         return pseudosBelote(partieBelote().getNombreDeJoueurs());

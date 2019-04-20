@@ -416,8 +416,8 @@ public final class CustLgNames extends BeanLgNames {
         return super.getOtherResult(_cont, _instance, _method, _args);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), aliasInts)) {
             res_.setResult(StdStruct.newInstance(new Ints(), aliasInts));
@@ -443,7 +443,7 @@ public final class CustLgNames extends BeanLgNames {
             res_.setError(getAliasError());
             return res_;
         }
-        return super.getOtherResult(_cont, _method, _args);
+        return super.getOtherResultBean(_cont, _method, _args);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,

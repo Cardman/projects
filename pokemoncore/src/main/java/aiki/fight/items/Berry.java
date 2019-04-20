@@ -154,7 +154,6 @@ public final class Berry extends Item {
                 return;
 
             }
-            e.getValue().byteValue();
         }
         if (!healHpBySuperEffMove.isZero()) {
             if (!multFoesDamage.isEmpty()) {
@@ -205,7 +204,6 @@ public final class Berry extends Item {
             }
             if (!damageRateRecoilFoe.isEmpty()) {
                 _data.setError(true);
-                return;
 
             }
         }

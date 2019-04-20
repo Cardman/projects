@@ -48,10 +48,6 @@ public final class PkTrainer extends Pokemon {
     @Override
     public void validate(DataBase _data, boolean _ref) {
         super.validate(_data, _ref);
-        // if (hasJustBeenCreated()) {
-        // _data.setError(true);
-
-        // }
         for (String m : moves) {
             if (StringList.quickEq(m, _data.getDefaultMove())) {
                 _data.setError(true);
@@ -75,27 +71,6 @@ public final class PkTrainer extends Pokemon {
 
         }
     }
-
-    // public boolean isValid(DataBase _data) {
-    // if(!super.isValid(_data)) {
-    // return false;
-    // }
-    // if (hasJustBeenCreated()) {
-    // return false;
-    // }
-    // for (String m: moves) {
-    // if (StringList.eq(m, _data.getDefaultMove())) {
-    // return false;
-    // }
-    // if (!_data.getMoves().contains(m)) {
-    // return false;
-    // }
-    // }
-    // if (moves.size() > _data.getNbMaxMoves()) {
-    // return false;
-    // }
-    // return !moves.isEmpty();
-    // }
 
     @Override
     public String getName() {
@@ -155,17 +130,4 @@ public final class PkTrainer extends Pokemon {
         moves = _moves;
     }
 
-    // @Override
-    // public void beforeSave() {
-    // // name = getName();
-    // // level = getLevel();
-    // // ability = getAbility();
-    // // gender = getGender();
-    // // item = getItem();
-    // // moves = getMoves();
-    // }
-    //
-    // @Override
-    // public void afterLoad() {
-    // }
 }

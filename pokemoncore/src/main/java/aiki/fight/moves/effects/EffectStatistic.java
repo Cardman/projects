@@ -39,9 +39,7 @@ public final class EffectStatistic extends Effect {
             if (!Statistic.getStatisticsWithBoost().containsObj(e.getKey())) {
                 _data.setError(true);
                 return;
-
             }
-            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 lawBoost.events())) {
@@ -195,7 +193,6 @@ public final class EffectStatistic extends Effect {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

@@ -15,7 +15,6 @@ public abstract class EvolutionStone extends Evolution {
             return;
         }
         _dataBase.setError(true);
-        return;
 
     }
 

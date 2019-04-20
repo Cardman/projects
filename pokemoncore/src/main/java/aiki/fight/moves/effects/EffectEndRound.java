@@ -14,7 +14,6 @@ public abstract class EffectEndRound extends Effect {
         super.validate(_data);
         if (endRoundRank <= 0) {
             _data.setError(true);
-            return;
 
         }
     }

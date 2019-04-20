@@ -205,6 +205,9 @@ public class FacadeGame implements WithMathFactory {
         setLoading(true);
         data_.setLanguage(language);
         data_.loadRom(_files,perCentLoading);
+        if (data_.isError()) {
+            return null;
+        }
         if (!data_.getMap().validSavedLink()) {
             data_.setError(true);
             return null;
@@ -235,6 +238,10 @@ public class FacadeGame implements WithMathFactory {
     public void loadRomAndCheck(String _fileName,
             StringMap<String> _files) {
         DataBase data_ = loadedRom(_files);
+        if (data_ == null) {
+            loadedData = false;
+            return;
+        }
         if (!isLoading()) {
             return;
         }

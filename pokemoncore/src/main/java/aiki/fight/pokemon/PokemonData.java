@@ -96,11 +96,6 @@ public final class PokemonData {
 
     public void validate(DataBase _data) {
         eggGroups.removeDuplicates();
-        if (expEvo == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (expRate <= 0) {
             _data.setError(true);
             return;
@@ -142,11 +137,6 @@ public final class PokemonData {
 
         }
         if (!_data.getTypes().containsAllObj(types)) {
-            _data.setError(true);
-            return;
-
-        }
-        if (genderRep == null) {
             _data.setError(true);
             return;
 

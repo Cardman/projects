@@ -38,6 +38,6 @@ public enum DifficultyWinPointsFight {
                 return e;
             }
         }
-        return null;
+        return TRES_FACILE;
     }
 }

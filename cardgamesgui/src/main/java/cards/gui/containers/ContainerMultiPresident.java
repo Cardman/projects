@@ -155,15 +155,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         JScrollPane scroll_ = new JScrollPane();
         editor = new RenderedPage(scroll_);
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesPresidentMulti);
-            editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesPresidentMulti);
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -240,15 +234,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
-        try {
-            //editor.setMainClass(SoftApplication.getMainClass());
-//            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(lg_);
-            editor.setDataBase(rulesPresidentMulti);
-            editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor.setLanguage(lg_);
+        editor.setDataBase(rulesPresidentMulti);
+        editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -683,15 +671,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        try {
-            //editor_.setMainClass(SoftApplication.getMainClass());
-//            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        }
+        editor_.setLanguage(lg_);
+        editor_.setDataBase(res_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);
@@ -740,12 +722,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
-//        try {
-//            nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
-//        } catch (Exception exc_) {
-//            exc_.printStackTrace();
-//            nb_=0;
-//        }
         GamePresident game_=Net.getGames().partiePresident();
         Numbers<Byte> rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
@@ -813,13 +789,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         on la cree
         */
         int nbStack_ = rulesPresidentMulti.getNbStacks();
-        try {
-            pile_ = chargerPilePresident(nbStack_);
-            if (!pile_.validStack(nbStack_)) {
-                pile_ = HandPresident.stack(nbStack_);
-            }
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        pile_ = chargerPilePresident(nbStack_);
+        if (!pile_.validStack(nbStack_)) {
             pile_ = HandPresident.stack(nbStack_);
         }
         DealPresident deal_ = new DealPresident(0, pile_);

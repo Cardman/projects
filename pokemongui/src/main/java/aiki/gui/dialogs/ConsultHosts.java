@@ -120,30 +120,6 @@ public final class ConsultHosts extends Dialog {
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         session_.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//        try {
-//            session_.setFiles(facade.getData().getWebPk());
-//            if (window.isSuccessfulCompile()) {
-//                session_.initialize(Resources.CONFIG_PK);
-//            } else {
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-
-//        session_.setFiles(facade.getData().getWebPk(), new Map<String,String>());
-//        try {
-//            session_.initialize(Resources.CONFIG_PK);
-//        } catch (Exception e_) {
-//            try {
-//                CompilingBeans.loadDefaultClassesAndClear();
-//                session_.setRelativeFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-//            } catch (Exception e2_) {
-//                e2_.printStackTrace();
-//                return;
-//            }
-//        }
         showHtmlDialog(session_);
     }
 

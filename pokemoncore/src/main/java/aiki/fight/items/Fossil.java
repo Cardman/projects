@@ -26,7 +26,6 @@ public final class Fossil extends Item {
         }
         if (level <= 0) {
             _data.setError(true);
-            return;
 
         }
     }

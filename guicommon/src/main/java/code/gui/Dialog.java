@@ -82,15 +82,6 @@ public abstract class Dialog implements ChangeableTitle {
         imageIconFrame = _group.getImageIconFrame();
     }
 
-//    protected void setDialogIcon(Window _group) {
-//        try {
-//            setIconImage(_group.getIconImages().get(List.FIRST_INDEX));
-//            imageIconFrame = _group.getIconImages().get(List.FIRST_INDEX);
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//    }
-
     @Override
     public Image getImageIconFrame() {
         return imageIconFrame;

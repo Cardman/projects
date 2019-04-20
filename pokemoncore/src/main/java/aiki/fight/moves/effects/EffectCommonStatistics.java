@@ -28,7 +28,6 @@ public final class EffectCommonStatistics extends Effect {
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -458,11 +458,11 @@ public abstract class BeanLgNames extends LgNames {
         StringList list_ = _method.getParametersTypes();
         BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, b_, _args);
-        return getOtherResult(_cont, _method, argsObj_);
+        return getOtherResultBean(_cont, _method, argsObj_);
     }
 
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
         return new ResultErrorStd();
     }
     public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {

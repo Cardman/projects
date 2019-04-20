@@ -42,49 +42,37 @@ public final class CreateMainWindowNoParam extends Thread {
         stoppedLoading_ = false;
         boolean error_ = false;
         String loadRom_ = DataBase.EMPTY_STRING;
-        try {
-            if (!load.isLoadLastRom()) {
-                window.setLoadingConf(load, true);
-                return;
-            }
-            String path_;
-            if (!load.getLastRom().isEmpty()) {
-                File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
-                if (!file_.isAbsolute()) {
-                    path_ = StringList.concat(path,load.getLastRom());
-                } else {
-                    path_ = file_.getAbsolutePath();
-                }
-                path_ = StringList.replaceBackSlash(path_);
-            } else {
-                path_ = DataBase.EMPTY_STRING;
-            }
-            loadRom_ = path_;
-            OpeningGame opening_ = new OpeningGame(window);
-            fg_.setLoading(true);
-            //ThreadInvoker.invokeNow(opening_);
-            opening_.start();
-//            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
-            if (load.loadRomAndGame()) {
-                window.loadRomGame(load, path, new StringMap<Object>(), false);
-            } else {
-                window.loadOnlyRom(path_);
-            }
-            if (!fg_.isLoading()) {
-                stoppedLoading_ = true;
-            }
-            fg_.setLoading(false);
-        } catch (RuntimeException _0) {
-            error_ = !fg_.isLoadedData();
-            fg_.setLoading(false);
-            //NumericString.setCheckSyntax(false);
-            _0.printStackTrace();
-        } catch (VirtualMachineError _0) {
-            error_ = true;
-            fg_.setLoading(false);
-            //NumericString.setCheckSyntax(false);
-            _0.printStackTrace();
+        if (!load.isLoadLastRom()) {
+            window.setLoadingConf(load, true);
+            return;
         }
+        String path_;
+        if (!load.getLastRom().isEmpty()) {
+            File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
+            if (!file_.isAbsolute()) {
+                path_ = StringList.concat(path,load.getLastRom());
+            } else {
+                path_ = file_.getAbsolutePath();
+            }
+            path_ = StringList.replaceBackSlash(path_);
+        } else {
+            path_ = DataBase.EMPTY_STRING;
+        }
+        loadRom_ = path_;
+        OpeningGame opening_ = new OpeningGame(window);
+        fg_.setLoading(true);
+        //ThreadInvoker.invokeNow(opening_);
+        opening_.start();
+//            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
+        if (load.loadRomAndGame()) {
+            window.loadRomGame(load, path, new StringMap<Object>(), false);
+        } else {
+            window.loadOnlyRom(path_);
+        }
+        if (!fg_.isLoading()) {
+            stoppedLoading_ = true;
+        }
+        fg_.setLoading(false);
         //SoftApplication.setLocation(window, topLeft);
         error = error_;
         stopLoad = stoppedLoading_;

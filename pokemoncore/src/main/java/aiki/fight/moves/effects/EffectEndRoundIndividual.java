@@ -47,9 +47,6 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
             return;
 
         }
-        for (EntryCust<String, Rate> e : healHpByOwnerTypes.entryList()) {
-            e.getValue().isZero();
-        }
         if (!deleteAllStatus.isZeroOrGt()) {
             _data.setError(true);
             return;
@@ -65,7 +62,7 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
             return;
 
         }
-        if (healHp.isZeroOrGt() && !healHp.isZero()) {
+        if (!healHp.isZero()) {
             if (!healHpByOwnerTypes.isEmpty()) {
                 _data.setError(true);
                 return;
@@ -108,7 +105,6 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
             return;
         }
         _data.setError(true);
-        return;
 
     }
 

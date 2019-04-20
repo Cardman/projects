@@ -20,7 +20,6 @@ public final class EffectEndRoundTeam extends EffectEndRound {
         }
         if (!deleteAllStatus.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -12,7 +12,6 @@ public final class EffectVarPP extends Effect {
         super.validate(_data);
         if (deletePp <= 0) {
             _data.setError(true);
-            return;
 
         }
     }

@@ -61,7 +61,6 @@ public final class HealingPp extends HealingItem {
         }
         if (!healingMoveFullpp) {
             _data.setError(true);
-            return;
 
         }
     }

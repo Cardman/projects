@@ -44,11 +44,6 @@ public final class Road extends Campaign implements InitializedPlace {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        if (name == null) {
-            _data.setError(true);
-            return;
-
-        }
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         for (PlaceInterConnect p : linksWithCitiesAndOtherRoads.getKeys()) {
             if (!levelArea_.isValid(p.getSource(), false)) {
@@ -58,16 +53,16 @@ public final class Road extends Campaign implements InitializedPlace {
             }
         }
         for (Point p : linksWithCaves.getKeys()) {
-            // if (!levelArea_.isValid(p,true)) {
-            // _data.setError(true);
-
-            // }
             if (!levelArea_.isValid(p, false)) {
                 _data.setError(true);
                 return;
 
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
+            if (!_data.getMap().existCoords(c_)) {
+                _data.setError(true);
+                return;
+            }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
@@ -103,18 +98,6 @@ public final class Road extends Campaign implements InitializedPlace {
             if (!_tree.isValid(link_.getCoords(), true)) {
                 return false;
             }
-            // if (!link_.isValidDir()) {
-            // if (!_tree.isValid(link_.getCoords(), true)) {
-            // return false;
-            // }
-            // } else {
-            // Coords coords_ = new Coords(link_.getCoords());
-            // coords_.getLevel().getPoint().moveTo(link_.getDir());
-            // if (!_tree.isValid(coords_, true)) {
-            // return false;
-            // }
-            // }
-
         }
         return true;
     }

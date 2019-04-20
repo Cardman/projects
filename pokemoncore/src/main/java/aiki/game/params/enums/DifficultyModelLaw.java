@@ -38,6 +38,6 @@ public enum DifficultyModelLaw {
                 return e;
             }
         }
-        return null;
+        return UNIFORME;
     }
 }

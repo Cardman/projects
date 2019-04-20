@@ -116,8 +116,6 @@ public class ScenePanel extends Panel {
 
     private static final String TM = "tm";
 
-//    private static final String DIFFICULTY = "difficulty";
-
     private static final String FISH = "fish";
 
     private static final String SEE_POKEMON = "seePokemon";
@@ -151,14 +149,6 @@ public class ScenePanel extends Panel {
     private static final String SELECT_PK_BOX = "selectPkBox";
 
     private static final String SELECT_EGG_BOX = "selectEggBox";
-
-//    private static final String SELECTED_PK = "selectedPk";
-
-//    private static final String SELECTED_EGG = "selectedEgg";
-
-//    private static final String NOT_SELECTED_PK = "notSelectedPk";
-
-//    private static final String NOT_SELECTED_EGG = "notSelectedEgg";
 
     private static final String TAKE_ITEM = "takeItem";
 
@@ -212,8 +202,6 @@ public class ScenePanel extends Panel {
 
     private static final String VALIDATE_MT = "validateMt";
 
-    //private static final String SELECTED_MOVES = "selectedMoves";
-
     private static final String SELECT_TM = "selectTm";
 
     private static final String SELECT_ABILITY = "selectAbility";
@@ -233,8 +221,6 @@ public class ScenePanel extends Panel {
     private static final String NO_POSSIBLE_BUY = "noPossibleBuy";
 
     private static final String TITLE_DETAIL = "titleDetail";
-
-//    private static final String TITLE_DIFFICULTY = "titleDifficulty";
 
     private static final String SPACE = " ";
 
@@ -263,8 +249,6 @@ public class ScenePanel extends Panel {
     private LabelButton items;
 
     private LabelButton tm;
-
-//    private LabelButton difficulty;
 
     private LabelButton fish;
 
@@ -307,8 +291,6 @@ public class ScenePanel extends Panel {
 
     private LabelButton release;
 
-    //private LabelButton cancelSelect;
-
     private LabelButton withdraw;
 
     private LabelButton withdrawEgg;
@@ -349,11 +331,7 @@ public class ScenePanel extends Panel {
 
     private LabelButton nicknamePk;
 
-//    private boolean enabledSwitchTeam;
-
     private boolean enabledClick = true;
-
-    //private GamePanel gamePanel;
 
     private RenderedPage receivedPk;
 
@@ -859,17 +837,6 @@ public class ScenePanel extends Panel {
 
     public void seeNetPokemonDetail() {
         receivedPk.initializeHtml(Resources.ACCESS_TO_DEFAULT_PK, new PokemonStandards());
-//        try {
-////            if (window.isSuccessfulCompile()) {
-////                receivedPk.initialize(Resources.CONFIG_PK);
-////            } else {
-////                receivedPk.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-////            }
-////            receivedPk.initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_PK);
-//            receivedPk.initializeHtml(Resources.ACCESS_TO_DEFAULT_PK);
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
     }
 
     public void interact() {
@@ -1353,28 +1320,6 @@ public class ScenePanel extends Panel {
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         session_.setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//        try {
-//            session_.setFiles(facade.getData().getWebPk());
-//            if (window.isSuccessfulCompile()) {
-//                session_.initialize(Resources.CONFIG_PK);
-//            } else {
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-//        try {
-//            session_.initialize(Resources.CONFIG_PK);
-//        } catch (Exception e_) {
-//            try {
-//                CompilingBeans.loadDefaultClassesAndClear();
-//                session_.setRelativeFiles(Resources.ACCESS_TO_DEFAULT_FILES);
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_PK);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return;
-//            }
-//        }
         showHtmlDialog(window, session_);
     }
 

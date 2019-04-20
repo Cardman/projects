@@ -13,7 +13,7 @@ public final class PokemonFamily {
         StringList currentEvolutions_ = new StringList();
         currentEvolutions_.add(_pokemonBase);
         evolutionsLevels_.add(_pokemonBase);
-        StringList newEvolutions_ = new StringList();
+        StringList newEvolutions_;
         while (true) {
             newEvolutions_ = new StringList();
             for (String e: currentEvolutions_) {

@@ -218,7 +218,6 @@ public final class EffectDamage extends Effect {
         }
         if (power.isEmpty()) {
             _data.setError(true);
-            return;
 
         }
     }

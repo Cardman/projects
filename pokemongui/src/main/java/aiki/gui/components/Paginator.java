@@ -20,10 +20,7 @@ import code.gui.Panel;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.util.ExtractFromFiles;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.pagination.SearchingMode;
 
 public abstract class Paginator extends Panel{
@@ -134,27 +131,24 @@ public abstract class Paginator extends Panel{
     }
 
     protected static Integer convertNumberField(String _text) {
-        try {
-            return Integer.parseInt(_text);
-        }catch(NumberFormatException _0){
+        if (_text.isEmpty()) {
             return null;
         }
+        return Numbers.parseInt(_text);
     }
 
     protected static Short convertShortNumberField(String _text) {
-        try {
-            return Short.parseShort(_text);
-        }catch(NumberFormatException _0){
+        if (_text.isEmpty()) {
             return null;
         }
+        return (short) Numbers.parseInt(_text);
     }
 
     protected static Long convertLongNumberField(String _text) {
-        try {
-            return Long.parseLong(_text);
-        }catch(NumberFormatException _0){
+        if (_text.isEmpty()) {
             return null;
         }
+        return Numbers.parseLongZero(_text);
     }
 
     protected static Rate convertRateField(String _text) {
@@ -220,11 +214,7 @@ public abstract class Paginator extends Panel{
         begin.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
         end.setEnabledLabel(_nbPages > CustList.FIRST_INDEX);
         adding = true;
-        try {
-            pages.selectItem(_noPage);
-        } catch (RuntimeException _0) {
-            pages.selectItem(CustList.INDEX_NOT_FOUND_ELT);
-        }
+        pages.selectItem(_noPage);
         adding = false;
     }
 

@@ -499,13 +499,6 @@ public class DataBase implements WithMathFactory {
     public LgInt getMaxRd() {
         return standardMathFactory.getMaxRandomNb();
     }
-    public Rate evaluateDirectlyRate(String _numExp) {
-        return standardMathFactory.evaluateDirectlyRate(_numExp);
-    }
-
-    public Boolean evaluateDirectlyBoolean(String _booleanExp) {
-        return standardMathFactory.evaluateDirectlyBoolean(_booleanExp);
-    }
 
     public NumericableString<Rate> createNumericableString(
             String _chaineNumerique, StringMap<String> _vars) {
@@ -772,7 +765,7 @@ public class DataBase implements WithMathFactory {
                 TypeStatistic pair_;
                 pair_ = new TypeStatistic(move_.getTypes().first(),
                         effect_.getStatisAtt());
-                if (existDamageMoveWithTypeStatAttack_.getVal(pair_)) {
+                if (existDamageMoveWithTypeStatAttack_.contains(pair_) && existDamageMoveWithTypeStatAttack_.getVal(pair_)) {
                     continue;
                 }
                 String powStr_ = effect_.getPower();
@@ -1064,7 +1057,6 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(allPokemon_, pokedex.getKeys())) {
             setError(true);
-            return;
         }
     }
 
@@ -2135,8 +2127,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
             filesNames_.add(n_);
-            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_
-                    .getVal(StringList.concat(common_, f)));
+            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(notNull(files_,StringList.concat(common_, f)));
             completeMembers(toUpperCase(n_), f_);
         }
         calculateAvgPound();
@@ -2154,13 +2145,14 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
             filesNames_.add(n_);
-            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(files_
-                    .getVal(StringList.concat(common_, f)));
+            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_,StringList.concat(common_, f)));
             completeMembers(toUpperCase(n_), move_);
         }
         _perCentLoading.set(10);
-        StringList tmHm_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, CT_CS_FILE)),
+        String fileHmTm_ = notNull(files_,StringList.concat(common_, CT_CS_FILE));
+        StringList tmHm_;
+        tmHm_ = StringList.splitChars(
+                fileHmTm_,
                 RETURN_LINE_CHAR);
         for (String l : tmHm_) {
             if (l.startsWith(CT)) {
@@ -2196,8 +2188,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
             filesNames_.add(n_);
-            Item o_ = DocumentReaderAikiCoreUtil.getItem(files_
-                    .getVal(StringList.concat(common_, f)));
+            Item o_ = DocumentReaderAikiCoreUtil.getItem(notNull(files_,StringList.concat(common_, f)));
             completeMembers(toUpperCase(n_), o_);
         }
         filesNames_.clear();
@@ -2214,8 +2205,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
             filesNames_.add(n_);
-            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(files_
-                    .getVal(StringList.concat(common_, f)));
+            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(notNull(files_,StringList.concat(common_, f)));
             completeMembers(toUpperCase(n_), ab_);
         }
         filesNames_.clear();
@@ -2232,8 +2222,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
             filesNames_.add(n_);
-            Status st_ = DocumentReaderAikiCoreUtil.getStatus(files_
-                    .getVal(StringList.concat(common_, f)));
+            Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_,StringList.concat(common_, f)));
             completeMembers(toUpperCase(n_), st_);
         }
         _perCentLoading.set(15);
@@ -2249,8 +2238,7 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
 
             String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            images.put(key_, BaseSixtyFourUtil.getImageByString(files_
-                    .getVal(StringList.concat(common_, s))));
+            images.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
         }
         filesNames_.clear();
 
@@ -2263,8 +2251,7 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
 
             String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            miniMap.put(key_, BaseSixtyFourUtil.getImageByString(files_
-                    .getVal(StringList.concat(common_, s))));
+            miniMap.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
         }
 
         filesNames_.clear();
@@ -2276,8 +2263,7 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
 
             String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            links.put(key_, BaseSixtyFourUtil.getImageByString(files_
-                    .getVal(StringList.concat(common_, s))));
+            links.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
         }
         filesNames_.clear();
         people = new StringMap<int[][]>();
@@ -2288,13 +2274,13 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
 
             String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            people.put(key_, BaseSixtyFourUtil.getImageByString(files_
-                    .getVal(StringList.concat(common_, s))));
+            people.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
         }
         filesNames_.clear();
         frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(files_.getVal(StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT)),
+        String frHeros_ = notNull(files_,StringList.concat(
+                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT));
+        for (String l : StringList.splitChars(frHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2309,8 +2295,9 @@ public class DataBase implements WithMathFactory {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         backHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(files_.getVal(StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_BACK)),
+        String bkHeros_ = notNull(files_,StringList.concat(
+                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_BACK));
+        for (String l : StringList.splitChars(bkHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2325,8 +2312,9 @@ public class DataBase implements WithMathFactory {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
         overWorldHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(files_.getVal(StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_MINI)),
+        String ovHeros_ = notNull(files_,StringList.concat(
+                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_MINI));
+        for (String l : StringList.splitChars(ovHeros_,
                 RETURN_LINE_CHAR)) {
             if (l.isEmpty()) {
                 continue;
@@ -2343,8 +2331,6 @@ public class DataBase implements WithMathFactory {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(HERO_FOLDER, SEPARATOR_FILES));
         filesNames_.clear();
         trainers = new StringMap<int[][]>();
 
@@ -2354,8 +2340,7 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(s);
 
             String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            trainers.put(key_, BaseSixtyFourUtil.getImageByString(files_
-                    .getVal(StringList.concat(common_, s))));
+            trainers.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
         }
         filesNames_.clear();
         maxiPkBack = new StringMap<int[][]>();
@@ -2368,7 +2353,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             maxiPkBack.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
         filesNames_.clear();
@@ -2382,7 +2367,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             maxiPkFront.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
         filesNames_.clear();
@@ -2396,7 +2381,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             miniPk.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
         _perCentLoading.set(25);
@@ -2414,7 +2399,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             miniItems.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
 
@@ -2432,23 +2417,28 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             typesImages.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
 
-        imageTmHm = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList
-                .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT)));
-        storage = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList
-                .concat(common_, IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT)));
-        combos = DocumentReaderAikiCoreUtil.getCombos(files_.getVal(StringList
-                .concat(common_, COMBOS)));
+        String imgHmTm_ = notNull(files_,StringList
+                .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT));
+        imageTmHm = BaseSixtyFourUtil.getImageByString(imgHmTm_);
+        String storeImg_ = notNull(files_,StringList
+                .concat(common_, IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT));
+        storage = BaseSixtyFourUtil.getImageByString(storeImg_);
+        String combos_ = notNull(files_,StringList
+                .concat(common_, COMBOS));
+        combos = DocumentReaderAikiCoreUtil.getCombos(combos_);
         completeMembersCombos();
         sortEndRound();
-        map = DocumentReaderAikiCoreUtil.getDataMap(files_.getVal(StringList
-                .concat(common_, MAP_FILE)));
+        String mapFile_ = notNull(files_,StringList
+                .concat(common_, MAP_FILE));
+        map = DocumentReaderAikiCoreUtil.getDataMap(mapFile_);
         constNum = new StringMap<Rate>();
+        String cstNum_ = notNull(files_,StringList.concat(common_, CONST_NUM));
         StringList linesNum_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, CONST_NUM)),
+                cstNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNum_) {
             if (l.isEmpty()) {
@@ -2458,8 +2448,9 @@ public class DataBase implements WithMathFactory {
             constNum.put(infos_.first(), new Rate(infos_.last()));
         }
 
+        String cstNotNum_ = notNull(files_,StringList.concat(common_, CONST_NOT_NUM));
         StringList linesNotNum_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, CONST_NOT_NUM)),
+                cstNotNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNotNum_) {
             if (l.isEmpty()) {
@@ -2487,8 +2478,9 @@ public class DataBase implements WithMathFactory {
 
         }
         tableTypes = new ObjectMap<TypesDuo, Rate>();
+        String tTable_ = notNull(files_,StringList.concat(common_, TABLE_TYPES));
         StringList linesTableTypes_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, TABLE_TYPES)),
+                tTable_,
                 RETURN_LINE_CHAR);
         String head_ = linesTableTypes_.first();
         StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
@@ -2518,8 +2510,9 @@ public class DataBase implements WithMathFactory {
             }
         }
         lawsDamageRate = new EnumMap<DifficultyModelLaw, LawNumber>();
+        String rdLaw_ = notNull(files_,StringList.concat(common_, LOIS_RANDOM));
         StringList laws_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, LOIS_RANDOM)),
+                rdLaw_,
                 RETURN_LINE_CHAR);
         for (String l : laws_) {
             if (l.isEmpty()) {
@@ -2559,8 +2552,9 @@ public class DataBase implements WithMathFactory {
                     new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType, String>();
+        String pts_ = notNull(files_,StringList.concat(common_, COURBE_PTS_EXP));
         StringList courbes_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, COURBE_PTS_EXP)),
+                pts_,
                 RETURN_LINE_CHAR);
         for (String l : courbes_) {
             if (l.isEmpty()) {
@@ -2571,8 +2565,9 @@ public class DataBase implements WithMathFactory {
                     infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight, String>();
+        String rWon_ = notNull(files_,StringList.concat(common_, RATE_WON_POINTS));
         StringList rates_ = StringList.splitChars(
-                files_.getVal(StringList.concat(common_, RATE_WON_POINTS)),
+                rWon_,
                 RETURN_LINE_CHAR);
         for (String l : rates_) {
             if (l.isEmpty()) {
@@ -2583,8 +2578,9 @@ public class DataBase implements WithMathFactory {
                     .first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
-        StringList colorTypes_ = StringList.splitChars(files_.getVal(StringList
-                .concat(common_, TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT)),
+        String imgTypes_ = notNull(files_,StringList
+                .concat(common_, TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT));
+        StringList colorTypes_ = StringList.splitChars(imgTypes_,
                 RETURN_LINE_CHAR);
         for (String l : colorTypes_) {
             if (l.isEmpty()) {
@@ -2594,9 +2590,9 @@ public class DataBase implements WithMathFactory {
             String colorStr_ = infos_.get(1);
             typesColors.put(infos_.first(), colorStr_);
         }
-        endGameImage = BaseSixtyFourUtil.getImageByString(files_
-                .getVal(StringList.concat(common_, END_GAME_IMAGE,
-                        IMG_FILES_RES_EXT_TXT)));
+        String endGame_ = notNull(files_,StringList.concat(common_, END_GAME_IMAGE,
+                        IMG_FILES_RES_EXT_TXT));
+        endGameImage = BaseSixtyFourUtil.getImageByString(endGame_);
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean, String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight, String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw, String>>();
@@ -2622,7 +2618,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
             EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2637,7 +2633,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
             EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2652,7 +2648,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2669,7 +2665,7 @@ public class DataBase implements WithMathFactory {
                     .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2684,7 +2680,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
             EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2699,7 +2695,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
             EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2714,7 +2710,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
             EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2730,7 +2726,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
             StringMap<String> categories_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2745,7 +2741,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
             StringMap<String> types_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2760,7 +2756,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
             StringMap<String> pokemon_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2775,7 +2771,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
             StringMap<String> moves_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2790,7 +2786,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
             StringMap<String> items_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2805,7 +2801,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
             StringMap<String> abilities_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2820,7 +2816,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
             StringMap<String> status_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2835,7 +2831,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
             StringMap<String> fctsMath_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2850,7 +2846,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
             StringMap<String> descrClasses_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2865,7 +2861,7 @@ public class DataBase implements WithMathFactory {
             fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
             StringMap<String> litteral_ = new StringMap<String>();
             for (String l2_ : StringList.splitChars(
-                    files_.getVal(StringList.concat(common_, fileName_)),
+                    notNull(files_,StringList.concat(common_, fileName_)),
                     RETURN_LINE_CHAR)) {
                 if (l2_.isEmpty()) {
                     continue;
@@ -2890,7 +2886,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             animStatis.put(toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             f))));
         }
 
@@ -2903,12 +2899,23 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             animStatus.put(toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(files_.getVal(StringList.concat(common_,
+                    .getImageByString(notNull(files_,StringList.concat(common_,
                             f))));
         }
-        animAbsorb = BaseSixtyFourUtil.getImageByString(files_
-                .getVal(StringList.concat(common_, ANIM_ABSORB)));
+        String anAbs_ = notNull(files_,StringList.concat(common_, ANIM_ABSORB));
+        animAbsorb = BaseSixtyFourUtil.getImageByString(anAbs_);
         _perCentLoading.set(40);
+    }
+
+    private static String notNull(StringMap<String> _m, String _k) {
+        String v_ = _m.getVal(_k);
+        return notNull(v_);
+    }
+    private static String notNull(String _s) {
+        if (_s == null) {
+            return EMPTY_STRING;
+        }
+        return _s;
     }
 
     public void setLanguage(String _language) {

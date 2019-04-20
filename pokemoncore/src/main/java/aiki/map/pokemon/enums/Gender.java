@@ -44,6 +44,6 @@ public enum Gender {
                 return e;
             }
         }
-        return null;
+        return NO_GENDER;
     }
 }

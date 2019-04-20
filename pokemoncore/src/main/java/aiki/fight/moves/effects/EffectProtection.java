@@ -31,7 +31,6 @@ public final class EffectProtection extends Effect {
             if (!protTeamAgainstStatusMoves && !protTeamAgainstDamageMoves) {
                 if (protSingleAgainstKo.isZero()) {
                     _data.setError(true);
-                    return;
 
                 }
             }

@@ -42,43 +42,32 @@ public final class CreateMainWindowParam extends Thread {
         String loadRom_ = DataBase.EMPTY_STRING;
         boolean stoppedLoading_ = false;
         FacadeGame fg_ = window.getFacade();
-        try {
-            String path_;
-            if (!load.getLastRom().isEmpty()) {
-                File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
-                if (!file_.isAbsolute()) {
-                    path_ = StringList.concat(path,load.getLastRom());
-                } else {
-                    path_ = file_.getAbsolutePath();
-                }
-                path_ = StringList.replaceBackSlash(path_);
+        String path_;
+        if (!load.getLastRom().isEmpty()) {
+            File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
+            if (!file_.isAbsolute()) {
+                path_ = StringList.concat(path,load.getLastRom());
             } else {
-                path_ = DataBase.EMPTY_STRING;
+                path_ = file_.getAbsolutePath();
             }
-            loadRom_ = path_;
-            OpeningGame opening_ = new OpeningGame(window);
-            fg_.setLoading(true);
-            opening_.start();
-            if (!load.getLastSavedGame().isEmpty()) {
-                window.loadRomGame(load, path, files, true);
-            } else {
-                window.loadOnlyRom(path_);
-            }
-            if (!fg_.isLoading()) {
-                stoppedLoading_ = true;
-            }
-            fg_.setLoading(false);
-            window.setLoadingConf(load, false);
-        } catch (RuntimeException _0) {
-            error_ = !fg_.isLoadedData();
-            stoppedLoading_ = false;
-            fg_.setLoading(false);
-            _0.printStackTrace();
-        } catch (VirtualMachineError _0) {
-            error_ = true;
-            fg_.setLoading(false);
-            _0.printStackTrace();
+            path_ = StringList.replaceBackSlash(path_);
+        } else {
+            path_ = DataBase.EMPTY_STRING;
         }
+        loadRom_ = path_;
+        OpeningGame opening_ = new OpeningGame(window);
+        fg_.setLoading(true);
+        opening_.start();
+        if (!load.getLastSavedGame().isEmpty()) {
+            window.loadRomGame(load, path, files, true);
+        } else {
+            window.loadOnlyRom(path_);
+        }
+        if (!fg_.isLoading()) {
+            stoppedLoading_ = true;
+        }
+        fg_.setLoading(false);
+        window.setLoadingConf(load, false);
         error = error_;
         stopLoad = stoppedLoading_;
         fileName = loadRom_;

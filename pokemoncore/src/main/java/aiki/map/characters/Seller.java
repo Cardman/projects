@@ -15,11 +15,6 @@ public final class Seller extends Person {
     private Numbers<Short> tm;
 
     public void validate(DataBase _data) {
-        if (sell == null) {
-            _data.setError(true);
-            return;
-
-        }
         if (!_data.getItems().containsAllAsKeys(items)) {
             _data.setError(true);
             return;

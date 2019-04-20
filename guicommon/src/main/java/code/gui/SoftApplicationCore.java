@@ -57,11 +57,7 @@ public abstract class SoftApplicationCore {
         if (_args.length > 0) {
             String fileName_ = new File(_args[0]).getAbsolutePath();
             fileName_ = StringList.replaceBackSlash(fileName_);
-            try {
-                files_.put(fileName_, getObject(_args[0]));
-            } catch (RuntimeException _0) {
-                files_.put(fileName_, null);
-            }
+            files_.put(fileName_, getObject(_args[0]));
         }
         return files_;
     }
@@ -76,17 +72,6 @@ public abstract class SoftApplicationCore {
         String icon_ = ResourceFiles.ressourceFichier(StringList.concat(_folder,StreamTextFile.SEPARATEUR,_fileTxt));
         int[][] file_ = BaseSixtyFourUtil.getImageByString(icon_);
         image_ = ConverterGraphicBufferedImage.decodeToImage(file_);
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(_folder, _fileTxt);
-//            image_ = ConverterBufferedImage.decodeToImage(file_);
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//            try {
-//                image_ = (BufferedImage) StreamImageFile.ressourceIcon(_folder, _filePng).getImage();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
         return image_;
     }
 

@@ -18,7 +18,6 @@ public final class TrainerMultiFights extends Trainer implements
         }
         if (teamsRewards.isEmpty()) {
             _data.setError(true);
-            return;
 
         }
     }

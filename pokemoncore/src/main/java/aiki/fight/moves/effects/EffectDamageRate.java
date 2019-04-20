@@ -19,7 +19,6 @@ public final class EffectDamageRate extends Effect {
         }
         if (rateDamage.isZero()) {
             _data.setError(true);
-            return;
 
         }
     }

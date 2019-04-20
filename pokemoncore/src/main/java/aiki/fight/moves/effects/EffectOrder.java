@@ -10,13 +10,8 @@ public final class EffectOrder extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        // if (getTargetChoice() == TargetChoice.LANCEUR) {
-        // _data.setError(true);
-
-        // }
         if (!getTargetChoice().isWithChoice()) {
             _data.setError(true);
-            return;
 
         }
     }
