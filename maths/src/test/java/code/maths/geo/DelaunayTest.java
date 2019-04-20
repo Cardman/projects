@@ -2,7 +2,6 @@ package code.maths.geo;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertSame;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.util.EqList;
@@ -20,7 +19,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
         pts_.add(new CustPoint(3, 2));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
         assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
@@ -31,7 +30,6 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void compute2Test() {
         Delaunay d_ = new Delaunay();
@@ -40,7 +38,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(3, 2));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
         assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
@@ -59,7 +57,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
         assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
@@ -70,7 +68,6 @@ public class DelaunayTest {
         assertEq(new CustPoint(1, 5), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void compute4Test() {
         Delaunay d_ = new Delaunay();
@@ -79,7 +76,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
         assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
@@ -102,7 +99,6 @@ public class DelaunayTest {
         assertEq(0, ts_.size());
     }
 
-    @Ignore
     @Test
     public void compute6Test() {
         Delaunay d_ = new Delaunay();
@@ -111,7 +107,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(4, 0));
         pts_.add(new CustPoint(6, 0));
         pts_.add(new CustPoint(2, -2));
-        d_.compute(pts_, true, false);
+        d_.compute(pts_, true);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(3, ts_.size());
     }
@@ -123,7 +119,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(0, 0));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
@@ -138,7 +134,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(1, 1));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(0, 3));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
@@ -153,7 +149,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(0, 3));
         pts_.add(new CustPoint(2, 4));
         pts_.add(new CustPoint(1, 5));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(0, 3), ts_.get(0).getFirstPoint());
@@ -168,7 +164,7 @@ public class DelaunayTest {
         pts_.add(new CustPoint(67, 57));
         pts_.add(new CustPoint(145, 185));
         pts_.add(new CustPoint(333, 264));
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(67, 57), ts_.get(0).getFirstPoint());
@@ -412,7 +408,6 @@ public class DelaunayTest {
         assertEq(2, ts_.size());
     }
 
-    //    @Ignore
     @Test
     public void mainComputeIncr16Test() {
         Delaunay d_ = new Delaunay();
@@ -447,7 +442,6 @@ public class DelaunayTest {
         assertEq(9, ts_.size());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex1Test() {
         Delaunay d_ = new Delaunay();
@@ -460,14 +454,13 @@ public class DelaunayTest {
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
         assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(1, 5), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(1, 5), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
         assertEq(new CustPoint(0, 0), ts_.get(1).getFirstPoint());
         assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex2Test() {
         Delaunay d_ = new Delaunay();
@@ -479,15 +472,14 @@ public class DelaunayTest {
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
-        assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(0, 3), ts_.get(0).getFirstPoint());
         assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(0, 3), ts_.get(0).getThirdPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(1).getFirstPoint());
-        assertEq(new CustPoint(1, 1), ts_.get(1).getSecondPoint());
-        assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(0, 3), ts_.get(1).getFirstPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(1).getSecondPoint());
+        assertEq(new CustPoint(1, 1), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex3Test() {
         Delaunay d_ = new Delaunay();
@@ -499,15 +491,14 @@ public class DelaunayTest {
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
-        assertEq(new CustPoint(3, 2), ts_.get(0).getFirstPoint());
-        assertEq(new CustPoint(0, 0), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(1, 5), ts_.get(0).getSecondPoint());
         assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
         assertEq(new CustPoint(0, 0), ts_.get(1).getFirstPoint());
         assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
-        assertEq(new CustPoint(1, 5), ts_.get(1).getThirdPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex4Test() {
         Delaunay d_ = new Delaunay();
@@ -519,12 +510,12 @@ public class DelaunayTest {
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
-        assertEq(new CustPoint(3, 2), ts_.get(0).getFirstPoint());
-        assertEq(new CustPoint(1, 1), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
-        assertEq(new CustPoint(1, 1), ts_.get(1).getFirstPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
-        assertEq(new CustPoint(0, 3), ts_.get(1).getThirdPoint());
+        assertEq(new CustPoint(0, 3), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(0, 3), ts_.get(1).getFirstPoint());
+        assertEq(new CustPoint(3, 2), ts_.get(1).getSecondPoint());
+        assertEq(new CustPoint(1, 1), ts_.get(1).getThirdPoint());
     }
 
     @Test
@@ -552,7 +543,6 @@ public class DelaunayTest {
         assertEq(3, ts_.size());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex7Test() {
         Delaunay d_ = new Delaunay();
@@ -564,11 +554,10 @@ public class DelaunayTest {
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(0, 0), ts_.get(0).getFirstPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(1, 5), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(1, 5), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex8Test() {
         Delaunay d_ = new Delaunay();
@@ -579,12 +568,11 @@ public class DelaunayTest {
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
-        assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(0, 3), ts_.get(0).getFirstPoint());
         assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(0, 3), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(1, 1), ts_.get(0).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex9Test() {
         Delaunay d_ = new Delaunay();
@@ -596,8 +584,8 @@ public class DelaunayTest {
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(1, ts_.size());
         assertEq(new CustPoint(0, 3), ts_.get(0).getFirstPoint());
-        assertEq(new CustPoint(2, 4), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(1, 5), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(1, 5), ts_.get(0).getSecondPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
     }
 
     @Test
@@ -615,7 +603,6 @@ public class DelaunayTest {
         assertEq(new CustPoint(333, 264), ts_.get(0).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void mainComputeIncrConvex11Test() {
         Delaunay d_ = new Delaunay();
@@ -627,11 +614,11 @@ public class DelaunayTest {
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
         assertEq(2, ts_.size());
-        assertEq(new CustPoint(2, 4), ts_.get(0).getFirstPoint());
+        assertEq(new CustPoint(1, 1), ts_.get(0).getFirstPoint());
         assertEq(new CustPoint(1, 3), ts_.get(0).getSecondPoint());
-        assertEq(new CustPoint(3, 2), ts_.get(0).getThirdPoint());
-        assertEq(new CustPoint(1, 3), ts_.get(1).getFirstPoint());
-        assertEq(new CustPoint(1, 1), ts_.get(1).getSecondPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(0).getThirdPoint());
+        assertEq(new CustPoint(1, 1), ts_.get(1).getFirstPoint());
+        assertEq(new CustPoint(2, 4), ts_.get(1).getSecondPoint());
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
@@ -692,7 +679,6 @@ public class DelaunayTest {
         assertEq(2, ts_.size());
     }
 
-//    @Ignore
     @Test
     public void mainComputeIncrConvex16Test() {
         Delaunay d_ = new Delaunay();
@@ -980,7 +966,6 @@ public class DelaunayTest {
         assertEq(6, ts_.size());
     }
 
-    @Ignore
     @Test
     public void getNextPoints1Test() {
         Delaunay d_ = new Delaunay();
@@ -993,7 +978,7 @@ public class DelaunayTest {
         pts_.add(three_);
         CustPoint four_ = new CustPoint(3, 2);
         pts_.add(four_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(4, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);
@@ -1036,7 +1021,7 @@ public class DelaunayTest {
         pts_.add(three_);
         CustPoint four_ = new CustPoint(3, 2);
         pts_.add(four_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(4, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);
@@ -1067,7 +1052,6 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void getNextPoints3Test() {
         Delaunay d_ = new Delaunay();
@@ -1123,11 +1107,6 @@ public class DelaunayTest {
         assertSame(fourteen_, nextOne_.get(9));
         assertSame(fifteen_, nextOne_.get(10));
         assertSame(seventeen_, nextOne_.get(11));
-//        assertSame(seventeen_, nextOne_.get(12));
-//        assertSame(fourteen_, nextOne_.get(12));
-//        assertSame(fifteen_, nextOne_.get(13));
-//        assertSame(sixteen_, nextOne_.get(14));
-//        assertSame(seventeen_, nextOne_.get(15));
     }
 
     @Test
@@ -1142,7 +1121,7 @@ public class DelaunayTest {
         pts_.add(three_);
         CustPoint four_ = new CustPoint(2, 4);
         pts_.add(four_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(4, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);
@@ -1173,7 +1152,6 @@ public class DelaunayTest {
         assertEq(new CustPoint(2, 4), ts_.get(1).getThirdPoint());
     }
 
-    @Ignore
     @Test
     public void getNextPoints5Test() {
         Delaunay d_ = new Delaunay();
@@ -1186,7 +1164,7 @@ public class DelaunayTest {
         pts_.add(three_);
         CustPoint four_ = new CustPoint(2, 4);
         pts_.add(four_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(4, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);
@@ -1231,7 +1209,7 @@ public class DelaunayTest {
         pts_.add(four_);
         CustPoint five_ = new CustPoint(-5, -6);
         pts_.add(five_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(5, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);
@@ -1277,7 +1255,7 @@ public class DelaunayTest {
         pts_.add(five_);
         CustPoint six_ = new CustPoint(-3, 2);
         pts_.add(six_);
-        d_.compute(pts_, false, false);
+        d_.compute(pts_, false);
         IdMap<CustPoint, IdList<CustPoint>> ids_ = d_.getNextPoints();
         assertEq(6, ids_.size());
         IdList<CustPoint> nextOne_ = ids_.getVal(one_);

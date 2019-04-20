@@ -65,7 +65,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     public Trigonal diagTrig() {
-        EqList<RootPol> ownValues_=polCaract().racines();
+        CustList<RootPol> ownValues_=polCaract().racines();
         EqList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValuesSpaces_;
         ownValuesSpaces_ = new EqList<PairEq<Rate,PairNumber<Integer,Integer>>>();
         int sum_=0;
@@ -268,9 +268,6 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
                     }
                 }
             }
-            if(copy_.cell(i,i).isZero()) {
-                return Rate.zero();
-            }
             for(int j=i+1;j<nbLines_;j++) {
                 if(!copy_.cell(j,i).isZero()) {
                     Rate coeffPiv_=Rate.divide(copy_.cell(j,i), copy_.cell(i,i)).opposNb();
@@ -297,9 +294,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         Matrix copy_;
         int nbCols_=lines.first().size();
         int nbLines_=lines.size();
-//        QPair<int,int> dims=dimensions();
         if(nbLines_<nbCols_) {
-//            copy_ = transpose();
             copy_ = transposeRef();
             int tmp_ = nbCols_;
             nbCols_ = nbLines_;
@@ -307,68 +302,51 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         } else {
             copy_ = new Matrix(this);
         }
-//        QPair<int,int> dims2=copie.dimensions();
         long rk_= copy_.nbCols();
-//        Entier _1(1);
         for(int i=0;i<nbCols_;i++) {
-//            int j;
-            if(copy_.cell(i,i).isZero()) {
-                for(int j=0;j<i;j++) {
-                    if(!copy_.cell(j,i).isZero()) {
-                        for(int k=i;k<nbCols_;k++) {
-                            Rate tmp_=copy_.cell(j,k);
-                            copy_.lines.get(j).set(k, copy_.cell(i,k));
-                            copy_.lines.get(i).set(k, tmp_);
-//                            copie.cell(j,k)=copie.cell(i,k);
-//                            copie.cell(i,k)=tmp;
-                        }
-                        break;
-                    }
-                }
-            }
-            if(copy_.cell(i,i).isZero()) {
-                for(int j=i+1;j<nbLines_;j++) {
-                    if(!copy_.cell(j,i).isZero()) {
-                        for(int k=i;k<nbCols_;k++) {
-                            Rate tmp_=copy_.cell(j,k);
-                            copy_.lines.get(j).set(k, copy_.cell(i,k));
-                            copy_.lines.get(i).set(k, tmp_);
-//                            Taux tmp=copie(j,k);
-//                            copie(j,k)=copie(i,k);
-//                            copie(i,k)=tmp;
-                        }
-                        break;
-                    }
-                }
-            }
+            swapHelperTest(copy_, nbCols_, i, i, 0);
+            swapHelperTest(copy_, nbCols_, nbLines_, i, i + 1);
             if(!copy_.cell(i,i).isZero()) {
-                for(int j=0;j<i;j++) {
-                    if(!copy_.cell(j,i).isZero()) {
-                        Rate coeff_=Rate.divide(copy_.cell(i,i),copy_.cell(j,i));
-                        for(int k=i;k<nbCols_;k++) {
-//                            copie(j,k)=coeff*copie(j,k)-copie(i,k);
-                            copy_.lines.get(j).set(k, Rate.minus(Rate.multiply(coeff_, copy_.cell(j,k)), copy_.cell(i,k)));
-                        }
-                    }
-                }
-                for(int j=i+1;j<nbLines_;j++) {
-                    if(!copy_.cell(j,i).isZero()) {
-                        Rate r_=Rate.divide(copy_.cell(i,i),copy_.cell(j,i));
-                        for(int k=i;k<nbCols_;k++) {
-//                            copie(j,k)=coeff*copie(j,k)-copie(i,k);
-                            copy_.lines.get(j).set(k, Rate.minus(Rate.multiply(r_, copy_.cell(j,k)), copy_.cell(i,k)));
-                        }
-                    }
-                }
+                rankHelper(copy_, nbCols_, i, i, 0);
+                rankHelper(copy_, nbCols_, nbLines_, i, i + 1);
                 for(int k=i;k<nbCols_;k++) {
                     copy_.lines.get(i).set(k,Rate.zero());
-//                    copie(i,k)=Taux();
                 }
             } else {
                 rk_--;
             }
         }
         return rk_;
+    }
+
+    private void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int i2) {
+        if (_copy.cell(_i, _i).isZero()) {
+            swapHelper(_copy, _nbCols, _nbLines, _i, i2);
+        }
+    }
+
+    private void swapHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
+        for (int j = _start; j < _nbLines; j++) {
+            if (!_copy.cell(j, _i).isZero()) {
+                for (int k = _i; k < _nbCols; k++) {
+                    Rate tmp_ = _copy.cell(j, k);
+                    _copy.lines.get(j).set(k, _copy.cell(_i, k));
+                    _copy.lines.get(_i).set(k, tmp_);
+                }
+                break;
+            }
+        }
+    }
+
+    private void rankHelper(Matrix _copy, int _nbCols, int _nbLines, int _i, int _start) {
+        for (int j = _start; j < _nbLines; j++) {
+            if (!_copy.cell(j, _i).isZero()) {
+                Rate r_ = Rate.divide(_copy.cell(_i, _i), _copy.cell(j, _i));
+                for (int k = _i; k < _nbCols; k++) {
+                    _copy.lines.get(j).set(k, Rate.minus(Rate.multiply(r_, _copy.cell(j, k)), _copy.cell(_i, k)));
+                }
+            }
+        }
     }
 
     public long rank() {
@@ -407,19 +385,17 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
         Matrix b_ = new Matrix();
         Matrix c_ = new Matrix();
-        Matrix d_ = new Matrix();
-        Matrix e_ = new Matrix();
-        Matrix f_ = new Matrix();
         int nbLines_ = lines.size();
         for(int i=1;i<nbLines_;i++) {
             c_.lines= new EqList<Vect>();
             c_.addLineRef(lines.get(i));
             b_.addLineRef(lines.get(i-1));
 //            d_.affect(c_.multMatrix(inv_));
-            d_ = c_.multMatrix(inv_);
+            Matrix d_ = c_.multMatrix(inv_);
 //            f_.affect(c_.minusMatrix(d_.multMatrix(b_)));
-            f_ = c_.minusMatrix(d_.multMatrix(b_));
+            Matrix f_ = c_.minusMatrix(d_.multMatrix(b_));
             Rate norme_=f_.lines.first().square();
+            Matrix e_;
             if(norme_.isZero()) {
                 Rate scal_ = Rate.divide(nbOne_, Rate.plus(nbOne_, d_.lines.first().square()));
 //                e_.affect(inv_.multMatrix(d_.transpose()).multMatrix(scal_));
@@ -599,26 +575,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     public static boolean eq(Matrix _tx1,Matrix _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
-        return _tx1.isEqualTo(_tx2);
-    }
-
-    public boolean isEqualTo(Matrix _o) {
-        if (nbLines() != _o.nbLines()) {
-            return false;
-        }
-        if (nbCols() != _o.nbCols()) {
-            return false;
-        }
-        int nbLines_ = nbLines();
-        for (int i = 0; i < nbLines_; i++) {
-            if (!lines.get(i).isEqualTo(_o.lines.get(i))) {
-                return false;
-            }
-        }
-        return true;
+        return _tx1.eq(_tx2);
     }
 
     @Override
@@ -631,7 +588,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
         int nbLines_ = nbLines();
         for (int i = 0; i < nbLines_; i++) {
-            if (!lines.get(i).isEqualTo(_o.lines.get(i))) {
+            if (!lines.get(i).eq(_o.lines.get(i))) {
                 return false;
             }
         }

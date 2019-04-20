@@ -111,6 +111,9 @@ public final class VectThreeDims implements Equallable<VectThreeDims>, Displayab
         if (_obj.deltay != deltay) {
             return false;
         }
+        if (_obj.deltaz != deltaz) {
+            return false;
+        }
         return true;
     }
 

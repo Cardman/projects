@@ -1351,8 +1351,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         LgInt max_ = absoluEnt_;
         // (absoluEnt_+nb1_)/nb2_
         LgInt min_ = LgInt.zero();
-        LgInt moy_ = LgInt.zero();
-        LgInt expo_ = LgInt.zero();
+        LgInt moy_;
+        LgInt expo_;
         while (plus(min_, nbOne_).plusPetitQue(max_)) {
             moy_ = divide(plus(max_, min_), nbTwo_);
             expo_ = powNb(moy_, _ordre);

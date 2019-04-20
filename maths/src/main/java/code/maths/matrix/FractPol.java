@@ -93,13 +93,6 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         denominateur = digitsNum_;
     }
 
-    public void changeSignum() {
-        //setModified();
-        if (!isZero()) {
-            numerateur.changeSignum();
-        }
-    }
-
     public FractPol opposNb() {
         FractPol opp_ = FractPol.zero();
         if (isZero()) {
@@ -190,10 +183,7 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
     }
 
     public static boolean eq(FractPol _tx1,FractPol _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
-        return _tx1.isEqualTo(_tx2);
+        return _tx1.eq(_tx2);
     }
 
     @Override
@@ -204,21 +194,8 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         if (!denominateur.isEqualTo(_autre.denominateur)) {
             return false;
         }
-//        return numerateur.eq(_autre.numerateur) && denominateur.eq(_autre.denominateur);
         return true;
     }
-
-    public boolean isEqualTo(FractPol _autre) {
-        if (!numerateur.isEqualTo(_autre.numerateur)) {
-            return false;
-        }
-        if (!denominateur.isEqualTo(_autre.denominateur)) {
-            return false;
-        }
-//        return numerateur.eq(_autre.numerateur) && denominateur.eq(_autre.denominateur);
-        return true;
-    }
-
     
     @Override
     public String display() {

@@ -3,7 +3,6 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -273,7 +272,6 @@ public class HtmlRequestTest {
         assertEq(3, ((NumberStruct) inst_[1]).getInstance());
     }
 
-    @Ignore
     @Test
     public void setObject12Test() {
         BeanSeven bean_ = new BeanSeven();
@@ -281,6 +279,7 @@ public class HtmlRequestTest {
         Configuration conf_ = newConfiguration();
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
+        conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setTypedField(bean_.getStrings().first());
@@ -291,142 +290,9 @@ public class HtmlRequestTest {
         HtmlRequest.setObject(conf_, nc_, new StringStruct("NEW"),new Numbers<Long>());
         assertEq("NEW", bean_.getStrings().first());
         StringList values_ = bean_.getComposite().getStrings();
-        assertEq(1, values_.size());
-        assertEq("FIRST NEW", values_.first());
+        assertEq(0, values_.size());
     }
 
-//    @Ignore
-//    @Test
-//    public void setObject13Test() {
-//        BeanSeven bean_ = new BeanSeven();
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        NodeContainer nc_ = new NodeContainer("");
-//        nc_.setIndex(0);
-//        nc_.setTypedField(bean_.getTree().getKey(0));
-//        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
-//        HtmlRequest.setObject(conf_, nc_, new StringStruct("keythree"),new Numbers<Long>());
-//        assertEq(2, bean_.getTree().size());
-//        assertEq(1, bean_.getTree().getVal("keythree").intValue());
-//        assertEq(2, bean_.getTree().getVal("keytwo").intValue());
-//        StringList values_ = bean_.getComposite().getStrings();
-//        assertEq(1, values_.size());
-//        assertEq("keyone keythree", values_.first());
-//    }
-
-//    @Ignore
-//    @Test
-//    public void setObject14Test() {
-//        BeanSeven bean_ = new BeanSeven();
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        NodeContainer nc_ = new NodeContainer("");
-//        nc_.setIndex(0);
-//        nc_.setTypedField(bean_.getTree().getValue(0));
-//        nc_.setObject(bean_.getTree(), "code.util.NatTreeMap");
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
-//        HtmlRequest.setObject(conf_, nc_, new IntStruct(3),new Numbers<Long>());
-//        assertEq(2, bean_.getTree().size());
-//        assertEq(3, bean_.getTree().getVal("keyone").intValue());
-//        assertEq(2, bean_.getTree().getVal("keytwo").intValue());
-//        StringList values_ = bean_.getComposite().getStrings();
-//        assertEq(1, values_.size());
-//        assertEq("1 3", values_.first());
-//    }
-
-
-//    @Ignore
-//    @Test
-//    public void setObject15Test() {
-//        BeanSeven bean_ = new BeanSeven();
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        NodeContainer nc_ = new NodeContainer("");
-//        nc_.setIndex(0);
-//        nc_.setTypedField(bean_.getArrayInt()[0]);
-//        nc_.setObject(bean_.getArrayInt(), "[$int");
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
-//        HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
-//        assertEq(2, bean_.getArrayInt().length);
-//        assertEq(5, bean_.getArrayInt()[0]);
-//        assertEq(3, bean_.getArrayInt()[1]);
-//        StringList values_ = bean_.getComposite().getStrings();
-//        assertEq(1, values_.size());
-//        assertEq("1 5", values_.first());
-//    }
-
-//    @Test(expected=NoSuchDeclaredMethodException.class)
-//    public void setObject1FailTest() {
-//        Composite composite_ = new Composite();
-//        composite_.setInteger(21);
-//        composite_.setStrings(new StringList());
-//        BeanOne bean_ = new BeanOne();
-//        bean_.getComposite().setInteger(8);
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        conf_.getLastPage().setGlobalArgumentObj(bean_);
-//        NodeContainer nc_ = new NodeContainer("composite");
-//        nc_.setTypedField(bean_.getComposite());
-//        nc_.setLastToken("composite");
-//        nc_.setObject(bean_);
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValues");
-//        nc_.getNodeInformation().setInputClass(Composite.class.getName());
-////        HtmlRequest.setObject(conf_, bean_, "composite", "", composite_, "updateValues", Composite.class.getName(), new List<Long>(4L));
-//        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
-//    }
-
-//    @Test(expected=InvokeException.class)
-//    public void setObject2FailTest() {
-//        Composite composite_ = new Composite();
-//        composite_.setInteger(21);
-//        BeanOne bean_ = new BeanOne();
-//        bean_.getComposite().setInteger(8);
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        conf_.getLastPage().setGlobalArgumentObj(bean_);
-//        NodeContainer nc_ = new NodeContainer("composite");
-//        nc_.setTypedField(bean_.getComposite());
-//        nc_.setLastToken("composite");
-//        nc_.setObject(bean_);
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(Composite.class.getName());
-////        HtmlRequest.setObject(conf_, bean_, "composite", "", composite_, "updateValue", Composite.class.getName(), new List<Long>(4L));
-//        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
-//    }
-
-//    @Test(expected=SetterException.class)
-//    public void setObject3FailTest() {
-//        Composite composite_ = new Composite();
-//        composite_.setInteger(21);
-//        BeanOne bean_ = new BeanOne();
-//        bean_.getComposite().setInteger(8);
-//        Configuration conf_ = newConfiguration();
-//        setup(conf_);
-//        conf_.addPage(new ImportingPage(true));
-//        NodeContainer nc_ = new NodeContainer("integer");
-//        nc_.setTypedField(8);
-//        nc_.setLastToken("integer");
-//        nc_.setObject(bean_.getComposite());
-//        nc_.getNodeInformation().setVarMethod("");
-//        nc_.getNodeInformation().setChanging("updateValue");
-//        nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
-////        HtmlRequest.setObject(conf_, bean_, "composite.integer", "", composite_, "updateValue", conf_.getStandards().getAliasInteger(), new List<Long>(4L));
-//        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
-//    }
 
     @Test
     public void setObject4FailTest() {

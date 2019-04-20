@@ -2,7 +2,6 @@ package code.maths.geo;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.util.CustList;
@@ -106,7 +105,6 @@ public class PolygonTest {
         assertEq(new CustPoint(3,1), h_.get(3));
     }
 
-    @Ignore
     @Test
     public void getStrictHull1Test() {
         Polygon p_ = new Polygon();
@@ -125,7 +123,6 @@ public class PolygonTest {
         assertEq(new CustPoint(2,0), h_.get(4));
     }
 
-    @Ignore
     @Test
     public void getStrictHull2Test() {
         Polygon p_ = new Polygon();
@@ -137,16 +134,13 @@ public class PolygonTest {
         p_.add(new CustPoint(2,2));
         p_.add(new CustPoint(2,0));
         Polygon h_ = p_.getStrictHull();
-        assertEq(6, h_.size());
+        assertEq(4, h_.size());
         assertEq(new CustPoint(0,0), h_.get(0));
-        assertEq(new CustPoint(0,1), h_.get(1));
-        assertEq(new CustPoint(0,2), h_.get(2));
-        assertEq(new CustPoint(1,2), h_.get(3));
-        assertEq(new CustPoint(2,2), h_.get(4));
-        assertEq(new CustPoint(2,0), h_.get(5));
+        assertEq(new CustPoint(0,2), h_.get(1));
+        assertEq(new CustPoint(2,2), h_.get(2));
+        assertEq(new CustPoint(2,0), h_.get(3));
     }
 
-    @Ignore
     @Test
     public void getStrictHull3Test() {
         Polygon p_ = new Polygon();
@@ -165,7 +159,6 @@ public class PolygonTest {
         assertEq(new CustPoint(0,0), h_.get(3));
     }
 
-    @Ignore
     @Test
     public void getStrictHull4Test() {
         Polygon p_ = new Polygon();
@@ -184,7 +177,6 @@ public class PolygonTest {
         assertEq(new CustPoint(2,0), h_.get(4));
     }
 
-    @Ignore
     @Test
     public void getStrictHull5Test() {
         Polygon p_ = new Polygon();

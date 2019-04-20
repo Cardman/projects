@@ -258,7 +258,6 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END BLOCKDivide ZeroOUTER</body></html>", render_);
     }
 
-//    @Ignore
     @Test
     public void processHtml196Test() {
         String locale_ = "LOCALE";

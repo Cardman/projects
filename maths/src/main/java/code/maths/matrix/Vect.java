@@ -86,13 +86,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
     }
 
     public static boolean eq(Vect _tx1,Vect _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
-        return _tx1.isEqualTo(_tx2);
-    }
-    public boolean isEqualTo(Vect _o) {
-        return numbers.eq(_o.numbers);
+        return _tx1.eq(_tx2);
     }
 
     @Override

@@ -169,7 +169,6 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         }
         CustPoint endPoint_ = first();
         int nbVertices_ = size();
-        //int index_ = CustList.FIRST_INDEX;
         while (true) {
             if (!p_.isEmpty()) {
                 if (endPoint_ == p_.first()) {
@@ -178,11 +177,9 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             }
             p_.add(cust_);
             endPoint_ = first();
-//            endPoint_ = get(index_);
             for (int j = CustList.SECOND_INDEX; j < nbVertices_; j++) {
                 if (endPoint_ == cust_) {
                     endPoint_ = get(j);
-//                    index_ = j;
                 } else {
                     CustPoint b_ = p_.last();
                     VectTwoDims affineSegment_ = substract(b_, endPoint_);
@@ -190,97 +187,39 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
                     LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
                     if (currentSide_ == LinearDirection.LEFT) {
                         endPoint_ = get(j);
-//                        index_ = j;
                     }
                 }
             }
-//            for (int j: getIndexes(nbVertices_, index_ + 1)) {
-//                if (endPoint_ == cust_) {
-//                    endPoint_ = get(j);
-//                    index_ = j;
-//                } else {
-//                    CustPoint b_ = p_.last();
-//                    VectTwoDims affineSegment_ = substract(b_, endPoint_);
-//                    VectTwoDims affinePoint_ = substract(get(j), endPoint_);
-//                    LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
-//                    if (currentSide_ == LinearDirection.LEFT) {
-//                        endPoint_ = get(j);
-//                        index_ = j;
-//                    }
-//                }
-//            }
             cust_ = endPoint_;
         }
         return p_;
     }
-
-//    private CustList<Integer> getIndexes(int _nbIndexes, int _start) {
-//        CustList<Integer> l_ = new CustList<Integer>();
-//        for (int j = _start; j < _nbIndexes; j++) {
-//            l_.add(j);
-//        }
-//        for (int j = CustList.FIRST_INDEX; j < _start; j++) {
-//            l_.add(j);
-//        }
-//        return l_;
-//    }
 
     public Polygon getStrictHull() {
-        return getStrictHull(getEdges());
-    }
-
-    public Polygon getStrictHull(CustList<Edge> _edges) {
-        Polygon p_ = new Polygon();
-        if (isEmpty()) {
-            return p_;
+        Polygon convexHull_ = getConvexHull();
+        if (convexHull_.isEmpty()) {
+            return convexHull_;
         }
-        CustPoint cust_ = first();
-        for (CustPoint p: points) {
-            if (p.getXcoords() < cust_.getXcoords()) {
-                cust_ = p;
-                continue;
-            }
-            if (p.getXcoords() == cust_.getXcoords() && p.getYcoords() < cust_.getYcoords()) {
-                cust_ = p;
-                continue;
+        Polygon cp_ = new Polygon();
+        cp_.add(convexHull_.last());
+        int len_ = convexHull_.size();
+        for (int i = 0; i < len_; i++) {
+            cp_.add(convexHull_.get(i));
+        }
+        cp_.add(convexHull_.first());
+        Polygon h_ = new Polygon();
+        for (int i = 1; i <= len_; i++) {
+            CustPoint p_ = cp_.get(i-1);
+            CustPoint c_ = cp_.get(i);
+            CustPoint n_ = cp_.get(i+1);
+            VectTwoDims affineSegment_ = substract(p_, c_);
+            VectTwoDims affinePoint_ = substract(n_, c_);
+            LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
+            if (currentSide_ != LinearDirection.NONE) {
+                h_.add(c_);
             }
         }
-        CustPoint endPoint_ = first();
-        int nbVertices_ = size();
-        while (true) {
-            if (!p_.isEmpty()) {
-                if (endPoint_ == p_.first()) {
-                    break;
-                }
-            }
-            p_.add(cust_);
-            endPoint_ = first();
-            for (int j = CustList.SECOND_INDEX; j < nbVertices_; j++) {
-                CustPoint b_ = p_.last();
-                if (endPoint_ == cust_) {
-                    endPoint_ = get(j);
-                } else {
-                    boolean skip_ = false;
-                    for (Edge e: _edges) {
-                        if (!e.isSame(new Edge(endPoint_, get(j)))) {
-                            skip_ = true;
-                            break;
-                        }
-                    }
-                    if (skip_) {
-                        continue;
-                    }
-                    VectTwoDims affineSegment_ = substract(b_, endPoint_);
-                    VectTwoDims affinePoint_ = substract(get(j), endPoint_);
-                    LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
-                    if (currentSide_ == LinearDirection.LEFT) {
-                        endPoint_ = get(j);
-                    }
-                }
-            }
-            cust_ = endPoint_;
-        }
-        return p_;
+        return h_;
     }
 
     public boolean containsObj(CustPoint _element) {

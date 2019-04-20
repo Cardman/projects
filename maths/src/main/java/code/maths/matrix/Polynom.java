@@ -49,15 +49,13 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 
     /**@return the integer 0*/
     public static Polynom zero() {
-        Polynom one_ = new Polynom();
-        one_.numbers.add(Rate.zero());
-        return one_;
+        return new Polynom();
     }
 
     /**@return the integer 1*/
     public static Polynom one() {
         Polynom one_ = new Polynom();
-        one_.numbers.add(Rate.one());
+        one_.add(Rate.one());
         return one_;
     }
 
@@ -225,19 +223,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         numbers.add(Rate.zero());
     }
 
-    /**
-    Cette methode change l'entier courant en le passant a l'oppose. L'entier 0 ne change pas.
-    */
-    public void changeSignum() {
-        for (Rate r: numbers) {
-            r.changeSignum();
-        }
-    }
-
     public static boolean eq(Polynom _tx1,Polynom _tx2) {
-        if (_tx1 == null) {
-            return _tx2 == null;
-        }
         return _tx1.isEqualTo(_tx2);
     }
 
@@ -310,7 +296,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 //        return retour;
 //    }
     public EqList<Polynom> factor() {
-        EqList<RootPol> roots_=racines();
+        CustList<RootPol> roots_=racines();
         EqList<Polynom> polynoms_ = new EqList<Polynom>();
         Polynom copy_= new Polynom(this);
         Polynom one_= new Polynom(Rate.one());
@@ -325,7 +311,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         polynoms_.add(copy_);
         return polynoms_;
     }
-    public EqList<RootPol> racines() {
+    public CustList<RootPol> racines() {
         if(numbers.last().isZero()) {
             Polynom copy_ = new Polynom();
             copy_.numbers.removeAt(0);
@@ -343,32 +329,29 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                     //nb_pas++;
                 }
             }
-            EqList<RootPol> r_ = new EqList<RootPol>();
+            CustList<RootPol> r_ = new CustList<RootPol>();
             r_.add(new RootPol(Rate.zero(),multZero_));
+            if (copy_.numbers.isEmpty()) {
+                r_.clear();
+                copy_.numbers.add(Rate.zero());
+            }
             r_.addAllElts(copy_.nonZeroRoots());
             return r_;
         }
         return nonZeroRoots();
     }
 
-    public EqList<RootPol> nonZeroRoots() {
+    public CustList<RootPol> nonZeroRoots() {
         EqList<RootPol> r_ = new EqList<RootPol>();
         if (isZero()) {
             return r_;
         }
-//        Rate mainRate_=numbers.first();
-//        LgInt ppcmDenom_=mainRate_.getDenominatorCopy();
         long deg_=dg();
-//        for(int i=1;i<=deg_;i++) {
-//            ppcmDenom_=LgInt.ppcm(ppcmDenom_, numbers.get(i).getDenominatorCopy());
-//        }
         LgInt ppcmDenom_ = Rate.getPpcmDens(numbers, (int) deg_);
         Polynom polEnt_ = new Polynom();
         for(Rate r:numbers) {
             polEnt_.add(Rate.multiply(r, new Rate(ppcmDenom_)));
         }
-//        LgInt mainNum_=polEnt_.get(0).getNumerator();
-//        LgInt cstRate_=polEnt_.get((int) deg_).getNumerator();
         EqList<LgInt> mainDivs_=polEnt_.get(0).getDividersNumerator();
         EqList<LgInt> cstDivs_=polEnt_.get((int) deg_).getDividersNumerator();
         Polynom pairPol_ = new Polynom();
@@ -515,10 +498,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         for(int i=0;i<=dg_;i++) {
             Polynom cst_ = new Polynom();
             cst_.add(get(i));
-            p_.addPol(cst_);
-            if(i<dg_) {
-                p_ = p_.multiplyPolynom(_o);
-            }
+            p_.addPol(cst_.multiplyPolynom(_o.pow(dg_-i)));
         }
         return p_;
     }
@@ -538,7 +518,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         while(dividende_.dg()>=degDiv_) {
             degBef_=dividende_.dg();
             Rate rate_= Rate.divide(dividende_.get(0), _div.get(0));
-            dividende_ = dividende_.minusPolynom(_div.prodMonom(rate_, dividende_.dg()-degDiv_));
+            dividende_ = dividende_.minusPolynom(_div.prodMonom(rate_, degBef_-degDiv_));
             quot_.add(rate_);
             degAfter_=dividende_.dg();
             if (degAfter_ < 0) {
@@ -574,6 +554,13 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return divisionEuclidienne(_o).getSecond();
     }
 
+    public Polynom pow(long _dg) {
+        Polynom p_ = one();
+        for (long i = 0; i < _dg; i++) {
+            p_.multiplyBy(this);
+        }
+        return p_;
+    }
     public Polynom multiplyPolynom(Polynom _o) {
         if(isZero()||_o.isZero()) {
             return new Polynom();
@@ -611,8 +598,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
 
     public Polynom addPolynom(Polynom _o) {
-        long degSum_ = 0;
-        Polynom pol_ = new Polynom();
         if(isZero()) {
             if(_o.isZero()) {
                 return new Polynom();
@@ -622,6 +607,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         if(_o.isZero()) {
             return new Polynom(this);
         }
+        long degSum_;
         if(dg()==_o.dg()||dg()>_o.dg()) {
             degSum_=dg();
             if(dg()==_o.dg()) {
@@ -644,23 +630,20 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         long degTwo_=_o.dg();
         long m_ = Math.min(degOne_, degTwo_);
         //m_ est le minimum entre deg_1 et deg_2
-        pol_=new Polynom(Rate.zero(),(int) (degSum_+1));
+        Polynom pol_ = new Polynom(Rate.zero(), (int) (degSum_ + 1));
         for(int i=0;i<=m_;i++) {
             if(i>degSum_) {
                 break;
             }
             pol_.set((int) (degSum_-i), Rate.plus(get((int) (degOne_-i)), _o.get((int) (degTwo_-i))));
-//            pol[deg_somme_int-i]=(*this)[deg_1-i]+autre[deg_2-i];
         }
         if(degOne_>m_) {
             for(long i=m_+1;i<=degSum_;i++) {
-//                pol[deg_somme_int-i]=(*this)[deg_1-i];
                 pol_.setNb((int) (degSum_-i), get((int) (degOne_-i)));
             }
         } else {
             for(long i=m_+1;i<=degSum_;i++) {
                 pol_.setNb((int) (degSum_-i), _o.get((int) (degTwo_-i)));
-//                pol[deg_somme_int-i]=autre[deg_2-i];
             }
         }
         return pol_;

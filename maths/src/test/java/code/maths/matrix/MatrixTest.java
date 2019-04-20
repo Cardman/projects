@@ -204,6 +204,51 @@ public class MatrixTest {
         assertEq(0, mat_.rank());
     }
     @Test
+    public void quickRank1Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.quickRank());
+    }
+    @Test
+    public void quickRank2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.quickRank());
+    }
+    @Test
+    public void quickRank3Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.quickRank());
+    }
+    @Test
     public void det1Test() {
         Matrix mat_ = new Matrix();
         Vect vect_ = new Vect();
@@ -240,5 +285,18 @@ public class MatrixTest {
         vect_.add(Rate.zero());
         mat_.addLine(vect_);
         assertEq(Rate.one(), mat_.det());
+    }
+    @Test
+    public void detSquare1Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(Rate.zero(), mat_.det());
     }
 }

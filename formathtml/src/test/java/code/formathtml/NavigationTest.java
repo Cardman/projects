@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -8569,49 +8568,6 @@ public class NavigationTest {
         assertNotNull(nav_.getSession().getContext().getException());
     }
 
-//    @Ignore
-//    @Test(expected=SetterException.class)
-//    public void processFormRequest5FailTest() {
-//        String locale_ = "LOCALE";
-//        String folder_ = "messages";
-//        String relative_ = "sample/file";
-//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-//        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
-//        Map<String,String> files_ = new Map<String,String>();
-//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-//        files_.put("page1.html", html_);
-//        files_.put("page2.html", htmlTwo_);
-//        BeanOne bean_ = new BeanOne();
-//        //bean_.setClassName(BeanOne.class.getName());
-//        bean_.setScope("request");
-//        BeanTwo beanTwo_ = new BeanTwo();
-//        //beanTwo_.setClassName(BeanTwo.class.getName());
-//        beanTwo_.setScope("request");
-//        Configuration conf_ = newConfiguration();
-//        conf_.setBeans(new Map<String,Bean>());
-//        conf_.getBeans().put("bean_one", bean_);
-//        conf_.getBeans().put("bean_two", beanTwo_);
-//        conf_.setMessagesFolder(folder_);
-//        conf_.setFirstUrl("page2.html");
-//        conf_.setValidators(new Map<String,Validator>());
-//        conf_.setProperties(new Map<String,String>());
-//        conf_.getProperties().put("msg_example", relative_);
-//        conf_.setTranslators(new Map<String,Translator>());
-//        conf_.getTranslators().put("trans", new MyTranslator());
-//        conf_.setNavigation(new Map<String,Map<String,String>>());
-//        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
-//        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-//        Navigation nav_ = newNavigation();
-//        nav_.setLanguage(locale_);
-//        nav_.setSession(conf_);
-//        nav_.setFiles(files_);
-//        nav_.initializeSession();
-//        nav_.getHtmlPage().setUrl(0);
-//        nav_.processFormRequest("bean_one.getTrans(1)=ONE", "myform");
-//    }
-
     @Test
     public void processFormRequest6FailTest() {
         String locale_ = "LOCALE";
@@ -8663,63 +8619,6 @@ public class NavigationTest {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         values_.add("ONE");
-        ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
-        nav_.processFormRequest();
-        assertNotNull(nav_.getSession().getContext().getException());
-    }
-
-    @Ignore
-    @Test
-    public void processFormRequest7FailTest() {
-        String locale_ = "LOCALE";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='$int' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        //bean_.setClassName(BeanOne.class.getName());
-        bean_.setScope("request");
-        BeanTwo beanTwo_ = new BeanTwo();
-        //beanTwo_.setClassName(BeanTwo.class.getName());
-        beanTwo_.setScope("request");
-        Configuration conf_ = newConfiguration();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBeans().put("bean_two", beanTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation();
-        nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
-        nav_.setFiles(files_);
-        nav_.initializeSession();
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(0l);
-        NodeContainer nc_;
-        NodeInformations ni_;
-        StringList values_;
-        nc_ = containers_.getVal(0l);
-        nc_.setEnabled(true);
-        ni_ = nc_.getNodeInformation();
-        values_ = new StringList();
-        values_.add("5");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
