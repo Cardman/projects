@@ -59,7 +59,10 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return one_;
     }
 
-    public static Polynom interpolation(EqList<PairEq<Rate,Rate>> _imgs) {
+    public static Polynom interpolation(CustList<PairEq<Rate,Rate>> _imgs) {
+        if (_imgs.isEmpty()) {
+            return zero();
+        }
         int dg_=_imgs.size()-1;
         Matrix inv_ = new Matrix();
         Matrix vectImg_ = new Matrix();
@@ -69,11 +72,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 pws_.add(Rate.powNb(c.getFirst(), new Rate(e)));
             }
             inv_.addLineRef(pws_);
-//            mat_inv=mat_inv+puissances;
             Vect i_ = new Vect();
             i_.add(c.getSecond());
             vectImg_.addLineRef(i_);
-//            vect_img=vect_img+image;
         }
         Matrix nearlyInv_=inv_.inv();
         Matrix solut_=nearlyInv_.multMatrix(vectImg_);
@@ -308,7 +309,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 copy_=copy_.divisionEuclidienne(copyOne_).getFirst();
             }
         }
-        polynoms_.add(copy_);
+        if (polynoms_.isEmpty()) {
+            polynoms_.add(copy_);
+        }
         return polynoms_;
     }
     public CustList<RootPol> racines() {

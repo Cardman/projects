@@ -190,20 +190,18 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     public Polynom polCaract() {
-        Polynom pol_ = new Polynom();
         EqList<PairEq<Rate,Rate>> antImgs_;
         antImgs_ = new EqList<PairEq<Rate,Rate>>();
         int nbLines_=lines.size();
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
-        Rate tmp_ = Rate.zero();
         line_.add(Rate.one());
         for(int i=1;i<nbLines_;i++) {
             line_.add(Rate.zero());
         }
         id_.addLineRef(line_);
         for(int i=1;i<nbLines_;i++) {
-            tmp_=line_.get(i-1);
+            Rate tmp_ = line_.get(i - 1);
             line_.set(i-1, line_.get(i));
             line_.set(i, tmp_);
             id_.addLineRef(line_);
@@ -212,8 +210,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
             Matrix locMat_ = minusMatrix(id_.multMatrix(new Rate(i)));
             antImgs_.add(new PairEq<Rate,Rate>(new Rate(i),locMat_.det()));
         }
-        pol_=Polynom.interpolation(antImgs_);
-        return pol_;
+        return Polynom.interpolation(antImgs_);
     }
 
 

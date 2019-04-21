@@ -3,6 +3,7 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.PairEq;
 import org.junit.Test;
 
 import static code.maths.EquallableMathUtil.assertEq;
@@ -745,5 +746,60 @@ public class PolynomTest {
         Polynom a_ = new Polynom();
         CustList<RootPol> roots_ = a_.racines();
         assertEq(0, roots_.size());
+    }
+    @Test
+    public void interpolation1Test() {
+        CustList<PairEq<Rate,Rate>> l_ = new CustList<PairEq<Rate,Rate>>();
+        l_.add(new PairEq<Rate, Rate>(new Rate(-1), new Rate(0)));
+        l_.add(new PairEq<Rate, Rate>(new Rate(0), new Rate(-1)));
+        l_.add(new PairEq<Rate, Rate>(new Rate(1), new Rate(0)));
+        Polynom p_ = Polynom.interpolation(l_);
+        assertEq(3, p_.size());
+        assertEq(new Rate(1), p_.get(0));
+        assertEq(new Rate(0), p_.get(1));
+        assertEq(new Rate(-1), p_.get(2));
+    }
+    @Test
+    public void interpolation2Test() {
+        CustList<PairEq<Rate,Rate>> l_ = new CustList<PairEq<Rate,Rate>>();
+        Polynom p_ = Polynom.interpolation(l_);
+        assertEq(1, p_.size());
+        assertEq(new Rate(0), p_.get(0));
+    }
+    @Test
+    public void factor1Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(-1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(1));
+        CustList<Polynom> p_ = a_.factor();
+        assertEq(2, p_.size());
+        assertEq(2, p_.get(0).size());
+        assertEq(new Rate(1), p_.get(0).get(0));
+        assertEq(new Rate(1), p_.get(0).get(1));
+        assertEq(2, p_.get(1).size());
+        assertEq(new Rate(1), p_.get(1).get(0));
+        assertEq(new Rate(-1), p_.get(1).get(1));
+    }
+    @Test
+    public void factor2Test() {
+        Polynom a_ = new Polynom();
+        a_.add(new Rate(1));
+        a_.add(new Rate(0));
+        a_.add(new Rate(1));
+        CustList<Polynom> p_ = a_.factor();
+        assertEq(1, p_.size());
+        assertEq(3, p_.get(0).size());
+        assertEq(new Rate(1), p_.get(0).get(0));
+        assertEq(new Rate(0), p_.get(0).get(1));
+        assertEq(new Rate(1), p_.get(0).get(2));
+    }
+    @Test
+    public void factor3Test() {
+        Polynom a_ = new Polynom();
+        CustList<Polynom> p_ = a_.factor();
+        assertEq(1, p_.size());
+        assertEq(1, p_.get(0).size());
+        assertEq(new Rate(0), p_.get(0).get(0));
     }
 }
