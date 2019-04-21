@@ -148,7 +148,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             } else {
                 nbLuBis_ = nbLu_;
             }
-            grDigits_.add(CustList.FIRST_INDEX, Math.max(0, Numbers.parseLongZero(nbLuBis_)));
+            grDigits_.add(CustList.FIRST_INDEX, Math.max(0L, Numbers.parseInt(nbLuBis_)));
             firstInd_ -= powerTen_;
         }
         if (grDigits_.isEmpty()) {
