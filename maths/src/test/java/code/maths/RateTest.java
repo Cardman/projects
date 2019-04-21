@@ -3,7 +3,6 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import code.util.Numbers;
 import org.junit.Test;
 
 import code.util.CustList;

@@ -33,7 +33,7 @@ public final class StreamZipFile {
             StringMap<String> files_ = new StringMap<String>();
             for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 String str_ = getContentOfZippedFile(zipFile_, entry_);
-                files_.put(entry_.getName(), str_);
+                files_.addEntry(entry_.getName(), str_);
             }
             return files_;
         } catch (Throwable _0) {
@@ -287,7 +287,9 @@ public final class StreamZipFile {
                 if (char_ < 0) {
                     break;
                 }
-                fileBuilder_.append((char)char_);
+                if (char_ != '\r') {
+                    fileBuilder_.append((char) char_);
+                }
             }
         } catch (Throwable _0) {
             return null;

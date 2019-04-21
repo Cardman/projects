@@ -55,9 +55,9 @@ public final class Rate implements Cmp<Rate>, Displayable {
             numerateur = new LgInt(StringList.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
             denominateur = LgInt.powNb(new LgInt(LgInt.BASE_NUMER), new LgInt(nbChiffresApresVirgule_));
             simplifier();
-        } else if (tauxPris_.contains(SEP_NUM_DEN)) {
+        } else if (tauxPris_.indexOf(SEP_NUM_DEN_CHAR) > -1) {
             // Fraction classique
-            StringList numDen_ = StringList.splitStrings(tauxPris_, SEP_NUM_DEN);
+            StringList numDen_ = StringList.splitChar(tauxPris_, SEP_NUM_DEN_CHAR);
             numerateur = new LgInt(numDen_.first());
             denominateur = new LgInt(numDen_.last());
             if (denominateur.isZero()) {

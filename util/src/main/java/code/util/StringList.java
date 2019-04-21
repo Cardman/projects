@@ -1790,6 +1790,21 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return l_;
     }
 
+    public static StringList splitChar(String _string, char _separator) {
+        StringList l_ = new StringList();
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder();
+        for (int i = FIRST_INDEX; i < len_; i++) {
+            if (_separator ==_string.charAt(i)) {
+                l_.add(str_.toString());
+                str_ = new StringBuilder();
+            } else {
+                str_.append(_string.charAt(i));
+            }
+        }
+        l_.add(str_.toString());
+        return l_;
+    }
     public static StringList splitCharsArr(String _string, char... _separators) {
         StringList l_ = new StringList();
         CharList cs_ = new CharList();

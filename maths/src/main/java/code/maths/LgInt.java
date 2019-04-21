@@ -17,18 +17,15 @@ Attention a eviter d'utiliser des nombres d'un milliard de chiffres, car la memo
  */
 public final class LgInt implements Cmp<LgInt>, Displayable {
 
-    //extends ViewAdapter
-
-    /** BASE vaut 10<sup>9</sup> */
-//    public static final long BASE = base();
-    public static final long BASE = 1000000000l;
-//    static final int LOG_BASE = logBase();
-    static final int LOG_BASE = 9;
-
 
     static final int BASE_NUMER = 10;
 
     static final boolean SIGNE_POSITIF = false;
+
+    /** BASE vaut 10<sup>9</sup> */
+    private static final long BASE = 1000000000L;
+
+    private static final int LOG_BASE = 9;
 
     private static final char MINUS_CHAR = '-';
 
@@ -124,7 +121,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         signum = _signe;
     }
 
-    public static Numbers<Long> tryGetDigits(String _string) {
+    private static Numbers<Long> tryGetDigits(String _string) {
         Numbers<Long> grDigits_ = new Numbers<Long>(new CollCapacity(_string.length() / LOG_BASE + 1));
         int powerTen_ = LOG_BASE;
         String nbLu_ = chaineValeurAbsolue(_string);
@@ -151,11 +148,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             } else {
                 nbLuBis_ = nbLu_;
             }
-            grDigits_.add(CustList.FIRST_INDEX, Numbers.parseLongZero(nbLuBis_));
+            grDigits_.add(CustList.FIRST_INDEX, Math.max(0, Numbers.parseLongZero(nbLuBis_)));
             firstInd_ -= powerTen_;
         }
         if (grDigits_.isEmpty()) {
-            grDigits_.add(0l);
+            grDigits_.add(0L);
         }
         return grDigits_;
     }
@@ -167,7 +164,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     /**@return the integer 0*/
     public static LgInt zero() {
         LgInt one_ = new LgInt();
-        one_.grDigits.add(0l);
+        one_.grDigits.add(0L);
         one_.signum = SIGNE_POSITIF;
         return one_;
     }
@@ -175,7 +172,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     /**@return the integer 1*/
     public static LgInt one() {
         LgInt one_ = new LgInt();
-        one_.grDigits.add(1l);
+        one_.grDigits.add(1L);
         one_.signum = SIGNE_POSITIF;
         return one_;
     }
@@ -211,7 +208,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     /**@return the integer -1*/
     public static LgInt minusOne() {
         LgInt one_ = new LgInt();
-        one_.grDigits.add(1l);
+        one_.grDigits.add(1L);
         one_.signum = !SIGNE_POSITIF;
         return one_;
     }

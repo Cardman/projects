@@ -2437,19 +2437,19 @@ public class DataBase implements WithMathFactory {
         map = DocumentReaderAikiCoreUtil.getDataMap(mapFile_);
         constNum = new StringMap<Rate>();
         String cstNum_ = notNull(files_,StringList.concat(common_, CONST_NUM));
-        StringList linesNum_ = StringList.splitChars(
+        StringList linesNum_ = StringList.splitChar(
                 cstNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNum_) {
             if (l.isEmpty()) {
                 continue;
             }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+            StringList infos_ = StringList.splitChar(l, TAB_CHAR);
             constNum.put(infos_.first(), new Rate(infos_.last()));
         }
 
         String cstNotNum_ = notNull(files_,StringList.concat(common_, CONST_NOT_NUM));
-        StringList linesNotNum_ = StringList.splitChars(
+        StringList linesNotNum_ = StringList.splitChar(
                 cstNotNum_,
                 RETURN_LINE_CHAR);
         for (String l : linesNotNum_) {
@@ -2935,10 +2935,10 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
                 short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
-                tm.put(cle_, infos_.get(1));
+                tm.put(cle_, infos_.get(1).trim());
                 LgInt price_;
-                if (LgInt.isValid(infos_.get(2))) {
-                    price_ = new LgInt(infos_.get(2));
+                if (LgInt.isValid(infos_.get(2).trim())) {
+                    price_ = new LgInt(infos_.get(2).trim());
                 } else {
                     price_ = new LgInt(1000);
                 }
@@ -2946,7 +2946,7 @@ public class DataBase implements WithMathFactory {
 
             }
             if (l.startsWith(CS)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
+                StringList infos_ = StringList.splitChars(l.trim(), TAB_CHAR);
                 short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
                 hm.put(cle_, infos_.get(1));
             }
