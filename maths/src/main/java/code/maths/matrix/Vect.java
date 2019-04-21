@@ -33,6 +33,9 @@ public final class Vect implements Equallable<Vect>, Displayable {
             numbers.add(new Rate(n));
         }
     }
+    public void swapIndexes(int _i, int _j) {
+        numbers.swapIndexes(_i,_j);
+    }
 
     public int size() {
         return numbers.size();

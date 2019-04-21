@@ -121,13 +121,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             return new Polynom(_a);
         }
         Polynom reste_ = _a.remainPolynom(_b);
-        if (reste_.isZero()) {
-            return new Polynom(_b);
-        }
-        Polynom a_ = _a;
         Polynom b_ = _b;
         while (!reste_.isZero()) {
-            a_ = b_;
+            Polynom a_ = b_;
             b_ = reste_;
             reste_ = a_.remainPolynom(b_);
         }
@@ -219,7 +215,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     Cette methode change l'entier courant en l'annulant.
     */
     public void affectZero() {
-        //setModified();
         numbers.clear();
         numbers.add(Rate.zero());
     }
@@ -241,11 +236,113 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.size();
     }
 
+    private static int pDg(Rate[] _p) {
+        int MaxInd_ = _p.length - 1;
+        for (int i = MaxInd_; i >= 0; i--) {
+            if (!_p[i].isZero()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static Rate[] polyProdMonom(Rate[] _p, int places) {
+        if (places <= 0) {
+            return _p;
+        }
+        int pd_ = pDg(_p);
+        Rate[] d_ = new Rate[_p.length];
+        int i = 0;
+        while (i < _p.length) {
+            d_[i] = _p[i];
+            i++;
+        }
+        for (int i_ = pd_; i_ >= 0; i_--) {
+            d_[i_ + places] = d_[i_];
+            d_[i_] = Rate.zero();
+        }
+        return d_;
+    }
+
+    private static void arrMultiply(Rate[] _p, Rate _m) {
+        int len_ = _p.length;
+        for (int i = 0; i < len_; i++) {
+            _p[i] = Rate.multiply(_m,_p[i]);
+        }
+    }
+
+    private static void arrSubtract(Rate[] _p, Rate[] _s) {
+        int len_ = _p.length;
+        for (int i = 0; i < len_; i++) {
+            _p[i] = Rate.minus(_p[i], _s[i]);
+        }
+    }
+
+    private static PairEq<Polynom,Polynom> polyLongDiv(Polynom _n, Polynom _d) {
+        int numLen_ = _n.numbers.size();
+        Rate[] n_ = new Rate[numLen_];
+        Rate[] d_ = new Rate[numLen_];
+        int i_ = 0;
+        for (Rate r: _n.numbers.getReverse()) {
+            n_[i_] = r;
+            i_++;
+        }
+        i_ = 0;
+        for (Rate r: _d.numbers.getReverse()) {
+            d_[i_] = r;
+            i_++;
+        }
+        for (int i = i_; i < numLen_; i++) {
+            d_[i] = Rate.zero();
+        }
+        int nd_ = pDg(n_);
+        int dd_ = pDg(d_);
+        Rate[] q_ = new Rate[numLen_];
+        for (int i = 0; i < numLen_;i++) {
+            q_[i] = Rate.zero();
+        }
+        while (nd_ >= dd_) {
+            int diffNumDen_ = nd_ - dd_;
+            Rate[] uppProd_ = polyProdMonom(d_, diffNumDen_);
+            q_[diffNumDen_] = Rate.divide(n_[nd_], uppProd_[nd_]);
+            arrMultiply(uppProd_, q_[diffNumDen_]);
+            arrSubtract(n_, uppProd_);
+            nd_ = pDg(n_);
+        }
+        Polynom qPol_ = build(q_);
+        Polynom rPol_ = build(n_);
+        return new PairEq<Polynom, Polynom>(qPol_, rPol_);
+    }
+    private static Polynom build(Rate[] _arr) {
+        Polynom p_ = new Polynom();
+        p_.numbers.clear();
+        boolean f_ = false;
+        for (Rate r: getLcoalReverse(_arr)) {
+            if (!r.isZero()) {
+                f_ = true;
+            }
+            if (f_) {
+                p_.numbers.add(r);
+            }
+        }
+        if (p_.numbers.isEmpty()) {
+            p_.numbers.add(Rate.zero());
+        }
+        return p_;
+    }
+    private static Rate[] getLcoalReverse(Rate[] _c) {
+        int len_ = _c.length;
+        Rate[] list_ = new Rate[len_];
+        for (int i = 0; i < len_; i++) {
+            list_[len_ - i -1] = _c[i];
+        }
+        return list_;
+    }
     public Rate get(int _index) {
         return numbers.get(_index);
     }
 
-    public PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
+    public static PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
         PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> r_;
         r_ = new PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>>();
         if (_a.isZero()) {
@@ -284,18 +381,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         r_.setSecond(new PairEq<Polynom, Polynom>(r1_,_a.dividePolynom(r1_).multiplyPolynom(_b)));
         return r_;
     }
-//    QString Polynome::chaine_racines()const
-//    {
-//        QString retour="[";
-//        QList<QPair<Taux,int> > racs=racines();
-//        typedef QPair<Taux,int> Couple_racine_multiplicite;
-//        foreach(Couple_racine_multiplicite racine,racs)
-//        {
-//            retour+="("+racine.first.chaine()+","+QString::number(racine.second)+")";
-//        }
-//        retour+="]";
-//        return retour;
-//    }
+
     public EqList<Polynom> factor() {
         CustList<RootPol> roots_=racines();
         EqList<Polynom> polynoms_ = new EqList<Polynom>();
@@ -309,7 +395,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 copy_=copy_.divisionEuclidienne(copyOne_).getFirst();
             }
         }
-        if (polynoms_.isEmpty()) {
+        if (copy_.dg() > 0) {
             polynoms_.add(copy_);
         }
         return polynoms_;
@@ -320,7 +406,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             copy_.numbers.removeAt(0);
             boolean written_=false;
             int multZero_=0;
-            //int nb_pas=0;
             for(long i=dg();i>-1;i--) {
                 if(!numbers.get((int) i).isZero()) {
                     written_=true;
@@ -329,7 +414,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 }
                 if(written_) {
                     copy_.numbers.add(0, get((int) i));
-                    //nb_pas++;
                 }
             }
             CustList<RootPol> r_ = new CustList<RootPol>();
@@ -398,7 +482,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 Rate imageTwo_=impairPol_.image(cand_);
                 if(Rate.eq(image_,imageTwo_)) {
                     cand_.changeSignum();
-//                    candidat=-candidat;
                     RootPol rLoc_=new RootPol(cand_,1);
                     if(!r_.containsObj(rLoc_)) {
                         mult_++;
@@ -431,7 +514,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                     if(Rate.eq(image_,imageTwo_.opposNb())) {
                         mult_++;
                         r_.get(j).setDegree(r_.get(j).getDegree() + 1);
-//                        rac[j].second++;
                         if(mult_==deg_) {
                             return r_;
                         }
@@ -460,7 +542,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         long dg_=dg();
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
-        Rate tmp_ = Rate.zero();
         line_.add(Rate.one());
         int nbLines_=_m.nbLines();
         for(int i=1;i<nbLines_;i++) {
@@ -468,10 +549,10 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         }
         id_.addLineRef(line_);
         for(int i=1;i<nbLines_;i++) {
-            tmp_=line_.get(i - 1);
-            line_.set(i - 1, line_.get(i));
-            line_.set(i, tmp_);
-            id_.addLineRef(line_);
+            Vect n_ = new Vect(line_);
+            n_.swapIndexes(i,i - 1);
+            id_.addLineRef(n_);
+            line_ = n_;
         }
         Matrix m_ = new Matrix();
         for(int i=0;i<nbLines_;i++) {
@@ -487,11 +568,8 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         for(int i=0;i<dg_;i++) {
             m_ = m_.addMatrix(id_.multMatrix(get(i)));
             m_ = m_.multMatrix(_m);
-//            image=image+(*this)[i]*I;
-//            image=image*antecedent;
         }
         m_ = m_.addMatrix(id_.multMatrix(get((int) dg_)));
-//        image=image+(*this)[degre]*I;
         return m_;
     }
 
@@ -513,29 +591,13 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             qr_.setSecond(new Polynom());
             return qr_;
         }
-        Polynom dividende_= new Polynom(this);
-        Polynom quot_ = new Polynom();
-        long degBef_;
-        long degAfter_;
-        long degDiv_=_div.dg();
-        while(dividende_.dg()>=degDiv_) {
-            degBef_=dividende_.dg();
-            Rate rate_= Rate.divide(dividende_.get(0), _div.get(0));
-            dividende_ = dividende_.minusPolynom(_div.prodMonom(rate_, degBef_-degDiv_));
-            quot_.add(rate_);
-            degAfter_=dividende_.dg();
-            if (degAfter_ < 0) {
-                break;
-            }
-            long diffDg_=degBef_-degAfter_-1;
-            for(int i=0;i<diffDg_;i++) {
-                quot_.add(Rate.zero());
-            }
+        if (dg() < _div.dg()) {
+            PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
+            qr_.setFirst(new Polynom());
+            qr_.setSecond(new Polynom(this));
+            return qr_;
         }
-        PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
-        qr_.setFirst(quot_);
-        qr_.setSecond(dividende_);
-        return qr_;
+        return polyLongDiv(this,_div);
     }
     public Polynom derivee() {
         if(isZero()) {
@@ -632,7 +694,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         long degOne_=dg();
         long degTwo_=_o.dg();
         long m_ = Math.min(degOne_, degTwo_);
-        //m_ est le minimum entre deg_1 et deg_2
+        //m_ est le minimum entre degOne_ et degTwo_
         Polynom pol_ = new Polynom(Rate.zero(), (int) (degSum_ + 1));
         for(int i=0;i<=m_;i++) {
             if(i>degSum_) {
@@ -693,15 +755,12 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     
     @Override
     public String display() {
-        if (numbers.isEmpty()) {
-            return "";
-        }
-        StringBuilder return_ = new StringBuilder(numbers.first().toNumberString());
+        StringBuilder return_ = new StringBuilder();
         int size_ = numbers.size();
-        for (int i=1;i<size_;i++) {
-            return_.append(SEPARATOR);
+        for (int i=0;i<size_;i++) {
             return_.append(numbers.get(i).toNumberString());
+            return_.append(SEPARATOR);
         }
-        return return_.toString();
+        return return_.toString().trim();
     }
 }
