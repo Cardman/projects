@@ -2,13 +2,11 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -67,8 +65,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean receive(Argument _argument, ContextEl _context,Argument _right) {
-        return basicReceive(_argument,_context,_right);
+    public boolean receive(Argument _argument, ContextEl _context) {
+        return basicReceive(_argument,_context);
     }
 
 }

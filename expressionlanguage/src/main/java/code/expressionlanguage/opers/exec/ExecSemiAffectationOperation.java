@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -47,15 +48,18 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     public void endCalculate(ContextEl _conf,
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        if (pair_ instanceof TwoStepsArgumentsPair) {
+            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
+            if (s_.isCalledIndexer()) {
+                Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
+                setSimpleArgument(out_, _conf, _nodes);
+                return;
+            }
+            s_.setCalledIndexer(true);
+        }
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);
-    }
-
-    public void endQuickCalculate(ContextEl _conf,
-                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
-        setSimpleArgument(out_, _conf, _nodes);
     }
 
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
@@ -64,6 +68,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             a_ = _stored;
         }
         return a_;
+    }
+
+    @Override
+    public ExecSettableElResult getSettable() {
+        return settable;
     }
 
 }

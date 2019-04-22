@@ -236,108 +236,19 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.size();
     }
 
-    private static int pDg(Rate[] _p) {
-        int MaxInd_ = _p.length - 1;
-        for (int i = MaxInd_; i >= 0; i--) {
-            if (!_p[i].isZero()) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static Rate[] polyProdMonom(Rate[] _p, int places) {
-        if (places <= 0) {
-            return _p;
-        }
-        int pd_ = pDg(_p);
-        Rate[] d_ = new Rate[_p.length];
-        int i = 0;
-        while (i < _p.length) {
-            d_[i] = _p[i];
-            i++;
-        }
-        for (int i_ = pd_; i_ >= 0; i_--) {
-            d_[i_ + places] = d_[i_];
-            d_[i_] = Rate.zero();
-        }
-        return d_;
-    }
-
-    private static void arrMultiply(Rate[] _p, Rate _m) {
-        int len_ = _p.length;
-        for (int i = 0; i < len_; i++) {
-            _p[i] = Rate.multiply(_m,_p[i]);
-        }
-    }
-
-    private static void arrSubtract(Rate[] _p, Rate[] _s) {
-        int len_ = _p.length;
-        for (int i = 0; i < len_; i++) {
-            _p[i] = Rate.minus(_p[i], _s[i]);
-        }
-    }
-
     private static PairEq<Polynom,Polynom> polyLongDiv(Polynom _n, Polynom _d) {
-        int numLen_ = _n.numbers.size();
-        Rate[] n_ = new Rate[numLen_];
-        Rate[] d_ = new Rate[numLen_];
-        int i_ = 0;
-        for (Rate r: _n.numbers.getReverse()) {
-            n_[i_] = r;
-            i_++;
+        Polynom rem_ = new Polynom(_n);
+        Polynom quot_ = new Polynom();
+        while (rem_.dg() >= _d.dg()) {
+            int diff_ = (int) (rem_.dg() - _d.dg());
+            Rate r_ = Rate.divide(rem_.get(0),_d.get(0));
+            Polynom mon_ = one().prodMonom(r_,diff_);
+            quot_ = quot_.addPolynom(mon_);
+            rem_ = rem_.minusPolynom(mon_.multiplyPolynom(_d));
         }
-        i_ = 0;
-        for (Rate r: _d.numbers.getReverse()) {
-            d_[i_] = r;
-            i_++;
-        }
-        for (int i = i_; i < numLen_; i++) {
-            d_[i] = Rate.zero();
-        }
-        int nd_ = pDg(n_);
-        int dd_ = pDg(d_);
-        Rate[] q_ = new Rate[numLen_];
-        for (int i = 0; i < numLen_;i++) {
-            q_[i] = Rate.zero();
-        }
-        while (nd_ >= dd_) {
-            int diffNumDen_ = nd_ - dd_;
-            Rate[] uppProd_ = polyProdMonom(d_, diffNumDen_);
-            q_[diffNumDen_] = Rate.divide(n_[nd_], uppProd_[nd_]);
-            arrMultiply(uppProd_, q_[diffNumDen_]);
-            arrSubtract(n_, uppProd_);
-            nd_ = pDg(n_);
-        }
-        Polynom qPol_ = build(q_);
-        Polynom rPol_ = build(n_);
-        return new PairEq<Polynom, Polynom>(qPol_, rPol_);
+        return new PairEq<Polynom, Polynom>(quot_, rem_);
     }
-    private static Polynom build(Rate[] _arr) {
-        Polynom p_ = new Polynom();
-        p_.numbers.clear();
-        boolean f_ = false;
-        for (Rate r: getLcoalReverse(_arr)) {
-            if (!r.isZero()) {
-                f_ = true;
-            }
-            if (f_) {
-                p_.numbers.add(r);
-            }
-        }
-        if (p_.numbers.isEmpty()) {
-            p_.numbers.add(Rate.zero());
-        }
-        return p_;
-    }
-    private static Rate[] getLcoalReverse(Rate[] _c) {
-        int len_ = _c.length;
-        Rate[] list_ = new Rate[len_];
-        for (int i = 0; i < len_; i++) {
-            list_[len_ - i -1] = _c[i];
-        }
-        return list_;
-    }
+
     public Rate get(int _index) {
         return numbers.get(_index);
     }

@@ -1,7 +1,9 @@
 package code.maths.matrix;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+import code.maths.LgInt;
 import org.junit.Test;
 
 import code.maths.Rate;
@@ -9,6 +11,87 @@ import code.maths.Rate;
 
 public class MatrixTest {
 
+    @Test
+    public void nbCols1Test() {
+        Matrix mat_ = new Matrix();
+        assertEq(0, mat_.nbCols());
+    }
+    @Test
+    public void nbCols2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(2, mat_.nbCols());
+    }
+
+    @Test
+    public void nbLines1Test() {
+        Matrix mat_ = new Matrix();
+        assertEq(0, mat_.nbLines());
+    }
+    @Test
+    public void nbLines2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        assertEq(1, mat_.nbLines());
+    }
+    @Test
+    public void transposeRef1Test() {
+        Matrix mat_ = new Matrix();
+        Matrix t_ = mat_.transposeRef();
+        assertEq(0, t_.nbCols());
+        assertEq(0, t_.nbLines());
+    }
+    @Test
+    public void transposeRef2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Matrix t_ = mat_.transposeRef();
+        assertEq(2, t_.nbCols());
+        assertEq(2, t_.nbLines());
+        assertEq(Rate.one(), t_.cell(0, 0));
+        assertEq(Rate.one(), t_.cell(0, 1));
+        assertEq(Rate.zero(), t_.cell(1, 0));
+        assertEq(Rate.zero(), t_.cell(1, 1));
+    }
+    @Test
+    public void transpose1Test() {
+        Matrix mat_ = new Matrix();
+        Matrix t_ = mat_.transpose();
+        assertEq(0, t_.nbCols());
+        assertEq(0, t_.nbLines());
+    }
+    @Test
+    public void transpose2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Matrix t_ = mat_.transpose();
+        assertEq(2, t_.nbCols());
+        assertEq(2, t_.nbLines());
+        assertEq(Rate.one(), t_.cell(0, 0));
+        assertEq(Rate.one(), t_.cell(0, 1));
+        assertEq(Rate.zero(), t_.cell(1, 0));
+        assertEq(Rate.zero(), t_.cell(1, 1));
+    }
     @Test
     public void inv1Test() {
         Matrix mat_ = new Matrix();
@@ -456,5 +539,241 @@ public class MatrixTest {
         Matrix m_ = mat_.ownVects(Rate.minusOne());
         assertEq(1, m_.nbLines());
         assertEq(2, m_.nbCols());
+    }
+    @Test
+    public void passMatTest() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        Matrix m_ = mat_.passMat();
+        assertEq(2, m_.nbLines());
+        assertEq(2, m_.nbCols());
+        assertEq(Rate.one(), m_.cell(0, 0));
+        assertEq(Rate.zero(), m_.cell(0, 1));
+        assertEq(Rate.zero(), m_.cell(1, 0));
+        assertEq(Rate.one(), m_.cell(1, 1));
+    }
+    @Test
+    public void detInv1Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        Rate d_ = mat_.detInv();
+        assertEq(Rate.one(), d_);
+    }
+    @Test
+    public void detInv2Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Rate d_ = mat_.detInv();
+        assertEq(Rate.zero(), d_);
+    }
+    @Test
+    public void detSquareIntPartTest() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.one());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.one());
+        mat_.addLine(vect_);
+        LgInt d_ = mat_.detSquareIntPart();
+        assertEq(LgInt.one(), d_);
+    }
+    @Test
+    public void trace1Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        mat_.addLine(vect_);
+        Rate d_ = mat_.trace();
+        assertEq(new Rate(5), d_);
+    }
+    @Test
+    public void trace2Test() {
+        Matrix mat_ = new Matrix();
+        Rate d_ = mat_.trace();
+        assertEq(new Rate(0), d_);
+    }
+    @Test
+    public void eq1Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        n_.addLine(vect_);
+        assertTrue(m_.eq(n_));
+    }
+    @Test
+    public void eq2Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(3));
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(2));
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        n_.addLine(vect_);
+        assertTrue(!m_.eq(n_));
+    }
+    @Test
+    public void eq3Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(3));
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        n_.addLine(vect_);
+        assertTrue(!m_.eq(n_));
+    }
+    @Test
+    public void eq4Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(3));
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(new Rate(3));
+        n_.addLine(vect_);
+        assertTrue(!m_.eq(n_));
+    }
+    @Test
+    public void eq5Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(3));
+        m_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        assertTrue(!m_.eq(n_));
+    }
+    @Test
+    public void eq6Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(3));
+        m_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        assertTrue(!Matrix.eq(m_,n_));
+    }
+    @Test
+    public void eq7Test() {
+        Matrix m_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        m_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        m_.addLine(vect_);
+        Matrix n_ = new Matrix();
+        vect_ = new Vect();
+        vect_.add(new Rate(2));
+        vect_.add(Rate.zero());
+        n_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(new Rate(3));
+        n_.addLine(vect_);
+        assertTrue(Matrix.eq(m_,n_));
+    }
+    @Test
+    public void new_Matrix_Test() {
+        Matrix m_ = Matrix.newMatrix("1 2;3 4");
+        Matrix n_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(new Rate(1));
+        vect_.add(new Rate(2));
+        n_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(new Rate(3));
+        vect_.add(new Rate(4));
+        n_.addLine(vect_);
+        assertTrue(m_.eq(n_));
+    }
+    @Test
+    public void display1Test() {
+        Matrix m_ = Matrix.newMatrix("1 2;3 4");
+        assertEq("1 2;3 4",m_.display());
+    }
+    @Test
+    public void display2Test() {
+        Matrix m_ = new Matrix();
+        assertEq("",m_.display());
+    }
+    @Test
+    public void display3Test() {
+        Matrix m_ = new Matrix();
+        m_.addLine(new Vect());
+        assertEq("",m_.display());
     }
 }

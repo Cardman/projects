@@ -9,6 +9,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractInstancing
     @Override
     public final boolean forwardTo(AbstractPageEl _page, ContextEl _context) {
         Argument a_ = getGlobalArgument();
-        return _page.receive(a_, _context,null);
+        return _page.receive(a_, _context);
     }
 }

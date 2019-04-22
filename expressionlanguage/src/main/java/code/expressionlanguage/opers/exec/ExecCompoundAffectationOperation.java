@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.CompoundAffectationOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -49,8 +50,21 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        if (pair_ instanceof TwoStepsArgumentsPair) {
+            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
+            if (s_.isCalledIndexer()) {
+                setSimpleArgument(_right, _conf, _nodes);
+                return;
+            }
+            s_.setCalledIndexer(true);
+        }
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
+    @Override
+    public ExecSettableElResult getSettable() {
+        return settable;
+    }
 }

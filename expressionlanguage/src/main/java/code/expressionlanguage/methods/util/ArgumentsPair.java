@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods.util;
 import code.expressionlanguage.Argument;
 
-public abstract class ArgumentsPair {
+public class ArgumentsPair {
 
     private Argument argument;
     private Argument previousArgument;

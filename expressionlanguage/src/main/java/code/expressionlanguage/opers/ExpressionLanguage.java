@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StandardArgumentsPair;
+import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.exec.*;
 import code.util.CustList;
 import code.util.IdMap;
@@ -25,12 +25,24 @@ public final class ExpressionLanguage {
         IdMap<ExecOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();
         for (ExecOperationNode o: operations) {
-            ArgumentsPair a_ = new StandardArgumentsPair();
+            boolean std_ = true;
+            if (o instanceof CallExecSimpleOperation) {
+                ExecSettableElResult set_ = ((CallExecSimpleOperation) o).getSettable();
+                if (set_ instanceof ExecCustArrOperation) {
+                    std_ = false;
+                }
+            }
+            ArgumentsPair a_;
+            if (std_) {
+                a_ = new ArgumentsPair();
+            } else {
+                a_ = new TwoStepsArgumentsPair();
+            }
             a_.setArgument(o.getArgument());
             if (o instanceof ExecPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((ExecPossibleIntermediateDotted)o).getPreviousArgument());
             }
-            arguments_.put(o, a_);
+            arguments_.addEntry(o, a_);
         }
         return arguments_;
     }
@@ -46,16 +58,6 @@ public final class ExpressionLanguage {
             return;
         }
         currentOper.setSimpleArgument(_arg, _cont, arguments);
-        index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
-    }
-
-    public void setDirectArgument(Argument _arg, ContextEl _cont) {
-        if (currentOper instanceof ExecSemiAffectationOperation) {
-            ExecSemiAffectationOperation e_ = (ExecSemiAffectationOperation) currentOper;
-            e_.endQuickCalculate(_cont, arguments, _arg);
-        } else {
-            currentOper.setSimpleArgument(_arg, _cont, arguments);
-        }
         index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
     }
 

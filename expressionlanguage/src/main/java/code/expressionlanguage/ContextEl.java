@@ -337,10 +337,9 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args,Argument _right) {
         setCallMethod(null);
-        MethodPageEl pageLoc_ = new MethodPageEl(this);
+        MethodPageEl pageLoc_ = new MethodPageEl(this,_right);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
-        pageLoc_.setRightArgument(_right);
         NamedFunctionBlock methodLoc_;
         if (!StringList.isDollarWord(_method.getName()) && !_method.getName().startsWith("[]")) {
             methodLoc_ = Classes.getOperatorsBodiesById(this, _method).first();

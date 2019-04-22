@@ -375,7 +375,10 @@ public abstract class ExecOperationNode implements Operable {
         return a_;
     }
     protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return _nodes.getValue(_node.getOrder()).getArgument();
+        return getArgumentPair(_nodes,_node).getArgument();
+    }
+    protected static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
+        return _nodes.getValue(_node.getOrder());
     }
     protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecPossibleIntermediateDotted _node) {
         return _nodes.getValue(_node.getOrder()).getPreviousArgument();
