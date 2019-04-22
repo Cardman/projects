@@ -2073,248 +2073,168 @@ public class DataBase implements WithMathFactory {
         types = moveTypes_;
     }
 
-    public void setTm(NumberMap<Short, String> tm) {
-        this.tm = tm;
+    public void setTm(NumberMap<Short, String> _tm) {
+        tm = _tm;
     }
 
-    public void setTmPrice(NumberMap<Short, LgInt> tmPrice) {
-        this.tmPrice = tmPrice;
+    public void setTmPrice(NumberMap<Short, LgInt> _tmPrice) {
+        tmPrice = _tmPrice;
     }
 
-    public void setHm(NumberMap<Short, String> hm) {
-        this.hm = hm;
+    public void setHm(NumberMap<Short, String> _hm) {
+        hm = _hm;
     }
 
-    public void setMiniPk(StringMap<int[][]> miniPk) {
-        this.miniPk = miniPk;
+    public void setMiniPk(StringMap<int[][]> _miniPk) {
+        miniPk = _miniPk;
     }
 
-    public void setMaxiPkBack(StringMap<int[][]> maxiPkBack) {
-        this.maxiPkBack = maxiPkBack;
+    public void setMaxiPkBack(StringMap<int[][]> _maxiPkBack) {
+        maxiPkBack = _maxiPkBack;
     }
 
-    public void setMaxiPkFront(StringMap<int[][]> maxiPkFront) {
-        this.maxiPkFront = maxiPkFront;
+    public void setMaxiPkFront(StringMap<int[][]> _maxiPkFront) {
+        maxiPkFront = _maxiPkFront;
     }
 
-    public void setMiniItems(StringMap<int[][]> miniItems) {
-        this.miniItems = miniItems;
+    public void setMiniItems(StringMap<int[][]> _miniItems) {
+        miniItems = _miniItems;
     }
 
-    public void setTrainers(StringMap<int[][]> trainers) {
-        this.trainers = trainers;
+    public void setTrainers(StringMap<int[][]> _trainers) {
+        trainers = _trainers;
     }
 
-    public void setPeople(StringMap<int[][]> people) {
-        this.people = people;
+    public void setPeople(StringMap<int[][]> _people) {
+        people = _people;
     }
 
-    public void setTypesImages(StringMap<int[][]> typesImages) {
-        this.typesImages = typesImages;
+    public void setTypesImages(StringMap<int[][]> _typesImages) {
+        typesImages = _typesImages;
     }
 
-    public void setTypesColors(StringMap<String> typesColors) {
-        this.typesColors = typesColors;
+    public void setTypesColors(StringMap<String> _typesColors) {
+        typesColors = _typesColors;
     }
 
-    public void setFrontHeros(ObjectMap<ImageHeroKey, int[][]> frontHeros) {
-        this.frontHeros = frontHeros;
+    public void setFrontHeros(ObjectMap<ImageHeroKey, int[][]> _frontHeros) {
+        frontHeros = _frontHeros;
     }
 
-    public void setBackHeros(ObjectMap<ImageHeroKey, int[][]> backHeros) {
-        this.backHeros = backHeros;
+    public void setBackHeros(ObjectMap<ImageHeroKey, int[][]> _backHeros) {
+        backHeros = _backHeros;
     }
 
-    public void setOverWorldHeros(ObjectMap<ImageHeroKey, int[][]> overWorldHeros) {
-        this.overWorldHeros = overWorldHeros;
+    public void setOverWorldHeros(ObjectMap<ImageHeroKey, int[][]> _overWorldHeros) {
+        overWorldHeros = _overWorldHeros;
     }
 
-    public void setLinks(StringMap<int[][]> links) {
-        this.links = links;
+    public void setLinks(StringMap<int[][]> _links) {
+        links = _links;
     }
 
-    public void setImages(StringMap<int[][]> images) {
-        this.images = images;
+    public void setImages(StringMap<int[][]> _images) {
+        images = _images;
     }
 
     public StringMap<ObjectMap<ScreenCoords, int[][]>> getImagesTiles() {
         return imagesTiles;
     }
 
-    public void setImagesTiles(StringMap<ObjectMap<ScreenCoords, int[][]>> imagesTiles) {
-        this.imagesTiles = imagesTiles;
+    public void setImagesTiles(StringMap<ObjectMap<ScreenCoords, int[][]>> _imagesTiles) {
+        imagesTiles = _imagesTiles;
     }
 
-    public void setMiniMap(StringMap<int[][]> miniMap) {
-        this.miniMap = miniMap;
+    public void setMiniMap(StringMap<int[][]> _miniMap) {
+        miniMap = _miniMap;
     }
 
-    public void setImagesDimensions(StringMap<Dims> imagesDimensions) {
-        this.imagesDimensions = imagesDimensions;
+    public void setImagesDimensions(StringMap<Dims> _imagesDimensions) {
+        imagesDimensions = _imagesDimensions;
     }
 
-    public void setCombos(Combos combos) {
-        this.combos = combos;
+    public void setCombos(Combos _combos) {
+        combos = _combos;
     }
 
     public StringMap<Rate> getConstNum() {
         return constNum;
     }
 
-    public void setConstNum(StringMap<Rate> constNum) {
-        this.constNum = constNum;
+    public void setConstNum(StringMap<Rate> _constNum) {
+        constNum = _constNum;
     }
 
-    public void setRateBoostCriticalHit(String rateBoostCriticalHit) {
-        this.rateBoostCriticalHit = rateBoostCriticalHit;
+    public void setRateBoostCriticalHit(String _rateBoostCriticalHit) {
+        rateBoostCriticalHit = _rateBoostCriticalHit;
     }
 
     public String getRateFleeing() {
         return rateFleeing;
     }
 
-    public void setRateFleeing(String rateFleeing) {
-        this.rateFleeing = rateFleeing;
+    public void setRateFleeing(String _rateFleeing) {
+        rateFleeing = _rateFleeing;
     }
 
     public String getDefMove() {
         return defMove;
     }
 
-    public void setDefMove(String defMove) {
-        this.defMove = defMove;
+    public void setDefMove(String _defMove) {
+        defMove = _defMove;
     }
 
-    public void setRateBoost(String rateBoost) {
-        this.rateBoost = rateBoost;
+    public void setRateBoost(String _rateBoost) {
+        rateBoost = _rateBoost;
     }
 
-    public void setDamageFormula(String damageFormula) {
-        this.damageFormula = damageFormula;
+    public void setDamageFormula(String _damageFormula) {
+        damageFormula = _damageFormula;
     }
 
     public String getBallDef() {
         return ballDef;
     }
 
-    public void setBallDef(String ballDef) {
-        this.ballDef = ballDef;
+    public void setBallDef(String _ballDef) {
+        ballDef = _ballDef;
     }
 
     public String getDefaultEggGoup() {
         return defaultEggGoup;
     }
 
-    public void setDefaultEggGoup(String defaultEggGoup) {
-        this.defaultEggGoup = defaultEggGoup;
+    public void setDefaultEggGoup(String _defaultEggGoup) {
+        defaultEggGoup = _defaultEggGoup;
     }
 
     public String getRateCatching() {
         return rateCatching;
     }
 
-    public void setRateCatching(String rateCatching) {
-        this.rateCatching = rateCatching;
+    public void setRateCatching(String _rateCatching) {
+        rateCatching = _rateCatching;
     }
 
-    public void setExpGrowth(EnumMap<ExpType, String> expGrowth) {
-        this.expGrowth = expGrowth;
+    public void setExpGrowth(EnumMap<ExpType, String> _expGrowth) {
+        expGrowth = _expGrowth;
     }
 
-    public void setRates(EnumMap<DifficultyWinPointsFight, String> rates) {
-        this.rates = rates;
+    public void setRates(EnumMap<DifficultyWinPointsFight, String> _rates) {
+        rates = _rates;
     }
 
-    public void setTableTypes(ObjectMap<TypesDuo, Rate> tableTypes) {
-        this.tableTypes = tableTypes;
+    public void setTableTypes(ObjectMap<TypesDuo, Rate> _tableTypes) {
+        tableTypes = _tableTypes;
     }
 
-    public void setTypes(StringList types) {
-        this.types = types;
+    public void setTypes(StringList _types) {
+        types = _types;
     }
 
-    public void setLawsDamageRate(EnumMap<DifficultyModelLaw, LawNumber> lawsDamageRate) {
-        this.lawsDamageRate = lawsDamageRate;
-    }
-
-    public void setTranslatedCategories(StringMap<StringMap<String>> translatedCategories) {
-        this.translatedCategories = translatedCategories;
-    }
-
-    public void setTranslatedEnvironment(StringMap<EnumMap<EnvironmentType, String>> translatedEnvironment) {
-        this.translatedEnvironment = translatedEnvironment;
-    }
-
-    public void setTranslatedBooleans(StringMap<EnumMap<SelectedBoolean, String>> translatedBooleans) {
-        this.translatedBooleans = translatedBooleans;
-    }
-
-    public void setTranslatedDiffWinPts(StringMap<EnumMap<DifficultyWinPointsFight, String>> translatedDiffWinPts) {
-        this.translatedDiffWinPts = translatedDiffWinPts;
-    }
-
-    public void setTranslatedDiffModelLaw(StringMap<EnumMap<DifficultyModelLaw, String>> translatedDiffModelLaw) {
-        this.translatedDiffModelLaw = translatedDiffModelLaw;
-    }
-
-    public void setTranslatedGenders(StringMap<EnumMap<Gender, String>> translatedGenders) {
-        this.translatedGenders = translatedGenders;
-    }
-
-    public void setTranslatedStatistics(StringMap<EnumMap<Statistic, String>> translatedStatistics) {
-        this.translatedStatistics = translatedStatistics;
-    }
-
-    public void setTranslatedTargets(StringMap<EnumMap<TargetChoice, String>> translatedTargets) {
-        this.translatedTargets = translatedTargets;
-    }
-
-    public void setTranslatedTypes(StringMap<StringMap<String>> translatedTypes) {
-        this.translatedTypes = translatedTypes;
-    }
-
-    public void setTranslatedPokemon(StringMap<StringMap<String>> translatedPokemon) {
-        this.translatedPokemon = translatedPokemon;
-    }
-
-    public void setTranslatedMoves(StringMap<StringMap<String>> translatedMoves) {
-        this.translatedMoves = translatedMoves;
-    }
-
-    public void setTranslatedItems(StringMap<StringMap<String>> translatedItems) {
-        this.translatedItems = translatedItems;
-    }
-
-    public void setTranslatedAbilities(StringMap<StringMap<String>> translatedAbilities) {
-        this.translatedAbilities = translatedAbilities;
-    }
-
-    public void setTranslatedStatus(StringMap<StringMap<String>> translatedStatus) {
-        this.translatedStatus = translatedStatus;
-    }
-
-    public void setTranslatedClassesDescriptions(StringMap<StringMap<String>> translatedClassesDescriptions) {
-        this.translatedClassesDescriptions = translatedClassesDescriptions;
-    }
-
-    public void setAnimStatis(StringMap<int[][]> animStatis) {
-        this.animStatis = animStatis;
-    }
-
-    public void setAnimStatus(StringMap<int[][]> animStatus) {
-        this.animStatus = animStatus;
-    }
-
-    public void setLitterals(StringMap<StringMap<String>> litterals) {
-        this.litterals = litterals;
-    }
-
-    public void setTranslatedFctMath(StringMap<StringMap<String>> translatedFctMath) {
-        this.translatedFctMath = translatedFctMath;
-    }
-
-    public void setFamilies(StringMap<PokemonFamily> families) {
-        this.families = families;
+    public void setLawsDamageRate(EnumMap<DifficultyModelLaw, LawNumber> _lawsDamageRate) {
+        lawsDamageRate = _lawsDamageRate;
     }
 
     public void setAnimAbsorb(int[][] _a) {
@@ -2407,44 +2327,44 @@ public class DataBase implements WithMathFactory {
         messagesGame = _other.messagesGame;
     }
 
-    public void setMessagesGame(StringMap<String> messagesGame) {
-        this.messagesGame = messagesGame;
+    public void setMessagesGame(StringMap<String> _messagesGame) {
+        messagesGame = _messagesGame;
     }
 
-    public void setMessagesPokemonPlayer(StringMap<String> messagesPokemonPlayer) {
-        this.messagesPokemonPlayer = messagesPokemonPlayer;
+    public void setMessagesPokemonPlayer(StringMap<String> _messagesPokemonPlayer) {
+        messagesPokemonPlayer = _messagesPokemonPlayer;
     }
 
     public StringMap<String> getMessagesPokemonPlayer() {
         return messagesPokemonPlayer;
     }
 
-    public void setMessagesFight(StringMap<String> messagesFight) {
-        this.messagesFight = messagesFight;
+    public void setMessagesFight(StringMap<String> _messagesFight) {
+        messagesFight = _messagesFight;
     }
 
     public StringMap<String> getMessagesPlayer() {
         return messagesPlayer;
     }
 
-    public void setMessagesPlayer(StringMap<String> messagesPlayer) {
-        this.messagesPlayer = messagesPlayer;
+    public void setMessagesPlayer(StringMap<String> _messagesPlayer) {
+        messagesPlayer = _messagesPlayer;
     }
 
     public StringMap<String> getMessagesFighter() {
         return messagesFighter;
     }
 
-    public void setMessagesFighter(StringMap<String> messagesFighter) {
-        this.messagesFighter = messagesFighter;
+    public void setMessagesFighter(StringMap<String> _messagesFighter) {
+        messagesFighter = _messagesFighter;
     }
 
     public StringMap<String> getMessagesTeam() {
         return messagesTeam;
     }
 
-    public void setMessagesTeam(StringMap<String> messagesTeam) {
-        this.messagesTeam = messagesTeam;
+    public void setMessagesTeam(StringMap<String> _messagesTeam) {
+        messagesTeam = _messagesTeam;
     }
 
     public String getFighterName(boolean _foe, String _foeStr, String _allyStr, String _name) {
@@ -5875,12 +5795,12 @@ public class DataBase implements WithMathFactory {
         return maxWidthPk;
     }
 
-    public void setMaxHeightPk(int maxHeightPk) {
-        this.maxHeightPk = maxHeightPk;
+    public void setMaxHeightPk(int _maxHeightPk) {
+        maxHeightPk = _maxHeightPk;
     }
 
-    public void setMaxWidthPk(int maxWidthPk) {
-        this.maxWidthPk = maxWidthPk;
+    public void setMaxWidthPk(int _maxWidthPk) {
+        maxWidthPk = _maxWidthPk;
     }
 
     public StringMap<int[][]> getMiniItems() {

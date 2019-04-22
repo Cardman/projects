@@ -1225,7 +1225,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         filesNames_.clear();
 
-        for (String f : _d.filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(ABILITIES_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -1242,7 +1242,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         filesNames_.clear();
 
-        for (String f : _d.filterBeginIgnoreCase(listRelativePaths_,StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(STATUS_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
