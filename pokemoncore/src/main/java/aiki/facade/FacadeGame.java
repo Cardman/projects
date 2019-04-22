@@ -174,19 +174,6 @@ public class FacadeGame implements WithMathFactory {
                 i_));
     }
 
-    public void loadResources() {
-        DataBase data_ = new DataBase();
-        setLoading(true);
-        data_.setLanguage(language);
-        data_.loadResources(perCentLoading, language);
-        if (data != null) {
-            data_.setMessages(data);
-        }
-        data = data_;
-        loadedData = true;
-        zipName = DataBase.EMPTY_STRING;
-    }
-
     // public void initializeDefaultHtmlFiles() {
     // data.initializeDefaultHtmlFiles();
     // }
@@ -199,24 +186,6 @@ public class FacadeGame implements WithMathFactory {
         game = null;
     }
 
-    // Load rom first
-    public DataBase loadedRom(StringMap<String> _files) {
-        DataBase data_ = new DataBase();
-        setLoading(true);
-        data_.setLanguage(language);
-        data_.loadRom(_files,perCentLoading);
-        if (data_.isError()) {
-            return null;
-        }
-        if (!data_.getMap().validSavedLink()) {
-            data_.setError(true);
-            return null;
-
-        }
-        data_.getMap().initializeLinks();
-        return data_;
-    }
-
     public void createDataBase(WildPk _firstPokemon) {
         DataBase data_ = new DataBase();
         data_.setLanguage(language);
@@ -227,37 +196,6 @@ public class FacadeGame implements WithMathFactory {
         map_.setFirstPokemon(_firstPokemon);
         map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
-        if (data != null) {
-            data_.setMessages(data);
-        }
-        data = data_;
-        loadedData = true;
-    }
-
-    // Load rom option
-    public void loadRomAndCheck(String _fileName,
-            StringMap<String> _files) {
-        DataBase data_ = loadedRom(_files);
-        if (data_ == null) {
-            loadedData = false;
-            return;
-        }
-        if (!isLoading()) {
-            return;
-        }
-        data_.validate(perCentLoading, loading);
-        if (!isLoading() || data_.isError()) {
-            if (data_.isError()) {
-                loadedData = false;
-            }
-            return;
-        }
-        data_.initializeWildPokemon();
-        setPerCentLoading(99);
-        if (!isLoading()) {
-            return;
-        }
-        zipName = _fileName;
         if (data != null) {
             data_.setMessages(data);
         }
@@ -3154,6 +3092,18 @@ public class FacadeGame implements WithMathFactory {
         return data;
     }
 
+    public void setData(DataBase _data) {
+        data = _data;
+    }
+
+    public void setLoadedData(boolean _loadedData) {
+        loadedData = _loadedData;
+    }
+
+    public void setZipName(String _zipName) {
+        zipName = _zipName;
+    }
+
     public boolean isExistingFight() {
         return game.getFight().getFightType().isExisting();
     }
@@ -3220,12 +3170,20 @@ public class FacadeGame implements WithMathFactory {
         return zipName;
     }
 
+    public AtomicBoolean getLoading() {
+        return loading;
+    }
+
     public boolean isLoading() {
         return loading.get();
     }
 
     public void setLoading(boolean _loading) {
         loading.set(_loading);
+    }
+
+    public AtomicInteger getAtPerCentLoading() {
+        return perCentLoading;
     }
 
     public int getPerCentLoading() {
@@ -3236,8 +3194,4 @@ public class FacadeGame implements WithMathFactory {
         perCentLoading.set(_perCentLoading);
     }
 
-    public void initMessages() {
-        data.setLanguage(language);
-        data.initMessages(language);
-    }
 }

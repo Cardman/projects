@@ -422,7 +422,8 @@ public final class MainWindow extends NetGroupFrame {
         //facade = null;
     }
     public void initMessages() {
-        facade.initMessages();
+        facade.getData().setLanguage(facade.getLanguage());
+        DocumentReaderAikiCoreUtil.initMessages(facade.getData(),facade.getLanguage());
         messages = getMessages(this,Resources.MESSAGES_FOLDER);
         file.setText(messages.getVal(FILE));
         zipLoad.setText(messages.getVal(ZIP_LOAD));
@@ -521,15 +522,15 @@ public final class MainWindow extends NetGroupFrame {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
-            facade.loadRomAndCheck(_file, files_);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_file, files_);
             if (!facade.isLoadedData()) {
-                facade.loadResources();
+                DocumentReaderAikiCoreUtil.loadResources(facade);
             }
             if (!facade.isLoading()) {
                 return;
             }
         } else {
-            facade.loadResources();
+            DocumentReaderAikiCoreUtil.loadResources(facade);
             if (!facade.isLoading()) {
                 return;
             }
@@ -560,16 +561,16 @@ public final class MainWindow extends NetGroupFrame {
             path_ = StringList.replaceBackSlash(path_);
             //startThread = true;
             StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
-            facade.loadRomAndCheck(path_, files_);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_);
             if (!facade.isLoadedData()) {
-                facade.loadResources();
+                DocumentReaderAikiCoreUtil.loadResources(facade);
             }
             if (!facade.isLoading()) {
                 return;
             }
         } else {
             path_ = _configuration.getLastRom();
-            facade.loadResources();
+            DocumentReaderAikiCoreUtil.loadResources(facade);
             if (!facade.isLoading()) {
                 return;
             }
@@ -1058,9 +1059,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public void processLoad(String _fileName) {
         StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
-        facade.loadRomAndCheck(_fileName, files_);
+        DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_fileName, files_);
         if (!facade.isLoadedData()) {
-            facade.loadResources();
+            DocumentReaderAikiCoreUtil.loadResources(facade);
         }
         if (!facade.isLoading()) {
             return;

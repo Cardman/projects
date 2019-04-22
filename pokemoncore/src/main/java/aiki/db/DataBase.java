@@ -121,8 +121,6 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
-import aiki.sml.DocumentReaderAikiCoreUtil;
-import aiki.sml.DocumentWriterAikiCoreUtil;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
@@ -1033,7 +1031,7 @@ public class DataBase implements WithMathFactory {
         }
     }
 
-    private void validateEvolutions() {
+    public void validateEvolutions() {
         families = new StringMap<PokemonFamily>();
         StringList listEvoBases_ = new StringList();
         for (PokemonData d : getPokedex().values()) {
@@ -2075,524 +2073,255 @@ public class DataBase implements WithMathFactory {
         types = moveTypes_;
     }
 
-    public void loadRom(StringMap<String> _files, AtomicInteger _perCentLoading) {
+    public void setTm(NumberMap<Short, String> tm) {
+        this.tm = tm;
+    }
 
-        _perCentLoading.set(0);
-        initializeMembers();
-        StringMap<String> files_;
-        StringList listRelativePaths_;
-        String common_ = EMPTY_STRING;
-        files_ = _files;
-        listRelativePaths_ = files_.getKeys();
-        StringList foldersBase_ = new StringList();
-        for (String f : listRelativePaths_) {
-            StringBuilder str_ = new StringBuilder();
-            for (char c : f.toCharArray()) {
-                if (!StringList.isWordChar(c)) {
-                    break;
-                }
-                str_.append(c);
-            }
-            String strFolder_ = str_.toString();
-            foldersBase_.add(strFolder_);
-        }
-        foldersBase_.removeDuplicates();
-        if (foldersBase_.size() == 1) {
-            common_ = StringList.concat(foldersBase_.first(), SEPARATOR_FILES);
-            listRelativePaths_.removePrefixInStrings(common_);
-        }
-        StringList listCopy_ = new StringList();
-        for (String s : listRelativePaths_) {
-            listCopy_.add(toUpperCase(s));
-        }
-        int sizeListCopy_ = listCopy_.size();
-        listCopy_.removeDuplicates();
-        if (!Numbers.eq(listCopy_.size(), sizeListCopy_)) {
-            setError(true);
-            return;
-        }
-        _perCentLoading.set(5);
-        StringList filesNames_;
-        filesNames_ = new StringList();
+    public void setTmPrice(NumberMap<Short, LgInt> tmPrice) {
+        this.tmPrice = tmPrice;
+    }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(POKEDEX_FOLDER, SEPARATOR_FILES))) {
+    public void setHm(NumberMap<Short, String> hm) {
+        this.hm = hm;
+    }
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            if (n_.isEmpty()) {
-                continue;
-            }
-            n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                setError(true);
-            }
-            filesNames_.add(n_);
-            PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(notNull(files_,StringList.concat(common_, f)));
-            completeMembers(toUpperCase(n_), f_);
-        }
-        calculateAvgPound();
-        filesNames_.clear();
+    public void setMiniPk(StringMap<int[][]> miniPk) {
+        this.miniPk = miniPk;
+    }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(MOVES_FOLDER, SEPARATOR_FILES))) {
+    public void setMaxiPkBack(StringMap<int[][]> maxiPkBack) {
+        this.maxiPkBack = maxiPkBack;
+    }
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            if (n_.isEmpty()) {
-                continue;
-            }
-            n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                setError(true);
-            }
-            filesNames_.add(n_);
-            MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_,StringList.concat(common_, f)));
-            completeMembers(toUpperCase(n_), move_);
-        }
-        _perCentLoading.set(10);
-        String fileHmTm_ = notNull(files_,StringList.concat(common_, CT_CS_FILE));
-        StringList tmHm_;
-        tmHm_ = StringList.splitChars(
-                fileHmTm_,
-                RETURN_LINE_CHAR);
-        for (String l : tmHm_) {
-            if (l.startsWith(CT)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
-                tm.put(cle_, infos_.get(1));
-                LgInt price_;
-                if (LgInt.isValid(infos_.get(2))) {
-                    price_ = new LgInt(infos_.get(2));
-                } else {
-                    price_ = new LgInt(1000);
-                }
-                tmPrice.put(cle_, price_);
+    public void setMaxiPkFront(StringMap<int[][]> maxiPkFront) {
+        this.maxiPkFront = maxiPkFront;
+    }
 
-            }
-            if (l.startsWith(CS)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
-                hm.put(cle_, infos_.get(1));
-            }
-        }
-        filesNames_.clear();
+    public void setMiniItems(StringMap<int[][]> miniItems) {
+        this.miniItems = miniItems;
+    }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(ITEMS_FOLDER, SEPARATOR_FILES))) {
+    public void setTrainers(StringMap<int[][]> trainers) {
+        this.trainers = trainers;
+    }
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            if (n_.isEmpty()) {
-                continue;
-            }
-            n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                setError(true);
-            }
-            filesNames_.add(n_);
-            Item o_ = DocumentReaderAikiCoreUtil.getItem(notNull(files_,StringList.concat(common_, f)));
-            completeMembers(toUpperCase(n_), o_);
-        }
-        filesNames_.clear();
+    public void setPeople(StringMap<int[][]> people) {
+        this.people = people;
+    }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(ABILITIES_FOLDER, SEPARATOR_FILES))) {
+    public void setTypesImages(StringMap<int[][]> typesImages) {
+        this.typesImages = typesImages;
+    }
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            if (n_.isEmpty()) {
-                continue;
-            }
-            n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                setError(true);
-            }
-            filesNames_.add(n_);
-            AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(notNull(files_,StringList.concat(common_, f)));
-            completeMembers(toUpperCase(n_), ab_);
-        }
-        filesNames_.clear();
+    public void setTypesColors(StringMap<String> typesColors) {
+        this.typesColors = typesColors;
+    }
 
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(STATUS_FOLDER, SEPARATOR_FILES))) {
+    public void setFrontHeros(ObjectMap<ImageHeroKey, int[][]> frontHeros) {
+        this.frontHeros = frontHeros;
+    }
 
-            String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            if (n_.isEmpty()) {
-                continue;
-            }
-            n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                setError(true);
-            }
-            filesNames_.add(n_);
-            Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_,StringList.concat(common_, f)));
-            completeMembers(toUpperCase(n_), st_);
-        }
-        _perCentLoading.set(15);
-        completeVariables();
-        filesNames_.clear();
-        images = new StringMap<int[][]>();
-        imagesTiles = new StringMap<ObjectMap<ScreenCoords, int[][]>>();
-        StringList images_;
+    public void setBackHeros(ObjectMap<ImageHeroKey, int[][]> backHeros) {
+        this.backHeros = backHeros;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            filesNames_.add(s);
+    public void setOverWorldHeros(ObjectMap<ImageHeroKey, int[][]> overWorldHeros) {
+        this.overWorldHeros = overWorldHeros;
+    }
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            images.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
-        }
-        filesNames_.clear();
+    public void setLinks(StringMap<int[][]> links) {
+        this.links = links;
+    }
 
-        miniMap = new StringMap<int[][]>();
-        StringList miniMap_;
+    public void setImages(StringMap<int[][]> images) {
+        this.images = images;
+    }
 
-        miniMap_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(MINI_MAP_FOLDER, SEPARATOR_FILES));
-        for (String s : miniMap_) {
-            filesNames_.add(s);
+    public StringMap<ObjectMap<ScreenCoords, int[][]>> getImagesTiles() {
+        return imagesTiles;
+    }
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            miniMap.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
-        }
+    public void setImagesTiles(StringMap<ObjectMap<ScreenCoords, int[][]>> imagesTiles) {
+        this.imagesTiles = imagesTiles;
+    }
 
-        filesNames_.clear();
-        links = new StringMap<int[][]>();
+    public void setMiniMap(StringMap<int[][]> miniMap) {
+        this.miniMap = miniMap;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(LINKS_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            filesNames_.add(s);
+    public void setImagesDimensions(StringMap<Dims> imagesDimensions) {
+        this.imagesDimensions = imagesDimensions;
+    }
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            links.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
-        }
-        filesNames_.clear();
-        people = new StringMap<int[][]>();
+    public void setCombos(Combos combos) {
+        this.combos = combos;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(PEOPLE_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            filesNames_.add(s);
+    public StringMap<Rate> getConstNum() {
+        return constNum;
+    }
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            people.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
-        }
-        filesNames_.clear();
-        frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        String frHeros_ = notNull(files_,StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT));
-        for (String l : StringList.splitChars(frHeros_,
-                RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            frontHeros.put(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        backHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        String bkHeros_ = notNull(files_,StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_BACK));
-        for (String l : StringList.splitChars(bkHeros_,
-                RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            backHeros.put(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        overWorldHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        String ovHeros_ = notNull(files_,StringList.concat(
-                common_, HERO_FOLDER, SEPARATOR_FILES, HERO_MINI));
-        for (String l : StringList.splitChars(ovHeros_,
-                RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Direction dir_ = Direction.getDirectionByName(keyStrings_
-                    .get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
+    public void setConstNum(StringMap<Rate> constNum) {
+        this.constNum = constNum;
+    }
 
-        filesNames_.clear();
-        trainers = new StringMap<int[][]>();
+    public void setRateBoostCriticalHit(String rateBoostCriticalHit) {
+        this.rateBoostCriticalHit = rateBoostCriticalHit;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(TRAINERS_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            filesNames_.add(s);
+    public String getRateFleeing() {
+        return rateFleeing;
+    }
 
-            String key_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            trainers.put(key_, BaseSixtyFourUtil.getImageByString(notNull(files_,StringList.concat(common_, s))));
-        }
-        filesNames_.clear();
-        maxiPkBack = new StringMap<int[][]>();
+    public void setRateFleeing(String rateFleeing) {
+        this.rateFleeing = rateFleeing;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
+    public String getDefMove() {
+        return defMove;
+    }
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            n_ = removeExtension(n_);
-            filesNames_.add(n_);
-            maxiPkBack.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            s))));
-        }
-        filesNames_.clear();
-        maxiPkFront = new StringMap<int[][]>();
+    public void setDefMove(String defMove) {
+        this.defMove = defMove;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
+    public void setRateBoost(String rateBoost) {
+        this.rateBoost = rateBoost;
+    }
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            n_ = removeExtension(n_);
-            filesNames_.add(n_);
-            maxiPkFront.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            s))));
-        }
-        filesNames_.clear();
-        miniPk = new StringMap<int[][]>();
+    public void setDamageFormula(String damageFormula) {
+        this.damageFormula = damageFormula;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
+    public String getBallDef() {
+        return ballDef;
+    }
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            n_ = removeExtension(n_);
-            filesNames_.add(n_);
-            miniPk.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            s))));
-        }
-        _perCentLoading.set(25);
-        filesNames_.clear();
-        miniItems = new StringMap<int[][]>();
+    public void setBallDef(String ballDef) {
+        this.ballDef = ballDef;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(OBJECTS_IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
-                continue;
-            }
+    public String getDefaultEggGoup() {
+        return defaultEggGoup;
+    }
 
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
-            n_ = removeExtension(n_);
-            filesNames_.add(n_);
-            miniItems.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            s))));
-        }
+    public void setDefaultEggGoup(String defaultEggGoup) {
+        this.defaultEggGoup = defaultEggGoup;
+    }
 
-        filesNames_.clear();
-        typesImages = new StringMap<int[][]>();
+    public String getRateCatching() {
+        return rateCatching;
+    }
 
-        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES));
-        for (String s : images_) {
-            if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
-                continue;
-            }
-            String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
+    public void setRateCatching(String rateCatching) {
+        this.rateCatching = rateCatching;
+    }
 
-            n_ = removeExtension(n_);
-            filesNames_.add(n_);
-            typesImages.put(toUpperCase(n_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            s))));
-        }
+    public void setExpGrowth(EnumMap<ExpType, String> expGrowth) {
+        this.expGrowth = expGrowth;
+    }
 
-        String imgHmTm_ = notNull(files_,StringList
-                .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT));
-        imageTmHm = BaseSixtyFourUtil.getImageByString(imgHmTm_);
-        String storeImg_ = notNull(files_,StringList
-                .concat(common_, IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT));
-        storage = BaseSixtyFourUtil.getImageByString(storeImg_);
-        String combos_ = notNull(files_,StringList
-                .concat(common_, COMBOS));
-        combos = DocumentReaderAikiCoreUtil.getCombos(combos_);
-        completeMembersCombos();
-        sortEndRound();
-        String mapFile_ = notNull(files_,StringList
-                .concat(common_, MAP_FILE));
-        map = DocumentReaderAikiCoreUtil.getDataMap(mapFile_);
-        constNum = new StringMap<Rate>();
-        String cstNum_ = notNull(files_,StringList.concat(common_, CONST_NUM));
-        StringList linesNum_ = StringList.splitChar(
-                cstNum_,
-                RETURN_LINE_CHAR);
-        for (String l : linesNum_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChar(l, TAB_CHAR);
-            constNum.put(infos_.first(), new Rate(infos_.last()));
-        }
+    public void setRates(EnumMap<DifficultyWinPointsFight, String> rates) {
+        this.rates = rates;
+    }
 
-        String cstNotNum_ = notNull(files_,StringList.concat(common_, CONST_NOT_NUM));
-        StringList linesNotNum_ = StringList.splitChar(
-                cstNotNum_,
-                RETURN_LINE_CHAR);
-        for (String l : linesNotNum_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            if (StringList.quickEq(infos_.first(), DEF_MOVE)) {
-                defMove = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_BOOST)) {
-                rateBoost = infos_.last();
-            } else if (StringList.quickEq(infos_.first(),
-                    RATE_BOOST_CRITICAL_HIT)) {
-                rateBoostCriticalHit = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_FLEEING)) {
-                rateFleeing = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_CATCHING)) {
-                rateCatching = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
-                ballDef = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
-                defaultEggGoup = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
-                damageFormula = infos_.last();
-            }
+    public void setTableTypes(ObjectMap<TypesDuo, Rate> tableTypes) {
+        this.tableTypes = tableTypes;
+    }
 
-        }
-        tableTypes = new ObjectMap<TypesDuo, Rate>();
-        String tTable_ = notNull(files_,StringList.concat(common_, TABLE_TYPES));
-        StringList linesTableTypes_ = StringList.splitChars(
-                tTable_,
-                RETURN_LINE_CHAR);
-        String head_ = linesTableTypes_.first();
-        StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
-        typesOff_.removeString(EMPTY_STRING);
-        StringList typesDef_ = new StringList();
-        for (String l : linesTableTypes_.sub(1, linesTableTypes_.size())) {
-            typesDef_.add(StringList.getFirstToken(l, TAB_CHAR));
-        }
-        typesDef_.removeString(EMPTY_STRING);
-        for (String pkType_ : typesDef_) {
+    public void setTypes(StringList types) {
+        this.types = types;
+    }
 
-            String l_ = getElements(linesTableTypes_, pkType_).first();
-            StringList infos_ = StringList.splitChars(l_, TAB_CHAR);
-            infos_.removeString(pkType_);
-            int i_ = 0;
-            for (String damageType_ : typesOff_) {
-                TypesDuo t_ = new TypesDuo(damageType_, pkType_);
-                Rate r_;
-                if (Rate.isValid(infos_.get(i_))) {
-                    r_ = new Rate(infos_.get(i_));
-                } else {
-                    r_ = defRateProduct();
-                }
-                tableTypes.put(t_, r_);
+    public void setLawsDamageRate(EnumMap<DifficultyModelLaw, LawNumber> lawsDamageRate) {
+        this.lawsDamageRate = lawsDamageRate;
+    }
 
-                i_++;
-            }
-        }
-        lawsDamageRate = new EnumMap<DifficultyModelLaw, LawNumber>();
-        String rdLaw_ = notNull(files_,StringList.concat(common_, LOIS_RANDOM));
-        StringList laws_ = StringList.splitChars(
-                rdLaw_,
-                RETURN_LINE_CHAR);
-        for (String l : laws_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            MonteCarloNumber law_ = new MonteCarloNumber();
+    public void setTranslatedCategories(StringMap<StringMap<String>> translatedCategories) {
+        this.translatedCategories = translatedCategories;
+    }
 
-            for (String evt_ : StringList.splitStrings(infos_.get(1),
-                    SEPARATOR_RAND)) {
-                StringList infosLoc_ = StringList.splitStrings(evt_,
-                        SEPARATOR_RAND_EVENTS);
-                boolean defaultLaw_ = false;
-                if (!Rate.isValid(infosLoc_.first())) {
-                    defaultLaw_ = true;
-                } else if (!LgInt.isValid(infosLoc_.get(1))) {
-                    defaultLaw_ = true;
-                }
-                if (defaultLaw_) {
-                    law_ = new MonteCarloNumber();
-                    law_.addEvent(new Rate(1), defElementaryEvent());
+    public void setTranslatedEnvironment(StringMap<EnumMap<EnvironmentType, String>> translatedEnvironment) {
+        this.translatedEnvironment = translatedEnvironment;
+    }
 
-                    break;
-                }
+    public void setTranslatedBooleans(StringMap<EnumMap<SelectedBoolean, String>> translatedBooleans) {
+        this.translatedBooleans = translatedBooleans;
+    }
 
-                law_.addEvent(new Rate(infosLoc_.first()),
-                        new LgInt(infosLoc_.get(1)));
+    public void setTranslatedDiffWinPts(StringMap<EnumMap<DifficultyWinPointsFight, String>> translatedDiffWinPts) {
+        this.translatedDiffWinPts = translatedDiffWinPts;
+    }
 
-            }
+    public void setTranslatedDiffModelLaw(StringMap<EnumMap<DifficultyModelLaw, String>> translatedDiffModelLaw) {
+        this.translatedDiffModelLaw = translatedDiffModelLaw;
+    }
 
-            if (!law_.checkEvents()) {
-                setError(true);
-                return;
-            }
-            lawsDamageRate.put(
-                    DifficultyModelLaw.getModelByName(infos_.first()),
-                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
-        }
-        expGrowth = new EnumMap<ExpType, String>();
-        String pts_ = notNull(files_,StringList.concat(common_, COURBE_PTS_EXP));
-        StringList courbes_ = StringList.splitChars(
-                pts_,
-                RETURN_LINE_CHAR);
-        for (String l : courbes_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            expGrowth.put(ExpType.getExpTypeByName(infos_.first()),
-                    infos_.get(1));
-        }
-        rates = new EnumMap<DifficultyWinPointsFight, String>();
-        String rWon_ = notNull(files_,StringList.concat(common_, RATE_WON_POINTS));
-        StringList rates_ = StringList.splitChars(
-                rWon_,
-                RETURN_LINE_CHAR);
-        for (String l : rates_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_
-                    .first()), infos_.get(1));
-        }
-        typesColors = new StringMap<String>();
-        String imgTypes_ = notNull(files_,StringList
-                .concat(common_, TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT));
-        StringList colorTypes_ = StringList.splitChars(imgTypes_,
-                RETURN_LINE_CHAR);
-        for (String l : colorTypes_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            String colorStr_ = infos_.get(1);
-            typesColors.put(infos_.first(), colorStr_);
-        }
-        String endGame_ = notNull(files_,StringList.concat(common_, END_GAME_IMAGE,
-                        IMG_FILES_RES_EXT_TXT));
-        endGameImage = BaseSixtyFourUtil.getImageByString(endGame_);
+    public void setTranslatedGenders(StringMap<EnumMap<Gender, String>> translatedGenders) {
+        this.translatedGenders = translatedGenders;
+    }
+
+    public void setTranslatedStatistics(StringMap<EnumMap<Statistic, String>> translatedStatistics) {
+        this.translatedStatistics = translatedStatistics;
+    }
+
+    public void setTranslatedTargets(StringMap<EnumMap<TargetChoice, String>> translatedTargets) {
+        this.translatedTargets = translatedTargets;
+    }
+
+    public void setTranslatedTypes(StringMap<StringMap<String>> translatedTypes) {
+        this.translatedTypes = translatedTypes;
+    }
+
+    public void setTranslatedPokemon(StringMap<StringMap<String>> translatedPokemon) {
+        this.translatedPokemon = translatedPokemon;
+    }
+
+    public void setTranslatedMoves(StringMap<StringMap<String>> translatedMoves) {
+        this.translatedMoves = translatedMoves;
+    }
+
+    public void setTranslatedItems(StringMap<StringMap<String>> translatedItems) {
+        this.translatedItems = translatedItems;
+    }
+
+    public void setTranslatedAbilities(StringMap<StringMap<String>> translatedAbilities) {
+        this.translatedAbilities = translatedAbilities;
+    }
+
+    public void setTranslatedStatus(StringMap<StringMap<String>> translatedStatus) {
+        this.translatedStatus = translatedStatus;
+    }
+
+    public void setTranslatedClassesDescriptions(StringMap<StringMap<String>> translatedClassesDescriptions) {
+        this.translatedClassesDescriptions = translatedClassesDescriptions;
+    }
+
+    public void setAnimStatis(StringMap<int[][]> animStatis) {
+        this.animStatis = animStatis;
+    }
+
+    public void setAnimStatus(StringMap<int[][]> animStatus) {
+        this.animStatus = animStatus;
+    }
+
+    public void setLitterals(StringMap<StringMap<String>> litterals) {
+        this.litterals = litterals;
+    }
+
+    public void setTranslatedFctMath(StringMap<StringMap<String>> translatedFctMath) {
+        this.translatedFctMath = translatedFctMath;
+    }
+
+    public void setFamilies(StringMap<PokemonFamily> families) {
+        this.families = families;
+    }
+
+    public void setAnimAbsorb(int[][] _a) {
+        animAbsorb = _a;
+    }
+
+    public void initTranslations() {
         translatedBooleans = new StringMap<EnumMap<SelectedBoolean, String>>();
         translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight, String>>();
         translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw, String>>();
@@ -2610,301 +2339,6 @@ public class DataBase implements WithMathFactory {
         translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
-        _perCentLoading.set(30);
-        for (String l : Constants.getAvailableLanguages()) {
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
-            EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.getGenderByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedGenders.put(l, genders_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
-            EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedBooleans.put(l, booleans_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
-            EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight
-                        .getDiffWonPtsByName(infos_.first()), DocumentBuilder
-                        .transformSpecialChars(infos_.last()));
-            }
-            translatedDiffWinPts.put(l, diffWinPts_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
-                    .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
-            EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedDiffModelLaw.put(l, diffLaw_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
-            EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.getEnvByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedEnvironment.put(l, environments_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
-            EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.getStatisticByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedStatistics.put(l, statistics_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
-            EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(
-                        TargetChoice.getTargetChoiceByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedTargets.put(l, targets_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
-            StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                categories_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedCategories.put(l, categories_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
-            StringMap<String> types_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                types_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedTypes.put(l, types_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
-            StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                pokemon_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedPokemon.put(l, pokemon_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
-            StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                moves_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedMoves.put(l, moves_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
-            StringMap<String> items_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                items_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedItems.put(l, items_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
-            StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                abilities_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedAbilities.put(l, abilities_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
-            StringMap<String> status_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                status_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedStatus.put(l, status_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
-            StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                fctsMath_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedFctMath.put(l, fctsMath_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
-            StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                descrClasses_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedClassesDescriptions.put(l, descrClasses_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
-            StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(
-                    notNull(files_,StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                litteral_
-                        .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(infos_.mid(
-                                        CustList.SECOND_INDEX, infos_.size())
-                                        .join(TAB)));
-            }
-            litterals.put(l, litteral_);
-        }
-        _perCentLoading.set(35);
-
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(ANIM_STATIS, SEPARATOR_FILES))) {
-
-            String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            f_ = removeExtension(f_);
-            if (f_.isEmpty()) {
-                continue;
-            }
-            animStatis.put(toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            f))));
-        }
-
-        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
-                .concat(ANIM_STATUS, SEPARATOR_FILES))) {
-
-            String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
-            f_ = removeExtension(f_);
-            if (f_.isEmpty()) {
-                continue;
-            }
-            animStatus.put(toUpperCase(f_), BaseSixtyFourUtil
-                    .getImageByString(notNull(files_,StringList.concat(common_,
-                            f))));
-        }
-        String anAbs_ = notNull(files_,StringList.concat(common_, ANIM_ABSORB));
-        animAbsorb = BaseSixtyFourUtil.getImageByString(anAbs_);
-        _perCentLoading.set(40);
     }
 
     private static String notNull(StringMap<String> _m, String _k) {
@@ -2920,967 +2354,6 @@ public class DataBase implements WithMathFactory {
 
     public void setLanguage(String _language) {
         language = _language;
-    }
-
-    public void loadResources(AtomicInteger _perCentLoading, String _lg) {
-        int delta_ = (100 - _perCentLoading.get()) / 6;
-        imagesDimensions.clear();
-
-        initializeMembers();
-        String common_ = Resources.ACCESS_TO_DEFAULT_FILES;
-        StringList tmHm_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, CT_CS_FILE)),
-                RETURN_LINE_CHAR);
-        for (String l : tmHm_) {
-            if (l.startsWith(CT)) {
-                StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
-                tm.put(cle_, infos_.get(1).trim());
-                LgInt price_;
-                if (LgInt.isValid(infos_.get(2).trim())) {
-                    price_ = new LgInt(infos_.get(2).trim());
-                } else {
-                    price_ = new LgInt(1000);
-                }
-                tmPrice.put(cle_, price_);
-
-            }
-            if (l.startsWith(CS)) {
-                StringList infos_ = StringList.splitChars(l.trim(), TAB_CHAR);
-                short cle_ = (short) Numbers.parseInt(infos_.first().substring(2));
-                hm.put(cle_, infos_.get(1));
-            }
-        }
-        frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
-                        SEPARATOR_FILES, HERO_FRONT)), RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            frontHeros.put(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        backHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
-                        SEPARATOR_FILES, HERO_BACK)), RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            backHeros.put(new ImageHeroKey(env_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        overWorldHeros = new ObjectMap<ImageHeroKey, int[][]>();
-        for (String l : StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, HERO_FOLDER,
-                        SEPARATOR_FILES, HERO_MINI)), RETURN_LINE_CHAR)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            StringList keyStrings_ = StringList.splitStrings(infos_.first(),
-                    SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
-                    .first());
-            Direction dir_ = Direction.getDirectionByName(keyStrings_
-                    .get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
-            overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_),
-                    BaseSixtyFourUtil.getImageByString(infos_.last()));
-        }
-        imageTmHm = BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, IMAGE_TM_HM_FILES,
-                        IMG_FILES_RES_EXT_TXT)));
-        storage = BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_,
-                        IMAGE_STORAGE_FILES, IMG_FILES_RES_EXT_TXT)));
-        combos = DocumentReaderAikiCoreUtil.getCombos(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, COMBOS)));
-        completeMembersCombos();
-        map = DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, MAP_FILE)));
-        _perCentLoading.addAndGet(delta_);
-        constNum = new StringMap<Rate>();
-        StringList lines_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, CONST_NUM)),
-                RETURN_LINE_CHAR);
-        for (String l : lines_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            constNum.put(infos_.first(), new Rate(infos_.last()));
-        }
-
-        lines_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, CONST_NOT_NUM)),
-                RETURN_LINE_CHAR);
-        for (String l : lines_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            if (StringList.quickEq(infos_.first(), DEF_MOVE)) {
-                defMove = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_BOOST)) {
-                rateBoost = infos_.last();
-            } else if (StringList.quickEq(infos_.first(),
-                    RATE_BOOST_CRITICAL_HIT)) {
-                rateBoostCriticalHit = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_FLEEING)) {
-                rateFleeing = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), RATE_CATCHING)) {
-                rateCatching = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
-                ballDef = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
-                defaultEggGoup = infos_.last();
-            } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
-                damageFormula = infos_.last();
-            }
-
-        }
-        tableTypes = new ObjectMap<TypesDuo, Rate>();
-        StringList linesTableTypes_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, TABLE_TYPES)),
-                RETURN_LINE_CHAR);
-        String head_ = linesTableTypes_.first();
-        StringList typesOff_ = StringList.splitChars(head_, TAB_CHAR);
-        typesOff_.removeString(EMPTY_STRING);
-        StringList typesDef_ = new StringList();
-        for (String l : linesTableTypes_.sub(1, linesTableTypes_.size())) {
-            typesDef_.add(StringList.getFirstToken(l, TAB_CHAR));
-        }
-        typesDef_.removeString(EMPTY_STRING);
-        for (String pkType_ : typesDef_) {
-
-            String l_ = getElements(linesTableTypes_, pkType_).first();
-            StringList infos_ = StringList.splitChars(l_, TAB_CHAR);
-            infos_.removeString(pkType_);
-            int i_ = 0;
-            for (String damageType_ : typesOff_) {
-                TypesDuo t_ = new TypesDuo(damageType_, pkType_);
-                Rate r_;
-                if (Rate.isValid(infos_.get(i_))) {
-                    r_ = new Rate(infos_.get(i_));
-                } else {
-                    r_ = defRateProduct();
-                }
-                tableTypes.put(t_, r_);
-
-                i_++;
-            }
-        }
-        initTypesByTable();
-        lawsDamageRate = new EnumMap<DifficultyModelLaw, LawNumber>();
-        StringList laws_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, LOIS_RANDOM)),
-                RETURN_LINE_CHAR);
-        for (String l : laws_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            MonteCarloNumber law_ = new MonteCarloNumber();
-
-            for (String evt_ : StringList.splitStrings(infos_.get(1),
-                    SEPARATOR_RAND)) {
-                StringList infosLoc_ = StringList.splitStrings(evt_,
-                        SEPARATOR_RAND_EVENTS);
-                boolean defaultLaw_ = false;
-                if (!Rate.isValid(infosLoc_.first())) {
-                    defaultLaw_ = true;
-                } else if (!LgInt.isValid(infosLoc_.get(1))) {
-                    defaultLaw_ = true;
-                }
-                if (defaultLaw_) {
-                    law_ = new MonteCarloNumber();
-
-                    law_.addEvent(new Rate(1), defElementaryEvent());
-                    break;
-                }
-
-                law_.addEvent(new Rate(infosLoc_.first()),
-                        new LgInt(infosLoc_.get(1)));
-
-            }
-
-            if (!law_.checkEvents()) {
-                setError(true);
-                return;
-            }
-            lawsDamageRate.put(
-                    DifficultyModelLaw.getModelByName(infos_.first()),
-                    new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
-        }
-        expGrowth = new EnumMap<ExpType, String>();
-        StringList courbes_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, COURBE_PTS_EXP)),
-                RETURN_LINE_CHAR);
-        for (String l : courbes_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            expGrowth.put(ExpType.getExpTypeByName(infos_.first()),
-                    infos_.get(1));
-        }
-        rates = new EnumMap<DifficultyWinPointsFight, String>();
-        StringList rates_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, RATE_WON_POINTS)),
-                RETURN_LINE_CHAR);
-        for (String l : rates_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_
-                    .first()), infos_.get(1));
-        }
-        typesColors = new StringMap<String>();
-        rates_ = StringList.splitChars(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, TYPES_COLOR_CODE,
-                        IMG_FILES_RES_EXT_TXT)), RETURN_LINE_CHAR);
-        for (String l : rates_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            String colorStr_ = infos_.get(1);
-            typesColors.put(infos_.first(), colorStr_);
-        }
-        endGameImage = BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, END_GAME_IMAGE,
-                        IMG_FILES_RES_EXT_TXT)));
-        translatedBooleans = new StringMap<EnumMap<SelectedBoolean, String>>();
-        translatedDiffWinPts = new StringMap<EnumMap<DifficultyWinPointsFight, String>>();
-        translatedDiffModelLaw = new StringMap<EnumMap<DifficultyModelLaw, String>>();
-        translatedGenders = new StringMap<EnumMap<Gender, String>>();
-        translatedEnvironment = new StringMap<EnumMap<EnvironmentType, String>>();
-        translatedStatistics = new StringMap<EnumMap<Statistic, String>>();
-        translatedPokemon = new StringMap<StringMap<String>>();
-        translatedMoves = new StringMap<StringMap<String>>();
-        translatedItems = new StringMap<StringMap<String>>();
-        translatedStatus = new StringMap<StringMap<String>>();
-        translatedAbilities = new StringMap<StringMap<String>>();
-        translatedCategories = new StringMap<StringMap<String>>();
-        translatedTypes = new StringMap<StringMap<String>>();
-        translatedFctMath = new StringMap<StringMap<String>>();
-        translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
-        translatedClassesDescriptions = new StringMap<StringMap<String>>();
-        litterals = new StringMap<StringMap<String>>();
-        for (String l : Constants.getAvailableLanguages()) {
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
-            EnumMap<Gender, String> genders_ = new EnumMap<Gender, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.getGenderByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedGenders.put(l, genders_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
-            EnumMap<SelectedBoolean, String> booleans_ = new EnumMap<SelectedBoolean, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedBooleans.put(l, booleans_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
-            EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight
-                        .getDiffWonPtsByName(infos_.first()), DocumentBuilder
-                        .transformSpecialChars(infos_.last()));
-            }
-            translatedDiffWinPts.put(l, diffWinPts_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
-                    .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
-            EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedDiffModelLaw.put(l, diffLaw_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
-            EnumMap<EnvironmentType, String> environments_ = new EnumMap<EnvironmentType, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.getEnvByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedEnvironment.put(l, environments_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
-            EnumMap<Statistic, String> statistics_ = new EnumMap<Statistic, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.getStatisticByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedStatistics.put(l, statistics_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
-            EnumMap<TargetChoice, String> targets_ = new EnumMap<TargetChoice, String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(
-                        TargetChoice.getTargetChoiceByName(infos_.first()),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedTargets.put(l, targets_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
-            StringMap<String> categories_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                categories_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedCategories.put(l, categories_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
-            StringMap<String> types_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                types_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedTypes.put(l, types_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
-            StringMap<String> pokemon_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                pokemon_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedPokemon.put(l, pokemon_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
-            StringMap<String> moves_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                moves_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedMoves.put(l, moves_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
-            StringMap<String> items_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                items_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedItems.put(l, items_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
-            StringMap<String> abilities_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                abilities_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedAbilities.put(l, abilities_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
-            StringMap<String> status_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                status_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedStatus.put(l, status_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
-            StringMap<String> fctsMath_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                fctsMath_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedFctMath.put(l, fctsMath_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
-            StringMap<String> descrClasses_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                descrClasses_.put(infos_.first(),
-                        DocumentBuilder.transformSpecialChars(infos_.last()));
-            }
-            translatedClassesDescriptions.put(l, descrClasses_);
-            fileName_ = StringList.concat(TRANSLATION_FOLDER, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
-            StringMap<String> litteral_ = new StringMap<String>();
-            for (String l2_ : StringList.splitChars(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, fileName_)),
-                    RETURN_LINE_CHAR)) {
-                if (l2_.isEmpty()) {
-                    continue;
-                }
-                StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                litteral_
-                        .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(infos_.mid(
-                                        CustList.SECOND_INDEX, infos_.size())
-                                        .join(TAB)));
-            }
-            litterals.put(l, litteral_);
-        }
-        _perCentLoading.addAndGet(delta_);
-        for (Statistic f : translatedStatistics.getVal(_lg)
-                .getKeys()) {
-            if (!f.isBoost()) {
-                continue;
-            }
-            String f_ = StringList.concat(ANIM_STATIS, SEPARATOR_FILES,
-                    f.name(), IMG_FILES_RES_EXT_TXT);
-            animStatis.put(f.name(), BaseSixtyFourUtil
-                    .getImageByString(ResourceFiles.ressourceFichier(StringList
-                            .concat(common_, f_))));
-        }
-        for (String f : translatedStatus.getVal(_lg)
-                .getKeys()) {
-            String f_ = StringList.concat(ANIM_STATUS, SEPARATOR_FILES, f,
-                    IMG_FILES_RES_EXT_TXT);
-            animStatus.put(toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, f_))));
-        }
-        animAbsorb = BaseSixtyFourUtil.getImageByString(ResourceFiles
-                .ressourceFichier(StringList.concat(common_, ANIM_ABSORB)));
-        StringList filesNames_;
-        filesNames_ = new StringList();
-        for (String f : translatedPokemon.getVal(_lg)
-                .getKeys()) {
-            String n_ = StringList.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(f);
-            PokemonData f_ = DocumentReaderAikiCoreUtil
-                    .getPokemonData(ResourceFiles.ressourceFichier(StringList
-                            .concat(common_, n_)));
-            completeMembers(toUpperCase(f), f_);
-        }
-        calculateAvgPound();
-        filesNames_.clear();
-        for (String f : translatedMoves.getVal(_lg)
-                .getKeys()) {
-            String n_ = StringList.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            MoveData move_ = DocumentReaderAikiCoreUtil
-                    .getMoveData(ResourceFiles.ressourceFichier(StringList
-                            .concat(common_, n_)));
-            completeMembers(toUpperCase(f), move_);
-        }
-        filesNames_.clear();
-        for (String f : translatedItems.getVal(_lg)
-                .getKeys()) {
-            String n_ = StringList.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_)));
-            completeMembers(toUpperCase(f), o_);
-        }
-        filesNames_.clear();
-        for (String f : translatedAbilities.getVal(_lg)
-                .getKeys()) {
-            String n_ = StringList.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            AbilityData ab_ = DocumentReaderAikiCoreUtil
-                    .getAbilityData(ResourceFiles.ressourceFichier(StringList
-                            .concat(common_, n_)));
-            completeMembers(toUpperCase(f), ab_);
-        }
-        filesNames_.clear();
-        for (String f : translatedStatus.getVal(_lg)
-                .getKeys()) {
-            String n_ = StringList.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
-                    FILES_RES_EXT);
-            filesNames_.add(n_);
-            Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_)));
-            completeMembers(toUpperCase(f), st_);
-        }
-        completeVariables();
-        filesNames_.clear();
-        sortEndRound();
-        _perCentLoading.addAndGet(delta_);
-        for (PokemonData pk_ : pokedex.values()) {
-            for (short hm_ : pk_.getHiddenMoves()) {
-                String move_ = hm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (short hm_ : pk_.getTechnicalMoves()) {
-                String move_ = tm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
-            }
-            for (LevelMove l : pk_.getLevMoves()) {
-                pk_.getMoveTutors().add(l.getMove());
-            }
-            pk_.getMoveTutors().removeDuplicates();
-        }
-        maxiPkBack = new StringMap<int[][]>();
-        for (String s : pokedex.getKeys()) {
-            String n_ = StringList.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
-                    s, IMG_FILES_RES_EXT_TXT);
-            filesNames_.add(n_);
-            maxiPkBack.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
-        }
-        filesNames_.clear();
-        maxiPkFront = new StringMap<int[][]>();
-        for (String s : pokedex.getKeys()) {
-            String n_ = StringList.concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES,
-                    s, IMG_FILES_RES_EXT_TXT);
-            filesNames_.add(n_);
-            maxiPkFront.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
-        }
-        filesNames_.clear();
-        miniPk = new StringMap<int[][]>();
-        for (String s : pokedex.getKeys()) {
-            String n_ = StringList.concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES,
-                    s, IMG_FILES_RES_EXT_TXT);
-            filesNames_.add(n_);
-            miniPk.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
-        }
-        filesNames_.clear();
-        miniItems = new StringMap<int[][]>();
-        for (String s : items.getKeys()) {
-            String n_ = StringList.concat(OBJECTS_IMAGES_FOLDER,
-                    SEPARATOR_FILES, s, IMG_FILES_RES_EXT_TXT);
-            filesNames_.add(n_);
-            miniItems.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
-        }
-        filesNames_.clear();
-        typesImages = new StringMap<int[][]>();
-        for (String s : types) {
-            String n_ = StringList.concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES,
-                    s, IMG_FILES_RES_EXT_TXT);
-            filesNames_.add(n_);
-            typesImages.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, n_))));
-        }
-        _perCentLoading.addAndGet(delta_);
-        filesNames_.clear();
-        map.initializeLinks();
-        map.initInteractiveElements();
-        map.initializeTree();
-        map.initializeAccessibility();
-        trainers = new StringMap<int[][]>();
-        people = new StringMap<int[][]>();
-        images = new StringMap<int[][]>();
-        imagesTiles = new StringMap<ObjectMap<ScreenCoords, int[][]>>();
-        links = new StringMap<int[][]>();
-        miniMap = new StringMap<int[][]>();
-        for (Place p : map.getPlaces().values()) {
-            if (p instanceof League) {
-                League l_ = (League) p;
-                for (Level l : l_.getLevelsList()) {
-                    LevelLeague lev_ = (LevelLeague) l;
-                    String f_ = lev_.getTrainer().getImageMaxiFileName();
-                    String file_ = StringList.concat(TRAINERS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    trainers.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                    f_ = lev_.getTrainer().getImageMiniFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    people.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                    for (Block b_ : l.getBlocks().values()) {
-                        f_ = b_.getTileFileName();
-                        file_ = StringList.concat(IMAGES_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        images.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                    }
-                    f_ = lev_.getFileName();
-                    file_ = StringList
-                            .concat(LINKS_FOLDER, SEPARATOR_FILES, f_);
-                    links.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                String f_ = l_.getFileName();
-                String file_ = StringList.concat(LINKS_FOLDER, SEPARATOR_FILES,
-                        f_);
-                links.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                        .ressourceFichier(StringList.concat(common_, file_))));
-                continue;
-            }
-            if (p instanceof City) {
-                City c_ = (City) p;
-                for (Building b : c_.getBuildings().values()) {
-                    if (b instanceof Gym) {
-                        Gym g_ = (Gym) b;
-                        for (Trainer t : g_.getLevel().getGymTrainers()
-                                .values()) {
-                            String f_ = t.getImageMaxiFileName();
-                            String file_ = StringList.concat(TRAINERS_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            trainers.put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
-                                                    .concat(common_, file_))));
-                            f_ = t.getImageMiniFileName();
-                            file_ = StringList.concat(PEOPLE_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            people.put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
-                                                    .concat(common_, file_))));
-                        }
-                        String f_ = g_.getLevel().getGymLeader()
-                                .getImageMaxiFileName();
-                        String file_ = StringList.concat(TRAINERS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        trainers.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                        f_ = g_.getLevel().getGymLeader()
-                                .getImageMiniFileName();
-                        file_ = StringList.concat(PEOPLE_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        people.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                    }
-                    if (b instanceof PokemonCenter) {
-                        PokemonCenter pkCenter_ = (PokemonCenter) b;
-                        for (Person g : pkCenter_.getLevel().getGerants()
-                                .values()) {
-                            String f_ = g.getImageMiniFileName();
-                            String file_ = StringList.concat(PEOPLE_FOLDER,
-                                    SEPARATOR_FILES, f_);
-                            people.put(f_, BaseSixtyFourUtil
-                                    .getImageByString(ResourceFiles
-                                            .ressourceFichier(StringList
-                                                    .concat(common_, file_))));
-                        }
-                    }
-                    for (Block b_ : b.getLevel().getBlocks().values()) {
-                        String f_ = b_.getTileFileName();
-                        String file_ = StringList.concat(IMAGES_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        images.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                    }
-                    String f_ = b.getImageFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    links.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                for (Block b_ : c_.getLevel().getBlocks().values()) {
-                    String f_ = b_.getTileFileName();
-                    String file_ = StringList.concat(IMAGES_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    images.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                for (Link k : c_.getLinksWithCaves().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    links.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                continue;
-            }
-            Campaign c_ = (Campaign) p;
-            for (Level l : c_.getLevelsMap().values()) {
-                LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
-                for (CharacterInRoadCave c : level_.getCharacters().values()) {
-                    if (c instanceof TrainerMultiFights) {
-                        TrainerMultiFights tr_ = (TrainerMultiFights) c;
-                        String f_ = tr_.getImageMaxiFileName();
-                        String file_ = StringList.concat(TRAINERS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        trainers.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                        f_ = tr_.getImageMiniFileName();
-                        file_ = StringList.concat(PEOPLE_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        people.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                    }
-                }
-                for (DualFight d : level_.getDualFights().values()) {
-                    String f_ = d.getFoeTrainer().getImageMaxiFileName();
-                    String file_ = StringList.concat(TRAINERS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    trainers.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                    f_ = d.getFoeTrainer().getImageMiniFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    people.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                    f_ = d.getFoeTrainer().getImageMiniSecondTrainerFileName();
-                    file_ = StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES,
-                            f_);
-                    people.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                for (Block b_ : l.getBlocks().values()) {
-                    String f_ = b_.getTileFileName();
-                    String file_ = StringList.concat(IMAGES_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    images.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-            }
-            if (p instanceof InitializedPlace) {
-                InitializedPlace p_ = (InitializedPlace) p;
-                for (Link k : p_.getLinksWithCaves().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    links.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-            }
-            if (p instanceof Cave) {
-                Cave cave_ = (Cave) p;
-                for (Link k : cave_.getLinksWithOtherPlaces().values()) {
-                    String f_ = k.getFileName();
-                    String file_ = StringList.concat(LINKS_FOLDER,
-                            SEPARATOR_FILES, f_);
-                    links.put(f_, BaseSixtyFourUtil
-                            .getImageByString(ResourceFiles
-                                    .ressourceFichier(StringList.concat(
-                                            common_, file_))));
-                }
-                for (Level l : cave_.getLevelsMap().values()) {
-                    LevelCave lCave_ = (LevelCave) l;
-                    for (Link k : lCave_.getLinksOtherLevels().values()) {
-                        String f_ = k.getFileName();
-                        String file_ = StringList.concat(LINKS_FOLDER,
-                                SEPARATOR_FILES, f_);
-                        links.put(f_, BaseSixtyFourUtil
-                                .getImageByString(ResourceFiles
-                                        .ressourceFichier(StringList.concat(
-                                                common_, file_))));
-                    }
-                }
-            }
-        }
-        for (TileMiniMap t : map.getMiniMap().values()) {
-            String f_ = t.getFile();
-            String file_ = StringList.concat(MINI_MAP_FOLDER, SEPARATOR_FILES,
-                    f_);
-            miniMap.put(f_, BaseSixtyFourUtil.getImageByString(ResourceFiles
-                    .ressourceFichier(StringList.concat(common_, file_))));
-        }
-        miniMap.put(map.getUnlockedCity(), BaseSixtyFourUtil
-                .getImageByString(ResourceFiles.ressourceFichier(StringList
-                        .concat(common_, MINI_MAP_FOLDER, SEPARATOR_FILES,
-                                map.getUnlockedCity()))));
-        _perCentLoading.addAndGet(delta_);
-        initializeWildPokemon();
-        _perCentLoading.addAndGet(delta_);
-
-        validateEvolutions();
-        for (int[][] i : maxiPkBack.values()) {
-            if (i.length == 0) {
-                setError(true);
-                return;
-            }
-            if (i[0].length > maxWidthPk) {
-                maxWidthPk = i[0].length;
-            }
-            if (i.length > maxHeightPk) {
-                maxHeightPk = i.length;
-            }
-
-        }
-        for (int[][] i : maxiPkFront.values()) {
-            if (i.length == 0) {
-                setError(true);
-                return;
-            }
-            if (i[0].length > maxWidthPk) {
-                maxWidthPk = i[0].length;
-            }
-            if (i.length > maxHeightPk) {
-                maxHeightPk = i.length;
-            }
-
-        }
-        int side_ = map.getSideLength();
-        for (EntryCust<String, int[][]> i : images.entryList()) {
-            int[][] img_ = i.getValue();
-            String name_ = i.getKey();
-            Dims d_ = new Dims();
-            d_.setWidth((short) (img_[0].length / side_));
-            d_.setHeight((short) (img_.length / side_));
-            ObjectMap<ScreenCoords, int[][]> tiles_;
-            tiles_ = new ObjectMap<ScreenCoords, int[][]>();
-            for (short x = 0; x < d_.getWidth(); x++) {
-                for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y
-                            * side_, side_, side_));
-                }
-            }
-            imagesTiles.put(name_, tiles_);
-        }
-        _perCentLoading.set(100);
     }
 
     public static StringList filterBeginIgnoreCase(StringList _instance,String _regExp) {
@@ -3924,14 +2397,7 @@ public class DataBase implements WithMathFactory {
         }
         return str_.toString();
     }
-    public void initMessages(String _lg) {
-        messagesPokemonPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER,_lg, PokemonPlayer.POKEMON_PLAYER);
-        messagesPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Player.PLAYER);
-        messagesFighter = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER);
-        messagesTeam = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Team.TEAM);
-        messagesFight = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT);
-        messagesGame = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Game.GAME);
-    }
+
     public void setMessages(DataBase _other) {
         messagesPokemonPlayer = _other.messagesPokemonPlayer;
         messagesPlayer = _other.messagesPlayer;
@@ -3940,18 +2406,47 @@ public class DataBase implements WithMathFactory {
         messagesFight = _other.messagesFight;
         messagesGame = _other.messagesGame;
     }
+
+    public void setMessagesGame(StringMap<String> messagesGame) {
+        this.messagesGame = messagesGame;
+    }
+
+    public void setMessagesPokemonPlayer(StringMap<String> messagesPokemonPlayer) {
+        this.messagesPokemonPlayer = messagesPokemonPlayer;
+    }
+
     public StringMap<String> getMessagesPokemonPlayer() {
         return messagesPokemonPlayer;
     }
+
+    public void setMessagesFight(StringMap<String> messagesFight) {
+        this.messagesFight = messagesFight;
+    }
+
     public StringMap<String> getMessagesPlayer() {
         return messagesPlayer;
     }
+
+    public void setMessagesPlayer(StringMap<String> messagesPlayer) {
+        this.messagesPlayer = messagesPlayer;
+    }
+
     public StringMap<String> getMessagesFighter() {
         return messagesFighter;
     }
+
+    public void setMessagesFighter(StringMap<String> messagesFighter) {
+        this.messagesFighter = messagesFighter;
+    }
+
     public StringMap<String> getMessagesTeam() {
         return messagesTeam;
     }
+
+    public void setMessagesTeam(StringMap<String> messagesTeam) {
+        this.messagesTeam = messagesTeam;
+    }
+
     public String getFighterName(boolean _foe, String _foeStr, String _allyStr, String _name) {
         StringMap<String> messages_ = getMessagesFight();
         String value_;
@@ -6949,526 +5444,6 @@ public class DataBase implements WithMathFactory {
         return tokens_.containsObj(_word);
     }
 
-    public StringMap<String> getTextFiles() {
-        return getTextFiles(true);
-    }
-
-    public StringMap<String> getTextFiles(boolean _addImages) {
-        StringMap<String> files_ = new StringMap<String>();
-        for (String n : pokedex.getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setPokemonData(pokedex
-                    .getVal(n));
-            files_.put(StringList.concat(POKEDEX_FOLDER, SEPARATOR_FILES, n,
-                    FILES_RES_EXT), file_);
-        }
-        for (String n : moves.getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setMoveData(moves
-                    .getVal(n));
-            files_.put(StringList.concat(MOVES_FOLDER, SEPARATOR_FILES, n,
-                    FILES_RES_EXT), file_);
-        }
-        for (String n : items.getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setItem(items.getVal(n));
-            files_.put(StringList.concat(ITEMS_FOLDER, SEPARATOR_FILES, n,
-                    FILES_RES_EXT), file_);
-        }
-        for (String n : abilities.getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setAbilityData(abilities
-                    .getVal(n));
-            files_.put(StringList.concat(ABILITIES_FOLDER, SEPARATOR_FILES, n,
-                    FILES_RES_EXT), file_);
-        }
-        for (String n : status.getKeys()) {
-            String file_ = DocumentWriterAikiCoreUtil.setStatus(status
-                    .getVal(n));
-            files_.put(StringList.concat(STATUS_FOLDER, SEPARATOR_FILES, n,
-                    FILES_RES_EXT), file_);
-        }
-        String file_ = DocumentWriterAikiCoreUtil.setCombos(combos);
-        files_.put(COMBOS, file_);
-        file_ = DocumentWriterAikiCoreUtil.setDataMap(map);
-        files_.put(MAP_FILE, file_);
-        StringList lines_ = new StringList();
-        for (String s : constNum.getKeys()) {
-            lines_.add(StringList.concat(s, TAB, constNum.getVal(s)
-                    .toNumberString()));
-        }
-        files_.put(CONST_NUM, lines_.join(RETURN_LINE));
-        lines_ = new StringList();
-        for (String s : typesColors.getKeys()) {
-            lines_.add(StringList.concat(s, TAB, typesColors.getVal(s)));
-        }
-        files_.put(StringList.concat(TYPES_COLOR_CODE, IMG_FILES_RES_EXT_TXT),
-                lines_.join(RETURN_LINE));
-        lines_ = new StringList();
-        lines_.add(StringList.concat(DEF_MOVE, TAB, defMove));
-        lines_.add(StringList.concat(RATE_BOOST, TAB, rateBoost));
-        lines_.add(StringList.concat(RATE_BOOST_CRITICAL_HIT, TAB,
-                rateBoostCriticalHit));
-        lines_.add(StringList.concat(RATE_FLEEING, TAB, rateFleeing));
-        lines_.add(StringList.concat(RATE_CATCHING, TAB, rateCatching));
-        lines_.add(StringList.concat(BALL_DEF, TAB, ballDef));
-        lines_.add(StringList.concat(DEFAULT_EGG_GROUP, TAB, defaultEggGoup));
-        lines_.add(StringList.concat(DAMAGE_FORMULA, TAB, damageFormula));
-
-        files_.put(CONST_NOT_NUM, lines_.join(RETURN_LINE));
-        StringList types_ = new StringList();
-        for (TypesDuo p : tableTypes.getKeys()) {
-            types_.add(p.getDamageType());
-        }
-        types_.removeDuplicates();
-        String output_ = StringList.concat(TAB, types_.join(TAB));
-        for (String pkType_ : types_) {
-            output_ = StringList.concat(output_, RETURN_LINE, pkType_);
-            for (String damageType_ : types_) {
-                output_ = StringList.concat(output_, TAB,
-                        tableTypes.getVal(new TypesDuo(damageType_, pkType_))
-                                .toNumberString());
-            }
-        }
-        files_.put(TABLE_TYPES, output_);
-        StringList linesCourbes_ = new StringList();
-        for (ExpType c : expGrowth.getKeys()) {
-            linesCourbes_.add(StringList.concat(c.name(), TAB,
-                    expGrowth.getVal(c)));
-        }
-        files_.put(COURBE_PTS_EXP, linesCourbes_.join(RETURN_LINE));
-        StringList rates_ = new StringList();
-        for (DifficultyWinPointsFight c : rates.getKeys()) {
-            rates_.add(StringList.concat(c.name(), TAB, rates.getVal(c)));
-        }
-        files_.put(RATE_WON_POINTS, rates_.join(RETURN_LINE));
-        StringList linesLaws_ = new StringList();
-        for (DifficultyModelLaw k : lawsDamageRate.getKeys()) {
-            LawNumber value_ = lawsDamageRate.getVal(k);
-            StringList lawValues_ = new StringList();
-            for (Rate event_ : value_.getLaw().events()) {
-                lawValues_.add(StringList.concat(event_.toNumberString(),
-                        SEPARATOR_RAND_EVENTS, value_.getLaw().rate(event_)
-                                .toNumberString()));
-            }
-            linesLaws_.add(StringList.concat(k.name(), TAB,
-                    lawValues_.join(SEPARATOR_RAND), TAB,
-                    Long.toString(value_.getNumber())));
-        }
-        files_.put(LOIS_RANDOM, linesLaws_.join(RETURN_LINE));
-        StringList linesTmHm_ = new StringList();
-        for (short k : hm.getKeys()) {
-            linesTmHm_.add(StringList.concat(CS, Long.toString(k), TAB,
-                    hm.getVal(k)));
-        }
-        for (short k : tm.getKeys()) {
-            linesTmHm_.add(StringList.concat(CT, Long.toString(k), TAB,
-                    tm.getVal(k), TAB, tmPrice.getVal(k).toNumberString()));
-        }
-        files_.put(CT_CS_FILE, linesTmHm_.join(RETURN_LINE));
-        for (String l : translatedCategories.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> genders_ = translatedCategories.getVal(l);
-            for (String g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CATEGORIES);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedGenders.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<Gender, String> genders_ = translatedGenders.getVal(l);
-            for (Gender g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_GENDERS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedBooleans.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<SelectedBoolean, String> genders_ = translatedBooleans
-                    .getVal(l);
-            for (SelectedBoolean g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_BOOLEANS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedDiffWinPts.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<DifficultyWinPointsFight, String> genders_ = translatedDiffWinPts
-                    .getVal(l);
-            for (DifficultyWinPointsFight g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_DIFF_WIN_PTS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedDiffModelLaw.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<DifficultyModelLaw, String> genders_ = translatedDiffModelLaw
-                    .getVal(l);
-            for (DifficultyModelLaw g : genders_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList
-                    .concat(fileName_, TRANSLATION_DIFF_MODEL_LAW);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedEnvironment.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<EnvironmentType, String> statistics_ = translatedEnvironment
-                    .getVal(l);
-            for (EnvironmentType g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ENVIRONMENTS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedStatistics.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<Statistic, String> statistics_ = translatedStatistics
-                    .getVal(l);
-            for (Statistic g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATISTICS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedTargets.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            EnumMap<TargetChoice, String> statistics_ = translatedTargets
-                    .getVal(l);
-            for (TargetChoice g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g.name());
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TARGETS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedTypes.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> statistics_ = translatedTypes.getVal(l);
-            for (String g : statistics_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_TYPES);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedPokemon.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> pokemon_ = translatedPokemon.getVal(l);
-            for (String g : pokemon_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(pokemon_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_POKEMON);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedMoves.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> moves_ = translatedMoves.getVal(l);
-            for (String g : moves_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(moves_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MOVES);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedItems.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> items_ = translatedItems.getVal(l);
-            for (String g : items_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(items_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ITEMS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedAbilities.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> abilities_ = translatedAbilities.getVal(l);
-            for (String g : abilities_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(abilities_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_ABILITIES);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedStatus.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = translatedStatus.getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_STATUS);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedFctMath.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = translatedFctMath.getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_MATH);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : translatedClassesDescriptions.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = translatedClassesDescriptions.getVal(l);
-            for (String g : status_.getKeys()) {
-
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_CLASSES);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-        for (String l : litterals.getKeys()) {
-            StringList linesGenders_ = new StringList();
-            StringMap<String> status_ = litterals.getVal(l);
-            for (String g : status_.getKeys()) {
-                StringList words_;
-                words_ = new StringList();
-                words_.add(g);
-                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
-                linesGenders_.add(words_.join(TAB));
-            }
-            String fileName_ = StringList.concat(TRANSLATION_FOLDER,
-                    SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
-            fileName_ = StringList.concat(fileName_, TRANSLATION_LITTERAL);
-            files_.put(fileName_, linesGenders_.join(RETURN_LINE));
-        }
-
-        if (_addImages) {
-            for (String n : animStatis.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATIS, SEPARATOR_FILES, n,
-                        IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
-                        .getStringByImage(animStatis.getVal(n)));
-            }
-            for (String n : animStatus.getKeys()) {
-                files_.put(StringList.concat(ANIM_STATUS, SEPARATOR_FILES, n,
-                        IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
-                        .getStringByImage(animStatus.getVal(n)));
-            }
-            files_.put(ANIM_ABSORB,
-                    BaseSixtyFourUtil.getStringByImage(animAbsorb));
-            for (String n : images.getKeys()) {
-                files_.put(
-                        StringList.concat(IMAGES_FOLDER, SEPARATOR_FILES, n),
-                        BaseSixtyFourUtil.getStringByImage(images.getVal(n)));
-            }
-            for (String n : miniMap.getKeys()) {
-                files_.put(
-                        StringList.concat(MINI_MAP_FOLDER, SEPARATOR_FILES, n),
-                        BaseSixtyFourUtil.getStringByImage(miniMap.getVal(n)));
-            }
-            for (String n : links.getKeys()) {
-                files_.put(StringList.concat(LINKS_FOLDER, SEPARATOR_FILES, n),
-                        BaseSixtyFourUtil.getStringByImage(links.getVal(n)));
-            }
-            for (String n : people.getKeys()) {
-                files_.put(
-                        StringList.concat(PEOPLE_FOLDER, SEPARATOR_FILES, n),
-                        BaseSixtyFourUtil.getStringByImage(people.getVal(n)));
-            }
-            StringList linesHeros_;
-            linesHeros_ = new StringList();
-            for (ImageHeroKey k : frontHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil.getStringByImage(frontHeros
-                        .getVal(k));
-                StringBuilder str_ = new StringBuilder();
-                str_.append(k.getType().name());
-                str_.append(SEPARATOR_KEY_HEROS);
-                str_.append(k.getSex().name());
-                str_.append(TAB);
-                str_.append(image_);
-                linesHeros_.add(str_.toString());
-            }
-            files_.put(
-                    StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_FRONT),
-                    linesHeros_.join(RETURN_LINE));
-            linesHeros_.clear();
-            for (ImageHeroKey k : backHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil.getStringByImage(backHeros
-                        .getVal(k));
-                StringBuilder str_ = new StringBuilder();
-                str_.append(k.getType().name());
-                str_.append(SEPARATOR_KEY_HEROS);
-                str_.append(k.getSex().name());
-                str_.append(TAB);
-                str_.append(image_);
-                linesHeros_.add(str_.toString());
-            }
-            files_.put(
-                    StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_BACK),
-                    linesHeros_.join(RETURN_LINE));
-            linesHeros_.clear();
-            for (ImageHeroKey k : overWorldHeros.getKeys()) {
-                String image_ = BaseSixtyFourUtil
-                        .getStringByImage(overWorldHeros.getVal(k));
-                StringBuilder str_ = new StringBuilder();
-                str_.append(k.getType().name());
-                str_.append(SEPARATOR_KEY_HEROS);
-                str_.append(k.getDirection().name());
-                str_.append(SEPARATOR_KEY_HEROS);
-                str_.append(k.getSex().name());
-                str_.append(TAB);
-                str_.append(image_);
-                linesHeros_.add(str_.toString());
-            }
-            files_.put(
-                    StringList.concat(HERO_FOLDER, SEPARATOR_FILES, HERO_MINI),
-                    linesHeros_.join(RETURN_LINE));
-            for (String n : trainers.getKeys()) {
-                files_.put(
-                        StringList.concat(TRAINERS_FOLDER, SEPARATOR_FILES, n),
-                        BaseSixtyFourUtil.getStringByImage(trainers.getVal(n)));
-            }
-            for (String n : maxiPkFront.getKeys()) {
-                files_.put(StringList.concat(FRONT_IMAGES_FOLDER,
-                        SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
-                        BaseSixtyFourUtil.getStringByImage(maxiPkFront
-                                .getVal(n)));
-            }
-            for (String n : maxiPkBack.getKeys()) {
-                files_.put(
-                        StringList.concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES,
-                                n, IMG_FILES_RES_EXT_TXT),
-                        BaseSixtyFourUtil.getStringByImage(maxiPkBack.getVal(n)));
-            }
-            for (String n : miniPk.getKeys()) {
-                files_.put(StringList.concat(MINI_IMAGES_FOLDER,
-                        SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
-                        BaseSixtyFourUtil.getStringByImage(miniPk.getVal(n)));
-            }
-            for (String n : miniItems.getKeys()) {
-                files_.put(StringList.concat(OBJECTS_IMAGES_FOLDER,
-                        SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
-                        BaseSixtyFourUtil.getStringByImage(miniItems.getVal(n)));
-            }
-            for (String n : typesImages.getKeys()) {
-                files_.put(StringList.concat(TYPES_IMAGES_FOLDER,
-                        SEPARATOR_FILES, n, IMG_FILES_RES_EXT_TXT),
-                        BaseSixtyFourUtil.getStringByImage(typesImages
-                                .getVal(n)));
-            }
-            files_.put(
-                    StringList.concat(IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT),
-                    BaseSixtyFourUtil.getStringByImage(imageTmHm));
-            files_.put(StringList.concat(IMAGE_STORAGE_FILES,
-                    IMG_FILES_RES_EXT_TXT), BaseSixtyFourUtil
-                    .getStringByImage(storage));
-            files_.put(
-                    StringList.concat(END_GAME_IMAGE, IMG_FILES_RES_EXT_TXT),
-                    BaseSixtyFourUtil.getStringByImage(endGameImage));
-        }
-        return files_;
-    }
-
     public String getExpGrowth(ExpType _exp) {
         return expGrowth.getVal(_exp);
     }
@@ -7898,6 +5873,14 @@ public class DataBase implements WithMathFactory {
 
     public int getMaxWidthPk() {
         return maxWidthPk;
+    }
+
+    public void setMaxHeightPk(int maxHeightPk) {
+        this.maxHeightPk = maxHeightPk;
+    }
+
+    public void setMaxWidthPk(int maxWidthPk) {
+        this.maxWidthPk = maxWidthPk;
     }
 
     public StringMap<int[][]> getMiniItems() {
@@ -8530,5 +6513,8 @@ public class DataBase implements WithMathFactory {
 
     public String getLanguage() {
         return language;
+    }
+    public StringMap<StringMap<String>> getLitterals() {
+        return litterals;
     }
 }

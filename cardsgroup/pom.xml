@@ -18,6 +18,7 @@
         <module>../belote</module>
         <module>../president</module>
         <module>../tarot</module>
+        <module>../cardgamessml</module>
         <module>../cardgamesunion</module>
         <module>../belotebean</module>
         <module>../presidentbean</module>

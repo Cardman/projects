@@ -1,6 +1,6 @@
 package cards.gameresults.sml;
 import cards.gameresults.ResultsGame;
-import code.maths.sml.DocumentWriterMathUtil;
+import code.sml.maths.DocumentWriterMathUtil;
 import code.sml.Document;
 import code.sml.DocumentWriterCoreUtil;
 import code.sml.Element;

@@ -40,8 +40,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-            <groupId>mathssml</groupId>
-            <artifactId>mathssml</artifactId>
+            <groupId>maths</groupId>
+            <artifactId>maths</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>
