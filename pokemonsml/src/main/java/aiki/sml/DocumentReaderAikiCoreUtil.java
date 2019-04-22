@@ -1135,7 +1135,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         StringList listCopy_ = new StringList();
         for (String s : listRelativePaths_) {
-            listCopy_.add(toUpperCase(s));
+            listCopy_.add(DataBase.toUpperCase(s));
         }
         int sizeListCopy_ = listCopy_.size();
         listCopy_.removeDuplicates();
@@ -1160,7 +1160,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             filesNames_.add(n_);
             PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(notNull(files_,StringList.concat(common_, f)));
-            _d.completeMembers(toUpperCase(n_), f_);
+            _d.completeMembers(DataBase.toUpperCase(n_), f_);
         }
         _d.calculateAvgPound();
         filesNames_.clear();
@@ -1178,7 +1178,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             filesNames_.add(n_);
             MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(notNull(files_,StringList.concat(common_, f)));
-            _d.completeMembers(toUpperCase(n_), move_);
+            _d.completeMembers(DataBase.toUpperCase(n_), move_);
         }
         _perCentLoading.set(10);
         String fileHmTm_ = notNull(files_,StringList.concat(common_, CT_CS_FILE));
@@ -1221,7 +1221,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(notNull(files_,StringList.concat(common_, f)));
-            _d.completeMembers(toUpperCase(n_), o_);
+            _d.completeMembers(DataBase.toUpperCase(n_), o_);
         }
         filesNames_.clear();
 
@@ -1238,7 +1238,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             filesNames_.add(n_);
             AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(notNull(files_,StringList.concat(common_, f)));
-            _d.completeMembers(toUpperCase(n_), ab_);
+            _d.completeMembers(DataBase.toUpperCase(n_), ab_);
         }
         filesNames_.clear();
 
@@ -1255,7 +1255,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(notNull(files_,StringList.concat(common_, f)));
-            _d.completeMembers(toUpperCase(n_), st_);
+            _d.completeMembers(DataBase.toUpperCase(n_), st_);
         }
         _perCentLoading.set(15);
         _d.completeVariables();
@@ -1384,7 +1384,7 @@ public final class DocumentReaderAikiCoreUtil {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            _d.getMaxiPkBack().put(toUpperCase(n_), BaseSixtyFourUtil
+            _d.getMaxiPkBack().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
@@ -1398,7 +1398,7 @@ public final class DocumentReaderAikiCoreUtil {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            _d.getMaxiPkFront().put(toUpperCase(n_), BaseSixtyFourUtil
+            _d.getMaxiPkFront().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
@@ -1412,7 +1412,7 @@ public final class DocumentReaderAikiCoreUtil {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            _d.getMiniPk().put(toUpperCase(n_), BaseSixtyFourUtil
+            _d.getMiniPk().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
@@ -1430,7 +1430,7 @@ public final class DocumentReaderAikiCoreUtil {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            _d.getMiniItems().put(toUpperCase(n_), BaseSixtyFourUtil
+            _d.getMiniItems().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
@@ -1448,7 +1448,7 @@ public final class DocumentReaderAikiCoreUtil {
 
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            _d.getTypesImages().put(toUpperCase(n_), BaseSixtyFourUtil
+            _d.getTypesImages().put(DataBase.toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             s))));
         }
@@ -1901,7 +1901,7 @@ public final class DocumentReaderAikiCoreUtil {
             if (f_.isEmpty()) {
                 continue;
             }
-            _d.getAnimStatis().put(toUpperCase(f_), BaseSixtyFourUtil
+            _d.getAnimStatis().put(DataBase.toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             f))));
         }
@@ -1914,7 +1914,7 @@ public final class DocumentReaderAikiCoreUtil {
             if (f_.isEmpty()) {
                 continue;
             }
-            _d.getAnimStatus().put(toUpperCase(f_), BaseSixtyFourUtil
+            _d.getAnimStatus().put(DataBase.toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(notNull(files_,StringList.concat(common_,
                             f))));
         }
@@ -2448,7 +2448,7 @@ public final class DocumentReaderAikiCoreUtil {
                 .getKeys()) {
             String f_ = StringList.concat(ANIM_STATUS, SEPARATOR_FILES, f,
                     IMG_FILES_RES_EXT_TXT);
-            _d.getAnimStatus().put(toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
+            _d.getAnimStatus().put(DataBase.toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, f_))));
         }
         _d.setAnimAbsorb(BaseSixtyFourUtil.getImageByString(ResourceFiles
@@ -2463,7 +2463,7 @@ public final class DocumentReaderAikiCoreUtil {
             PokemonData f_ = DocumentReaderAikiCoreUtil
                     .getPokemonData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            _d.completeMembers(toUpperCase(f), f_);
+            _d.completeMembers(DataBase.toUpperCase(f), f_);
         }
         _d.calculateAvgPound();
         filesNames_.clear();
@@ -2475,7 +2475,7 @@ public final class DocumentReaderAikiCoreUtil {
             MoveData move_ = DocumentReaderAikiCoreUtil
                     .getMoveData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            _d.completeMembers(toUpperCase(f), move_);
+            _d.completeMembers(DataBase.toUpperCase(f), move_);
         }
         filesNames_.clear();
         for (String f : _d.getTranslatedItems().getVal(_lg)
@@ -2485,7 +2485,7 @@ public final class DocumentReaderAikiCoreUtil {
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_)));
-            _d.completeMembers(toUpperCase(f), o_);
+            _d.completeMembers(DataBase.toUpperCase(f), o_);
         }
         filesNames_.clear();
         for (String f : _d.getTranslatedAbilities().getVal(_lg)
@@ -2496,7 +2496,7 @@ public final class DocumentReaderAikiCoreUtil {
             AbilityData ab_ = DocumentReaderAikiCoreUtil
                     .getAbilityData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            _d.completeMembers(toUpperCase(f), ab_);
+            _d.completeMembers(DataBase.toUpperCase(f), ab_);
         }
         filesNames_.clear();
         for (String f : _d.getTranslatedStatus().getVal(_lg)
@@ -2506,7 +2506,7 @@ public final class DocumentReaderAikiCoreUtil {
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_)));
-            _d.completeMembers(toUpperCase(f), st_);
+            _d.completeMembers(DataBase.toUpperCase(f), st_);
         }
         _d.completeVariables();
         filesNames_.clear();
@@ -2906,9 +2906,9 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static StringList filterBeginIgnoreCase(StringList _instance,String _regExp) {
         StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
+        String patt_ = DataBase.toUpperCase(_regExp);
         for (String s: _instance) {
-            if (!toUpperCase(s).startsWith(patt_)) {
+            if (!DataBase.toUpperCase(s).startsWith(patt_)) {
                 continue;
             }
             list_.add(s);
@@ -2918,12 +2918,12 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static StringList filterStrictBeginIgnoreCase(StringList _instance,String _regExp) {
         StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
+        String patt_ = DataBase.toUpperCase(_regExp);
         for (String s: _instance) {
-            if (!toUpperCase(s).startsWith(patt_)) {
+            if (!DataBase.toUpperCase(s).startsWith(patt_)) {
                 continue;
             }
-            if (StringList.quickEq(toUpperCase(s),patt_)) {
+            if (StringList.quickEq(DataBase.toUpperCase(s),patt_)) {
                 continue;
             }
             list_.add(s);
@@ -2931,20 +2931,6 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    public static String toUpperCase(String _string) {
-        int len_ = _string.length();
-        StringBuilder str_ = new StringBuilder(len_);
-        for (int i = 0; i < len_; i++) {
-            char curr_ = _string.charAt(i);
-            if (curr_ >= 'a' && curr_ <= 'z') {
-                int char_ = curr_ - 'a' + 'A';
-                str_.append((char)char_);
-                continue;
-            }
-            str_.append(curr_);
-        }
-        return str_.toString();
-    }
     private static String notNull(StringMap<String> _m, String _k) {
         String v_ = _m.getVal(_k);
         return notNull(v_);

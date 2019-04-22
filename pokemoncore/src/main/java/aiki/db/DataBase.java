@@ -73,19 +73,11 @@ import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
-import aiki.game.Game;
 import aiki.game.fight.CheckNumericStringsFight;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
-import aiki.map.buildings.Building;
-import aiki.map.buildings.Gym;
-import aiki.map.buildings.PokemonCenter;
 import aiki.map.characters.Ally;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DealerItem;
@@ -94,27 +86,17 @@ import aiki.map.characters.GymTrainer;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
-import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
 import aiki.map.levels.Level;
-import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelIndoorGym;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.LevelLeague;
 import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.places.Campaign;
-import aiki.map.places.Cave;
-import aiki.map.places.City;
-import aiki.map.places.InitializedPlace;
-import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
@@ -126,17 +108,12 @@ import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.TypeStatistic;
-import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
-import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
-import code.resources.ResourceFiles;
-import code.sml.DocumentBuilder;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -2261,46 +2238,8 @@ public class DataBase implements WithMathFactory {
         litterals = new StringMap<StringMap<String>>();
     }
 
-    private static String notNull(StringMap<String> _m, String _k) {
-        String v_ = _m.getVal(_k);
-        return notNull(v_);
-    }
-    private static String notNull(String _s) {
-        if (_s == null) {
-            return EMPTY_STRING;
-        }
-        return _s;
-    }
-
     public void setLanguage(String _language) {
         language = _language;
-    }
-
-    public static StringList filterBeginIgnoreCase(StringList _instance,String _regExp) {
-        StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
-        for (String s: _instance) {
-            if (!toUpperCase(s).startsWith(patt_)) {
-                continue;
-            }
-            list_.add(s);
-        }
-        return list_;
-    }
-
-    public static StringList filterStrictBeginIgnoreCase(StringList _instance,String _regExp) {
-        StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
-        for (String s: _instance) {
-            if (!toUpperCase(s).startsWith(patt_)) {
-                continue;
-            }
-            if (StringList.quickEq(toUpperCase(s),patt_)) {
-                continue;
-            }
-            list_.add(s);
-        }
-        return list_;
     }
 
     public static String toUpperCase(String _string) {

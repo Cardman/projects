@@ -46,21 +46,6 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>belote</groupId>
-			<artifactId>belote</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>tarot</groupId>
-			<artifactId>tarot</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>president</groupId>
-			<artifactId>president</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>cardgamessml</groupId>
 			<artifactId>cardgamessml</artifactId>
 			<version>1.0-SNAPSHOT</version>
