@@ -41,4 +41,10 @@ public class EggValidationTest extends InitializationDataBase {
         Egg egg_ = new Egg(StringList.concat(PIKACHU,SEPARATOR,"1"));
         assertEq(StringList.concat(PIKACHU,SEPARATOR,"1"), egg_.display());
     }
+
+    @Test
+    public void toString2Test() {
+        Egg egg_ = Egg.newEgg(StringList.concat(PIKACHU,SEPARATOR,"1"));
+        assertEq(StringList.concat(PIKACHU,SEPARATOR,"1"), egg_.display());
+    }
 }
