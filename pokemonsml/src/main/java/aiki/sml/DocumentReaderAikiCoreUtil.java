@@ -1108,7 +1108,10 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setMessagesGame(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Game.GAME));
     }
     public static void loadRom(DataBase _d,StringMap<String> _files, AtomicInteger _perCentLoading) {
-
+        if (_files == null) {
+            _d.setError(true);
+            return;
+        }
         _perCentLoading.set(0);
         _d.initializeMembers();
         StringMap<String> files_;

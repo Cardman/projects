@@ -436,15 +436,20 @@ public final class FightFacade {
             }
             Team equipe_=_fight.getUserTeam();
             Fighter creature_=equipe_.refPartMembres(_fight.getCurrentUser().getPosition());
+            if (creature_ == null) {
+                return false;
+            }
             MoveData fAtt_=_data.getMove(creature_.getFinalChosenMove());
+            if (fAtt_ == null) {
+                return false;
+            }
             if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
                 return false;
             }
-            Fighter current_ = _fight.getFighter(_fight.getCurrentUser());
-            if (!current_.isActed()) {
+            if (!creature_.isActed()) {
                 return false;
             }
-            if (!current_.isBelongingToPlayer()) {
+            if (!creature_.isBelongingToPlayer()) {
                 return false;
             }
             if (!FightOrder.notKoBackFightersBelongingToUser(_fight, true).isEmpty()) {

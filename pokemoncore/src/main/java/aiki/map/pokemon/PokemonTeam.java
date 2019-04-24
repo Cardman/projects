@@ -13,11 +13,6 @@ public final class PokemonTeam {
     public void validate(DataBase _data) {
         for (PkTrainer p : team) {
             p.validate(_data, true);
-            // if (!p.isValid(_data)) {
-            // _data.setError(true);
-            return;
-
-            // }
         }
         if (team.isEmpty()) {
             _data.setError(true);

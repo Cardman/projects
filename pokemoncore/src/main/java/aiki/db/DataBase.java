@@ -227,51 +227,11 @@ public class DataBase implements WithMathFactory {
     private static final int DEFAULT_INFLICTED_RATE_NUM = 1;
     private static final int DEFAULT_INFLICTED_RATE_DEN = 8;
 
-    private static final String POKEDEX_FOLDER = "pokedex";
-    private static final String MOVES_FOLDER = "moves";
-    private static final String ABILITIES_FOLDER = "abilities";
-    private static final String STATUS_FOLDER = "status";
-
-    private static final String ITEMS_FOLDER = "items";
-    private static final String SEPARATOR_KEY_HEROS = ";";
-
-    private static final char TAB_CHAR = '\t';
     private static final String TAB = "\t";
 
-    private static final char RETURN_LINE_CHAR = '\n';
     private static final String RETURN_LINE = "\n";
-    private static final String CS = "CS";
-    private static final String CT = "CT";
-    private static final String CT_CS_FILE = "ct_cs.txt";
-    private static final String CONST_NUM = "const_num.txt";
-    private static final String CONST_NOT_NUM = "constantes_non_num.txt";
-    private static final String TABLE_TYPES = "table_types.txt";
-    private static final String LOIS_RANDOM = "lois_random.txt";
-    private static final String COURBE_PTS_EXP = "courbe_pts_exp.txt";
-    private static final String RATE_WON_POINTS = "rate_won_points.txt";
-    private static final String COMBOS = "combos.xml";
-    private static final String MAP_FILE = "map.xml";
-    private static final String TRANSLATION_FOLDER = "translations";
-    private static final String TRANSLATION_CATEGORIES = "categories.txt";
-    private static final String TRANSLATION_GENDERS = "genders.txt";
-    private static final String TRANSLATION_ENVIRONMENTS = "environments.txt";
-    private static final String TRANSLATION_BOOLEANS = "booleans.txt";
-    private static final String TRANSLATION_DIFF_WIN_PTS = "winpts.txt";
-    private static final String TRANSLATION_DIFF_MODEL_LAW = "modellaw.txt";
-    private static final String TRANSLATION_STATISTICS = "statistics.txt";
-    private static final String TRANSLATION_TARGETS = "targets.txt";
-    private static final String TRANSLATION_TYPES = "types.txt";
-    private static final String TRANSLATION_POKEMON = "pokemon.txt";
-    private static final String TRANSLATION_MOVES = "moves.txt";
-    private static final String TRANSLATION_ITEMS = "items.txt";
-    private static final String TRANSLATION_ABILITIES = "abilities.txt";
-    private static final String TRANSLATION_STATUS = "status.txt";
-    private static final String TRANSLATION_MATH = "math.txt";
-    private static final String TRANSLATION_CLASSES = "classes.txt";
-    private static final String TRANSLATION_LITTERAL = "litteral.txt";
 
     private static final String DEF_MAX_ATT = "DEF_MAX_ATT";
-    private static final String BALL_DEF = "BALL_DEF";
 
     private static final String MOVE_FORMULA = "move";
     private static final String CAT_FORMULA = "cat";

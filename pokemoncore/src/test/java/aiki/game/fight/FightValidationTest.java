@@ -1,6 +1,7 @@
 package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.actions.Action;
 import org.junit.Test;
 
 import aiki.game.Game;
@@ -5745,7 +5746,106 @@ public class FightValidationTest extends InitializationDataBase {
         fight_.getChoices().getVal((byte) 0).setName(PIKACHU);
         assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
-
+    @Test
+    public void validate221Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual6(Sex.GIRL, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(DEMI_TOUR, _data_);
+        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.roundAllThrowers(_data_, false);
+        //invalid data
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(new Action());
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
+    }
+    @Test
+    public void validate222Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual6(Sex.BOY, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(DEMI_TOUR, _data_);
+        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.roundAllThrowers(_data_, false);
+        //invalid data
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(new Action());
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
+    }
+    @Test
+    public void validate223Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual6(Sex.GIRL, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(DEMI_TOUR, _data_);
+        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.roundAllThrowers(_data_, false);
+        //invalid data
+        fight_.setCurrentUser(Fight.toUserFighter((byte) 6));
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
+    }
+    @Test
+    public void validate224Test(){
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual6(Sex.BOY, diff_);
+        PkTrainer pk_ = new PkTrainer();
+        pk_.setAbility(MOITEUR);
+        pk_.setItem(NULL_REF);
+        pk_.setLevel((short) 1);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setName(PTITARD);
+        pk_.setMoves(new StringList(PISTOLET_A_O, CHARGE));
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        addBackFoeFighter(pk_, game_);
+        Player player_ = game_.getPlayer();
+        Fight fight_ = game_.getFight();
+        game_.chooseFrontFighter((byte) 0, _data_);
+        game_.changeAction(ActionType.MOVE, _data_);
+        game_.chooseMove(DEMI_TOUR, _data_);
+        game_.setFirstChosenMoveFoeTarget((byte) 0);
+        game_.roundAllThrowers(_data_, false);
+        //invalid data
+        fight_.setCurrentUser(Fight.toUserFighter((byte) 6));
+        assertTrue(!FightFacade.validate(fight_, _data_, player_, diff_));
+    }
     private static void addBackFoeFighter(PkTrainer _pk, Game _game) {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data_, Fighter.BACK);
