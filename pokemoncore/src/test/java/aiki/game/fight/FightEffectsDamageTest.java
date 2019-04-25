@@ -7268,6 +7268,59 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectDamage27Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Fight fight_ = effectDamage(diff_);
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(IMPUDENCE);
+        fighter_.backUpObject(NULL_REF);
+        fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
+        fighter_ = fight_.getFighter(target_);
+        fighter_.setItem(NULL_REF);
+        fighter_.setTypes(new StringList(EAU));
+        fighter_.setRemainedHp(new Rate(1));
+        fighter_.setClone(new Rate(1,8));
+        String move_ = DOUBLE_PIED;
+        Effect effect_ = _data_.getMove(move_).getEffet(0);
+        fight_.addEffect(thrower_, target_, effect_);
+        ThrowerDamageLaws t_ = new ThrowerDamageLaws();
+        MonteCarloNumber rate_ = new MonteCarloNumber();
+        rate_.addEvent(Rate.one(),LgInt.one());
+        t_.setRandomRate(rate_);
+        MonteCarloNumber base_ = new MonteCarloNumber();
+        base_.addEvent(new Rate(3,4),LgInt.one());
+        t_.setBase(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.getBase().put(thrower_,base_);
+        MonteCarloNumber ch_ = new MonteCarloNumber();
+        ch_.addEvent(Rate.one(),LgInt.one());
+        t_.setCriticalHit(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.getCriticalHit().put(thrower_,ch_);
+        MonteCarloNumber nh_ = new MonteCarloNumber();
+        nh_.addEvent(new Rate(2),LgInt.one());
+        t_.setNumberHits(new ObjectMap<TeamPosition, MonteCarloNumber>());
+        t_.getNumberHits().put(thrower_,nh_);
+        FightEffects.effectDamage(fight_, t_, thrower_, target_, move_, diff_, _data_);
+        fighter_ = fight_.getFighter(target_);
+        assertEq(new Rate("1/4"),fighter_.getRemainingHp());
+        assertEq(new Rate("0"),fighter_.getClone());
+        assertTrue(!fight_.getDamage().isCriticalHit());
+        assertTrue(fight_.getAcceptableChoices());
+        assertEq(1, fight_.getEffects().size());
+        AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
+        assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
+        assertEq(POKEMON_FOE_TARGET_ZERO, animation_.getToFighter());
+        assertEq(new Rate("3/4"), animation_.getDamage());
+        assertEq(1, animation_.getTypes().size());
+        assertEq(COMBAT, animation_.getTypes().first());
+        assertTrue(!animation_.isKoFromFighter());
+        assertTrue(!animation_.isKoToFighter());
+    }
+
+    @Test
     public void effectDamage1SimulationTest() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);

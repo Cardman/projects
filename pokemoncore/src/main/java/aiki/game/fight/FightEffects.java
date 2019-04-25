@@ -251,7 +251,6 @@ final class FightEffects {
         if(effet_ instanceof EffectVarPP){
             EffectVarPP effetLoc_=(EffectVarPP)effet_;
             effectVarPp(_fight,finalTarget_,effetLoc_,_diff,_import);
-            return;
         }
     }
 
@@ -343,34 +342,6 @@ final class FightEffects {
             creatureCible_.activerAttaque(_attaqueLanceur);
             _fight.addEnabledMoveMessage(_cible, _attaqueLanceur, _import);
         }
-//        switch (_effet.getChoiceRestriction()) {
-//        case FORCE:
-//        case FORBIDDEN:
-//            if (creatureCible_.getLastSuccessfulMove().isEmpty()) {
-//                return;
-//            }
-//            for(MoveTeamPosition c:creatureCible_.getTrackingMoves().getKeys()){
-//                if(!StringList.eq(c.getMove(),_attaqueLanceur)){
-//                    continue;
-//                }
-//                AffectedMove attaqueViseeActif_=creatureCible_.refPartAttaquesSurCombatAtt(c);
-//                attaqueViseeActif_.setMove(creatureCible_.getLastSuccessfulMove());
-//                attaqueViseeActif_.getActivity().enableReset();
-//                _fight.addEnabledMoveRelMessage(_cible, _attaqueLanceur, _lanceur, _import);
-//            }
-//            break;
-//        case LANCEUR_ATTAQUES:
-//            for(String c:creatureCible_.attaquesUtilisables()){
-//                if(creatureLanceur_.attaquesUtilisables().containsObj(c)){
-//                    creatureLanceur_.getPrivateMoves().getVal(new MoveTeamPosition(_attaqueLanceur,_cible)).add(c);
-//                }
-//            }
-//            break;
-//        default:
-//            creatureCible_.activerAttaque(_attaqueLanceur);
-//            _fight.addEnabledMoveMessage(_cible, _attaqueLanceur, _import);
-//            break;
-//        }
     }
 
     static void effectUnprotectFromMoveTypes(Fight _fight, TeamPosition _cible,EffectUnprotectFromTypes _effet,String _attaqueLanceur,DataBase _import){
@@ -582,29 +553,6 @@ final class FightEffects {
                 creatureCible_.affecterTypes(_effet.getConstTypes());
                 _fight.addChangedTypesMessage(_cible, _effet.getConstTypes(), _import);
             }
-//            switch (_effet.getExchangeTypes()) {
-//                case EXCHANGE:
-//                    StringList targetTypes_ = creatureCible_.getTypes();
-//                    creatureCible_.affecterTypes(creatureLanceur_.getTypes());
-//                    _fight.addChangedTypesMessage(_cible, creatureLanceur_.getTypes(), _import);
-//                    creatureLanceur_.affecterTypes(targetTypes_);
-//                    _fight.addChangedTypesMessage(_lanceur, targetTypes_, _import);
-//                    break;
-//                case GIVE_TO_THROWER:
-//                    creatureLanceur_.affecterTypes(creatureCible_.getTypes());
-//                    _fight.addChangedTypesMessage(_lanceur, creatureCible_.getTypes(), _import);
-//                    break;
-//                case GIVE_TO_TARGET:
-//                    creatureCible_.affecterTypes(creatureLanceur_.getTypes());
-//                    _fight.addChangedTypesMessage(_cible, creatureLanceur_.getTypes(), _import);
-//                    break;
-//                case GIVE_CONST:
-//                    creatureCible_.affecterTypes(_effet.getConstTypes());
-//                    _fight.addChangedTypesMessage(_cible, _effet.getConstTypes(), _import);
-//                    break;
-//                default:
-//                    break;
-//            }
         }
     }
 
@@ -654,9 +602,6 @@ final class FightEffects {
     static void effectCopyMove(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectCopyMove _effet,DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         String derAttaqueCible_=creatureCible_.getLastUsedMove();
-//        if (StringList.eq(_import.getDefaultMove(), derAttaqueCible_)) {
-//            return;
-//        }
         if (derAttaqueCible_.isEmpty()) {
             return;
         }
@@ -771,13 +716,9 @@ final class FightEffects {
             _fight.getDamage().setKeepProcessing(true);
             for (TeamPosition t: _throwerDamageLaws.getNumberHits().getKeys()) {
                 inflictDamageToTargetByUserOfMove(_fight, t, _cible, _throwerDamageLaws, _import);
-                /*if (!_fight.getDamage().isKeepProcessing()) {
-                    miseAKo_ = true;
-                    break;
-                }*/
             }
             miseAKo_ = _fight.isPutKo();
-            degats_ = Rate.plus(_fight.getDamage().getDamage(), _fight.getDamage().getDamageClone());
+            degats_ = _fight.getDamage().getDamage();
             coupCritique_ = _fight.getDamage().isCriticalHit();
             nbCoupsTotal_ += _fight.getDamage().getHits();
         } else {
@@ -785,7 +726,6 @@ final class FightEffects {
         }
         _fight.addNbHitsMessage(nbCoupsTotal_, _cible, _import);
         _fight.setAnimationDamage(degats_, FightMoves.moveTypes(_fight, _lanceur, _attaqueLanceur, _import));
-        //Rate degatsRecul_=new Rate();
         if (miseAKo_) {
             calculateDamageKo(_fight, _cible, _attaqueLanceur, new LgInt(nbCoupsTotal_), _diff, _import);
             if (!_fight.getAcceptableChoices()) {
@@ -801,7 +741,7 @@ final class FightEffects {
             _fight.addHpMessage(_cible, _import);
         }
         Rate pvSoignes_ = healedLostHp(_fight, _lanceur, leftHp_, canReverseAbsorb_, degats_, _import);
-        boolean capaciteActiveCible_=true;
+        boolean capaciteActiveCible_;
         if(creatureCible_.estKo()){
             capaciteActiveCible_=false;
         }else{
@@ -814,7 +754,7 @@ final class FightEffects {
                     coupCritique_, nbCoupsTotal_,
                     _attaqueLanceur, _import);
         }
-        boolean capaciteActiveLanceur_=true;
+        boolean capaciteActiveLanceur_;
         if(creatureCible_.estKo()){
             capaciteActiveLanceur_=false;
         }else{
@@ -1784,10 +1724,7 @@ final class FightEffects {
                 NumDiffDenNum p_ = probaCc_.getNumDiffDenNum();
                 loiCc_.addEvent(minCc_,p_.getDiffDenNumerator());
                 loiCc_.addEvent(event_,p_.getNumerator());
-//                loiCc_.addEvent(minCc_,LgInt.minus(probaCc_.getDenominator(), probaCc_.getNumerator()));
-//                loiCc_.addEvent(event_,probaCc_.getNumerator());
             }
-//            loiCc_ = new MonteCarloNumber(event_, probaCc_, minCc_);
         } else {
             loiCc_.addEvent(Rate.one(),DataBase.defElementaryEvent());
         }
@@ -2050,12 +1987,6 @@ final class FightEffects {
         creatureLanceur_.setGroundPlace(placeTerrainCible_);
         creatureLanceur_.setGroundPlaceSubst(placeTerrainCiblePourRemplacement_);
         _fight.addSwitchPlacesMessage(_lanceur, _cible, _import);
-//        if(creatureLanceur_.isBelongingToPlayer()){
-//            _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
-//        }
-//        if(creatureCible_.isBelongingToPlayer()){
-//            _fight.getFirstPositPlayerFighters().put(_cible.getPosition(),placeTerrainLanceurPourRemplacement_);
-//        }
         if(Numbers.eq(_lanceur.getTeam(), Fight.PLAYER)){
             _fight.getFirstPositPlayerFighters().put(_lanceur.getPosition(),placeTerrainCiblePourRemplacement_);
         } else {
@@ -2199,9 +2130,6 @@ final class FightEffects {
         if(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled()){
             return;
         }
-//        if(_import.getMovesEffectGlobalWeather().containsObj(_nomAttaque)){
-//            lanceursGlobaux.put(_nomAttaque,_lanceur);
-//        }
         for(String e:_effet.getCancelEffects()){
             _fight.getEnabledMoves().getVal(e).disable();
             _fight.getEnabledMoves().getVal(e).reset();
@@ -2271,8 +2199,6 @@ final class FightEffects {
             _fight.getFirstPositFoeFighters().put(_user.getPosition(),Fighter.BACK);
             _fight.getFirstPositFoeFighters().put(remplacant_,placeTerrainPourRemplacement_);
         }
-//        if(creatureLanceur_.isBelongingToPlayer()){
-//        }
         AnimationSwitch animation_;
         animation_ = new AnimationSwitch();
         animation_.setSubstituted(new TargetCoords(_user.getTeam(), placeTerrain_));
@@ -2517,7 +2443,6 @@ final class FightEffects {
             if(Numbers.eq(_cible.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
-                return;
             }
         }else{
             _fight.addEffectRecoil(_cible);
@@ -2626,7 +2551,6 @@ final class FightEffects {
             if(Numbers.eq(_target.getTeam(),Fight.PLAYER)&&_fight.getSimulation()){
                 _fight.setAcceptableChoices(false);
                 _fight.setIssue(IssueSimulation.KO_PLAYER);
-                return;
             }
         }else{
             creatureLanceur_.variationLeftHp(varPv_);
@@ -2812,7 +2736,7 @@ final class FightEffects {
             return map_;
         }
         Numbers<Byte> values_ = new Numbers<Byte>(map_.values());
-        if (values_.getMinimum() < 0) {
+        if (values_.getMinimum((byte) (_import.getMaxBoost()+1)) < 0) {
             Fighter fighter_ = _fight.getFighter(_combattant);
             if (fighter_.capaciteActive()) {
                 AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
