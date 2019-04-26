@@ -1931,6 +1931,41 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectSwitchTypes11Test() {
+        Fight fight_ = effectSwitchTypes();
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        FightRound.initRound(fight_);
+        Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        fighter_.affecterTypes(SOL);
+        MoveData fMove_ = _data_.getMove(ADAPTATION);
+        EffectSwitchTypes effect_ = (EffectSwitchTypes) fMove_.getEffet(CustList.FIRST_INDEX);
+        FightEffects.effectSwitchTypes(fight_, thrower_, thrower_, effect_, _data_);
+        fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        StringList types_ = fighter_.getTypes();
+        assertEq(1, types_.size());
+        assertTrue(types_.containsObj(SOL));
+        assertTrue(fight_.getAcceptableChoices());
+    }
+
+    @Test
+    public void effectSwitchTypes12Test() {
+        Fight fight_ = effectSwitchTypes();
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        FightRound.initRound(fight_);
+        Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        fighter_.affecterTypes(new StringList(COMBAT,ACIER));
+        fighter_.getLastSufferedMoveTypes().clear();
+        MoveData fMove_ = _data_.getMove(CONVERSION_2);
+        EffectSwitchTypes effect_ = (EffectSwitchTypes) fMove_.getEffet(CustList.FIRST_INDEX);
+        FightEffects.effectSwitchTypes(fight_, thrower_, thrower_, effect_, _data_);
+        fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        StringList types_ = fighter_.getTypes();
+        assertEq(2, types_.size());
+        assertTrue(types_.containsObj(COMBAT));
+        assertTrue(types_.containsObj(ACIER));
+        assertTrue(fight_.getAcceptableChoices());
+    }
+    @Test
     public void effectSwitchTypes1SimulationTest() {
         Fight fight_ = effectSwitchTypes();
         fight_.setSimulation(true);

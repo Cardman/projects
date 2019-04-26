@@ -496,8 +496,10 @@ final class FightEffects {
                 }
                 if (!FightSuccess.isBadSimulation(_fight, types_)) {
                     String type_ = FightSuccess.random(_import, types_);
-                    creatureCible_.affecterTypes(type_);
-                    _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
+                    if (!type_.isEmpty()) {
+                        creatureCible_.affecterTypes(type_);
+                        _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
+                    }
                 }
             }else{
                 StringList resistingTypes_ = creatureLanceur_.resistingTypes(_import);
@@ -507,8 +509,10 @@ final class FightEffects {
                 }
                 if (!FightSuccess.isBadSimulation(_fight, types_)) {
                     String type_ = FightSuccess.random(_import, types_);
-                    creatureCible_.affecterTypes(type_);
-                    _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
+                    if (!type_.isEmpty()) {
+                        creatureCible_.affecterTypes(type_);
+                        _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
+                    }
                 }
             }
         }else if(_effet.getChgtTypeByEnv().contains(_fight.getEnvType())){
@@ -1712,10 +1716,10 @@ final class FightEffects {
         boolean criticalHitCanHappen_;
         criticalHitCanHappen_ = criticalHitCanHappen(_fight, _lanceur, _cible, _import);
         MonteCarloNumber loiCc_ = new MonteCarloNumber();
-        Rate minCc_=effect_.getChLaw().minimum();
         if(criticalHitCanHappen_){
             byte boostCc_ = (byte) FightStatistic.criticalHit(_fight, _lanceur, effect_.getChRate(), _import);
             Rate probaCc_ = FightSuccess.rateCriticalHit(_fight, _lanceur, boostCc_, _import);
+            Rate minCc_=effect_.getChLaw().minimum();
             Rate maxCc_ = effect_.getChLaw().maximum();
             Rate event_ = criticalHitEvent(_fight, _lanceur, maxCc_, _import);
             if (probaCc_.greaterOrEqualsOne()) {

@@ -30,10 +30,6 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     public MonteCarloBoolean(CollCapacity _capacity) {
         law = new BooleanMap<LgInt>(_capacity);
     }
-    @Override
-    public BooleanList events() {
-        return law.getKeys();
-    }
 
     @Override
     public BooleanMap<LgInt> getLaw() {

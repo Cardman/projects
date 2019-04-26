@@ -32,8 +32,8 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
 //    }
 
     @Override
-    public Listable<K> getKeysNullValue() {
-        Listable<K> list_ = new CustList<K>();
+    public CustList<K> getKeysNullValue() {
+        CustList<K> list_ = new CustList<K>();
         for (EntryCust<K, V> e: getList()) {
             if (e.getValue() != null) {
                 continue;
@@ -44,12 +44,12 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     }
 
     @Override
-    public Listable<V> getValues(K _key) {
+    public CustList<V> getValues(K _key) {
         return getValuesObj(_key);
     }
 
-    public Listable<V> getValuesObj(Object _key) {
-        Listable<V> values_ = new CustList<V>();
+    public CustList<V> getValuesObj(Object _key) {
+        CustList<V> values_ = new CustList<V>();
         for (EntryCust<K, V> e:getList()) {
             if (e.getKey() == _key) {
                 values_.add(e.getValue());
@@ -89,8 +89,8 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
 //        return containsValue(_value);
 //    }
     @Override
-    public Listable<V> values() {
-        Listable<V> s_ = new CustList<V>();
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
         for (EntryCust<K, V> e: getList()) {
             s_.add(e.getValue());
         }

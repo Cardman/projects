@@ -1364,6 +1364,9 @@ final class FightSuccess {
     }
     static String random(DataBase _db, MonteCarloString _law) {
         LgInt maxRd_ = _db.getMaxRd();
+        if (_law.events().isEmpty()) {
+            return DataBase.EMPTY_STRING;
+        }
         return _law.editNumber(maxRd_);
     }
 

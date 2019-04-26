@@ -35,9 +35,6 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         if(cles_.size() == CustList.SECOND_INDEX - CustList.FIRST_INDEX){
             return cles_.first();
         }
-        if (cles_.isEmpty()) {
-            return null;
-        }
         return editNumberSeed(randomNumberSe(randomNumbersSeed(_lgInt),_lgInt));
     }
     private static EqList<LgInt> randomNumbersSeed(LgInt _lgInt) {
@@ -92,13 +89,13 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         LgInt sum_ = sum();
         LgInt random_ = LgInt.remain(_randomNumber, sum_);
         sum_.affectZero();
-        for(E c: events()){
-            sum_.addNb(rate(c));
-            if(LgInt.strLower(random_, sum_)){
-                return c;
-            }
+        int i_ = 0;
+        while (LgInt.greaterEq(random_,sum_)) {
+            sum_.addNb(rate(getLaw().getKey(i_)));
+            i_++;
         }
-        return null;
+        i_--;
+        return getLaw().getKey(i_);
     }
 
     protected abstract AbsMap<E,LgInt> getLaw();
@@ -131,7 +128,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return getLaw().size();
     }
 
-    public Listable<E> events() {
+    public CustList<E> events() {
         return getLaw().getKeys();
     }
 

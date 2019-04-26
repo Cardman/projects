@@ -20,8 +20,8 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
     }
 
     @Override
-    public Listable<V> getValues(K _key) {
-        Listable<V> values_ = new CustList<V>();
+    public CustList<V> getValues(K _key) {
+        CustList<V> values_ = new CustList<V>();
         if (_key == null) {
             for (EntryCust<K, V> e:getList()) {
                 if (e.getKey() == null) {
@@ -44,8 +44,8 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
     }
 
     @Override
-    public Listable<V> values() {
-        Listable<V> s_ = new CustList<V>();
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
         for (EntryCust<K, V> e: getList()) {
             s_.add(e.getValue());
         }

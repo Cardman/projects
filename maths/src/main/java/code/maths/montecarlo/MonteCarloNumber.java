@@ -4,7 +4,6 @@ import code.maths.NumDiffDenNum;
 import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 
@@ -46,7 +45,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         Rate sommeNum_=Rate.zero();
         LgInt sommeDen_=LgInt.zero();
         ObjectMap<Rate,LgInt> law_=new ObjectMap<Rate,LgInt>();
-        EqList<Rate> evenements_=events();
+        CustList<Rate> evenements_=events();
         for(Rate c:evenements_){
             sommeDen_.addNb(getLaw().getVal(c));
             law_.put(c, rate(c));
@@ -115,7 +114,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     /**Retourne le minimum de la loi de probabilite (soit le plus petit Xi)*/
     public Rate minimum() {
         Rate min_=Rate.zero();
-        EqList<Rate> evenements_=events();
+        CustList<Rate> evenements_=events();
         if(evenements_.isEmpty()){
             return min_;
         }
@@ -132,7 +131,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     /**Retourne le maximum de la loi de probabilite (soit le plus petit Xi)*/
     public Rate maximum() {
         Rate max_=Rate.zero();
-        EqList<Rate> evenements_=events();
+        CustList<Rate> evenements_=events();
         if(evenements_.isEmpty()){
             return max_;
         }
@@ -148,7 +147,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
     public MonteCarloBoolean knowingLower(Rate _event) {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
-        if(!events().containsObj(_event)){
+        if(!containsEv(_event)){
             if(Rate.lowerEq(_event, minimum())){
                 loi_.addEvent(false,new LgInt(1));
                 return loi_;
@@ -171,7 +170,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
     public MonteCarloBoolean knowingGreater(Rate _event) {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
-        if(!events().containsObj(_event)){
+        if(!containsEv(_event)){
             if(Rate.greaterEq(_event, maximum())){
                 loi_.addEvent(false,new LgInt(1));
                 return loi_;
@@ -191,15 +190,18 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         }
         return loi_;
     }
+    private boolean containsEv(Rate _ev) {
+        for (Rate e: events()) {
+            if (e.eq(_ev)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public ObjectNotNullMap<Rate,LgInt> getLaw() {
         return law;
-    }
-
-    @Override
-    public EqList<Rate> events() {
-        return law.getKeys();
     }
 
     public void setLaw(ObjectNotNullMap<Rate, LgInt> _law) {

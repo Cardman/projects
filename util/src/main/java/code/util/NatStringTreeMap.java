@@ -105,8 +105,8 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
     }
 
     @Override
-    public Listable<V> values() {
-        Listable<V> s_ = new CustList<V>();
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
         for (EntryCust<String, V> e: getList()) {
             s_.add(e.getValue());
         }

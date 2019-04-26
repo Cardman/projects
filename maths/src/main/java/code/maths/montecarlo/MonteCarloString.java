@@ -30,12 +30,6 @@ public final class MonteCarloString extends AbMonteCarlo<String> {
     public MonteCarloString(CollCapacity _capacity) {
         law = new StringMap<LgInt>(_capacity);
     }
-
-    @Override
-    public StringList events() {
-        return law.getKeys();
-    }
-
     @Override
     public StringMap<LgInt> getLaw() {
         return law;

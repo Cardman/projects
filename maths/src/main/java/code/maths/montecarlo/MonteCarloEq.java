@@ -33,11 +33,6 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
     }
 
     @Override
-    public EqList<E> events() {
-        return law.getKeys();
-    }
-
-    @Override
     public ObjectNotNullMap<E,LgInt> getLaw() {
         return law;
     }

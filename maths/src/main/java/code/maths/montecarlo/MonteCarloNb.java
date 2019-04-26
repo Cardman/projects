@@ -32,11 +32,6 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
     }
 
     @Override
-    public Numbers<E> events() {
-        return law.getKeys();
-    }
-
-    @Override
     public NumberMap<E,LgInt> getLaw() {
         return law;
     }

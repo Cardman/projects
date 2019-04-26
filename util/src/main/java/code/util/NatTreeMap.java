@@ -36,8 +36,8 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public Listable<K> getKeysNullValue() {
-        Listable<K> list_ = new CustList<K>();
+    public CustList<K> getKeysNullValue() {
+        CustList<K> list_ = new CustList<K>();
         for (EntryCust<K, V> e: getList()) {
             if (e.getValue() != null) {
                 continue;
@@ -60,8 +60,8 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public Listable<K> getKeys() {
-        Listable<K> s_ = new CustList<K>();
+    public CustList<K> getKeys() {
+        CustList<K> s_ = new CustList<K>();
         for (EntryCust<K, V> e: getList()) {
             s_.add(e.getKey());
         }
@@ -105,8 +105,8 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public Listable<V> values() {
-        Listable<V> s_ = new CustList<V>();
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
         for (EntryCust<K, V> e: getList()) {
             s_.add(e.getValue());
         }

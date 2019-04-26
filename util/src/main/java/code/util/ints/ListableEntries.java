@@ -1,4 +1,5 @@
 package code.util.ints;
+import code.util.CustList;
 import code.util.EntryCust;
 
 
@@ -10,8 +11,8 @@ public interface ListableEntries<K,V> extends CheckableMap, Countable, SimpleEnt
 
     void putAllMap(ListableEntries<K, V> _m);
 
-    Listable<K> getKeys();
-    Listable<V> getValues(K _key);
+    CustList<K> getKeys();
+    CustList<V> getValues(K _key);
 
     V getVal(K _key);
 
@@ -21,13 +22,13 @@ public interface ListableEntries<K,V> extends CheckableMap, Countable, SimpleEnt
 
     void setValue(int _i, V _object);
 
-    Listable<V> values();
+    CustList<V> values();
 
     void put(K _k, V _v);
 
     void clear();
 
-    Listable<K> getKeysNullValue();
+    CustList<K> getKeysNullValue();
 
     boolean contains(K _key);
 

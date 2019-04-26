@@ -536,7 +536,7 @@ final class FightEndRound {
         MoveData fAtt_=_import.getMove(_move);
         MonteCarloNumber loi_=fAtt_.getRepeatRoundLaw();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_=false;
+        boolean resterActif_;
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
@@ -597,7 +597,7 @@ final class FightEndRound {
         }
         LgInt maxRd_ = _import.getMaxRd();
         MonteCarloBoolean loiSachant_=law_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_=false;
+        boolean resterActif_;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
                 resterActif_=loiSachant_.editNumber(maxRd_);
@@ -673,7 +673,7 @@ final class FightEndRound {
         EffectCombo effet_=_import.getCombos().getEffects().getVal(_key);
         MonteCarloNumber loi_ = effet_.getRepeatedRoundsLaw();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_=false;
+        boolean resterActif_;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
                 resterActif_=loiSachant_.editNumber(maxRd_);
@@ -1061,7 +1061,6 @@ final class FightEndRound {
                     }
                 }
             }
-            boolean wasEnabled_ = actifNbTour_.isEnabled();
             if(tirer_){
                 MonteCarloNumber loi_=_effet.getLawForEnablingEffect();
                 MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(actifNbTour_.getNbTurn()));
@@ -1164,7 +1163,7 @@ final class FightEndRound {
         }
         MonteCarloNumber loi_=((StatusBeginRound)_statut).getLawForUsingAMoveNbRound();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
-        boolean resterActif_=false;
+        boolean resterActif_;
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
@@ -1249,7 +1248,7 @@ final class FightEndRound {
             return;
         }
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
-        boolean resterActif_=false;
+        boolean resterActif_;
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){

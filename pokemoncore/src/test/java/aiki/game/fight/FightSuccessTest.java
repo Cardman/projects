@@ -217,6 +217,7 @@ public class FightSuccessTest extends InitializationDataBase {
         assertTrue(FightSuccess.tirage(_data_,Rate.one()));
         assertTrue(!FightSuccess.tirage(_data_,Rate.zero()));
         assertTrue(FightSuccess.tirage(_data_,new Rate("2")));
+        assertTrue(FightSuccess.random(_data_,new MonteCarloString()).isEmpty());
     }
 
     private static Fight isProtectedAgainstMoveType() {

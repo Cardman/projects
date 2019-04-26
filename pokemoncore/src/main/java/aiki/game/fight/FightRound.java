@@ -676,7 +676,7 @@ final class FightRound {
         boolean tirageGuerison_=false;
         if(!lawNbRound_.events().isEmpty()&&!status_.getIncrementingEndRound()){
             if (creature_.isSingleStatus(_nomStatut)) {
-                boolean fini_=false;
+                boolean fini_;
                 short nbTour_=creature_.getStatusNbRoundShort(_nomStatut);
                 MonteCarloBoolean loiModif_=lawNbRound_.knowingGreater(new Rate(nbTour_));
                 String moveName_ = creature_.getFinalChosenMove();
@@ -708,7 +708,7 @@ final class FightRound {
                     MonteCarloBoolean loiModif_=lawNbRound_.knowingGreater(new Rate(nbTour_));
                     String moveName_ = creature_.getFinalChosenMove();
                     MoveData move_ = _import.getMove(moveName_);
-                    boolean fini_=false;
+                    boolean fini_;
                     if (move_.getDeletedStatus().containsObj(_nomStatut)) {
                         fini_= true;
                     } else {

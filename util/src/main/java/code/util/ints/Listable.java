@@ -1,10 +1,11 @@
 package code.util.ints;
+import code.util.CustList;
 import code.util.Numbers;
 
 public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, SimpleList {
 
     Iterable<T> getList();
-    Listable<T> getReverse();
+    CustList<T> getReverse();
 
     void add(T _e);
 
@@ -40,7 +41,7 @@ public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, Sim
 
     Numbers<Integer> indexesOfNull();
 
-    Listable<T> sub(int _from, int _to);
+    CustList<T> sub(int _from, int _to);
 
     void swapIndexes(int _i, int _j);
 }

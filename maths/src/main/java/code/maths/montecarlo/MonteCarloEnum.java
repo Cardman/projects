@@ -32,11 +32,6 @@ public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
     }
 
     @Override
-    public EnumList<E> events() {
-        return law.getKeys();
-    }
-
-    @Override
     public EnumMap<E,LgInt> getLaw() {
         return law;
     }

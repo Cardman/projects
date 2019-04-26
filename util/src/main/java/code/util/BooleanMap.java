@@ -23,8 +23,8 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    public Listable<V> getValues(Boolean _key) {
-        Listable<V> values_ = new CustList<V>();
+    public CustList<V> getValues(Boolean _key) {
+        CustList<V> values_ = new CustList<V>();
         for (EntryCust<Boolean, V> e:getList()) {
             if (_key == e.getKey()) {
                 values_.add(e.getValue());
@@ -34,8 +34,8 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    public Listable<V> values() {
-        Listable<V> s_ = new CustList<V>();
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
         for (EntryCust<Boolean, V> e: getList()) {
             s_.add(e.getValue());
         }
