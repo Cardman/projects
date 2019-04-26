@@ -182,19 +182,9 @@ public final class FractPol implements Equallable<FractPol>, Displayable {
         return numerateur.dividePolynom(denominateur);
     }
 
-    public static boolean eq(FractPol _tx1,FractPol _tx2) {
-        return _tx1.eq(_tx2);
-    }
-
     @Override
     public boolean eq(FractPol _autre) {
-        if (!numerateur.isEqualTo(_autre.numerateur)) {
-            return false;
-        }
-        if (!denominateur.isEqualTo(_autre.denominateur)) {
-            return false;
-        }
-        return true;
+        return numerateur.multiplyPolynom(_autre.denominateur).eq(_autre.numerateur.multiplyPolynom(denominateur));
     }
     
     @Override

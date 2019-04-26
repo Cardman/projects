@@ -61,48 +61,41 @@ public final class ElUtil {
         StringList names_ = new StringList();
         if (opTwo_.getOperators().isEmpty()) {
             for (String v: opTwo_.getValues().values()) {
-                names_.add(v.trim());
+                names_.add(getFieldName(v));
             }
             names_.removeAllString("");
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
             for (String v: opTwo_.getValues().values()) {
-                int k_ = 0;
-                int lenField_ = v.length();
-                StringBuilder fieldName_ = new StringBuilder();
-                while (k_ < lenField_) {
-                    char fieldChar_ = v.charAt(k_);
-                    if (!StringList.isDollarWordChar(fieldChar_)) {
-                        break;
-                    }
-                    fieldName_.append(fieldChar_);
-                    k_++;
-                }
-                names_.add(fieldName_.toString().trim());
+                names_.add(getFieldName(v));
             }
             names_.removeAllString("");
             return names_;
         }
         if (opTwo_.getPriority() == ElResolver.AFF_PRIO) {
             String var_ = opTwo_.getValues().firstValue();
-            int lenField_ = var_.length();
-            StringBuilder fieldName_ = new StringBuilder();
-            int k_ = 0;
-            while (k_ < lenField_) {
-                char fieldChar_ = var_.charAt(k_);
-                if (!StringList.isDollarWordChar(fieldChar_)) {
-                    break;
-                }
-                fieldName_.append(fieldChar_);
-                k_++;
-            }
-            names_.add(fieldName_.toString().trim());
+            names_.add(getFieldName(var_));
         }
         names_.removeAllString("");
         return names_;
     }
 
+    private static String getFieldName(String _v) {
+        String v_ = _v.trim();
+        int k_ = 0;
+        int lenField_ = v_.length();
+        StringBuilder fieldName_ = new StringBuilder();
+        while (k_ < lenField_) {
+            char fieldChar_ = v_.charAt(k_);
+            if (!StringList.isDollarWordChar(fieldChar_)) {
+                break;
+            }
+            fieldName_.append(fieldChar_);
+            k_++;
+        }
+        return fieldName_.toString();
+    }
     public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         _conf.setStaticContext(hiddenVarTypes_);

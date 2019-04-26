@@ -88,10 +88,6 @@ public final class Vect implements Equallable<Vect>, Displayable {
         return true;
     }
 
-    public static boolean eq(Vect _tx1,Vect _tx2) {
-        return _tx1.eq(_tx2);
-    }
-
     @Override
     public boolean eq(Vect _o) {
         return numbers.eq(_o.numbers);

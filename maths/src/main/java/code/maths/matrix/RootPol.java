@@ -1,8 +1,7 @@
 package code.maths.matrix;
 import code.maths.Rate;
-import code.util.ints.Equallable;
 
-public final class RootPol implements Equallable<RootPol> {
+public final class RootPol {
 
     private Rate value;
 
@@ -25,14 +24,4 @@ public final class RootPol implements Equallable<RootPol> {
         degree = _degree;
     }
 
-    @Override
-    public boolean eq(RootPol _g) {
-        if (degree != _g.degree) {
-            return false;
-        }
-        if (!value.eq(_g.value)) {
-            return false;
-        }
-        return true;
-    }
 }

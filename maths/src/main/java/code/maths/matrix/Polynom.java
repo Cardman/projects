@@ -339,8 +339,8 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return nonZeroRoots();
     }
 
-    public CustList<RootPol> nonZeroRoots() {
-        EqList<RootPol> r_ = new EqList<RootPol>();
+    private CustList<RootPol> nonZeroRoots() {
+        CustList<RootPol> r_ = new CustList<RootPol>();
         if (isZero()) {
             return r_;
         }
@@ -394,7 +394,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 if(Rate.eq(image_,imageTwo_)) {
                     cand_.changeSignum();
                     RootPol rLoc_=new RootPol(cand_,1);
-                    if(!r_.containsObj(rLoc_)) {
+                    if(!containsRoot(r_,cand_)) {
                         mult_++;
                         r_.add(rLoc_);
                         if(mult_==deg_) {
@@ -405,7 +405,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
                 if(Rate.eq(image_,imageTwo_.opposNb())) {
                     cand_=new Rate(c,m);
                     RootPol rLoc_=new RootPol(cand_,1);
-                    if(!r_.containsObj(rLoc_)) {
+                    if(!containsRoot(r_,cand_)) {
                         mult_++;
                         r_.add(rLoc_);
                         if(mult_==deg_) {
@@ -435,6 +435,14 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return r_;
     }
 
+    private static boolean containsRoot(CustList<RootPol> _roots, Rate _value) {
+        for (RootPol r: _roots) {
+            if (r.getValue().eq(_value)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public Rate image(Rate _x) {
         Rate y_ = Rate.zero();
         long dg_=dg();
@@ -500,12 +508,6 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
             qr_.setFirst(new Polynom());
             qr_.setSecond(new Polynom());
-            return qr_;
-        }
-        if (dg() < _div.dg()) {
-            PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
-            qr_.setFirst(new Polynom());
-            qr_.setSecond(new Polynom(this));
             return qr_;
         }
         return polyLongDiv(this,_div);
