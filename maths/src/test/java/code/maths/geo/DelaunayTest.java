@@ -12,6 +12,30 @@ import code.util.IdMap;
 public class DelaunayTest {
 
     @Test
+    public void addTest() {
+        Delaunay d_ = new Delaunay();
+        Polygon p_ =new Polygon();
+        assertEq(-1,d_.addPoint(p_,new CustPoint(0,0),-1,0,new Edge(new CustPoint(0,0),new CustPoint(0,0))));
+    }
+    @Test
+    public void addIfNotIntersect1Test() {
+        Delaunay d_ = new Delaunay();
+        Polygon p_ =new Polygon(new Rect(0,0,2,2));
+        d_.addIfNotIntersect(p_,new CustPoint(0,1),1,2,new Edge(new CustPoint(3,3),new CustPoint(4,4)));
+        assertEq(0,d_.getTriangles().size());
+        assertEq(0,d_.getEdges().size());
+        assertEq(0,d_.getNextTriangles().size());
+        assertEq(0,d_.getConvexHull().size());
+    }
+    @Test
+    public void compute0Test() {
+        Delaunay d_ = new Delaunay();
+        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        d_.compute(pts_, false);
+        IdList<Triangle> ts_ = d_.getTriangles();
+        assertEq(0, ts_.size());
+    }
+    @Test
     public void compute1Test() {
         Delaunay d_ = new Delaunay();
         EqList<CustPoint> pts_ = new EqList<CustPoint>();
@@ -172,6 +196,14 @@ public class DelaunayTest {
         assertEq(new CustPoint(333, 264), ts_.get(0).getThirdPoint());
     }
 
+    @Test
+    public void mainComputeIncr0Test() {
+        Delaunay d_ = new Delaunay();
+        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        d_.mainComputeIncr(pts_);
+        IdList<Triangle> ts_ = d_.getTriangles();
+        assertEq(0, ts_.size());
+    }
     @Test
     public void mainComputeIncr1Test() {
         Delaunay d_ = new Delaunay();
@@ -443,6 +475,14 @@ public class DelaunayTest {
     }
 
     @Test
+    public void mainComputeIncrConvex0Test() {
+        Delaunay d_ = new Delaunay();
+        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        d_.mainComputeIncrConvex(pts_);
+        IdList<Triangle> ts_ = d_.getTriangles();
+        assertEq(0, ts_.size());
+    }
+    @Test
     public void mainComputeIncrConvex1Test() {
         Delaunay d_ = new Delaunay();
         EqList<CustPoint> pts_ = new EqList<CustPoint>();
@@ -713,6 +753,14 @@ public class DelaunayTest {
         assertEq(9, ts_.size());
     }
 
+    @Test
+    public void mainComputeIncrSuperTriangle0Test() {
+        Delaunay d_ = new Delaunay();
+        EqList<CustPoint> pts_ = new EqList<CustPoint>();
+        d_.mainComputeIncrSuperTriangle(pts_);
+        IdList<Triangle> ts_ = d_.getTriangles();
+        assertEq(0, ts_.size());
+    }
     @Test
     public void mainComputeIncrSuperTriangle1Test() {
         Delaunay d_ = new Delaunay();

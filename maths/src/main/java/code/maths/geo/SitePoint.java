@@ -35,11 +35,4 @@ public final class SitePoint implements Site {
         return info;
     }
 
-    public int getNumber() {
-        return info.getNumber();
-    }
-
-    public static int compare(SitePoint _one, SitePoint _two) {
-        return SiteInfo.compare(_one.info,_two.info);
-    }
 }

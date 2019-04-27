@@ -1,5 +1,6 @@
 package code.maths.geo;
 import static code.maths.EquallableMathUtil.assertEq;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ public class SitePointThreeDimsTest {
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
         assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
+        assertSame(three_, s_.getPoint());
     }
 
     @Test

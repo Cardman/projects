@@ -52,13 +52,13 @@ public final class EdgeThreeDimensions {
         if (containsPoint(_e2.second)) {
             return true;
         }
+        if (containsPoint(_e2.first)) {
+            return true;
+        }
         if (_e2.containsPoint(first)) {
             return true;
         }
         if (_e2.containsPoint(second)) {
-            return true;
-        }
-        if (containsPoint(_e2.first)) {
             return true;
         }
         int index_ = CustList.FIRST_INDEX;
@@ -229,34 +229,6 @@ public final class EdgeThreeDimensions {
         VectThreeDims standard_ = one_.vectProd(two_);
 //        return standard_.quickDet(one_, two_).isZero() && one_.scal(two_) <= 0;
         return standard_.quickDet(one_, two_) == 0 && one_.scal(two_) <= 0;
-    }
-
-    public boolean isSame(EdgeThreeDimensions _other) {
-        if (first == _other.first) {
-            if (second == _other.second) {
-                return true;
-            }
-        }
-        if (first == _other.second) {
-            if (second == _other.first) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isEqual(EdgeThreeDimensions _other) {
-        if (first.eq(_other.first)) {
-            if (second.eq(_other.second)) {
-                return true;
-            }
-        }
-        if (first.eq(_other.second)) {
-            if (second.eq(_other.first)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 //    public boolean intersect(EdgeThreeDimensions _other) {

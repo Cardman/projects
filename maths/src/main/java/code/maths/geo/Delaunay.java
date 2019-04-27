@@ -68,9 +68,6 @@ public final class Delaunay {
         edges.clear();
         nextTriangles.clear();
         nextPoints.clear();
-        if (_points.isEmpty()) {
-            return;
-        }
         if (_points.size() < Triangle.NB_POINTS) {
             return;
         }
@@ -355,15 +352,15 @@ public final class Delaunay {
     int addPoint(Polygon _polygon, CustPoint _pt, int _indexPt, int _len, Edge _e) {
         int indexPt_ = _indexPt;
         for (int i = CustList.FIRST_INDEX; i < _len; i++) {
-            if (_polygon.get(i) == _e.getFirst() && _polygon.get(Numbers.mod(i+1, _len)) == _e.getSecond()) {
-                indexPt_ = i;
-                break;
-            } else if (_polygon.get(i) == _e.getSecond() && _polygon.get(Numbers.mod(i+1, _len)) == _e.getFirst()) {
+            Edge e_ = new Edge(_polygon.get(i),_polygon.get(Numbers.mod(i+1, _len)));
+            if (e_.isSame(_e)) {
                 indexPt_ = i;
                 break;
             }
         }
-        _polygon.add((indexPt_ +1)% _len, _pt);
+        if (_len > 0) {
+            _polygon.add((indexPt_ + 1) % _len, _pt);
+        }
         return indexPt_;
     }
 

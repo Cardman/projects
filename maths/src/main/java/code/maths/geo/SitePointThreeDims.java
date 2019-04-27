@@ -47,8 +47,4 @@ public final class SitePointThreeDims implements Site {
     public SiteInfo getInfo() {
         return info;
     }
-
-    public static int compare(SitePointThreeDims _one, SitePointThreeDims _two) {
-        return SiteInfo.compare(_one.info,_two.info);
-    }
 }

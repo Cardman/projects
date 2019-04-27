@@ -180,4 +180,138 @@ public class EdgeThreeDimensionsTest {
         EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
         assertTrue(!eOne_.intersection(eTwo_));
     }
+
+    @Test
+    public void intersection17Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(2, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(8, 0, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(one_, two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection18Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(6, 2, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(8, 0, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(one_, two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection19Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(6, 2, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(8, 0, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(one_, two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eOne_.intersection(eTwo_));
+    }
+
+    @Test
+    public void intersection20Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(6, 2, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(8, 0, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection21Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection22Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection23Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection24Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection25Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(one_, two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection26Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(3, 5, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(5, 3, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(one_, two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(three_, four_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection27Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(0, 0, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(4, 0, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
+
+    @Test
+    public void intersection28Test() {
+        CustPointThreeDims one_ = new CustPointThreeDims(8, 0, 0);
+        CustPointThreeDims two_ = new CustPointThreeDims(0, 0, 0);
+        CustPointThreeDims three_ = new CustPointThreeDims(4, 0, 0);
+        CustPointThreeDims four_ = new CustPointThreeDims(6, 2, 0);
+        EdgeThreeDimensions eOne_ = new EdgeThreeDimensions(two_, one_);
+        eOne_.setFirst(two_);
+        EdgeThreeDimensions eTwo_ = new EdgeThreeDimensions(four_, three_);
+        eTwo_.setSecond(three_);
+        assertTrue(eTwo_.intersection(eOne_));
+    }
 }

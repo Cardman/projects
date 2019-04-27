@@ -2,6 +2,7 @@ package code.maths.geo;
 
 import org.junit.Test;
 
+import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public class VectTwoDimsTest {
@@ -36,5 +37,16 @@ public class VectTwoDimsTest {
         vOne_.setDeltay(2);
         VectTwoDims vTwo_ =new VectTwoDims(2,2);
         assertTrue(!vOne_.eq(vTwo_));
+    }
+    @Test
+    public void new_VectTwoDims_Test() {
+        VectTwoDims vOne_ =VectTwoDims.newCustPoint("1,2");
+        VectTwoDims vTwo_ =new VectTwoDims(1,2);
+        assertTrue(vOne_.eq(vTwo_));
+    }
+    @Test
+    public void displayTest() {
+        VectTwoDims vOne_ =new VectTwoDims(1,2);
+        assertEq("1,2",vOne_.display());
     }
 }
