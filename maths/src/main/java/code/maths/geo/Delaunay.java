@@ -777,8 +777,8 @@ public final class Delaunay {
                         if (nbPoints_ == Triangle.NB_POINTS) {
                             CompactPlanePoint c_;
                             c_ = t.getCircumCenter();
-                            x_ = (int) (c_.getPair().getFirst() / c_.getCommon());
-                            y_ = (int) (c_.getPair().getSecond() / c_.getCommon());
+                            x_ = (int) (c_.getXcoords() / c_.getCommon());
+                            y_ = (int) (c_.getYcoords() / c_.getCommon());
                             p_.add(new CustPoint(x_, y_));
                             break;
                         }
@@ -830,8 +830,8 @@ public final class Delaunay {
                         if (nbPoints_ == Triangle.NB_POINTS) {
                             CompactPlanePoint c_;
                             c_ = t.getCircumCenter();
-                            x_ = (int) (c_.getPair().getFirst() / c_.getCommon());
-                            y_ = (int) (c_.getPair().getSecond() / c_.getCommon());
+                            x_ = (int) (c_.getXcoords() / c_.getCommon());
+                            y_ = (int) (c_.getYcoords() / c_.getCommon());
                             p_.add(new CustPoint(x_, y_));
                             break;
                         }

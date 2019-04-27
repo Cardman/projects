@@ -30,43 +30,6 @@ public final class TriangleThreeDims implements Displayable {
         return l_;
     }
 
-    public boolean isInCircum(CustPoint _point) {
-        CompactPlanePoint omega_;
-        omega_ = getCircumCenter();
-        long x_ = omega_.getPair().getFirst();
-        long y_ = omega_.getPair().getSecond();
-        long den_ = omega_.getCommon();
-        long firstMember_ = firstPoint.getXcoords() - _point.getXcoords();
-        firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
-        long secondMember_ = _point.getYcoords() - firstPoint.getYcoords();
-        secondMember_ *= 2 * y_ - den_ *(_point.getYcoords() + firstPoint.getYcoords());
-        if (den_ > 0) {
-            return firstMember_ <= secondMember_;
-        }
-        return firstMember_ >= secondMember_;
-    }
-
-    public CustLine euler() {
-        CompactPlanePoint g_ = getGravityCenter();
-        CompactPlanePoint c_ = getCircumCenter();
-        PairNumber<Long,Long> gxy_ = g_.getPair();
-        long gd_ = g_.getCommon();
-        Rate gx_ = new Rate(gxy_.getFirst(), gd_);
-        Rate gy_ = new Rate(gxy_.getSecond(), gd_);
-        PairNumber<Long,Long> cxy_ = c_.getPair();
-        long cd_ = c_.getCommon();
-        Rate cx_;
-        Rate cy_;
-        if (cd_ == 0) {
-            cx_ = new Rate(gx_);
-            cy_ = new Rate(gy_);
-        } else {
-            cx_ = new Rate(cxy_.getFirst(), cd_);
-            cy_ = new Rate(cxy_.getSecond(), cd_);
-        }
-        return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
-    }
-
     public CompactPlanePoint getGravityCenter() {
         long x_ = firstPoint.getXcoords();
         x_ += secondPoint.getXcoords();
@@ -74,7 +37,7 @@ public final class TriangleThreeDims implements Displayable {
         long y_ = firstPoint.getYcoords();
         y_ += secondPoint.getYcoords();
         y_ += thirdPoint.getYcoords();
-        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),NB_POINTS);
+        return new CompactPlanePoint(x_, y_,NB_POINTS);
     }
 
     public CompactPlanePoint getCircumCenter() {
@@ -89,7 +52,7 @@ public final class TriangleThreeDims implements Displayable {
         y_ -= cpx_ * (bpx_ * bpx_ + bpy_ * bpy_);
         x_ += firstPoint.getXcoords() * dp_;
         y_ += firstPoint.getYcoords() * dp_;
-        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),dp_);
+        return new CompactPlanePoint(x_, y_,dp_);
     }
 
     public CustPointThreeDims getFirstPoint() {

@@ -274,7 +274,7 @@ public final class Tetrahedron implements Displayable {
         long c_ = (_two.getXcoords() - _one.getXcoords()) * (_three.getYcoords() - _two.getYcoords());
         c_ -= (_two.getYcoords() - _one.getYcoords()) * (_three.getXcoords() - _two.getXcoords());
         long d_ = a_ * _one.getXcoords() + b_ * _one.getYcoords() + c_ * _one.getZcoords();
-        return new CompactSpacePoint(new CompactPlanePoint(new PairNumber<Long,Long>(b_, c_), a_),d_);
+        return new CompactSpacePoint(b_, c_, a_,d_);
     }
     public static CompactSpacePoint getCircumCenter(CustPointThreeDims _one,
             CustPointThreeDims _two,
@@ -295,14 +295,14 @@ public final class Tetrahedron implements Displayable {
         y_ = _one.getYcoords() + _two.getYcoords();
         z_ = _one.getZcoords() + _two.getZcoords();
         CompactSpacePoint midOneTwo_;
-        midOneTwo_ = new CompactSpacePoint(new CompactPlanePoint(new PairNumber<Long,Long>(y_, z_), x_),2l);
+        midOneTwo_ = new CompactSpacePoint(y_, z_, x_,2l);
         VectThreeDims lOneTwo_ = n_.vectProd(eOneTwo_);
         VectThreeDims eOneThree_ = new VectThreeDims(_one, _three);
         x_ = _one.getXcoords() + _three.getXcoords();
         y_ = _one.getYcoords() + _three.getYcoords();
         z_ = _one.getZcoords() + _three.getZcoords();
         CompactSpacePoint midOneThree_;
-        midOneThree_ = new CompactSpacePoint(new CompactPlanePoint(new PairNumber<Long,Long>(y_, z_), x_),2l);
+        midOneThree_ = new CompactSpacePoint(y_, z_, x_,2l);
         VectThreeDims lOneThree_ = n_.vectProd(eOneThree_);
         return intersection(midOneTwo_, lOneTwo_, midOneThree_, lOneThree_);
     }
@@ -312,14 +312,14 @@ public final class Tetrahedron implements Displayable {
             VectThreeDims _vOne,
             CompactSpacePoint _ptTwo,
             VectThreeDims _vTwo) {
-        long n_ = (_ptTwo.getPair().getCommon() - _ptOne.getPair().getCommon()) * _vTwo.getDeltay();
-        n_ -= (_ptTwo.getPair().getPair().getFirst() - _ptOne.getPair().getPair().getFirst()) * _vTwo.getDeltax();
+        long n_ = (_ptTwo.getZcoords() - _ptOne.getZcoords()) * _vTwo.getDeltay();
+        n_ -= (_ptTwo.getXcoords() - _ptOne.getXcoords()) * _vTwo.getDeltax();
         long d_ = 2 *(_vOne.getDeltax() * _vTwo.getDeltay() - _vOne.getDeltay() * _vTwo.getDeltax());
-        long x_ = _ptOne.getCommon() * n_ * _vOne.getDeltax() + d_ * _ptOne.getPair().getCommon();
-        long y_ = _ptOne.getCommon() * n_ * _vOne.getDeltay() + d_ * _ptOne.getPair().getPair().getFirst();
-        long z_ = _ptOne.getCommon() * n_ * _vOne.getDeltaz() + d_ * _ptOne.getPair().getPair().getSecond();
+        long x_ = _ptOne.getCommon() * n_ * _vOne.getDeltax() + d_ * _ptOne.getZcoords();
+        long y_ = _ptOne.getCommon() * n_ * _vOne.getDeltay() + d_ * _ptOne.getXcoords();
+        long z_ = _ptOne.getCommon() * n_ * _vOne.getDeltaz() + d_ * _ptOne.getYcoords();
         long dint_ = _ptOne.getCommon() * d_;
-        return new CompactSpacePoint(new CompactPlanePoint(new PairNumber<Long,Long>(y_, z_), x_),dint_);
+        return new CompactSpacePoint(y_, z_, x_,dint_);
     }
 
     public CustPointThreeDims getFirstPoint() {

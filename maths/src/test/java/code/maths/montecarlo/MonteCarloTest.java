@@ -3,6 +3,7 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CollCapacity;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -247,5 +248,81 @@ public class MonteCarloTest {
         law_.addEvent(2, new LgInt(0));
         law_.addEvent(3, new LgInt(5));
         assertEq(3, law_.editNumber(new LgInt(8)).intValue());
+    }
+
+    @Test
+    public void nbEventsTest() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        assertEq(0, law_.nbEvents());
+    }
+
+    @Test
+    public void isZero1Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        assertTrue(law_.isZero());
+    }
+
+    @Test
+    public void isZero2Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        law_.addEvent(1,LgInt.one());
+        assertTrue(!law_.isZero());
+    }
+
+    @Test
+    public void checkEvents1Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        law_.addEvent(1,LgInt.one());
+        assertTrue(law_.checkEvents());
+    }
+
+    @Test
+    public void checkEvents2Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        assertTrue(law_.checkEvents());
+    }
+
+    @Test
+    public void checkEvents3Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        law_.addEvent(1,LgInt.zero());
+        assertTrue(!law_.checkEvents());
+    }
+
+    @Test
+    public void checkEvents4Test() {
+        MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
+        law_.addEvent(1,LgInt.minusOne());
+        assertTrue(!law_.checkEvents());
+    }
+    @Test
+    public void new_MonteCarloBoolean_test() {
+        MonteCarloBoolean l_ = new MonteCarloBoolean(new CollCapacity(1));
+        l_.addEvent(true,LgInt.one());
+        assertEq(1,l_.nbEvents());
+    }
+    @Test
+    public void new_MonteCarloEnum_test() {
+        MonteCarloEnum<SampleEnum> l_ = new MonteCarloEnum<SampleEnum>();
+        l_.addEvent(SampleEnum.ONE,LgInt.one());
+        assertEq(1,l_.nbEvents());
+        l_ = new MonteCarloEnum<SampleEnum>(new CollCapacity(1));
+        l_.addEvent(SampleEnum.TWO,LgInt.one());
+        assertEq(1,l_.nbEvents());
+    }
+    @Test
+    public void new_MonteCarloEq_test() {
+        MonteCarloEq<SampleEquallable> l_ = new MonteCarloEq<SampleEquallable>(new CollCapacity(1));
+        l_.addEvent(new SampleEquallable(1),LgInt.one());
+        assertEq(1,l_.nbEvents());
+    }
+    @Test
+    public void new_MonteCarloString_test() {
+        MonteCarloString l_ = new MonteCarloString();
+        l_.addEvent("1",LgInt.one());
+        assertEq(1,l_.nbEvents());
+        l_ = new MonteCarloString(new CollCapacity(1));
+        l_.addEvent("1",LgInt.one());
+        assertEq(1,l_.nbEvents());
     }
 }

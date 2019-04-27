@@ -12,23 +12,11 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     private BooleanMap<LgInt> law;
 
     public MonteCarloBoolean() {
-        law = new BooleanMap<LgInt>();
+        setLaw(new BooleanMap<LgInt>());
     }
-
-    public MonteCarloBoolean(Boolean _event, Rate _rateEvent, Boolean _otherEvent) {
-        law = new BooleanMap<LgInt>();
-        if (_rateEvent.greaterOrEqualsOne()) {
-            addEvent(_event,LgInt.one());
-        } else {
-            NumDiffDenNum p_ = _rateEvent.getNumDiffDenNum();
-            addEvent(_otherEvent, p_.getDiffDenNumerator());
-            addEvent(_event, p_.getNumerator());
-        }
-    }
-
     
     public MonteCarloBoolean(CollCapacity _capacity) {
-        law = new BooleanMap<LgInt>(_capacity);
+        setLaw(new BooleanMap<LgInt>(_capacity));
     }
 
     @Override

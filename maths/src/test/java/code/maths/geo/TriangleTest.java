@@ -16,8 +16,8 @@ public class TriangleTest {
         CustPoint three_ = new CustPoint(2, 4);
         Triangle t_ = new Triangle(one_, two_, three_);
         CompactPlanePoint p_ = t_.getCircumCenter();
-        assertEq(15, p_.getPair().getFirst().longValue());
-        assertEq(25, p_.getPair().getSecond().longValue());
+        assertEq(15, p_.getXcoords());
+        assertEq(25, p_.getYcoords());
         assertEq(10, p_.getCommon());
     }
 

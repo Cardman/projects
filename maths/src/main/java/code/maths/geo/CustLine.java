@@ -162,7 +162,7 @@ public class CustLine {
         matTwo_.addLineRef(v_);
         v_.add(_c.cst);
         matTwo_.addLineRef(v_);
-        vect_=mat_.inv().minusMatrix(matTwo_);
+        vect_=mat_.inv().multMatrix(matTwo_);
         return new RatePoint(vect_.cell(0,0),vect_.cell(1,0));
     }
 

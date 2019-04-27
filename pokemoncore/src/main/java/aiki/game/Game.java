@@ -69,17 +69,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 
 public final class Game {
@@ -2354,7 +2344,6 @@ public final class Game {
 
     MonteCarloEq<WildPk> lawCopy(MonteCarloEq<WildPk> _law, DataBase _d) {
         ObjectMap<WildPk,LgInt> tmpLaw_=new ObjectMap<WildPk,LgInt>();
-        MonteCarloEq<WildPk> lawCopy_ = new MonteCarloEq<WildPk>();
         for(WildPk e:_law.events()){
             if(e.getName().isEmpty()){
                 if(!tmpLaw_.contains(e)){
@@ -2377,6 +2366,7 @@ public final class Game {
             }
             tmpLaw_.put(e,new LgInt(_law.rate(e)));
         }
+        MonteCarloEq<WildPk> lawCopy_ = new MonteCarloEq<WildPk>(new CollCapacity(tmpLaw_.size()));
         for(WildPk c:tmpLaw_.getKeys()){
             lawCopy_.addEvent(c,tmpLaw_.getVal(c));
         }

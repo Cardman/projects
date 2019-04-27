@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
+import code.util.CollCapacity;
 import code.util.EqList;
 
 
@@ -59,7 +60,6 @@ public final class AreaApparition {
 
     static MonteCarloEq<WildPk> random(EqList<WildPk> _wildPokemon,
             int _avgNbSteps) {
-        MonteCarloEq<WildPk> wildPokemonRand_ = new MonteCarloEq<WildPk>();
         EqList<WildPk> wildPokemonCopy_ = new EqList<WildPk>(_wildPokemon);
         int i_ = 0;
         while (i_ < wildPokemonCopy_.size()) {
@@ -74,6 +74,7 @@ public final class AreaApparition {
             }
             i_++;
         }
+        MonteCarloEq<WildPk> wildPokemonRand_ = new MonteCarloEq<WildPk>(new CollCapacity(wildPokemonCopy_.size()));
         for (WildPk p : wildPokemonCopy_) {
             int count_ = 0;
             for (WildPk p2_ : _wildPokemon) {

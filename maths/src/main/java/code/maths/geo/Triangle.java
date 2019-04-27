@@ -60,8 +60,8 @@ public final class Triangle implements HasEdges, Displayable {
     public boolean isInCircum(CustPoint _point) {
         CompactPlanePoint omega_;
         omega_ = getCircumCenter();
-        long x_ = omega_.getPair().getFirst();
-        long y_ = omega_.getPair().getSecond();
+        long x_ = omega_.getXcoords();
+        long y_ = omega_.getYcoords();
         long den_ = omega_.getCommon();
         long firstMember_ = firstPoint.getXcoords() - _point.getXcoords();
         firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
@@ -76,8 +76,8 @@ public final class Triangle implements HasEdges, Displayable {
     public boolean isInCircumBorder(CustPoint _point) {
         CompactPlanePoint omega_;
         omega_ = getCircumCenter();
-        long x_ = omega_.getPair().getFirst();
-        long y_ = omega_.getPair().getSecond();
+        long x_ = omega_.getXcoords();
+        long y_ = omega_.getYcoords();
         long den_ = omega_.getCommon();
         long firstMember_ = firstPoint.getXcoords() - _point.getXcoords();
         firstMember_ *= 2 * x_ - den_ *(_point.getXcoords() + firstPoint.getXcoords());
@@ -89,11 +89,9 @@ public final class Triangle implements HasEdges, Displayable {
     public CustLine euler() {
         CompactPlanePoint g_ = getGravityCenter();
         CompactPlanePoint c_ = getCircumCenter();
-        PairNumber<Long,Long> gxy_ = g_.getPair();
         long gd_ = g_.getCommon();
-        Rate gx_ = new Rate(gxy_.getFirst(), gd_);
-        Rate gy_ = new Rate(gxy_.getSecond(), gd_);
-        PairNumber<Long,Long> cxy_ = c_.getPair();
+        Rate gx_ = new Rate(g_.getXcoords(), gd_);
+        Rate gy_ = new Rate(g_.getYcoords(), gd_);
         long cd_ = c_.getCommon();
         Rate cx_;
         Rate cy_;
@@ -101,8 +99,8 @@ public final class Triangle implements HasEdges, Displayable {
             cx_ = new Rate(gx_);
             cy_ = new Rate(gy_);
         } else {
-            cx_ = new Rate(cxy_.getFirst(), cd_);
-            cy_ = new Rate(cxy_.getSecond(), cd_);
+            cx_ = new Rate(c_.getXcoords(), cd_);
+            cy_ = new Rate(c_.getYcoords(), cd_);
         }
         return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
     }
@@ -114,7 +112,7 @@ public final class Triangle implements HasEdges, Displayable {
         long y_ = firstPoint.getYcoords();
         y_ += secondPoint.getYcoords();
         y_ += thirdPoint.getYcoords();
-        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),NB_POINTS);
+        return new CompactPlanePoint(x_, y_,NB_POINTS);
     }
 
     public CompactPlanePoint getCircumCenter() {
@@ -129,7 +127,7 @@ public final class Triangle implements HasEdges, Displayable {
         y_ -= cpx_ * (bpx_ * bpx_ + bpy_ * bpy_);
         x_ += firstPoint.getXcoords() * dp_;
         y_ += firstPoint.getYcoords() * dp_;
-        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),dp_);
+        return new CompactPlanePoint(x_, y_,dp_);
     }
 
     public CustPoint getFirstPoint() {

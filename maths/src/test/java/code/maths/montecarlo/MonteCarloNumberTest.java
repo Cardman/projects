@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CollCapacity;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -27,6 +28,8 @@ public class MonteCarloNumberTest {
         law_.addEvent(new Rate(2), new LgInt(1));
         law_.addEvent(new Rate(3), new LgInt(2));
         assertTrue(law_.isValid());
+        law_ = new MonteCarloNumber(new CollCapacity(0));
+        assertTrue(!law_.isValid());
     }
 
     @Test
@@ -45,6 +48,11 @@ public class MonteCarloNumberTest {
     }
 
     @Test
+    public void min2Test() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        assertEq(new Rate(0),law_.minimum());
+    }
+    @Test
     public void max1Test() {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(2), new LgInt(1));
@@ -58,7 +66,11 @@ public class MonteCarloNumberTest {
         law_.addEvent(new Rate(3), new LgInt(5));
         assertEq(new Rate(3),law_.maximum());
     }
-
+    @Test
+    public void max2Test() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        assertEq(new Rate(0),law_.maximum());
+    }
     @Test
     public void avg1Test() {
         MonteCarloNumber law_ = new MonteCarloNumber();
