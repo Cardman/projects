@@ -95,10 +95,10 @@ public final class Edge implements Displayable {
                 sites_.add(new SitePoint(n, p, v_));
             }
             sites_.sort();
-            if (sites_.first().getNumber() >= SitePoint.QUAD_THREE) {
+            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SitePoint.QUAD_THREE) {
+            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;
@@ -168,10 +168,10 @@ public final class Edge implements Displayable {
                 sites_.add(new SitePoint(n, p, v_));
             }
             sites_.sort();
-            if (sites_.first().getNumber() >= SitePoint.QUAD_THREE) {
+            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SitePoint.QUAD_THREE) {
+            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;
@@ -229,10 +229,10 @@ public final class Edge implements Displayable {
                 sites_.add(new SitePoint(n, p, v_));
             }
             sites_.sort();
-            if (sites_.first().getNumber() >= SitePoint.QUAD_THREE) {
+            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SitePoint.QUAD_THREE) {
+            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;

@@ -1596,8 +1596,13 @@ public final class Fighter {
     }
 
     void desactiverAttaqueImmu(String _attaque, DataBase _import){
-        enabledMovesProt.getVal(_attaque).disable();
-        enabledMovesProt.getVal(_attaque).reset();
+        for (String m: enabledMovesProt.getKeys()) {
+            if (!StringList.quickEq(m,_attaque)) {
+                continue;
+            }
+            enabledMovesProt.getVal(_attaque).disable();
+            enabledMovesProt.getVal(_attaque).reset();
+        }
         protectedAgainstMoveTypes.clear();
         for (String m: enabledMovesProt.getKeys()) {
             if (!enabledMovesProt.getVal(m).isEnabled()) {

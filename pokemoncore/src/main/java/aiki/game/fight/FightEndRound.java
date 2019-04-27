@@ -754,7 +754,7 @@ final class FightEndRound {
                     MonteCarloNumber law_ = dataMove_.getRepeatRoundLaw();
                     ActivityOfMove activity_ = _fight.getEnabledMoves().getVal(_attaqueClimat);
                     MonteCarloBoolean loiSachant_ = law_.knowingGreater(new Rate(activity_.getNbTurn()));
-                    if (!loiSachant_.events().containsObj(true)) {
+                    if (!loiSachant_.getLaw().getKeys().containsObj(true)) {
                         if (ko_) {
                             FightKo.setKoMoveTeams(_fight,c,_diff,_import);
                             _fight.addAnimationKoFighter(c);

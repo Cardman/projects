@@ -14,7 +14,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_FOUR, s_.getNumber());
+        assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_FOUR, s_.getNumber());
+        assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_ONE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_ONE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_TWO, s_.getNumber());
+        assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_TWO, s_.getNumber());
+        assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_THREE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_THREE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_FOUR, s_.getNumber());
+        assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_ONE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
     }
 
     @Test
@@ -124,7 +124,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_TWO, s_.getNumber());
+        assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_THREE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
     }
     @Test
     public void new_SitePointThreeDims_13Test() {
@@ -145,7 +145,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_FOUR, s_.getNumber());
+        assertEq(SiteInfo.QUAD_FOUR, s_.getNumber());
     }
 
     @Test
@@ -156,7 +156,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_ONE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_ONE, s_.getNumber());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_TWO, s_.getNumber());
+        assertEq(SiteInfo.QUAD_TWO, s_.getNumber());
     }
 
     @Test
@@ -178,6 +178,6 @@ public class SitePointThreeDimsTest {
 //        CustPointThreeDims four_ = new CustPointThreeDims(4, 2, 0);
         VectThreeDims eOne_ = new VectThreeDims(one_, two_);
         SitePointThreeDims s_ = new SitePointThreeDims(three_, one_, eOne_);
-        assertEq(SitePointThreeDims.QUAD_THREE, s_.getNumber());
+        assertEq(SiteInfo.QUAD_THREE, s_.getNumber());
     }
 }

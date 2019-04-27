@@ -93,10 +93,10 @@ public final class EdgeThreeDimensions {
                 sites_.add(new SitePointThreeDims(n, p, v_));
             }
             sites_.sort();
-            if (sites_.first().getNumber() >= SitePoint.QUAD_THREE) {
+            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SitePoint.QUAD_THREE) {
+            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;

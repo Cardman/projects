@@ -2892,22 +2892,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("40")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("40")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -2925,22 +2925,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("46/5")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("46/5")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -2958,25 +2958,25 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(2, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("0")));
-        assertTrue(law_.events().containsObj(new Rate("46/5")));
+        assertEq(2, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("0")));
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("46/5")));
         assertEq(new LgInt("1"),law_.rate(new Rate("0")));
         assertEq(new LgInt("1"),law_.rate(new Rate("46/5")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -2996,22 +2996,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.getDamageSufferedCateg().put(SPECIALE, new Rate("2"));
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("6")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("6")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3032,25 +3032,25 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/2675")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/2675")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("17/20")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("17/20")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(2, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
-        assertTrue(law_.events().containsObj(new Rate("2")));
+        assertEq(2, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("2")));
         assertEq(new LgInt("15"),law_.rate(new Rate("1")));
         assertEq(new LgInt("1"),law_.rate(new Rate("2")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3072,22 +3072,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/2675")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/2675")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("17/20")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("17/20")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("2")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("2")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3110,22 +3110,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/2675")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/2675")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("17/20")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("17/20")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3149,22 +3149,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1786/325")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1786/325")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3188,25 +3188,25 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/13375")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/13375")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("17/20")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("17/20")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(4, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("2")));
-        assertTrue(law_.events().containsObj(new Rate("3")));
-        assertTrue(law_.events().containsObj(new Rate("4")));
-        assertTrue(law_.events().containsObj(new Rate("5")));
+        assertEq(4, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("2")));
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("3")));
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("4")));
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("5")));
         assertEq(new LgInt("1"),law_.rate(new Rate("2")));
         assertEq(new LgInt("2"),law_.rate(new Rate("3")));
         assertEq(new LgInt("3"),law_.rate(new Rate("4")));
@@ -3234,22 +3234,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamage(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/13375")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/13375")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("17/20")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("17/20")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("5")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("5")));
         assertEq(new LgInt("1"),law_.rate(new Rate("5")));
     }
 
@@ -3331,22 +3331,22 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(1, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(1, laws_.getCriticalHit().size());
         assertEq(1, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("21432/2675")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("21432/2675")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test
@@ -3369,42 +3369,42 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, _data_);
         assertEq(3, laws_.getBase().size());
-        assertEq(1, laws_.getRandomRate().events().size());
+        assertEq(1, laws_.getRandomRate().getLaw().getKeys().size());
         assertEq(3, laws_.getCriticalHit().size());
         assertEq(3, laws_.getNumberHits().size());
         MonteCarloNumber law_;
         law_ = laws_.getBase().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("7144/13375")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("7144/13375")));
         law_ = laws_.getRandomRate();
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getCriticalHit().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(thrower_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         TeamPosition partnerOne_ = POKEMON_PLAYER_FIGHTER_ONE;
         law_ = laws_.getBase().getVal(partnerOne_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("7144/13375")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("7144/13375")));
         law_ = laws_.getCriticalHit().getVal(partnerOne_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(partnerOne_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         TeamPosition partnerTwo_ = POKEMON_PLAYER_FIGHTER_TWO;
         law_ = laws_.getBase().getVal(partnerTwo_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("7144/13375")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("7144/13375")));
         law_ = laws_.getCriticalHit().getVal(partnerTwo_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
         law_ = laws_.getNumberHits().getVal(partnerTwo_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new Rate("1")));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new Rate("1")));
     }
 
     @Test

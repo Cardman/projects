@@ -37,7 +37,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
-        assertEq(2, law_.events().size());
+        assertEq(2, law_.getLaw().getKeys().size());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(PIKACHU);
         wildOne_.setLevel((short) 1);
@@ -48,8 +48,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         wildTwo_.setLevel((short) 3);
         wildTwo_.setAbility(PARATONNERRE);
         wildTwo_.setGender(Gender.NO_GENDER);
-        assertTrue(law_.events().containsObj(wildOne_));
-        assertTrue(law_.events().containsObj(wildTwo_));
+        assertTrue(law_.getLaw().getKeys().containsObj(wildOne_));
+        assertTrue(law_.getLaw().getKeys().containsObj(wildTwo_));
         assertEq(LgInt.one(), law_.rate(wildOne_));
         assertEq(LgInt.one(), law_.rate(wildTwo_));
     }
@@ -66,13 +66,13 @@ public class GameInitializeFightTest extends InitializationDataBase {
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
-        assertEq(1, law_.events().size());
+        assertEq(1, law_.getLaw().getKeys().size());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(ARTIKODIN);
         wildOne_.setLevel((short) 1);
         wildOne_.setAbility(PARATONNERRE);
         wildOne_.setGender(Gender.NO_GENDER);
-        assertTrue(law_.events().containsObj(wildOne_));
+        assertTrue(law_.getLaw().getKeys().containsObj(wildOne_));
         assertEq(LgInt.one(), law_.rate(wildOne_));
     }
 
@@ -88,14 +88,14 @@ public class GameInitializeFightTest extends InitializationDataBase {
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
-        assertEq(2, law_.events().size());
+        assertEq(2, law_.getLaw().getKeys().size());
         WildPk wildOne_ = new WildPk();
         wildOne_.setName(ARTIKODIN);
         wildOne_.setLevel((short) 1);
         wildOne_.setAbility(PARATONNERRE);
         wildOne_.setGender(Gender.NO_GENDER);
-        assertTrue(law_.events().containsObj(wildOne_));
-        assertTrue(law_.events().containsObj(new WildPk()));
+        assertTrue(law_.getLaw().getKeys().containsObj(wildOne_));
+        assertTrue(law_.getLaw().getKeys().containsObj(new WildPk()));
         assertEq(LgInt.one(), law_.rate(wildOne_));
         assertEq(LgInt.one(), law_.rate(new WildPk()));
     }
@@ -123,8 +123,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new WildPk()));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new WildPk()));
         assertTrue(law_.isValid());
     }
 
@@ -161,8 +161,8 @@ public class GameInitializeFightTest extends InitializationDataBase {
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
-        assertEq(1, law_.events().size());
-        assertTrue(law_.events().containsObj(new WildPk()));
+        assertEq(1, law_.getLaw().getKeys().size());
+        assertTrue(law_.getLaw().getKeys().containsObj(new WildPk()));
         assertTrue(law_.isValid());
     }
 

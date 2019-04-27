@@ -1004,7 +1004,7 @@ public class DataBase implements WithMathFactory {
             setError(true);
             return;
         }
-        if (!getMinHp().isZeroOrGt()) {
+        if (getMinHp().isZeroOrLt()) {
             setError(true);
             return;
         }
