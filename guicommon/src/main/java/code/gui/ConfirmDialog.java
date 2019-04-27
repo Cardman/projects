@@ -11,7 +11,7 @@ import javax.swing.WindowConstants;
 import code.gui.events.AnswerEvent;
 import code.gui.events.AnswerTextEvent;
 import code.gui.events.ClosingDialogEvent;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class ConfirmDialog extends Dialog {

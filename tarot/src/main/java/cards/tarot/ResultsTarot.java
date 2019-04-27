@@ -7,12 +7,10 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.TreeMap;
 
 
@@ -28,7 +26,6 @@ public final class ResultsTarot extends ResultsGame {
 
     private String loc;
 
-    @Override
     public void initialize(StringList _pseudos,
             CustList<Numbers<Long>> _scores) {
         setScores(_scores);
@@ -143,14 +140,6 @@ public final class ResultsTarot extends ResultsGame {
             getSigmas().add(new Rate(variance9_,nombreJoueurs_*nombreJoueurs_).rootAbs(new LgInt(2)));
             getSums().add(esperance_);
         }
-    }
-
-    public void setMessages(String _loc) {
-        loc = _loc;
-        StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
-        setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
-        setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
     public GameTarot getGame() {
         return game;

@@ -24,7 +24,7 @@ import code.gui.CustComponent;
 import code.gui.IntTreeComboBox;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
 import code.util.NumberMap;

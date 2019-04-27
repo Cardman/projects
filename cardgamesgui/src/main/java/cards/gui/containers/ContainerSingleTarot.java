@@ -23,6 +23,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Status;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidTarot;
@@ -1000,7 +1001,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealTarot.NUMERO_UTILISATEUR);
-        res_.setMessages(lg_);
+        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
 
         JScrollPane scroll_=new JScrollPane();

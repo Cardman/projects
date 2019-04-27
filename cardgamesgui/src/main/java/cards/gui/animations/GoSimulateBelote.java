@@ -19,6 +19,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.Status;
 import cards.facade.Games;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
@@ -321,7 +322,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         StringList nicknames_=pseudosSimuleeBelote();
         res_.initialize(new StringList(nicknames_), container.getScores());
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
-        res_.setMessages(lg_);
+        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);

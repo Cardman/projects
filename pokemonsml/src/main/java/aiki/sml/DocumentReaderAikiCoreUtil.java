@@ -217,7 +217,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.consts.Constants;
 import code.util.pagination.SelectedBoolean;

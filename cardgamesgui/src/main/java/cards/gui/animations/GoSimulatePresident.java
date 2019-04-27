@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import cards.facade.Games;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuPresident;
@@ -289,7 +290,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getRanksDeals().get(noDeal));
 //        res_.initialize(new CustList<>(nicknames_), container.getScores(), currentGame_.getRanksDeals().get(noDeal + 1));
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
-        res_.setMessages(lg_);
+        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);

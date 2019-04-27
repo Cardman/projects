@@ -22,7 +22,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.ChangeableTitle;
 import code.gui.NumComboBox;
 import code.gui.Panel;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

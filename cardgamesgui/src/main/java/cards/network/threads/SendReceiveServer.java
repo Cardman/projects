@@ -12,6 +12,7 @@ import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
 import cards.network.belote.displaying.CompletedHand;
@@ -1715,7 +1716,7 @@ public final class SendReceiveServer extends BasicServer {
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
             String loc_ = Net.getLanguageByPlace(p);
-            res_.setMessages(loc_);
+            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
             Net.sendObject(Net.getSocketByPlace(p), res_);
         }
@@ -1740,7 +1741,7 @@ public final class SendReceiveServer extends BasicServer {
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
             String loc_ = Net.getLanguageByPlace(p);
-            res_.setMessages(loc_);
+            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
             Net.sendObject(Net.getSocketByPlace(p), res_);
         }
@@ -1765,7 +1766,7 @@ public final class SendReceiveServer extends BasicServer {
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
             String loc_ = Net.getLanguageByPlace(p);
-            res_.setMessages(loc_);
+            DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
             Net.sendObject(Net.getSocketByPlace(p), res_);
         }

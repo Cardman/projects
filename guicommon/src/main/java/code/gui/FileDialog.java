@@ -20,7 +20,7 @@ import javax.swing.tree.TreeSelectionModel;
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;

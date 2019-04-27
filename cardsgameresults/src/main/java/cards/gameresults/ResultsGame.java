@@ -3,18 +3,10 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.StringList;
 import code.util.StringMap;
 
 
 public abstract class ResultsGame {
-
-    protected static final String RESULTS_BELOTE = "cards.belote.resultsbelote";
-    protected static final String RESULTS_PRESIDENT = "cards.president.resultspresident";
-    protected static final String RESULTS_TAROT = "cards.tarot.resultstarot";
-    protected static final String RESULTS_PAGE = "resultsPage";
-    protected static final String DETAIL_RESULTS_PAGE = "detailResultsPage";
-    protected static final String RESOURCES_CLASS_PATH = "resources_cards/classes";
     private String globalResultsPageTitle;
     private String detailResultsTitle;
     private StringMap<String> renderedPages = new StringMap<String>();
@@ -59,9 +51,6 @@ public abstract class ResultsGame {
     public final void setScores(CustList<Numbers<Long>> _scores) {
         scores = new CustList<Numbers<Long>>(_scores);
     }
-
-    public abstract void initialize(StringList _pseudos,
-            CustList<Numbers<Long>> _scores);
 
     public void setRenderedPages(StringMap<String> _renderedPages) {
         renderedPages = _renderedPages;

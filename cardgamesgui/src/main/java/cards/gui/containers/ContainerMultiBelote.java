@@ -31,7 +31,6 @@ import cards.consts.GameType;
 import cards.consts.Status;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.gameresults.ResultsGame;
 import cards.gui.MainWindow;
 import cards.gui.containers.events.BidEvent;
 import cards.gui.containers.events.ChangeBeloteDeclareEvent;
@@ -854,15 +853,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setThreadAnime(false);
 
         TabbedPane onglets_=new TabbedPane();
-        ResultsGame res_ = _res;
-        setScores(res_.getScores());
+        setScores(_res.getScores());
         String lg_ = getOwner().getLanguageKey();
 
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         BeloteStandards stds_;
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
+        editor_.setDataBase(_res);
         stds_ = new BeloteStandards();
         editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
@@ -870,7 +868,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         JScrollPane ascenseur_=new JScrollPane();
         editor_ = new RenderedPage(ascenseur_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
+        editor_.setDataBase(_res);
         stds_ = new BeloteStandards();
         editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,stds_);
         ascenseur_.setPreferredSize(new Dimension(300,300));

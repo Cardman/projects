@@ -3,11 +3,9 @@ import cards.consts.GameType;
 import cards.gameresults.ResultsGame;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.StringMap;
 
 
 public final class ResultsPresident extends ResultsGame {
@@ -44,7 +42,6 @@ public final class ResultsPresident extends ResultsGame {
 //        }
     }
 
-    @Override
     public void initialize(StringList _pseudos, CustList<Numbers<Long>> _scores) {
         setScores(_scores);
         nicknames = _pseudos;
@@ -88,14 +85,6 @@ public final class ResultsPresident extends ResultsGame {
             getSigmas().add(new Rate(variance9_,nombreJoueurs_*nombreJoueurs_).rootAbs(new LgInt(2)));
             getSums().add(esperance_);
         }
-    }
-
-    public void setMessages(String _loc) {
-        loc = _loc;
-        StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
-        setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
-        setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }
     public GamePresident getGame() {
         return game;

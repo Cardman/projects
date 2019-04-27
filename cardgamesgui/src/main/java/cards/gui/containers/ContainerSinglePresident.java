@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationCardPresident;
@@ -582,7 +583,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
-        res_.setMessages(lg_);
+        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
 
         JScrollPane scroll_=new JScrollPane();

@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.facade.enumerations.GameEnum;
-import cards.gameresults.ResultsGame;
 import cards.gui.MainWindow;
 import cards.gui.containers.events.ChangePlaceEvent;
 import cards.gui.containers.events.ChangeRulesEvent;
@@ -666,13 +665,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         TabbedPane onglets_=new TabbedPane();
         String lg_ = getOwner().getLanguageKey();
-        ResultsGame res_ = _res;
-        setScores(res_.getScores());
+        setScores(_res.getScores());
 
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
+        editor_.setDataBase(_res);
         editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);

@@ -33,6 +33,7 @@ import cards.consts.Hypothesis;
 import cards.consts.Status;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
+import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidBelote;
@@ -710,7 +711,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
-        res_.setMessages(lg_);
+        DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
         BeloteStandards stds_;
         JScrollPane scroll_=new JScrollPane();

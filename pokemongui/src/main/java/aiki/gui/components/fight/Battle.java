@@ -58,7 +58,7 @@ import code.gui.WrappedTextArea;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;

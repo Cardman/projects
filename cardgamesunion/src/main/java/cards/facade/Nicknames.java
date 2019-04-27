@@ -3,7 +3,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
-import code.sml.util.ExtractFromFiles;
+import code.gui.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
