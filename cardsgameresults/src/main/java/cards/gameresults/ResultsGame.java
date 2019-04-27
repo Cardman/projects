@@ -6,7 +6,7 @@ import code.util.Numbers;
 import code.util.StringMap;
 
 
-public abstract class ResultsGame {
+public final class ResultsGame {
     private String globalResultsPageTitle;
     private String detailResultsTitle;
     private StringMap<String> renderedPages = new StringMap<String>();
