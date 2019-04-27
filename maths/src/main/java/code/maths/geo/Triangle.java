@@ -31,23 +31,6 @@ public final class Triangle implements HasEdges, Displayable {
         return l_;
     }
 
-    public boolean areSame(Triangle _t) {
-        int nb_ = 0;
-        for (CustPoint p: getPoints()) {
-            boolean contained_ = false;
-            for (CustPoint q: _t.getPoints()) {
-                if (p == q) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (contained_) {
-                nb_++;
-            }
-        }
-        return nb_ == NB_POINTS;
-    }
-
     @Override
     public CustList<CustPoint> getPoints() {
         CustList<CustPoint> l_ = new CustList<CustPoint>();

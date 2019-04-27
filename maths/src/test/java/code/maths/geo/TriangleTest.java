@@ -126,4 +126,23 @@ public class TriangleTest {
         assertEq(new Rate("3/49"), c_.getxRate());
         assertEq(new Rate("22/49"), c_.getyRate());
     }
+
+    @Test
+    public void euler3Test() {
+        CustPoint one_ = new CustPoint(0, 0);
+        CustPoint two_ = new CustPoint(0, 2);
+        CustPoint three_ = new CustPoint(0, 4);
+        Triangle t_ = new Triangle(one_, two_, three_);
+        CustLine c_ = t_.euler();
+        assertTrue(!c_.isDefined());
+    }
+
+    @Test
+    public void displayTest() {
+        CustPoint one_ = new CustPoint(1,2);
+        CustPoint two_ = new CustPoint(3,4);
+        CustPoint three_ = new CustPoint(5,6);
+        Triangle t_ = new Triangle(one_, two_, three_);
+        assertEq("1,2;3,4;5,6",t_.display());
+    }
 }

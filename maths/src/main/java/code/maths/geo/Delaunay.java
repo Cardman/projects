@@ -590,7 +590,7 @@ public final class Delaunay {
             CustList<Edge> edges_ = new CustList<Edge>();
             if (delStr_.isEmpty() && !nearlyDel_.isEmpty()) {
                 CustList<Edge> hull_ = p_.getEdges();
-                EqList<CustPoint> pts_ = new EqList<CustPoint>();
+                Polygon pts_ = new Polygon();
                 int len_ = p_.size();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     CustPoint c_ = p_.get(i);
@@ -605,11 +605,7 @@ public final class Delaunay {
                         pts_.add(c_);
                     }
                 }
-                edges_.add(new Edge(pts_.first(), pts_.get(1)));
-                int lenPts_ = pts_.size() - 1;
-                for (int i = CustList.SECOND_INDEX; i < lenPts_; i++) {
-                    edges_.add(new Edge(pts_.get(i), pts_.get(i+1)));
-                }
+                edges_ = pts_.getEdges();
                 removeDuplicates(edges_);
                 for (Edge e: edges_) {
                     Triangle toBeIns_ = new Triangle(e.getFirst(), e.getSecond(), c);

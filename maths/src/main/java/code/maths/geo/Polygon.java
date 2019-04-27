@@ -339,7 +339,8 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
             LinearDirection currentSide_ = getSide(affineSegment_, affinePoint_);
             if (currentSide_ == LinearDirection.NONE) {
                 return false;
-            } else if (previousSide_ == LinearDirection.NONE) {
+            }
+            if (previousSide_ == LinearDirection.NONE) {
                 previousSide_ = currentSide_;
             } else if (previousSide_ != currentSide_) {
                 return false;
@@ -352,7 +353,8 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
         long x_ = _a.det(_b);
         if (x_ < 0) {
             return LinearDirection.LEFT;
-        } else if (x_ > 0) {
+        }
+        if (x_ > 0) {
             return LinearDirection.RIGHT;
         }
         return LinearDirection.NONE;

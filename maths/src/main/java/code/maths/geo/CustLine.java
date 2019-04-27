@@ -12,6 +12,8 @@ public class CustLine {
 
     private Rate cst = Rate.zero();
 
+    private boolean defined;
+
     public CustLine() {
     }
 
@@ -19,6 +21,9 @@ public class CustLine {
         xRate = _xRate;
         yRate = _yRate;
         cst = _cst;
+        if (!xRate.isZero() || !yRate.isZero()) {
+            defined = true;
+        }
     }
 
     public CustLine(CustPoint _one, CustPoint _two) {
@@ -44,6 +49,34 @@ public class CustLine {
         yRate = res_.cell(1, 0);
         if (m_.quickRank() == m_.nbLines()) {
             cst = Rate.one();
+            defined = true;
+        } else {
+            Rate y_ = new Rate(_one.getYcoords());
+            Rate x_ = new Rate(_one.getXcoords());
+            if (!y_.isZero()) {
+                xRate = Rate.one();
+                yRate = Rate.divide(x_, y_).opposNb();
+                defined = true;
+            } else if (!x_.isZero()){
+                yRate = Rate.one();
+                xRate = Rate.divide(y_, x_).opposNb();
+                defined = true;
+            } else {
+                Rate y2_ = new Rate(_two.getYcoords());
+                Rate x2_ = new Rate(_two.getXcoords());
+                if (!y2_.isZero()) {
+                    xRate = Rate.one();
+                    yRate = Rate.divide(x2_, y2_).opposNb();
+                    defined = true;
+                } else if (!x2_.isZero()){
+                    yRate = Rate.one();
+                    xRate = Rate.divide(y2_, x2_).opposNb();
+                    defined = true;
+                }
+            }
+            if (_one.eq(_two)) {
+                defined = false;
+            }
         }
     }
 
@@ -70,6 +103,34 @@ public class CustLine {
         yRate = res_.cell(1, 0);
         if (m_.quickRank() == m_.nbLines()) {
             cst = Rate.one();
+            defined = true;
+        } else {
+            Rate y_ = new Rate(_one.getYcoords());
+            Rate x_ = new Rate(_one.getXcoords());
+            if (!y_.isZero()) {
+                xRate = Rate.one();
+                yRate = Rate.divide(x_, y_).opposNb();
+                defined = true;
+            } else if (!x_.isZero()){
+                yRate = Rate.one();
+                xRate = Rate.divide(y_, x_).opposNb();
+                defined = true;
+            } else {
+                Rate y2_ = new Rate(_two.getYcoords());
+                Rate x2_ = new Rate(_two.getXcoords());
+                if (!y2_.isZero()) {
+                    xRate = Rate.one();
+                    yRate = Rate.divide(x2_, y2_).opposNb();
+                    defined = true;
+                } else if (!x2_.isZero()){
+                    yRate = Rate.one();
+                    xRate = Rate.divide(y2_, x2_).opposNb();
+                    defined = true;
+                }
+            }
+            if (_one.eq(_two)) {
+                defined = false;
+            }
         }
     }
 
@@ -167,7 +228,7 @@ public class CustLine {
     }
 
     public boolean isDefined() {
-        return !cst.isZero();
+        return defined;
     }
 
     public Rate getxRate() {

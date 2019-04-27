@@ -2,6 +2,7 @@ package code.maths.geo;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.EqList;
 import org.junit.Test;
 
 import code.util.CustList;
@@ -9,6 +10,43 @@ import code.util.CustList;
 
 public class PolygonTest {
 
+    @Test
+    public void new_Polygon_Rect_test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        assertEq(4, p_.size());
+        assertEq(new CustPoint(1,2), p_.get(0));
+        assertEq(new CustPoint(1,5), p_.get(1));
+        assertEq(new CustPoint(3,5), p_.get(2));
+        assertEq(new CustPoint(3,2), p_.get(3));
+    }
+
+    @Test
+    public void getEdges1Test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        assertEq(4, p_.getEdges().size());
+    }
+
+    @Test
+    public void getEdges2Test() {
+        Polygon p_ = new Polygon();
+        assertEq(0, p_.getEdges().size());
+    }
+
+    @Test
+    public void intersectEdge1Test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        assertTrue(p_.intersectEdge(new Edge(new CustPoint(2,3),new CustPoint(4,3))));
+    }
+
+    @Test
+    public void intersectEdge2Test() {
+        Rect r_ = new Rect(1,2,6,8);
+        Polygon p_ = new Polygon(r_);
+        assertTrue(!p_.intersectEdge(new Edge(new CustPoint(2,3),new CustPoint(4,3))));
+    }
     @Test
     public void getConvexHull1Test() {
         Polygon p_ = new Polygon();
@@ -417,5 +455,50 @@ public class PolygonTest {
         p_.add(new CustPoint(0,10));
         p_.add(new CustPoint(10,10));
         assertTrue(!p_.containsInside(new CustPoint(8, 2)));
+    }
+
+    @Test
+    public void intersect1Test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        Rect r2_ = new Rect(2,3,1,1);
+        Polygon p2_ = new Polygon(r2_);
+        assertTrue(!p_.intersect(p2_));
+    }
+
+    @Test
+    public void intersect2Test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        Rect r2_ = new Rect(2,3,5,6);
+        Polygon p2_ = new Polygon(r2_);
+        assertTrue(p_.intersect(p2_));
+    }
+
+    @Test
+    public void intersectEdgeNotBound1Test() {
+        Rect r_ = new Rect(1,2,6,8);
+        Polygon p_ = new Polygon(r_);
+        assertTrue(!p_.intersectEdgeNotBound(new Edge(new CustPoint(2,3),new CustPoint(4,3))));
+    }
+
+    @Test
+    public void intersectEdgeNotBound2Test() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        assertTrue(p_.intersectEdgeNotBound(new Edge(new CustPoint(2,3),new CustPoint(4,3))));
+    }
+
+    @Test
+    public void displayTest() {
+        Rect r_ = new Rect(1,2,3,4);
+        Polygon p_ = new Polygon(r_);
+        Polygon q_ = new Polygon(p_);
+        q_.set(0, new CustPoint(1,2));
+        assertTrue(q_.containsObj(new CustPoint(1,2)));
+        assertTrue(!q_.containsObj(new CustPoint(1,3)));
+        assertEq("1,2;1,5;3,5;3,2",q_.display());
+        q_.setPoints(new EqList<CustPoint>());
+        assertEq("",q_.display());
     }
 }

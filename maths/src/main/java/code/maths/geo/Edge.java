@@ -1,7 +1,6 @@
 package code.maths.geo;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.SortableCustList;
 import code.util.ints.Displayable;
 
 public final class Edge implements Displayable {
@@ -46,64 +45,7 @@ public final class Edge implements Displayable {
     }
 
     public boolean intersectNotContains(Edge _other) {
-        EqList<CustPoint> points_ = new EqList<CustPoint>();
-        points_.add(first);
-        points_.add(second);
-        points_.add(_other.first);
-        points_.add(_other.second);
-        if (containsPoint(_other.second)) {
-            return false;
-        }
-        if (_other.containsPoint(first)) {
-            return false;
-        }
-        if (_other.containsPoint(second)) {
-            return false;
-        }
-        if (containsPoint(_other.first)) {
-            return false;
-        }
-        int index_ = CustList.FIRST_INDEX;
-        for (CustPoint p: points_) {
-            EqList<CustPoint> others_ = new EqList<CustPoint>();
-            int next_;
-            int nextOthOne_;
-            int nextOthTwo_;
-            if (index_ <= CustList.SECOND_INDEX) {
-                if (index_ == CustList.FIRST_INDEX) {
-                    next_ = CustList.SECOND_INDEX;
-                } else {
-                    next_ = CustList.FIRST_INDEX;
-                }
-                nextOthOne_ = CustList.SECOND_INDEX + CustList.ONE_ELEMENT;
-                nextOthTwo_ = nextOthOne_ + CustList.ONE_ELEMENT;
-            } else {
-                if (index_ == CustList.SECOND_INDEX + CustList.ONE_ELEMENT) {
-                    next_ = index_ + CustList.ONE_ELEMENT;
-                } else {
-                    next_ = index_ - CustList.ONE_ELEMENT;
-                }
-                nextOthOne_ = CustList.FIRST_INDEX;
-                nextOthTwo_ = CustList.SECOND_INDEX;
-            }
-            CustPoint o_ = points_.get(next_);
-            others_.add(points_.get(nextOthOne_));
-            others_.add(points_.get(nextOthTwo_));
-            CustList<Site> sites_ = new CustList<Site>();
-            VectTwoDims v_ = new VectTwoDims(p, o_);
-            for (CustPoint n: others_) {
-                sites_.add(new SitePoint(n, p, v_));
-            }
-            sites_.sortElts(new SiteComparing());
-            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            index_ ++;
-        }
-        return true;
+        return intersectBoundsOpt(_other,false);
     }
 
     public boolean intersectNotContainsBound(Edge _other) {
@@ -127,17 +69,21 @@ public final class Edge implements Displayable {
         if (containsPoint(_other.second)) {
             return true;
         }
+        if (containsPoint(_other.first)) {
+            return true;
+        }
         if (_other.containsPoint(first)) {
             return true;
         }
         if (_other.containsPoint(second)) {
             return true;
         }
-        if (containsPoint(_other.first)) {
-            return true;
-        }
+        return lookForIntersectEdges(points_);
+    }
+
+    private boolean lookForIntersectEdges(EqList<CustPoint> _points) {
         int index_ = CustList.FIRST_INDEX;
-        for (CustPoint p: points_) {
+        for (CustPoint p: _points) {
             EqList<CustPoint> others_ = new EqList<CustPoint>();
             int next_;
             int nextOthOne_;
@@ -159,9 +105,9 @@ public final class Edge implements Displayable {
                 nextOthOne_ = CustList.FIRST_INDEX;
                 nextOthTwo_ = CustList.SECOND_INDEX;
             }
-            CustPoint o_ = points_.get(next_);
-            others_.add(points_.get(nextOthOne_));
-            others_.add(points_.get(nextOthTwo_));
+            CustPoint o_ = _points.get(next_);
+            others_.add(_points.get(nextOthOne_));
+            others_.add(_points.get(nextOthTwo_));
             CustList<Site> sites_ = new CustList<Site>();
             VectTwoDims v_ = new VectTwoDims(p, o_);
             for (CustPoint n: others_) {
@@ -180,64 +126,28 @@ public final class Edge implements Displayable {
     }
 
     public boolean intersect(Edge _other) {
+        return intersectBoundsOpt(_other,true);
+    }
+
+    private boolean intersectBoundsOpt(Edge _other, boolean _nonStrict) {
         EqList<CustPoint> points_ = new EqList<CustPoint>();
         points_.add(first);
         points_.add(second);
         points_.add(_other.first);
         points_.add(_other.second);
         if (containsPoint(_other.second)) {
-            return true;
+            return _nonStrict;
         }
         if (_other.containsPoint(first)) {
-            return true;
+            return _nonStrict;
         }
         if (_other.containsPoint(second)) {
-            return true;
+            return _nonStrict;
         }
         if (containsPoint(_other.first)) {
-            return true;
+            return _nonStrict;
         }
-        int index_ = CustList.FIRST_INDEX;
-        for (CustPoint p: points_) {
-            EqList<CustPoint> others_ = new EqList<CustPoint>();
-            int next_;
-            int nextOthOne_;
-            int nextOthTwo_;
-            if (index_ <= CustList.SECOND_INDEX) {
-                if (index_ == CustList.FIRST_INDEX) {
-                    next_ = CustList.SECOND_INDEX;
-                } else {
-                    next_ = CustList.FIRST_INDEX;
-                }
-                nextOthOne_ = CustList.SECOND_INDEX + CustList.ONE_ELEMENT;
-                nextOthTwo_ = nextOthOne_ + CustList.ONE_ELEMENT;
-            } else {
-                if (index_ == CustList.SECOND_INDEX + CustList.ONE_ELEMENT) {
-                    next_ = index_ + CustList.ONE_ELEMENT;
-                } else {
-                    next_ = index_ - CustList.ONE_ELEMENT;
-                }
-                nextOthOne_ = CustList.FIRST_INDEX;
-                nextOthTwo_ = CustList.SECOND_INDEX;
-            }
-            CustPoint o_ = points_.get(next_);
-            others_.add(points_.get(nextOthOne_));
-            others_.add(points_.get(nextOthTwo_));
-            CustList<Site> sites_ = new CustList<Site>();
-            VectTwoDims v_ = new VectTwoDims(p, o_);
-            for (CustPoint n: others_) {
-                sites_.add(new SitePoint(n, p, v_));
-            }
-            sites_.sortElts(new SiteComparing());
-            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
-                return false;
-            }
-            index_ ++;
-        }
-        return true;
+        return lookForIntersectEdges(points_);
     }
 
     public boolean containsPoint(CustPoint _c) {
