@@ -3,7 +3,7 @@ import code.util.CustList;
 import code.util.ints.Cmp;
 
 
-public final class SitePointThreeDims implements Cmp<SitePointThreeDims> {
+public final class SitePointThreeDims implements Site {
 
     private CustPointThreeDims point;
 
@@ -44,13 +44,8 @@ public final class SitePointThreeDims implements Cmp<SitePointThreeDims> {
     }
 
     @Override
-    public boolean eq(SitePointThreeDims _g) {
-        return cmp(_g) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SitePointThreeDims _o) {
-        return compare(this, _o);
+    public SiteInfo getInfo() {
+        return info;
     }
 
     public static int compare(SitePointThreeDims _one, SitePointThreeDims _two) {

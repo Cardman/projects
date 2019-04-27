@@ -87,16 +87,16 @@ public final class EdgeThreeDimensions {
             CustPointThreeDims o_ = points_.get(next_);
             others_.add(points_.get(nextOthOne_));
             others_.add(points_.get(nextOthTwo_));
-            SortableCustList<SitePointThreeDims> sites_ = new SortableCustList<SitePointThreeDims>();
+            CustList<Site> sites_ = new CustList<Site>();
             VectThreeDims v_ = new VectThreeDims(p, o_);
             for (CustPointThreeDims n: others_) {
                 sites_.add(new SitePointThreeDims(n, p, v_));
             }
-            sites_.sort();
-            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
+            sites_.sortElts(new SiteComparing());
+            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
+            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;

@@ -45,7 +45,7 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Listable<String> getKeysNullValue() {
+    public CustList<String> getKeysNullValue() {
         return tree.getKeysNullValue();
     }
 
@@ -79,7 +79,7 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Listable<String> getKeys() {
+    public CustList<String> getKeys() {
         return tree.getKeys();
     }
 
@@ -119,7 +119,7 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Listable<Integer> values() {
+    public CustList<Integer> values() {
         return tree.values();
     }
 

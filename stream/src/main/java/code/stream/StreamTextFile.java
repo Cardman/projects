@@ -21,7 +21,6 @@ import code.util.StringMap;
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
-    private static final String LINE_RETURN = "\n";
     private static final String EMPTY_STRING = "";
     private static final char INVALID_CHARACTER = 65533;
 
@@ -225,7 +224,7 @@ public final class StreamTextFile {
             inputStream_ = new FileInputStream(file_);
             reader_ = new InputStreamReader(inputStream_, _encoding);
             br_ = new BufferedReader(reader_);
-            return readingFile(LINE_RETURN, br_, file_.length());
+            return readingFile(br_, file_.length());
         } catch (IOException _0) {
             return null;
         } finally {
@@ -257,7 +256,7 @@ public final class StreamTextFile {
         return doc_.getDocumentElement();
     }
 
-    private static String readingFile(String _saut, BufferedReader _br, long _capacity) {
+    private static String readingFile(BufferedReader _br, long _capacity) {
         try {
             StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
             while (true) {
@@ -266,7 +265,9 @@ public final class StreamTextFile {
                 if (char_ < 0) {
                     break;
                 }
-                strBuilder_.append((char)char_);
+                if (char_ != '\r') {
+                    strBuilder_.append((char) char_);
+                }
             }
             return strBuilder_.toString();
         } catch (IOException _0) {

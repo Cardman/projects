@@ -944,21 +944,21 @@ public final class Delaunay {
                 SitePoint sOne_ = new SitePoint(eOne_, p, v_);
                 v_ = new VectTwoDims(p, eOne_);
                 SitePoint sTwo_ = new SitePoint(eTwo_, p, v_);
-                if (sOne_.cmp(sTwo_) == CustList.NO_SWAP_SORT) {
+                if (new SiteComparing().compare(sOne_,sTwo_) == CustList.NO_SWAP_SORT) {
                     first_ = eTwo_;
                 } else {
                     first_ = eOne_;
                 }
             }
-            SortableCustList<SitePoint> sites_ = new SortableCustList<SitePoint>();
+            CustList<Site> sites_ = new CustList<Site>();
             VectTwoDims v_ = new VectTwoDims(p, first_);
             for (CustPoint n: next_) {
                 sites_.add(new SitePoint(n, p, v_));
             }
-            sites_.sort();
+            sites_.sortElts(new SiteComparing());
             next_.clear();
-            for (SitePoint s: sites_) {
-                next_.add(s.getPoint());
+            for (Site s: sites_) {
+                next_.add(((SitePoint)s).getPoint());
             }
             id_.put(p, next_);
         }

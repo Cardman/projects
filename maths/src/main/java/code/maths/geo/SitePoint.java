@@ -1,9 +1,7 @@
 package code.maths.geo;
-import code.util.CustList;
-import code.util.ints.Cmp;
 
 
-public final class SitePoint implements Cmp<SitePoint> {
+public final class SitePoint implements Site {
 
     private CustPoint point;
 
@@ -32,18 +30,13 @@ public final class SitePoint implements Cmp<SitePoint> {
         return point;
     }
 
+    @Override
+    public SiteInfo getInfo() {
+        return info;
+    }
+
     public int getNumber() {
         return info.getNumber();
-    }
-
-    @Override
-    public boolean eq(SitePoint _g) {
-        return cmp(_g) == CustList.EQ_CMP;
-    }
-
-    @Override
-    public int cmp(SitePoint _o) {
-        return compare(this, _o);
     }
 
     public static int compare(SitePoint _one, SitePoint _two) {

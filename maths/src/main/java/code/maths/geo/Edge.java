@@ -89,16 +89,16 @@ public final class Edge implements Displayable {
             CustPoint o_ = points_.get(next_);
             others_.add(points_.get(nextOthOne_));
             others_.add(points_.get(nextOthTwo_));
-            SortableCustList<SitePoint> sites_ = new SortableCustList<SitePoint>();
+            CustList<Site> sites_ = new CustList<Site>();
             VectTwoDims v_ = new VectTwoDims(p, o_);
             for (CustPoint n: others_) {
                 sites_.add(new SitePoint(n, p, v_));
             }
-            sites_.sort();
-            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
+            sites_.sortElts(new SiteComparing());
+            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
+            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;
@@ -162,16 +162,16 @@ public final class Edge implements Displayable {
             CustPoint o_ = points_.get(next_);
             others_.add(points_.get(nextOthOne_));
             others_.add(points_.get(nextOthTwo_));
-            SortableCustList<SitePoint> sites_ = new SortableCustList<SitePoint>();
+            CustList<Site> sites_ = new CustList<Site>();
             VectTwoDims v_ = new VectTwoDims(p, o_);
             for (CustPoint n: others_) {
                 sites_.add(new SitePoint(n, p, v_));
             }
-            sites_.sort();
-            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
+            sites_.sortElts(new SiteComparing());
+            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
+            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;
@@ -223,16 +223,16 @@ public final class Edge implements Displayable {
             CustPoint o_ = points_.get(next_);
             others_.add(points_.get(nextOthOne_));
             others_.add(points_.get(nextOthTwo_));
-            SortableCustList<SitePoint> sites_ = new SortableCustList<SitePoint>();
+            CustList<Site> sites_ = new CustList<Site>();
             VectTwoDims v_ = new VectTwoDims(p, o_);
             for (CustPoint n: others_) {
                 sites_.add(new SitePoint(n, p, v_));
             }
-            sites_.sort();
-            if (sites_.first().getNumber() >= SiteInfo.QUAD_THREE) {
+            sites_.sortElts(new SiteComparing());
+            if (sites_.first().getInfo().getNumber() >= SiteInfo.QUAD_THREE) {
                 return false;
             }
-            if (sites_.last().getNumber() < SiteInfo.QUAD_THREE) {
+            if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
             index_ ++;

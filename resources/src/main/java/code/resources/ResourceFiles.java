@@ -10,7 +10,6 @@ import java.net.URLConnection;
 
 public final class ResourceFiles {
     public static final String SEPARATEUR = "/";
-    private static final String LINE_RETURN = "\n";
     private static final String EMPTY_STRING = "";
     private static final char INVALID_CHARACTER = 65533;
 
@@ -83,7 +82,7 @@ public final class ResourceFiles {
             inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
             reader_ = new InputStreamReader(inputStream_, _encoding);
             br_ = new BufferedReader(reader_);
-            return readingFile(LINE_RETURN, br_);
+            return readingFile(br_);
         } catch (UnsupportedEncodingException _0) {
             return null;
         } finally {
@@ -174,12 +173,11 @@ public final class ResourceFiles {
         }
     }
     /**
-    @param _saut line return
-    @param _br reader
+     @param _br reader
     @return
     @throws IOException
     */
-    private static String readingFile(String _saut, BufferedReader _br) {
+    private static String readingFile(BufferedReader _br) {
         try {
             StringBuilder strBuilder_ = new StringBuilder();
             while (true) {
@@ -188,7 +186,9 @@ public final class ResourceFiles {
                 if (char_ < 0) {
                     break;
                 }
-                strBuilder_.append((char)char_);
+                if (char_ != '\r') {
+                    strBuilder_.append((char) char_);
+                }
             }
             return strBuilder_.toString();
         } catch (IOException _0) {
