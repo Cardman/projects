@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.CustList;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public final class FullElement extends FullNode implements Element {
@@ -380,6 +381,61 @@ public final class FullElement extends FullNode implements Element {
                 parent_ = par_;
             }
             current_ = next_;
+        }
+        return str_.toString();
+    }
+    public String exportSorted() {
+        FullElement root_ = this;
+        Node current_ = this;
+        StringBuilder str_ = new StringBuilder();
+        while (current_ != null) {
+            if (current_ instanceof FullElement) {
+                FullElement elt_ = (FullElement) current_;
+                str_.append(BEGIN_TAG);
+                str_.append(elt_.getTagName());
+                if (!elt_.attributes.isEmpty()) {
+                    NatStringTreeMap<String> m_ = new NatStringTreeMap<String>();
+                    for (Attr a : elt_.attributes) {
+                        m_.put(a.getName(),a.export());
+                    }
+                    for (String a : m_.values()) {
+                        str_.append(a);
+                    }
+                }
+            }
+            if (current_ instanceof Text) {
+                Text txt_ = (Text) current_;
+                str_.append(DocumentBuilder.escape(txt_.getData(), false));
+            }
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                str_.append(END_TAG);
+                current_ = next_;
+                continue;
+            }
+            if (current_ instanceof FullElement) {
+                str_.append(END_LEAF);
+            }
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
+                    break;
+                }
+                str_.append(BEGIN_FOOTER);
+                str_.append(parent_.getTagName());
+                str_.append(END_TAG);
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
+            }
         }
         return str_.toString();
     }
