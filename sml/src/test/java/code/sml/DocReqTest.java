@@ -134,4 +134,73 @@ public class DocReqTest {
         assertEq(0,DocumentBuilder.newDocumentBuilder(0).getTabWidth());
         assertEq(4,DocumentBuilder.newDocumentBuilder(-1).getTabWidth());
     }
+
+    @Test
+    public void text1Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.appendData(" appended");
+        assertEq("Text appended",t_.getData());
+    }
+
+    @Test
+    public void text2Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.setTextContent("New");
+        assertEq("New",t_.getData());
+        t_.setData("New");
+        assertEq("New",t_.getData());
+    }
+
+    @Test
+    public void text3Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.deleteData(2,2);
+        assertEq("Te",t_.getData());
+    }
+    @Test
+    public void text4Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.insertData(2,"xt Te");
+        assertEq("Text Text",t_.getData());
+    }
+    @Test
+    public void text5Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.replaceData(0,4, "Replace");
+        assertEq("Replace",t_.getData());
+    }
+    @Test
+    public void text6Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        assertEq("xt",t_.substringData(2,2));
+    }
+
+    @Test
+    public void text7Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag>Text</tag>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        Text t_ = (Text) elt_.getFirstChild();
+        assertEq(4,t_.getLength());
+    }
+
+    @Test
+    public void text8Test() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag/>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        elt_.appendChild(doc_.createTextNode("Text"));
+        Text t_ = (Text) elt_.getFirstChild();
+        assertEq("Text",t_.getData());
+    }
 }

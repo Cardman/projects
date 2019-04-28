@@ -4,9 +4,6 @@ public final class Text extends CharacterData {
 
     private String textContent;
 
-    //set for example by setting from the parent element
-    private String escapedTextContent;
-
     protected Text(Document _ownerDocument) {
         super(_ownerDocument);
     }
@@ -128,15 +125,9 @@ public final class Text extends CharacterData {
     @Override
     public void setTextContent(String _textContent) {
         textContent = _textContent;
-        escapedTextContent = DocumentBuilder.escape(_textContent, false);
-    }
-
-    protected String getEscapedTextContent() {
-        return escapedTextContent;
     }
 
     protected void setEscapedTextContent(String _escapedTextContent) {
-        escapedTextContent = _escapedTextContent;
         textContent = DocumentBuilder.transformSpecialCharsLtGt(_escapedTextContent);
     }
 
