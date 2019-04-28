@@ -3228,15 +3228,13 @@ public final class FormatHtml {
             }
         }
         if (StringList.quickEq(_tag.getTagName(),SCRIPT)) {
-            NamedNodeMap map_ = _tag.getAttributes();
-            Attr href_ = map_.getNamedItem(ATTRIBUTE_HREF);
-            if (href_ != null){
+            if (_tag.hasAttribute(ATTRIBUTE_HREF)){
                 _ip.setProcessingAttribute(ATTRIBUTE_HREF);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 attributesNames_.removeAllString(ATTRIBUTE_HREF);
                 attributesNames_.removeAllString(ATTRIBUTE_TYPE);
-                String ref_ = href_.getValue();
+                String ref_ = _tag.getAttribute(ATTRIBUTE_HREF);
                 ref_ = ExtractObject.formatNumVariables(ref_, _conf, _ip);
                 if (_conf.getContext().getException() != null) {
                     return;
@@ -3459,11 +3457,10 @@ public final class FormatHtml {
         if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
             return null;
         }
-        Attr href_ = map_.getNamedItem(ATTRIBUTE_HREF);
-        if (href_ == null){
+        if (!_link.hasAttribute(ATTRIBUTE_HREF)){
             return null;
         }
-        return href_.getValue();
+        return _link.getAttribute(ATTRIBUTE_HREF);
     }
 
     private static void setValueTextArea(Configuration _conf, Document _doc, Element _tag) {

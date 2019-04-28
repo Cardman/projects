@@ -1,7 +1,5 @@
 package code.sml;
 
-import code.util.StringList;
-
 public final class Attr {
 
     private static final String NULL_VALUE = "";
@@ -12,15 +10,13 @@ public final class Attr {
 
     private static final String SEPARATOR = "=\"";
 
-    private String name;
+    private final String name;
 
     //set for example by setting from the owner element
     private String value;
 
-    //value parsed from string 
-    private String escapedValue;
-
-    protected Attr() {
+    protected Attr(String _name) {
+        name = _name;
     }
 
     protected String export() {
@@ -36,10 +32,6 @@ public final class Attr {
         return name;
     }
 
-    protected void setName(String _name) {
-        name = _name;
-    }
-
     public String getValue() {
         return value;
     }
@@ -50,20 +42,10 @@ public final class Attr {
         } else {
             value = _value;
         }
-        escapedValue = DocumentBuilder.escape(value, true);
-    }
-
-    public String getEscapedValue() {
-        return escapedValue;
     }
 
     protected void setEscapedValue(String _escapedValue) {
-        escapedValue = _escapedValue;
         value = DocumentBuilder.transformSpecialCharsLtGt(_escapedValue);
-    }
-
-    public String getTextContent() {
-        return getValue();
     }
 
 }

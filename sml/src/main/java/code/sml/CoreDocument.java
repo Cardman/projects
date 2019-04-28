@@ -26,8 +26,7 @@ public abstract class CoreDocument implements Node,Document {
         return null;
     }
     static Attr createAttribute(String _name) {
-        Attr attr_ = new Attr();
-        attr_.setName(_name);
+        Attr attr_ = new Attr(_name);
         return attr_;
     }
 

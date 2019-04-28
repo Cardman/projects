@@ -62,16 +62,6 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public Attr getAttributeNode(String _name) {
-        for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _name)) {
-                return a;
-            }
-        }
-        return null;
-    }
-
-    @Override
     public boolean hasAttribute(String _name) {
         for (Attr a: attributes) {
             if (StringList.quickEq(a.getName(), _name)) {
@@ -97,22 +87,7 @@ public final class NotTextElement implements Element {
         }
         attributes.remove(index_);
     }
-    @Override
-    public void removeAttributeNode(Attr _oldAttr) {
-        int index_ = CustList.INDEX_NOT_FOUND_ELT;
-        boolean found_ = false;
-        for (Attr a: attributes) {
-            index_++;
-            if (StringList.quickEq(a.getName(), _oldAttr.getName())) {
-                found_ = true;
-                break;
-            }
-        }
-        if (!found_) {
-            return;
-        }
-        attributes.remove(index_);
-    }
+
     @Override
     public void setAttribute(String _name, String _value) {
         for (Attr a: attributes) {
@@ -123,30 +98,6 @@ public final class NotTextElement implements Element {
         }
         Attr attr_ = CoreDocument.createAttribute(_name);
         attr_.setValue(_value);
-        attributes.add(attr_);
-    }
-    @Override
-    public void setEscapedAttribute(String _name, String _value) {
-        for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _name)) {
-                a.setEscapedValue(_value);
-                return;
-            }
-        }
-        Attr attr_ = CoreDocument.createAttribute(_name);
-        attr_.setEscapedValue(_value);
-        attributes.add(attr_);
-    }
-    @Override
-    public void setAttributeNode(Attr _newAttr) {
-        for (Attr a: attributes) {
-            if (StringList.quickEq(a.getName(), _newAttr.getName())) {
-                a.setValue(_newAttr.getValue());
-                return;
-            }
-        }
-        Attr attr_ = CoreDocument.createAttribute(_newAttr.getName());
-        attr_.setValue(_newAttr.getValue());
         attributes.add(attr_);
     }
 
@@ -242,29 +193,14 @@ public final class NotTextElement implements Element {
     @Override
     public String export() {
         NotTextElement root_ = this;
-        Node current_ = getFirstChild();
+        Node current_ = this;
         StringBuilder str_ = new StringBuilder();
-        str_.append(BEGIN_TAG);
-        str_.append(getTagName());
-        if (!attributes.isEmpty()) {
-            for (Attr a: attributes) {
-                str_.append(a.export());
-            }
-        }
-        if (current_ == null) {
-            str_.append(END_LEAF);
-        } else {
-            str_.append(END_TAG);
-        }
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        while (current_ != null) {
             NotTextElement elt_ = (NotTextElement) current_;
             str_.append(BEGIN_TAG);
             str_.append(elt_.getTagName());
             if (!elt_.attributes.isEmpty()) {
-                for (Attr a: elt_.attributes) {
+                for (Attr a : elt_.attributes) {
                     str_.append(a.export());
                 }
             }
@@ -275,39 +211,26 @@ public final class NotTextElement implements Element {
                 continue;
             }
             str_.append(END_LEAF);
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            str_.append(BEGIN_FOOTER);
-            str_.append(parent_.getTagName());
-            str_.append(END_TAG);
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
                 str_.append(BEGIN_FOOTER);
-                str_.append(par_.getTagName());
+                str_.append(parent_.getTagName());
                 str_.append(END_TAG);
-                if (par_ == root_) {
+                if (parent_ == root_) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return str_.toString();
     }
@@ -473,49 +396,74 @@ public final class NotTextElement implements Element {
 
     @Override
     public MutableNode getNextSibling() {
-        // TODO Auto-generated method stub
+        if (parentNode == null) {
+            return null;
+        }
+        ElementList ch_ = parentNode.getChildElements();
+        int i_ = 0;
+        int len_ = ch_.size();
+        while (true) {
+            Element e_ = ch_.item(i_);
+            if (e_ == this) {
+                break;
+            }
+            i_++;
+        }
+        if (i_ + 1 < len_) {
+            return ch_.item(i_ + 1);
+        }
         return null;
     }
 
     @Override
     public MutableNode getPreviousSibling() {
-        // TODO Auto-generated method stub
+        if (parentNode == null) {
+            return null;
+        }
+        ElementList ch_ = parentNode.getChildElements();
+        int i_ = 0;
+        while (true) {
+            Element e_ = ch_.item(i_);
+            if (e_ == this) {
+                break;
+            }
+            i_++;
+        }
+        if (i_ > 0) {
+            return ch_.item(i_ - 1);
+        }
         return null;
     }
 
     @Override
     public MutableNode getFirstChild() {
-        // TODO Auto-generated method stub
-        return null;
+        if (childElements.isEmpty()) {
+            return null;
+        }
+        return childElements.first();
     }
 
     @Override
     public MutableNode getLastChild() {
-        // TODO Auto-generated method stub
-        return null;
+        if (childElements.isEmpty()) {
+            return null;
+        }
+        return childElements.last();
     }
 
     @Override
     public void setNextSibling(MutableNode _node) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void setPreviousSibling(MutableNode _node) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void setFirstChild(MutableNode _node) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void setLastChild(MutableNode _node) {
-        // TODO Auto-generated method stub
-        
     }
 }
