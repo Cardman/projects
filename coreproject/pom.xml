@@ -22,6 +22,7 @@
 		<module>../maths</module>
 		<module>../mathssml</module>
 		<module>../expressionlanguage</module>
+		<module>../expressionlanguageutil</module>
 		<module>../images</module>
 		<module>../formathtml</module>
 		<module>../guicommon</module>
