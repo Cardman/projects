@@ -78,7 +78,7 @@ public class TransformationsTest {
 
     @Test
     public void transformSpecialChars10Test() {
-        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false, false));
+        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false));
     }
 
     @Test
@@ -93,9 +93,12 @@ public class TransformationsTest {
 
     @Test
     public void transformSpecialChars13Test() {
-        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false, false));
+        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false));
     }
-
+    @Test
+    public void transformSpecialChars14Test() {
+        assertEq("&amp;", DocumentBuilder.transformSpecialChars("&amp;", false, false));
+    }
     @Test
     public void transformSpecialChars1FailTest() {
         DocumentBuilder.transformSpecialChars("&#;");

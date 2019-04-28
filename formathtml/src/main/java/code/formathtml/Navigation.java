@@ -818,7 +818,7 @@ public final class Navigation {
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(DocumentBuilder.toXmlDocument(_doc));
+        setupText(_doc.export());
     }
 
     boolean reinitBean(String _dest, String _beanName, String _currentBean) {

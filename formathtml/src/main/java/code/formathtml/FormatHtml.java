@@ -213,7 +213,7 @@ public final class FormatHtml {
         }
         _conf.setDocument(doc_);
         _conf.clearPages();
-        return DocumentBuilder.toXmlDocument(doc_);
+        return doc_.export();
     }
 
     static BeanElement tryToOpenDocument(String _lg, Element _importElement,
@@ -692,7 +692,7 @@ public final class FormatHtml {
         }
         _conf.getHtmlPage().setContainers(containersMap_);
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
-        return DocumentBuilder.toXml(doc_);
+        return doc_.export();
     }
 
     static void throwException(Configuration _conf) {

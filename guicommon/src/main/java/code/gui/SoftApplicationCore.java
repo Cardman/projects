@@ -130,7 +130,7 @@ public abstract class SoftApplicationCore {
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), DocumentBuilder.toXmlDocument(document_));
+        StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export());
     }
 
     public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
