@@ -247,93 +247,40 @@ public final class NotTextElement implements Element {
     @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
-        NotTextElement root_ = this;
-        elements_.add(root_);
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            elements_.add(current_);
-            Node next_ = current_.getFirstChild();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
-                    break;
-                }
-                if (par_ == root_) {
-                    break;
-                }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
-            }
-            current_ = next_;
+        for (Node e: getElementsByTagName()) {
+            elements_.add(e);
         }
         return elements_;
     }
     @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
-        NotTextElement root_ = this;
-        elements_.add(root_);
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            NotTextElement elt_ = (NotTextElement) current_;
-            elements_.add(elt_);
+        Element root_ = this;
+        Node current_ = this;
+        while (current_ != null) {
+            elements_.add(current_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return elements_;
     }
@@ -341,16 +288,10 @@ public final class NotTextElement implements Element {
     @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
-        NotTextElement root_ = this;
-        if (StringList.quickEq(getTagName(), _tagName)) {
-            elements_.add(root_);
-        }
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            NotTextElement elt_ = (NotTextElement) current_;
+        Element root_ = this;
+        Node current_ = this;
+        while (current_ != null) {
+            Element elt_ = (Element) current_;
             if (StringList.quickEq(elt_.getTagName(), _tagName)) {
                 elements_.add(elt_);
             }
@@ -359,33 +300,23 @@ public final class NotTextElement implements Element {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return elements_;
     }

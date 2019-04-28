@@ -432,4 +432,148 @@ public class ExportTest {
         Element elt_ =  DocumentBuilder.parseNoTextDocument("<tag><one><inner/></one><two/></tag>").getDocumentElement();
         assertNull(elt_.getPreviousSibling());
     }
+
+    @Test
+    public void openTag1Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag/>").getDocumentElement();
+        assertEq("<tag></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag2Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag>e</tag>").getDocumentElement();
+        assertEq("<tag>e</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag3Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=''/>").getDocumentElement();
+        assertEq("<tag a=\"\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag4Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=''>e</tag>").getDocumentElement();
+        assertEq("<tag a=\"\">e</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag5Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=\"\"/>").getDocumentElement();
+        assertEq("<tag a=\"\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag6Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=\"\">e</tag>").getDocumentElement();
+        assertEq("<tag a=\"\">e</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag7Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'/>").getDocumentElement();
+        assertEq("<tag a=\"&quot;&quot;&apos;\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag8Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='\"&quot;&apos;'>e</tag>").getDocumentElement();
+        assertEq("<tag a=\"&quot;&quot;&apos;\">e</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag9Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\"/>").getDocumentElement();
+        assertEq("<tag a=\"&apos;&quot;&apos;\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag10Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a=\"'&quot;&apos;\">e</tag>").getDocumentElement();
+        assertEq("<tag a=\"&apos;&quot;&apos;\">e</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag11Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='&lt;'/>").getDocumentElement();
+        assertEq("<tag a=\"&lt;\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag12Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='&gt;'/>").getDocumentElement();
+        assertEq("<tag a=\"&gt;\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag13Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='&amp;'/>").getDocumentElement();
+        assertEq("<tag a=\"&amp;\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag14Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='&#50;'/>").getDocumentElement();
+        assertEq("<tag a=\"2\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag15Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag>&lt;</tag>").getDocumentElement();
+        assertEq("<tag>&lt;</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag16Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag>&gt;</tag>").getDocumentElement();
+        assertEq("<tag>&gt;</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag17Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag>&amp;</tag>").getDocumentElement();
+        assertEq("<tag>&amp;</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag18Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag>&#50;</tag>").getDocumentElement();
+        assertEq("<tag>2</tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag19Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag><inner>&#50;</inner></tag>").getDocumentElement();
+        assertEq("<tag><inner>2</inner></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag20Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag><inner>&#50;</inner><two>&#51;</two></tag>").getDocumentElement();
+        assertEq("<tag><inner>2</inner><two>3</two></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag21Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag><two>&#51;</two><inner>&#50;</inner></tag>").getDocumentElement();
+        assertEq("<tag><two>3</two><inner>2</inner></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag22Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag a='1' b='2'/>").getDocumentElement();
+        assertEq("<tag a=\"1\" b=\"2\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag23Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag b='2' a='1'/>").getDocumentElement();
+        assertEq("<tag b=\"2\" a=\"1\"></tag>",elt_.openTag());
+    }
+
+    @Test
+    public void openTag24Test() {
+        FullElement elt_ = (FullElement)DocumentBuilder.parseSax("<tag><inner/></tag>").getDocumentElement();
+        assertEq("<tag><inner></inner></tag>",elt_.openTag());
+    }
 }

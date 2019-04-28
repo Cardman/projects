@@ -252,27 +252,9 @@ public final class FullElement extends FullNode implements Element {
 
     public String openTag() {
         FullElement root_ = this;
-        Node current_ = getFirstChild();
+        Node current_ = this;
         StringBuilder str_ = new StringBuilder();
-        str_.append(BEGIN_TAG);
-        str_.append(getTagName());
-        if (!attributes.isEmpty()) {
-            for (Attr a: attributes) {
-                str_.append(a.export());
-            }
-        }
-        if (current_ == null) {
-            str_.append(END_TAG);
-            str_.append(BEGIN_FOOTER);
-            str_.append(getTagName());
-            str_.append(END_TAG);
-        } else {
-            str_.append(END_TAG);
-        }
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        while (current_ != null) {
             if (current_ instanceof FullElement) {
                 FullElement elt_ = (FullElement) current_;
                 str_.append(BEGIN_TAG);
@@ -299,39 +281,26 @@ public final class FullElement extends FullNode implements Element {
                 str_.append(((FullElement) current_).getTagName());
                 str_.append(END_TAG);
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            str_.append(BEGIN_FOOTER);
-            str_.append(parent_.getTagName());
-            str_.append(END_TAG);
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
                 str_.append(BEGIN_FOOTER);
-                str_.append(par_.getTagName());
+                str_.append(parent_.getTagName());
                 str_.append(END_TAG);
-                if (par_ == root_) {
+                if (parent_ == root_) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return str_.toString();
     }
@@ -455,95 +424,66 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
-        FullElement root_ = this;
-        elements_.add(root_);
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
+        Element root_ = this;
+        Node current_ = this;
+        while (current_ != null) {
             elements_.add(current_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return elements_;
     }
     @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
-        FullElement root_ = this;
-        elements_.add(root_);
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            if (current_ instanceof FullElement) {
-                FullElement elt_ = (FullElement) current_;
-                elements_.add(elt_);
+        Element root_ = this;
+        Node current_ = this;
+        while (current_ != null) {
+            if (current_ instanceof Element) {
+                elements_.add(current_);
             }
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return elements_;
     }
@@ -551,17 +491,11 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
-        FullElement root_ = this;
-        if (StringList.quickEq(getTagName(), _tagName)) {
-            elements_.add(root_);
-        }
-        Node current_ = getFirstChild();
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            if (current_ instanceof FullElement) {
-                FullElement elt_ = (FullElement) current_;
+        Element root_ = this;
+        Node current_ = this;
+        while (current_ != null) {
+            if (current_ instanceof Element) {
+                Element elt_ = (Element) current_;
                 if (StringList.quickEq(elt_.getTagName(), _tagName)) {
                     elements_.add(elt_);
                 }
@@ -571,33 +505,23 @@ public final class FullElement extends FullNode implements Element {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element parent_ = current_.getParentNode();
-            if (parent_ == null) {
-                current_ = null;
-                continue;
-            }
-            if (parent_ == root_) {
-                current_ = null;
-                continue;
-            }
-            next_ = parent_.getNextSibling();
-            while (next_ == null) {
-                Element par_ = parent_.getParentNode();
-                if (par_ == null) {
+            while (true) {
+                next_ = current_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
+                Element parent_ = current_.getParentNode();
+                if (parent_ == null) {
+                    current_ = null;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                parent_ = par_;
+                if (parent_ == root_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = parent_;
             }
-            current_ = next_;
         }
         return elements_;
     }
