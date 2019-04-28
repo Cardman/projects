@@ -10,6 +10,19 @@ public abstract class CoreDocument implements Node,Document {
         tabWidth = _tabWidth;
     }
 
+    @Override
+    public Text createTextNode(String _data) {
+        Text text_ = new Text(this);
+        text_.setTextContent(_data);
+        return text_;
+    }
+    @Override
+    public Text createEscapedTextNode(String _data) {
+        Text text_ = new Text(this);
+        text_.setEscapedTextContent(_data);
+        return text_;
+    }
+
     public abstract Element createElement(String _tagName);
 
     public int getTabWidth() {
@@ -25,6 +38,15 @@ public abstract class CoreDocument implements Node,Document {
     public Element getParentNode() {
         return null;
     }
+
+    public Node getNextSibling() {
+        return null;
+    }
+
+    public Node getPreviousSibling() {
+        return null;
+    }
+
     static Attr createAttribute(String _name) {
         Attr attr_ = new Attr(_name);
         return attr_;
@@ -94,8 +116,7 @@ public abstract class CoreDocument implements Node,Document {
     }
 
     public String getTextContent() {
-        // TODO Auto-generated method stub
-        return null;
+        return documentElement.getTextContent();
     }
 
 }

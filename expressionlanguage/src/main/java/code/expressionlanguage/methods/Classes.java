@@ -1071,7 +1071,6 @@ public final class Classes {
             if (mapping_.isCyclic(_objectClassName)) {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
-                //TODO better message
                 b_.setClassName(c);
                 b_.setFileName(s.getFile().getFileName());
                 b_.setIndexFile(s.getIdRowCol());
@@ -1103,7 +1102,6 @@ public final class Classes {
                 boolean okLoc_ = true;
                 if (existNative_ && existCustom_) {
                     UnknownClassName un_ = new UnknownClassName();
-                    //TODO all conflicting classes
                     un_.setClassName(c);
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
