@@ -761,6 +761,226 @@ public class IndexesTest {
     }
 
     @Test
+    public void getIndexesOfElementOrAttribute17Test() {
+        String html_ = "<ta>\n\t<tag where=\"h\n\t'ere\" when='n\"ow'>Content</tag><ta/>233<ta>234</ta></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        n_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(3, m_.size());
+        rc_.setRow(2);
+        rc_.setCol(6);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(2);
+        rc_.setCol(17);
+        assertEq(rc_, m_.getVal("where"));
+        rc_.setRow(3);
+        rc_.setCol(17);
+        assertEq(rc_, m_.getVal("when"));
+        rc_.setRow(3);
+        rc_.setCol(23);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(52, e_.getNextElt());
+        assertEq(2, e_.getOffsets().size());
+        assertEq(0, e_.getOffsets().getVal("when").size());
+        assertEq(1, e_.getOffsets().getVal("where").size());
+        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(2, e_.getTabs().size());
+        assertEq(0, e_.getTabs().getVal("when").size());
+        assertEq(1, e_.getTabs().getVal("where").size());
+        assertEq(2, e_.getTabs().getVal("where").get(0).intValue());
+//        assertEq(0, e_.getNextEltLineReturn());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute18Test() {
+        String html_ = "<ta>\n\t<ta where=\"h\n\t'ere\" when='n\"ow'>Content</ta><tag/>233<ta>234</ta></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        n_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(3, m_.size());
+        rc_.setRow(2);
+        rc_.setCol(6);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(2);
+        rc_.setCol(16);
+        assertEq(rc_, m_.getVal("where"));
+        rc_.setRow(3);
+        rc_.setCol(17);
+        assertEq(rc_, m_.getVal("when"));
+        rc_.setRow(3);
+        rc_.setCol(23);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(50, e_.getNextElt());
+        assertEq(2, e_.getOffsets().size());
+        assertEq(0, e_.getOffsets().getVal("when").size());
+        assertEq(1, e_.getOffsets().getVal("where").size());
+        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(2, e_.getTabs().size());
+        assertEq(0, e_.getTabs().getVal("when").size());
+        assertEq(1, e_.getTabs().getVal("where").size());
+        assertEq(2, e_.getTabs().getVal("where").get(0).intValue());
+//        assertEq(0, e_.getNextEltLineReturn());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute19Test() {
+        String html_ = "<ta>\n\t<ta>Content</ta><tag/>233<ta>234</ta></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        n_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(2);
+        rc_.setCol(6);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(2);
+        rc_.setCol(9);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(22, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute20Test() {
+        String html_ = "<ta>\n\t<tag>Content</tag><ta>5</ta>233<tag>234</tag></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        n_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(2);
+        rc_.setCol(6);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(2);
+        rc_.setCol(10);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(24, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute21Test() {
+        String html_ = "<tag><ta>Content</ta></tag>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(1);
+        rc_.setCol(2);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(1);
+        rc_.setCol(6);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(5, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute22Test() {
+        String html_ = "<ta><tag>Content</tag></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(1);
+        rc_.setCol(2);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(1);
+        rc_.setCol(5);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(4, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute23Test() {
+        String html_ = "<ta>\t<tag>Content</tag></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        n_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(1);
+        rc_.setCol(10);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(1);
+        rc_.setCol(14);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(-1, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
+    public void getIndexesOfElementOrAttribute24Test() {
+        String html_ = "<ta>\t<ta/></ta>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        Node n_ = node_;
+        RowCol rc_ = new RowCol();
+        rc_.setRow(0);
+        rc_.setCol(0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
+        StringMap<RowCol> m_ = e_.getAttributes();
+        assertEq(1, m_.size());
+        rc_.setRow(1);
+        rc_.setCol(2);
+        assertEq(rc_, m_.getVal(""));
+        rc_.setRow(1);
+        rc_.setCol(5);
+        assertEq(rc_, e_.getEndHeader());
+        assertEq(5, e_.getNextElt());
+        assertEq(0, e_.getOffsets().size());
+        assertEq(0, e_.getTabs().size());
+    }
+
+    @Test
     public void getSpecialChars1Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -1166,4 +1386,21 @@ public class IndexesTest {
         assertEq(3, rc_.getRow());
         assertEq(58, rc_.getCol());
     }
+
+    @Test
+    public void getOffset25Test() {
+        String html_ = "<tag>\n<ta where=\"\th&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Node node_ = doc_.getDocumentElement();
+        ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
+        ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
+        node_ = node_.getFirstChild().getNextSibling();
+        e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
+        StringMap<NatTreeMap<Integer,Integer>> s_;
+        s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
+        RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
+        assertEq(2, rc_.getRow());
+        assertEq(16, rc_.getCol());
+    }
+
 }

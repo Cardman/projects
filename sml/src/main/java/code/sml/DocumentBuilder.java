@@ -544,10 +544,6 @@ public final class DocumentBuilder {
 
     private static final int DEFAULT_TAB = 4;
 
-    private boolean ignoreComments;
-
-    private boolean indentWhileWriting;
-
     private int tabWidth = DEFAULT_TAB;
     
     private DocumentBuilder(){
@@ -575,9 +571,6 @@ public final class DocumentBuilder {
         int lengthAll_ = all_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthAll_; i++) {
             Node n_ = all_.item(i);
-            if (_id == null) {
-                continue;
-            }
             if (StringList.quickEq(((Element) n_).getAttribute(_attr),_id)) {
                 element_ = (Element) n_;
                 break;
@@ -2296,9 +2289,6 @@ public final class DocumentBuilder {
                 nbLineReturns_++;
                 indexLoc_ = 0;
             } else {
-                if (_xml.charAt(i) == TAB) {
-                    indexLoc_+=_tabWidth-1;
-                }
                 indexLoc_++;
             }
         }
@@ -2359,14 +2349,12 @@ public final class DocumentBuilder {
                     }
                     offset_++;
                 }
-            } else if (ch_ == LT && k_ >= nodeLen_ - 1) {
-                if (i_ + 1 < len_) {
-                    if (_xml.charAt(i_ + 1) != SLASH) {
-                        next_ = i_;
-                        nextCol_.setRow(nbLineReturns_+minLine_);
-                        nextCol_.setCol(j_);
-                        break;
-                    }
+            } else if (ch_ == LT) {
+                if (_xml.charAt(i_ + 1) != SLASH) {
+                    next_ = i_;
+                    nextCol_.setRow(nbLineReturns_+minLine_);
+                    nextCol_.setCol(j_);
+                    break;
                 }
             }
             k_++;
@@ -2400,14 +2388,10 @@ public final class DocumentBuilder {
             return offset_;
         }
         int delta_ = 0;
-        if (_specialChars != null) {
-            NatTreeMap<Integer, Integer> esc_ = _specialChars.getVal(_attribute);
-            if (esc_ != null) {
-                int nbIndexes_ = getIndexesCount(_offset, esc_);
-                for (int i = 0; i < nbIndexes_; i++) {
-                    delta_ += esc_.getValue(i);
-                }
-            }
+        NatTreeMap<Integer, Integer> esc_ = _specialChars.getVal(_attribute);
+        int nbIndexes_ = getIndexesCount(_offset, esc_);
+        for (int i = 0; i < nbIndexes_; i++) {
+            delta_ += esc_.getValue(i);
         }
         delta_ += _offset;
         Numbers<Integer> offsets_ = _offsets.getVal(_attribute);
@@ -2727,28 +2711,23 @@ public final class DocumentBuilder {
             if (en_ == _root) {
                 break;
             }
-            n_ = en_.getNextSibling();
-            if (n_ != null) {
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getParentNode();
-            if (n_ == _root) {
-                break;
-            }
-            Node next_ = n_.getNextSibling();
-            while (next_ == null) {
-                Node par_ = n_.getParentNode();
-                if (par_ == _root) {
+            boolean stop_ = false;
+            while (true) {
+                n_ = en_.getNextSibling();
+                if (n_ != null) {
+                    en_ = n_;
                     break;
                 }
-                next_ = par_.getNextSibling();
-                n_ = par_;
+                n_ = en_.getParentNode();
+                if (n_ == _root) {
+                    stop_ = true;
+                    break;
+                }
+                en_ = n_;
             }
-            if (next_ == null) {
+            if (stop_) {
                 break;
             }
-            en_ = next_;
         }
         return nodes_;
     }
@@ -2763,15 +2742,11 @@ public final class DocumentBuilder {
         Element root_ = doc_.getDocumentElement();
         Node currentParent_ = par_;
         Node current_ = _node;
-        while (true) {
-            if (current_ == root_) {
-                break;
-            }
+        while (current_ != root_) {
             int index_ = CustList.FIRST_INDEX;
-            for (Node c: currentParent_.getChildNodes()) {
+            for (Node c : currentParent_.getChildNodes()) {
                 if (c == current_) {
                     indexes_.add(CustList.FIRST_INDEX, index_);
-                    break;
                 }
                 index_++;
             }

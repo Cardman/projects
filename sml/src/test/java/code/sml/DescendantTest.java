@@ -3,9 +3,43 @@ package code.sml;
 import org.junit.Test;
 
 import static code.sml.EquallableRowColUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 public class DescendantTest {
 
+    @Test
+    public void getEmptyDocChildrenWithTextTest() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.newXmlDocument();
+        assertEq(0,doc_.getChildElements().size());
+        assertEq(0,doc_.getChildNodes().size());
+        assertTrue(!doc_.hasAttributes());
+        assertTrue(!doc_.hasChildNodes());
+    }
+
+    @Test
+    public void getDocChildrenWithTextTest() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag><inner a=''/>Text</tag>");
+        assertEq(1,doc_.getChildElements().size());
+        assertEq(1,doc_.getChildNodes().size());
+        assertTrue(!doc_.hasAttributes());
+        assertTrue(doc_.hasChildNodes());
+        doc_.renameNode(doc_.getDocumentElement(),"other");
+        assertEq("other",doc_.getDocumentElement().getTagName());
+        doc_.renameNode(doc_.getDocumentElement().getLastChild(),"oth");
+        assertEq("other",doc_.getDocumentElement().getTagName());
+        assertEq("inner",((Element)doc_.getDocumentElement().getFirstChild()).getTagName());
+    }
+
+    @Test
+    public void getDocChildrenNoTextTest() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseNoTextDocument("<tag><inner a=''/></tag>");
+        assertEq(1,doc_.getChildElements().size());
+        assertEq(1,doc_.getChildNodes().size());
+        assertTrue(!doc_.hasAttributes());
+        assertTrue(doc_.hasChildNodes());
+        doc_.renameNode(doc_.getDocumentElement(),"other");
+        assertEq("other",doc_.getDocumentElement().getTagName());
+    }
     @Test
     public void getElementsByTagNameFull1Test() {
         Element elt_ =DocumentBuilder.parseSax("<tag/>").getDocumentElement();
@@ -148,6 +182,28 @@ public class DescendantTest {
     public void getElementsByTagNameFull24Test() {
         Element elt_ =DocumentBuilder.parseSax("<tag><inner/></tag>").getDocumentElement();
         assertEq(2,elt_.getElementsByTagName().size());
+    }
+
+    @Test
+    public void getChildrenWithTextTest() {
+        Element elt_ =DocumentBuilder.parseSax("<tag><inner a=''/>Text</tag>").getDocumentElement();
+        assertEq(1,elt_.getChildElements().size());
+        assertEq(2,elt_.getChildNodes().size());
+        assertTrue(!elt_.hasAttributes());
+        assertTrue(elt_.getFirstChild().hasAttributes());
+        assertTrue(elt_.hasChildNodes());
+        assertTrue(!elt_.getFirstChild().hasChildNodes());
+    }
+
+    @Test
+    public void getChildrenNoTextTest() {
+        Element elt_ =DocumentBuilder.parseNoTextDocument("<tag><inner a=''/></tag>").getDocumentElement();
+        assertEq(1,elt_.getChildElements().size());
+        assertEq(1,elt_.getChildNodes().size());
+        assertTrue(!elt_.hasAttributes());
+        assertTrue(elt_.getFirstChild().hasAttributes());
+        assertTrue(elt_.hasChildNodes());
+        assertTrue(!elt_.getFirstChild().hasChildNodes());
     }
 
     @Test

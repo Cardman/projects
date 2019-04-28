@@ -67,9 +67,6 @@ public abstract class CoreDocument implements Node,Document {
     }
 
     public void renameNode(Node _node, String _name) {
-        if (!(_node instanceof Element)) {
-            return;
-        }
         Element elt_ = (Element)_node;
         elt_.setTagName(_name);
     }
