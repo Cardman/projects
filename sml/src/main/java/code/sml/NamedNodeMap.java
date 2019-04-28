@@ -14,16 +14,12 @@ public final class NamedNodeMap implements Iterable<Attr> {
         attrs = new CustList<Attr>();
     }
 
-    protected NamedNodeMap(Attr... _elements) {
-        attrs = new CustList<Attr>(_elements);
-    }
-
     protected NamedNodeMap(Listable<Attr> _c) {
         attrs = new CustList<Attr>(_c);
     }
 
     public Attr getNamedItem(String _key) {
-        for (Attr a: this) {
+        for (Attr a: attrs) {
             if (StringList.quickEq(a.getName(), _key)) {
                 return a;
             }

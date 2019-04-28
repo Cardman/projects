@@ -1,7 +1,7 @@
 package code.sml;
 
 
-public abstract class CoreDocument implements Node,OwnerDocument {
+public abstract class CoreDocument implements Node,Document {
     private Element documentElement;
 
     private int tabWidth;
@@ -16,30 +16,36 @@ public abstract class CoreDocument implements Node,OwnerDocument {
         return tabWidth;
     }
 
+    @Override
+    public Document getOwnerDocument() {
+        return null;
+    }
+
+    @Override
+    public Element getParentNode() {
+        return null;
+    }
     static Attr createAttribute(String _name) {
         Attr attr_ = new Attr();
         attr_.setName(_name);
         return attr_;
     }
 
-    @Override
     public Node getFirstChild() {
         return documentElement;
     }
 
-    @Override
     public Node getLastChild() {
         return documentElement;
     }
     public Element getDocumentElement() {
         return documentElement;
     }
-    @Override
+
     public NamedNodeMap getAttributes() {
         return null;
     }
 
-    @Override
     public NodeList getChildNodes() {
         NodeList list_ = new NodeList();
         if (documentElement != null) {
@@ -48,7 +54,6 @@ public abstract class CoreDocument implements Node,OwnerDocument {
         return list_;
     }
 
-    @Override
     public ElementList getChildElements() {
         ElementList list_ = new ElementList();
         if (documentElement != null) {
@@ -57,39 +62,9 @@ public abstract class CoreDocument implements Node,OwnerDocument {
         return list_;
     }
 
-    @Override
     public void appendChild(Node _newChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
-        setFirstChild(documentElement);
-        setLastChild(documentElement);
-    }
-    @Override
-    public void removeChild(Node _oldChild) {
-        documentElement = null;
-        setFirstChild(null);
-        setLastChild(null);
-    }
-    @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
-        Element element_ = (Element) _newChild;
-        documentElement = element_;
-        setFirstChild(documentElement);
-        setLastChild(documentElement);
-    }
-    @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
-        Element element_ = (Element) _newChild;
-        documentElement = element_;
-        setFirstChild(documentElement);
-        setLastChild(documentElement);
-    }
-    @Override
-    public void insertAfter(Node _newChild, Node _refChild) {
-        Element element_ = (Element) _newChild;
-        documentElement = element_;
-        setFirstChild(documentElement);
-        setLastChild(documentElement);
     }
 
     public void renameNode(Node _node, String _name) {
@@ -113,27 +88,18 @@ public abstract class CoreDocument implements Node,OwnerDocument {
     public ElementList getElementsByTagName(String _tagName) {
         return documentElement.getElementsByTagName(_tagName);
     }
-    @Override
+
     public boolean hasChildNodes() {
         return documentElement != null;
     }
-    @Override
+
     public boolean hasAttributes() {
         return false;
     }
-    @Override
-    public long compareDocumentPosition(Info _other) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    @Override
+
     public String getTextContent() {
         // TODO Auto-generated method stub
         return null;
     }
-    @Override
-    public boolean isEqualNode(Node _arg) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+
 }

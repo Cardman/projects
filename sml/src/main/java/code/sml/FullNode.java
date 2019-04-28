@@ -1,14 +1,14 @@
 package code.sml;
 
-public abstract class FullNode implements Node {
+public abstract class FullNode implements MutableNode {
 
-    private Node firstChild;
+    private MutableNode firstChild;
 
-    private Node nextSibling;
+    private MutableNode nextSibling;
 
-    private Node previousSibling;
+    private MutableNode previousSibling;
 
-    private Node lastChild;
+    private MutableNode lastChild;
 
     private Document ownerDocument;
 
@@ -19,42 +19,42 @@ public abstract class FullNode implements Node {
     }
 
     @Override
-    public final Node getNextSibling() {
+    public final MutableNode getNextSibling() {
         return nextSibling;
     }
 
     @Override
-    public final Node getPreviousSibling() {
+    public final MutableNode getPreviousSibling() {
         return previousSibling;
     }
 
     @Override
-    public final Node getFirstChild() {
+    public final MutableNode getFirstChild() {
         return firstChild;
     }
 
     @Override
-    public final Node getLastChild() {
+    public final MutableNode getLastChild() {
         return lastChild;
     }
 
     @Override
-    public final void setNextSibling(Node _node) {
+    public final void setNextSibling(MutableNode _node) {
         nextSibling = _node;
     }
 
     @Override
-    public final void setPreviousSibling(Node _node) {
+    public final void setPreviousSibling(MutableNode _node) {
         previousSibling = _node;
     }
 
     @Override
-    public final void setFirstChild(Node _node) {
+    public final void setFirstChild(MutableNode _node) {
         firstChild = _node;
     }
 
     @Override
-    public final void setLastChild(Node _node) {
+    public final void setLastChild(MutableNode _node) {
         lastChild = _node;
     }
 
@@ -78,15 +78,15 @@ public abstract class FullNode implements Node {
     public abstract ElementList getChildElements();
 
     @Override
-    public abstract void appendChild(Node _newChild);
+    public abstract void appendChild(MutableNode _newChild);
     @Override
-    public abstract void removeChild(Node _oldChild);
+    public abstract void removeChild(MutableNode _oldChild);
     @Override
-    public abstract void replaceChild(Node _newChild, Node _oldChild);
+    public abstract void replaceChild(MutableNode _newChild, MutableNode _oldChild);
     @Override
-    public abstract void insertBefore(Node _newChild, Node _refChild);
+    public abstract void insertBefore(MutableNode _newChild, MutableNode _refChild);
     @Override
-    public abstract void insertAfter(Node _newChild, Node _refChild);
+    public abstract void insertAfter(MutableNode _newChild, MutableNode _refChild);
 
     @Override
     public abstract boolean hasChildNodes();
@@ -97,6 +97,4 @@ public abstract class FullNode implements Node {
     @Override
     public abstract String getTextContent();
 
-    @Override
-    public abstract boolean isEqualNode(Node _arg);
 }

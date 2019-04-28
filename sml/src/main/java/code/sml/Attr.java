@@ -2,7 +2,7 @@ package code.sml;
 
 import code.util.StringList;
 
-public final class Attr implements Info {
+public final class Attr {
 
     private static final String NULL_VALUE = "";
 
@@ -66,19 +66,4 @@ public final class Attr implements Info {
         return getValue();
     }
 
-    public boolean isEqual(Attr _arg) {
-        if (!StringList.quickEq(_arg.getName(), getName())) {
-            return false;
-        }
-        if (!StringList.quickEq(_arg.getValue(), getValue())) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public long compareDocumentPosition(Info _other) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 }

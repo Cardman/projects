@@ -168,7 +168,7 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(MutableNode _newChild) {
         _newChild.setParentNode(this);
         if (getFirstChild() == null) {
             setFirstChild(_newChild);
@@ -181,12 +181,12 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
-        Node child_ = getFirstChild();
+    public void removeChild(MutableNode _oldChild) {
+        MutableNode child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                Node previous_ = child_.getPreviousSibling();
-                Node next_ = child_.getNextSibling();
+                MutableNode previous_ = child_.getPreviousSibling();
+                MutableNode next_ = child_.getNextSibling();
                 _oldChild.setParentNode(null);
                 if (previous_ == null && next_ == null) {
                     setFirstChild(null);
@@ -215,12 +215,12 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
-        Node child_ = getFirstChild();
+    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
+        MutableNode child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                Node previous_ = child_.getPreviousSibling();
-                Node next_ = child_.getNextSibling();
+                MutableNode previous_ = child_.getPreviousSibling();
+                MutableNode next_ = child_.getNextSibling();
                 _oldChild.setParentNode(null);
                 _newChild.setParentNode(this);
                 if (previous_ == null && next_ == null) {
@@ -254,11 +254,11 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
-        Node child_ = getFirstChild();
+    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
+        MutableNode child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                Node previous_ = _refChild.getPreviousSibling();
+                MutableNode previous_ = _refChild.getPreviousSibling();
                 _newChild.setParentNode(this);
                 if (previous_ == null) {
                     setFirstChild(_newChild);
@@ -277,11 +277,11 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public void insertAfter(Node _newChild, Node _refChild) {
-        Node child_ = getFirstChild();
+    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
+        MutableNode child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                Node next_ = _refChild.getNextSibling();
+                MutableNode next_ = _refChild.getNextSibling();
                 _newChild.setParentNode(this);
                 if (next_ == null) {
                     setLastChild(_newChild);
@@ -530,11 +530,6 @@ public final class FullElement extends FullNode implements Element {
     }
 
     @Override
-    public long compareDocumentPosition(Info _other) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
         FullElement root_ = this;
@@ -732,9 +727,4 @@ public final class FullElement extends FullNode implements Element {
         return str_.toString();
     }
 
-    @Override
-    public boolean isEqualNode(Node _arg) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 }

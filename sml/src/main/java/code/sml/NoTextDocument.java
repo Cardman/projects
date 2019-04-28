@@ -1,7 +1,7 @@
 package code.sml;
 
 
-public final class NoTextDocument extends CoreDocument implements Document {
+public final class NoTextDocument extends CoreDocument {
 
     protected NoTextDocument(int _tabWidth) {
         super(_tabWidth);
@@ -12,13 +12,13 @@ public final class NoTextDocument extends CoreDocument implements Document {
         element_.setTagName(_tagName);
         return element_;
     }
-    @Override
+
+
     public Node getNextSibling() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public Node getPreviousSibling() {
         // TODO Auto-generated method stub
         return null;
@@ -36,47 +36,11 @@ public final class NoTextDocument extends CoreDocument implements Document {
         return null;
     }
 
-    @Override
     public void setNextSibling(Node _node) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
-    public void setPreviousSibling(Node _node) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void setFirstChild(Node _node) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void setLastChild(Node _node) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Document getOwnerDocument() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Element getParentNode() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setParentNode(Element _parentNode) {
-        // TODO Auto-generated method stub
-        
-    }
     @Override
     public Text createTextNode(String _data) {
         // TODO Auto-generated method stub
@@ -84,11 +48,6 @@ public final class NoTextDocument extends CoreDocument implements Document {
     }
     @Override
     public Text createEscapedTextNode(String _data) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public String exportHtml() {
         // TODO Auto-generated method stub
         return null;
     }

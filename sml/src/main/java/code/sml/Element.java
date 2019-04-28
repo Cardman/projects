@@ -1,7 +1,7 @@
 package code.sml;
 
 
-public interface Element extends Node {
+public interface Element extends MutableNode {
 
     public String getTagName();
 
@@ -30,21 +30,6 @@ public interface Element extends Node {
     @Override
     public ElementList getChildElements();
 
-    @Override
-    public void appendChild(Node _newChild);
-
-    @Override
-    public void removeChild(Node _oldChild);
-
-    @Override
-    public void replaceChild(Node _newChild, Node _oldChild);
-
-    @Override
-    public void insertBefore(Node _newChild, Node _refChild);
-
-    @Override
-    public void insertAfter(Node _newChild, Node _refChild);
-
     public String export();
     @Override
     public boolean hasChildNodes();
@@ -52,8 +37,6 @@ public interface Element extends Node {
     @Override
     public boolean hasAttributes();
 
-    @Override
-    public long compareDocumentPosition(Info _other);
     public NodeList getDescNodes();
     public NodeList getElementsByTagName();
 
@@ -61,6 +44,4 @@ public interface Element extends Node {
     @Override
     public String getTextContent();
 
-    @Override
-    public boolean isEqualNode(Node _arg);
 }

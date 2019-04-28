@@ -15,20 +15,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.ExecInvokingOperation;
 import code.formathtml.util.*;
-import code.sml.Attr;
-import code.sml.AttributePart;
-import code.sml.CharacterData;
-import code.sml.Comment;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
-import code.sml.Element;
-import code.sml.ElementList;
-import code.sml.FullDocument;
-import code.sml.NamedNodeMap;
-import code.sml.Node;
-import code.sml.NodeList;
-import code.sml.Text;
+import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -541,10 +528,9 @@ public final class FormatHtml {
         }
         Node en_ = r_;
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
-        Node currentNode_ = doc_;
         ReadWriteHtml rw_ = new ReadWriteHtml();
         rw_.setRead(en_);
-        rw_.setWrite(currentNode_);
+        rw_.setWrite(doc_);
         ip_.setRoot(r_);
         ip_.setReadWrite(rw_);
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
@@ -584,17 +570,7 @@ public final class FormatHtml {
             ip_.setProcessingNode(en_);
             ip_.setProcessingAttribute(EMPTY_STRING);
             ip_.setOffset(0);
-            currentNode_ = rw_.getWrite();
-            if (en_ instanceof Comment) {
-                processElementOrText(_conf, ip_, true);
-                if (_conf.getContext().getException() != null) {
-                    throwException(_conf);
-                    if (_conf.getContext().getException() != null) {
-                        return null;
-                    }
-                }
-                continue;
-            }
+            Node currentNode_ = rw_.getWrite();
             if (en_ instanceof Element) {
                 if (((Element) en_).getTagName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
                     if (StringList.quickEq(((Element) en_).getTagName(),StringList.concat(ip_.getPrefix(),EXIT_TAG))) {
@@ -652,7 +628,7 @@ public final class FormatHtml {
             String content_ = en_.getTextContent();
             if (content_.trim().isEmpty()) {
                 Text t_ = doc_.createTextNode(content_);
-                currentNode_.appendChild(t_);
+                ((MutableNode)currentNode_).appendChild(t_);
                 processElementOrText(_conf, ip_, true);
                 if (_conf.getContext().getException() != null) {
                     throwException(_conf);
@@ -673,7 +649,7 @@ public final class FormatHtml {
                 }
             }
             Text t_ = doc_.createTextNode(content_);
-            currentNode_.appendChild(t_);
+            ((MutableNode)currentNode_).appendChild(t_);
             processElementOrText(_conf, ip_, true);
             if (_conf.getContext().getException() != null) {
                 throwException(_conf);
@@ -938,10 +914,6 @@ public final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (n_ instanceof Comment) {
-                    n_ = n_.getNextSibling();
-                    continue;
-                }
                 if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
                     if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                         break;
@@ -1006,10 +978,6 @@ public final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (n_ instanceof Comment) {
-                    n_ = n_.getNextSibling();
-                    continue;
-                }
                 if (!StringList.quickEq(((Element) n_).getTagName(),StringList.concat(prefix_,ELSE_BLOCK_TAG))) {
                     if (!ExtractCondition.isContentOfConditionNode(_conf, n_)) {
                         break;
@@ -1060,10 +1028,6 @@ public final class FormatHtml {
             Node n_ = en_.getFirstChild();
             while (n_ != null) {
                 if (n_ instanceof Text) {
-                    n_ = n_.getNextSibling();
-                    continue;
-                }
-                if (n_ instanceof Comment) {
                     n_ = n_.getNextSibling();
                     continue;
                 }
@@ -1284,7 +1248,7 @@ public final class FormatHtml {
             }
             if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
                 Text n_ = doc_.createTextNode(formatted_);
-                currentNode_.appendChild(n_);
+                ((MutableNode)currentNode_).appendChild(n_);
                 ip_.setMessageValue(null);
                 ip_.setKey(null);
                 processBlock(_conf, ip_);
@@ -1348,7 +1312,7 @@ public final class FormatHtml {
                 }
                 if (nLoc_ instanceof Text) {
                     Text t_ = doc_.createTextNode(nLoc_.getTextContent());
-                    currentNode_.appendChild(t_);
+                    ((MutableNode)currentNode_).appendChild(t_);
                 } else if (nLoc_ instanceof Element) {
                     ipMess_.setProcessingNode(nLoc_);
                     ipMess_.getReadWrite().setRead(nLoc_);
@@ -1446,10 +1410,6 @@ public final class FormatHtml {
                             next_ = next_.getNextSibling();
                             continue;
                         }
-                        if (next_ instanceof Comment) {
-                            next_ = next_.getNextSibling();
-                            continue;
-                        }
                         break;
                     }
                     rw_.setRead(next_);
@@ -1463,10 +1423,6 @@ public final class FormatHtml {
                 Node next_ = en_.getNextSibling();
                 while (true) {
                     if (next_ instanceof Text) {
-                        next_ = next_.getNextSibling();
-                        continue;
-                    }
-                    if (next_ instanceof Comment) {
                         next_ = next_.getNextSibling();
                         continue;
                     }
@@ -2217,10 +2173,6 @@ public final class FormatHtml {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
-                        if (prev_ instanceof Comment) {
-                            prev_ = prev_.getPreviousSibling();
-                            continue;
-                        }
                         if (ExtractCondition.isContentOfConditionNode(_conf, prev_)) {
                             prev_ = prev_.getPreviousSibling();
                             continue;
@@ -2237,10 +2189,6 @@ public final class FormatHtml {
                     boolean existIf_ = false;
                     while (prev_ != null) {
                         if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                            prev_ = prev_.getPreviousSibling();
-                            continue;
-                        }
-                        if (prev_ instanceof Comment) {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
@@ -2264,10 +2212,6 @@ public final class FormatHtml {
                     boolean existCatch_ = false;
                     while (next_ != null) {
                         if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
-                            next_ = next_.getNextSibling();
-                            continue;
-                        }
-                        if (next_ instanceof Comment) {
                             next_ = next_.getNextSibling();
                             continue;
                         }
@@ -2326,10 +2270,6 @@ public final class FormatHtml {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
-                        if (prev_ instanceof Comment) {
-                            prev_ = prev_.getPreviousSibling();
-                            continue;
-                        }
                         if (prev_ instanceof Text){
                             break;
                         }
@@ -2375,10 +2315,6 @@ public final class FormatHtml {
                     boolean existTry_ = false;
                     while (prev_ != null) {
                         if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                            prev_ = prev_.getPreviousSibling();
-                            continue;
-                        }
-                        if (prev_ instanceof Comment) {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
@@ -2455,10 +2391,6 @@ public final class FormatHtml {
                             _conf.getContext().setException(NullStruct.NULL_VALUE);
                             return;
                         }
-                        if (first_ instanceof Comment) {
-                            first_ = first_.getNextSibling();
-                            continue;
-                        }
                         if (StringList.quickEq(((Element) first_).getTagName(),StringList.concat(prefix_,TAG_CASE))) {
                             first_ = first_.getNextSibling();
                             continue;
@@ -2489,10 +2421,6 @@ public final class FormatHtml {
                                 prev_ = prev_.getPreviousSibling();
                                 continue;
                             }
-                            if (prev_ instanceof Comment) {
-                                prev_ = prev_.getPreviousSibling();
-                                continue;
-                            }
                             if (prev_ instanceof Text){
                                 break;
                             }
@@ -2509,10 +2437,6 @@ public final class FormatHtml {
                     boolean existWhile_ = false;
                     while (next_ != null) {
                         if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
-                            next_ = next_.getNextSibling();
-                            continue;
-                        }
-                        if (next_ instanceof Comment) {
                             next_ = next_.getNextSibling();
                             continue;
                         }
@@ -3927,7 +3851,7 @@ public final class FormatHtml {
             docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),VAR_METHOD), varMethod_);
         }
         docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME), _n.getAttribute(ATTRIBUTE_CLASS_NAME));
-        _currentModifiedNode.appendChild(docElementSelect_);
+        ((MutableNode)_currentModifiedNode).appendChild(docElementSelect_);
     }
 
     private static void processOptionsMap(Configuration _conf, Document _doc,
@@ -3993,7 +3917,7 @@ public final class FormatHtml {
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
         docElementSelect_.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME), ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));
-        _currentModifiedNode.appendChild(docElementSelect_);
+        ((MutableNode)_currentModifiedNode).appendChild(docElementSelect_);
     }
 
     private static void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
@@ -4549,25 +4473,26 @@ public final class FormatHtml {
                 currentNode_ = _doc.createElement(newNodeName_);
                 setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
             }
-        } else {
-            String replacing_ = _conf.getPrefix();
-            if (!prefix_.isEmpty()) {
-                String nodeName_ = _read.getTagName();
-                String newNodeName_;
-                if (nodeName_.startsWith(prefix_)) {
-                    String suffix_ = _read.getTagName().substring(prefix_.length());
-                    newNodeName_ = StringList.concat(replacing_,suffix_);
-                } else {
-                    newNodeName_ = nodeName_;
-                }
-                currentNode_ = _doc.createElement(newNodeName_);
-                setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
-            } else {
-                currentNode_ = _doc.createElement(_read.getTagName());
-                setNormalAttributes(_doc, _conf, _read, currentNode_);
-            }
+            ((Document)_parent).appendChild(currentNode_);
+            return;
         }
-        _parent.appendChild(currentNode_);
+        String replacing_ = _conf.getPrefix();
+        if (!prefix_.isEmpty()) {
+            String nodeName_ = _read.getTagName();
+            String newNodeName_;
+            if (nodeName_.startsWith(prefix_)) {
+                String suffix_ = _read.getTagName().substring(prefix_.length());
+                newNodeName_ = StringList.concat(replacing_,suffix_);
+            } else {
+                newNodeName_ = nodeName_;
+            }
+            currentNode_ = _doc.createElement(newNodeName_);
+            setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
+        } else {
+            currentNode_ = _doc.createElement(_read.getTagName());
+            setNormalAttributes(_doc, _conf, _read, currentNode_);
+        }
+        ((MutableNode)_parent).appendChild(currentNode_);
     }
 
     private static void setNormalAttributes(Document _doc, Configuration _conf, Element _read, Element _write) {
@@ -5078,10 +5003,6 @@ public final class FormatHtml {
             Node n_ = l_.getReadNode().getNextSibling();
             while (true) {
                 if (n_ instanceof Text) {
-                    n_ = n_.getNextSibling();
-                    continue;
-                }
-                if (n_ instanceof Comment) {
                     n_ = n_.getNextSibling();
                     continue;
                 }

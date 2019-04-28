@@ -1,7 +1,5 @@
 package code.sml;
 
-import code.util.StringList;
-
 public final class Text extends CharacterData {
 
     private String textContent;
@@ -93,23 +91,23 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(MutableNode _newChild) {
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(MutableNode _oldChild) {
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
+    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
     }
 
     @Override
-    public void insertAfter(Node _newChild, Node _refChild) {
+    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
     }
 
     @Override
@@ -120,12 +118,6 @@ public final class Text extends CharacterData {
     @Override
     public boolean hasAttributes() {
         return false;
-    }
-
-    @Override
-    public long compareDocumentPosition(Info _other) {
-        // TODO Auto-generated method stub
-        return 0;
     }
 
     @Override
@@ -146,18 +138,6 @@ public final class Text extends CharacterData {
     protected void setEscapedTextContent(String _escapedTextContent) {
         escapedTextContent = _escapedTextContent;
         textContent = DocumentBuilder.transformSpecialCharsLtGt(_escapedTextContent);
-    }
-
-    @Override
-    public boolean isEqualNode(Node _arg) {
-        if (!(_arg instanceof Text)) {
-            return false;
-        }
-        Text attr_ = (Text) _arg;
-        if (!StringList.quickEq(attr_.getTextContent(), getTextContent())) {
-            return false;
-        }
-        return true;
     }
 
 }

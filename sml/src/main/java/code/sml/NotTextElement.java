@@ -177,13 +177,13 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(MutableNode _newChild) {
         _newChild.setParentNode(this);
         childElements.add((Element) _newChild);
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(MutableNode _oldChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -197,7 +197,7 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(MutableNode _newChild, MutableNode _oldChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -212,7 +212,7 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
+    public void insertBefore(MutableNode _newChild, MutableNode _refChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -226,7 +226,7 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public void insertAfter(Node _newChild, Node _refChild) {
+    public void insertAfter(MutableNode _newChild, MutableNode _refChild) {
         int len_ = childElements.size();
         for (int i = 0; i < len_; i++) {
             Element e_ = childElements.get(i);
@@ -321,11 +321,6 @@ public final class NotTextElement implements Element {
         return !attributes.isEmpty();
     }
 
-    @Override
-    public long compareDocumentPosition(Info _other) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
     @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
@@ -477,55 +472,49 @@ public final class NotTextElement implements Element {
     }
 
     @Override
-    public boolean isEqualNode(Node _arg) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Node getNextSibling() {
+    public MutableNode getNextSibling() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Node getPreviousSibling() {
+    public MutableNode getPreviousSibling() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Node getFirstChild() {
+    public MutableNode getFirstChild() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Node getLastChild() {
+    public MutableNode getLastChild() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void setNextSibling(Node _node) {
+    public void setNextSibling(MutableNode _node) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void setPreviousSibling(Node _node) {
+    public void setPreviousSibling(MutableNode _node) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void setFirstChild(Node _node) {
+    public void setFirstChild(MutableNode _node) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void setLastChild(Node _node) {
+    public void setLastChild(MutableNode _node) {
         // TODO Auto-generated method stub
         
     }

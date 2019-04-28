@@ -1,41 +1,26 @@
 package code.sml;
 
-public interface Node extends Info {
+public interface Node {
 
-    public Node getNextSibling();
+    Node getNextSibling();
 
-    public Node getPreviousSibling();
+    Node getPreviousSibling();
 
-    public Node getFirstChild();
+    Node getFirstChild();
 
-    public Node getLastChild();
-
-    void setNextSibling(Node _node);
-
-    void setPreviousSibling(Node _node);
-
-    void setFirstChild(Node _node);
-
-    void setLastChild(Node _node);
+    Node getLastChild();
 
     Document getOwnerDocument();
     Element getParentNode();
-    void setParentNode(Element _parentNode);
-    public abstract NamedNodeMap getAttributes();
-    public abstract NodeList getChildNodes();
-    public abstract ElementList getChildElements();
+    NamedNodeMap getAttributes();
+    NodeList getChildNodes();
+    ElementList getChildElements();
 
-    public abstract void appendChild(Node _newChild);
-    public abstract void removeChild(Node _oldChild);
-    public abstract void replaceChild(Node _newChild, Node _oldChild);
-    public abstract void insertBefore(Node _newChild, Node _refChild);
-    public abstract void insertAfter(Node _newChild, Node _refChild);
 
-    public abstract boolean hasChildNodes();
+    boolean hasChildNodes();
 
-    public abstract boolean hasAttributes();
+    boolean hasAttributes();
 
-    public abstract String getTextContent();
+    String getTextContent();
 
-    public abstract boolean isEqualNode(Node _arg);
 }

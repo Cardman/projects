@@ -15,13 +15,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.StdStruct;
 import code.resources.ResourceFiles;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
-import code.sml.Element;
-import code.sml.ElementList;
-import code.sml.NodeList;
-import code.sml.Text;
+import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -205,10 +199,6 @@ public final class Navigation {
 
     public Document getDocument() {
         return session.getDocument();
-    }
-
-    public String getHtmlTextFormatted() {
-        return session.getDocument().exportHtml();
     }
 
     public String getReferenceScroll() {
@@ -632,7 +622,7 @@ public final class Navigation {
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int i = CustList.FIRST_INDEX; i < ch_; i++) {
-                elt_.removeChild(children_.item(i));
+                elt_.removeChild((MutableNode) children_.item(i));
             }
             Text text_ = doc_.createTextNode(FormatHtml.SPACE);
             elt_.appendChild(text_);
@@ -726,7 +716,7 @@ public final class Navigation {
                     continue;
                 }
                 if (len_ == CustList.ONE_ELEMENT) {
-                    elt_.removeChild(elt_.getChildNodes().item(0));
+                    elt_.removeChild((MutableNode) elt_.getChildNodes().item(0));
                 }
                 String error_ = _errors.getVal(i);
                 String valueMessage_ = elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
@@ -813,7 +803,7 @@ public final class Navigation {
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = CustList.FIRST_INDEX; j < ch_; j++) {
-                elt_.removeChild(children_.item(j));
+                elt_.removeChild((MutableNode) children_.item(j));
             }
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
