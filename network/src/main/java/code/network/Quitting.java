@@ -4,7 +4,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import code.gui.ConfirmDialog;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringList;
 import code.util.StringMap;
 

@@ -62,68 +62,6 @@ final class FightRound {
             roundUser(_fight, _diff, _user, _import);
         }
         endRoundFight(_fight, _diff, _user, _import);
-//        CustList<TeamPosition> cbts_=new CustList<>();
-//        if(_fight.getBeginRound()){
-//            if (!_fight.getAllyChoice().isEmpty()) {
-//                setAllyChoices(_fight, _import);
-//            }
-//            initRound(_fight);
-//        }else{
-//            TeamPosition currentUser_ = _fight.getCurrentUser();
-//            Fighter creature_=_fight.getFighter(currentUser_);
-//            if(!Numbers.eq(creature_.getSubstistute(),Fighter.BACK)){
-//                roundThrowerSwitch(_fight, currentUser_, _diff, _import);
-//                if(!_fight.getAcceptableChoices()){
-//                    return;
-//                }
-//            }
-//            //switch du dernier lanceur d'un joueur avec son remplacant
-//            cbts_=selectTargetHavingToPlayAfterThrower(_fight,currentUser_,_import);
-//            _fight.getOrderedFighters().clear();
-//            _fight.getOrderedFighters().addAll(cbts_);
-//            FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-//            cbts_ = _fight.getOrderedFighters();
-//        }
-//        calculateNextFighters(_fight, cbts_, _user, _diff, _import, true);
-//        if(_fight.getRemainingFighters().isEmpty()){
-//            return;
-//        }
-//        while(true){
-//            Fighter creature_=_fight.getFighter(_fight.getCurrentUser());
-//            if(creature_.getAction() instanceof ActionMove){
-//                FightRound.roundThrowerMove(_fight, _fight.getCurrentUser(),_diff,_import);
-//                if(!_fight.getAcceptableChoices()){
-//                    return;
-//                }
-//                if(FightKo.endedFight(_fight,_diff)){
-//                    //proposition d'attaques et d'evos
-//                    endRoundShowActions(_fight,_diff, _user, _import);
-//                    return;
-//                }
-//                substituingAfterRoundThrowerMove(_fight, _fight.getCurrentUser(), _diff, _import);
-//                if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
-//                    return;
-//                }
-//            } else if(creature_.getAction() instanceof ActionSwitch) {
-//                FightRound.roundThrowerSwitch(_fight,_fight.getCurrentUser(),_diff,_import);
-//                if(!_fight.getAcceptableChoices()){
-//                    return;
-//                }
-//            } else if(creature_.getAction() instanceof ActionHeal){
-//                FightRound.roundThrowerHealing(_fight,_fight.getCurrentUser(),_import);
-//            }
-//            creature_.setActed(true);
-//            //tri des lanceurs
-//            cbts_ = selectTargetHavingToPlayAfterThrower(_fight,_fight.getCurrentUser(),_import);
-//            _fight.getOrderedFighters().clear();
-//            _fight.getOrderedFighters().addAll(cbts_);
-//            FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-//            cbts_ = _fight.getOrderedFighters();
-//            calculateNextFighters(_fight, cbts_, _user, _diff, _import, true);
-//            if(_fight.getRemainingFighters().isEmpty()){
-//                return;
-//            }
-//        }
     }
 
     static void setAllyChoices(Fight _fight,DataBase _import) {
@@ -308,6 +246,7 @@ final class FightRound {
                     return;
                 }
             }
+            _fight.setState(FightState.ATTAQUES);
             //switch du dernier lanceur d'un joueur avec son remplacant
             cbts_=selectTargetHavingToPlayAfterThrower(_fight,currentUser_,_import);
             _fight.getOrderedFighters().clear();
@@ -335,8 +274,7 @@ final class FightRound {
                 _fight.setKeepRound(false);
                 return;
             }
-            substituingAfterRoundThrowerMove(_fight, _fight.getCurrentUser(), _diff, _import);
-            if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
+            if (substituingAfterRoundThrowerMove(_fight, _fight.getCurrentUser(), _diff, _import)) {
                 _fight.setKeepRound(false);
                 return;
             }
@@ -1384,16 +1322,15 @@ final class FightRound {
         _fight.getEffects().add(animation_);
     }
 
-    static void substituingAfterRoundThrowerMove(Fight _fight, TeamPosition _thrower, Difficulty _diff, DataBase _import) {
+    static boolean substituingAfterRoundThrowerMove(Fight _fight, TeamPosition _thrower, Difficulty _diff, DataBase _import) {
         Team equipe_=_fight.getTeams().getVal(_thrower.getTeam());
         Fighter creature_=_fight.getFighter(_thrower);
-        _fight.setState(FightState.ATTAQUES);
         if (!creature_.isSuccessfulMove()) {
-            return;
+            return false;
         }
         MoveData fAtt_=_import.getMove(creature_.getFinalChosenMove());
         if(fAtt_.getSwitchType() != SwitchType.LANCEUR){
-            return;
+            return false;
         }
         if(creature_.isBelongingToPlayer()){
             for(byte c:equipe_.getMembers().getKeys()){
@@ -1409,11 +1346,12 @@ final class FightRound {
                 }
                 _fight.setState(FightState.SWITCH_APRES_ATTAQUE);
                 creature_.setActed(true);
-                return;
+                return true;
             }
         } else if(!Numbers.eq(creature_.getSubstistute(),Fighter.BACK)) {
             roundThrowerSwitch(_fight, _thrower, _diff, _import);
         }
+        return false;
     }
 
     static void endRoundShowActions(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {

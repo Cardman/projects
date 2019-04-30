@@ -6336,7 +6336,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -6369,7 +6369,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -6401,7 +6401,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -6435,7 +6435,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
@@ -6469,7 +6469,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
         assertTrue(!fighter_.isActed());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertTrue(fighter_.isActed());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
@@ -6512,7 +6512,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
@@ -6554,7 +6554,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
         fighter_ = fight_.getFighter(thrower_);
@@ -6595,7 +6595,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
-        FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertTrue(!FightRound.substituingAfterRoundThrowerMove(fight_, thrower_, diff_, _data_));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
         fighter_ = fight_.getFighter(thrower_);
@@ -9153,6 +9153,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         FightRound.roundThrowerSwitch(fight_, currentUser_, diff_, _data_);
+        fight_.setState(FightState.ATTAQUES);
         EqList<TeamPosition> cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,_data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(cbts_);
@@ -9229,6 +9230,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.calculateNextFighters(fight_, new EqList<TeamPosition>(), player_, diff_, _data_, false);
         fight_.setKeepRound(true);
         FightRound.roundUser(fight_, diff_, player_, _data_);
+        fight_.setState(FightState.ATTAQUES);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         EqList<TeamPosition> cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,_data_);
         fight_.getOrderedFighters().clear();
@@ -9359,6 +9361,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         FightRound.roundThrowerSwitch(fight_, currentUser_, diff_, _data_);
+        fight_.setState(FightState.ATTAQUES);
         EqList<TeamPosition> cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,_data_);
         fight_.getOrderedFighters().clear();
         fight_.getOrderedFighters().addAllElts(cbts_);
@@ -9668,7 +9671,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("547571/17375"), fighter_.getRemainingHp());
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
+        assertEq(FightState.ATTAQUES, fight_.getState());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(fight_.isKeepRound());
         assertEq(1, fight_.getRemainingFighters().size());
@@ -9742,7 +9745,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("547571/17375"), fighter_.getRemainingHp());
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
+        assertEq(FightState.ATTAQUES, fight_.getState());
         assertTrue(fight_.getAcceptableChoices());
         assertTrue(fight_.isKeepRound());
         assertEq(1, fight_.getRemainingFighters().size());

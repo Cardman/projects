@@ -10125,7 +10125,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.changeAction(fight_, ActionType.SWITCH, _data_);
         FightFacade.setSubstituteSwitch(fight_, (byte) 0);
         FightFacade.beginRound(fight_, player_, diff_, _data_);
-        assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
+        assertEq(FightState.ATTAQUES, fight_.getState());
         assertTrue(fight_.getAcceptableChoices());
     }
 

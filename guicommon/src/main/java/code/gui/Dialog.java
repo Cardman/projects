@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.WindowConstants;
 
 import code.gui.events.CrossClosingDialogEvent;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public abstract class Dialog implements ChangeableTitle {

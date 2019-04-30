@@ -1,4 +1,4 @@
-package code.gui.stream;
+package code.sml.stream;
 import code.resources.ResourceFiles;
 import code.sml.DocumentBuilder;
 import code.sml.util.ResourcesMessagesUtil;

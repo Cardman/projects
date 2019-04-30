@@ -19,7 +19,7 @@ import code.gui.NumComboBox;
 import code.gui.Panel;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.pagination.SearchingMode;
 

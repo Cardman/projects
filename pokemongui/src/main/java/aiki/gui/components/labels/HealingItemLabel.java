@@ -9,7 +9,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;

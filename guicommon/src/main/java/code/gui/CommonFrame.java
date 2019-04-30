@@ -7,7 +7,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public abstract class CommonFrame implements ChangeableTitle {

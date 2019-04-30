@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 
 import cards.gui.dialogs.FileConst;
 import code.gui.PaintableLabel;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

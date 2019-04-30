@@ -155,8 +155,8 @@ public final class PrimitiveTypeUtil {
         StringList superTypesSecond_ = getSuperTypesSet(_second, _vars, _conf);
         StringList superTypesFirstAdj_ = new StringList(superTypesFirst_);
         StringList superTypesSecondAdj_ = new StringList(superTypesSecond_);
-        for (String f: superTypesFirstAdj_) {
-            for (String s: superTypesSecondAdj_) {
+        for (String f: superTypesFirst_) {
+            for (String s: superTypesSecond_) {
                 Mapping map_ = new Mapping();
                 map_.setArg(s);
                 map_.setParam(f);

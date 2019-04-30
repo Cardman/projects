@@ -221,6 +221,21 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         assignWhenTrue(_an);
     }
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables prevAss_ = id_.getVal(this);
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(prevAss_.getFieldsRoot()));
+        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(prevAss_.getVariablesRoot()));
+        CustList<StringMap<SimpleAssignment>> mutable_ = prevAss_.getMutableLoopRoot();
+        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(mutable_.sub(0,mutable_.size()-1)));
+        int nb_ = Math.min(1, mutable_.size());
+        for (int i = 0; i< nb_;i++) {
+            assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
+        }
+        id_.put(nextSibling_, assBl_);
+    }
     @Override
     protected AssignedBooleanVariables buildNewAssignedVariable() {
         return new AssignedBooleanLoopVariables();

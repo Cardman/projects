@@ -92,7 +92,7 @@ import code.network.NetCreate;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;

@@ -9,7 +9,7 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.GraphicList;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringMap;

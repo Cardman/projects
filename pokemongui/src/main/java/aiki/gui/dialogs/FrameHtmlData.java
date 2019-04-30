@@ -16,7 +16,7 @@ import code.gui.Panel;
 import code.gui.ProgressingWebDialog;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends ChildFrame {

@@ -3,7 +3,7 @@ import java.awt.Image;
 
 import javax.swing.JOptionPane;
 
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

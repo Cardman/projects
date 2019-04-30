@@ -32,7 +32,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.gui.stream.ExtractFromFiles;
+import code.sml.stream.ExtractFromFiles;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
