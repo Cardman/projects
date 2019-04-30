@@ -1027,7 +1027,6 @@ public class FormatHtmlTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
-        bean_.getMap().put(null, 0);
         bean_.getMap().put("TWO", 1);
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();
@@ -1059,7 +1058,6 @@ public class FormatHtmlTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
-        bean_.getMap().put(null, 0);
         bean_.getMap().put("TWO", 1);
         bean_.getComposite().setInteger(5);
         Configuration conf_ = newConfiguration();

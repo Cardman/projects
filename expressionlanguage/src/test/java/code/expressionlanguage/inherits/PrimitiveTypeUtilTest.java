@@ -936,7 +936,7 @@ public final class PrimitiveTypeUtilTest {
         xml_.append(" $public Ex(){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = unfullValidateCheckInterfaces(files_);
         Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
         assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
     }
@@ -950,7 +950,7 @@ public final class PrimitiveTypeUtilTest {
         xml_.append(" $public $void m(){}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = unfullValidateCheckInterfaces(files_);
         Block b_ = c_.getClasses().getClassBody("pkg.Ex").getFirstChild();
         assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.defaultValue(b_,Argument.createVoid(),c_).getStruct());
     }
@@ -3678,8 +3678,26 @@ public final class PrimitiveTypeUtilTest {
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        return cont_;
+    }
+    private ContextEl unfullValidateCheckInterfaces(StringMap<String> _files) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateIds(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateEl(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
