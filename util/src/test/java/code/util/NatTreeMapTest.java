@@ -42,6 +42,55 @@ public class NatTreeMapTest {
     }
 
     @Test
+    public void put2Test() {
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
+        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        assertEq(0, l_.size());
+        map_.put("ONE", 2);
+        map_.put("ONE", 1);
+        assertEq(1, l_.size());
+        assertEq("ONE", l_.get(0).getKey());
+        assertEq(1, l_.get(0).getValue());
+        map_.put("TWO", 2);
+        assertEq(2, l_.size());
+        assertEq("ONE", l_.get(0).getKey());
+        assertEq(1, l_.get(0).getValue());
+        assertEq("TWO", l_.get(1).getKey());
+        assertEq(2, l_.get(1).getValue());
+        map_.put("TWO", 3);
+        assertEq(2, l_.size());
+        assertEq("ONE", l_.get(0).getKey());
+        assertEq(1, l_.get(0).getValue());
+        assertEq("TWO", l_.get(1).getKey());
+        assertEq(3, l_.get(1).getValue());
+        map_.put("THREE", 2);
+        assertEq(3, l_.size());
+        assertEq("ONE", l_.get(0).getKey());
+        assertEq(1, l_.get(0).getValue());
+        assertEq("THREE", l_.get(1).getKey());
+        assertEq(2, l_.get(1).getValue());
+        assertEq("TWO", l_.get(2).getKey());
+        assertEq(3, l_.get(2).getValue());
+    }
+
+    @Test
+    public void put3Test() {
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
+        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        assertEq(0, l_.size());
+        map_.put("ONE", 2);
+        map_.put("ONE", 1);
+        assertEq(1, l_.size());
+        assertEq("ONE", l_.get(0).getKey());
+        assertEq(1, l_.get(0).getValue());
+        map_.put("FOUR", 2);
+        assertEq(2, l_.size());
+        assertEq("FOUR", l_.get(0).getKey());
+        assertEq(2, l_.get(0).getValue());
+        assertEq("ONE", l_.get(1).getKey());
+        assertEq(1, l_.get(1).getValue());
+    }
+    @Test
     public void size1Test() {
         NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         assertEq(0, map_.size());
@@ -325,6 +374,25 @@ public class NatTreeMapTest {
         map_ = new NatTreeMap<Integer, Integer>();
         map_.put(1, 0);
         map_.put(3, 0);
+        assertEq(1, map_.ceilingKey(1).intValue());
+    }
+
+    @Test
+    public void ceilingKey5Test() {
+        NatTreeMap<Integer,Integer> map_;
+        map_ = new NatTreeMap<Integer, Integer>();
+        map_.put(3, 0);
+        map_.put(1, 0);
+        assertEq(1, map_.ceilingKey(1).intValue());
+    }
+
+    @Test
+    public void ceilingKey6Test() {
+        NatTreeMap<Integer,Integer> map_;
+        map_ = new NatTreeMap<Integer, Integer>();
+        map_.put(3, 0);
+        map_.put(3, 1);
+        map_.put(1, 0);
         assertEq(1, map_.ceilingKey(1).intValue());
     }
 }

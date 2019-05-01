@@ -77,26 +77,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     }
 
     @Override
-    public K firstKey() {
-        return getList().first().getKey();
-    }
-
-    @Override
-    public K lastKey() {
-        return getList().last().getKey();
-    }
-
-    @Override
-    public V firstValue() {
-        return getList().first().getValue();
-    }
-
-    @Override
-    public V lastValue() {
-        return getList().last().getValue();
-    }
-
-    @Override
     public EntryCust<K, V> lowerEntry(K _key) {
         CustList<EntryCust<K,V>> l_;
         l_ = new CustList<EntryCust<K,V>>();

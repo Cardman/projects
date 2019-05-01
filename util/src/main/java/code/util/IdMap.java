@@ -38,17 +38,4 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
         return CustList.INDEX_NOT_FOUND_ELT;
     }
 
-    public V firstValue() {
-        return getList().first().getValue();
-    }
-    public V lastValue() {
-        return getList().last().getValue();
-    }
-    public K firstKey() {
-        return getList().first().getKey();
-    }
-
-    public K lastKey() {
-        return getList().last().getKey();
-    }
 }

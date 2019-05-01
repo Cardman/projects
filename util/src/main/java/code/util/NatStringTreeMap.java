@@ -75,26 +75,6 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
     }
 
     @Override
-    public V firstValue() {
-        return getList().first().getValue();
-    }
-
-    @Override
-    public V lastValue() {
-        return getList().last().getValue();
-    }
-
-    @Override
-    public String firstKey() {
-        return getList().first().getKey();
-    }
-
-    @Override
-    public String lastKey() {
-        return getList().last().getKey();
-    }
-
-    @Override
     public EntryCust<String, V> lowerEntry(String _key) {
         CustList<EntryCust<String,V>> l_;
         l_ = new CustList<EntryCust<String,V>>();

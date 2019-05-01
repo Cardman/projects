@@ -4,14 +4,6 @@ import code.util.EntryCust;
 
 public interface SortableMap<K, V> extends ListableEntries<K, V> {
 
-    K firstKey();
-
-    K lastKey();
-
-    V firstValue();
-
-    V lastValue();
-
     EntryCust<K, V> lowerEntry(K _key);
 
     K lowerKey(K _key);

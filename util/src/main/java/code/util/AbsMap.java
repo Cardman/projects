@@ -43,6 +43,22 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return true;
     }
 
+    public K firstKey() {
+        return getList().first().getKey();
+    }
+
+    public K lastKey() {
+        return getList().last().getKey();
+    }
+
+    public V firstValue() {
+        return getList().first().getValue();
+    }
+
+    public V lastValue() {
+        return getList().last().getValue();
+    }
+
     final Listable<EntryCust<K, V>> getList() {
         return list;
     }

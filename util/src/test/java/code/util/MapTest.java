@@ -13,7 +13,7 @@ public class MapTest {
 
     @Test
     public void put1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Number> map_ = new StringMap<Number>(new StringMap<Number>(new CollCapacity(0)));
         Listable<EntryCust<String,Number>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
@@ -198,7 +198,7 @@ public class MapTest {
 
     @Test
     public void putAllMap3Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>(new ObjectMap<KeyExample,Number>(new CollCapacity(0)));
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         ObjectMap<KeyExample,Number> mapToPut_ = new ObjectMap<KeyExample,Number>();

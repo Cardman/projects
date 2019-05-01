@@ -106,26 +106,6 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Integer firstValue() {
-        return tree.firstValue();
-    }
-
-    @Override
-    public Integer lastValue() {
-        return tree.lastValue();
-    }
-
-    @Override
-    public String firstKey() {
-        return tree.firstKey();
-    }
-
-    @Override
-    public String lastKey() {
-        return tree.lastKey();
-    }
-
-    @Override
     public EntryCust<String, Integer> lowerEntry(String _key) {
         return tree.lowerEntry(_key);
     }

@@ -13,7 +13,7 @@ public class IdMapTest {
 
     @Test
     public void put1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Number> map_ = new IdMap<String,Number>(new IdMap<String,Number>(new CollCapacity(0)));
         Listable<EntryCust<String,Number>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
@@ -303,5 +303,30 @@ public class IdMapTest {
         assertEq(1, map_.getVal(k2_).intValue());
         assertEq(2, map_.getVal(k3_).intValue());
         assertEq(3, map_.getVal(k4_).intValue());
+    }
+
+    @Test
+    public void getKeysTest() {
+        KeyExample k1_;
+        KeyExample k2_;
+        KeyExample k3_;
+        KeyExample k4_;
+        k1_ = new KeyExample(0, 0);
+        k2_ = new KeyExample(0, 1);
+        k3_ = new KeyExample(1, 1);
+        k4_ = new KeyExample(0, 1);
+        IdMap<KeyExample,Number> map_ = new IdMap<KeyExample,Number>();
+        map_.put(k1_, 0);
+        map_.put(k2_, 1);
+        IdMap<KeyExample,Number> mapToPut_ = new IdMap<KeyExample,Number>();
+        mapToPut_.put(k3_, 2);
+        mapToPut_.put(k4_, 3);
+        map_.putAllMap(mapToPut_);
+        IdList<KeyExample> keys_ = map_.getKeys();
+        assertEq(4, keys_.size());
+        assertTrue(keys_.containsObj(k1_));
+        assertTrue(keys_.containsObj(k2_));
+        assertTrue(keys_.containsObj(k3_));
+        assertTrue(keys_.containsObj(k4_));
     }
 }
