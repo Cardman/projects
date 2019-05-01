@@ -1,8 +1,12 @@
 package code.util;
 import code.util.classestest.IntegerComparator;
+import code.util.classestest.MyEnum;
 import org.junit.Test;
 
 import static code.util.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 public class ListTest {
@@ -32,11 +36,11 @@ public class ListTest {
         assertEq(1, groups_.get(2).size());
         assertEq(1, groups_.get(3).size());
         assertEq(1, groups_.get(4).size());
-        assertEq(-2, groups_.get(0).first().intValue());
-        assertEq(0, groups_.get(1).first().intValue());
-        assertEq(1, groups_.get(2).first().intValue());
-        assertEq(3, groups_.get(3).first().intValue());
-        assertEq(5, groups_.get(4).first().intValue());
+        assertEq(-2, groups_.get(0).first());
+        assertEq(0, groups_.get(1).first());
+        assertEq(1, groups_.get(2).first());
+        assertEq(3, groups_.get(3).first());
+        assertEq(5, groups_.get(4).first());
     }
 
     @Test
@@ -56,12 +60,12 @@ public class ListTest {
         assertEq(1, groups_.get(2).size());
         assertEq(2, groups_.get(3).size());
         assertEq(1, groups_.get(4).size());
-        assertEq(-2, groups_.get(0).first().intValue());
-        assertEq(0, groups_.get(1).first().intValue());
-        assertEq(1, groups_.get(2).first().intValue());
-        assertEq(3, groups_.get(3).first().intValue());
-        assertEq(3, groups_.get(3).last().intValue());
-        assertEq(5, groups_.get(4).first().intValue());
+        assertEq(-2, groups_.get(0).first());
+        assertEq(0, groups_.get(1).first());
+        assertEq(1, groups_.get(2).first());
+        assertEq(3, groups_.get(3).first());
+        assertEq(3, groups_.get(3).last());
+        assertEq(5, groups_.get(4).first());
     }
 
     @Test
@@ -82,13 +86,13 @@ public class ListTest {
         assertEq(1, groups_.get(2).size());
         assertEq(3, groups_.get(3).size());
         assertEq(1, groups_.get(4).size());
-        assertEq(-2, groups_.get(0).first().intValue());
-        assertEq(0, groups_.get(1).first().intValue());
-        assertEq(1, groups_.get(2).first().intValue());
-        assertEq(3, groups_.get(3).first().intValue());
-        assertEq(3, groups_.get(3).get(1).intValue());
-        assertEq(3, groups_.get(3).last().intValue());
-        assertEq(5, groups_.get(4).first().intValue());
+        assertEq(-2, groups_.get(0).first());
+        assertEq(0, groups_.get(1).first());
+        assertEq(1, groups_.get(2).first());
+        assertEq(3, groups_.get(3).first());
+        assertEq(3, groups_.get(3).get(1));
+        assertEq(3, groups_.get(3).last());
+        assertEq(5, groups_.get(4).first());
     }
 
     @Test
@@ -102,10 +106,10 @@ public class ListTest {
         CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(1, groups_.size());
         assertEq(4, groups_.get(0).size());
-        assertEq(3, groups_.get(0).first().intValue());
-        assertEq(3, groups_.get(0).get(1).intValue());
-        assertEq(3, groups_.get(0).get(2).intValue());
-        assertEq(3, groups_.get(0).last().intValue());
+        assertEq(3, groups_.get(0).first());
+        assertEq(3, groups_.get(0).get(1));
+        assertEq(3, groups_.get(0).get(2));
+        assertEq(3, groups_.get(0).last());
     }
 
     @Test
@@ -117,10 +121,10 @@ public class ListTest {
         integers_.add(5);
         CustList<Integer> res_ = integers_.getReverse();
         assertEq(4, res_.size());
-        assertEq(5, res_.get(0).intValue());
-        assertEq(-2, res_.get(1).intValue());
-        assertEq(3, res_.get(2).intValue());
-        assertEq(0, res_.get(3).intValue());
+        assertEq(5, res_.get(0));
+        assertEq(-2, res_.get(1));
+        assertEq(3, res_.get(2));
+        assertEq(0, res_.get(3));
     }
 
     @Test
@@ -131,9 +135,9 @@ public class ListTest {
         integers_.add(-2);
         CustList<Integer> res_ = integers_.getReverse();
         assertEq(3, res_.size());
-        assertEq(-2, res_.get(0).intValue());
-        assertEq(3, res_.get(1).intValue());
-        assertEq(0, res_.get(2).intValue());
+        assertEq(-2, res_.get(0));
+        assertEq(3, res_.get(1));
+        assertEq(0, res_.get(2));
     }
 
     @Test
@@ -143,8 +147,8 @@ public class ListTest {
         integers_.add(3);
         CustList<Integer> res_ = integers_.getReverse();
         assertEq(2, res_.size());
-        assertEq(3, res_.get(0).intValue());
-        assertEq(0, res_.get(1).intValue());
+        assertEq(3, res_.get(0));
+        assertEq(0, res_.get(1));
     }
 
     @Test
@@ -153,7 +157,7 @@ public class ListTest {
         integers_.add(0);
         CustList<Integer> res_ = integers_.getReverse();
         assertEq(1, res_.size());
-        assertEq(0, res_.get(0).intValue());
+        assertEq(0, res_.get(0));
     }
 
     @Test
@@ -161,5 +165,107 @@ public class ListTest {
         CustList<Integer> integers_ = new CustList<Integer>();
         CustList<Integer> res_ = integers_.getReverse();
         assertEq(0, res_.size());
+    }
+    @Test
+    public void sub1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.sub(1,2);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void sub2Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.sub(2,1);
+        assertEq(0, sub_.size());
+    }
+    @Test
+    public void mid1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(1,1);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void mid2Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(1);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void mid3Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        CustList<Integer> sub_ = integers_.mid(1,2);
+        assertEq(1, sub_.size());
+        assertEq(1, sub_.get(0));
+    }
+    @Test
+    public void isValidIndexTest() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        assertTrue(!integers_.isValidIndex(-1));
+        assertTrue(integers_.isValidIndex(0));
+        assertTrue(!integers_.isValidIndex(1));
+    }
+    @Test
+    public void removeLastTest() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.removeLast();
+        integers_.removeLast();
+        assertTrue(integers_.isEmpty());
+    }
+    @Test
+    public void retainTest() {
+        IdList<MyEnum> integers_ = new IdList<MyEnum>();
+        integers_.add(MyEnum.THREE);
+        integers_.add(MyEnum.ONE);
+        IdList<MyEnum> integersTwo_ = new IdList<MyEnum>();
+        integersTwo_.add(MyEnum.THREE);
+        integersTwo_.add(MyEnum.TWO);
+        integers_.retainAllElements(integersTwo_);
+        assertEq(1, integers_.size());
+        assertSame(MyEnum.THREE, integers_.get(0));
+    }
+    @Test
+    public void getPrevTest() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        assertEq(5, integers_.getPrev(1));
+    }
+    @Test
+    public void clearTest() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.clear();
+        assertTrue(integers_.isEmpty());
+        assertNotNull(integers_.getList());
+        assertEq(0,integers_.toArray().length);
+    }
+    @Test
+    public void simpleIterator1Test() {
+        CustList<Integer> integers_ = new CustList<Integer>();
+        integers_.add(5);
+        integers_.add(1);
+        SimpleItr itr_ = integers_.simpleIterator();
+        assertTrue(itr_.hasNext());
+        assertEq(5, (Integer)itr_.next());
+        assertTrue(itr_.hasNext());
+        assertEq(1, (Integer)itr_.next());
+        assertTrue(!itr_.hasNext());
+        assertTrue(new CharList().isEmpty());
+        assertEq(0,CharList.wrapCharArray().length);
     }
 }
