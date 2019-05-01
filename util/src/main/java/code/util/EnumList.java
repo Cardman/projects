@@ -78,11 +78,6 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         return INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
-    public EnumList<T> subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
-
 
     public void removeDuplicates()  {
         int i_ = FIRST_INDEX;

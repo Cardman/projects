@@ -11,41 +11,10 @@ import code.util.ints.SortableMap;
 */
 public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
-    @Override
-    public void putAllMap(ListableEntries<K, V> _m) {
-        for (EntryCust<K,V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
-
     public void putAllTreeMap(NatCmpTreeMap<K, V> _m) {
         for (EntryCust<K,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
-    }
-
-    @Override
-    public CustList<K> getKeysNullValue() {
-        CustList<K> list_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            if (e.getValue() != null) {
-                continue;
-            }
-            list_.add(e.getKey());
-        }
-        return list_;
-    }
-    @Override
-    public CustList<V> getValues(K _key) {
-        CustList<V> c_;
-        c_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = _key.cmp(e.getKey());
-            if (res_ == CustList.EQ_CMP) {
-                c_.add(e.getValue());
-            }
-        }
-        return c_;
     }
 
     @Override
@@ -93,14 +62,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         return CustList.INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
-    public CustList<V> values() {
-        CustList<V> s_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getValue());
-        }
-        return s_;
-    }
 
     public Comparing<K> comparator() {
         return new NatComparator<K>();

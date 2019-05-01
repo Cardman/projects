@@ -36,31 +36,8 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
         return tree.entryList();
     }
 
-    public void putAllTreeMap(NatStringTreeMap< Integer> _m) {
-        tree.putAllTreeMap(_m);
-    }
-
-    public boolean containsAllAsKeys(Listable<String> _elements) {
-        return tree.containsAllAsKeys(_elements);
-    }
-
-    @Override
-    public CustList<String> getKeysNullValue() {
-        return tree.getKeysNullValue();
-    }
-
-    @Override
-    public boolean isCorrect() {
-        return tree.isCorrect();
-    }
-
     public void setKey(int _i, String _k) {
         tree.setKey(_i, _k);
-    }
-
-    @Override
-    public CustList<Integer> getValues(String _key) {
-        return tree.getValues(_key);
     }
 
     @Override
@@ -141,10 +118,6 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     @Override
     public String firstKey() {
         return tree.firstKey();
-    }
-
-    public void addEntry(String _k, Integer _v) {
-        tree.addEntry(_k, _v);
     }
 
     @Override

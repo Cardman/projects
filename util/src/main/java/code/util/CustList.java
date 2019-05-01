@@ -198,63 +198,6 @@ public class CustList<T> implements Listable<T> {
         list.set(_j, first_);
     }
 
-    @Override
-    public void removeNull() {
-        Numbers<Integer> indexes_;
-        indexes_ = indexesOfNull().getReverse();
-        for (int i: indexes_) {
-            removeAt(i);
-        }
-    }
-
-    @Override
-    public boolean containsNull() {
-        return !indexesOfNull().isEmpty();
-    }
-    @Override
-    public int indexOfNull() {
-        Numbers<Integer> indexes_;
-        indexes_ = indexesOfNull();
-        if (indexes_.isEmpty()) {
-            return INDEX_NOT_FOUND_ELT;
-        }
-        return indexes_.first();
-    }
-
-    @Override
-    public int indexOfNull(int _from) {
-        int s_ = size();
-        for (int i = _from; i < s_; i++) {
-            if (get(i) == null) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND_ELT;
-    }
-
-    @Override
-    public int lastIndexOfNull() {
-        Numbers<Integer> indexes_;
-        indexes_ = indexesOfNull();
-        if (indexes_.isEmpty()) {
-            return INDEX_NOT_FOUND_ELT;
-        }
-        return indexes_.last();
-    }
-
-    @Override
-    public Numbers<Integer> indexesOfNull() {
-        Numbers<Integer> indexes_;
-        indexes_ = new Numbers<Integer>();
-        int s_ = size();
-        for (int i = FIRST_INDEX; i < s_; i++) {
-            if (get(i) == null) {
-                indexes_.add(i);
-            }
-        }
-        return indexes_;
-    }
-
     public CustList<CustList<T>> getBaseGroupsSameCompare(Comparing<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);

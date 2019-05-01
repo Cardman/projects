@@ -74,7 +74,6 @@ import code.util.EqList;
 import code.util.IdList;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.SortedGraph;
@@ -575,12 +574,12 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public ClassMetaInfo getClassMetaInfo(StandardType _type,String _name) {
         String k_ = _type.getFullName();
-        ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-        infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        ObjectMap<MethodId, MethodMetaInfo> infos_;
+        infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-        infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+        infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
         for (StandardField f: _type.getFields().values()) {

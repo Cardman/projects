@@ -21,46 +21,10 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         comparator = _cmp;
     }
 
-    @Override
-    public boolean isCorrect() {
-        return comparator != null && super.isCorrect();
-    }
-
-    @Override
-    public void putAllMap(ListableEntries<K, V> _m) {
-        for (EntryCust<K,V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
     public void putAllTreeMap(SortableMap<K, V> _m) {
         for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
-    }
-
-    @Override
-    public CustList<K> getKeysNullValue() {
-        CustList<K> list_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            if (e.getValue() != null) {
-                continue;
-            }
-            list_.add(e.getKey());
-        }
-        return list_;
-    }
-
-    @Override
-    public CustList<V> getValues(K _key) {
-        CustList<V> c_;
-        c_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = comparator.compare(_key, e.getKey());
-            if (res_ == CustList.EQ_CMP) {
-                c_.add(e.getValue());
-            }
-        }
-        return c_;
     }
 
     @Override
@@ -106,15 +70,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
             index_++;
         }
         return CustList.INDEX_NOT_FOUND_ELT;
-    }
-
-    @Override
-    public CustList<V> values() {
-        CustList<V> s_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getValue());
-        }
-        return s_;
     }
 
     public Comparing<K> comparator() {

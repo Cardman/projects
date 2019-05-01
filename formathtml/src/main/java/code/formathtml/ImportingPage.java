@@ -47,7 +47,7 @@ public final class ImportingPage {
 
     private StringMap<LocalVariable> returnedValues = new StringMap<LocalVariable>();
 
-    private String readUrl;
+    private String readUrl = "";
 
     private String key;
 

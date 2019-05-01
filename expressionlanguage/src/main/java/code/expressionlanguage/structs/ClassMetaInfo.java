@@ -9,10 +9,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.util.CustList;
-import code.util.ObjectNotNullMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ClassMetaInfo implements Struct, ExportableStringStruct {
 
@@ -29,9 +26,9 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     private final String typeOwner;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
-    private final ObjectNotNullMap<MethodId, MethodMetaInfo> methodsInfos;
+    private final ObjectMap<MethodId, MethodMetaInfo> methodsInfos;
 
-    private final ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
+    private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
 
     private final ClassCategory category;
 
@@ -70,8 +67,8 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
             access = AccessEnum.PUBLIC;
         }
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        methodsInfos = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
     }
@@ -86,8 +83,8 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
         superClass = EMPTY_STRING;
         variableOwner = _variableOwner;
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        methodsInfos = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
         staticType = true;
@@ -98,8 +95,8 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
             String _typeOwner,
             StringList _memberTypes,
             StringMap<FieldMetaInfo> _fields,
-            ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
-            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
+                         ObjectMap<MethodId, MethodMetaInfo> _methods,
+                         ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
             boolean _abstractType,
             boolean _staticType,
@@ -123,8 +120,8 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     public ClassMetaInfo(String _name,
             StringList _superInterfaces,String _typeOwner,
             StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
-            ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
-            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
+                         ObjectMap<MethodId, MethodMetaInfo> _methods,
+                         ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category, boolean _staticType, AccessEnum _access) {
         variableOwner = "";
         typeOwner = _typeOwner;
@@ -256,11 +253,11 @@ public final class ClassMetaInfo implements Struct, ExportableStringStruct {
     public StringMap<FieldMetaInfo> getFieldsInfos() {
         return fieldsInfos;
     }
-    public ObjectNotNullMap<MethodId, MethodMetaInfo> getMethodsInfos() {
+    public ObjectMap<MethodId, MethodMetaInfo> getMethodsInfos() {
         return methodsInfos;
     }
 
-    public ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> getConstructorsInfos() {
+    public ObjectMap<ConstructorId, ConstructorMetaInfo> getConstructorsInfos() {
         return constructorsInfos;
     }
 

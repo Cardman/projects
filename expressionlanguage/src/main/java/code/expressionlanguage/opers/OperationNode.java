@@ -39,12 +39,7 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectNotNullMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class OperationNode implements Operable {
 
@@ -492,8 +487,8 @@ public abstract class OperationNode implements Operable {
         }
         classeNames_.removeDuplicates();
         String objectType_ = _cont.getStandards().getAliasObject();
-        ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
-        ObjectNotNullMap<ClassField,FieldResult> ancestors_ = new ObjectNotNullMap<ClassField,FieldResult>();
+        ObjectMap<ClassField,Integer> imports_ = new ObjectMap<ClassField,Integer>();
+        ObjectMap<ClassField,FieldResult> ancestors_ = new ObjectMap<ClassField,FieldResult>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         fetchFields(_cont, _static, _name, _aff, clCurNames_, clCurNamesBase_, objectType_, imports_, ancestors_, curClassBase_, 0, true, classeNames_);
@@ -593,7 +588,7 @@ public abstract class OperationNode implements Operable {
         }
         return classeNamesPar_;
     }
-    private static void fetchFields(Analyzable _cont, boolean _static, String _name, boolean _aff, StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase, String _objectType, ObjectNotNullMap<ClassField, Integer> _imports, ObjectNotNullMap<ClassField, FieldResult> _ancestors, String _curClassBase, int _anc, boolean _keepInstance, StringList _classeNamesPar) {
+    private static void fetchFields(Analyzable _cont, boolean _static, String _name, boolean _aff, StringMap<String> _clCurNames, StringMap<String> _clCurNamesBase, String _objectType, ObjectMap<ClassField, Integer> _imports, ObjectMap<ClassField, FieldResult> _ancestors, String _curClassBase, int _anc, boolean _keepInstance, StringList _classeNamesPar) {
         for (String s: _classeNamesPar) {
             String id_ = Templates.getIdFromAllTypes(s);
             if (StringList.quickEq(id_, _objectType)) {
@@ -776,19 +771,19 @@ public abstract class OperationNode implements Operable {
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly, boolean _staticContext, StringList _classes, String _name, boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
-        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         return getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
     }
 
     static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
-        ObjectNotNullMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
+        ObjectMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
         return getCustResult(_cont, -1, ops_, _op, _argsClass);
     }
-    static ObjectNotNullMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
+    static ObjectMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
         String objType_ = _cont.getStandards().getAliasObject();
-        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
         for (OperatorBlock o: _cont.getClasses().getOperators()) {
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();
@@ -807,13 +802,13 @@ public abstract class OperationNode implements Operable {
         }
         return methods_;
     }
-    private static ObjectNotNullMap<ClassMethodId, MethodInfo>
+    private static ObjectMap<ClassMethodId, MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, boolean _accessFromSuper,
                                 boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId) {
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneType> roots_ = new CustList<GeneType>();
-        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
         StringList superTypes_ = new StringList();
         StringMap<String> superTypesBase_ = new StringMap<String>();
         for (String s: _fromClasses) {
@@ -946,7 +941,7 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
-    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
+    private static void fetchStaticMethods(Analyzable _conf, boolean _accessFromSuper, int _anc,boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, StringMap<String> _superTypesBase, String _cl, GeneType _root) {
         for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
             MethodInfo stMeth_ = getStMeth(_conf, _accessFromSuper,_anc, _superClass, _uniqueId, _glClass, e, _cl, _superTypesBase);
             if (stMeth_ == null) {
@@ -957,7 +952,7 @@ public abstract class OperationNode implements Operable {
         }
     }
 
-    private static void fetchInstanceMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectNotNullMap<ClassMethodId, MethodInfo> _methods, int _anc, GeneType _t, String _f) {
+    private static void fetchInstanceMethods(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, ClassMethodId _uniqueId, String _glClass, ObjectMap<ClassMethodId, MethodInfo> _methods, int _anc, GeneType _t, String _f) {
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _t.getAllOverridingMethods().entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String name_ = s.getClassName();
@@ -1049,9 +1044,9 @@ public abstract class OperationNode implements Operable {
         }
         return null;
     }
-    private static ObjectNotNullMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
-        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
+    private static ObjectMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
         String idClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock r_ = _conf.getClasses().getClassBody(idClass_);
         if (!(r_ instanceof EnumBlock)) {
@@ -1091,7 +1086,7 @@ public abstract class OperationNode implements Operable {
         return methods_;
     }
     private static ClassMethodIdReturn getCustResult(Analyzable _conf, int _varargOnly,
-            ObjectNotNullMap<ClassMethodId, MethodInfo> _methods,
+                                                     ObjectMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
         for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {

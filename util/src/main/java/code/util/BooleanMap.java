@@ -23,60 +23,12 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    public CustList<V> getValues(Boolean _key) {
-        CustList<V> values_ = new CustList<V>();
-        for (EntryCust<Boolean, V> e:getList()) {
-            if (_key == e.getKey()) {
-                values_.add(e.getValue());
-            }
-        }
-        return values_;
-    }
-
-    @Override
-    public CustList<V> values() {
-        CustList<V> s_ = new CustList<V>();
-        for (EntryCust<Boolean, V> e: getList()) {
-            s_.add(e.getValue());
-        }
-//        return new CustList<>(super.values());
-        return s_;
-    }
-
-    public void retainKeys(BooleanList _keys) {
-        for (Boolean k: getKeys()) {
-            if (!_keys.containsObj(k)) {
-                removeKey(k);
-            }
-        }
-    }
-
-    @Override
     public BooleanList getKeys() {
         BooleanList s_ = new BooleanList();
         for (EntryCust<Boolean, V> e: getList()) {
             s_.add(e.getKey());
         }
         return s_;
-    }
-    @Override
-    public BooleanList getKeysNullValue() {
-        BooleanList list_ = new BooleanList();
-        for (EntryCust<Boolean, V> e: getList()) {
-            if (e.getValue() != null) {
-                continue;
-            }
-            list_.add(e.getKey());
-        }
-        return list_;
-    }
-
-    @Override
-    public void putAllMap(ListableEntries<Boolean, V> _m) {
-        //setModified();
-        for (EntryCust<Boolean,V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
     }
 
     @Override

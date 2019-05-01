@@ -67,5 +67,4 @@ public abstract class AbEqList<T> extends CustList<T> {
 
     public abstract int indexOfObj(T _element, int _from);
 
-    public abstract AbEqList<T> subAbEq(int _from, int _to);
 }

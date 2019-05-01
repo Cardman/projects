@@ -123,7 +123,6 @@ import code.util.NatStringTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -606,7 +605,7 @@ public class DataBase implements WithMathFactory {
             setError(true);
             return;
         }
-        ObjectNotNullMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
+        ObjectMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
         for (EntryCust<TypeStatistic, Boolean> e : strongMovesTypeStat_
                 .entryList()) {
             if (e.getValue()) {
@@ -637,9 +636,9 @@ public class DataBase implements WithMathFactory {
 
     }
 
-    private ObjectNotNullMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
-        ObjectNotNullMap<TypeStatistic, Boolean> existDamageMoveWithTypeStatAttack_;
-        existDamageMoveWithTypeStatAttack_ = new ObjectNotNullMap<TypeStatistic, Boolean>();
+    private ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
+        ObjectMap<TypeStatistic, Boolean> existDamageMoveWithTypeStatAttack_;
+        existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, Boolean>();
         for (String t : getTypes()) {
             existDamageMoveWithTypeStatAttack_.put(new TypeStatistic(t,
                     Statistic.ATTACK), false);

@@ -52,20 +52,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return list.get(_index);
     }
 
-    @Override
-    public boolean isCorrect() {
-        return isCorrectBase();
-    }
-
-    public final boolean isCorrectBase() {
-        for (EntryCust<K,V> e:getList()) {
-            if (getValues(e.getKey()).size() != CustList.ONE_ELEMENT) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void setKey(int _i, K _k) {
         EntryCust<K,V> bk_ = list.get(_i);
         list.set(_i, new EntryCust<K,V>(_k, bk_.getValue()));
@@ -149,6 +135,22 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         removeKey(_oldKey);
         if (size_ != size()) {
             put(_newKey, value_);
+        }
+    }
+
+    @Override
+    public CustList<V> values() {
+        CustList<V> s_ = new CustList<V>();
+        for (EntryCust<K, V> e: getList()) {
+            s_.add(e.getValue());
+        }
+        return s_;
+    }
+
+    @Override
+    public void putAllMap(ListableEntries<K, V> _m) {
+        for (EntryCust<K,V> e: _m.entryList()) {
+            put(e.getKey(), e.getValue());
         }
     }
     @Override

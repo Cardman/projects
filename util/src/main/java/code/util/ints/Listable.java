@@ -30,17 +30,6 @@ public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, Sim
 
     T last();
 
-    boolean containsNull();
-
-    void removeNull();
-
-    int indexOfNull();
-    int indexOfNull(int _from);
-
-    int lastIndexOfNull();
-
-    Numbers<Integer> indexesOfNull();
-
     CustList<T> sub(int _from, int _to);
 
     void swapIndexes(int _i, int _j);

@@ -31,7 +31,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -979,7 +978,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredConstructors)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> ctors_;
+                ObjectMap<ConstructorId, ConstructorMetaInfo> ctors_;
                 ctors_ = cl_.getConstructorsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor_);
                 if (args_.length == 0) {
@@ -1023,7 +1022,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
                 methods_ = cl_.getMethodsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
                 if (args_.length == 0) {

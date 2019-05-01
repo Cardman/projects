@@ -50,12 +50,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ParserType;
 import code.expressionlanguage.variables.LocalVariable;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectNotNullMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.graphs.Graph;
 import code.util.graphs.SortedGraph;
 
@@ -2372,12 +2367,12 @@ public final class Classes {
         return new ClassMetaInfo(_context.getStandards().getAliasVoid(),_context, ClassCategory.VOID,"");
     }
     public static ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
-        ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-        infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        ObjectMap<MethodId, MethodMetaInfo> infos_;
+        infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-        infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+        infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         CustList<Block> bl_ = getDirectChildren(_type);
         StringList inners_ = new StringList();
         boolean existCtor_ = false;

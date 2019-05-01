@@ -1,23 +1,21 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
 import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 
 
 public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
-    private ObjectNotNullMap<Rate,LgInt> law;
+    private ObjectMap<Rate,LgInt> law;
 
     public MonteCarloNumber() {
-        setLaw(new ObjectNotNullMap<Rate,LgInt>());
+        setLaw(new ObjectMap<Rate,LgInt>());
     }
     
     public MonteCarloNumber(CollCapacity _capacity) {
-        law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
+        law = new ObjectMap<Rate,LgInt>(_capacity);
     }
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){
@@ -180,11 +178,11 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     }
 
     @Override
-    public ObjectNotNullMap<Rate,LgInt> getLaw() {
+    public ObjectMap<Rate,LgInt> getLaw() {
         return law;
     }
 
-    public void setLaw(ObjectNotNullMap<Rate, LgInt> _law) {
+    public void setLaw(ObjectMap<Rate, LgInt> _law) {
         law = _law;
     }
 }

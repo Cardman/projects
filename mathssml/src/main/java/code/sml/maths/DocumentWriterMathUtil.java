@@ -11,12 +11,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.sml.Document;
 import code.sml.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.BooleanMap;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectNotNullMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class DocumentWriterMathUtil {
 
@@ -92,7 +87,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setMapRateLgInt(ObjectNotNullMap<Rate,LgInt> _object, String _fieldName, Document _document) {
+    public static Element setMapRateLgInt(ObjectMap<Rate,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Rate,LgInt> s: _object.entryList()) {

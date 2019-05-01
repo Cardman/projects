@@ -22,41 +22,11 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
         super(_capacity);
     }
 
-    @Override
-    public void putAllMap(ListableEntries<String, V> _m) {
-        for (EntryCust<String,V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
 
     public void putAllTreeMap(NatStringTreeMap<V> _m) {
         for (EntryCust<String,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
-    }
-
-    @Override
-    public StringList getKeysNullValue() {
-        StringList list_ = new StringList();
-        for (EntryCust<String, V> e: getList()) {
-            if (e.getValue() != null) {
-                continue;
-            }
-            list_.add(e.getKey());
-        }
-        return list_;
-    }
-    @Override
-    public CustList<V> getValues(String _key) {
-        CustList<V> c_;
-        c_ = new CustList<V>();
-        for (EntryCust<String, V> e: getList()) {
-            int res_ = _key.compareTo(e.getKey());
-            if (res_ == CustList.EQ_CMP) {
-                c_.add(e.getValue());
-            }
-        }
-        return c_;
     }
 
     @Override
@@ -102,15 +72,6 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
             index_++;
         }
         return CustList.INDEX_NOT_FOUND_ELT;
-    }
-
-    @Override
-    public CustList<V> values() {
-        CustList<V> s_ = new CustList<V>();
-        for (EntryCust<String, V> e: getList()) {
-            s_.add(e.getValue());
-        }
-        return s_;
     }
 
     @Override

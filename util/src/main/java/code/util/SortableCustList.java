@@ -37,10 +37,6 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
     public void sort() {
         sortElts(new NatComparator<T>());
     }
-    @Override
-    public SortableCustList<T> subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
 
     @Override
     public SortableCustList<T> sub(int _from, int _to) {

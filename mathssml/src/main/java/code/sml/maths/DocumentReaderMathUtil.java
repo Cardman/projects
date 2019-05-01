@@ -11,16 +11,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.sml.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.BooleanList;
-import code.util.BooleanMap;
-import code.util.CollCapacity;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectNotNullMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class DocumentReaderMathUtil {
 
@@ -101,11 +92,11 @@ public final class DocumentReaderMathUtil {
     }
 
 
-    public static ObjectNotNullMap<Rate,LgInt> getMapRateLgInt(Element _elt) {
+    public static ObjectMap<Rate,LgInt> getMapRateLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectNotNullMap<Rate,LgInt> map_ = new ObjectNotNullMap<Rate,LgInt>(cap_);
+        ObjectMap<Rate,LgInt> map_ = new ObjectMap<Rate,LgInt>(cap_);
         EqList<Rate> keys_ = new EqList<Rate>(cap_);
         EqList<LgInt> values_ = new EqList<LgInt>(cap_);
         for (Element c: childElements_) {
@@ -175,7 +166,7 @@ public final class DocumentReaderMathUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         MonteCarloNumber law_ = new MonteCarloNumber(cap_);
-        law_.setLaw(new ObjectNotNullMap<Rate,LgInt>(cap_));
+        law_.setLaw(new ObjectMap<Rate,LgInt>(cap_));
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
             if (StringList.quickEq(fieldName_, FIELD_LAW)) {
