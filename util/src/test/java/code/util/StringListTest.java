@@ -416,6 +416,35 @@ public class StringListTest {
         assertEq("MY_STRING_ONE;MY_STRING_TWO",list_.join(";"));
     }
     @Test
+    public void join2Test(){
+        StringList list_ = new StringList();
+        list_.add("MY_STRING_ONE");
+        list_.add("MY_STRING_TWO");
+        assertEq("MY_STRING_ONE;MY_STRING_TWO",list_.join(';'));
+    }
+    @Test
+    public void join3Test(){
+        StringList list_ = new StringList();
+        list_.add("MY_STRING_ONE");
+        assertEq("MY_STRING_ONE",list_.join(";"));
+    }
+    @Test
+    public void join4Test(){
+        StringList list_ = new StringList();
+        list_.add("MY_STRING_ONE");
+        assertEq("MY_STRING_ONE",list_.join(';'));
+    }
+    @Test
+    public void join5Test(){
+        StringList list_ = new StringList();
+        assertEq("",list_.join(";"));
+    }
+    @Test
+    public void join6Test(){
+        StringList list_ = new StringList();
+        assertEq("",list_.join(';'));
+    }
+    @Test
     public void isNumber1Test(){
         assertTrue(StringList.isNumber("1"));
     }
@@ -486,6 +515,38 @@ public class StringListTest {
     @Test
     public void isWord6Test(){
         assertTrue(!StringList.isWord(""));
+    }
+    @Test
+    public void isWord7Test(){
+        assertTrue(!StringList.isWord("$"));
+    }
+    @Test
+    public void isDollarWord1Test(){
+        assertTrue(StringList.isDollarWord("1"));
+    }
+    @Test
+    public void isDollarWord2Test(){
+        assertTrue(StringList.isDollarWord("a"));
+    }
+    @Test
+    public void isDollarWord3Test(){
+        assertTrue(!StringList.isDollarWord("-1"));
+    }
+    @Test
+    public void isDollarWord4Test(){
+        assertTrue(!StringList.isDollarWord("-a"));
+    }
+    @Test
+    public void isDollarWord5Test(){
+        assertTrue(!StringList.isDollarWord("-"));
+    }
+    @Test
+    public void isDollarWord6Test(){
+        assertTrue(!StringList.isDollarWord(""));
+    }
+    @Test
+    public void isDollarWord7Test(){
+        assertTrue(StringList.isDollarWord("$"));
     }
     @Test
     public void indexesOfSubString1Test(){
@@ -1567,6 +1628,21 @@ public class StringListTest {
         assertEq("HELLO WORLD", res_.get(0));
     }
     @Test
+    public void splitInTwo1Test(){
+        StringList res_;
+        res_ = StringList.splitInTwo("HELLO WORLD", -1);
+        assertEq(1, res_.size());
+        assertEq("HELLO WORLD", res_.get(0));
+    }
+    @Test
+    public void splitInTwo2Test(){
+        StringList res_;
+        res_ = StringList.splitInTwo("HELLO WORLD", 5);
+        assertEq(2, res_.size());
+        assertEq("HELLO", res_.get(0));
+        assertEq(" WORLD", res_.get(1));
+    }
+    @Test
     public void wrapContent1Test(){
         String text_ = "Hello every body";
         String lines_ = StringList.wrapContent(text_, 5, true);
@@ -2166,5 +2242,100 @@ public class StringListTest {
     @Test
     public void eq5Test(){
         assertTrue(StringList.eq("a","a"));
+    }
+    @Test
+    public void removeDuplicates1Test() {
+        StringList l_ =new StringList();
+        l_.removeDuplicates();
+        assertEq(0,l_.size());
+    }
+    @Test
+    public void removeDuplicates2Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.removeDuplicates();
+        assertEq(1,l_.size());
+        assertEq("a",l_.get(0));
+    }
+    @Test
+    public void removeDuplicates3Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("b");
+        l_.removeDuplicates();
+        assertEq(2,l_.size());
+        assertEq("a",l_.get(0));
+        assertEq("b",l_.get(1));
+    }
+    @Test
+    public void removeDuplicates4Test() {
+        StringList l_ =new StringList();
+        l_.add("a");
+        l_.add("a");
+        l_.removeDuplicates();
+        assertEq(1,l_.size());
+        assertEq("a",l_.get(0));
+    }
+    @Test
+    public void getFirstPrintableCharIndex1Test() {
+        assertEq(-1,StringList.getFirstPrintableCharIndex(""));
+    }
+    @Test
+    public void getFirstPrintableCharIndex2Test() {
+        assertEq(-1,StringList.getFirstPrintableCharIndex(" "));
+    }
+    @Test
+    public void getFirstPrintableCharIndex3Test() {
+        assertEq(0,StringList.getFirstPrintableCharIndex("a"));
+    }
+    @Test
+    public void getFirstPrintableCharIndex4Test() {
+        assertEq(1,StringList.getFirstPrintableCharIndex(" a"));
+    }
+    @Test
+    public void getFirstPrintableCharIndex5Test() {
+        assertEq(0,StringList.getFirstPrintableCharIndex("a "));
+    }
+    @Test
+    public void getLastPrintableCharIndex1Test() {
+        assertEq(-1,StringList.getLastPrintableCharIndex(""));
+    }
+    @Test
+    public void getLastPrintableCharIndex2Test() {
+        assertEq(-1,StringList.getLastPrintableCharIndex(" "));
+    }
+    @Test
+    public void getLastPrintableCharIndex3Test() {
+        assertEq(0,StringList.getLastPrintableCharIndex("a"));
+    }
+    @Test
+    public void getLastPrintableCharIndex4Test() {
+        assertEq(0,StringList.getLastPrintableCharIndex("a "));
+    }
+    @Test
+    public void getLastPrintableCharIndex5Test() {
+        assertEq(1,StringList.getLastPrintableCharIndex(" a"));
+    }
+    @Test
+    public void replaceMultTest() {
+        Replacement rOne_  =new Replacement();
+        rOne_.setNewString("after");
+        rOne_.setOldString("before");
+        Replacement rTwo_  =new Replacement();
+        rTwo_.setNewString("unknown");
+        rTwo_.setOldString("known");
+        assertEq("after",StringList.replaceMult("before",rOne_,rTwo_));
+    }
+    @Test
+    public void removeStringsTest() {
+        assertEq("bfor",StringList.removeStrings("before","e"));
+    }
+    @Test
+    public void removeCharsTest() {
+        assertEq("bfor",StringList.removeChars("before",'e'));
+    }
+    @Test
+    public void removeAllSpacesTest() {
+        assertEq("before",StringList.removeAllSpaces("be fore"));
     }
 }
