@@ -203,4 +203,22 @@ public class DocReqTest {
         Text t_ = (Text) elt_.getFirstChild();
         assertEq("Text",t_.getData());
     }
+
+    @Test
+    public void textTest() {
+        CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag/>");
+        FullElement elt_ = (FullElement) doc_.getDocumentElement();
+        elt_.appendChild(doc_.createTextNode("Text"));
+        Text t_ = (Text) elt_.getFirstChild();
+        t_.appendChild(doc_.createTextNode("Sec"));
+        t_.removeChild(t_.getFirstChild());
+        t_.replaceChild(t_.getFirstChild(),t_.getFirstChild());
+        t_.insertAfter(t_.getFirstChild(),t_.getFirstChild());
+        t_.insertBefore(t_.getFirstChild(),t_.getFirstChild());
+        assertTrue(!t_.hasChildNodes());
+        assertTrue(!t_.hasAttributes());
+        assertEq(0,t_.getChildElements().size());
+        assertEq(0,t_.getChildNodes().size());
+        assertNull(t_.getAttributes());
+    }
 }

@@ -150,4 +150,9 @@ public class ExportTextTest {
         assertEq("",elt_.getTextContent());
     }
 
+    @Test
+    public void getTextContent25Test() {
+        Element elt_ = DocumentBuilder.parseNoTextDocument("<tag><inner/></tag>").getDocumentElement();
+        assertEq("",elt_.getTextContent());
+    }
 }

@@ -3,6 +3,7 @@ package code.sml;
 import org.junit.Test;
 
 import static code.sml.EquallableRowColUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class DescendantTest {
@@ -14,11 +15,22 @@ public class DescendantTest {
         assertEq(0,doc_.getChildNodes().size());
         assertTrue(!doc_.hasAttributes());
         assertTrue(!doc_.hasChildNodes());
+        assertNull(doc_.getFirstChild());
+        assertNull(doc_.getLastChild());
+        assertNull(doc_.getPreviousSibling());
+        assertNull(doc_.getNextSibling());
+        assertNull(doc_.getOwnerDocument());
+        assertNull(doc_.getParentNode());
+        assertNull(doc_.getAttributes());
+        doc_ = DocumentBuilder.newXmlDocument(1);
+        assertEq(0,doc_.getChildElements().size());
+        assertEq(0,doc_.getChildNodes().size());
     }
 
     @Test
     public void getDocChildrenWithTextTest() {
         CoreDocument doc_ = (CoreDocument) DocumentBuilder.parseSax("<tag><inner a=''/>Text</tag>");
+        assertEq(3,doc_.getDescNodes().size());
         assertEq(1,doc_.getChildElements().size());
         assertEq(1,doc_.getChildNodes().size());
         assertTrue(!doc_.hasAttributes());
@@ -28,6 +40,7 @@ public class DescendantTest {
         doc_.renameNode(doc_.getDocumentElement().getLastChild(),"oth");
         assertEq("other",doc_.getDocumentElement().getTagName());
         assertEq("inner",((Element)doc_.getDocumentElement().getFirstChild()).getTagName());
+        assertEq("Text",doc_.getTextContent());
     }
 
     @Test
@@ -501,6 +514,11 @@ public class DescendantTest {
     }
 
     @Test
+    public void getElementsByTagNameFullFilterDocTest() {
+        Document elt_ =DocumentBuilder.parseSax("<tag/>");
+        assertEq(1,elt_.getElementsByTagName("tag").size());
+    }
+    @Test
     public void getElementsByTagNameNoTextFilter1Test() {
         Element elt_ =DocumentBuilder.parseNoTextDocument("<tag/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
@@ -649,7 +667,11 @@ public class DescendantTest {
         Element elt_ =  DocumentBuilder.parseNoTextDocument("<tag><one><inner/></one><two/></tag>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
     }
-
+    @Test
+    public void getElementsByTagNameNoTextFilterDocTest() {
+        Document elt_ =DocumentBuilder.parseNoTextDocument("<tag/>");
+        assertEq(1,elt_.getElementsByTagName("tag").size());
+    }
     @Test
     public void getDescNodesFull1Test() {
         Element elt_ =DocumentBuilder.parseSax("<tag/>").getDocumentElement();

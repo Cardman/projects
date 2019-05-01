@@ -1,5 +1,6 @@
 package code.sml;
 
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.CharList;
 import org.junit.Test;
 import static code.sml.EquallableRowColUtil.assertEq;
@@ -100,6 +101,14 @@ public class TransformationsTest {
         assertEq("&amp;", DocumentBuilder.transformSpecialChars("&amp;", false, false));
     }
     @Test
+    public void transformSpecialChars15Test() {
+        assertEq("&amp;", DocumentBuilder.transformSpecialChars("&amp;", false));
+    }
+    @Test
+    public void transformSpecialChars16Test() {
+        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true));
+    }
+    @Test
     public void transformSpecialChars1FailTest() {
         DocumentBuilder.transformSpecialChars("&#;");
     }
@@ -108,25 +117,6 @@ public class TransformationsTest {
     public void transformSpecialChars2FailTest() {
         DocumentBuilder.transformSpecialChars("&#a;");
     }
-//    @Test
-//    public void encodeUrlString1Test() {
-//        assertEq("eacute", DocumentBuilder.encodeUrlString("eacute", false));
-//    }
-
-//    @Test
-//    public void encodeUrlString2Test() {
-//        assertEq("eacute", DocumentBuilder.encodeUrlString("eacute", true));
-//    }
-
-//    @Test
-//    public void encodeUrlString3Test() {
-//        assertEq("%%A5", DocumentBuilder.encodeUrlString("%25%A5", false));
-//    }
-
-//    @Test
-//    public void encodeUrlString4Test() {
-//        assertEq(new String(new char[]{'%',165}), DocumentBuilder.encodeUrlString("%25%A5", true));
-//    }
 
     @Test
     public void encodeToHtml1Test() {
@@ -135,8 +125,11 @@ public class TransformationsTest {
 
     @Test
     public void encodeToHtml2Test() {
-//        assertEq("&eacute;", DocumentBuilder.encodeToHtml(new String(new char[]{233})));
         assertEq("&#233;", DocumentBuilder.encodeToHtml(new String(CharList.wrapCharArray((char)233))));
     }
 
+    @Test
+    public void resourcesMessagesUtil() {
+        assertEq("folder/lg/file.properties",ResourcesMessagesUtil.getPropertiesPath("folder","lg","file"));
+    }
 }

@@ -71,8 +71,6 @@ public abstract class FullNode implements MutableNode {
         parentNode = _parentNode;
     }
     @Override
-    public abstract NamedNodeMap getAttributes();
-    @Override
     public abstract NodeList getChildNodes();
     @Override
     public abstract ElementList getChildElements();

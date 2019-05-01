@@ -20,6 +20,8 @@ public class AttrTest {
     public void hasAttribute3Test() {
         FullElement elt_ = (FullElement) DocumentBuilder.parseSax("<tag exist='value'/>").getDocumentElement();
         assertTrue(elt_.hasAttribute("exist"));
+        assertEq(1,elt_.getAttributes().getLength());
+        assertEq("exist",elt_.getAttributes().item(0).getName());
     }
     @Test
     public void hasAttribute4Test() {
@@ -128,6 +130,7 @@ public class AttrTest {
     public void getAttributeNoText3Test() {
         NotTextElement elt_ = (NotTextElement) DocumentBuilder.parseNoTextDocument("<tag exist='value'/>").getDocumentElement();
         assertEq("value",elt_.getAttribute("exist"));
+        assertEq(1,elt_.getAttributes().getLength());
     }
     @Test
     public void getAttributeNoText4Test() {

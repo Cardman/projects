@@ -325,6 +325,12 @@ public class ExportTest {
         Element elt_ =  DocumentBuilder.parseSax("<tag><inner/></tag>").getDocumentElement();
         assertEq("<tag><inner/></tag>",elt_.export());
     }
+
+    @Test
+    public void exportDocFull24Test() {
+        Document elt_ =  DocumentBuilder.parseSax("<tag><inner/></tag>");
+        assertEq("<tag><inner/></tag>",elt_.export());
+    }
     @Test
     public void exportNoText1Test() {
         Element elt_ =  DocumentBuilder.parseNoTextDocument("<tag/>").getDocumentElement();
@@ -406,6 +412,12 @@ public class ExportTest {
     @Test
     public void exportNoText26Test() {
         Element elt_ =  DocumentBuilder.parseNoTextDocument("<tag><one><inner/></one><two/></tag>").getDocumentElement();
+        assertEq("<tag><one><inner/></one><two/></tag>",elt_.export());
+    }
+
+    @Test
+    public void exportDocNoText26Test() {
+        Document elt_ =  DocumentBuilder.parseNoTextDocument("<tag><one><inner/></one><two/></tag>");
         assertEq("<tag><one><inner/></one><two/></tag>",elt_.export());
     }
 

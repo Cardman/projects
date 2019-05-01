@@ -9,6 +9,11 @@ import static org.junit.Assert.assertNull;
 public class ParserTest {
 
     @Test
+    public void parseSaxHtmlRowCol1Test() {
+        assertNotNull(DocumentBuilder.parseSaxHtmlRowCol("<tag>e</tag>"));
+    }
+
+    @Test
     public void parseSax1Test() {
         assertNotNull(DocumentBuilder.parseSax("<tag>e</tag>"));
     }

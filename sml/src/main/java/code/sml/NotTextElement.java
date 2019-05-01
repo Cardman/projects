@@ -332,7 +332,7 @@ public final class NotTextElement implements Element {
         }
         ElementList ch_ = parentNode.getChildElements();
         int i_ = 0;
-        int len_ = ch_.size();
+        int len_ = ch_.getLength();
         while (true) {
             Element e_ = ch_.item(i_);
             if (e_ == this) {

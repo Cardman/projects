@@ -42,6 +42,20 @@ public class IndexesTest {
     }
 
     @Test
+    public void getIndexes4Test() {
+        String html_ = "<tag><inner/><after/></tag>";
+        Document doc_ = DocumentBuilder.parseNoTextDocument(html_);
+        Element node_ = doc_.getDocumentElement();
+        node_.setFirstChild(node_.getFirstChild());
+        node_.setLastChild(node_.getLastChild());
+        node_.getLastChild().setPreviousSibling(node_.getFirstChild());
+        node_.getFirstChild().setNextSibling(node_.getLastChild());
+        Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
+        assertEq(1, indexes_.size());
+        assertEq(0, indexes_.get(0).intValue());
+    }
+
+    @Test
     public void getIndexOfNodeOrAttribute1Test() {
         String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -1012,6 +1026,7 @@ public class IndexesTest {
         RowCol rc_ = DocumentBuilder.getOffset("", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
         assertEq(6, rc_.getCol());
+        assertEq(8, e_.getBegin());
     }
 
     @Test
