@@ -62,9 +62,6 @@ public final class GenericNumbers extends CustList<BigDecimal> implements Equall
 
     @Override
     public boolean eq(GenericNumbers _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;
@@ -72,15 +69,6 @@ public final class GenericNumbers extends CustList<BigDecimal> implements Equall
         for (int i = FIRST_INDEX; i < len_; i++) {
             BigDecimal e_ = get(i);
             BigDecimal f_ = _g.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (f_ == null) {
-                return false;
-            }
             if (!eq(e_, f_)) {
                 return false;
             }

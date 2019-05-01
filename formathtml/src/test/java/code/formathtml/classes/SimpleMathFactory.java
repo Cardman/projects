@@ -5,7 +5,7 @@ import code.util.ints.MathFactory;
 public class SimpleMathFactory implements MathFactory {
 
     @Override
-    public Long evaluateDirectlyRate(String _numExp) {
+    public Object evaluateDirectlyRate(String _numExp) {
         long long_ = 0;
         for (String p: StringList.splitChars(_numExp, '+')) {
             long_ += Long.parseLong(p);

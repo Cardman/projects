@@ -45,8 +45,8 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         return list_;
     }
     @Override
-    public Rate evaluateDirectlyRate(String _numExp) {
-        return (Rate) MathUtil.processEl(_numExp, false, new StringMap<String>()).getObject();
+    public Object evaluateDirectlyRate(String _numExp) {
+        return MathUtil.processEl(_numExp, false, new StringMap<String>()).getObject();
     }
 
     @Override

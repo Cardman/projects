@@ -1,5 +1,4 @@
 package code.util;
-import code.util.comparators.ComparatorEnum;
 import code.util.ints.Comparing;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -21,10 +20,6 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
 
     public EnumList(CollCapacity _capacity) {
         super(_capacity);
-    }
-
-    public void sort() {
-        sortElts(new ComparatorEnum<T>());
     }
 
     public CustList<EnumList<T>> getGroupsSameCompare(Comparing<T> _cmp) {
@@ -98,19 +93,9 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
             }
         }
     }
-    @Override
-    public EnumList<T> sub(int _from, int _to) {
-        if (_from > _to) {
-            return new EnumList<T>();
-        }
-        return new EnumList<T>(super.sub(_from, _to));
-    }
 
     @Override
     public boolean eq(EnumList<T> _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;

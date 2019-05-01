@@ -65,12 +65,4 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
         return true;
     }
 
-    @Override
-    public EqList<T> sub(int _from, int _to) {
-        if (_from > _to) {
-            return new EqList<T>();
-        }
-        return new EqList<T>(super.sub(_from, _to));
-    }
-
 }

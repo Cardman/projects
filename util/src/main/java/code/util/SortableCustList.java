@@ -30,21 +30,10 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
         super(_c);
     }
 
-    
-    public SortableCustList(CollCapacity _capacity) {
-        super(_capacity);
-    }
     public void sort() {
         sortElts(new NatComparator<T>());
     }
 
-    @Override
-    public SortableCustList<T> sub(int _from, int _to) {
-        if (_from > _to) {
-            return new SortableCustList<T>();
-        }
-        return new SortableCustList<T>(super.sub(_from, _to));
-    }
     @Override
     public boolean eq(SortableCustList<T> _b) {
         int len_ = size();

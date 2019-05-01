@@ -40,15 +40,6 @@ public abstract class AbEqList<T> extends CustList<T> {
         removeAt(index_);
     }
 
-    public CustList<T> intersect(CustList<T> _list) {
-        CustList<T> list_ = new CustList<T>();
-        for (T s: _list) {
-            if (containsObj(s)) {
-                list_.add(s);
-            }
-        }
-        return list_;
-    }
     public boolean containsAllObj(Listable<T> _list) {
         for (T e: _list) {
             if (!containsObj(e)) {

@@ -21,14 +21,6 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
     }
 
     @Override
-    public IdList<T> sub(int _from, int _to) {
-        if (_from > _to) {
-            return new IdList<T>();
-        }
-        return new IdList<T>(super.sub(_from, _to));
-    }
-
-    @Override
     public boolean eq(IdList<T> _g) {
         int len_ = size();
         if (_g.size() != len_) {

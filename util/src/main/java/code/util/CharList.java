@@ -8,19 +8,10 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
     }
 
     public CharList(char... _elements) {
-        this(new CollCapacity(_elements.length));
-        for (char c: _elements) {
+        super(new CollCapacity(_elements.length));
+        for (char c : _elements) {
             add(c);
         }
-    }
-
-    public CharList(Listable<Character> _c) {
-        super(_c);
-    }
-
-    
-    public CharList(CollCapacity _capacity) {
-        super(_capacity);
     }
 
     public static char[] wrapCharArray(char... _chars) {
@@ -56,18 +47,6 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
             }
         }
         return true;
-    }
-
-    public CharList subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
-
-    @Override
-    public CharList sub(int _from, int _to) {
-        if (_from > _to) {
-            return new CharList();
-        }
-        return new CharList(super.sub(_from, _to));
     }
 
     public boolean containsObj(char _k) {

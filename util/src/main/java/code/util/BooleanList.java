@@ -19,10 +19,6 @@ public final class BooleanList extends CustList<Boolean> implements Equallable<B
         super(_capacity);
     }
 
-    public boolean containsBool(boolean _char) {
-        return containsObj(_char);
-    }
-
     public int indexOfObj(Boolean _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
@@ -36,9 +32,6 @@ public final class BooleanList extends CustList<Boolean> implements Equallable<B
 
     @Override
     public boolean eq(BooleanList _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;
@@ -53,17 +46,6 @@ public final class BooleanList extends CustList<Boolean> implements Equallable<B
         return true;
     }
 
-    public BooleanList subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
-
-    @Override
-    public BooleanList sub(int _from, int _to) {
-        if (_from > _to) {
-            return new BooleanList();
-        }
-        return new BooleanList(super.sub(_from, _to));
-    }
     public Numbers<Integer> indexesOfObj(boolean _element) {
         Numbers<Integer> indexes_;
         indexes_ = new Numbers<Integer>();
