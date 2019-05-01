@@ -9,6 +9,74 @@ import org.junit.Test;
 
 public class StringListTest {
     @Test
+    public void sub1Test(){
+        StringList s_ = new StringList();
+        StringList out_ = s_.sub(0, 0);
+        assertEq(0, out_.size());
+    }
+    @Test
+    public void sub2Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        StringList out_ = s_.sub(1, 0);
+        assertEq(0, out_.size());
+    }
+    @Test
+    public void sub3Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        s_.add("world");
+        StringList out_ = s_.sub(1, 2);
+        assertEq(1, out_.size());
+        assertEq("world", out_.get(0));
+    }
+    @Test
+    public void removeAllString1Test(){
+        StringList s_ = new StringList();
+        s_.removeAllString("part");
+        assertEq(0, s_.size());
+    }
+    @Test
+    public void removeAllString2Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        s_.removeAllString("part");
+        assertEq(1, s_.size());
+        assertEq("hello", s_.get(0));
+    }
+    @Test
+    public void removeAllString3Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        s_.add("part");
+        s_.removeAllString("part");
+        assertEq(1, s_.size());
+        assertEq("hello", s_.get(0));
+    }
+    @Test
+    public void removeString1Test(){
+        StringList s_ = new StringList();
+        s_.removeString("part");
+        assertEq(0, s_.size());
+    }
+    @Test
+    public void removeString2Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        s_.removeString("part");
+        assertEq(1, s_.size());
+        assertEq("hello", s_.get(0));
+    }
+    @Test
+    public void removeString3Test(){
+        StringList s_ = new StringList();
+        s_.add("hello");
+        s_.add("part");
+        s_.removeString("part");
+        assertEq(1, s_.size());
+        assertEq("hello", s_.get(0));
+    }
+    @Test
     public void match1Test(){
         assertEq(true, StringList.match("myString", ""));
     }
@@ -553,23 +621,23 @@ public class StringListTest {
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "L");
         assertEq(3, indexes_.size());
-        assertEq(2, indexes_.get(0).intValue());
-        assertEq(3, indexes_.get(1).intValue());
-        assertEq(9, indexes_.get(2).intValue());
+        assertEq(2, indexes_.get(0));
+        assertEq(3, indexes_.get(1));
+        assertEq(9, indexes_.get(2));
     }
     @Test
     public void indexesOfSubString2Test(){
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "LL");
         assertEq(1, indexes_.size());
-        assertEq(2, indexes_.get(0).intValue());
+        assertEq(2, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString3Test(){
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "LD");
         assertEq(1, indexes_.size());
-        assertEq(9, indexes_.get(0).intValue());
+        assertEq(9, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString4Test(){
@@ -582,22 +650,43 @@ public class StringListTest {
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "");
         assertEq(1, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
+        assertEq(0, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString6Test(){
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("AAAA", "AA");
         assertEq(2, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
-        assertEq(2, indexes_.get(1).intValue());
+        assertEq(0, indexes_.get(0));
+        assertEq(2, indexes_.get(1));
     }
     @Test
     public void indexesOfSubString7Test(){
         Numbers<Integer> indexes_;
         indexes_ = StringList.indexesOfSubString("AAA", "AA");
         assertEq(1, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
+        assertEq(0, indexes_.get(0));
+    }
+    @Test
+    public void indexesOfChar1Test(){
+        Numbers<Integer> indexes_;
+        indexes_ = StringList.indexesOfChar("HELLO WORLD", 'L');
+        assertEq(3, indexes_.size());
+        assertEq(2, indexes_.get(0));
+        assertEq(3, indexes_.get(1));
+        assertEq(9, indexes_.get(2));
+    }
+    @Test
+    public void indexesOfChar2Test(){
+        Numbers<Integer> indexes_;
+        indexes_ = StringList.indexesOfChar("HELLO WORLD", 'Z');
+        assertEq(0, indexes_.size());
+    }
+    @Test
+    public void indexesOfChar3Test(){
+        Numbers<Integer> indexes_;
+        indexes_ = StringList.indexesOfChar("", 'Z');
+        assertEq(0, indexes_.size());
     }
     @Test
     public void replace1Test(){
@@ -1751,6 +1840,42 @@ public class StringListTest {
         assertEq("folder/.txt", finalFile_);
     }
     @Test
+    public void replaceBkSlash1Test(){
+        String file_ = "word/txt";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
+    public void replaceBkSlash2Test(){
+        String file_ = "word\\txt";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
+    public void replaceBkSlash3Test(){
+        String file_ = "word/txt/";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
+    public void replaceBkSlash4Test(){
+        String file_ = "word\\txt\\";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
+    public void replaceBkSlash5Test(){
+        String file_ = "word/txt/.";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
+    public void replaceBkSlash6Test(){
+        String file_ = "word\\txt\\.";
+        String finalFile_ = StringList.replaceBackSlashDot(file_);
+        assertEq("word/txt/", finalFile_);
+    }
+    @Test
     public void getWordsSeparators1Test(){
         String string_ = ";./:";
         StringList parts_ = StringList.getWordsSeparators(string_);
@@ -1764,7 +1889,6 @@ public class StringListTest {
         assertEq(2, parts_.size());
         assertEq("", parts_.get(0));
         assertEq("hello", parts_.get(1));
-        //        assertEq("", parts_.get(2));
     }
     @Test
     public void getWordsSeparators3Test(){
@@ -1773,7 +1897,6 @@ public class StringListTest {
         assertEq(2, parts_.size());
         assertEq(";", parts_.get(0));
         assertEq("hello", parts_.get(1));
-        //        assertEq("", parts_.get(2));
     }
     @Test
     public void getWordsSeparators4Test(){
@@ -1813,7 +1936,6 @@ public class StringListTest {
         assertEq("hello", parts_.get(1));
         assertEq(";", parts_.get(2));
         assertEq("world", parts_.get(3));
-        //        assertEq("", parts_.get(4));
     }
     @Test
     public void getWordsSeparators8Test(){
@@ -1824,7 +1946,6 @@ public class StringListTest {
         assertEq("hello", parts_.get(1));
         assertEq(";,", parts_.get(2));
         assertEq("world", parts_.get(3));
-        //        assertEq("", parts_.get(4));
     }
     @Test
     public void getWordsSeparators9Test(){
@@ -1841,7 +1962,104 @@ public class StringListTest {
         assertEq("hello_one", parts_.get(1));
         assertEq(";,", parts_.get(2));
         assertEq("world_one", parts_.get(3));
-        //        assertEq("", parts_.get(4));
+    }
+    @Test
+    public void getDollarWordSeparators1Test(){
+        String string_ = ";./:";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(1, parts_.size());
+        assertEq(";./:", parts_.first());
+    }
+    @Test
+    public void getDollarWordSeparators2Test(){
+        String string_ = "hello";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(2, parts_.size());
+        assertEq("", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+    }
+    @Test
+    public void getDollarWordSeparators3Test(){
+        String string_ = ";hello";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(2, parts_.size());
+        assertEq(";", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+    }
+    @Test
+    public void getDollarWordSeparators4Test(){
+        String string_ = "hello;";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(3, parts_.size());
+        assertEq("", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+    }
+    @Test
+    public void getDollarWordSeparators5Test(){
+        String string_ = ":hello;";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(3, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+    }
+    @Test
+    public void getDollarWordSeparators6Test(){
+        String string_ = ":hello;world!";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(5, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+        assertEq("world", parts_.get(3));
+        assertEq("!", parts_.get(4));
+    }
+    @Test
+    public void getDollarWordSeparators7Test(){
+        String string_ = ":hello;world";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";", parts_.get(2));
+        assertEq("world", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordSeparators8Test(){
+        String string_ = ":hello;,world";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordSeparators9Test(){
+        String string_ = "";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(0, parts_.size());
+    }
+    @Test
+    public void getDollarWordSeparators10Test(){
+        String string_ = ":hello_one;,world_one";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello_one", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world_one", parts_.get(3));
+    }
+    @Test
+    public void getDollarWordSeparators11Test(){
+        String string_ = ":hello$one;,world$one";
+        StringList parts_ = StringList.getDollarWordSeparators(string_);
+        assertEq(4, parts_.size());
+        assertEq(":", parts_.get(0));
+        assertEq("hello$one", parts_.get(1));
+        assertEq(";,", parts_.get(2));
+        assertEq("world$one", parts_.get(3));
     }
     @Test
     public void replaceWordsJoin1Test(){
@@ -2317,6 +2535,22 @@ public class StringListTest {
         assertEq(1,StringList.getLastPrintableCharIndex(" a"));
     }
     @Test
+    public void getFirstToken1Test(){
+        assertEq("hell",StringList.getFirstToken("hello world","o"));
+    }
+    @Test
+    public void getFirstToken2Test(){
+        assertEq("hello world",StringList.getFirstToken("hello world","a"));
+    }
+    @Test
+    public void getFirstToken3Test(){
+        assertEq("hell",StringList.getFirstToken("hello world",'o'));
+    }
+    @Test
+    public void getFirstToken4Test(){
+        assertEq("hello world",StringList.getFirstToken("hello world",'a'));
+    }
+    @Test
     public void replaceMultTest() {
         Replacement rOne_  =new Replacement();
         rOne_.setNewString("after");
@@ -2337,5 +2571,220 @@ public class StringListTest {
     @Test
     public void removeAllSpacesTest() {
         assertEq("before",StringList.removeAllSpaces("be fore"));
+    }
+    @Test
+    public void filterByMultiWordsTest() {
+        StringList list_ = new StringList();
+        list_.add(null);
+        list_.add("hello");
+        list_.add("world");
+        StringList f_ = list_.filterByMultiWords("world");
+        assertEq(1, f_.size());
+        assertEq("world", f_.get(0));
+    }
+    @Test
+    public void filterEndsWithTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList f_ = list_.filterEndsWith("world");
+        assertEq(1, f_.size());
+        assertEq("world", f_.get(0));
+    }
+    @Test
+    public void filterBeginsWithTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList f_ = list_.filterBeginsWith("world");
+        assertEq(1, f_.size());
+        assertEq("world", f_.get(0));
+    }
+    @Test
+    public void interscectTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hellos");
+        listTwo_.add("world");
+        StringList f_ = list_.intersect(listTwo_);
+        assertEq(1, f_.size());
+        assertEq("world", f_.get(0));
+    }
+    @Test
+    public void disjoints1Test() {
+        CustList<StringList> lists_ = new CustList<StringList>();
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        lists_.add(list_);
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hellos");
+        listTwo_.add("world");
+        lists_.add(listTwo_);
+        assertTrue(!StringList.disjoints(lists_));
+    }
+    @Test
+    public void disjoints2Test() {
+        CustList<StringList> lists_ = new CustList<StringList>();
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        lists_.add(list_);
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hellos");
+        listTwo_.add("worlds");
+        lists_.add(listTwo_);
+        assertTrue(StringList.disjoints(lists_));
+    }
+    @Test
+    public void retainAllElementsTest(){
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hellos");
+        listTwo_.add("world");
+        list_.retainAllElements(listTwo_);
+        assertEq(1, list_.size());
+        assertEq("world", list_.get(0));
+    }
+    @Test
+    public void removePrefixInStringsTest(){
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        list_.removePrefixInStrings("h");
+        assertEq(2, list_.size());
+        assertEq("ello", list_.get(0));
+        assertEq("world", list_.get(1));
+    }
+    @Test
+    public void replaceExtension1Test() {
+        assertEq("file.log", StringList.replaceExtension("file.txt",".txt",".log"));
+    }
+    @Test
+    public void replaceExtension2Test() {
+        assertEq("file.txt", StringList.replaceExtension("file.txt",".log",".txt"));
+    }
+    @Test
+    public void getReverseTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList f_ = list_.getReverse();
+        assertEq(2, f_.size());
+        assertEq("world", f_.get(0));
+        assertEq("hello", f_.get(1));
+    }
+    @Test
+    public void replaceEltTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        list_.replace("hello","good morning");
+        assertEq(2, list_.size());
+        assertEq("good morning", list_.get(0));
+        assertEq("world", list_.get(1));
+    }
+    @Test
+    public void removeAllElementsTest() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hello");
+        listTwo_.add("worlds");
+        list_.removeAllElements(listTwo_);
+        assertEq(1, list_.size());
+        assertEq("world", list_.get(0));
+    }
+    @Test
+    public void containsAllObj1Test() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hello");
+        assertTrue(list_.containsAllObj(listTwo_));
+    }
+    @Test
+    public void containsAllObj2Test() {
+        StringList list_ = new StringList();
+        list_.add("hello");
+        list_.add("world");
+        StringList listTwo_ = new StringList();
+        listTwo_.add("hello");
+        listTwo_.add("worlds");
+        assertTrue(!list_.containsAllObj(listTwo_));
+    }
+    @Test
+    public void startsWith1Test() {
+        assertTrue(StringList.startsWith("hello","hello"));
+    }
+    @Test
+    public void startsWith2Test() {
+        assertTrue(!StringList.startsWith("hello","world"));
+    }
+    @Test
+    public void endsWith1Test() {
+        assertTrue(StringList.endsWith("hello","hello"));
+    }
+    @Test
+    public void endsWith2Test() {
+        assertTrue(!StringList.endsWith("hello","world"));
+    }
+    @Test
+    public void replaceBegin1Test() {
+        assertEq("",StringList.replaceBegin("hello","hello"));
+    }
+    @Test
+    public void replaceBegin2Test() {
+        assertEq("hello",StringList.replaceBegin("hello","world"));
+    }
+    @Test
+    public void replaceEnd1Test() {
+        assertEq("",StringList.replaceEnd("hello","hello"));
+    }
+    @Test
+    public void replaceEnd2Test() {
+        assertEq("hello",StringList.replaceEnd("hello","world"));
+    }
+    @Test
+    public void replaceExt1Test() {
+        assertEq("hello",StringList.replaceExtension("hello"));
+    }
+    @Test
+    public void replaceExt2Test() {
+        assertEq("hello",StringList.replaceExtension("hello.txt"));
+    }
+    @Test
+    public void replaceBackSlashesInStringsTest() {
+        StringList list_ = new StringList();
+        list_.add("hello\\world");
+        list_.replaceBackSlashesInStrings();
+        assertEq(1, list_.size());
+        assertEq("hello/world", list_.get(0));
+    }
+    @Test
+    public void toArrayTest() {
+        StringList list_ = new StringList(new CollCapacity(1));
+        list_.add("hello");
+        String[] arr_ = list_.toArray();
+        assertEq(1, arr_.length);
+        assertEq("hello", arr_[0]);
+    }
+    @Test
+    public void formatQuoteTest() {
+        assertEq("hello", StringList.formatQuote("hello", new StringMap<String>()));
+    }
+    @Test
+    public void concatNbTest() {
+        assertEq("0hello", StringList.concatNb(0,"hello"));
+    }
+    @Test
+    public void concatNbsTest() {
+        assertEq("hello0", StringList.concatNbs("hello", 0));
     }
 }

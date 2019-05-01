@@ -817,35 +817,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_.toString();
     }
 
-    public static StringList tokensOfSubString(String _string, String _subString) {
-        if (_subString.isEmpty()) {
-            StringList list_ = new StringList();
-            list_.add(EMPTY_STRING);
-            for (char c: _string.toCharArray()) {
-                list_.add(String.valueOf(c));
-                list_.add(EMPTY_STRING);
-            }
-            return list_;
-        }
-        StringList list_ = new StringList();
-        int i_ = FIRST_INDEX;
-        int len_ = _string.length();
-        int index_ = INDEX_NOT_FOUND_ELT;
-        while (i_ < len_) {
-            index_ = _string.indexOf(_subString, i_);
-            if (index_ < 0) {
-                break;
-            }
-            list_.add(_string.substring(i_, index_));
-            list_.add(_string.substring(index_, index_ + _subString.length()));
-            i_ = index_ + _subString.length();
-        }
-        if (i_ <= len_) {
-            list_.add(_string.substring(i_));
-        }
-        return list_;
-    }
-
     public static Numbers<Integer> indexesOfSubString(String _string, String _subString) {
         Numbers<Integer> list_ = new Numbers<Integer>();
         if (_subString.isEmpty()) {
@@ -912,26 +883,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return INDEX_NOT_FOUND_ELT;
     }
 
-    public Numbers<Integer> indexesOfSubstring(String _subSubstring) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
-        int size_ = size();
-        for (int i=FIRST_INDEX;i<size_;i++) {
-            if (get(i).contains(_subSubstring)) {
-                list_.add(i);
-            }
-        }
-        return list_;
-    }
-    public Numbers<Integer> indexesOfMultiWords(String _exp) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
-        int size_ = size();
-        for (int i=FIRST_INDEX;i<size_;i++) {
-            if (match(get(i), _exp)) {
-                list_.add(i);
-            }
-        }
-        return list_;
-    }
     public void removePrefixInStrings(String _prefix) {
         //setModified();
         int size_ = size();
@@ -999,15 +950,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         removeAt(index_);
     }
 
-    public CustList<String> intersect(CustList<String> _list) {
-        CustList<String> list_ = new CustList<String>();
-        for (String s: _list) {
-            if (containsObj(s)) {
-                list_.add(s);
-            }
-        }
-        return list_;
-    }
     public boolean containsAllObj(Listable<String> _list) {
         for (String e: _list) {
             if (!containsObj(e)) {
@@ -1018,15 +960,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
     public boolean containsObj(String _obj) {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
-    }
-    public StringList intersectStr(StringList _list) {
-        StringList list_ = new StringList();
-        for (String s: _list) {
-            if (containsObj(s)) {
-                list_.add(s);
-            }
-        }
-        return list_;
     }
 
     public void removeAllString(String _obj) {
@@ -1323,9 +1256,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return wordsSepBeginEnd_;
     }
 
-    static int lowestIndexOfMetaChar(String _string,
-            int _begin,
-            CharList _metas) {
+    private static int lowestIndexOfMetaChar(String _string,
+                                             int _begin,
+                                             CharList _metas) {
         int minIndex_ = INDEX_NOT_FOUND_ELT;
         for (char s: _metas) {
             int index_ = indexOf(_string, _begin, s);
@@ -1341,9 +1274,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return minIndex_;
     }
 
-    static int lowestIndexOfWordChar(String _string,
-            int _minIndex,
-            CharList _metas) {
+    private static int lowestIndexOfWordChar(String _string,
+                                             int _minIndex,
+                                             CharList _metas) {
         int ind_ = _minIndex;
         while (ind_ < _string.length()) {
             if (!_metas.containsChar(_string.charAt(ind_))) {
@@ -1433,9 +1366,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
             }
         }
     }
-    public StringList subAbEq(int _from, int _to) {
-        return sub(_from, _to);
-    }
 
     @Override
     public StringList sub(int _from, int _to) {
@@ -1498,7 +1428,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return return_.toString();
     }
 
-    public static boolean disjoints(EqList<StringList> _list) {
+    public static boolean disjoints(CustList<StringList> _list) {
         int size_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             for (int j = CustList.FIRST_INDEX; j < size_; j++) {
@@ -1541,13 +1471,13 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public static String concatNb(long _nb,CharSequence _string) {
-        StringBuilder str_ = new StringBuilder(_string);
+        StringBuilder str_ = new StringBuilder();
         str_.append(_nb);
         str_.append(_string);
         return str_.toString();
     }
 
-    public static String escape(String _input) {
+    static String escape(String _input) {
         int length_ = _input.length();
         char[] newArray_ = new char[length_];
         int i_ = FIRST_INDEX;
@@ -1585,7 +1515,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return new String(newArray_,FIRST_INDEX,newLength_);
     }
 
-    public static String escapeSpace(String _input) {
+    static String escapeSpace(String _input) {
         int length_ = _input.length();
         char[] newArray_ = new char[length_];
         int i_ = FIRST_INDEX;
@@ -1662,12 +1592,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 entered_ = true;
                 continue;
             }
-//            if (pos_ == SIZE_EMPTY) {
-//                pos_ = p.length();
-//                str_.append(LINE_RETURN_CHAR);
-//                str_.append(p);
-//                continue;
-//            }
             if (p.length() + pos_ + 1 > _maxCols) {
                 pos_ = p.length();
                 str_.append(LINE_RETURN_CHAR);
@@ -1771,7 +1695,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
 
-    public static StringList splitStringsSep(String _string, String... _separators) {
+    static StringList splitStringsSep(String _string, String... _separators) {
         StringList l_ = new StringList();
         int len_ = _string.length();
         String sub_ = _string;
@@ -1814,7 +1738,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return replaceWords(_str, _map).join(EMPTY_STRING);
     }
 
-    public static StringList replaceWords(String _str, ListableEntries<String,String> _map) {
+    private static StringList replaceWords(String _str, ListableEntries<String, String> _map) {
         StringList list_ = getWordsSeparators(_str);
         StringList newList_ = new StringList();
         for (String t : list_) {
@@ -1869,11 +1793,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 i_++;
                 continue;
             }
-//            if (newList_.last().startsWith(_prefixWord)) {
-//                newList_.add(t);
-//                i_++;
-//                continue;
-//            }
             newList_.setLast(concat(newList_.last(),t));
             i_++;
         }
@@ -1894,7 +1813,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 return ret_;
             }
             if (isWordChar(_str.charAt(i_))) {
-                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
+                str_.append(_str, CustList.FIRST_INDEX, i_);
                 break;
             }
             i_++;
@@ -1902,9 +1821,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         while (true) {
             if (i_ >= _str.length()) {
                 ret_.add(str_.toString());
-//                if (wasWordChar_) {
-//                    ret_.add(EMPTY_STRING);
-//                }
                 break;
             }
             char char_ = _str.charAt(i_);
@@ -1927,92 +1843,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return ret_;
     }
 
-    public static StringList getWhitespaceSeparators(String _str) {
-        if (_str.isEmpty()) {
-            return new StringList();
-        }
-        StringList ret_ = new StringList();
-        boolean wasWordChar_ = false;
-        int i_ = CustList.FIRST_INDEX;
-        StringBuilder str_ = new StringBuilder();
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(_str);
-                return ret_;
-            }
-            if (!Character.isWhitespace(_str.charAt(i_))) {
-                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
-                break;
-            }
-            i_++;
-        }
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(str_.toString());
-                break;
-            }
-            char char_ = _str.charAt(i_);
-            if (!Character.isWhitespace(char_)) {
-                if (!wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = true;
-                }
-            } else {
-                if (wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = false;
-                }
-            }
-            str_.append(char_);
-            i_++;
-        }
-        return ret_;
-    }
-    public static StringList getWhitespaceSeparators(StringBuilder _str) {
-        if (_str.length() == 0) {
-            return new StringList();
-        }
-        StringList ret_ = new StringList();
-        boolean wasWordChar_ = false;
-        int i_ = CustList.FIRST_INDEX;
-        StringBuilder str_ = new StringBuilder();
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(_str.toString());
-                return ret_;
-            }
-            if (!Character.isWhitespace(_str.charAt(i_))) {
-                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
-                break;
-            }
-            i_++;
-        }
-        while (true) {
-            if (i_ >= _str.length()) {
-                ret_.add(str_.toString());
-                break;
-            }
-            char char_ = _str.charAt(i_);
-            if (!Character.isWhitespace(char_)) {
-                if (!wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = true;
-                }
-            } else {
-                if (wasWordChar_) {
-                    ret_.add(str_.toString());
-                    str_ = new StringBuilder();
-                    wasWordChar_ = false;
-                }
-            }
-            str_.append(char_);
-            i_++;
-        }
-        return ret_;
-    }
     public static StringList getDollarWordSeparators(CharSequence _str) {
         if (_str.length() == 0) {
             return new StringList();
@@ -2026,8 +1856,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 ret_.add(_str.toString());
                 return ret_;
             }
-            if (isWordChar(_str.charAt(i_)) || _str.charAt(i_) == '$') {
-                str_.append(_str.toString().substring(CustList.FIRST_INDEX, i_));
+            if (isDollarWordChar(_str.charAt(i_))) {
+                str_.append(_str.toString(), CustList.FIRST_INDEX, i_);
                 break;
             }
             i_++;
@@ -2038,7 +1868,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 break;
             }
             char char_ = _str.charAt(i_);
-            if (isWordChar(char_) || char_ == '$') {
+            if (isDollarWordChar(char_)) {
                 if (!wasWordChar_) {
                     ret_.add(str_.toString());
                     str_ = new StringBuilder();
@@ -2206,22 +2036,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
             return true;
         }
         return Character.isLetterOrDigit(_char);
-    }
-
-    public static char getCharacter() {
-        return CHARACTER;
-    }
-
-    public static char getString() {
-        return STRING;
-    }
-
-    public static char getPossibleChar() {
-        return POSSIBLE_CHAR;
-    }
-
-    public static char getEscapingChar() {
-        return ESCAPING_CHAR;
     }
 
     @Override
