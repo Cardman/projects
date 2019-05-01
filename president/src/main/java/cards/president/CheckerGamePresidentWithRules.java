@@ -526,8 +526,8 @@ public final class CheckerGamePresidentWithRules {
                         str_.add(c.strength(loadedGameCopy_.isReversed()));
                     }
                     if (!str_.isEmpty()) {
-                        boolean same_ = Numbers.eq(str_.getMinimum().byteValue(),
-                                str_.getMaximum().byteValue());
+                        boolean same_ = Numbers.eq(str_.getMinimum((byte) 0).byteValue(),
+                                str_.getMaximum((byte) 0).byteValue());
                         // if (!loadedGameCopy_.keepPlayingCurrentGame()) {
                         // same_ = true;
                         // }

@@ -25,10 +25,7 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         super(_capacity);
     }
 
-    static String nullableToString(Number _nb) {
-        if (_nb == null) {
-            return EMPTY_STRING;
-        }
+    private static String nullableToString(Number _nb) {
         return toString(_nb);
     }
     public static String toString(Number _nb) {
@@ -206,13 +203,7 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         return CustList.EQ_CMP;
     }
     public static int compare(Number _nb1,Number _nb2) {
-        if (_nb1.longValue() < _nb2.longValue()) {
-            return CustList.NO_SWAP_SORT;
-        }
-        if (_nb1.longValue() > _nb2.longValue()) {
-            return CustList.SWAP_SORT;
-        }
-        return CustList.EQ_CMP;
+        return compareLg(_nb1.longValue(),_nb2.longValue());
     }
     public static int compareLg(long _nb1,long _nb2) {
         if (_nb1 < _nb2) {
@@ -306,34 +297,6 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
     public void sort() {
         //setModified();
         sortElts(new ComparatorNatNumber<T>());
-    }
-
-    public T getMinimum() {
-        if (isEmpty()) {
-            return null;
-        }
-        T min_ = get(FIRST_INDEX);
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            if (min_.longValue()>get(i).longValue()) {
-                min_ = get(i);
-            }
-        }
-        return min_;
-    }
-
-    public T getMaximum() {
-        if (isEmpty()) {
-            return null;
-        }
-        T max_ = get(FIRST_INDEX);
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            if (max_.longValue()<get(i).longValue()) {
-                max_ = get(i);
-            }
-        }
-        return max_;
     }
 
     public T getMinimum(T _def) {
@@ -445,9 +408,6 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
     }
     public boolean containsObj(long _obj) {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
-    }
-    public Numbers<T> subAbEq(int _from, int _to) {
-        return sub(_from, _to);
     }
 
     @Override

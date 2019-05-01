@@ -98,7 +98,7 @@ public final class PaginationHealingItem extends
         for (MoveData f : _data.getMoves().values()) {
             pps_.add(f.getPp());
         }
-        int maxPp_ = pps_.getMaximum();
+        int maxPp_ = pps_.getMaximum((short) -1);
         int len_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Item i_ = _data.getItem(_list.get(i));

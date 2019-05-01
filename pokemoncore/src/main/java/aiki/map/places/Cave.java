@@ -203,7 +203,7 @@ public final class Cave extends Campaign {
         if (keys_.isEmpty()) {
             return (short) CustList.FIRST_INDEX;
         }
-        byte max_ = keys_.getMaximum();
+        byte max_ = keys_.getMaximum((byte) -1);
         for (byte s = CustList.FIRST_INDEX; s < max_; s++) {
             if (keys_.containsObj(s)) {
                 continue;

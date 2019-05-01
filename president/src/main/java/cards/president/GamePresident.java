@@ -313,7 +313,7 @@ public final class GamePresident {
         if (ranks.isEmpty() || !rules.isLooserStartsFirst()) {
             leader_ = (byte) ((deal.getDonneur() + 1) % getNombreDeJoueurs());
         } else {
-            byte min_ = ranks.getMaximum();
+            byte min_ = ranks.getMaximum((byte) -1);
             int pl_ = ranks.indexOfObj(min_);
             leader_ = (byte) pl_;
         }

@@ -3116,7 +3116,7 @@ public final class DataMap {
         if (keys_.isEmpty()) {
             return CustList.FIRST_INDEX;
         }
-        short max_ = keys_.getMaximum();
+        short max_ = keys_.getMaximum((short) -1);
         for (short s = CustList.FIRST_INDEX; s < max_; s++) {
             if (keys_.containsObj(s)) {
                 continue;

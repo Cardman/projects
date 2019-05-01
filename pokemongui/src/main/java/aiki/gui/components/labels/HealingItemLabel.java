@@ -83,7 +83,7 @@ public class HealingItemLabel extends SelectableLabel {
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getThirdLineWidth());
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
-        setPreferredSize(new Dimension(widths_.getMaximum(),h_));
+        setPreferredSize(new Dimension(widths_.getMaximum(1),h_));
     }
 
     public int getThirdColumnWidth() {
