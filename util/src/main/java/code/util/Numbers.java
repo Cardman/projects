@@ -227,6 +227,9 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
     public static int[] wrapIntArray(int... _ints) {
         return _ints;
     }
+    static byte[] wrapByteArray(byte... _ints) {
+        return _ints;
+    }
     public static int parseInt(String _string) {
         long int_ = parseLongZero(_string);
         if (int_ < Integer.MIN_VALUE) {

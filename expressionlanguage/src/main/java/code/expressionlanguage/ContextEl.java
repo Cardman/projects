@@ -2411,7 +2411,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();
-        for (String q: StringList.splitCharsSep(_type, Templates.SEP_CLASS_CHAR)) {
+        for (String q: StringList.splitCharSep(_type, Templates.SEP_CLASS_CHAR)) {
             b_.append(q.trim());
         }
         return b_.toString();

@@ -55,7 +55,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     public void retainKeys(CharList _keys) {
-        for (Character k: getKeys()) {
+        for (char k: getKeys()) {
             if (!_keys.containsObj(k)) {
                 removeKey(k);
             }

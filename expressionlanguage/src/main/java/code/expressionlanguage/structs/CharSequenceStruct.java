@@ -389,7 +389,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
         Struct[] arrStructSep_ = arrSep_.getInstance();
         int lenSeps_ = arrStructSep_.length;
-        Character[] seps_ = new Character[lenSeps_];
+        char[] seps_ = new char[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrStructSep_[i];
             seps_[i] = ((CharStruct)curSep_).getChar();

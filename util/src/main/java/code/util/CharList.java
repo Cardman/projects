@@ -7,9 +7,13 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
     public CharList() {
     }
 
-    public CharList(Character... _elements) {
-        super(_elements);
+    public CharList(char... _elements) {
+        this(new CollCapacity(_elements.length));
+        for (char c: _elements) {
+            add(c);
+        }
     }
+
     public CharList(Listable<Character> _c) {
         super(_c);
     }
@@ -40,9 +44,6 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
 
     @Override
     public boolean eq(CharList _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;
@@ -50,12 +51,6 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
         for (int i = FIRST_INDEX; i < len_; i++) {
             Character e_ = get(i);
             Character f_ = _g.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
             if (e_.charValue() != f_.charValue()) {
                 return false;
             }
@@ -75,7 +70,7 @@ public final class CharList extends CustList<Character> implements Equallable<Ch
         return new CharList(super.sub(_from, _to));
     }
 
-    public boolean containsObj(Character _k) {
+    public boolean containsObj(char _k) {
         return indexOfObj(_k, FIRST_INDEX) > -1;
     }
 }

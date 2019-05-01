@@ -1,5 +1,6 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -608,6 +609,41 @@ public class StringListTest {
         assertEq("BABCB", StringList.replace(str_, old_, new_));
     }
     @Test
+    public void replace11Test(){
+        String str_ = "AC";
+        String old_ = "A";
+        String new_ = null;
+        assertEq("C", StringList.replace(str_, old_, new_));
+    }
+    @Test
+    public void replace12Test(){
+        String str_ = "AC";
+        String old_ = "B";
+        String new_ = null;
+        assertEq("AC", StringList.replace(str_, old_, new_));
+    }
+    @Test
+    public void replace13Test(){
+        String str_ = "AA";
+        String old_ = "A";
+        String new_ = null;
+        assertEq("", StringList.replace(str_, old_, new_));
+    }
+    @Test
+    public void replace14Test(){
+        String str_ = "AA";
+        String old_ = "";
+        String new_ = null;
+        assertEq("AA", StringList.replace(str_, old_, new_));
+    }
+    @Test
+    public void replace15Test(){
+        String str_ = "AA";
+        String old_ = null;
+        String new_ = null;
+        assertEq("AA", StringList.replace(str_, old_, new_));
+    }
+    @Test
     public void getFields1Test(){
         String html_ = "<html><body>composite.integer</body></html>";
         StringList fields_ = StringList.getFields(html_);
@@ -761,6 +797,89 @@ public class StringListTest {
         String pattern_ = "With variables '{STRING} {STRING_ONE} in string'";
         String outPut_ = "With variables {STRING} {STRING_ONE} in string";
         assertEq(outPut_, StringList.simpleStringsFormat(pattern_));
+    }
+    @Test
+    public void simpleFormat13Test(){
+        String pattern_ = "With variables {-1} in string";
+        String outPut_ = "With variables {-1} in string";
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero"));
+    }
+    @Test
+    public void simpleFormatNb1Test(){
+        String pattern_ = "Without variable in string";
+        assertEq(pattern_, StringList.simpleNumberFormat(pattern_));
+    }
+    @Test
+    public void simpleFormatNb2Test(){
+        String pattern_ = "Without variable '' in string";
+        String outPut_ = "Without variable ' in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_));
+    }
+    @Test
+    public void simpleFormatNb3Test(){
+        String pattern_ = "With variables {0} {1} in string";
+        String outPut_ = "With variables 10 11 in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb4Test(){
+        String pattern_ = "With variables '{STRING} {STRING_ONE}' in string";
+        String outPut_ = "With variables {STRING} {STRING_ONE} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_));
+    }
+    @Test
+    public void simpleFormatNb5Test(){
+        String pattern_ = "With variables {1} {0} in string";
+        String outPut_ = "With variables 11 10 in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb6Test(){
+        String pattern_ = "With variables '{0} {1}' in string";
+        String outPut_ = "With variables {0} {1} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb7Test(){
+        String pattern_ = "With variables {1} {0} in string";
+        String outPut_ = "With variables 11 10 in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11,12));
+    }
+    @Test
+    public void simpleFormatNb8Test(){
+        String pattern_ = "With variables {0} {1} '{2}' in string";
+        String outPut_ = "With variables 10 11 {2} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb9Test(){
+        String pattern_ = "With variables {0} {1} {2} in string";
+        String outPut_ = "With variables 10 11 {2} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb10Test(){
+        String pattern_ = "With variables {0} {1} '{arg}' in string";
+        String outPut_ = "With variables 10 11 {arg} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb11Test(){
+        String pattern_ = "With variables {0} {1} {arg} in string";
+        String outPut_ = "With variables 10 11 {arg} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10,11));
+    }
+    @Test
+    public void simpleFormatNb12Test(){
+        String pattern_ = "With variables '{STRING} {STRING_ONE} in string'";
+        String outPut_ = "With variables {STRING} {STRING_ONE} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_));
+    }
+    @Test
+    public void simpleFormatNb13Test(){
+        String pattern_ = "With variables {-1} in string";
+        String outPut_ = "With variables {-1} in string";
+        assertEq(outPut_, StringList.simpleNumberFormat(pattern_, 10));
     }
     @Test
     public void sort1Test(){
@@ -1020,6 +1139,26 @@ public class StringListTest {
         assertEq(outPut_, StringList.formatBasic(pattern_, map_, true));
     }
     @Test
+    public void formatBasic16Test(){
+        String pattern_ = "";
+        String outPut_ = "";
+        StringMap<String> map_;
+        map_ = new StringMap<String>();
+        map_.put("STRING", "one");
+        map_.put("STR", "two");
+        assertEq(outPut_, StringList.formatBasic(pattern_, map_, true));
+    }
+    @Test
+    public void formatBasic17Test(){
+        String pattern_ = "";
+        String outPut_ = "";
+        StringMap<String> map_;
+        map_ = new StringMap<String>();
+        map_.put("STRING", "one");
+        map_.put("STR", "two");
+        assertEq(outPut_, StringList.formatBasic(pattern_, map_, false));
+    }
+    @Test
     public void escape1Test(){
         assertEq("myString", StringList.escape("myString"));
     }
@@ -1056,8 +1195,76 @@ public class StringListTest {
         assertEq("my\\String*end", StringList.escape("my\\\\String\\*end"));
     }
     @Test
+    public void escapeSpace1Test(){
+        assertEq("myString", StringList.escapeSpace("myString"));
+    }
+    @Test
+    public void escapeSpace2Test(){
+        assertEq("my\\?\\.String end", StringList.escapeSpace("my\\?\\.String\\ end"));
+    }
+    @Test
+    public void escapeSpace3Test(){
+        assertEq("myString end", StringList.escapeSpace("myString\\ end"));
+    }
+    @Test
+    public void escapeSpace4Test(){
+        assertEq("myString\\end", StringList.escapeSpace("myString\\\\end"));
+    }
+    @Test
+    public void escapeSpace5Test(){
+        assertEq("myString\\", StringList.escapeSpace("myString\\\\"));
+    }
+    @Test
+    public void escapeSpace6Test(){
+        assertEq("myString\\", StringList.escapeSpace("myString\\"));
+    }
+    @Test
+    public void escapeSpace7Test(){
+        assertEq("my\\String ", StringList.escapeSpace("my\\\\String\\ "));
+    }
+    @Test
+    public void escapeSpace8Test(){
+        assertEq("my String\\", StringList.escapeSpace("my\\ String\\\\"));
+    }
+    @Test
+    public void escapeSpace9Test(){
+        assertEq("my\\String end", StringList.escapeSpace("my\\\\String\\ end"));
+    }
+    @Test
     public void skipStringUntil1Test(){
         assertEq("IX", StringList.skipStringUntil("PREFIX", "F"));
+    }
+    @Test
+    public void splitChar1Test(){
+        StringList res_;
+        res_ = StringList.splitChar("HELLO WORLD", ' ');
+        assertEq(2, res_.size());
+        assertEq("HELLO", res_.get(0));
+        assertEq("WORLD", res_.get(1));
+    }
+    @Test
+    public void splitChar2Test(){
+        StringList res_;
+        res_ = StringList.splitChar("HELLO WORLD", 'A');
+        assertEq(1, res_.size());
+        assertEq("HELLO WORLD", res_.get(0));
+    }
+    @Test
+    public void splitChar3Test(){
+        StringList res_;
+        res_ = StringList.splitChar("", '1');
+        assertEq(1, res_.size());
+        assertEq("", res_.get(0));
+    }
+    @Test
+    public void splitChar4Test(){
+        StringList res_;
+        res_ = StringList.splitChar("HELLO WORLD", 'L');
+        assertEq(4, res_.size());
+        assertEq("HE", res_.get(0));
+        assertEq("", res_.get(1));
+        assertEq("O WOR", res_.get(2));
+        assertEq("D", res_.get(3));
     }
     @Test
     public void splitChars1Test(){
@@ -1106,7 +1313,7 @@ public class StringListTest {
     @Test
     public void splitCharsSep1Test(){
         StringList res_;
-        res_ = StringList.splitCharsSep("HELLO WORLD", ' ');
+        res_ = StringList.splitCharSep("HELLO WORLD", ' ');
         assertEq(3, res_.size());
         assertEq("HELLO", res_.get(0));
         assertEq(" ", res_.get(1));
@@ -1115,21 +1322,21 @@ public class StringListTest {
     @Test
     public void splitCharsSep2Test(){
         StringList res_;
-        res_ = StringList.splitCharsSep("HELLO WORLD", 'A');
+        res_ = StringList.splitCharSep("HELLO WORLD", 'A');
         assertEq(1, res_.size());
         assertEq("HELLO WORLD", res_.get(0));
     }
     @Test
     public void splitCharsSep3Test(){
         StringList res_;
-        res_ = StringList.splitCharsSep("", '1');
+        res_ = StringList.splitCharSep("", '1');
         assertEq(1, res_.size());
         assertEq("", res_.get(0));
     }
     @Test
     public void splitCharsSep4Test(){
         StringList res_;
-        res_ = StringList.splitCharsSep("HELLO WORLD", 'L');
+        res_ = StringList.splitCharSep("HELLO WORLD", 'L');
         assertEq(7, res_.size());
         assertEq("HE", res_.get(0));
         assertEq("L", res_.get(1));
@@ -1138,23 +1345,6 @@ public class StringListTest {
         assertEq("O WOR", res_.get(4));
         assertEq("L", res_.get(5));
         assertEq("D", res_.get(6));
-    }
-    @Test
-    public void splitCharsSep5Test(){
-        StringList res_;
-        res_ = StringList.splitCharsSep("HELLO WORLD", 'L', 'O');
-        assertEq(11, res_.size());
-        assertEq("HE", res_.get(0));
-        assertEq("L", res_.get(1));
-        assertEq("", res_.get(2));
-        assertEq("L", res_.get(3));
-        assertEq("", res_.get(4));
-        assertEq("O", res_.get(5));
-        assertEq(" W", res_.get(6));
-        assertEq("O", res_.get(7));
-        assertEq("R", res_.get(8));
-        assertEq("L", res_.get(9));
-        assertEq("D", res_.get(10));
     }
     @Test
     public void splitStrings1Test(){
@@ -1758,5 +1948,223 @@ public class StringListTest {
     public void encode5Test() {
         byte[] bs_ = StringList.encode("");
         assertEq(0, bs_.length);
+    }
+    @Test
+    public void decode1Test() {
+        assertEq("a",StringList.decode(Numbers.wrapByteArray((byte)97)));
+    }
+    @Test
+    public void decode2Test() {
+        assertEq("\u0090",StringList.decode(Numbers.wrapByteArray((byte)-62,(byte)-112)));
+    }
+    @Test
+    public void decode3Test() {
+        assertEq("\u0b00",StringList.decode(Numbers.wrapByteArray((byte)-32,(byte)-84,(byte)-128)));
+    }
+    @Test
+    public void decode4Test() {
+        assertEq("\ub000",StringList.decode(Numbers.wrapByteArray((byte)-21,(byte)-128,(byte)-128)));
+    }
+    @Test
+    public void decode5Test() {
+        assertEq("",StringList.decode(Numbers.wrapByteArray()));
+    }
+    @Test
+    public void decode6Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-1)));
+    }
+    @Test
+    public void decode7Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-63,(byte)-1)));
+    }
+    @Test
+    public void decode8Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-16,(byte)-1)));
+    }
+    @Test
+    public void decode9Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-17,(byte)-64)));
+    }
+    @Test
+    public void decode10Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-17,(byte)-65)));
+    }
+    @Test
+    public void decode11Test() {
+        assertNull(StringList.decode(Numbers.wrapByteArray((byte)-17,(byte)-65,(byte)-64)));
+    }
+    @Test
+    public void badDecode1Test() {
+        assertEq(-1,StringList.badDecode(Numbers.wrapByteArray((byte)97),0,1));
+    }
+    @Test
+    public void badDecode2Test() {
+        assertEq(-1,StringList.badDecode(Numbers.wrapByteArray((byte)-62,(byte)-112),0,2));
+    }
+    @Test
+    public void badDecode3Test() {
+        assertEq(-1,StringList.badDecode(Numbers.wrapByteArray((byte)-32,(byte)-84,(byte)-128),0,3));
+    }
+    @Test
+    public void badDecode4Test() {
+        assertEq(-1,StringList.badDecode(Numbers.wrapByteArray((byte)-21,(byte)-128,(byte)-128),0,3));
+    }
+    @Test
+    public void badDecode5Test() {
+        assertEq(-1,StringList.badDecode(Numbers.wrapByteArray(),0,0));
+    }
+    @Test
+    public void badDecode6Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-1),0,1));
+    }
+    @Test
+    public void badDecode7Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-63,(byte)-1),0,2));
+    }
+    @Test
+    public void badDecode8Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-16,(byte)-1),0,2));
+    }
+    @Test
+    public void badDecode9Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-17,(byte)-64),0,2));
+    }
+    @Test
+    public void badDecode10Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-17,(byte)-65),0,2));
+    }
+    @Test
+    public void badDecode11Test() {
+        assertEq(0,StringList.badDecode(Numbers.wrapByteArray((byte)-17,(byte)-65,(byte)-64),0,3));
+    }
+    @Test
+    public void toLowerCaseTest() {
+        assertEq("0",StringList.toLowerCase("0"));
+    }
+    @Test
+    public void toUpperCaseTest() {
+        assertEq("0",StringList.toUpperCase("0"));
+    }
+    @Test
+    public void eqStrings1Test(){
+        assertTrue(StringList.eqStrings(new StringList(),new StringList()));
+    }
+    @Test
+    public void eqStrings2Test(){
+        assertTrue(StringList.eqStrings(new StringList("a"),new StringList("a")));
+    }
+    @Test
+    public void eqStrings3Test(){
+        assertTrue(!StringList.eqStrings(new StringList("a","b"),new StringList("b","a")));
+    }
+    @Test
+    public void eqStrings4Test(){
+        assertTrue(!StringList.eqStrings(new StringList("a","a","b"),new StringList("a","b","b")));
+    }
+    @Test
+    public void eqStrings5Test(){
+        assertTrue(!StringList.eqStrings(new StringList("a","b"),new StringList("a")));
+    }
+    @Test
+    public void eqStrings6Test(){
+        assertTrue(!StringList.eqStrings(new StringList("b"),new StringList("a","b")));
+    }
+    @Test
+    public void equalsSet1Test(){
+        assertTrue(StringList.equalsSet(new StringList(),new StringList()));
+    }
+    @Test
+    public void equalsSet2Test(){
+        assertTrue(StringList.equalsSet(new StringList("a"),new StringList("a")));
+    }
+    @Test
+    public void equalsSet3Test(){
+        assertTrue(StringList.equalsSet(new StringList("a","b"),new StringList("b","a")));
+    }
+    @Test
+    public void equalsSet4Test(){
+        assertTrue(StringList.equalsSet(new StringList("a","a","b"),new StringList("a","b","b")));
+    }
+    @Test
+    public void equalsSet5Test(){
+        assertTrue(!StringList.equalsSet(new StringList("a","b"),new StringList("a")));
+    }
+    @Test
+    public void equalsSet6Test(){
+        assertTrue(!StringList.equalsSet(new StringList("b"),new StringList("a","b")));
+    }
+    @Test
+    public void equalsStringListSet1Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        assertTrue(StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void equalsStringListSet2Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        lOne_.add(new StringList("a"));
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        lTwo_.add(new StringList("a"));
+        assertTrue(StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void equalsStringListSet3Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        lOne_.add(new StringList("a"));
+        lOne_.add(new StringList("b"));
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        lTwo_.add(new StringList("b"));
+        lTwo_.add(new StringList("a"));
+        assertTrue(StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void equalsStringListSet4Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        lOne_.add(new StringList("a"));
+        lOne_.add(new StringList("a"));
+        lOne_.add(new StringList("b"));
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        lTwo_.add(new StringList("b"));
+        lTwo_.add(new StringList("b"));
+        lTwo_.add(new StringList("a"));
+        assertTrue(StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void equalsStringListSet5Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        lOne_.add(new StringList("a"));
+        lOne_.add(new StringList("b"));
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        lTwo_.add(new StringList("a"));
+        assertTrue(!StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void equalsStringListSet6Test(){
+        CustList<StringList> lOne_ =new CustList<StringList>();
+        lOne_.add(new StringList("b"));
+        CustList<StringList> lTwo_ =new CustList<StringList>();
+        lTwo_.add(new StringList("a"));
+        lTwo_.add(new StringList("b"));
+        assertTrue(!StringList.equalsStringListSet(lOne_,lTwo_));
+    }
+    @Test
+    public void eq1Test(){
+        assertTrue(!StringList.eq("",null));
+    }
+    @Test
+    public void eq2Test(){
+        assertTrue(!StringList.eq(null,""));
+    }
+    @Test
+    public void eq3Test(){
+        assertTrue(!StringList.eq("a","b"));
+    }
+    @Test
+    public void eq4Test(){
+        assertTrue(StringList.eq(null,null));
+    }
+    @Test
+    public void eq5Test(){
+        assertTrue(StringList.eq("a","a"));
     }
 }

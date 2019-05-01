@@ -182,11 +182,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
     public static int badDecode(byte[] _bytes, int _from, int _length) {
         int len_ = _from + _length;
         int i_ = _from;
-        StringBuilder out_ = new StringBuilder();
         while (i_ < len_) {
             byte cur_ = _bytes[i_];
             if (cur_ >= 0) {
-                out_.append((char)cur_);
                 i_++;
                 continue;
             }
@@ -204,10 +202,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 return i_;
             }
             if (cur_ <= -33) {
-                short f_ = (short)(cur_ + 64);
-                short s_ = (short)(next_ + 128);
-                short t_ = (short) (64 * f_ + s_);
-                out_.append((char)t_);
                 i_++;
                 i_++;
                 continue;
@@ -219,21 +213,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
             if (afterNext_ > -65) {
                 return i_;
             }
-            if (cur_ == -32) {
-                short f_ = (short)(next_ + 128);
-                short s_ = (short)(afterNext_ + 128);
-                short t_ = (short) (64 * f_ + s_);
-                out_.append((char)t_);
-                i_++;
-                i_++;
-                i_++;
-                continue;
-            }
-            short f_ = (short)(cur_ + 32);
-            short s_ = (short)(next_ + 128);
-            short t_ = (short) (afterNext_ + 128);
-            short full_ = (short) (64 * 64 * f_ + 64 * s_ + t_);
-            out_.append((char)full_);
             i_++;
             i_++;
             i_++;
@@ -285,7 +264,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         return true;
     }
-    public static boolean equalsStringListSet(Listable<StringList> _list1,Listable<StringList> _list2) {
+    public static boolean equalsStringListSet(CustList<StringList> _list1,CustList<StringList> _list2) {
         for (StringList c: _list2) {
             boolean contains_ = false;
             for (StringList d: _list1) {
@@ -314,16 +293,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public static boolean eqStrings(StringList _list1,StringList _list2) {
-        if (_list1.size() != _list2.size()) {
-            return false;
-        }
-        int size_ = _list1.size();
-        for (int i=FIRST_INDEX;i<size_;i++) {
-            if (!quickEq(_list1.get(i),_list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
+        return _list1.eq(_list2);
     }
 
     public static String formatQuote(String _pattern, StringMap<String> _map) {
@@ -544,20 +514,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public void replace(String _old, String _new) {
-        if (_old == null) {
-            int size_ = size();
-            for (int i = FIRST_INDEX; i < size_; i++) {
-                if (get(i) == null) {
-                    set(i, _new);
-                }
-            }
-            return;
-        }
         int size_ = size();
         for (int i = FIRST_INDEX; i < size_; i++) {
-            if (get(i) == null) {
-                continue;
-            }
             if (quickEq(_old, get(i))) {
                 set(i, _new);
             }
@@ -581,9 +539,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public static String simpleStringsFormat(String _format, String... _args) {
-        if (_args == null) {
-            return _format;
-        }
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
@@ -636,9 +591,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public static String simpleNumberFormat(String _format, Number... _args) {
-        if (_args == null) {
-            return _format;
-        }
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
@@ -675,13 +627,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 int argNb_ = Numbers.parseInt(arg_.toString());
                 if (argNb_ >= 0 && argNb_ < argLength_) {
                     Number a_ = _args[argNb_];
-                    if (a_ != null) {
-                        str_.append(Numbers.toString(a_));
-                    } else {
-                        str_.append(LEFT_BRACE);
-                        str_.append(arg_);
-                        str_.append(RIGHT_BRACE);
-                    }
+                    str_.append(Numbers.toString(a_));
                 } else {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);
@@ -705,29 +651,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
             int indexOne_ = _pattern.indexOf(QUOTE, i_);
             if (indexOne_ == CustList.INDEX_NOT_FOUND_ELT) {
                 //add tokens from _pattern (min:i_+1)
-//                StringList tokensSep_ = StringList.getTokensSeparators(_pattern.substring(i_), REG_EXP_EL);
-//                int nbTokensSep_ = tokensSep_.size();
-//                for (int i = CustList.FIRST_INDEX; i < nbTokensSep_; i++) {
-//                    if (i % 2 == 0) {
-//                        continue;
-//                    }
-////                    String token_ = tokensSep_.get(i).replaceAll(BOUNDS_EL, EMPTY_STRING);
-//                    String token_ = removeElBounds(tokensSep_.get(i));
-//                    tokens_.add(token_);
-//                }
                 tokens_.addAllElts(getEl(_pattern.substring(i_)));
                 break;
             }
-//            StringList tokensSep_ = StringList.getTokensSeparators(_pattern.substring(i_, indexOne_), REG_EXP_EL);
-//            int nbTokensSep_ = tokensSep_.size();
-//            for (int i = CustList.FIRST_INDEX; i < nbTokensSep_; i++) {
-//                if (i % 2 == 0) {
-//                    continue;
-//                }
-////                String token_ = tokensSep_.get(i).replaceAll(BOUNDS_EL, EMPTY_STRING);
-//                String token_ = removeElBounds(tokensSep_.get(i));
-//                tokens_.add(token_);
-//            }
             tokens_.addAllElts(getEl(_pattern.substring(i_, indexOne_)));
             int indexTwo_ = _pattern.indexOf(QUOTE, indexOne_ + 1);
             if (indexTwo_ == CustList.INDEX_NOT_FOUND_ELT) {
@@ -805,7 +731,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return splitStrings(_string, _strings).join(EMPTY_STRING);
     }
 
-    public static String removeChars(String _string, Character... _chars) {
+    public static String removeChars(String _string, char... _chars) {
         return splitChars(_string, _chars).join(EMPTY_STRING);
     }
 
@@ -858,7 +784,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 list_.append(_string, i_, index_);
                 i_ = index_ + _old.length();
             }
-            if (i_ <= len_) {
+            if (i_ < len_) {
                 list_.append(_string.substring(i_));
             }
             return list_.toString();
@@ -885,7 +811,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             list_.append(_new);
             i_ = index_ + _old.length();
         }
-        if (i_ <= len_) {
+        if (i_ < len_) {
             list_.append(_string.substring(i_));
         }
         return list_.toString();
@@ -1134,17 +1060,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         =wordsAndSeparatorsSpace(_filter);
         StringList words_=wordsAndSeparators_.getFirst().getSecond();
         StringList separators_=wordsAndSeparators_.getFirst().getFirst();
-        if (words_.isEmpty()) {
-            String lastSep_ = separators_.last();
-            int index_ = FIRST_INDEX;
-            if(index_==_string.length()){
-                return true;
-            }
-            if(lastSep_.contains(String.valueOf(SPACE_CHAR))){
-                return true;
-            }
-            return false;
-        }
         if (wordsAndSeparators_.getSecond().getFirst()) {
             separators_.add(FIRST_INDEX, EMPTY_STRING);
         }
@@ -1184,10 +1099,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if(index_==_string.length()){
             return true;
         }
-        if(index_<_string.length()){
-            if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
-                return true;
-            }
+        if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
+            return true;
         }
         return false;
     }
@@ -1351,9 +1264,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
             //so if ind_ is lower than the length of the string _string,
             //then this string does not end with a character of word
-            if (ind_ > minIndex_) {
-                separators_.add(_string.substring(minIndex_, ind_));
-            }
+            separators_.add(_string.substring(minIndex_, ind_));
             begin_ = ind_;
         }
         wordsAndSeparators_.setFirst(separators_);
@@ -1398,9 +1309,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             //ind_ < _string.length() ==> all character after or at minIndex_ are meta characters
             //so if ind_ is lower than the length of the string _string,
             //then this string does not end with a character of word
-            if (ind_ > minIndex_) {
-                separators_.add(_string.substring(minIndex_, ind_));
-            }
+            separators_.add(_string.substring(minIndex_, ind_));
             begin_ = ind_;
         }
         wordsAndSeparators_.setFirst(separators_);
@@ -1773,7 +1682,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return str_.toString();
     }
 
-    public static StringList splitChars(String _string, Character... _separators) {
+    public static StringList splitChars(String _string, char... _separators) {
         StringList l_ = new StringList();
         CharList cs_ = new CharList(_separators);
         int len_ = _string.length();
@@ -1796,25 +1705,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         StringBuilder str_ = new StringBuilder();
         for (int i = FIRST_INDEX; i < len_; i++) {
             if (_separator ==_string.charAt(i)) {
-                l_.add(str_.toString());
-                str_ = new StringBuilder();
-            } else {
-                str_.append(_string.charAt(i));
-            }
-        }
-        l_.add(str_.toString());
-        return l_;
-    }
-    public static StringList splitCharsArr(String _string, char... _separators) {
-        StringList l_ = new StringList();
-        CharList cs_ = new CharList();
-        for (char c: _separators) {
-            cs_.add(c);
-        }
-        int len_ = _string.length();
-        StringBuilder str_ = new StringBuilder();
-        for (int i = FIRST_INDEX; i < len_; i++) {
-            if (cs_.containsChar(_string.charAt(i))) {
                 l_.add(str_.toString());
                 str_ = new StringBuilder();
             } else {
@@ -1863,13 +1753,12 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return l_;
     }
 
-    public static StringList splitCharsSep(String _string, Character... _separators) {
+    public static StringList splitCharSep(String _string, char _separators) {
         StringList l_ = new StringList();
-        CharList cs_ = new CharList(_separators);
         int len_ = _string.length();
         StringBuilder str_ = new StringBuilder();
         for (int i = FIRST_INDEX; i < len_; i++) {
-            if (cs_.containsChar(_string.charAt(i))) {
+            if (_separators == _string.charAt(i)) {
                 l_.add(str_.toString());
                 l_.add(Character.toString(_string.charAt(i)));
                 str_ = new StringBuilder();
@@ -1880,6 +1769,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         l_.add(str_.toString());
         return l_;
     }
+
 
     public static StringList splitStringsSep(String _string, String... _separators) {
         StringList l_ = new StringList();
@@ -2209,14 +2099,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
             i_--;
         }
         return _str;
-//        int lastIndexSlash_ = _str.lastIndexOf(SLASH);
-//        if (lastIndexSlash_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return _str;
-//        }
-//        if (lastIndexSlash_ > lastIndexDot_) {
-//            return _str;
-//        }
-//        Character.is
     }
 
     public static String replaceExtension(String _str) {
@@ -2276,38 +2158,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         l_.add(str_.toString());
         return l_;
-    }
-    public static boolean isDoubleNumber(String _string) {
-        if (_string.isEmpty()) {
-            return false;
-        }
-        int i_ = FIRST_INDEX;
-        if (_string.charAt(i_) == MINUS) {
-            if (_string.length() == ONE_ELEMENT) {
-                return false;
-            }
-            i_++;
-        }
-        int len_ = _string.length();
-        int nbDots_ = 0;
-        while (i_ < len_) {
-            if (!Character.isDigit(_string.charAt(i_))) {
-                if (_string.charAt(i_) != DOT || nbDots_ > 0) {
-                    return false;
-                }
-                nbDots_++;
-                i_++;
-                break;
-            }
-            i_++;
-        }
-        while (i_ < len_) {
-            if (!Character.isDigit(_string.charAt(i_))) {
-                return false;
-            }
-            i_++;
-        }
-        return true;
     }
 
     public static boolean isPositiveNumber(String _string) {
