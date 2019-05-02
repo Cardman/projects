@@ -1045,7 +1045,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1099,7 +1099,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1153,7 +1153,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1207,7 +1207,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1261,7 +1261,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1316,7 +1316,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1371,7 +1371,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -1426,7 +1426,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -2521,7 +2521,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -2575,7 +2575,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -2775,7 +2775,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -2830,7 +2830,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -4871,7 +4871,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -4927,7 +4927,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -4983,7 +4983,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -5039,7 +5039,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -5095,7 +5095,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -5153,7 +5153,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -5211,7 +5211,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);
@@ -5268,7 +5268,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.chooseMove(JACKPOT, _data_);
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         //this round is simulated (possible round)
-        FightRound.beginRound(fight_, player_, diff_, _data_);
+        FightRound.beginRound(fight_, diff_, _data_);
         Fighter fighter_ =fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         fighter_.affectNoRoundBeforeUsingMove();
         fighter_.setDisappeared(false);

@@ -400,6 +400,102 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, ret_.getNumber());
     }
     @Test
+    public void calculate101Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[0,1] = 5;\n");
+        xml_.append("  return e[0,1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[p[0]+q];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p[0]+q] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(5, ret_.getNumber());
+    }
+    @Test
+    public void calculate102Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int...)] = 5;\n");
+        xml_.append("  return e[$id(Ex,int...)];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(5, ret_.getNumber());
+    }
+    @Test
+    public void calculate103Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$vararg(int)] = 5;\n");
+        xml_.append("  return e[$vararg(int)];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(5, ret_.getNumber());
+    }
+    @Test
     public void calculate11Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

@@ -11,9 +11,13 @@ public final class EvolutionTeam extends Evolution {
 
     @Override
     public void validate(DataBase _dataBase, PokemonData _fPk) {
-        if (_dataBase.getPokemon(pokemon).getGenderRep() == GenderRepartition.LEGENDARY) {
+        PokemonData pk_ = _dataBase.getPokemon(this.pokemon);
+        if (pk_ == null) {
             _dataBase.setError(true);
-
+            return;
+        }
+        if (pk_.getGenderRep() == GenderRepartition.LEGENDARY) {
+            _dataBase.setError(true);
         }
     }
 

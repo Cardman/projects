@@ -25,7 +25,7 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(1));
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(2));
+        assertTrue(law_.getLaw().contains(2));
         assertTrue(law_.isValid());
     }
 
@@ -38,8 +38,8 @@ public class MonteCarloTest {
         law_.addEvent(5, new LgInt(1));
         law_.deleteZeroEvents();
         assertEq(2,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(2));
-        assertTrue(law_.getLaw().getKeys().containsObj(5));
+        assertTrue(law_.getLaw().contains(2));
+        assertTrue(law_.getLaw().contains(5));
         assertTrue(law_.isValid());
     }
 
@@ -82,7 +82,7 @@ public class MonteCarloTest {
         Rate rate_ = new Rate("-1");
         MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(false));
+        assertTrue(law_.getLaw().contains(false));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class MonteCarloTest {
         Rate rate_ = new Rate("0");
         MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(false));
+        assertTrue(law_.getLaw().contains(false));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class MonteCarloTest {
         Rate rate_ = new Rate("2");
         MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(true));
+        assertTrue(law_.getLaw().contains(true));
     }
 
     @Test
@@ -106,8 +106,8 @@ public class MonteCarloTest {
         Rate rate_ = new Rate("1/4");
         MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
         assertEq(2,law_.events().size());
-        assertTrue(law_.getLaw().getKeys().containsObj(true));
-        assertTrue(law_.getLaw().getKeys().containsObj(false));
+        assertTrue(law_.getLaw().contains(true));
+        assertTrue(law_.getLaw().contains(false));
         assertEq(new LgInt("1"),law_.rate(true));
         assertEq(new LgInt("3"),law_.rate(false));
     }

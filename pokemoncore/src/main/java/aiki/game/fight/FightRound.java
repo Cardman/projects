@@ -57,9 +57,9 @@ final class FightRound {
     }
 
     static void roundAllThrowers(Fight _fight,Difficulty _diff,Player _user, DataBase _import){
-        beginRound(_fight, _user, _diff, _import);
+        beginRound(_fight, _diff, _import);
         while (_fight.isKeepRound()) {
-            roundUser(_fight, _diff, _user, _import);
+            roundUser(_fight, _diff, _import);
         }
         endRoundFight(_fight, _diff, _user, _import);
     }
@@ -129,22 +129,16 @@ final class FightRound {
         }
     }
 
-    static void calculateNextFighters(Fight _fight, EqList<TeamPosition> _fighters, Player _user, Difficulty _diff, DataBase _import, boolean _endRound) {
+    static void calculateNextFighters(Fight _fight, EqList<TeamPosition> _fighters, DataBase _import) {
         _fight.getRemainingFighters().clear();
         NextUsers cbtsNonJoue_;
         cbtsNonJoue_ = nextFighters(_fight, _fighters, _import);
         if(!_fight.getAcceptableChoices()){
-            if (!_endRound) {
-                _fight.setKeepRound(false);
-            }
+            _fight.setKeepRound(false);
             return;
         }
         if (cbtsNonJoue_.getNextFighters().isEmpty()) {
-            if (_endRound) {
-                endRoundShowActions(_fight,_diff, _user, _import);
-            } else {
-                _fight.setKeepRound(false);
-            }
+            _fight.setKeepRound(false);
             return;
         }
         _fight.getRemainingFighters().addAllElts(cbtsNonJoue_.getNextFighters());
@@ -227,7 +221,7 @@ final class FightRound {
         _fight.getNbRounds().increment();
     }
 
-    static void beginRound(Fight _fight, Player _user, Difficulty _diff, DataBase _import) {
+    static void beginRound(Fight _fight, Difficulty _diff, DataBase _import) {
         EqList<TeamPosition> cbts_=new EqList<TeamPosition>();
         _fight.setKeepRound(true);
         _fight.getEffects().clear();
@@ -254,13 +248,13 @@ final class FightRound {
             FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
             cbts_ = _fight.getOrderedFighters();
         }
-        calculateNextFighters(_fight, cbts_, _user, _diff, _import, true);
+        calculateNextFighters(_fight, cbts_, _import);
         if (_fight.getRemainingFighters().isEmpty()) {
             _fight.setKeepRound(false);
         }
     }
 
-    static void roundUser(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {
+    static void roundUser(Fight _fight, Difficulty _diff, DataBase _import) {
         _fight.getEffects().clear();
         Fighter creature_=_fight.getFighter(_fight.getCurrentUser());
         if(creature_.getAction() instanceof ActionMove){
@@ -295,7 +289,7 @@ final class FightRound {
         _fight.getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
         cbts_ = _fight.getOrderedFighters();
-        calculateNextFighters(_fight, cbts_, _user, _diff, _import, false);
+        calculateNextFighters(_fight, cbts_, _import);
         if (_fight.getRemainingFighters().isEmpty()) {
             _fight.setKeepRound(false);
         }

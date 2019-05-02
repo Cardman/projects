@@ -1295,7 +1295,7 @@ public final class FightFacade {
         }
         _fight.getUsedItemsWhileRound().clear();
         if (_enableAnimation) {
-            beginRound(_fight, _user, _diff, _import);
+            beginRound(_fight, _diff, _import);
         } else {
             roundAllThrowersChooseActionsFoe(_fight, _diff, _user, _import);
         }
@@ -1325,18 +1325,18 @@ public final class FightFacade {
         FightArtificialIntelligence.choiceArtificialIntelligence(_fight,_diff,_import);
     }
 
-    static void beginRound(Fight _fight, Player _player, Difficulty _diff, DataBase _import) {
+    static void beginRound(Fight _fight, Difficulty _diff, DataBase _import) {
         if(_fight.getBeginRound()){
             if(_fight.getFightType().isWild()){
                 FightArtificialIntelligence.choiceArtificialIntelligence(_fight,_diff,_import);
             }
         }
-        FightRound.beginRound(_fight, _player, _diff, _import);
+        FightRound.beginRound(_fight, _diff, _import);
     }
 
-    public static void roundUser(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {
+    public static void roundUser(Fight _fight, Difficulty _diff, DataBase _import) {
         _fight.clearComments();
-        FightRound.roundUser(_fight, _diff, _user, _import);
+        FightRound.roundUser(_fight, _diff, _import);
     }
 
     public static void endRoundFightBasic(Fight _fight, Difficulty _diff, Player _user, DataBase _import) {
@@ -1406,7 +1406,7 @@ public final class FightFacade {
         }
         frontFighterChoiceFleeingCatching(_fight);
         if (_enableAnimation) {
-            beginRound(_fight, _user, _diff, _import);
+            beginRound(_fight, _diff, _import);
         } else {
             roundAllThrowersChooseActionsFoe(_fight,_diff,_user,_import);
         }
@@ -1426,7 +1426,7 @@ public final class FightFacade {
         }
         frontFighterChoiceFleeingCatching(_fight);
         if (_enableAnimation) {
-            beginRound(_fight, _user, _diff, _import);
+            beginRound(_fight, _diff, _import);
         } else {
             roundAllThrowersChooseActionsFoe(_fight,_diff,_user,_import);
         }
@@ -1447,7 +1447,7 @@ public final class FightFacade {
             _fight.setEndRoundFightKoPlayer(true);
             FightArtificialIntelligence.choiceArtificialIntelligence(_fight,_diff,_import);
             if (_enableAnimation) {
-                beginRound(_fight, _user, _diff, _import);
+                beginRound(_fight, _diff, _import);
             } else {
                 roundAllThrowersChooseActionsFoe(_fight, _diff, _user, _import);
             }

@@ -78,7 +78,7 @@ public final class AnalyzedPageEl {
 
     public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
-        while (internVars.getKeys().containsStr(StringList.concatNbs(Classes.TEMP_PREFIX, i_))) {
+        while (internVars.contains(StringList.concatNbs(Classes.TEMP_PREFIX, i_))) {
             i_++;
         }
         return StringList.concatNbs(Classes.TEMP_PREFIX,i_);

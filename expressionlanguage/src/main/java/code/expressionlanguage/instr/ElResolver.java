@@ -2916,7 +2916,7 @@ public final class ElResolver {
                     operators_.put(i_, String.valueOf(SEP_ARG));
                     prio_ = DECL_PRIO;
                 } else if (parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO && enPars_){
-                    operators_.put(i_, String.valueOf(SEP_ARG));
+                    addOperIfNotEmpty(operators_, i_, SEP_ARG);
                 }
             }
             if (curChar_ == PAR_RIGHT) {

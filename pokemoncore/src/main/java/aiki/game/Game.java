@@ -1629,7 +1629,7 @@ public final class Game {
 
     public void roundUser(DataBase _import) {
         commentGame.clearMessages();
-        FightFacade.roundUser(fight, difficulty, player, _import);
+        FightFacade.roundUser(fight, difficulty, _import);
         commentGame.addComment(fight.getComment());
     }
 
