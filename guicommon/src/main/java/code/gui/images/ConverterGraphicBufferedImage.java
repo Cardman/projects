@@ -4,16 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import code.images.Animation;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
+import code.images.IntPoint;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.PairEq;
 import code.util.PairNumber;
 import code.util.StringList;
-import code.util.opers.PairUtil;
 
 public final class ConverterGraphicBufferedImage {
 
@@ -128,21 +127,6 @@ public final class ConverterGraphicBufferedImage {
         }
         return image_;
     }
-    public static BufferedImage toRenderedImage(Animation _images) {
-        int w_ = _images.getImagesDelays().first().getImage().getWidth();
-        int h_ = _images.getImagesDelays().first().getImage().getHeight();
-        BufferedImage image_ = new BufferedImage(w_*_images.getImagesDelays().size(), h_, BufferedImage.TYPE_INT_ARGB);
-        int imgs_ = _images.getImagesDelays().size();
-        for (int img_ = CustList.FIRST_INDEX; img_< imgs_;img_++) {
-            for (int i = CustList.FIRST_INDEX;i<h_;i++) {
-                for (int j = CustList.FIRST_INDEX;j<w_;j++) {
-                    image_.setRGB(j+w_*img_, i, _images.getImagesDelays().get(img_).getImage().getPixel(j,i));
-                }
-            }
-        }
-        return image_;
-    }
-
 
 
     public static String toString(BufferedImage _image) {
@@ -185,65 +169,65 @@ public final class ConverterGraphicBufferedImage {
                 buff_.setRGB(i, j, _buffered.getRGB(i, j));
             }
         }
-        EqList<PairNumber<Integer,Integer>> addedPixels_ = new EqList<PairNumber<Integer,Integer>>();
-        EqList<PairNumber<Integer,Integer>> currentPixels_ = new EqList<PairNumber<Integer,Integer>>();
-        EqList<PairNumber<Integer,Integer>> newPixels_ = new EqList<PairNumber<Integer,Integer>>();
+        EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
+        EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
+        EqList<IntPoint> newPixels_ = new EqList<IntPoint>();
         if (ConverterBufferedImage.isHandsFeet()) {
             if (_buffered.getRGB(CustList.FIRST_INDEX, CustList.FIRST_INDEX) == white_) {
                 buff_.setRGB(CustList.FIRST_INDEX, CustList.FIRST_INDEX, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
+                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(w_ - 1, CustList.FIRST_INDEX) == white_) {
                 buff_.setRGB(w_ - 1, CustList.FIRST_INDEX, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, (int)CustList.FIRST_INDEX));
+                addedPixels_.add(new IntPoint(w_ - 1, (int)CustList.FIRST_INDEX));
             }
             if (_buffered.getRGB(CustList.FIRST_INDEX, h_ - 1) == white_) {
                 buff_.setRGB(CustList.FIRST_INDEX, h_ - 1, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, h_ - 1));
+                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, h_ - 1));
             }
             if (_buffered.getRGB(w_ -1, h_ - 1) == white_) {
                 buff_.setRGB(w_ -1, h_ - 1, transWhite_);
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ -1, h_ - 1));
+                addedPixels_.add(new IntPoint(w_ -1, h_ - 1));
             }
         } else {
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered.getRGB(i, CustList.FIRST_INDEX) == white_) {
                     buff_.setRGB(i, CustList.FIRST_INDEX, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, (int)CustList.FIRST_INDEX));
+                    addedPixels_.add(new IntPoint(i, (int)CustList.FIRST_INDEX));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered.getRGB(i, h_ - 1) == white_) {
                     buff_.setRGB(i, h_ - 1, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, h_ - 1));
+                    addedPixels_.add(new IntPoint(i, h_ - 1));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered.getRGB(CustList.FIRST_INDEX, i) == white_) {
                     buff_.setRGB(CustList.FIRST_INDEX, i, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, i));
+                    addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, i));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered.getRGB(w_ - 1, i) == white_) {
                     buff_.setRGB(w_ - 1, i, transWhite_);
-                    addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, i));
+                    addedPixels_.add(new IntPoint(w_ - 1, i));
                 }
             }
         }
         currentPixels_.addAllElts(addedPixels_);
         while (true) {
-            newPixels_ = new EqList<PairNumber<Integer,Integer>>();
-            for (PairNumber<Integer,Integer> coords_: currentPixels_) {
-                for (PairNumber<Integer,Integer> coordsChild_: PairUtil.getNext(w_, h_, coords_)) {
+            newPixels_ = new EqList<IntPoint>();
+            for (IntPoint coords_: currentPixels_) {
+                for (IntPoint coordsChild_: ConverterBufferedImage.getNext(w_, h_, coords_)) {
                     if (addedPixels_.containsObj(coordsChild_)) {
                         continue;
                     }
-                    int rgb_ = _buffered.getRGB(coordsChild_.getFirst(), coordsChild_.getSecond());
+                    int rgb_ = _buffered.getRGB(coordsChild_.getXcoords(), coordsChild_.getYcoords());
                     if (rgb_ != white_) {
                         continue;
                     }
-                    buff_.setRGB(coordsChild_.getFirst(), coordsChild_.getSecond(), transWhite_);
+                    buff_.setRGB(coordsChild_.getXcoords(), coordsChild_.getYcoords(), transWhite_);
                     addedPixels_.add(coordsChild_);
                     newPixels_.add(coordsChild_);
                 }
@@ -251,12 +235,12 @@ public final class ConverterGraphicBufferedImage {
             if (newPixels_.isEmpty()) {
                 break;
             }
-            currentPixels_ = new EqList<PairNumber<Integer,Integer>>(newPixels_);
+            currentPixels_ = new EqList<IntPoint>(newPixels_);
         }
         return buff_;
     }
 
-    public static PairEq<PairNumber<Integer,Integer>,PairNumber<Integer,Integer>> croppedPointDimensions(BufferedImage _buffered) {
+    public static PairEq<IntPoint,IntPoint> croppedPointDimensions(BufferedImage _buffered) {
         int indexOne_ = 0;
         int indexTwo_ = 0;
         int w_ = _buffered.getWidth();
@@ -362,7 +346,7 @@ public final class ConverterGraphicBufferedImage {
             maxIndexTwo_ --;
         }
         int newHeight_ = maxIndexTwo_ - indexTwo_ + 1;
-        return new PairEq<PairNumber<Integer,Integer>,PairNumber<Integer,Integer>>(new PairNumber<Integer,Integer>(indexOne_, indexTwo_),new PairNumber<Integer,Integer>(newWidth_, newHeight_));
+        return new PairEq<IntPoint,IntPoint>(new IntPoint(indexOne_, indexTwo_),new IntPoint(newWidth_, newHeight_));
     }
 
     private static int calculateAlphaCode(BufferedImage _buffered,

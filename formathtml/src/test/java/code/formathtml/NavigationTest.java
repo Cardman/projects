@@ -7471,9 +7471,6 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-//        Document doc_ = XmlParser.parseSaxHtml(html_);
-//        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyfour\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keythree\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyfour\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keythree\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();

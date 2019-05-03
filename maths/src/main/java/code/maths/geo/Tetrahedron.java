@@ -4,7 +4,6 @@ import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.PairNumber;
 import code.util.ints.Displayable;
 
 public final class Tetrahedron implements Displayable {

@@ -1,9 +1,8 @@
 package code.util;
-import code.util.ints.Equallable;
 
 /** Not compared in tests, not use in res html, not instrospected*/
 
-public final class PairNumber<T extends Number,S extends Number> implements Equallable<PairNumber<T,S>> {
+public final class PairNumber<T extends Number,S extends Number> {
 
     private T first;
 
@@ -37,32 +36,4 @@ public final class PairNumber<T extends Number,S extends Number> implements Equa
         second = _second;
     }
 
-    @Override
-    public boolean eq(PairNumber<T, S> _g) {
-        if (first == null) {
-            if (second == null) {
-                if (_g.second != null) {
-                    return false;
-                }
-                return _g.first == null;
-            }
-            if (Numbers.compare(second, _g.second) != CustList.EQ_CMP) {
-                return false;
-            }
-            return _g.first == null;
-        }
-        if (second == null) {
-            if (Numbers.compare(first, _g.first) != CustList.EQ_CMP) {
-                return false;
-            }
-            return _g.second == null;
-        }
-        if (Numbers.compare(first, _g.first) != CustList.EQ_CMP) {
-            return false;
-        }
-        if (Numbers.compare(second, _g.second) != CustList.EQ_CMP) {
-            return false;
-        }
-        return true;
-    }
 }

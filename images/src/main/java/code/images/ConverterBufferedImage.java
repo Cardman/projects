@@ -1,10 +1,5 @@
 package code.images;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.PairNumber;
-import code.util.StringList;
-import code.util.opers.PairUtil;
+import code.util.*;
 
 public final class ConverterBufferedImage {
 
@@ -64,10 +59,10 @@ public final class ConverterBufferedImage {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
-        EqList<PairNumber<Integer,Integer>> addedPixels_ = whitePixels(_buffered);
+        EqList<IntPoint> addedPixels_ = whitePixels(_buffered);
         for (int i = CustList.FIRST_INDEX; i < h_; i++) {
             for (int j = CustList.FIRST_INDEX; j < w_; j++) {
-                if (addedPixels_.containsObj(new PairNumber<Integer,Integer>(j,i))) {
+                if (addedPixels_.containsObj(new IntPoint(j,i))) {
                     continue;
                 }
                 int rgb_ = _buffered[i][j];
@@ -79,79 +74,79 @@ public final class ConverterBufferedImage {
         return false;
     }
 
-    public static EqList<PairNumber<Integer,Integer>> containedWhiteInside(int[][] _buffered) {
+    public static EqList<IntPoint> containedWhiteInside(int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
-        EqList<PairNumber<Integer,Integer>> addedPixels_ = whitePixels(_buffered);
-        EqList<PairNumber<Integer,Integer>> list_ = new EqList<PairNumber<Integer,Integer>>();
+        EqList<IntPoint> addedPixels_ = whitePixels(_buffered);
+        EqList<IntPoint> list_ = new EqList<IntPoint>();
         for (int i = CustList.FIRST_INDEX; i < h_; i++) {
             for (int j = CustList.FIRST_INDEX; j < w_; j++) {
-                if (addedPixels_.containsObj(new PairNumber<Integer,Integer>(j,i))) {
+                if (addedPixels_.containsObj(new IntPoint(j,i))) {
                     continue;
                 }
                 int rgb_ = _buffered[i][j];
                 if (rgb_ != white_) {
                     continue;
                 }
-                list_.add(new PairNumber<Integer,Integer>(j,i));
+                list_.add(new IntPoint(j,i));
             }
         }
         return list_;
     }
 
-    public static EqList<PairNumber<Integer,Integer>> whitePixels(int[][] _buffered) {
+    public static EqList<IntPoint> whitePixels(int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
-        EqList<PairNumber<Integer,Integer>> addedPixels_ = new EqList<PairNumber<Integer,Integer>>();
-        EqList<PairNumber<Integer,Integer>> currentPixels_ = new EqList<PairNumber<Integer,Integer>>();
-        EqList<PairNumber<Integer,Integer>> newPixels_ = new EqList<PairNumber<Integer,Integer>>();
+        EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
+        EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
+        EqList<IntPoint> newPixels_ = new EqList<IntPoint>();
         if (isHandsFeet()) {
             if (_buffered[CustList.FIRST_INDEX][CustList.FIRST_INDEX] == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
+                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
             }
             if (_buffered[CustList.FIRST_INDEX][w_ - 1] == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, (int)CustList.FIRST_INDEX));
+                addedPixels_.add(new IntPoint(w_ - 1, (int)CustList.FIRST_INDEX));
             }
             if (_buffered[h_ - 1][CustList.FIRST_INDEX] == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, h_ - 1));
+                addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, h_ - 1));
             }
             if (_buffered[h_ - 1][w_ - 1] == white_) {
-                addedPixels_.add(new PairNumber<Integer,Integer>(w_ -1, h_ - 1));
+                addedPixels_.add(new IntPoint(w_ -1, h_ - 1));
             }
         } else {
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered[CustList.FIRST_INDEX][i] == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, (int)CustList.FIRST_INDEX));
+                    addedPixels_.add(new IntPoint(i, (int)CustList.FIRST_INDEX));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < w_; i++) {
                 if (_buffered[h_-1][i] == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>(i, h_ - 1));
+                    addedPixels_.add(new IntPoint(i, h_ - 1));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered[i][CustList.FIRST_INDEX] == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>((int)CustList.FIRST_INDEX, i));
+                    addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, i));
                 }
             }
             for (int i = CustList.FIRST_INDEX; i < h_; i++) {
                 if (_buffered[i][w_-1] == white_) {
-                    addedPixels_.add(new PairNumber<Integer,Integer>(w_ - 1, i));
+                    addedPixels_.add(new IntPoint(w_ - 1, i));
                 }
             }
             addedPixels_.removeDuplicates();
         }
         currentPixels_.addAllElts(addedPixels_);
         while (true) {
-            newPixels_ = new EqList<PairNumber<Integer,Integer>>();
-            for (PairNumber<Integer,Integer> coords_: currentPixels_) {
-                for (PairNumber<Integer,Integer> coordsChild_: PairUtil.getNext(w_, h_, coords_)) {
+            newPixels_ = new EqList<IntPoint>();
+            for (IntPoint coords_: currentPixels_) {
+                for (IntPoint coordsChild_: getNext(w_, h_, coords_)) {
                     if (addedPixels_.containsObj(coordsChild_)) {
                         continue;
                     }
-                    int rgb_ = _buffered[coordsChild_.getSecond()][coordsChild_.getFirst()];
+                    int rgb_ = _buffered[coordsChild_.getYcoords()][coordsChild_.getXcoords()];
                     if (rgb_ != white_) {
                         continue;
                     }
@@ -162,7 +157,7 @@ public final class ConverterBufferedImage {
             if (newPixels_.isEmpty()) {
                 break;
             }
-            currentPixels_ = new EqList<PairNumber<Integer,Integer>>(newPixels_);
+            currentPixels_ = new EqList<IntPoint>(newPixels_);
         }
         return addedPixels_;
     }
@@ -190,5 +185,73 @@ public final class ConverterBufferedImage {
             }
         }
         return BaseSixtyFourUtil.getStringByImage(pixels_);
+    }
+
+    public static CustList<IntPoint> getNext(int _w, int _h, IntPoint _visited) {
+        CustList<IntPoint> list_ = new CustList<IntPoint>();
+        if (_visited.getXcoords() + 1 < _w) {
+            list_.add(new IntPoint(_visited.getXcoords() + 1, _visited.getYcoords()));
+        }
+        if (_visited.getXcoords() - 1 >= CustList.FIRST_INDEX) {
+            list_.add(new IntPoint(_visited.getXcoords() - 1, _visited.getYcoords()));
+        }
+        if (_visited.getYcoords() + 1 < _h) {
+            list_.add(new IntPoint(_visited.getXcoords(), _visited.getYcoords() + 1));
+        }
+        if (_visited.getYcoords() - 1 >= CustList.FIRST_INDEX) {
+            list_.add(new IntPoint(_visited.getXcoords(), _visited.getYcoords() - 1));
+        }
+        return list_;
+    }
+    public static CustList<EqList<IntPoint>> getPolygons(EqList<IntPoint> _classes) {
+        ObjectMap<IntPoint,EqList<IntPoint>> mapClasses_;
+        mapClasses_ = new ObjectMap<IntPoint,EqList<IntPoint>>();
+        for (IntPoint point_: _classes) {
+            mapClasses_.put(point_, new EqList<IntPoint>(point_));
+        }
+        CustList<EqList<IntPoint>> polygons_ = new CustList<EqList<IntPoint>>();
+        for (IntPoint point_: mapClasses_.getKeys()) {
+            EqList<IntPoint> visitedPoints_ = mapClasses_.getVal(point_);
+            EqList<IntPoint> currentPoints_ = new EqList<IntPoint>(point_);
+            EqList<IntPoint> newPoints_;
+            while (true) {
+                newPoints_ = new EqList<IntPoint>();
+                for (IntPoint currentPoint_: currentPoints_) {
+                    IntPoint ptOne_ = new IntPoint();
+                    ptOne_.setXcoords(currentPoint_.getXcoords()+1);
+                    ptOne_.setYcoords(currentPoint_.getYcoords());
+                    IntPoint ptTwo_ = new IntPoint();
+                    ptTwo_.setXcoords(currentPoint_.getXcoords());
+                    ptTwo_.setYcoords(currentPoint_.getYcoords()+1);
+                    IntPoint ptThree_ = new IntPoint();
+                    ptThree_.setXcoords(currentPoint_.getXcoords()-1);
+                    ptThree_.setYcoords(currentPoint_.getYcoords());
+                    IntPoint ptFour_ = new IntPoint();
+                    ptFour_.setXcoords(currentPoint_.getXcoords());
+                    ptFour_.setYcoords(currentPoint_.getYcoords()-1);
+                    EqList<IntPoint> nextPoints_ = new EqList<IntPoint>();
+                    nextPoints_.add(ptOne_);
+                    nextPoints_.add(ptTwo_);
+                    nextPoints_.add(ptThree_);
+                    nextPoints_.add(ptFour_);
+                    for (IntPoint next_: nextPoints_) {
+                        if (!_classes.containsObj(next_)) {
+                            continue;
+                        }
+                        if (visitedPoints_.containsObj(next_)) {
+                            continue;
+                        }
+                        newPoints_.add(next_);
+                        visitedPoints_.add(next_);
+                    }
+                }
+                if (newPoints_.isEmpty()) {
+                    break;
+                }
+                currentPoints_ = new EqList<IntPoint>(newPoints_);
+            }
+            polygons_.add(visitedPoints_);
+        }
+        return polygons_;
     }
 }

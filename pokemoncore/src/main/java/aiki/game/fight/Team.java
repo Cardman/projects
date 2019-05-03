@@ -469,7 +469,7 @@ public final class Team {
     }
 
     void move(byte _decalage){
-        EqList<PairNumber<Byte,Byte>> combattantsPositions_ = new EqList<PairNumber<Byte,Byte>>();
+        CustList<PairNumber<Byte,Byte>> combattantsPositions_ = new CustList<PairNumber<Byte,Byte>>();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if(!membre_.estArriere()){

@@ -3,12 +3,10 @@ package code.formathtml.classes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;
-import code.util.ints.SortableMap;
 
-public final class NatTreeMapStringInteger implements SortableMap<String,Integer> {
+public final class NatTreeMapStringInteger implements ListableEntries<String,Integer> {
 
     private final NatStringTreeMap<Integer> tree;
 
@@ -105,58 +103,21 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
         tree.removeKey(_key);
     }
 
-    @Override
-    public EntryCust<String, Integer> lowerEntry(String _key) {
-        return tree.lowerEntry(_key);
-    }
-
-    @Override
-    public String lowerKey(String _key) {
-        return tree.lowerKey(_key);
-    }
-
-    @Override
-    public EntryCust<String, Integer> floorEntry(String _key) {
-        return tree.floorEntry(_key);
-    }
-
-    @Override
-    public String floorKey(String _key) {
-        return tree.floorKey(_key);
-    }
-
-    @Override
-    public EntryCust<String, Integer> ceilingEntry(String _key) {
-        return tree.ceilingEntry(_key);
-    }
-
-    @Override
-    public String ceilingKey(String _key) {
-        return tree.ceilingKey(_key);
-    }
-
-    @Override
-    public EntryCust<String, Integer> higherEntry(String _key) {
-        return tree.higherEntry(_key);
-    }
-
-    @Override
-    public String higherKey(String _key) {
-        return tree.higherKey(_key);
-    }
-
-    @Override
-    public EntryCust<String, Integer> firstEntry() {
-        return tree.firstEntry();
-    }
-
-    @Override
-    public EntryCust<String, Integer> lastEntry() {
-        return tree.lastEntry();
-    }
-
-    public void applyChanges() {
-        tree.applyChanges();
+    void applyChanges() {
+        for (int i = CustList.FIRST_INDEX; i < tree.size(); i++) {
+            for (int j = i + 1; j < tree.size(); j++) {
+                String c_ = tree.get(i).getKey();
+                int res_ = c_.compareTo(tree.get(j).getKey());
+                if (res_ > CustList.EQ_CMP) {
+                    EntryCust<String, Integer> e_ = tree.get(i);
+                    EntryCust<String, Integer> f_ = tree.get(j);
+                    tree.setKey(j,e_.getKey());
+                    tree.setKey(i,f_.getKey());
+                    tree.setValue(j, e_.getValue());
+                    tree.setValue(i, f_.getValue());
+                }
+            }
+        }
     }
 
 }

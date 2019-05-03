@@ -1,14 +1,11 @@
 package code.util;
 import code.util.ints.Comparing;
-import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
-import code.util.ints.SortableMap;
 
 /**
     @author Cardman
 */
 
-public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, V> {
+public final class TreeMap<K, V> extends AbsMap<K, V> {
 
     private final Comparing<K> comparator;
 
@@ -21,7 +18,7 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         comparator = _cmp;
     }
 
-    public void putAllTreeMap(SortableMap<K, V> _m) {
+    public void putAllTreeMap(AbsMap<K, V> _m) {
         for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
@@ -76,90 +73,5 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         return comparator;
     }
 
-    @Override
-    public EntryCust<K, V> lowerEntry(K _key) {
-        CustList<EntryCust<K,V>> l_;
-        l_ = new CustList<EntryCust<K,V>>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = comparator.compare(e.getKey(), _key);
-            if (res_ >= 0) {
-                continue;
-            }
-            l_.add(e);
-        }
-        if (l_.isEmpty()) {
-            return null;
-        }
-        return l_.last();
-    }
-
-    @Override
-    public K lowerKey(K _key) {
-        return getKeyOrNull(lowerEntry(_key));
-    }
-
-    @Override
-    public EntryCust<K, V> floorEntry(K _key) {
-        CustList<EntryCust<K,V>> l_;
-        l_ = new CustList<EntryCust<K,V>>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = comparator.compare(e.getKey(), _key);
-            if (res_ > 0) {
-                continue;
-            }
-            l_.add(e);
-        }
-        if (l_.isEmpty()) {
-            return null;
-        }
-        return l_.last();
-    }
-
-    @Override
-    public K floorKey(K _key) {
-        return getKeyOrNull(floorEntry(_key));
-    }
-
-    @Override
-    public EntryCust<K, V> ceilingEntry(K _key) {
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = comparator.compare(e.getKey(), _key);
-            if (res_ >= 0) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public K ceilingKey(K _key) {
-        return getKeyOrNull(ceilingEntry(_key));
-    }
-
-    @Override
-    public EntryCust<K, V> higherEntry(K _key) {
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = comparator.compare(e.getKey(), _key);
-            if (res_ > 0) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public K higherKey(K _key) {
-        return getKeyOrNull(higherEntry(_key));
-    }
-
-    @Override
-    public EntryCust<K, V> firstEntry() {
-        return getList().first();
-    }
-
-    @Override
-    public EntryCust<K, V> lastEntry() {
-        return getList().last();
-    }
 
 }

@@ -1,7 +1,6 @@
 package code.maths.geo;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.PairNumber;
 import code.util.ints.Displayable;
 
 public final class Triangle implements HasEdges, Displayable {

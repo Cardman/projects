@@ -3,7 +3,7 @@ import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 /** Not compared in tests */
-public final class EqList<T extends Equallable<T>> extends AbEqList<T> implements Equallable<EqList<T>> {
+public final class EqList<T extends Equallable<T>> extends AbEqList<T> {
     public EqList() {
     }
 
@@ -49,7 +49,7 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    @Override
+
     public boolean eq(EqList<T> _b) {
         int len_ = size();
         if (_b.size() != len_) {

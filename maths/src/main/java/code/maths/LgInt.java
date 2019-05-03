@@ -310,7 +310,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     public Decomposition decompoPrim() {
         LgInt copy_=absNb();
-        EqList<PairEq<LgInt,LgInt>> divs_ = new EqList<PairEq<LgInt,LgInt>>();
+        CustList<PairEq<LgInt,LgInt>> divs_ = new CustList<PairEq<LgInt,LgInt>>();
         for (LgInt d: getDividers()) {
             if (!d.isPrime()) {
                 continue;

@@ -54,7 +54,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
 
     public Matrix passMat() {
         Matrix mat_ = new Matrix();
-        EqList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValues_=diagTrig().getRates();
+        CustList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValues_=diagTrig().getRates();
         for(PairEq<Rate,PairNumber<Integer,Integer>> t: ownValues_) {
             Matrix ownVects_=ownVects(t.getFirst());
             for(Vect l: ownVects_.lines) {
@@ -66,8 +66,8 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
 
     public Trigonal diagTrig() {
         CustList<RootPol> ownValues_=polCaract().racines();
-        EqList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValuesSpaces_;
-        ownValuesSpaces_ = new EqList<PairEq<Rate,PairNumber<Integer,Integer>>>();
+        CustList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValuesSpaces_;
+        ownValuesSpaces_ = new CustList<PairEq<Rate,PairNumber<Integer,Integer>>>();
         int sum_=0;
         int nbLines_=lines.size();
         Matrix id_ = new Matrix();
@@ -171,8 +171,8 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     public Polynom polCaract() {
-        EqList<PairEq<Rate,Rate>> antImgs_;
-        antImgs_ = new EqList<PairEq<Rate,Rate>>();
+        CustList<PairEq<Rate,Rate>> antImgs_;
+        antImgs_ = new CustList<PairEq<Rate,Rate>>();
         int nbLines_=lines.size();
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();

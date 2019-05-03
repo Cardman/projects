@@ -1,11 +1,11 @@
 package aiki.beans.effects;
 
 import aiki.fight.moves.effects.EffectCombo;
+import code.util.AbsMap;
 import code.util.StringList;
 import code.util.TreeMap;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
-import code.util.ints.SortableMap;
 
 public final class ComboDto {
 
@@ -17,10 +17,6 @@ public final class ComboDto {
 
     public void putAllMap(ListableEntries<StringList, EffectCombo> _m) {
         combos.putAllMap(_m);
-    }
-
-    public void putAllTreeMap(SortableMap<StringList, EffectCombo> _m) {
-        combos.putAllTreeMap(_m);
     }
 
     public EffectCombo getValue(int _index) {

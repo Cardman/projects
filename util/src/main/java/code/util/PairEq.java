@@ -1,10 +1,6 @@
 package code.util;
-import code.util.ints.Equallable;
 
-
-/** Not compared in tests, not use in res html, not instrospected*/
-
-public final class PairEq<T extends Equallable<T>,S extends Equallable<S>> implements Equallable<PairEq<T,S>> {
+public final class PairEq<T,S> {
 
     private T first;
 
@@ -38,41 +34,4 @@ public final class PairEq<T extends Equallable<T>,S extends Equallable<S>> imple
         second = _second;
     }
 
-    @Override
-    public boolean eq(PairEq<T, S> _g) {
-        if (first == null) {
-            if (second == null) {
-                if (_g.second != null) {
-                    return false;
-                }
-                return _g.first == null;
-            }
-            if (_g.second == null) {
-                return false;
-            }
-            if (!second.eq(_g.second)) {
-                return false;
-            }
-            return _g.first == null;
-        }
-        if (_g.first == null) {
-            return false;
-        }
-        if (second == null) {
-            if (!first.eq(_g.first)) {
-                return false;
-            }
-            return _g.second == null;
-        }
-        if (_g.second == null) {
-            return false;
-        }
-        if (!first.eq(_g.first)) {
-            return false;
-        }
-        if (!second.eq(_g.second)) {
-            return false;
-        }
-        return true;
-    }
 }

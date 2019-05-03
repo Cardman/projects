@@ -650,7 +650,7 @@ public class FightSimulation {
                 moves.put(i_, treeMoves_);
                 StringMap<Boolean> choicesMoves_;
                 StringList initMoves_ = new StringList(team.get(i_).getMoves().getKeys());
-                choicesMoves_ = movesToBeChosen(treeMoves_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
+                choicesMoves_ = movesToBeChosen(treeMoves_.firstValue(), initMoves_, _import.getNbMaxMoves());
                 PairNumber<Byte,Byte> firstFightRound_;
                 firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
                 availableMoves.put(i_, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
@@ -753,7 +753,7 @@ public class FightSimulation {
                     moves.put(i_, tree_);
                     StringMap<Boolean> choicesMoves_;
                     StringList initMoves_ = new StringList(team.get(i_).getMoves().getKeys());
-                    choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
+                    choicesMoves_ = movesToBeChosen(tree_.firstValue(), initMoves_, _import.getNbMaxMoves());
                     PairNumber<Byte,Byte> firstFightRound_;
                     firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
 //                    availableMoves.put(indexes_.get(i_), new Pair<>(firstFightRound_,choicesMoves_));
@@ -1066,7 +1066,7 @@ public class FightSimulation {
         tree_ = moves.getVal((byte) _index);
         StringMap<Boolean> choicesMoves_;
         StringList initMoves_ = new StringList(team.get((byte) _index).getMoves().getKeys());
-        choicesMoves_ = movesToBeChosen(tree_.firstEntry().getValue(), initMoves_, _import.getNbMaxMoves());
+        choicesMoves_ = movesToBeChosen(tree_.firstValue(), initMoves_, _import.getNbMaxMoves());
         PairNumber<Byte,Byte> firstFightRound_;
         firstFightRound_ = new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         availableMoves.put((byte) _index, new AvailableMovesInfos(firstFightRound_,choicesMoves_));
@@ -1275,8 +1275,8 @@ public class FightSimulation {
                 byte current_ = i;
                 current_--;
                 NumberMap<Byte,Byte> currentActions_ = frontFighters.get(f).get(current_);
-                EqList<PairNumber<Byte,Byte>> orderedFronts_;
-                orderedFronts_ = new EqList<PairNumber<Byte,Byte>>();
+                CustList<PairNumber<Byte,Byte>> orderedFronts_;
+                orderedFronts_ = new CustList<PairNumber<Byte,Byte>>();
                 for (byte k: currentActions_.getKeys()) {
                     if (!Numbers.eq(currentActions_.getVal(k).byteValue(), Fighter.BACK)) {
                         orderedFronts_.add(new PairNumber<Byte, Byte>(currentActions_.getVal(k),k));
@@ -1423,12 +1423,23 @@ public class FightSimulation {
         keptMovesBefore_ = keptMoves.getVal((byte) _index);
         PairNumber<Byte,Byte> currentKey_;
         currentKey_ = new PairNumber<Byte, Byte>((byte)_fight,(byte)_round);
-        EqList<PairNumber<Byte,Byte>> keys_;
-        keys_ = new EqList<PairNumber<Byte,Byte>>(keptMovesBefore_.getKeys());
-
-        int index_ = keys_.indexOfObj(currentKey_);
-        index_--;
-        return keptMovesBefore_.getVal(keys_.get(index_));
+        CustList<PairNumber<Byte,Byte>> keys_;
+        keys_ = new CustList<PairNumber<Byte,Byte>>(keptMovesBefore_.getKeys());
+        int i_ = 0;
+        while (true) {
+            PairNumber<Byte, Byte> k_ = keys_.get(i_);
+            if (k_.getFirst() != currentKey_.getFirst().byteValue()) {
+                i_++;
+                continue;
+            }
+            if (k_.getSecond() != currentKey_.getSecond().byteValue()) {
+                i_++;
+                continue;
+            }
+            i_--;
+            break;
+        }
+        return keptMovesBefore_.getVal(keys_.get(i_));
     }
 
     public void chooseMoveFirstFight(int _round, int _index, String _move, boolean _ally, int _foeTarget, DataBase _data) {

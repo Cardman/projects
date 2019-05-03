@@ -1,12 +1,10 @@
 package code.util;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
-import code.util.ints.SortableMap;
 
 /**
     @author Cardman
 */
-public final class NatStringTreeMap<V> extends AbsMap<String, V> implements SortableMap<String, V> {
+public final class NatStringTreeMap<V> extends AbsMap<String, V> {
 
     public NatStringTreeMap() {
     }
@@ -74,101 +72,4 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> implements Sort
         return CustList.INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
-    public EntryCust<String, V> lowerEntry(String _key) {
-        CustList<EntryCust<String,V>> l_;
-        l_ = new CustList<EntryCust<String,V>>();
-        for (EntryCust<String, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
-            if (res_ >= 0) {
-                continue;
-            }
-            l_.add(e);
-        }
-        if (l_.isEmpty()) {
-            return null;
-        }
-        return l_.last();
-    }
-
-    @Override
-    public String lowerKey(String _key) {
-        return getKeyOrNull(lowerEntry(_key));
-    }
-
-    @Override
-    public EntryCust<String, V> floorEntry(String _key) {
-        CustList<EntryCust<String,V>> l_;
-        l_ = new CustList<EntryCust<String,V>>();
-        for (EntryCust<String, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
-            if (res_ > 0) {
-                continue;
-            }
-            l_.add(e);
-        }
-        if (l_.isEmpty()) {
-            return null;
-        }
-        return l_.last();
-    }
-
-    @Override
-    public String floorKey(String _key) {
-        return getKeyOrNull(floorEntry(_key));
-    }
-
-    @Override
-    public EntryCust<String, V> ceilingEntry(String _key) {
-        for (EntryCust<String, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
-            if (res_ >= 0) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public String ceilingKey(String _key) {
-        return getKeyOrNull(ceilingEntry(_key));
-    }
-
-    @Override
-    public EntryCust<String, V> higherEntry(String _key) {
-        for (EntryCust<String, V> e: getList()) {
-            int res_ = e.getKey().compareTo(_key);
-            if (res_ > 0) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public String higherKey(String _key) {
-        return getKeyOrNull(higherEntry(_key));
-    }
-
-    @Override
-    public EntryCust<String, V> firstEntry() {
-        return getList().first();
-    }
-
-    @Override
-    public EntryCust<String, V> lastEntry() {
-        return getList().last();
-    }
-
-    public void applyChanges() {
-        for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-            for (int j = i + 1; j < getList().size(); j++) {
-                String c_ = getList().get(i).getKey();
-                int res_ = c_.compareTo(getList().get(j).getKey());
-                if (res_ > CustList.EQ_CMP) {
-                    getList().swapIndexes(i, j);
-                }
-            }
-        }
-    }
 }
