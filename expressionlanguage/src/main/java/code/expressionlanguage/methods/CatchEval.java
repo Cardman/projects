@@ -25,9 +25,8 @@ public final class CatchEval extends AbstractCatchEval {
 
     private int variableNameOffset;
 
-    public CatchEval(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public CatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
+        super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         variableName = _variable.getInfo();

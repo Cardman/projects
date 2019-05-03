@@ -7,14 +7,12 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.ReturnablePageEl;
 import code.expressionlanguage.calls.ReturnableValuePageEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -38,9 +36,8 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
 
     private CustList<ExecOperationNode> opRet;
 
-    public ReturnMehod(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public ReturnMehod(OffsetStringInfo _expression, OffsetsBlock _offset) {
+        super(_offset);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
     }

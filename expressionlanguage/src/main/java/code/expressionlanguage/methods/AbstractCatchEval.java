@@ -16,9 +16,8 @@ import code.util.StringMap;
 
 public abstract class AbstractCatchEval extends BracedStack implements Eval {
 
-    protected AbstractCatchEval(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    protected AbstractCatchEval(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

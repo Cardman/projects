@@ -23,9 +23,8 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
 
     private CustList<ExecOperationNode> opCondition;
 
-    public Condition(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
+        super(_offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();
     }

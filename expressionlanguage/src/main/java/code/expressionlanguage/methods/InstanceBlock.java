@@ -1,12 +1,10 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public final class InstanceBlock extends InitBlock {
 
-    public InstanceBlock(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public InstanceBlock(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

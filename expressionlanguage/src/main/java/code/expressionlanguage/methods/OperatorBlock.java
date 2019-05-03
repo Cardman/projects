@@ -2,15 +2,12 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -21,13 +18,11 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     private Numbers<Integer> importsOffset = new Numbers<Integer>();
 
-    public OperatorBlock(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetStringInfo _retType, OffsetStringInfo _fctName,
-            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
-            OffsetsBlock _offset) {
-        super(_importingPage, _m, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+    public OperatorBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
+                         StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+                         StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+                         OffsetsBlock _offset) {
+        super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
     }
 

@@ -59,11 +59,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
-    public FieldBlock(ContextEl _importingPage,
-                      BracedBlock _m, OffsetAccessInfo _access,
+    public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_m, _offset);
+        super(_offset);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         staticField = _static.isInfo();

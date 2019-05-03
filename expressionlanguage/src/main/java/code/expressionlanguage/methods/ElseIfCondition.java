@@ -20,7 +20,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     public ElseIfCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_importingPage, _m, _condition, _offset);
+        super(_condition, _offset);
     }
 
     @Override

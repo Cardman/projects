@@ -31,9 +31,8 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private int valueOffset;
 
-    public CaseCondition(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
     }

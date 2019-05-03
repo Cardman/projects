@@ -5,9 +5,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 
 public final class EmptyInstruction extends Leaf implements BuildableElMethod {
 
-    public EmptyInstruction(ContextEl _importingPage, BracedBlock _m,
-            OffsetsBlock _offset) {
-        super(_m, _offset);
+    public EmptyInstruction(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

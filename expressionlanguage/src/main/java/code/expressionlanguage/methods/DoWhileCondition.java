@@ -15,14 +15,13 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.*;
 
 public final class DoWhileCondition extends Condition {
 
     public DoWhileCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_importingPage, _m, _condition, _offset);
+        super(_condition, _offset);
     }
 
     @Override

@@ -6,9 +6,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 
 public abstract class AbruptBlock extends Leaf implements BuildableElMethod {
 
-    AbruptBlock(ContextEl _importingPage, BracedBlock _m,
-            OffsetsBlock _offset) {
-        super(_m, _offset);
+    AbruptBlock(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

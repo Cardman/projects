@@ -4,8 +4,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 
 public abstract class Leaf extends Block implements WithEl {
 
-    Leaf(BracedBlock _m, OffsetsBlock _offset) {
-        super(_m, _offset);
+    Leaf(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

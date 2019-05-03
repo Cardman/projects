@@ -18,7 +18,7 @@ public final class WhileCondition extends Condition implements Loop {
 
     public WhileCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _condition, _offset);
+        super(_condition, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

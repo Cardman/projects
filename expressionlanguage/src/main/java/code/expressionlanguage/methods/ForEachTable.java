@@ -16,7 +16,6 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -72,11 +71,10 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     private CustList<ExecOperationNode> opList;
 
     public ForEachTable(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetStringInfo _className, OffsetStringInfo _variable,
-            OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+                        OffsetStringInfo _className, OffsetStringInfo _variable,
+                        OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
+                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
         variableNameFirst = _variable.getInfo();

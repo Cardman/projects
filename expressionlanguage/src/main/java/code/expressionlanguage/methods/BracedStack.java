@@ -12,8 +12,6 @@ import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -23,9 +21,8 @@ import code.util.StringMap;
 
 public abstract class BracedStack extends BracedBlock {
 
-    BracedStack(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_m, _offset);
+    BracedStack(OffsetsBlock _offset) {
+        super(_offset);
     }
     
     protected void buildConditions(ContextEl _cont) {

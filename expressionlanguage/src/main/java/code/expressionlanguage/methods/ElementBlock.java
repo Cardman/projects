@@ -43,11 +43,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
-    public ElementBlock(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _fieldName,
-            OffsetStringInfo _type,
-            OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_m, _offset);
+    public ElementBlock(OffsetStringInfo _fieldName,
+                        OffsetStringInfo _type,
+                        OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_offset);
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();

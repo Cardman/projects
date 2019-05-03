@@ -1,25 +1,21 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public final class ElseCondition extends BracedStack implements BlockCondition, BuildableElMethod {
 
-    public ElseCondition(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public ElseCondition(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

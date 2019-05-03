@@ -9,9 +9,8 @@ import code.expressionlanguage.stacks.SwitchBlockStack;
 
 public final class DefaultCondition extends SwitchPartBlock {
 
-    public DefaultCondition(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public DefaultCondition(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

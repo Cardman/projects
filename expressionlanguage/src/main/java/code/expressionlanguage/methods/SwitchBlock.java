@@ -37,8 +37,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
 
     private boolean enumTest;
 
-    public SwitchBlock(ContextEl _importingPage,BracedBlock _m, OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
         label = _label.getInfo();

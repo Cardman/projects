@@ -8,9 +8,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 
 public final class NullCatchEval extends AbstractCatchEval {
 
-    public NullCatchEval(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public NullCatchEval(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override

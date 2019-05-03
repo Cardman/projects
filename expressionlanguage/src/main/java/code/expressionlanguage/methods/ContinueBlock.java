@@ -18,9 +18,8 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     private String label;
     private int labelOffset;
 
-    public ContinueBlock(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public ContinueBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

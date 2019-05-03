@@ -19,7 +19,7 @@ public final class NativeForEach extends AbstractForEachLoop {
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
             OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _className, _variable, _expression, _classIndex, _label, _offset);
+        super(_importingPage, _className, _variable, _expression, _classIndex, _label, _offset);
     }
 
     @Override

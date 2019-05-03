@@ -4,12 +4,9 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.DeadCodeMethod;
-import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
@@ -22,9 +19,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
-    MemberCallingsBlock(ContextEl _importingPage,
-            BracedBlock _m, OffsetsBlock _offset) {
-        super(_m, _offset);
+    MemberCallingsBlock(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     public final void buildFctInstructions(ContextEl _cont) {
@@ -57,7 +53,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ instanceof BracedBlock && en_.getFirstChild() == null) {
                 if (!(en_ instanceof SwitchBlock) && !(en_ instanceof DoWhileCondition)) {
                     OffsetsBlock off_ = en_.getOffset();
-                    EmptyInstruction empty_ = new EmptyInstruction(_cont, (BracedBlock) en_, off_);
+                    EmptyInstruction empty_ = new EmptyInstruction(off_);
                     ((BracedBlock)en_).appendChild(empty_);
                 }
             }

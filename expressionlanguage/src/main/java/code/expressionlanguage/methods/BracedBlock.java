@@ -15,11 +15,12 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
 
     private Block firstChild;
 
-    BracedBlock(BracedBlock _m, OffsetsBlock _offset) {
-        super(_m, _offset);
+    BracedBlock(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     public final void appendChild(Block _child) {
+        _child.setParent(this);
         if (firstChild == null) {
             firstChild = _child;
             return;

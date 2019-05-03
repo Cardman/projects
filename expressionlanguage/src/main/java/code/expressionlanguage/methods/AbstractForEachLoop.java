@@ -16,7 +16,6 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -65,10 +64,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     private CustList<ExecOperationNode> opList;
 
     protected AbstractForEachLoop(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetStringInfo _className, OffsetStringInfo _variable,
-            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+                                  OffsetStringInfo _className, OffsetStringInfo _variable,
+                                  OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         variableName = _variable.getInfo();

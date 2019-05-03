@@ -10,7 +10,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
@@ -50,10 +49,10 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
 
-    public InnerElementBlock(ContextEl _importingPage, EnumBlock _m, OffsetStringInfo _fieldName,
-                      OffsetStringInfo _type,
-                      OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _m, 0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new NatTreeMap<Integer, String>(), _offset);
+    public InnerElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
+                             OffsetStringInfo _type,
+                             OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(0, 0, StringList.concat(_m.getFullName(),"-",_fieldName.getInfo()), _m.getPackageName(), new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new NatTreeMap<Integer, String>(), _offset);
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();

@@ -8016,6 +8016,20 @@ public final class ClassesTest {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void validateEl179FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" if(true){\n");
+        xml_.append("  \n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElSingleDotDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(), !cont_.getClasses().isEmptyErrors());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

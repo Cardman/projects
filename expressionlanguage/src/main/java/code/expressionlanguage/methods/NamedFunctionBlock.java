@@ -6,12 +6,10 @@ import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -49,14 +47,12 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    public NamedFunctionBlock(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetAccessInfo _access,
-            OffsetStringInfo _retType, OffsetStringInfo _fctName,
-            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
-            OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public NamedFunctionBlock(OffsetAccessInfo _access,
+                              OffsetStringInfo _retType, OffsetStringInfo _fctName,
+                              StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
+                              StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+                              OffsetsBlock _offset) {
+        super(_offset);
         importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();

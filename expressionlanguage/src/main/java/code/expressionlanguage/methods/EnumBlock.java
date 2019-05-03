@@ -2,20 +2,11 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.errors.custom.BadAccessMethod;
-import code.expressionlanguage.errors.custom.BadInheritedClass;
-import code.expressionlanguage.errors.custom.BadReturnTypeInherit;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
@@ -28,10 +19,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
 
-    public EnumBlock(ContextEl _importingPage,
-            BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
-            String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
-        super(_importingPage, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+    public EnumBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
+                     String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+        super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
 
     @Override

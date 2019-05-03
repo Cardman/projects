@@ -15,8 +15,8 @@ public final class DoBlock extends BracedStack implements Loop {
     private String label;
     private int labelOffset;
 
-    public DoBlock(ContextEl _importingPage, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public DoBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

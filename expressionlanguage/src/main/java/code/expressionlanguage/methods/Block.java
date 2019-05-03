@@ -43,9 +43,11 @@ public abstract class Block {
     private OffsetsBlock offset;
 
 
-    Block(BracedBlock _m, OffsetsBlock _offset) {
-        parent = _m;
+    Block(OffsetsBlock _offset) {
         offset = _offset;
+    }
+    protected final void setParent(BracedBlock _b) {
+        parent = _b;
     }
     public final OffsetsBlock getOffset() {
         return offset;

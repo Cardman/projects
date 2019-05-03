@@ -16,8 +16,8 @@ import code.util.StringMap;
 
 public final class FinallyEval extends BracedStack implements Eval {
 
-    public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _m, _offset);
+    public FinallyEval(OffsetsBlock _offset) {
+        super(_offset);
     }
 
     @Override
