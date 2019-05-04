@@ -222,7 +222,7 @@ import code.util.NumberMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class DocumentWriterAikiCoreUtil {
 

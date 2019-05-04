@@ -27,8 +27,8 @@ import code.gui.NumComboBox;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.util.*;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class PaginatorMove extends Paginator {
 

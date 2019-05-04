@@ -13,7 +13,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public class PokedexBean extends CommonBean {
     private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();

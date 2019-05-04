@@ -131,7 +131,7 @@ import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
 import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public class DataBase implements WithMathFactory {
 

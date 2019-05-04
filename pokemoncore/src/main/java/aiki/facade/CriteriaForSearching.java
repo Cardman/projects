@@ -1,8 +1,8 @@
 package aiki.facade;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 public abstract class CriteriaForSearching {
 

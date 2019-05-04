@@ -8,8 +8,8 @@ import aiki.fight.enums.Statistic;
 import aiki.game.fight.InitializationDataBase;
 import code.maths.Rate;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class CriteriaForSearchingHealingItemTest extends InitializationDataBase {

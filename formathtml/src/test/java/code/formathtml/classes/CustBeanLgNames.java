@@ -161,7 +161,6 @@ public final class CustBeanLgNames extends BeanLgNames {
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
     public CustBeanLgNames() {
-        setSelectedBoolean(ALIAS_SB);
         setCustList(ALIAS_LS);
         setCustMap(ALIAS_LSE);
         StringMap<StandardField> fields_;

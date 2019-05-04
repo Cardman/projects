@@ -265,6 +265,7 @@ import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class PokemonStandards extends BeanLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
@@ -434,6 +435,7 @@ public final class PokemonStandards extends BeanLgNames {
         buildPositiveRateValidator(this);
         buildShortValidator(this);
         buildUnselectedRadio(this);
+        buildSelectedBoolean(this);
     }
     private static void buildActivityOfMove(BeanLgNames _std) {
         StandardClass type_;
@@ -1094,6 +1096,17 @@ public final class PokemonStandards extends BeanLgNames {
         _std.getStandards().put(TYPE_UNSELECTED_RADIO, type_);
     }
 
+    private static void buildSelectedBoolean(BeanLgNames _std) {
+        StandardClass type_;
+        StringMap<StandardField> fields_;
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        StandardClass stdcl_ = new StandardClass(ALIAS_SB, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.FINAL);
+        _std.getStandards().put(ALIAS_SB, stdcl_);
+    }
     @Override
     public Validator buildValidator(Element _element) {
         String clName_ = _element.getTagName();
@@ -2633,6 +2646,9 @@ public final class PokemonStandards extends BeanLgNames {
 
     @Override
     public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+        if (_struct instanceof SelectedBoolean) {
+            return getSelectedBoolean();
+        }
         if (_struct instanceof ComboDto) {
             return AikiBeansEffectsStd.TYPE_COMBO_DTO;
         }
@@ -2906,6 +2922,13 @@ public final class PokemonStandards extends BeanLgNames {
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
+        if (_instance instanceof StdStruct) {
+            Object r_ = ((StdStruct) _instance).getInstance();
+            if (r_ instanceof SelectedBoolean) {
+                res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
+                return res_;
+            }
+        }
         if (instance_ instanceof Gender) {
             res_.setResult(new StringStruct(((Gender)instance_).name()));
             return res_;
@@ -2931,6 +2954,15 @@ public final class PokemonStandards extends BeanLgNames {
     @Override
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
+        if (StringList.quickEq(_className, getSelectedBoolean())) {
+            SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
+            if (en_ == null) {
+                res_.setError(getAliasError());
+            } else {
+                res_.setResult(new SelectedBooleanStruct(en_, _className));
+            }
+            return res_;
+        }
         if (_values.isEmpty()) {
             res_.setError(getAliasError());
             return res_;
@@ -3320,4 +3352,11 @@ public final class PokemonStandards extends BeanLgNames {
         }
         return res_;
     }
+    public String getSelectedBoolean() {
+        return ALIAS_SB;
+    }
+    public void setSelectedBoolean(String _selectedBoolean) {
+
+    }
+
 }

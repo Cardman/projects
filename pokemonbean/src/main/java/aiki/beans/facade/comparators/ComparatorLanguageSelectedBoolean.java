@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.ints.Comparing;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class ComparatorLanguageSelectedBoolean implements Comparing<LanguageElementKey> {
 

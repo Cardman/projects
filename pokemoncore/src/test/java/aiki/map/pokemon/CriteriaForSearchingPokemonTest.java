@@ -6,8 +6,8 @@ import org.junit.Test;
 import aiki.game.fight.InitializationDataBase;
 import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class CriteriaForSearchingPokemonTest extends InitializationDataBase {

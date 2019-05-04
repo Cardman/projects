@@ -27,10 +27,9 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class PaginatorHealingItem extends Paginator {
 

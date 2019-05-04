@@ -46,7 +46,6 @@ import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
 import code.util.ints.SimpleIterable;
 import code.util.ints.SimpleList;
-import code.util.pagination.SelectedBoolean;
 
 public abstract class BeanLgNames extends LgNames {
 
@@ -77,7 +76,6 @@ public abstract class BeanLgNames extends LgNames {
     private final String validator = "code.bean.validator.Validator";
     private final String bean = "code.bean.Bean";
 
-    private String selectedBoolean = "$sb";
     private String aliasDisplayable;
     private String aliasDisplay;
     private String custList = "$custlist";
@@ -356,11 +354,6 @@ public abstract class BeanLgNames extends LgNames {
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasSimpleIteratorType, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        getStandards().put(selectedBoolean, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         stdi_ = new StandardInterface(aliasDisplayable, methods_, new StringList());
         params_ = new StringList();
@@ -667,9 +660,6 @@ public abstract class BeanLgNames extends LgNames {
         if (!StringList.quickEq(cl_, getAliasObject())) {
             return cl_;
         }
-        if (_struct instanceof SelectedBoolean) {
-            return getSelectedBoolean();
-        }
         if (_struct instanceof Bean) {
             return ((Bean)_struct).getClassName();
         }
@@ -807,15 +797,6 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(new CharStruct(_values.first().charAt(0)));
             return res_;
         }
-        if (StringList.quickEq(_className, getSelectedBoolean())) {
-            SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
-            if (en_ == null) {
-                res_.setError(getAliasError());
-            } else {
-                res_.setResult(new StdStruct(en_, _className));
-            }
-            return res_;
-        }
         return getOtherStructToBeValidated(_values, _className, _context);
     }
     public Validator buildValidator(Element _element) {
@@ -851,13 +832,6 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance instanceof StdStruct) {
-            Object r_ = ((StdStruct) _instance).getInstance();
-            if (r_ instanceof SelectedBoolean) {
-                res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
-                return res_;
-            }
-        }
         if (_instance instanceof StringStruct) {
             res_.setResult(_instance);
             return res_;
@@ -1076,12 +1050,6 @@ public abstract class BeanLgNames extends LgNames {
     }
     public String getAliasCountable() {
         return aliasCountable;
-    }
-    public String getSelectedBoolean() {
-        return selectedBoolean;
-    }
-    public void setSelectedBoolean(String _selectedBoolean) {
-        selectedBoolean = _selectedBoolean;
     }
 
     public String getAliasDisplayable() {

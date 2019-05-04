@@ -5,7 +5,7 @@ import aiki.gui.components.ComboBoxSearchingMode;
 import code.gui.AutoCompleteDocument;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public class ChangedModeEvent extends ListSelection {
 
@@ -30,6 +30,6 @@ public class ChangedModeEvent extends ListSelection {
     @Override
     public void valueChanged(SelectionInfo _e) {
         SearchingMode s_ = mode.getCurrent();
-        AutoCompleteDocument.setMode(field, s_);
+        AutoCompleteDocument.setMode(field, s_ == SearchingMode.WHOLE_STRING);
     }
 }

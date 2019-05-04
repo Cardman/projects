@@ -16,10 +16,9 @@ import aiki.game.player.Inventory;
 import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EqList;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class PaginationHealingItemTest extends InitializationDataBase {

@@ -19,7 +19,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.consts.Constants;
 import code.util.ints.Listable;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
     private TreeMap<LanguageElementStringKey,String> translatedCategories;

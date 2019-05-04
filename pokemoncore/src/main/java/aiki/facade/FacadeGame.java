@@ -75,8 +75,8 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.MathFactory;
 import code.util.ints.WithMathFactory;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 public class FacadeGame implements WithMathFactory {
 

@@ -1,6 +1,6 @@
 package aiki.gui.components;
 import code.gui.ComboBox;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class ComboBoxSelectedBool extends ComboBox<SelectedBoolean> {
 

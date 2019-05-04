@@ -22,7 +22,6 @@ public final class InitializationLgNames {
     public static ContextEl buildStdOne(Options _opt) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        lgNames_.setSelectedBoolean("java.lang.sb");
         lgNames_.setAliasRate("java.lang.Long");
         lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
         ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
@@ -47,7 +46,6 @@ public final class InitializationLgNames {
     public static BeanLgNames initStandards(ContextEl _cont) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         _cont.setStandards(lgNames_);
-        lgNames_.setSelectedBoolean("sb");
         lgNames_.setAliasRate("java.lang.Long");
         lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
         basicStandards(lgNames_);

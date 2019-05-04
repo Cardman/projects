@@ -9,7 +9,7 @@ import aiki.fight.items.HealingStatus;
 import aiki.fight.items.Item;
 import code.maths.LgInt;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public class CriteriaForSearchingItem extends CriteriaForSearching {
 

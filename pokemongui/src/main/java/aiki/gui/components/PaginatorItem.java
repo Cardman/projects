@@ -25,10 +25,9 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public final class PaginatorItem extends Paginator {
 

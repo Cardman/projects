@@ -22,7 +22,6 @@ import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleIterable;
-import code.util.pagination.SelectedBoolean;
 
 public final class StdStruct implements RealInstanceStruct {
 
@@ -34,11 +33,7 @@ public final class StdStruct implements RealInstanceStruct {
         instance = _instance;
         className = _className;
     }
-    
-    public StdStruct(SelectedBoolean _instance, String _className) {
-        instance = _instance;
-        className = _className;
-    }
+
     public StdStruct(StringList _instance, String _className) {
         instance = _instance;
         className = _className;

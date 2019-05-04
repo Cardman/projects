@@ -220,7 +220,7 @@ import code.sml.ElementList;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import code.util.consts.Constants;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

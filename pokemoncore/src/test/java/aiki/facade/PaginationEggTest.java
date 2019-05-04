@@ -16,9 +16,8 @@ import aiki.game.player.Player;
 import aiki.map.pokemon.Egg;
 import aiki.util.SortingEgg;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class PaginationEggTest extends InitializationDataBase {

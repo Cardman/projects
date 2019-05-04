@@ -1,6 +1,6 @@
 package aiki.gui.components;
 import code.gui.ComboBox;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public final class ComboBoxSearchingMode extends ComboBox<SearchingMode> {
 

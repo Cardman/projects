@@ -10,10 +10,9 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.InitializationDataBase;
 import aiki.util.SortingMove;
-import code.util.EqList;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class PaginationMoveTest extends InitializationDataBase {

@@ -15,9 +15,8 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class PaginationPokemonPlayerTest extends InitializationDataBase {

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public class CriteriaForSearchingTest {

@@ -25,7 +25,7 @@ import code.gui.NumComboBox;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.util.*;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public final class PaginatorPokemon extends Paginator {
 

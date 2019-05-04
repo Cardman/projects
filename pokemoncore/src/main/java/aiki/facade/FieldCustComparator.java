@@ -1,7 +1,7 @@
 package aiki.facade;
 
 import code.util.ints.Cmp;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 
 public final class FieldCustComparator<T extends Cmp<T>> {

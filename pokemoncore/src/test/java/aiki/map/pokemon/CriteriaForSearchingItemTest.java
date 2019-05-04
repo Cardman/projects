@@ -9,7 +9,7 @@ import aiki.fight.items.Berry;
 import aiki.fight.items.HealingPp;
 import aiki.game.fight.InitializationDataBase;
 import code.maths.LgInt;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 
 public class CriteriaForSearchingItemTest extends InitializationDataBase {

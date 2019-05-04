@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
+import aiki.beans.SelectedBooleanStruct;
 import aiki.beans.facade.simulation.enums.AikiBeansFacadeSimulationEnumsStd;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -31,7 +32,7 @@ import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class AikiBeansSimulationStd {
     public static final String TYPE_ADD_POKEMON_BEAN = "aiki.beans.simulation.AddPokemonBean";
@@ -299,9 +300,9 @@ public final class AikiBeansSimulationStd {
         fields_.put(TYPED_TYPE,new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(BOOLEANS,new StandardField(BOOLEANS,_std.getCustMap(),false,false,type_));
-        fields_.put(HAS_EVO,new StandardField(HAS_EVO,_std.getSelectedBoolean(),false,false,type_));
-        fields_.put(IS_EVO,new StandardField(IS_EVO,_std.getSelectedBoolean(),false,false,type_));
-        fields_.put(IS_LEG,new StandardField(IS_LEG,_std.getSelectedBoolean(),false,false,type_));
+        fields_.put(HAS_EVO,new StandardField(HAS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
+        fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
+        fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(POKEDEX,new StandardField(POKEDEX,_std.getCustList(),false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -520,9 +521,9 @@ public final class AikiBeansSimulationStd {
         fields_.put(TYPED_TYPE,new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.put(WHOLE_WORD,new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(BOOLEANS,new StandardField(BOOLEANS,_std.getCustMap(),false,false,type_));
-        fields_.put(HAS_EVO,new StandardField(HAS_EVO,_std.getSelectedBoolean(),false,false,type_));
-        fields_.put(IS_EVO,new StandardField(IS_EVO,_std.getSelectedBoolean(),false,false,type_));
-        fields_.put(IS_LEG,new StandardField(IS_LEG,_std.getSelectedBoolean(),false,false,type_));
+        fields_.put(HAS_EVO,new StandardField(HAS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
+        fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
+        fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
         fields_.put(POKEDEX,new StandardField(POKEDEX,_std.getCustList(),false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -990,15 +991,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(new StdStruct(instance_.getHasEvo(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getHasEvo(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(new StdStruct(instance_.getIsEvo(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getIsEvo(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(new StdStruct(instance_.getIsLeg(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getIsLeg(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
@@ -1184,15 +1185,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(new StdStruct(instance_.getHasEvo(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getHasEvo(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(new StdStruct(instance_.getIsEvo(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getIsEvo(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(new StdStruct(instance_.getIsLeg(),std_.getSelectedBoolean()));
+            res_.setResult(new SelectedBooleanStruct(instance_.getIsLeg(),((PokemonStandards)std_).getSelectedBoolean()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {

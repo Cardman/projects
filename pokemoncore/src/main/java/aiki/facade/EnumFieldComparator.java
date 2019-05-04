@@ -1,7 +1,7 @@
 package aiki.facade;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class EnumFieldComparator<E extends Enum<E>> {
 

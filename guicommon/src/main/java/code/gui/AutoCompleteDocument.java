@@ -13,7 +13,6 @@ import javax.swing.text.Position;
 import javax.swing.text.Segment;
 
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
 
 public final class AutoCompleteDocument implements Document {
 
@@ -24,7 +23,7 @@ public final class AutoCompleteDocument implements Document {
 
     private final JTextComponent textField;
 
-    private SearchingMode mode = SearchingMode.WHOLE_STRING;
+    private boolean wholeString = true;
 
     private PlainDocument doc = new PlainDocument();
 
@@ -167,7 +166,7 @@ public final class AutoCompleteDocument implements Document {
     public void insertString(int _offs, String _str, AttributeSet _a) {
         try {
             doc.insertString(_offs, _str, _a);
-            if (mode != SearchingMode.WHOLE_STRING) {
+            if (!wholeString) {
                 return;
             }
             String word_ = autoComplete(getText(0, getLength()));
@@ -216,9 +215,9 @@ public final class AutoCompleteDocument implements Document {
         return field_;
     }
 
-    public static void setMode(JTextField _field,SearchingMode _mode) {
+    public static void setMode(JTextField _field,boolean _wholeString) {
         AutoCompleteDocument doc_;
         doc_ = (AutoCompleteDocument) _field.getDocument();
-        doc_.mode = _mode;
+        doc_.wholeString = _wholeString;
     }
 }

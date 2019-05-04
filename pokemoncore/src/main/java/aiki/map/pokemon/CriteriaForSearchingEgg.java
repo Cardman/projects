@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
 import aiki.facade.CriteriaForSearching;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public final class CriteriaForSearchingEgg extends CriteriaForSearching {
 

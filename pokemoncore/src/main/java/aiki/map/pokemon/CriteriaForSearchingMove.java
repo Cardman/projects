@@ -5,8 +5,8 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SearchingMode;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class CriteriaForSearchingMove extends CriteriaForSearching {
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 
 public class CriteriaForSearchingEggTest extends InitializationDataBase {

@@ -21,7 +21,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
-import code.util.pagination.SearchingMode;
+import aiki.facade.enums.SearchingMode;
 
 public abstract class Paginator extends Panel{
 

@@ -16,7 +16,7 @@ import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public class AddPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;

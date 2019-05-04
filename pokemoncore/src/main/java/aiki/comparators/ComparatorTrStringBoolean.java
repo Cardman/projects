@@ -2,7 +2,7 @@ package aiki.comparators;
 import aiki.db.DataBase;
 import code.util.EnumMap;
 import code.util.ints.Comparing;
-import code.util.pagination.SelectedBoolean;
+import aiki.facade.enums.SelectedBoolean;
 
 public final class ComparatorTrStringBoolean implements Comparing<SelectedBoolean> {
 
