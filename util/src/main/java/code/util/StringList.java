@@ -237,7 +237,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return str_.toString();
     }
 
-    public static boolean equalsSet(StringList _list1,StringList _list2) {
+    public static boolean equalsSet(CustList<String> _list1,CustList<String> _list2) {
         for (String c: _list2) {
             boolean contains_ = false;
             for (String d: _list1) {
@@ -928,7 +928,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_;
     }
 
-    public void removeAllElements(Listable<String> _c) {
+    public void removeAllElements(CustList<String> _c) {
         for (String s: _c) {
             if (containsObj(s)) {
                 removeAllObj(s);
@@ -950,7 +950,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         removeAt(index_);
     }
 
-    public boolean containsAllObj(Listable<String> _list) {
+    public boolean containsAllObj(CustList<String> _list) {
         for (String e: _list) {
             if (!containsObj(e)) {
                 return false;

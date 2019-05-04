@@ -1,6 +1,4 @@
 package code.util;
-import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
 
 
 
@@ -12,11 +10,6 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
 
     public BooleanMap() {
     }
-
-    public BooleanMap(ListableEntries<Boolean, V> _arg0) {
-        putAllMap(_arg0);
-    }
-
     
     public BooleanMap(CollCapacity _capacity) {
         super(_capacity);

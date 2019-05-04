@@ -1,5 +1,6 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -234,6 +235,132 @@ public class MapTest {
         assertEq(2, map_.getVal(new KeyExample(1, 1)).intValue());
     }
 
+    @Test
+    public void valuesTest() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        CustList<Number> values_ = map_.values();
+        assertEq(2, values_.size());
+        assertEq(0, values_.first());
+        assertEq(1, values_.last());
+    }
+
+    @Test
+    public void add1Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        map_.add(new KeyExample(0, 0), 2);
+        assertEq(2,map_.size());
+        assertTrue(map_.contains(new KeyExample(0, 0)));
+        assertTrue(map_.contains(new KeyExample(0, 1)));
+        assertEq(0, map_.getVal(new KeyExample(0, 0)));
+        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+    }
+
+    @Test
+    public void add2Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        map_.add(new KeyExample(0, 2), 2);
+        assertEq(3,map_.size());
+        assertTrue(map_.contains(new KeyExample(0, 0)));
+        assertTrue(map_.contains(new KeyExample(0, 1)));
+        assertTrue(map_.contains(new KeyExample(0, 2)));
+        assertEq(0, map_.getVal(new KeyExample(0, 0)));
+        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+        assertEq(2, map_.getVal(new KeyExample(0, 2)));
+    }
+
+    @Test
+    public void set1Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        map_.set(new KeyExample(0, 0), 2);
+        assertEq(2,map_.size());
+        assertTrue(map_.contains(new KeyExample(0, 0)));
+        assertTrue(map_.contains(new KeyExample(0, 1)));
+        assertEq(2, map_.getVal(new KeyExample(0, 0)));
+        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+    }
+
+    @Test
+    public void set2Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        map_.set(new KeyExample(0, 2), 2);
+        assertEq(2,map_.size());
+        assertTrue(map_.contains(new KeyExample(0, 0)));
+        assertTrue(map_.contains(new KeyExample(0, 1)));
+        assertTrue(!map_.contains(new KeyExample(0, 2)));
+        assertEq(0, map_.getVal(new KeyExample(0, 0)));
+        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+    }
+    @Test
+    public void containsAllAsKeys1Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        CustList<KeyExample> elts_ =new CustList<KeyExample>();
+        elts_.add(new KeyExample(0, 0));
+        elts_.add(new KeyExample(0, 2));
+        assertTrue(!map_.containsAllAsKeys(elts_));
+    }
+    @Test
+    public void containsAllAsKeys2Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        CustList<KeyExample> elts_ =new CustList<KeyExample>();
+        elts_.add(new KeyExample(0, 0));
+        assertTrue(map_.containsAllAsKeys(elts_));
+    }
+    @Test
+    public void containsAllAsKeys3Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        CustList<KeyExample> elts_ =new CustList<KeyExample>();
+        assertTrue(map_.containsAllAsKeys(elts_));
+    }
+    @Test
+    public void methods1Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        assertTrue(!map_.isEmpty());
+        assertEq(new KeyExample(0, 0),map_.firstKey());
+        assertEq(new KeyExample(0, 1),map_.lastKey());
+        assertEq(0,map_.firstValue());
+        assertEq(1,map_.lastValue());
+        map_.setKey(0,new KeyExample(0, 2));
+        assertEq(new KeyExample(0, 2),map_.firstKey());
+        assertEq(new KeyExample(0, 2),map_.get(0).getKey());
+        assertEq(new KeyExample(0, 1),map_.lastKey());
+        assertNotNull(map_.entries());
+    }
+    @Test
+    public void methods2Test() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        map_.clear();
+        assertTrue(map_.isEmpty());
+    }
+    @Test
+    public void getKeysEqTest() {
+        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        map_.put(new KeyExample(0, 0), 0);
+        map_.put(new KeyExample(0, 1), 1);
+        CustList<KeyExample> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(new KeyExample(0, 0),elts_.first());
+        assertEq(new KeyExample(0, 1),elts_.last());
+    }
     private static boolean containsEntry(Listable<EntryCust<String,Number>> _l, EntryCust<String,Number> _e) {
         for (EntryCust<String,Number> e: _l) {
             if (StringList.quickEq(e.getKey(), _e.getKey())) {

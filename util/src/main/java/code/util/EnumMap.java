@@ -1,5 +1,4 @@
 package code.util;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
 

@@ -1,5 +1,6 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -53,4 +54,42 @@ public class GenericNumbersTest {
         assertEq(new BigDecimal("937.00"), new BigDecimal("9.37").multiply(new BigDecimal("100")));
     }
 
+    @Test
+    public void prodElts1Test() {
+        GenericNumbers nbs_ = new GenericNumbers();
+        nbs_.addBigIntCopy(0,new BigInteger("4"));
+        nbs_.addBigIntCopy(0,new BigInteger("8"));
+        nbs_.setBigIntCopy(0,new BigInteger("8"));
+        assertEq(new BigDecimal("32"), nbs_.prodElts());
+    }
+
+    @Test
+    public void eq1Test() {
+        GenericNumbers nbs_ = new GenericNumbers();
+        nbs_.addBigIntCopy(new BigInteger("4"));
+        GenericNumbers nbs2_ = new GenericNumbers();
+        nbs2_.addBigIntCopy(new BigInteger("4"));
+        assertTrue(nbs_.eq(nbs2_));
+    }
+
+    @Test
+    public void eq2Test() {
+        GenericNumbers nbs_ = new GenericNumbers();
+        nbs_.addBigIntCopy(new BigInteger("4"));
+        nbs_.addBigIntCopy(new BigInteger("4"));
+        GenericNumbers nbs2_ = new GenericNumbers();
+        nbs2_.addBigIntCopy(new BigInteger("4"));
+        nbs2_.addBigIntCopy(new BigInteger("5"));
+        assertTrue(!nbs_.eq(nbs2_));
+    }
+
+    @Test
+    public void eq3Test() {
+        GenericNumbers nbs_ = new GenericNumbers();
+        nbs_.addBigIntCopy(new BigInteger("4"));
+        GenericNumbers nbs2_ = new GenericNumbers();
+        nbs2_.addBigIntCopy(new BigInteger("4"));
+        nbs2_.addBigIntCopy(new BigInteger("5"));
+        assertTrue(!nbs_.eq(nbs2_));
+    }
 }

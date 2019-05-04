@@ -2,25 +2,8 @@ package code.util;
 import java.math.BigInteger;
 
 import code.util.comparators.BigIntegerComparator;
-import code.util.ints.Equallable;
-import code.util.ints.Listable;
 
-public final class BigIntegers extends CustList<BigInteger> implements Equallable<BigIntegers> {
-
-    public BigIntegers() {
-    }
-
-    public BigIntegers(BigInteger... _array) {
-        super(_array);
-    }
-
-    public BigIntegers(Listable<BigInteger> _list) {
-        super(_list);
-    }
-
-    public BigIntegers(CollCapacity _capacity) {
-        super(_capacity);
-    }
+public final class BigIntegers extends CustList<BigInteger> {
 
     public static boolean eq(BigInteger _one, BigInteger _two) {
         return _one.equals(_two);
@@ -45,11 +28,7 @@ public final class BigIntegers extends CustList<BigInteger> implements Equallabl
         return b_;
     }
 
-    @Override
     public boolean eq(BigIntegers _g) {
-        if (_g == null) {
-            return false;
-        }
         int len_ = size();
         if (_g.size() != len_) {
             return false;
@@ -57,15 +36,6 @@ public final class BigIntegers extends CustList<BigInteger> implements Equallabl
         for (int i = FIRST_INDEX; i < len_; i++) {
             BigInteger e_ = get(i);
             BigInteger f_ = _g.get(i);
-            if (e_ == null) {
-                if (f_ != null) {
-                    return false;
-                }
-                continue;
-            }
-            if (f_ == null) {
-                return false;
-            }
             if (!eq(e_, f_)) {
                 return false;
             }

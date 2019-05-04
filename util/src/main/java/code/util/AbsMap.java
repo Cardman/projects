@@ -1,5 +1,4 @@
 package code.util;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;
 
@@ -17,13 +16,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         list = new CustList<EntryCust<K,V>>(_capacity);
     }
 
-    K getKeyOrNull(EntryCust<K, V> _e) {
-        if(_e == null) {
-            return null;
-        }
-        return _e.getKey();
-    }
-
     @Override
     public final SimpleIterable entries() {
         return new CustList<EntryCust<K,V>>(getList());
@@ -34,7 +26,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return new CustList<EntryCust<K,V>>(getList());
     }
 
-    public boolean containsAllAsKeys(Listable<K> _elements) {
+    public boolean containsAllAsKeys(CustList<K> _elements) {
         for (K k: _elements) {
             if (!contains(k)) {
                 return false;
@@ -59,7 +51,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return getList().last().getValue();
     }
 
-    final Listable<EntryCust<K, V>> getList() {
+    final CustList<EntryCust<K, V>> getList() {
         return list;
     }
 
@@ -114,7 +106,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     public int size() {
         return getList().size();
     }
-    EntryCust<K,V> getEntryByKey(K _key) {
+    private EntryCust<K,V> getEntryByKey(K _key) {
         int index_ = indexOfEntry(_key);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return null;
