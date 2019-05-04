@@ -7,7 +7,7 @@ EN("en","English"),FR("fr","Fran\u00E7ais");
 
     private String key;
     private String display;
-    private Languages(String _key, String _display) {
+    Languages(String _key, String _display) {
         key = _key;
         display = _display;
     }

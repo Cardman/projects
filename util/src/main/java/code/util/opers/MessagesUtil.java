@@ -17,9 +17,6 @@ public final class MessagesUtil {
         String lastKey_ = EMPTY_STRING;
         StringMap<String> messages_ = new StringMap<String>();
         for (String l: StringList.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
-            if (l.isEmpty()) {
-                continue;
-            }
             if (l.startsWith(TAB)) {
                 String text_ = messages_.getVal(lastKey_);
                 if (text_ != null) {
@@ -28,8 +25,10 @@ public final class MessagesUtil {
                 }
             } else {
                 int indexSep_ = l.indexOf(EQUALS);
-                lastKey_ = l.substring(0,indexSep_);
-                messages_.put(lastKey_, l.substring(indexSep_+1));
+                if (indexSep_ > - 1) {
+                    lastKey_ = l.substring(0,indexSep_);
+                    messages_.put(lastKey_, l.substring(indexSep_+1));
+                }
             }
         }
         return messages_;

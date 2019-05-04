@@ -17,12 +17,6 @@ public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
     private TreeMap<T,String> elements;
 
     private boolean withDefaultValue;
-    public ComboBox(){
-    }
-
-    public ComboBox(TreeMap<T,String> _tr){
-        elements = _tr;
-    }
 
     protected TreeMap<T, String> getElements() {
         return elements;

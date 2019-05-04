@@ -82,12 +82,13 @@ public final class StringListUtil {
         }
         i_ = 0;
         j_ = 0;
-        found_ = false;
-        for (int j = 0; j < _t.size(); j++) {
+        int k_ = 0;
+        found_=false;
+        while(true) {
             for (int i = 0; i < _s.size(); i++) {
-                if (StringList.quickEq(_s.get(i), _t.get(j))) {
+                if (StringList.quickEq(_s.get(i), _t.get(k_))) {
                     i_ = i;
-                    j_ = j;
+                    j_ = k_;
                     found_ = true;
                     break;
                 }
@@ -95,6 +96,7 @@ public final class StringListUtil {
             if (found_) {
                 break;
             }
+            k_++;
         }
         while (i_ < _s.size() && j_ < _t.size()) {
             if (!StringList.quickEq(_s.get(i_), _t.get(j_))) {
@@ -112,44 +114,10 @@ public final class StringListUtil {
         return firstOne_;
     }
     private static int indexOf(StringList _list, StringList _sub) {
-        int len_ = _list.size();
-        for (int i_: _list.indexesOfString(_sub.first())) {
-            int i = i_;
-            int in_ = CustList.FIRST_INDEX;
-            boolean ok_ = true;
-            while (in_ < _sub.size() && i < len_) {
-                if (!StringList.quickEq(_list.get(i), _sub.get(in_))) {
-                    ok_ = false;
-                    break;
-                }
-                in_++;
-                i++;
-            }
-            if (ok_) {
-                return i_;
-            }
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return _list.indexesOfString(_sub.first()).first();
     }
     private static int lastIndexOf(StringList _list, StringList _sub) {
-        int len_ = _list.size();
-        for (int i_: _list.indexesOfString(_sub.first()).getReverse()) {
-            int i = i_;
-            int in_ = CustList.FIRST_INDEX;
-            boolean ok_ = true;
-            while (in_ < _sub.size() && i < len_) {
-                if (!StringList.quickEq(_list.get(i), _sub.get(in_))) {
-                    ok_ = false;
-                    break;
-                }
-                in_++;
-                i++;
-            }
-            if (ok_) {
-                return i_;
-            }
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return _list.indexesOfString(_sub.first()).last();
     }
     public static String firstCommonSubstring(String _s, String _t) {
         StringBuilder firstOne_ = new StringBuilder();
@@ -184,11 +152,12 @@ public final class StringListUtil {
         i_ = 0;
         j_ = 0;
         found_ = false;
-        for (int j = 0; j < _t.length(); j++) {
+        int k_ = 0;
+        while(true) {
             for (int i = 0; i < _s.length(); i++) {
-                if (_s.charAt(i) == _t.charAt(j)) {
+                if (_s.charAt(i) == _t.charAt(k_)) {
                     i_ = i;
-                    j_ = j;
+                    j_ = k_;
                     found_ = true;
                     break;
                 }
@@ -196,6 +165,7 @@ public final class StringListUtil {
             if (found_) {
                 break;
             }
+            k_++;
         }
         while (i_ < _s.length() && j_ < _t.length()) {
             if (_s.charAt(i_) != _t.charAt(j_)) {

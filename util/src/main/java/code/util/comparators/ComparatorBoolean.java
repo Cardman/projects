@@ -2,12 +2,9 @@ package code.util.comparators;
 import code.util.CustList;
 import code.util.ints.Comparing;
 
-public final class ComparatorBoolean implements Comparing<Boolean> {
+public final class ComparatorBoolean{
 
-    @Override
-    public int compare(Boolean _e1, Boolean _e2) {
-        return cmp(_e1, _e2);
-    }
+    private ComparatorBoolean(){}
 
     public static boolean diff(Boolean _e1, Boolean _e2) {
         return _e1 != _e2;

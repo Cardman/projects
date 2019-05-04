@@ -31,6 +31,16 @@ public class NumbersTest {
         assertTrue(Numbers.eq(new Byte((byte) 1), new Short((short) 1)));
     }
     @Test
+    public void getReverseTest() {
+        Numbers<Integer> list_ = new Numbers<Integer>();
+        list_.add(0);
+        list_.add(1);
+        CustList<Integer> f_ = list_.getReverse();
+        assertEq(2, f_.size());
+        assertEq(1, f_.get(0));
+        assertEq(0, f_.get(1));
+    }
+    @Test
     public void containsIndexOf1(){
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
