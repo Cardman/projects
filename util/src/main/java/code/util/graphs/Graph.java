@@ -14,10 +14,6 @@ public final class Graph<T extends GraphElement<T>> {
 
 //    private final List<T> separations = new List<T>();
 
-    public CustList<ArrowedSegment<T>> getSegments() {
-        return new CustList<ArrowedSegment<T>>(segments);
-    }
-
     public void addSegment(T _from, T _to) {
         addSegment(new ArrowedSegment<T>(_from, _to));
     }
@@ -75,8 +71,10 @@ public final class Graph<T extends GraphElement<T>> {
         return false;
     }
     public EqList<T> getTreeFrom(T _elt) {
-        EqList<T> current_ = new EqList<T>(_elt);
-        EqList<T> visited_ = new EqList<T>(_elt);
+        EqList<T> current_ = new EqList<T>();
+        current_.add(_elt);
+        EqList<T> visited_ = new EqList<T>();
+        visited_.add(_elt);
         EqList<T> new_ = new EqList<T>();
         while (true) {
             for (T t: current_) {
@@ -188,8 +186,10 @@ public final class Graph<T extends GraphElement<T>> {
 //            return l_;
 //        }
         for (T s: sep_) {
-            EqList<T> current_ = new EqList<T>(s);
-            EqList<T> visited_ = new EqList<T>(s);
+            EqList<T> current_ = new EqList<T>();
+            current_.add(s);
+            EqList<T> visited_ = new EqList<T>();
+            visited_.add(s);
             EqList<T> new_ = new EqList<T>();
             boolean found_ = false;
             CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
@@ -253,8 +253,10 @@ public final class Graph<T extends GraphElement<T>> {
         return l_;
     }
     public CustList<ArrowedSegment<T>> getLines(T _root) {
-        EqList<T> current_ = new EqList<T>(_root);
-        EqList<T> visited_ = new EqList<T>(_root);
+        EqList<T> current_ = new EqList<T>();
+        current_.add(_root);
+        EqList<T> visited_ = new EqList<T>();
+        visited_.add(_root);
         EqList<T> new_ = new EqList<T>();
         CustList<ArrowedSegment<T>> lines_ = new CustList<ArrowedSegment<T>>();
         while (true) {
@@ -384,8 +386,10 @@ public final class Graph<T extends GraphElement<T>> {
             return true;
         }
         for (T s: getDynamicSeparations()) {
-            EqList<T> current_ = new EqList<T>(s);
-            EqList<T> visited_ = new EqList<T>(s);
+            EqList<T> current_ = new EqList<T>();
+            current_.add(s);
+            EqList<T> visited_ = new EqList<T>();
+            visited_.add(s);
             EqList<T> new_ = new EqList<T>();
             while (true) {
                 for (T t: current_) {
@@ -606,20 +610,11 @@ public final class Graph<T extends GraphElement<T>> {
         return r_;
     }
 
-    public T getElementByEq(T _eq) {
-        for (T e: elements) {
-            if (e.eq(_eq)) {
-                return e;
-            }
-        }
-        return null;
-    }
-
     public EqList<T> getElementsListCopy() {
         return new EqList<T>(elements);
     }
 
-    private EqList<T> getElements() {
+    EqList<T> getElements() {
         return elements;
 //        List<T> l_ = new List<T>();
 //        for (Segment<T> s: segments) {
