@@ -2576,41 +2576,41 @@ public class LgIntTest {
     public void identiteBezoutPgcdPpcm1Test() {
         LgInt a_ = new LgInt(27);
         LgInt b_ = new LgInt(15);
-        PairEq<PairEq<LgInt, LgInt>, PairEq<LgInt, LgInt>> out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
-        assertEq(new LgInt(-1),out_.getFirst().getFirst());
-        assertEq(new LgInt(2),out_.getFirst().getSecond());
-        assertEq(new LgInt(3),out_.getSecond().getFirst());
-        assertEq(new LgInt(135),out_.getSecond().getSecond());
+        IdBezoutNb out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
+        assertEq(new LgInt(-1),out_.getFirst());
+        assertEq(new LgInt(2),out_.getSecond());
+        assertEq(new LgInt(3),out_.getPgcd());
+        assertEq(new LgInt(135),out_.getPpcm());
     }
     @Test
     public void identiteBezoutPgcdPpcm2Test() {
         LgInt a_ = new LgInt(30);
         LgInt b_ = new LgInt(15);
-        PairEq<PairEq<LgInt, LgInt>, PairEq<LgInt, LgInt>> out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
-        assertEq(new LgInt(0),out_.getFirst().getFirst());
-        assertEq(new LgInt(1),out_.getFirst().getSecond());
-        assertEq(new LgInt(15),out_.getSecond().getFirst());
-        assertEq(new LgInt(30),out_.getSecond().getSecond());
+        IdBezoutNb out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
+        assertEq(new LgInt(0),out_.getFirst());
+        assertEq(new LgInt(1),out_.getSecond());
+        assertEq(new LgInt(15),out_.getPgcd());
+        assertEq(new LgInt(30),out_.getPpcm());
     }
     @Test
     public void identiteBezoutPgcdPpcm3Test() {
         LgInt a_ = new LgInt(0);
         LgInt b_ = new LgInt(15);
-        PairEq<PairEq<LgInt, LgInt>, PairEq<LgInt, LgInt>> out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
-        assertEq(new LgInt(1),out_.getFirst().getFirst());
-        assertEq(new LgInt(1),out_.getFirst().getSecond());
-        assertEq(new LgInt(15),out_.getSecond().getFirst());
-        assertEq(new LgInt(0),out_.getSecond().getSecond());
+        IdBezoutNb out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
+        assertEq(new LgInt(1),out_.getFirst());
+        assertEq(new LgInt(1),out_.getSecond());
+        assertEq(new LgInt(15),out_.getPgcd());
+        assertEq(new LgInt(0),out_.getPpcm());
     }
     @Test
     public void identiteBezoutPgcdPpcm4Test() {
         LgInt a_ = new LgInt(15);
         LgInt b_ = new LgInt(0);
-        PairEq<PairEq<LgInt, LgInt>, PairEq<LgInt, LgInt>> out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
-        assertEq(new LgInt(1),out_.getFirst().getFirst());
-        assertEq(new LgInt(1),out_.getFirst().getSecond());
-        assertEq(new LgInt(15),out_.getSecond().getFirst());
-        assertEq(new LgInt(0),out_.getSecond().getSecond());
+        IdBezoutNb out_ = LgInt.identiteBezoutPgcdPpcm(a_, b_);
+        assertEq(new LgInt(1),out_.getFirst());
+        assertEq(new LgInt(1),out_.getSecond());
+        assertEq(new LgInt(15),out_.getPgcd());
+        assertEq(new LgInt(0),out_.getPpcm());
     }
     @Test
     public void decompoPrim1Test() {
@@ -2618,10 +2618,10 @@ public class LgIntTest {
         Decomposition dec_ = a_.decompoPrim();
         assertTrue(dec_.isPositive());
         assertEq(2,dec_.getFactors().size());
-        assertEq(new LgInt(2),dec_.getFactors().get(0).getFirst());
-        assertEq(new LgInt(5),dec_.getFactors().get(0).getSecond());
-        assertEq(new LgInt(5),dec_.getFactors().get(1).getFirst());
-        assertEq(new LgInt(2),dec_.getFactors().get(1).getSecond());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(5),dec_.getFactors().get(0).getExponent());
+        assertEq(new LgInt(5),dec_.getFactors().get(1).getPrime());
+        assertEq(new LgInt(2),dec_.getFactors().get(1).getExponent());
     }
     @Test
     public void decompoPrim2Test() {
@@ -2629,8 +2629,8 @@ public class LgIntTest {
         Decomposition dec_ = a_.decompoPrim();
         assertTrue(dec_.isPositive());
         assertEq(1,dec_.getFactors().size());
-        assertEq(new LgInt(7),dec_.getFactors().get(0).getFirst());
-        assertEq(new LgInt(1),dec_.getFactors().get(0).getSecond());
+        assertEq(new LgInt(7),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(0).getExponent());
     }
     @Test
     public void decompoPrim3Test() {
@@ -2638,8 +2638,8 @@ public class LgIntTest {
         Decomposition dec_ = a_.decompoPrim();
         assertTrue(dec_.isPositive());
         assertEq(1,dec_.getFactors().size());
-        assertEq(new LgInt(2),dec_.getFactors().get(0).getFirst());
-        assertEq(new LgInt(3),dec_.getFactors().get(0).getSecond());
+        assertEq(new LgInt(2),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(3),dec_.getFactors().get(0).getExponent());
     }
     @Test
     public void decompoPrim4Test() {
@@ -2654,8 +2654,8 @@ public class LgIntTest {
         Decomposition dec_ = a_.decompoPrim();
         assertTrue(dec_.isPositive());
         assertEq(1,dec_.getFactors().size());
-        assertEq(new LgInt(1),dec_.getFactors().get(0).getFirst());
-        assertEq(new LgInt(1),dec_.getFactors().get(0).getSecond());
+        assertEq(new LgInt(1),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(0).getExponent());
     }
     @Test
     public void decompoPrim6Test() {
@@ -2663,8 +2663,8 @@ public class LgIntTest {
         Decomposition dec_ = a_.decompoPrim();
         assertTrue(!dec_.isPositive());
         assertEq(1,dec_.getFactors().size());
-        assertEq(new LgInt(1),dec_.getFactors().get(0).getFirst());
-        assertEq(new LgInt(1),dec_.getFactors().get(0).getSecond());
+        assertEq(new LgInt(1),dec_.getFactors().get(0).getPrime());
+        assertEq(new LgInt(1),dec_.getFactors().get(0).getExponent());
     }
     @Test
     public void newLgIntStringTest() {

@@ -390,7 +390,6 @@ public final class FightFacade {
         if (distinctPlacesGroundCheck_) {
             if (!FightEndRound.existSubstitute(_fight)) {
                 FightKo.moveTeams(_fight);
-                //never mind for matching ground places and ground places substitute
             }
             if (!validPlaces(_fight, Fight.FOE)) {
                 return false;

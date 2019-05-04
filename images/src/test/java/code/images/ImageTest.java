@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.PairNumber;
 import code.util.StringList;
 
 
@@ -115,9 +114,9 @@ public class ImageTest {
     @Test
     public void getDimensions1Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        PairNumber<Integer,Integer> dims_ = Image.getDimensions(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)), 1);
-        assertEq(3, dims_.getFirst().intValue());
-        assertEq(2, dims_.getSecond().intValue());
+        IntPoint dims_ = Image.getDimensions(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)), 1);
+        assertEq(3, dims_.getXcoords());
+        assertEq(2, dims_.getYcoords());
     }
 
     @Test

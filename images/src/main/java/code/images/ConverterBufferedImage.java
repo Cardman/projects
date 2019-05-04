@@ -250,6 +250,7 @@ public final class ConverterBufferedImage {
                 }
                 currentPoints_ = new EqList<IntPoint>(newPoints_);
             }
+            visitedPoints_.sortElts(new ComparatorIntPoint());
             polygons_.add(visitedPoints_);
         }
         return polygons_;

@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 import aiki.gui.components.Paginator;
 import code.gui.PaintableLabel;
+import code.images.IntPoint;
 import code.util.CustList;
-import code.util.PairNumber;
 
 public class Header extends PaintableLabel {
 
@@ -24,11 +24,11 @@ public class Header extends PaintableLabel {
     }
 
     public void addString(String _text, int _x) {
-        strings.add(new WordPoint(_text, new PairNumber<Integer, Integer>(_x, Paginator.HEIGTH_CHARS)));
+        strings.add(new WordPoint(_text, new IntPoint(_x, Paginator.HEIGTH_CHARS)));
     }
 
     public void addString(String _text, int _x, int _y) {
-        strings.add(new WordPoint(_text, new PairNumber<Integer, Integer>(_x, Paginator.HEIGTH_CHARS+_y)));
+        strings.add(new WordPoint(_text, new IntPoint(_x, Paginator.HEIGTH_CHARS+_y)));
     }
 
     public void clearStrings() {
@@ -41,7 +41,7 @@ public class Header extends PaintableLabel {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         for (WordPoint p: strings) {
-            _g.drawString(p.getWord(), p.getPoint().getFirst(), p.getPoint().getSecond());
+            _g.drawString(p.getWord(), p.getPoint().getXcoords(), p.getPoint().getYcoords());
         }
     }
 }

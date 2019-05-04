@@ -3,7 +3,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.PairEq;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -59,21 +58,21 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return one_;
     }
 
-    public static Polynom interpolation(CustList<PairEq<Rate,Rate>> _imgs) {
+    public static Polynom interpolation(CustList<RateImage> _imgs) {
         if (_imgs.isEmpty()) {
             return zero();
         }
         int dg_=_imgs.size()-1;
         Matrix inv_ = new Matrix();
         Matrix vectImg_ = new Matrix();
-        for(PairEq<Rate,Rate> c:_imgs) {
+        for(RateImage c:_imgs) {
             Vect pws_ = new Vect();
             for(int e=dg_;e>-1;e--) {
-                pws_.add(Rate.powNb(c.getFirst(), new Rate(e)));
+                pws_.add(Rate.powNb(c.getRate(), new Rate(e)));
             }
             inv_.addLineRef(pws_);
             Vect i_ = new Vect();
-            i_.add(c.getSecond());
+            i_.add(c.getValue());
             vectImg_.addLineRef(i_);
         }
         Matrix nearlyInv_=inv_.inv();
@@ -160,7 +159,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     @return l'entier courant modifie
     */
     public void divideBy(Polynom _autre) {
-        affect(divisionEuclidienne(_autre).getFirst());
+        affect(divisionEuclidienne(_autre).getQuot());
     }
 
     /**
@@ -176,7 +175,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     @return l'entier courant modifie
     */
     public void remainBy(Polynom _autre) {
-        affect(divisionEuclidienne(_autre).getSecond());
+        affect(divisionEuclidienne(_autre).getMod());
     }
 
     /**
@@ -236,7 +235,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.size();
     }
 
-    private static PairEq<Polynom,Polynom> polyLongDiv(Polynom _n, Polynom _d) {
+    private static QuotModPolynom polyLongDiv(Polynom _n, Polynom _d) {
         Polynom rem_ = new Polynom(_n);
         Polynom quot_ = new Polynom();
         while (rem_.dg() >= _d.dg()) {
@@ -246,25 +245,19 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             quot_ = quot_.addPolynom(mon_);
             rem_ = rem_.minusPolynom(mon_.multiplyPolynom(_d));
         }
-        return new PairEq<Polynom, Polynom>(quot_, rem_);
+        return new QuotModPolynom(quot_, rem_);
     }
 
     public Rate get(int _index) {
         return numbers.get(_index);
     }
 
-    public static PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
-        PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>> r_;
-        r_ = new PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom>>();
+    public static IdBezoutPol idBezoutPgcdPpcm(Polynom _a,Polynom _b) {
         if (_a.isZero()) {
-            r_.setFirst(new PairEq<Polynom,Polynom>(one(),one()));
-            r_.setSecond(new PairEq<Polynom,Polynom>(_b,zero()));
-            return r_;
+            return new IdBezoutPol(one(),one(),_b,zero());
         }
         if (_b.isZero()) {
-            r_.setFirst(new PairEq<Polynom,Polynom>(one(),one()));
-            r_.setSecond(new PairEq<Polynom,Polynom>(_a,zero()));
-            return r_;
+            return new IdBezoutPol(one(),one(),_a,zero());
         }
         Polynom r0_ = _a;
         Polynom r1_ = _b;
@@ -273,9 +266,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         Polynom v0_ = zero();
         Polynom v1_ = one();
         while (true) {
-            PairEq<Polynom,Polynom> qr_ = r0_.divisionEuclidienne(r1_);
-            Polynom q_ = qr_.getFirst();
-            Polynom r2_ = qr_.getSecond();
+            QuotModPolynom qr_ = r0_.divisionEuclidienne(r1_);
+            Polynom q_ = qr_.getQuot();
+            Polynom r2_ = qr_.getMod();
             Polynom u2_ = u0_.minusPolynom(q_.multiplyPolynom(u1_));
             Polynom v2_ = v0_.minusPolynom(q_.multiplyPolynom(v1_));
             if (r2_.isZero()) {
@@ -288,9 +281,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        r_.setFirst(new PairEq<Polynom,Polynom>(u1_,v1_));
-        r_.setSecond(new PairEq<Polynom, Polynom>(r1_,_a.dividePolynom(r1_).multiplyPolynom(_b)));
-        return r_;
+        return new IdBezoutPol(u1_,v1_,r1_,_a.dividePolynom(r1_).multiplyPolynom(_b));
     }
 
     public EqList<Polynom> factor() {
@@ -303,7 +294,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
             copyOne_.add(r.getValue().opposNb());
             for(int i=0;i<r.getDegree();i++) {
                 polynoms_.add(copyOne_);
-                copy_=copy_.divisionEuclidienne(copyOne_).getFirst();
+                copy_=copy_.divisionEuclidienne(copyOne_).getQuot();
             }
         }
         if (copy_.dg() > 0) {
@@ -503,12 +494,9 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return p_;
     }
 
-    public PairEq<Polynom,Polynom> divisionEuclidienne(Polynom _div) {
+    public QuotModPolynom divisionEuclidienne(Polynom _div) {
         if (_div.isZero()) {
-            PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
-            qr_.setFirst(new Polynom());
-            qr_.setSecond(new Polynom());
-            return qr_;
+            return new QuotModPolynom(new Polynom(),new Polynom());
         }
         return polyLongDiv(this,_div);
     }
@@ -525,11 +513,11 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     }
 
     public Polynom dividePolynom(Polynom _o) {
-        return divisionEuclidienne(_o).getFirst();
+        return divisionEuclidienne(_o).getQuot();
     }
 
     public Polynom remainPolynom(Polynom _o) {
-        return divisionEuclidienne(_o).getSecond();
+        return divisionEuclidienne(_o).getMod();
     }
 
     public Polynom pow(long _dg) {

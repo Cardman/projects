@@ -431,9 +431,9 @@ public class MatrixTest {
         Trigonal t_ = mat_.diagTrig();
         assertSame(Diagonal.DIAGO,t_.getDiagonal());
         assertEq(1,t_.getRates().size());
-        assertEq(new Rate(1),t_.getRates().get(0).getFirst());
-        assertEq(2,t_.getRates().get(0).getSecond().getFirst());
-        assertEq(2,t_.getRates().get(0).getSecond().getSecond());
+        assertEq(new Rate(1),t_.getRates().get(0).getValue());
+        assertEq(2,t_.getRates().get(0).getDegree());
+        assertEq(2,t_.getRates().get(0).getSpace());
     }
     @Test
     public void diagTrig2Test() {
@@ -449,9 +449,9 @@ public class MatrixTest {
         Trigonal t_ = mat_.diagTrig();
         assertSame(Diagonal.TRIGO,t_.getDiagonal());
         assertEq(1,t_.getRates().size());
-        assertEq(new Rate(1),t_.getRates().get(0).getFirst());
-        assertEq(2,t_.getRates().get(0).getSecond().getFirst());
-        assertEq(1,t_.getRates().get(0).getSecond().getSecond());
+        assertEq(new Rate(1),t_.getRates().get(0).getValue());
+        assertEq(2,t_.getRates().get(0).getDegree());
+        assertEq(1,t_.getRates().get(0).getSpace());
     }
     @Test
     public void diagTrig3Test() {
@@ -482,12 +482,12 @@ public class MatrixTest {
         Trigonal t_ = mat_.diagTrig();
         assertSame(Diagonal.DIAGO,t_.getDiagonal());
         assertEq(2,t_.getRates().size());
-        assertEq(new Rate(-1),t_.getRates().get(0).getFirst());
-        assertEq(1,t_.getRates().get(0).getSecond().getFirst());
-        assertEq(1,t_.getRates().get(0).getSecond().getSecond());
-        assertEq(new Rate(1),t_.getRates().get(1).getFirst());
-        assertEq(1,t_.getRates().get(1).getSecond().getFirst());
-        assertEq(1,t_.getRates().get(1).getSecond().getSecond());
+        assertEq(new Rate(-1),t_.getRates().get(0).getValue());
+        assertEq(1,t_.getRates().get(0).getDegree());
+        assertEq(1,t_.getRates().get(0).getSpace());
+        assertEq(new Rate(1),t_.getRates().get(1).getValue());
+        assertEq(1,t_.getRates().get(1).getDegree());
+        assertEq(1,t_.getRates().get(1).getSpace());
     }
     @Test
     public void ownVects1Test() {

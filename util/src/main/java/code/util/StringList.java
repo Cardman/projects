@@ -989,14 +989,14 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if(_filter.trim().isEmpty()){
             return true;
         }
-        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparators_
+        WordsSeparators wordsAndSeparators_
         =wordsAndSeparatorsSpace(_filter);
-        StringList words_=wordsAndSeparators_.getFirst().getSecond();
-        StringList separators_=wordsAndSeparators_.getFirst().getFirst();
-        if (wordsAndSeparators_.getSecond().getFirst()) {
+        StringList words_=wordsAndSeparators_.getWords();
+        StringList separators_=wordsAndSeparators_.getSeparators();
+        if (wordsAndSeparators_.isFirstSep()) {
             separators_.add(FIRST_INDEX, EMPTY_STRING);
         }
-        if (wordsAndSeparators_.getSecond().getSecond()) {
+        if (wordsAndSeparators_.isLastSep()) {
             separators_.add(EMPTY_STRING);
         }
         int i_=FIRST_INDEX;
@@ -1041,10 +1041,10 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if(_filter.isEmpty()){
             return true;
         }
-        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparators_
+        WordsSeparators wordsAndSeparators_
             =wordsAndSeparators(_filter);
-        StringList words_=wordsAndSeparators_.getFirst().getSecond();
-        StringList separators_=wordsAndSeparators_.getFirst().getFirst();
+        StringList words_=wordsAndSeparators_.getWords();
+        StringList separators_=wordsAndSeparators_.getSeparators();
         if (words_.isEmpty()) {
             String lastSep_ = separators_.last();
             int nbPts_ = 0;
@@ -1072,10 +1072,10 @@ public final class StringList extends CustList<String> implements Equallable<Str
             }
             return false;
         }
-        if (wordsAndSeparators_.getSecond().getFirst()) {
+        if (wordsAndSeparators_.isFirstSep()) {
             separators_.add(FIRST_INDEX, EMPTY_STRING);
         }
-        if (wordsAndSeparators_.getSecond().getSecond()) {
+        if (wordsAndSeparators_.isLastSep()) {
             separators_.add(EMPTY_STRING);
         }
         int i_=FIRST_INDEX;
@@ -1166,11 +1166,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return return_ + _offset;
     }
 
-    private static PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparatorsSpace(String _string){
-        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsSepBeginEnd_;
-        wordsSepBeginEnd_ = new PairEq<PairEq<StringList,StringList>,PairBoolean>();
-        wordsSepBeginEnd_.setSecond(new PairBoolean(false,false));
-        PairEq<StringList,StringList> wordsAndSeparators_ = new PairEq<StringList,StringList>();
+    private static WordsSeparators wordsAndSeparatorsSpace(String _string){
+        WordsSeparators wordsSepBeginEnd_;
+        wordsSepBeginEnd_ = new WordsSeparators();
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
         CharList metas_ = getMetaCharactersSpace();
@@ -1182,15 +1180,15 @@ public final class StringList extends CustList<String> implements Equallable<Str
                     words_.add(_string.substring(begin_));
                 }
                 if (begin_ == FIRST_INDEX) {
-                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                    wordsSepBeginEnd_.setFirstSep(true);
                 }
-                wordsSepBeginEnd_.getSecond().setSecond(begin_ < _string.length());
+                wordsSepBeginEnd_.setLastSep(begin_ < _string.length());
                 break;
             }
             if (minIndex_ > begin_) {
                 words_.add(_string.substring(begin_, minIndex_));
                 if (begin_ == FIRST_INDEX) {
-                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                    wordsSepBeginEnd_.setFirstSep(true);
                 }
             }
             int ind_ = lowestIndexOfWordChar(_string, minIndex_, metas_);
@@ -1200,22 +1198,19 @@ public final class StringList extends CustList<String> implements Equallable<Str
             separators_.add(_string.substring(minIndex_, ind_));
             begin_ = ind_;
         }
-        wordsAndSeparators_.setFirst(separators_);
-        wordsAndSeparators_.setSecond(words_);
-        int nbWords_=wordsAndSeparators_.getSecond().size();
+        int nbWords_=words_.size();
         for(int i=FIRST_INDEX;i<nbWords_;i++){
-            String escapedString_= escapeSpace(wordsAndSeparators_.getSecond().get(i));
-            wordsAndSeparators_.getSecond().set(i, escapedString_);
+            String escapedString_= escapeSpace(words_.get(i));
+            words_.set(i, escapedString_);
         }
-        wordsSepBeginEnd_.setFirst(wordsAndSeparators_);
+        wordsSepBeginEnd_.setSeparators(separators_);
+        wordsSepBeginEnd_.setWords(words_);
         return wordsSepBeginEnd_;
     }
 
-    private static PairEq<PairEq<StringList,StringList>,PairBoolean> wordsAndSeparators(String _string){
-        PairEq<PairEq<StringList,StringList>,PairBoolean> wordsSepBeginEnd_;
-        wordsSepBeginEnd_ = new PairEq<PairEq<StringList,StringList>,PairBoolean>();
-        wordsSepBeginEnd_.setSecond(new PairBoolean(false,false));
-        PairEq<StringList,StringList> wordsAndSeparators_ = new PairEq<StringList,StringList>();
+    private static WordsSeparators wordsAndSeparators(String _string){
+        WordsSeparators wordsSepBeginEnd_;
+        wordsSepBeginEnd_ = new WordsSeparators();
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
         CharList metas_ = getMetaCharacters();
@@ -1227,15 +1222,15 @@ public final class StringList extends CustList<String> implements Equallable<Str
                     words_.add(_string.substring(begin_));
                 }
                 if (begin_ == FIRST_INDEX) {
-                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                    wordsSepBeginEnd_.setFirstSep(true);
                 }
-                wordsSepBeginEnd_.getSecond().setSecond(begin_ < _string.length());
+                wordsSepBeginEnd_.setLastSep(begin_ < _string.length());
                 break;
             }
             if (minIndex_ > begin_) {
                 words_.add(_string.substring(begin_, minIndex_));
                 if (begin_ == FIRST_INDEX) {
-                    wordsSepBeginEnd_.getSecond().setFirst(true);
+                    wordsSepBeginEnd_.setFirstSep(true);
                 }
             }
             int ind_ = lowestIndexOfWordChar(_string, minIndex_, metas_);
@@ -1245,14 +1240,13 @@ public final class StringList extends CustList<String> implements Equallable<Str
             separators_.add(_string.substring(minIndex_, ind_));
             begin_ = ind_;
         }
-        wordsAndSeparators_.setFirst(separators_);
-        wordsAndSeparators_.setSecond(words_);
-        int nbWords_=wordsAndSeparators_.getSecond().size();
+        int nbWords_=words_.size();
         for(int i=FIRST_INDEX;i<nbWords_;i++){
-            String escapedString_= escape(wordsAndSeparators_.getSecond().get(i));
-            wordsAndSeparators_.getSecond().set(i, escapedString_);
+            String escapedString_= escape(words_.get(i));
+            words_.set(i, escapedString_);
         }
-        wordsSepBeginEnd_.setFirst(wordsAndSeparators_);
+        wordsSepBeginEnd_.setSeparators(separators_);
+        wordsSepBeginEnd_.setWords(words_);
         return wordsSepBeginEnd_;
     }
 

@@ -21,6 +21,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.FightSimulation;
 import aiki.game.fight.Fighter;
+import aiki.game.fight.KeyFightRound;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.AvailableMovesInfos;
 import aiki.game.params.Difficulty;
@@ -51,9 +52,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
-import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -411,7 +410,7 @@ public class SimulationBean extends CommonBean {
                 translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
                 StringMap<String> translationsCategories_;
                 translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new PairNumber<Byte, Byte>(CustList.FIRST_INDEX, (byte)(selectedRound -1)));
+                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(CustList.FIRST_INDEX, (byte)(selectedRound -1)));
                 for (String k: moves_) {
                     MoveData moveData_ = data_.getMoves().getVal(k);
                     RadioLineMove line_ = new RadioLineMove();
@@ -1096,7 +1095,7 @@ public class SimulationBean extends CommonBean {
             if (currentAbility.isEmpty()) {
                 return;
             }
-            int r_ = simulation.getAvailableMoves().getVal((byte) selectedPk).getKey().getSecond();
+            int r_ = simulation.getAvailableMoves().getVal((byte) selectedPk).getKey().getRound();
             simulation.setAbilityWhileFight(selectedPk, CustList.FIRST_INDEX, r_, currentAbility);
         }
         StringList moves_ = new StringList();

@@ -2,7 +2,6 @@ package code.maths;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.PairEq;
 import code.util.StringList;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;

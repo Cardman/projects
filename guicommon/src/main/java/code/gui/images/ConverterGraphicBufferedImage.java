@@ -10,8 +10,6 @@ import code.images.IntPoint;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.PairEq;
-import code.util.PairNumber;
 import code.util.StringList;
 
 public final class ConverterGraphicBufferedImage {
@@ -240,7 +238,7 @@ public final class ConverterGraphicBufferedImage {
         return buff_;
     }
 
-    public static PairEq<IntPoint,IntPoint> croppedPointDimensions(BufferedImage _buffered) {
+    public static IntPointPair croppedPointDimensions(BufferedImage _buffered) {
         int indexOne_ = 0;
         int indexTwo_ = 0;
         int w_ = _buffered.getWidth();
@@ -346,7 +344,7 @@ public final class ConverterGraphicBufferedImage {
             maxIndexTwo_ --;
         }
         int newHeight_ = maxIndexTwo_ - indexTwo_ + 1;
-        return new PairEq<IntPoint,IntPoint>(new IntPoint(indexOne_, indexTwo_),new IntPoint(newWidth_, newHeight_));
+        return new IntPointPair(new IntPoint(indexOne_, indexTwo_),new IntPoint(newWidth_, newHeight_));
     }
 
     private static int calculateAlphaCode(BufferedImage _buffered,

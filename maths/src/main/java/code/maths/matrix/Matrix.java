@@ -3,8 +3,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.PairEq;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -54,9 +52,9 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
 
     public Matrix passMat() {
         Matrix mat_ = new Matrix();
-        CustList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValues_=diagTrig().getRates();
-        for(PairEq<Rate,PairNumber<Integer,Integer>> t: ownValues_) {
-            Matrix ownVects_=ownVects(t.getFirst());
+        CustList<EigenValue> ownValues_=diagTrig().getRates();
+        for(EigenValue t: ownValues_) {
+            Matrix ownVects_=ownVects(t.getValue());
             for(Vect l: ownVects_.lines) {
                 mat_.addLineRef(l);
             }
@@ -66,8 +64,8 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
 
     public Trigonal diagTrig() {
         CustList<RootPol> ownValues_=polCaract().racines();
-        CustList<PairEq<Rate,PairNumber<Integer,Integer>>> ownValuesSpaces_;
-        ownValuesSpaces_ = new CustList<PairEq<Rate,PairNumber<Integer,Integer>>>();
+        CustList<EigenValue> ownValuesSpaces_;
+        ownValuesSpaces_ = new CustList<EigenValue>();
         int sum_=0;
         int nbLines_=lines.size();
         Matrix id_ = new Matrix();
@@ -83,20 +81,15 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
         for(RootPol c:ownValues_) {
             sum_+=c.getDegree();
-            PairEq<Rate,PairNumber<Integer,Integer> > t_;
-            t_ = new PairEq<Rate,PairNumber<Integer,Integer> >();
-            t_.setSecond(new PairNumber<Integer,Integer>());
-            t_.setFirst(c.getValue());
-            t_.getSecond().setFirst(c.getDegree());
-            t_.getSecond().setSecond((int)(nbLines_-minusMatrix(id_.multMatrix(c.getValue())).quickRank()));
-            ownValuesSpaces_.add(t_);
+            int sp_ = (int) (nbLines_ - minusMatrix(id_.multMatrix(c.getValue())).quickRank());
+            ownValuesSpaces_.add(new EigenValue(c.getValue(),c.getDegree(),sp_));
         }
         if(sum_<lines.size()) {
             return new Trigonal(ownValuesSpaces_, Diagonal.UN_TRIGO);
         }
         boolean diag_=true;
-        for(PairEq<Rate,PairNumber<Integer,Integer> > t: ownValuesSpaces_) {
-            if (t.getSecond().getFirst().longValue()!=t.getSecond().getSecond()) {
+        for(EigenValue t: ownValuesSpaces_) {
+            if (t.getDegree()!=t.getSpace()) {
                 diag_ = false;
                 break;
             }
@@ -171,8 +164,8 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
     }
 
     public Polynom polCaract() {
-        CustList<PairEq<Rate,Rate>> antImgs_;
-        antImgs_ = new CustList<PairEq<Rate,Rate>>();
+        CustList<RateImage> antImgs_;
+        antImgs_ = new CustList<RateImage>();
         int nbLines_=lines.size();
         Matrix id_ = new Matrix();
         Vect line_ = new Vect();
@@ -187,7 +180,7 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         }
         for(int i=0;i<=nbLines_;i++) {
             Matrix locMat_ = minusMatrix(id_.multMatrix(new Rate(i)));
-            antImgs_.add(new PairEq<Rate,Rate>(new Rate(i),locMat_.det()));
+            antImgs_.add(new RateImage(new Rate(i),locMat_.det()));
         }
         return Polynom.interpolation(antImgs_);
     }

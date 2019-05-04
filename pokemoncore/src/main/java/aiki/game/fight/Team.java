@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.comments.Comment;
+import aiki.comparators.ComparatorGroundPlaceKey;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.game.params.Difficulty;
@@ -15,10 +16,8 @@ import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.ComparatorPairNumber;
 
 
 public final class Team {
@@ -469,18 +468,18 @@ public final class Team {
     }
 
     void move(byte _decalage){
-        CustList<PairNumber<Byte,Byte>> combattantsPositions_ = new CustList<PairNumber<Byte,Byte>>();
+        CustList<GroundPlaceKey> combattantsPositions_ = new CustList<GroundPlaceKey>();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if(!membre_.estArriere()){
                 byte place_=membre_.getGroundPlace();
-                combattantsPositions_.add(new PairNumber<Byte, Byte>(place_,c));
+                combattantsPositions_.add(new GroundPlaceKey(place_,c));
             }
         }
-        combattantsPositions_.sortElts(new ComparatorPairNumber<Byte,Byte>());
+        combattantsPositions_.sortElts(new ComparatorGroundPlaceKey());
         short i_=0;
-        for(PairNumber<Byte,Byte> e:combattantsPositions_){
-            byte cle_=e.getSecond();
+        for(GroundPlaceKey e:combattantsPositions_){
+            byte cle_= (byte) e.getKey();
             members.getVal(cle_).setGroundPlace((byte) (i_+_decalage));
             i_++;
         }

@@ -3,7 +3,6 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.PairEq;
 import org.junit.Test;
 
 import static code.maths.EquallableMathUtil.assertEq;
@@ -767,10 +766,10 @@ public class PolynomTest {
     }
     @Test
     public void interpolation1Test() {
-        CustList<PairEq<Rate,Rate>> l_ = new CustList<PairEq<Rate,Rate>>();
-        l_.add(new PairEq<Rate, Rate>(new Rate(-1), new Rate(0)));
-        l_.add(new PairEq<Rate, Rate>(new Rate(0), new Rate(-1)));
-        l_.add(new PairEq<Rate, Rate>(new Rate(1), new Rate(0)));
+        CustList<RateImage> l_ = new CustList<RateImage>();
+        l_.add(new RateImage(new Rate(-1), new Rate(0)));
+        l_.add(new RateImage(new Rate(0), new Rate(-1)));
+        l_.add(new RateImage(new Rate(1), new Rate(0)));
         Polynom p_ = Polynom.interpolation(l_);
         assertEq(3, p_.size());
         assertEq(new Rate(1), p_.get(0));
@@ -779,7 +778,7 @@ public class PolynomTest {
     }
     @Test
     public void interpolation2Test() {
-        CustList<PairEq<Rate,Rate>> l_ = new CustList<PairEq<Rate,Rate>>();
+        CustList<RateImage> l_ = new CustList<RateImage>();
         Polynom p_ = Polynom.interpolation(l_);
         assertEq(1, p_.size());
         assertEq(new Rate(0), p_.get(0));
@@ -943,14 +942,14 @@ public class PolynomTest {
         Polynom b_ = new Polynom();
         b_.add(new Rate(2));
         b_.add(new Rate(1));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(-1,2), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(1, s_.size());
         assertEq(new Rate(-3,2), s_.get(0));
         assertEq(3, t_.size());
@@ -968,14 +967,14 @@ public class PolynomTest {
         b_.add(new Rate(1));
         b_.add(new Rate(-2));
         b_.add(new Rate(1));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(-1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(2, s_.size());
         assertEq(new Rate(2), s_.get(0));
         assertEq(new Rate(-2), s_.get(1));
@@ -995,14 +994,14 @@ public class PolynomTest {
         b_.add(new Rate(1));
         b_.add(new Rate(2));
         b_.add(new Rate(1));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(-1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(2, s_.size());
         assertEq(new Rate(-2), s_.get(0));
         assertEq(new Rate(-2), s_.get(1));
@@ -1026,14 +1025,14 @@ public class PolynomTest {
         b_.add(new Rate(3));
         b_.add(new Rate(0));
         b_.add(new Rate(-4));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(-1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(3, s_.size());
         assertEq(new Rate(-3), s_.get(0));
         assertEq(new Rate(0), s_.get(1));
@@ -1057,14 +1056,14 @@ public class PolynomTest {
         b_.add(new Rate(3));
         b_.add(new Rate(0));
         b_.add(new Rate(-4));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(5, s_.size());
         assertEq(new Rate(1), s_.get(0));
         assertEq(new Rate(0), s_.get(1));
@@ -1084,14 +1083,14 @@ public class PolynomTest {
         a_.add(new Rate(-4));
         Polynom b_ = new Polynom();
         b_.add(new Rate(0));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(5, s_.size());
         assertEq(new Rate(1), s_.get(0));
         assertEq(new Rate(0), s_.get(1));
@@ -1107,14 +1106,14 @@ public class PolynomTest {
         a_.add(new Rate(0));
         Polynom b_ = new Polynom();
         b_.add(new Rate(0));
-        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getFirst();
-        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst().getSecond();
+        Polynom p_ = Polynom.idBezoutPgcdPpcm(a_,b_).getFirst();
+        Polynom q_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond();
         assertEq(1, p_.size());
         assertEq(new Rate(1), p_.get(0));
         assertEq(1, q_.size());
         assertEq(new Rate(1), q_.get(0));
-        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getFirst();
-        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getSecond().getSecond();
+        Polynom s_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPgcd();
+        Polynom t_ = Polynom.idBezoutPgcdPpcm(a_,b_).getPpcm();
         assertEq(1, s_.size());
         assertEq(new Rate(0), s_.get(0));
         assertEq(1, t_.size());

@@ -9,13 +9,13 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.BaseSixtyFourUtil;
+import code.images.IntPoint;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -140,11 +140,11 @@ public abstract class SoftApplicationCore {
     private static void setLocation(CommonFrame _frame, int _x, int _y) {
         int x_ = _x;
         int y_ = _y;
-        PairNumber<Integer,Integer> dims_ = getScreenSize();
-        if (x_ + MIN_BORDER > dims_.getFirst()) {
+        IntPoint dims_ = getScreenSize();
+        if (x_ + MIN_BORDER > dims_.getXcoords()) {
             x_ = 0;
         }
-        if (y_ + MIN_BORDER > dims_.getSecond()) {
+        if (y_ + MIN_BORDER > dims_.getYcoords()) {
             y_ = 0;
         }
         if (x_ < 0) {
@@ -156,11 +156,11 @@ public abstract class SoftApplicationCore {
         _frame.setLocation(x_, y_);
     }
 
-    private static PairNumber<Integer,Integer> getScreenSize() {
+    private static IntPoint getScreenSize() {
         GraphicsDevice gd_ = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width_ = gd_.getDisplayMode().getWidth();
         int height_ = gd_.getDisplayMode().getHeight();
-        return new PairNumber<Integer,Integer>(width_, height_);
+        return new IntPoint(width_, height_);
     }
 
     public void launch(String _lg) {

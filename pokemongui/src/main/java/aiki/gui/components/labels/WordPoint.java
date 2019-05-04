@@ -1,13 +1,13 @@
 package aiki.gui.components.labels;
-import code.util.PairNumber;
+import code.images.IntPoint;
 
 public final class WordPoint {
 
     private final String word;
 
-    private final PairNumber<Integer,Integer> point;
+    private final IntPoint point;
 
-    public WordPoint(String _word, PairNumber<Integer, Integer> _point) {
+    public WordPoint(String _word, IntPoint _point) {
         word = _word;
         point = _point;
     }
@@ -16,7 +16,7 @@ public final class WordPoint {
         return word;
     }
 
-    public PairNumber<Integer, Integer> getPoint() {
+    public IntPoint getPoint() {
         return point;
     }
 }

@@ -4,7 +4,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.PairEq;
 import code.util.SortableCustList;
 import code.util.TreeMap;
 import code.util.ints.Cmp;
@@ -268,18 +267,12 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         return true;
     }
 
-    public static PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>> identiteBezoutPgcdPpcm(LgInt _a,LgInt _b) {
-        PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>> r_;
-        r_ = new PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>>();
+    public static IdBezoutNb identiteBezoutPgcdPpcm(LgInt _a,LgInt _b) {
         if (_a.isZero()) {
-            r_.setFirst(new PairEq<LgInt,LgInt>(one(),one()));
-            r_.setSecond(new PairEq<LgInt,LgInt>(_b,zero()));
-            return r_;
+            return new IdBezoutNb(one(),one(),_b,zero());
         }
         if (_b.isZero()) {
-            r_.setFirst(new PairEq<LgInt,LgInt>(one(),one()));
-            r_.setSecond(new PairEq<LgInt,LgInt>(_a,zero()));
-            return r_;
+            return new IdBezoutNb(one(),one(),_a,zero());
         }
         LgInt r0_ = _a;
         LgInt r1_ = _b;
@@ -303,35 +296,29 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             v1_ = v2_;
             r1_ = r2_;
         }
-        r_.setFirst(new PairEq<LgInt,LgInt>(u1_,v1_));
-        r_.setSecond(new PairEq<LgInt, LgInt>(r1_,multiply(divide(_a, r1_), _b)));
-        return r_;
+        return new IdBezoutNb(u1_,v1_,r1_,multiply(divide(_a, r1_), _b));
     }
 
     public Decomposition decompoPrim() {
         LgInt copy_=absNb();
-        CustList<PairEq<LgInt,LgInt>> divs_ = new CustList<PairEq<LgInt,LgInt>>();
+        CustList<PrimDivisor> divs_ = new CustList<PrimDivisor>();
         for (LgInt d: getDividers()) {
             if (!d.isPrime()) {
                 continue;
             }
-            PairEq<LgInt,LgInt> p_ = new PairEq<LgInt,LgInt>();
-            p_.setFirst(d);
-            p_.setSecond(zero());
+            PrimDivisor p_ = new PrimDivisor(d,zero());
             while (true) {
                 QuotModLgInt qr_=copy_.divisionEuclidienneGeneralise(d);
                 if(!qr_.getMod().isZeroOrLt()) {
                     break;
                 }
-                p_.getSecond().increment();
+                p_.getExponent().increment();
                 copy_=qr_.getQuot();
             }
             divs_.add(p_);
         }
         if (absNb().eq(one())) {
-            PairEq<LgInt,LgInt> p_ = new PairEq<LgInt,LgInt>();
-            p_.setFirst(one());
-            p_.setSecond(one());
+            PrimDivisor p_ = new PrimDivisor(one(),one());
             divs_.add(p_);
         }
         return new Decomposition(getSignum(), divs_);

@@ -1,20 +1,20 @@
 package aiki.game.fight.util;
-import code.util.PairNumber;
+import aiki.game.fight.KeyFightRound;
 import code.util.StringMap;
 
 public final class AvailableMovesInfos {
 
-    private PairNumber<Byte,Byte> key;
+    private KeyFightRound key;
     private final StringMap<Boolean> moves;
-    public AvailableMovesInfos(PairNumber<Byte, Byte> _key,
+    public AvailableMovesInfos(KeyFightRound _key,
             StringMap<Boolean> _moves) {
         key = _key;
         moves = _moves;
     }
-    public PairNumber<Byte, Byte> getKey() {
+    public KeyFightRound getKey() {
         return key;
     }
-    public void setFirst(PairNumber<Byte, Byte> _key) {
+    public void setFirst(KeyFightRound _key) {
         key = _key;
     }
     public StringMap<Boolean> getMoves() {

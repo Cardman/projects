@@ -1,14 +1,13 @@
 package code.maths;
 import code.util.CustList;
-import code.util.PairEq;
 
 public final class Decomposition {
 
     private final boolean signum;
 
-    private final CustList<PairEq<LgInt,LgInt>> factors;
+    private final CustList<PrimDivisor> factors;
 
-    public Decomposition(boolean _signum, CustList<PairEq<LgInt,LgInt>> _factors) {
+    public Decomposition(boolean _signum, CustList<PrimDivisor> _factors) {
         signum = _signum;
         factors = _factors;
     }
@@ -17,7 +16,7 @@ public final class Decomposition {
         return signum == LgInt.SIGNE_POSITIF;
     }
 
-    public CustList<PairEq<LgInt,LgInt>> getFactors() {
+    public CustList<PrimDivisor> getFactors() {
         return factors;
     }
 }

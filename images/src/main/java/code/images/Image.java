@@ -1,7 +1,6 @@
 package code.images;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -190,13 +189,13 @@ public final class Image implements Displayable {
         return heigth_ % _sideLength == 0;
     }
 
-    public static PairNumber<Integer,Integer> getDimensions(String _img, int _sideLength) {
+    public static IntPoint getDimensions(String _img, int _sideLength) {
         int nb_ = StringList.splitChars(_img, SEPARATOR_CHAR).size() - 1;
         int i_ = _img.indexOf(SEPARATOR_CHAR);
         String w_ = _img.substring(0, i_);
         int width_ = Numbers.parseInt(w_);
         int heigth_ = nb_ / width_;
-        return new PairNumber<Integer,Integer>(width_/_sideLength, heigth_/_sideLength);
+        return new IntPoint(width_/_sideLength, heigth_/_sideLength);
     }
 
     public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {
