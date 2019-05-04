@@ -1,5 +1,4 @@
 package code.util;
-import code.util.ints.ListableEntries;
 
 /**
     @author Cardman
@@ -8,22 +7,9 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
 
     public NatTreeMap() {
     }
-    public NatTreeMap(ListableEntries<K,V> _map) {
-        putAllMap(_map);
-    }
-
-    public NatTreeMap(NatTreeMap<K,V> _map) {
-        putAllTreeMap(_map);
-    }
     
     public NatTreeMap(CollCapacity _capacity) {
         super(_capacity);
-    }
-
-    public void putAllTreeMap(NatTreeMap<K, V> _m) {
-        for (EntryCust<K,V> e: _m.getList()) {
-            put(e.getKey(), e.getValue());
-        }
     }
 
     @Override

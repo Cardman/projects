@@ -372,7 +372,7 @@ public class AbilityBean extends CommonBean {
         for (Statistic s: ability_.getMultStat().getKeys()) {
             String formula_ = data_.getFormula(ability_.getMultStat().getVal(s), getLanguage());
 //            formula_ = quoteBraces(formula_);
-            mapVars_.putAllTreeMap(data_.getDescriptions(ability_.getMultStat().getVal(s), getLanguage()));
+            mapVars_.putAllMap(data_.getDescriptions(ability_.getMultStat().getVal(s), getLanguage()));
             multStat_.put(s, formula_);
         }
         multStat = multStat_;
@@ -388,7 +388,7 @@ public class AbilityBean extends CommonBean {
             String fail_ = ability_.getFailStatus().getVal(s);
             String formula_ = data_.getFormula(fail_, getLanguage());
 //            formula_ = quoteBraces(formula_);
-            mapVars_.putAllTreeMap(data_.getDescriptions(fail_, getLanguage()));
+            mapVars_.putAllMap(data_.getDescriptions(fail_, getLanguage()));
             failStatus_.put(s, formula_);
         }
         failStatus = failStatus_;
@@ -547,8 +547,8 @@ public class AbilityBean extends CommonBean {
             multPowerMovesTypesGlobal_.put(c, ability_.getMultPowerMovesTypesGlobal().getVal(c));
         }
         multPowerMovesTypesGlobal = multPowerMovesTypesGlobal_;
-        mapVars_.putAllTreeMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
-        mapVars_.putAllTreeMap(data_.getDescriptions(ability_.getMultDamage(), getLanguage()));
+        mapVars_.putAllMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
+        mapVars_.putAllMap(data_.getDescriptions(ability_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
     }
 

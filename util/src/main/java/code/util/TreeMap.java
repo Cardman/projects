@@ -9,19 +9,8 @@ public final class TreeMap<K, V> extends AbsMap<K, V> {
 
     private final Comparing<K> comparator;
 
-    public TreeMap(CollCapacity _capacity, Comparing<K> _cmp) {
-        super(_capacity);
-        comparator = _cmp;
-    }
-
     public TreeMap(Comparing<K> _cmp) {
         comparator = _cmp;
-    }
-
-    public void putAllTreeMap(AbsMap<K, V> _m) {
-        for (EntryCust<K,V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
     }
 
     @Override

@@ -1,21 +1,6 @@
 package code.util;
 
-import code.util.ints.ListableEntries;
-
 public final class StringMapObject extends AbsMap<String,Object> {
-
-
-    public StringMapObject() {
-    }
-
-    public StringMapObject(ListableEntries<String, Object> _arg0) {
-        putAllMap(_arg0);
-    }
-
-    
-    public StringMapObject(CollCapacity _capacity) {
-        super(_capacity);
-    }
 
     @Override
     public StringList getKeys() {

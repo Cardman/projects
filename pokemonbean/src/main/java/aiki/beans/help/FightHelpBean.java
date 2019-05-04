@@ -1766,12 +1766,12 @@ public class FightHelpBean extends CommonBean {
         autoDamage.sortElts(new ComparatorTrStrings(translatedStatus_));
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
         mapVar = new NatStringTreeMap<String>();
-        mapVar.putAllTreeMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
+        mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
         NatStringTreeMap<String> mapAutoDamage_ = new NatStringTreeMap<String>();
         int len_;
         len_ = autoDamage.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            mapAutoDamage_.putAllTreeMap(data_.getDescriptions(getNumericString((long) i), getLanguage()));
+            mapAutoDamage_.putAllMap(data_.getDescriptions(getNumericString((long) i), getLanguage()));
         }
         mapAutoDamage = mapAutoDamage_;
     }
@@ -2033,7 +2033,7 @@ public class FightHelpBean extends CommonBean {
         }
         varRates = new NatStringTreeMap<String>();
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
-            varRates.putAllTreeMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
+            varRates.putAllMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
         }
         lawsRates = new TreeMap<DifficultyModelLaw, NatCmpTreeMap<Rate, Rate>>(new ComparatorEnum<DifficultyModelLaw>());
         for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {

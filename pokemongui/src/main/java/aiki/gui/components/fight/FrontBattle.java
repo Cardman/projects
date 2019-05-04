@@ -132,7 +132,7 @@ public class FrontBattle extends PaintableLabel {
         maxWidth = facade.getMaxWidthPk();
         maxHeight = facade.getMaxHeightPk();
         NatTreeMap<Byte,Fighter> teamPl_ = new NatTreeMap<Byte, Fighter>();
-        teamPl_.putAllTreeMap(facade.getUnionFrontTeam());
+        teamPl_.putAllMap(facade.getUnionFrontTeam());
         for (byte k: teamPl_.getKeys()) {
             TargetLabel target_ = new TargetLabel();
             Fighter fighter_ = teamPl_.getVal(k);

@@ -1,31 +1,9 @@
 package code.util;
-import code.util.ints.ListableEntries;
 
 /**
     @author Cardman
 */
 public final class NatStringTreeMap<V> extends AbsMap<String, V> {
-
-    public NatStringTreeMap() {
-    }
-    public NatStringTreeMap(ListableEntries<String,V> _map) {
-        putAllMap(_map);
-    }
-
-    public NatStringTreeMap(NatStringTreeMap<V> _map) {
-        putAllTreeMap(_map);
-    }
-    
-    public NatStringTreeMap(CollCapacity _capacity) {
-        super(_capacity);
-    }
-
-
-    public void putAllTreeMap(NatStringTreeMap<V> _m) {
-        for (EntryCust<String,V> e: _m.getList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
 
     @Override
     public StringList getKeys() {

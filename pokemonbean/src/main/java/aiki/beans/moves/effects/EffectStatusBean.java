@@ -42,7 +42,7 @@ public class EffectStatusBean extends EffectBean {
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
             localFailStatus_.put(translatedStatus_.getVal(s), formula_);
-            mapVarsStatus_.putAllTreeMap(data_.getDescriptions(effect_.getLocalFailStatus().getVal(s), getLanguage()));
+            mapVarsStatus_.putAllMap(data_.getDescriptions(effect_.getLocalFailStatus().getVal(s), getLanguage()));
         }
         mapVarsStatus = mapVarsStatus_;
         localFailStatus = localFailStatus_;

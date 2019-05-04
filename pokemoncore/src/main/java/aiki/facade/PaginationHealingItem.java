@@ -315,7 +315,7 @@ public final class PaginationHealingItem extends
                         cmpNbHealedStatus, cmpRelativeRateHp, cmpHp, cmpRateHp,
                         cmpRelativeRatePp, cmpPp, cmpHealOneMove,
                         cmpStatistics, cmpKo, cmpNumber, nbComparators));
-        items_.putAllTreeMap(items);
+        items_.putAllMap(items);
         items = items_;
     }
 

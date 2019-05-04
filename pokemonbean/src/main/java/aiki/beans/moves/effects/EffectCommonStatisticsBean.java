@@ -32,7 +32,7 @@ public class EffectCommonStatisticsBean extends EffectBean {
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
             commonValue_.put(s, formula_);
             NatStringTreeMap<String> mapVars_ = data_.getDescriptions(str_,getLanguage());
-            mapVarsCommonStatistics_.putAllTreeMap(mapVars_);
+            mapVarsCommonStatistics_.putAllMap(mapVars_);
         }
         commonValue = commonValue_;
         mapVarsCommonStatistics = mapVarsCommonStatistics_;

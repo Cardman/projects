@@ -1,5 +1,5 @@
 package code.util.classestest;
 
 public enum MyEnum {
-    ONE,TWO,THREE
+    ZERO,ONE,TWO,THREE
 }

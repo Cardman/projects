@@ -1161,7 +1161,7 @@ public class Battle extends ChildFrame {
         trMoves_ = facade.getData().getTranslatedMoves();
         TreeMap<String,Boolean> moves_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
         NatStringTreeMap<Boolean> retMoves_ = facade.getMoves();
-        moves_.putAllTreeMap(retMoves_);
+        moves_.putAllMap(retMoves_);
         movesLearnPanel.removeAll();
         movesLearnPanel.add(new JLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {

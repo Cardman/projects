@@ -84,7 +84,7 @@ public class EffectWhileSendingBean extends CommonBean {
 //                formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //                formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
                 localFailStatis_.put(translatedStatistics_.getVal(s), formula_);
-                mapVarsStatistics_.putAllTreeMap(data_.getDescriptions(effect_.getLocalFailStatis().getVal(s), getLanguage()));
+                mapVarsStatistics_.putAllMap(data_.getDescriptions(effect_.getLocalFailStatis().getVal(s), getLanguage()));
             }
             localFailStatis = localFailStatis_;
             NatStringTreeMap< String> localFailSwapBoostStatis_;
@@ -95,7 +95,7 @@ public class EffectWhileSendingBean extends CommonBean {
 //                formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //                formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
                 localFailSwapBoostStatis_.put(translatedStatistics_.getVal(s), formula_);
-                mapVarsStatistics_.putAllTreeMap(data_.getDescriptions(effect_.getLocalFailSwapBoostStatis().getVal(s), getLanguage()));
+                mapVarsStatistics_.putAllMap(data_.getDescriptions(effect_.getLocalFailSwapBoostStatis().getVal(s), getLanguage()));
             }
             localFailSwapBoostStatis = localFailSwapBoostStatis_;
             mapVarsStatistics = mapVarsStatistics_;

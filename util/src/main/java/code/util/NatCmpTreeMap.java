@@ -1,18 +1,10 @@
 package code.util;
-import code.util.comparators.NatComparator;
 import code.util.ints.Cmp;
-import code.util.ints.Comparing;
 
 /**
     @author Cardman
 */
 public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> {
-
-    public void putAllTreeMap(NatCmpTreeMap<K, V> _m) {
-        for (EntryCust<K,V> e: _m.getList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
 
     @Override
     public CustList<K> getKeys() {
@@ -58,11 +50,5 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> {
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
-
-
-    public Comparing<K> comparator() {
-        return new NatComparator<K>();
-    }
-
 
 }

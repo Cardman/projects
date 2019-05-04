@@ -105,7 +105,7 @@ public final class PaginationEgg extends
     public void sort() {
         TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
                 new ComparatorEgg(cmpSteps, cmpName, nbComparators));
-        eggs_.putAllTreeMap(eggs);
+        eggs_.putAllMap(eggs);
         eggs = eggs_;
     }
 

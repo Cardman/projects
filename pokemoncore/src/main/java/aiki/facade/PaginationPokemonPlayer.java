@@ -181,7 +181,7 @@ public final class PaginationPokemonPlayer
         TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
                 new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
                         cmpItem, cmpGender, cmpPossEvos, nbComparators));
-        eggs_.putAllTreeMap(pokemon);
+        eggs_.putAllMap(pokemon);
         pokemon = eggs_;
     }
 

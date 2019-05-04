@@ -175,7 +175,7 @@ public final class PaginationMove extends
         TreeMap<SortingMove, String> items_ = new TreeMap<SortingMove, String>(
                 new ComparatorMove(cmpName, cmpPrice, cmpDescription, cmpPpp,
                         cmpPrio, cmpTargetChoice, nbComparators));
-        items_.putAllTreeMap(moves);
+        items_.putAllMap(moves);
         moves = items_;
     }
 

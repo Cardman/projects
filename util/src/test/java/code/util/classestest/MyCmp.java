@@ -27,4 +27,8 @@ public final class MyCmp implements Cmp<MyCmp> {
     public int cmp(MyCmp _other) {
         return Numbers.compareLg(info,_other.info);
     }
+
+    public String display() {
+        return Integer.toString(info);
+    }
 }

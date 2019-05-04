@@ -1,9 +1,8 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import code.util.classestest.MyEnum;
 import org.junit.Test;
 
 import code.util.classestest.KeyExample;
@@ -236,6 +235,183 @@ public class MapTest {
     }
 
     @Test
+    public void putAllMap5Test() {
+        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>(new NumberMap<Integer,Number>(new CollCapacity(0)));
+        map_.put(0, 0);
+        map_.put(1, 1);
+        NumberMap<Integer,Number> mapToPut_ = new NumberMap<Integer,Number>();
+        mapToPut_.put(2, 2);
+        mapToPut_.put(3, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(4, map_.size());
+        assertTrue(map_.contains(0));
+        assertTrue(map_.contains(1));
+        assertTrue(map_.contains(2));
+        assertTrue(map_.contains(3));
+        assertEq(0, map_.getVal(0).intValue());
+        assertEq(1, map_.getVal(1).intValue());
+        assertEq(2, map_.getVal(2).intValue());
+        assertEq(3, map_.getVal(3).intValue());
+    }
+
+    @Test
+    public void putAllMap6Test() {
+        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>();
+        map_.put(0, 0);
+        map_.put(1, 1);
+        NumberMap<Integer,Number> mapToPut_ = new NumberMap<Integer,Number>();
+        mapToPut_.put(2, 2);
+        mapToPut_.put(1, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(3, map_.size());
+        assertTrue(map_.contains(0));
+        assertTrue(map_.contains(1));
+        assertTrue(map_.contains(2));
+        assertEq(0, map_.getVal(0).intValue());
+        assertEq(3, map_.getVal(1).intValue());
+        assertEq(2, map_.getVal(2).intValue());
+    }
+
+    @Test
+    public void putAllMap7Test() {
+        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>(new EnumMap<MyEnum,Number>(new CollCapacity(0)));
+        map_.put(MyEnum.ZERO, 0);
+        map_.put(MyEnum.ONE, 1);
+        EnumMap<MyEnum,Number> mapToPut_ = new EnumMap<MyEnum,Number>();
+        mapToPut_.put(MyEnum.TWO, 2);
+        mapToPut_.put(MyEnum.THREE, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(4, map_.size());
+        assertTrue(map_.contains(MyEnum.ZERO));
+        assertTrue(map_.contains(MyEnum.ONE));
+        assertTrue(map_.contains(MyEnum.TWO));
+        assertTrue(map_.contains(MyEnum.THREE));
+        assertEq(0, map_.getVal(MyEnum.ZERO).intValue());
+        assertEq(1, map_.getVal(MyEnum.ONE).intValue());
+        assertEq(2, map_.getVal(MyEnum.TWO).intValue());
+        assertEq(3, map_.getVal(MyEnum.THREE).intValue());
+    }
+
+    @Test
+    public void putAllMap8Test() {
+        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>();
+        map_.put(MyEnum.ZERO, 0);
+        map_.put(MyEnum.ONE, 1);
+        EnumMap<MyEnum,Number> mapToPut_ = new EnumMap<MyEnum,Number>();
+        mapToPut_.put(MyEnum.TWO, 2);
+        mapToPut_.put(MyEnum.ONE, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(3, map_.size());
+        assertTrue(map_.contains(MyEnum.ZERO));
+        assertTrue(map_.contains(MyEnum.ONE));
+        assertTrue(map_.contains(MyEnum.TWO));
+        assertEq(0, map_.getVal(MyEnum.ZERO).intValue());
+        assertEq(3, map_.getVal(MyEnum.ONE).intValue());
+        assertEq(2, map_.getVal(MyEnum.TWO).intValue());
+    }
+
+    @Test
+    public void putAllMap9Test() {
+        CharMap<Number> map_ = new CharMap<Number>(new CharMap<Number>(new CollCapacity(0)));
+        map_.put((char)0, 0);
+        map_.put((char)1, 1);
+        CharMap<Number> mapToPut_ = new CharMap<Number>();
+        mapToPut_.put((char)2, 2);
+        mapToPut_.put((char)3, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(4, map_.size());
+        assertTrue(map_.contains((char)0));
+        assertTrue(map_.contains((char)1));
+        assertTrue(map_.contains((char)2));
+        assertTrue(map_.contains((char)3));
+        assertEq(0, map_.getVal((char)0).intValue());
+        assertEq(1, map_.getVal((char)1).intValue());
+        assertEq(2, map_.getVal((char)2).intValue());
+        assertEq(3, map_.getVal((char)3).intValue());
+    }
+
+    @Test
+    public void putAllMap10Test() {
+        CharMap<Number> map_ = new CharMap<Number>();
+        map_.put((char)0, 0);
+        map_.put((char)1, 1);
+        CharMap<Number> mapToPut_ = new CharMap<Number>();
+        mapToPut_.put((char)2, 2);
+        mapToPut_.put((char)1, 3);
+        map_.putAllMap(mapToPut_);
+        assertEq(3, map_.size());
+        assertTrue(map_.contains((char)0));
+        assertTrue(map_.contains((char)1));
+        assertTrue(map_.contains((char)2));
+        assertEq(0, map_.getVal((char)0).intValue());
+        assertEq(3, map_.getVal((char)1).intValue());
+        assertEq(2, map_.getVal((char)2).intValue());
+    }
+
+    @Test
+    public void putAllMap11Test() {
+        BooleanMap<Number> map_ = new BooleanMap<Number>(new CollCapacity(0));
+        map_.put(false, 0);
+        BooleanMap<Number> mapToPut_ = new BooleanMap<Number>();
+        mapToPut_.put(true, 2);
+        map_.putAllMap(mapToPut_);
+        assertEq(2, map_.size());
+        assertTrue(map_.contains(false));
+        assertTrue(map_.contains(true));
+        assertEq(0, map_.getVal(false).intValue());
+        assertEq(2, map_.getVal(true).intValue());
+    }
+
+    @Test
+    public void putAllMap12Test() {
+        BooleanMap<Number> map_ = new BooleanMap<Number>();
+        map_.put(false, 0);
+        BooleanMap<Number> mapToPut_ = new BooleanMap<Number>();
+        mapToPut_.put(false, 2);
+        map_.putAllMap(mapToPut_);
+        assertEq(1, map_.size());
+        assertTrue(map_.contains(false));
+        assertEq(2, map_.getVal(false).intValue());
+    }
+
+    @Test
+    public void putAllMap13Test() {
+        StringMapObject map_ = new StringMapObject();
+        map_.put("ONE", 1);
+        map_.put("TWO", 2);
+        StringMapObject mapToPut_ = new StringMapObject();
+        mapToPut_.put("THREE", 3);
+        mapToPut_.put("FOUR", 4);
+        map_.putAllMap(mapToPut_);
+        assertEq(4, map_.size());
+        assertTrue(map_.contains("ONE"));
+        assertTrue(map_.contains("TWO"));
+        assertTrue(map_.contains("THREE"));
+        assertTrue(map_.contains("FOUR"));
+        assertEq(1, (Integer)map_.getVal("ONE"));
+        assertEq(2, (Integer)map_.getVal("TWO"));
+        assertEq(3, (Integer)map_.getVal("THREE"));
+        assertEq(4, (Integer)map_.getVal("FOUR"));
+    }
+
+    @Test
+    public void putAllMap14Test() {
+        StringMapObject map_ = new StringMapObject();
+        map_.put("ONE", 1);
+        map_.put("TWO", 2);
+        StringMapObject mapToPut_ = new StringMapObject();
+        mapToPut_.put("TWO", 3);
+        mapToPut_.put("THREE", 4);
+        map_.putAllMap(mapToPut_);
+        assertEq(3, map_.size());
+        assertTrue(map_.contains("ONE"));
+        assertTrue(map_.contains("TWO"));
+        assertTrue(map_.contains("THREE"));
+        assertEq(1, (Integer)map_.getVal("ONE"));
+        assertEq(3, (Integer)map_.getVal("TWO"));
+        assertEq(4, (Integer)map_.getVal("THREE"));
+    }
+    @Test
     public void valuesTest() {
         ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
         map_.put(new KeyExample(0, 0), 0);
@@ -360,6 +536,54 @@ public class MapTest {
         assertEq(2,elts_.size());
         assertEq(new KeyExample(0, 0),elts_.first());
         assertEq(new KeyExample(0, 1),elts_.last());
+    }
+    @Test
+    public void getKeysNbTest() {
+        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>();
+        map_.put(0, 0);
+        map_.put(1, 1);
+        CustList<Integer> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(0,elts_.first());
+        assertEq(1,elts_.last());
+    }
+    @Test
+    public void getKeysBoolTest() {
+        BooleanMap<Number> map_ = new BooleanMap<Number>();
+        map_.put(true, 0);
+        map_.put(false, 1);
+        CustList<Boolean> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(true,elts_.first());
+        assertEq(false,elts_.last());
+    }
+    @Test
+    public void getKeysCharTest() {
+        CharMap<Number> map_ = new CharMap<Number>();
+        map_.put((char)0, 0);
+        map_.put((char)1, 1);
+        CustList<Character> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(0,elts_.first());
+        assertEq(1,elts_.last());
+    }
+    @Test
+    public void getKeysEmTest() {
+        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>();
+        map_.put(MyEnum.ZERO, 0);
+        map_.put(MyEnum.ONE, 1);
+        CustList<MyEnum> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertSame(MyEnum.ZERO,elts_.first());
+        assertSame(MyEnum.ONE,elts_.last());
+    }
+    @Test
+    public void getKeysStrObjTest() {
+        StringMapObject map_ = new StringMapObject();
+        map_.put("", 0);
+        CustList<String> elts_ = map_.getKeys();
+        assertEq(1,elts_.size());
+        assertEq("",elts_.first());
     }
     private static boolean containsEntry(Listable<EntryCust<String,Number>> _l, EntryCust<String,Number> _e) {
         for (EntryCust<String,Number> e: _l) {

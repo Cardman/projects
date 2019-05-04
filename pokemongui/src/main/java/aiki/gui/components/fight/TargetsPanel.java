@@ -26,7 +26,7 @@ public class TargetsPanel extends Panel {
         NatTreeMap<Byte,Fighter> teamPl_ = new NatTreeMap<Byte, Fighter>();
 //        teamPl_.putAllMap(_facade.getPlayerFrontTeam());
 //        teamPl_.putAllMap(_facade.getAllyFrontTeam());
-        teamPl_.putAllTreeMap(_facade.getUnionFrontTeam());
+        teamPl_.putAllMap(_facade.getUnionFrontTeam());
         int i_;
         i_ = CustList.FIRST_INDEX;
         BooleanList chosablePl_ = _facade.getFight().getChosablePlayerTargets();

@@ -1758,7 +1758,7 @@ public final class FightFacade {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
         NatStringTreeMap<Boolean> map_ = new NatStringTreeMap<Boolean>();
-        map_.putAllTreeMap(fighter_.getMoves(_evo));
+        map_.putAllMap(fighter_.getMoves(_evo));
         return map_;
     }
 

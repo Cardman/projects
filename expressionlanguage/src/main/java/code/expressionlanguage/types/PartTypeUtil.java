@@ -507,12 +507,14 @@ public final class PartTypeUtil {
         }
         if (_p instanceof TemplatePartType) {
             NatTreeMap<Integer,String> values_;
-            values_ = new NatTreeMap<Integer, String>(_an.getValues());
+            values_ = new NatTreeMap<Integer, String>();
+            values_.putAllMap(_an.getValues());
             values_.removeKey(values_.lastKey());
             _dels.add(values_);
         } else if (_p instanceof InnerPartType) {
             NatTreeMap<Integer,String> values_;
-            values_ = new NatTreeMap<Integer, String>(_an.getValues());
+            values_ = new NatTreeMap<Integer, String>();
+            values_.putAllMap(_an.getValues());
             if (values_.firstValue().trim().isEmpty()) {
                 values_.removeKey(values_.firstKey());
             }

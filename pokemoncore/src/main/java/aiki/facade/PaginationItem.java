@@ -143,7 +143,7 @@ public final class PaginationItem extends
         TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(
                 new ComparatorItem(cmpName, cmpPrice, cmpDescription,
                         cmpNumber, nbComparators));
-        items_.putAllTreeMap(items);
+        items_.putAllMap(items);
         items = items_;
     }
 

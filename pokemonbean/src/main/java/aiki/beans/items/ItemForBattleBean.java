@@ -184,7 +184,7 @@ public class ItemForBattleBean extends ItemBean {
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            formula_ = StringList.replace(formula_, loc_);
-            mapVars_.putAllTreeMap(data_.getDescriptions(item_.getMultStat().getVal(s), getLanguage()));
+            mapVars_.putAllMap(data_.getDescriptions(item_.getMultStat().getVal(s), getLanguage()));
             multStat_.put(s, formula_);
         }
         multStat = multStat_;
@@ -206,7 +206,7 @@ public class ItemForBattleBean extends ItemBean {
 //            formula_ = formula_.replace(EAMP, E_AMP);
 //            formula_ = formula_.replace(ELT, E_LT);
 //            formula_ = formula_.replace(EGT, E_GT);
-            mapVars_.putAllTreeMap(data_.getDescriptions(item_.getFailStatus().getVal(s), getLanguage()));
+            mapVars_.putAllMap(data_.getDescriptions(item_.getFailStatus().getVal(s), getLanguage()));
             failStatus_.put(s, formula_);
         }
         failStatus = failStatus_;
@@ -255,8 +255,8 @@ public class ItemForBattleBean extends ItemBean {
         }
         immuWeather_.sortElts(new ComparatorTrStrings(translatedMoves_));
         immuWeather = immuWeather_;
-        mapVars_.putAllTreeMap(data_.getDescriptions(item_.getMultPower(), getLanguage()));
-        mapVars_.putAllTreeMap(data_.getDescriptions(item_.getMultDamage(), getLanguage()));
+        mapVars_.putAllMap(data_.getDescriptions(item_.getMultPower(), getLanguage()));
+        mapVars_.putAllMap(data_.getDescriptions(item_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
         StringList hatching_;
         hatching_ = new StringList(item_.getHatching());
