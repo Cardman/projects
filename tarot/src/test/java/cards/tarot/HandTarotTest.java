@@ -1,6 +1,7 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -280,7 +281,8 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.SPADE_JACK);
         main_.ajouter(CardTarot.HEART_9);
         return main_;
-    }    @Test
+    }
+    @Test
     public void trier1(){
         HandTarot main_ = trier();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
@@ -565,6 +567,191 @@ public class HandTarotTest {
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.SPADE));
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.CLUB));
 //        assertEq(suites_,main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.TRUMP));
+    }
+    @Test
+    public void atoutsMaitres1Test() {
+        HandTarot h_ = new HandTarot();
+        HandTarot out_ = h_.atoutsMaitres(new HandTarot().couleurs());
+        assertEq(0, out_.total());
+    }
+    @Test
+    public void atoutsMaitres2Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_21);
+        h_.ajouter(CardTarot.TRUMP_15);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot out_ = h_.atoutsMaitres(new HandTarot().couleurs());
+        assertEq(1, out_.total());
+        assertSame(CardTarot.TRUMP_21, out_.carte(0));
+    }
+    @Test
+    public void atoutsMaitres3Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_21);
+        h_.ajouter(CardTarot.TRUMP_15);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot out_ = h_.atoutsMaitres(new EnumMap<Suit, HandTarot>());
+        assertEq(1, out_.total());
+        assertSame(CardTarot.TRUMP_21, out_.carte(0));
+    }
+    @Test
+    public void atoutsMaitres4Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_15);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot out_ = h_.atoutsMaitres(new HandTarot().couleurs());
+        assertEq(0, out_.total());
+    }
+    @Test
+    public void atoutsMaitres5Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_15);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(1, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+    }
+    @Test
+    public void atoutsMaitres6Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_18);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(1, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+    }
+    @Test
+    public void atoutsMaitres7Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_18);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        p_.ajouter(CardTarot.TRUMP_19);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(2, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+        assertSame(CardTarot.TRUMP_18, out_.carte(1));
+    }
+    @Test
+    public void atoutsMaitres8Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_18);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        p_.ajouter(CardTarot.TRUMP_19);
+        p_.ajouter(CardTarot.TRUMP_17);
+        p_.ajouter(CardTarot.TRUMP_16);
+        p_.ajouter(CardTarot.TRUMP_15);
+        p_.ajouter(CardTarot.TRUMP_14);
+        p_.ajouter(CardTarot.TRUMP_13);
+        p_.ajouter(CardTarot.TRUMP_12);
+        p_.ajouter(CardTarot.TRUMP_11);
+        p_.ajouter(CardTarot.TRUMP_9);
+        p_.ajouter(CardTarot.TRUMP_8);
+        p_.ajouter(CardTarot.TRUMP_7);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(6, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+        assertSame(CardTarot.TRUMP_18, out_.carte(1));
+        assertSame(CardTarot.TRUMP_10, out_.carte(2));
+        assertSame(CardTarot.TRUMP_6, out_.carte(3));
+        assertSame(CardTarot.TRUMP_3, out_.carte(4));
+        assertSame(CardTarot.TRUMP_1, out_.carte(5));
+    }
+    @Test
+    public void atoutsMaitres9Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_18);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_3);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        p_.ajouter(CardTarot.TRUMP_19);
+        p_.ajouter(CardTarot.TRUMP_17);
+        p_.ajouter(CardTarot.TRUMP_16);
+        p_.ajouter(CardTarot.TRUMP_15);
+        p_.ajouter(CardTarot.TRUMP_14);
+        p_.ajouter(CardTarot.TRUMP_13);
+        p_.ajouter(CardTarot.TRUMP_12);
+        p_.ajouter(CardTarot.TRUMP_11);
+        p_.ajouter(CardTarot.TRUMP_9);
+        p_.ajouter(CardTarot.TRUMP_8);
+        p_.ajouter(CardTarot.TRUMP_7);
+        p_.ajouter(CardTarot.TRUMP_5);
+        p_.ajouter(CardTarot.TRUMP_4);
+        p_.ajouter(CardTarot.TRUMP_2);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(6, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+        assertSame(CardTarot.TRUMP_18, out_.carte(1));
+        assertSame(CardTarot.TRUMP_10, out_.carte(2));
+        assertSame(CardTarot.TRUMP_6, out_.carte(3));
+        assertSame(CardTarot.TRUMP_3, out_.carte(4));
+        assertSame(CardTarot.TRUMP_1, out_.carte(5));
+    }
+    @Test
+    public void atoutsMaitres10Test() {
+        HandTarot h_ = new HandTarot();
+        h_.ajouter(CardTarot.TRUMP_20);
+        h_.ajouter(CardTarot.TRUMP_18);
+        h_.ajouter(CardTarot.TRUMP_10);
+        h_.ajouter(CardTarot.TRUMP_6);
+        h_.ajouter(CardTarot.TRUMP_1);
+        HandTarot p_ = new HandTarot();
+        p_.ajouter(CardTarot.TRUMP_21);
+        p_.ajouter(CardTarot.TRUMP_19);
+        p_.ajouter(CardTarot.TRUMP_17);
+        p_.ajouter(CardTarot.TRUMP_16);
+        p_.ajouter(CardTarot.TRUMP_15);
+        p_.ajouter(CardTarot.TRUMP_14);
+        p_.ajouter(CardTarot.TRUMP_13);
+        p_.ajouter(CardTarot.TRUMP_12);
+        p_.ajouter(CardTarot.TRUMP_11);
+        p_.ajouter(CardTarot.TRUMP_9);
+        p_.ajouter(CardTarot.TRUMP_8);
+        p_.ajouter(CardTarot.TRUMP_7);
+        HandTarot out_ = h_.atoutsMaitres(p_.couleurs());
+        assertEq(5, out_.total());
+        assertSame(CardTarot.TRUMP_20, out_.carte(0));
+        assertSame(CardTarot.TRUMP_18, out_.carte(1));
+        assertSame(CardTarot.TRUMP_10, out_.carte(2));
+        assertSame(CardTarot.TRUMP_6, out_.carte(3));
+        assertSame(CardTarot.TRUMP_1, out_.carte(4));
     }
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){

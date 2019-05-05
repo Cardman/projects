@@ -1,6 +1,7 @@
 package cards.president.enumerations;
 import cards.consts.CardChar;
 import cards.consts.Suit;
+import cards.president.comparators.GameStrengthCardPresidentComparator;
 import code.util.EnumList;
 import code.util.StringList;
 
@@ -120,17 +121,10 @@ public enum CardPresident {
     }
 
     public static byte getAvgStrength(boolean _reverse) {
-        long avg_ = 0;
-        int nb_ = 0;
-        for (CardPresident c: values()) {
-            if (!c.jouable) {
-                continue;
-            }
-            byte s_ = c.strength(_reverse);
-            avg_ += s_;
-            nb_++;
+        if (_reverse) {
+            return GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH_REVERSED;
         }
-        return (byte) (avg_/nb_);
+        return GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH_NORMAL;
     }
 
     public boolean vientAvant(CardPresident _c,boolean _decroissant,EnumList<Suit> _couleurs) {

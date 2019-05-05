@@ -5,6 +5,9 @@ import code.util.ints.Comparing;
 
 public final class GameStrengthCardPresidentComparator implements Comparing<CardPresident> {
 
+    public static final byte CARD_AVG_STRENGTH_NORMAL = 7;
+    public static final byte CARD_AVG_STRENGTH_REVERSED = 7;
+
     private boolean reverseGame;
     private boolean decreasing;
 

@@ -492,16 +492,15 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
             return new HandTarot();
         }
         HandTarot couleurTotale_ = atoutsSansExcuse();
-        if(couleurTotale_.estVide()) {
-            return new HandTarot();
-        }
-        Suit couleur_=couleurTotale_.premiereCarte().couleur();
+        Suit couleur_=Suit.TRUMP;
         HandTarot cartes_ = couleur(couleur_);
         HandTarot cartesJoueesOuPossedees_ = new HandTarot();
-        //C'est_ la_ reunion_ des_ cartes_ jouees_ dans_ le_ jeu_ et_ de_ celles_ du_ joueur_
+        HandTarot played_ = new HandTarot();
         if(!_cartesJouees.isEmpty()) {
-            cartesJoueesOuPossedees_.ajouterCartes(_cartesJouees.getVal(couleur_));
+            played_.ajouterCartes(_cartesJouees.getVal(couleur_));
         }
+        //C'est_ la_ reunion_ des_ cartes_ jouees_ dans_ le_ jeu_ et_ de_ celles_ du_ joueur_
+        cartesJoueesOuPossedees_.ajouterCartes(played_);
         cartesJoueesOuPossedees_.ajouterCartes(cartes_);
         cartesJoueesOuPossedees_.trierParForceEnCours(couleur_);
         HandTarot cartesMaitresses_ = new HandTarot();
@@ -516,21 +515,11 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
             }
             cartesMaitresses_.ajouter(cartesJoueesOuPossedees_.carte(c));
         }
-        if(!_cartesJouees.isEmpty()) {
-            if (cartesMaitresses_.total() * 2 + _cartesJouees.getVal(couleur_).total() >= couleurTotale_
-                    .total()) {
-                for (CardTarot carte_ : cartes_) {
-                    if (!cartesMaitresses_.contient(carte_)) {
-                        cartesMaitresses_.ajouter(carte_);
-                    }
-                }
-            }
-        }else {
-            if (cartesMaitresses_.total() * 2 >= couleurTotale_.total()) {
-                for (CardTarot carte_ : cartes_) {
-                    if (!cartesMaitresses_.contient(carte_)) {
-                        cartesMaitresses_.ajouter(carte_);
-                    }
+        if (cartesMaitresses_.total() >= couleurTotale_
+                .total() - played_.total() - cartes_.total()) {
+            for (CardTarot carte_ : cartes_) {
+                if (!cartesMaitresses_.contient(carte_)) {
+                    cartesMaitresses_.ajouter(carte_);
                 }
             }
         }
