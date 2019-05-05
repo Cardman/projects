@@ -2568,8 +2568,8 @@ public final class GameTarot {
     }
 
 
-    private static boolean estUnJeuDeChelemSur(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
-        int nbTr_ = nbAtoutsMaitres(_couleurs) + _couleurs.getVal(couleurAtout()).total();
+    static boolean estUnJeuDeChelemSur(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
+        int nbTr_ = nbAtoutsMaitres(_couleurs) + _cartesJouees.getVal(Suit.TRUMP).total() + _couleurs.getVal(Suit.TRUMP).total();
         int nbFullTr_ = HandTarot.atoutsSansExcuse().total() + _couleurs.getVal(CardTarot.excuse().couleur()).total();
         if (nbTr_ == nbFullTr_) {
             return nbCouleursMaitresses(_couleurs, _cartesJouees) == couleursOrdinaires().size();
@@ -2662,7 +2662,7 @@ public final class GameTarot {
         return nb_ > totalCouleur_ - 1 && !_couleurs.getVal(CardTarot.EXCUSE.couleur()).estVide();
     }
 
-    private static int nbCartesMaitresses(EnumMap<Suit,HandTarot> _couleurs,
+    static int nbCartesMaitresses(EnumMap<Suit,HandTarot> _couleurs,
             EnumMap<Suit,HandTarot> _cartesJouees,
             Suit _noCouleur) {
         HandTarot couleur_ = _couleurs.getVal(_noCouleur);

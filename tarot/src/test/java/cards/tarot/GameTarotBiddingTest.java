@@ -14,7 +14,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 
-public class GameTarotBidding extends CommonTarotGame {
+public class GameTarotBiddingTest extends CommonTarotGame {
 
 
     static DealTarot initializeHands() {
