@@ -1,4 +1,4 @@
-package cards.gameresults;
+package cards.consts;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;

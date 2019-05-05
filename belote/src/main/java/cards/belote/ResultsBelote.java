@@ -1,6 +1,6 @@
 package cards.belote;
 import cards.consts.GameType;
-import cards.gameresults.ResultsGame;
+import cards.consts.ResultsGame;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;

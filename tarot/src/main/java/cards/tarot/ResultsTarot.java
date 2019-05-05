@@ -1,7 +1,7 @@
 package cards.tarot;
 import cards.consts.GameType;
 import cards.consts.Status;
-import cards.gameresults.ResultsGame;
+import cards.consts.ResultsGame;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;

@@ -14,7 +14,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>../cardgamescommon</module>
-        <module>../cardsgameresults</module>
         <module>../belote</module>
         <module>../president</module>
         <module>../tarot</module>
