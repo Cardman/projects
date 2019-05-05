@@ -13,7 +13,7 @@ import javax.swing.WindowConstants;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.ChosenMoveInfos;

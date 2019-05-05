@@ -4,7 +4,7 @@ import java.io.File;
 
 import pokecards.gui.MainWindow;
 import aiki.game.Game;
-import aiki.game.params.LoadingGame;
+import aiki.sml.LoadingGame;
 import aiki.main.LaunchingPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import cards.belote.GameBelote;

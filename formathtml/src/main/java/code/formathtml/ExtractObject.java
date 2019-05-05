@@ -292,7 +292,7 @@ final class ExtractObject {
                 return NullStruct.NULL_VALUE;
             }
             if (curChar_ == ESCAPED) {
-                escaped_ = false;
+                escaped_ = true;
                 i_++;
                 continue;
             }

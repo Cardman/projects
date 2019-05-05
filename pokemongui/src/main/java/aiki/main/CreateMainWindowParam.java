@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.params.LoadingGame;
+import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import code.util.StringList;
 import code.util.StringMap;

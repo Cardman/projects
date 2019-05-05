@@ -53,7 +53,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
     }
 
-    public static void calculate(ExecutableCode _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateStrBuilder(ExecutableCode _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();

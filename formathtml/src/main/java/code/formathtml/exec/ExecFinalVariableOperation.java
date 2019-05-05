@@ -15,7 +15,7 @@ import code.expressionlanguage.variables.LoopVariable;
 
 public final class ExecFinalVariableOperation extends ExecVariableLeafOperation {
 
-    private String variableName = EMPTY_STRING;
+    private String variableName;
     private int off;
     private ConstType type;
 
@@ -29,12 +29,6 @@ public final class ExecFinalVariableOperation extends ExecVariableLeafOperation 
     @Override
     public void calculate(ExecutableCode _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        if (arg_ == null) {
-            return;
-        }
         setSimpleArgument(arg_, _conf);
     }
 

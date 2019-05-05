@@ -1092,6 +1092,7 @@ public final class FileResolver {
             if (endInstruction_) {
                 after_ = processInstruction(_context, _input, currentChar_, currentParent_, bracedSwitchPart_, _braces, instructionLocation_, instruction_, _file, declType_, i_, _nextIndex, len_, enableByEndLine_);
                 if (after_ == null) {
+                    badIndexes_.add(_nextIndex);
                     return _out;
                 }
                 enableByEndLine_ = after_.isEnabledEnumHeader();
@@ -1827,6 +1828,9 @@ public final class FileResolver {
             String typeStr_ = getDeclaringTypeBlock(infoModifiers_);
             infoModifiers_ = infoModifiers_.substring(typeStr_.length());
             int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
+            if (first_ < 0) {
+                return null;
+            }
             infoModifiers_ = infoModifiers_.substring(first_);
             int lenAfterModifiers_ = infoModifiers_.length();
             int indexMod_ = 0;

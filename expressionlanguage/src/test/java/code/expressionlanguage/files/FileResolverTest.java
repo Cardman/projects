@@ -10268,6 +10268,19 @@ public final class FileResolverTest {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void parseFile19FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer {\n");
+        file_.append("outer {\n");
+        file_.append("inner {\n");
+        file_.append("}\n");
+        file_.append("}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {

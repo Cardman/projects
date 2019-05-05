@@ -14,7 +14,7 @@ import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.EqList;
 
-public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteTest{
+public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
 
     @Before
     public void initialize() {

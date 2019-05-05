@@ -58,7 +58,6 @@
             <artifactId>util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- for use of math random method in instructions -->
         <dependency>
             <groupId>maths</groupId>
             <artifactId>maths</artifactId>

@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import aiki.beans.PokemonStandards;
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.ChangeableTitle;
 import code.gui.Dialog;

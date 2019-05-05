@@ -16,7 +16,7 @@ import javax.swing.Timer;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
 import aiki.game.enums.InterfaceType;

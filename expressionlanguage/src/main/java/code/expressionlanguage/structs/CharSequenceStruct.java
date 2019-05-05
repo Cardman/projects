@@ -32,14 +32,14 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         }
         return true;
     }
-    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            ((CharSequenceStruct) _struct).calculate(_cont, _res, _method, _args);
+            ((CharSequenceStruct) _struct).calculateLocCharSeq(_cont, _res, _method, _args);
             return;
         }
         _res.setResult(new BooleanStruct(_args[0].sameReference(_args[1])));
     }
-    private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
+    private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();

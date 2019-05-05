@@ -1,4 +1,4 @@
-package aiki.game.params;
+package aiki.sml;
 
 
 public final class LoadingGame {

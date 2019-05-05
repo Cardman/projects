@@ -14,7 +14,7 @@ import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.EqList;
 
-public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteTest {
+public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
 
     static DealBelote initializeHands() {
         EqList<HandBelote> mains_ = new EqList<HandBelote>();

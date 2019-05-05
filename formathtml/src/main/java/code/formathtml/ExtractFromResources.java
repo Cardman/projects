@@ -35,9 +35,9 @@ public final class ExtractFromResources {
         if (value_ == null) {
             _conf.getContext().setException(NullStruct.NULL_VALUE);
             //check if key_ is in messages_ from fileNamePath_
-            return value_;
+        } else {
+            _conf.setResourceUrl(fileNamePath_);
         }
-        _conf.setResourceUrl(fileNamePath_);
         return value_;
     }
     static StringMap<String> getInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {

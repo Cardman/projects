@@ -4,8 +4,8 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.WindowConstants;
 
-import aiki.db.Resources;
-import aiki.game.params.LoadingGame;
+import aiki.sml.Resources;
+import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.Dialog;

@@ -3,9 +3,9 @@ import java.awt.Image;
 import java.io.File;
 
 import aiki.db.DataBase;
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.game.Game;
-import aiki.game.params.LoadingGame;
+import aiki.sml.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.gui.ConstFiles;
 import code.gui.LoadLanguage;

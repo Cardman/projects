@@ -133,7 +133,6 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.MovesAbilities;
 import aiki.game.params.Difficulty;
-import aiki.game.params.LoadingGame;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.map.Condition;
@@ -1308,13 +1307,6 @@ public final class Instances {
 
     public static Difficulty newDifficulty() {
         Difficulty object_ = new Difficulty();
-        return object_;
-    }
-
-    public static LoadingGame newLoadingGame() {
-        LoadingGame object_ = new LoadingGame();
-        object_.setLastRom(DataBase.EMPTY_STRING);
-        object_.setLastSavedGame(DataBase.EMPTY_STRING);
         return object_;
     }
 

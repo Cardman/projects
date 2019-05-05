@@ -1,7 +1,7 @@
 package aiki.game.fight.actions;
 
 
-public abstract class ActionHeal extends AbstractAction implements ChosenHealing {
+public abstract class ActionHeal implements AbstractAction,ChosenHealing {
 
     /***/
     private String chosenHealingItem;

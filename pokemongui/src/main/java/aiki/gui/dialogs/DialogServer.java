@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.AbstractDialogServer;
 import code.gui.Dialog;

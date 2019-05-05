@@ -1,7 +1,7 @@
 package aiki.game.fight.actions;
 
 
-public final class ActionSwitch extends AbstractAction implements ChosenReplacing{
+public final class ActionSwitch implements AbstractAction,ChosenReplacing{
 
     /***/
     private byte substitute;

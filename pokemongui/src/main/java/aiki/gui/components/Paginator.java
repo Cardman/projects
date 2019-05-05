@@ -2,7 +2,7 @@ package aiki.gui.components;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.Header;

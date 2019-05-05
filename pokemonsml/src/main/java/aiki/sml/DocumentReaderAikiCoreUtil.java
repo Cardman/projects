@@ -1,7 +1,6 @@
 package aiki.sml;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
-import aiki.db.Resources;
 import aiki.facade.FacadeGame;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
@@ -145,7 +144,6 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.MovesAbilities;
 import aiki.game.params.Difficulty;
-import aiki.game.params.LoadingGame;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.Inventory;
@@ -6628,14 +6626,14 @@ public final class DocumentReaderAikiCoreUtil {
     public static LoadingGame getLoadingGame(String _string) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {
-            return Instances.newLoadingGame();
+            return newLoadingGame();
         }
         return getLoadingGame(doc_.getDocumentElement());
     }
 
     private static LoadingGame getLoadingGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        LoadingGame object_ = Instances.newLoadingGame();
+        LoadingGame object_ = newLoadingGame();
         for (Element c: childElements_) {
             getLoadingGame(object_,c.getAttribute(ATTR_FIELD),c);
         }
@@ -9273,5 +9271,12 @@ public final class DocumentReaderAikiCoreUtil {
             map_.put(keys_.get(i), values_.get(i));
         }
         return map_;
+    }
+
+    public static LoadingGame newLoadingGame() {
+        LoadingGame object_ = new LoadingGame();
+        object_.setLastRom(DataBase.EMPTY_STRING);
+        object_.setLastSavedGame(DataBase.EMPTY_STRING);
+        return object_;
     }
 }

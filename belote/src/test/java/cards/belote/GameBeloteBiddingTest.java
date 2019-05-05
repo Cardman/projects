@@ -16,7 +16,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 
-public class GameBeloteBiddingTest extends GameBeloteTest {
+public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
 
     static DealBelote initializeHands() {

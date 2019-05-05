@@ -143,7 +143,6 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.MovesAbilities;
 import aiki.game.params.Difficulty;
-import aiki.game.params.LoadingGame;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.Inventory;

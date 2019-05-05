@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JCheckBox;
 import javax.swing.WindowConstants;
 
-import aiki.db.Resources;
+import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorItem;

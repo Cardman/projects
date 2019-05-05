@@ -1,5 +1,5 @@
 package aiki.main;
-import aiki.game.params.LoadingGame;
+import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;

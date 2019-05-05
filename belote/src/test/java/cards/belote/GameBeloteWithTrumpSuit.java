@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 import cards.belote.enumerations.BidBelote;
 import cards.consts.Suit;
 
-public class GameBeloteTest extends CommonBeloteGame{
+public class GameBeloteWithTrumpSuit extends CommonBeloteGame{
 
     void biddingTrumpSuit(BidBelote _bid,Suit _suit) {
         if (!_bid.getCouleurDominante()) {

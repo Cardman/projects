@@ -2,7 +2,6 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
@@ -157,9 +156,9 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
 
-    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            ((StringStruct)_struct).calculate(_cont, _res, _method, _args);
+            ((StringStruct)_struct).calculateLocString(_cont, _res, _method, _args);
             return;
         }
         String name_ = _method.getConstraints().getName();
@@ -173,7 +172,7 @@ public final class StringStruct extends CharSequenceStruct {
                 return;
             }
             StringStruct first_ = (StringStruct) arg_;
-            first_.compareTo(_args[1], lgNames_, _res);
+            first_.compareToString(_args[1], lgNames_, _res);
             return;
         }
         Struct arg_;
@@ -226,7 +225,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         return arr_;
     }
-    private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
+    private void calculateLocString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -275,7 +274,7 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
     }
 
-    private void compareTo(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {
+    private void compareToString(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_anotherString instanceof StringStruct)) {
             _res.setError(nullPe_);

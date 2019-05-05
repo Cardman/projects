@@ -51,20 +51,20 @@ public final class Games {
 
     private static final String BELOTE_UNDER_TRUMP_PARTNER = "underTrumpPartner";
     private static final String GAME_PRESIDENT = "cards.president.gamepresident";
-    private static final String FILE_NAME = Format.getClassProperties(GAME_PRESIDENT);
-    private static final String SKIPPED = "skipped";
+    private static final String PRESIDENT_FILE_NAME = Format.getClassProperties(GAME_PRESIDENT);
+    private static final String PRESIDENT_SKIPPED = "skipped";
 
-    private static final String HAVE_PASSED = "havePassed";
+    private static final String PRESIDENT_HAVE_PASSED = "havePassed";
 
-    private static final String HAS_TO_EQUAL_OR_SKIP = "hasToEqualOrSkip";
+    private static final String PRESIDENT_HAS_TO_EQUAL_OR_SKIP = "hasToEqualOrSkip";
 
-    private static final String CANNOT_USE_LOWER_OR_EQ = "cannotUseLowerOrEq";
+    private static final String PRESIDENT_CANNOT_USE_LOWER_OR_EQ = "cannotUseLowerOrEq";
 
-    private static final String CANNOT_USE_LOWER = "cannotUseLower";
+    private static final String PRESIDENT_CANNOT_USE_LOWER = "cannotUseLower";
 
-    private static final String HAVE_PLAY_GIVEN_NUMBER_CARDS = "hasPlayGivenNumberCards";
+    private static final String PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS = "hasPlayGivenNumberCards";
 
-    private static final String CANNOT_PASS = "cannotPass";
+    private static final String PRESIDENT_CANNOT_PASS = "cannotPass";
 
     private static final String TAROT_HANDFUL_EXCUSE = "handfulExcuse";
 
@@ -312,38 +312,38 @@ public final class Games {
         return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
     }
     public static StringBuilder autorisePresident(GamePresident _g,byte _player, CardPresident _card, byte _nb, String _loc) {
-        StringBuilder errorPlaying_ = new StringBuilder();
         Playing playing_ = _g.getStatus(_player);
         if (playing_ == Playing.PASS) {
-            return new StringBuilder(Format.formatter(FOLDER, FILE_NAME, _loc, HAVE_PASSED));
+            return new StringBuilder(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAVE_PASSED));
         }
         if (playing_ == Playing.SKIPPED) {
-            return new StringBuilder(Format.formatter(FOLDER, FILE_NAME, _loc, SKIPPED));
+            return new StringBuilder(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_SKIPPED));
         }
         HandPresident l_ = _g.getProgressingTrick().getBestCards();
+        StringBuilder errorPlaying_ = new StringBuilder();
         byte str_ = l_.premiereCarte().strength(_g.isReversed());
         if (playing_ == Playing.HAS_TO_EQUAL) {
             if (_card.strength(_g.isReversed()) != str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, FILE_NAME, _loc, HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else if (_g.getRules().getEqualty() == EqualtyPlaying.FORBIDDEN) {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, FILE_NAME, _loc, CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_USE_LOWER_OR_EQ, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         } else {
             if (_card.strength(_g.isReversed()) <= str_) {
-                errorPlaying_.append(Format.formatter(FOLDER, FILE_NAME, _loc, CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
+                errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_USE_LOWER, toString(l_.premiereCarte(),_loc))).append(RETURN_LINE);
             }
         }
         if (_nb != _g.getProgressingTrick().getNombreDeCartesParJoueur()) {
-            errorPlaying_.append(Format.formatter(FOLDER, FILE_NAME, _loc, HAVE_PLAY_GIVEN_NUMBER_CARDS, Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
+            errorPlaying_.append(Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_HAVE_PLAY_GIVEN_NUMBER_CARDS, Long.toString(_g.getProgressingTrick().getNombreDeCartesParJoueur()))).append(RETURN_LINE);
         }
         return errorPlaying_;
     }
 
     public static String canPassMess(GamePresident _g, String _loc) {
         HandPresident b_ = _g.getProgressingTrick().getBestCards();
-        return Format.formatter(FOLDER, FILE_NAME, _loc, CANNOT_PASS, toString(b_.premiereCarte(),_loc));
+        return Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS, toString(b_.premiereCarte(),_loc));
     }
     public static String autoriseTarot(GameTarot _g, String _loc) {
         HandTarot main_ = _g.getDistribution().main(_g.playerHavingToPlay());

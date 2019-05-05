@@ -113,7 +113,7 @@ public class ContainerGame implements Packable, Containable {
         String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         Numbers<Long> vl_=new Numbers<Long>();
-        boolean read_ = false;
+        boolean read_ = true;
         StringList lines_ = new StringList();
         if (content_ != null) {
             lines_.addAllElts(StringList.splitChars(content_, LINE_RETURN));
@@ -128,8 +128,7 @@ public class ContainerGame implements Packable, Containable {
             for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
                 vl_.add(Numbers.parseLongZero(lines_.get(indice_)));
             }
-        }
-        if (!read_) {
+        } else {
             vl_=new Numbers<Long>();
             for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
                 vl_.add((long)0);

@@ -8,8 +8,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.structs.CharSequenceStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -424,7 +422,7 @@ public final class AliasCharSequence {
         ResultErrorStd result_;
         result_ = new ResultErrorStd();
         Struct[] args_ = LgNames.getObjects(_args);
-        StringBuilderStruct.calculate(_cont, result_, _method, _struct, args_);
+        StringBuilderStruct.calculateStrBuilder(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
@@ -435,10 +433,10 @@ public final class AliasCharSequence {
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(type_, stringType_)) {
-            StringStruct.calculate(_cont, result_, _method, _struct, args_);
+            StringStruct.calculateString(_cont, result_, _method, _struct, args_);
             return result_;
         }
-        CharSequenceStruct.calculate(_cont, result_, _method, _struct, args_);
+        CharSequenceStruct.calculateCharSeq(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
