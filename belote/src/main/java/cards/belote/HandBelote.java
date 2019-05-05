@@ -666,20 +666,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         return id_;
     }
 
-    public String display() {
-        StringList retString_= new StringList();
-        for (CardBelote c: cards) {
-            retString_.add(c.display());
-        }
-        return retString_.join(SEPARATOR);
-    }
-    public String toString(String _lg) {
-        StringList retString_= new StringList();
-        for (CardBelote c: cards) {
-            retString_.add(c.toString(_lg));
-        }
-        return retString_.join(SEPARATOR);
-    }
     public EnumList<CardBelote> getCards() {
         return cards;
     }

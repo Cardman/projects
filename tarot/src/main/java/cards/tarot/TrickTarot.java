@@ -52,7 +52,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
     /**Indique le joueur qui doit ramasser le pli au tarot
     pour entamer l'eventuel suivant
     @param _nombreJoueurs nombre de joueurs qui jouent a cette partie*/
-    byte getRamasseur(byte _nombreJoueurs) {
+    public byte getRamasseur(byte _nombreJoueurs) {
         byte ramasseur_;
         byte max_=0;
         byte i=0;

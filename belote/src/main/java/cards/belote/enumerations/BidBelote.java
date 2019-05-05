@@ -1,6 +1,5 @@
 package cards.belote.enumerations;
 import cards.consts.Order;
-import code.format.Format;
 import code.util.EnumList;
 
 public enum BidBelote {
@@ -82,9 +81,6 @@ public enum BidBelote {
         return ordre == Order.TRUMP;
     }
 
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_BID,name());
-    }
     public boolean jouerDonne(){
         return force>0;
     }

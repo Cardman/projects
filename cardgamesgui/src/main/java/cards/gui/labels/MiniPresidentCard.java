@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.president.enumerations.CardPresident;
 import code.gui.PaintableLabel;
 import code.util.Numbers;
@@ -30,7 +31,7 @@ public class MiniPresidentCard extends PaintableLabel {
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.drawRect(0,0,getWidth()-1,getHeight()-1);
-        _g.drawString(card.getSymbol(Constants.getDefaultLanguage()),0,20);
+        _g.drawString(Games.getSymbol(card,Constants.getDefaultLanguage()),0,20);
         dessinerGrandSymbole(_g, 0, 20);
     }
 

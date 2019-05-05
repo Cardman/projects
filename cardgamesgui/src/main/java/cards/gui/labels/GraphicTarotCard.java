@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
@@ -82,8 +83,8 @@ public class GraphicTarotCard extends PaintableLabel {
             for(byte b=0;b<2;b++) {
                 g_.setColor(Color.BLACK);
                 g_.setFont(new Font(DEFAULT,Font.BOLD,20));
-                g_.drawString(_card.getSymbol(_lg),5,20);
-                g_.drawString(_card.getSymbol(_lg),87,20);
+                g_.drawString(Games.getSymbol(_card,_lg),5,20);
+                g_.drawString(Games.getSymbol(_card,_lg),87,20);
                 g_.setColor(Color.GREEN);
                 g_.fillPolygon(Numbers.wrapIntArray(35,40,40,33,13,11,30,35,47,47,53,53,65,80,65,70),Numbers.wrapIntArray(75,60,40,55,61,56,50,35,35,30,30,35,35,55,65,75),16);
                 g_.setColor(Color.WHITE);
@@ -128,13 +129,13 @@ public class GraphicTarotCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(_lg),5,12);
-                        g_.drawString(_card.getSymbol(_lg),83,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,12);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(_lg),5,18);
-                        g_.drawString(_card.getSymbol(_lg),80,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),80,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -162,15 +163,15 @@ public class GraphicTarotCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(_lg),5,12);
-                        g_.drawString(_card.getSymbol(_lg),83,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,12);
                         dessinerPetitSymbole(_card,g_,5,17);
                         dessinerPetitSymbole(_card,g_,85,17);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(_lg),7,18);
-                        g_.drawString(_card.getSymbol(_lg),83,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),7,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -194,8 +195,8 @@ public class GraphicTarotCard extends PaintableLabel {
                     g_.setColor(Color.BLACK);
                 }
                 g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                g_.drawString(_card.getSymbol(_lg),5,12);
-                g_.drawString(_card.getSymbol(_lg),83,12);
+                g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                g_.drawString(Games.getSymbol(_card,_lg),83,12);
                 dessinerPetitSymbole(_card,g_,5,17);
                 dessinerPetitSymbole(_card,g_,85,17);
                 if(_card.getNomFigure() == CardChar.QUEEN) {

@@ -3,6 +3,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
@@ -50,7 +51,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
             partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().toString(lg_),ContainerGame.RETURN_LINE));
+            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
                 container.getValidateDog().setEnabledLabel(true);
@@ -68,7 +69,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
         partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().toString(lg_),ContainerGame.RETURN_LINE));
+        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {

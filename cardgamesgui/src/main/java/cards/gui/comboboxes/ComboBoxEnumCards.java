@@ -1,11 +1,10 @@
 package cards.gui.comboboxes;
-import code.format.Translatable;
 import code.gui.TreeComboBox;
 import code.util.CustList;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorNatNumber;
 
-public final class ComboBoxEnumCards<E extends Translatable> extends TreeComboBox<Integer> {
+public final class ComboBoxEnumCards<E> extends TreeComboBox<Integer> {
 
     private CustList<E> real = new CustList<E>();
 
@@ -13,13 +12,12 @@ public final class ComboBoxEnumCards<E extends Translatable> extends TreeComboBo
         super(new TreeMap<Integer,String>(new ComparatorNatNumber<Integer>()));
     }
 
-    public void addItem(E _item, String _lg) {
+    public void addItem(E _item, String _itemString) {
         TreeMap<Integer, String> tr_;
         tr_ = getElements();
-        tr_.put(tr_.size(), _item.toString(_lg));
+        tr_.put(tr_.size(), _itemString);
         real.add(_item);
-//        getElements().put(_item, _item.toString());
-        super.addItem(_item.toString(_lg));
+        super.addItem(_itemString);
     }
     @Override
     public void removeItem(int _anIndex) {
@@ -38,8 +36,4 @@ public final class ComboBoxEnumCards<E extends Translatable> extends TreeComboBo
         }
         return real.get(key_);
     }
-//
-//    public E getCurrentElement() {
-//        return (E) getSelectedItem();
-//    }
 }

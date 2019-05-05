@@ -1,5 +1,4 @@
 package cards.consts;
-import code.format.Format;
 import code.util.EnumList;
 
 /**Couleurs existantes dans les jeux de cartes (Atout n'existe que pour le Tarot)*/
@@ -30,9 +29,4 @@ UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
         return true;
     }
 
-    public String toString(String _locale) {
-        String folderName_ = ResourcesAccess.NOM_DOSSIER;
-        String fileName_ = ResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.SUIT, name());
-    }
 }

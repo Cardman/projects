@@ -91,7 +91,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.display(),playableCards_.contient(CardBelote.SPADE_JACK));
+        assertTrue(playableCards_.contient(CardBelote.SPADE_JACK));
         assertEq(1, playableCards_.total());
         assertEq(1, suits_.getVal(game.getPliEnCours().couleurDemandee()).total());
     }
@@ -110,7 +110,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.display(),playableCards_.couleur(game.getContrat(),Suit.SPADE).estVide());
+        assertTrue(playableCards_.couleur(game.getContrat(),Suit.SPADE).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe2Test(){
@@ -127,7 +127,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.display(),playableCards_.couleur(game.getContrat(),Suit.CLUB).estVide());
+        assertTrue(playableCards_.couleur(game.getContrat(),Suit.CLUB).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe3Test(){
@@ -144,7 +144,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteTest{
         hand_ = game.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game.getContrat());
         HandBelote playableCards_ = game.playableCards(suits_);
-        assertTrue(playableCards_.display(),playableCards_.couleur(game.getContrat(),Suit.DIAMOND).estVide());
+        assertTrue(playableCards_.couleur(game.getContrat(),Suit.DIAMOND).estVide());
     }
     @Test
     public void playableCards_WhileTrumpingTrickOverAFoe4(){

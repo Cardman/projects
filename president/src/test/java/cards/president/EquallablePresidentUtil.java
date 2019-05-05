@@ -21,7 +21,7 @@ public final class EquallablePresidentUtil {
     }
     public static void assertEq(HandPresident _expected, HandPresident _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(_expected.eq(_result));
     }
 
     public static void assertEq(Playing _expected, Playing _result) {

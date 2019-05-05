@@ -31,17 +31,17 @@ public final class RulesTarotBean extends TarotBean {
     public void beforeDisplaying() {
         RulesTarot rules_ = (RulesTarot) getDataBase();
         String lg_ = getLanguage();
-        cartesBattues=rules_.getCartesBattues().toString(lg_);
+        cartesBattues=toString(rules_.getCartesBattues(),lg_);
         miseres=new StringList();
         for (Miseres m: rules_.getMiseres()) {
-            miseres.add(m.toString(lg_));
+            miseres.add(toString(m,lg_));
         }
         contrats=new StringList();
         for (BidTarot m: rules_.getContratsAutorises()) {
-            contrats.add(m.toString(lg_));
+            contrats.add(toString(m,lg_));
         }
-        mode = rules_.getMode().toString(lg_);
-        repartition = rules_.getRepartition().toString(lg_);
+        mode = toString(rules_.getMode(),lg_);
+        repartition = toString(rules_.getRepartition(),lg_);
         int nbCardsPerPlayer_ = rules_.getRepartition().getNombreCartesParJoueur();
         TreeMap<Handfuls,Integer> tr_;
         tr_ = new TreeMap<Handfuls,Integer>(new AllowedHandfulDefaultComparator(nbCardsPerPlayer_));
@@ -51,10 +51,10 @@ public final class RulesTarotBean extends TarotBean {
         StringMap<Integer> str_ = new StringMap<Integer>();
         for (EntryCust<Handfuls,Integer> e: tr_.entryList()) {
             Handfuls h_ = e.getKey();
-            str_.addEntry(h_.toString(lg_), e.getValue());
+            str_.addEntry(toString(h_,lg_), e.getValue());
         }
         poigneesAutorisees = str_;
-        finPartieTarot = rules_.getFinPartieTarot().toString(lg_);
+        finPartieTarot = toString(rules_.getFinPartieTarot(),lg_);
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 

@@ -25,12 +25,12 @@ public final class EquallableBeloteUtil {
     }
     public static void assertEq(HandBelote _expected, HandBelote _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(_expected.eq(_result));
     }
 
     public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(_expected.eq(_result));
     }
     
     public static void assertEq(Suit _expected, Suit _result) {

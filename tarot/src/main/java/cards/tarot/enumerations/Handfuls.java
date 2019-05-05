@@ -1,12 +1,10 @@
 package cards.tarot.enumerations;
 import cards.tarot.HandTarot;
-import code.format.Format;
-import code.format.Translatable;
 import code.util.EnumList;
 import code.util.NumberMap;
 
 /**Poignees utilisees au tarot*/
-public enum Handfuls implements Translatable {
+public enum Handfuls {
     NO,ONE(20),TWO(30),THREE(40),FOUR(50);
     private final boolean declarable;
     private final int points;
@@ -125,8 +123,4 @@ public enum Handfuls implements Translatable {
         return configuration_;
     }
 
-    @Override
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_HANDFULS,name());
-    }
 }

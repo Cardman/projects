@@ -25,7 +25,6 @@ import cards.consts.Order;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Status;
 import cards.consts.Suit;
-import code.format.Format;
 import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -38,32 +37,6 @@ import code.util.consts.Constants;
  */
 
 public final class GameBelote {
-    private static final String GAME_BELOTE = "cards.belote.gamebelote";
-    private static final String FOLDER = "resources_cards/classes";
-
-    private static final String OVER_TRUMP_FOE = "overTrumpFoe";
-
-    private static final String OVER_TRUMP_PARTNER = "overTrumpPartner";
-
-    private static final String PLAY_STRONGER_CARD = "playStrongerCard";
-
-    private static final String PLAY_SUIT = "playSuit";
-
-    private static final String TRUMP_FOE = "trumpFoe";
-
-    private static final String UNDER_TRUMP_FOE = "underTrumpFoe";
-
-    private static final String UNDER_TRUMP_PARTNER = "underTrumpPartner";
-
-    private static final String HAND_VALUE_SUIT = "handValueSuit";
-
-    private static final String HAND_VALUE_NO_SUIT = "handValueNoSuit";
-
-    private static final String OVERBID_DUE = "overbidDue";
-
-    private static final String PLAY_BELOTE_REBELOTE= "playBeloteRebelote";
-
-    private static final String RETURN_LINE = "\n";
 
     private static final String EMPTY = "";
     private AtomicInteger chargementSimulation = new AtomicInteger(0);
@@ -112,9 +85,6 @@ public final class GameBelote {
 
     private HandBelote cardsToBePlayed = new HandBelote();
 
-    private String gameError = EMPTY;
-    private StringBuilder reason = new StringBuilder();
-    private final String file = Format.getClassProperties(GAME_BELOTE);
     private String error = "";
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}
@@ -259,7 +229,6 @@ public final class GameBelote {
         }
         tricks = new CustList<TrickBelote>();
         cardsToBePlayed = new HandBelote();
-        gameError = EMPTY;
     }
     public void simuler(String _loc) {
         simulationWithBids = false;
@@ -360,11 +329,11 @@ public final class GameBelote {
         return simulationWithBids;
     }
 
-    private boolean surCoupeObligatoirePartenaire() {
+    public boolean surCoupeObligatoirePartenaire() {
         return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
                 ||rules.getGestionCoupePartenaire()==BeloteTrumpPartner.OVERTRUMP_ONLY;
     }
-    private boolean sousCoupeObligatoirePartenaire() {
+    public boolean sousCoupeObligatoirePartenaire() {
         return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
                 || rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_ONLY;
     }
@@ -374,13 +343,8 @@ public final class GameBelote {
     public boolean autorise(CardBelote _c, String _loc) {
         cardsToBePlayed = new HandBelote();
         cardsToBePlayed.ajouter(_c);
-        gameError = EMPTY;
         HandBelote main_=getDistribution().main(playerHavingToPlay());
         return cartesJouables(main_.couleurs(bid),_loc).contient(_c);
-    }
-
-    public String getErreurDeJeu() {
-        return gameError;
     }
 
     private static HandBelote cartesAtouts(Suit _couleur) {
@@ -466,7 +430,6 @@ public final class GameBelote {
         return lastBid;
     }
     public BidBeloteSuit strategieContrat(String _lg) {
-        reason = new StringBuilder();
         BidBeloteSuit contratJoueur_=contrat();
         if (getRegles().dealAll()) {
             return contratJoueur_;
@@ -474,24 +437,9 @@ public final class GameBelote {
         if(contratJoueur_.estDemandable(bid)) {
             return contratJoueur_;
         }
-        if(!contratJoueur_.getCouleurDominante()) {
-            formatOverBid(contratJoueur_,_lg);
-        } else {
-            formatClassicBid(contratJoueur_,_lg);
-        }
         return new BidBeloteSuit();
     }
 
-    private void formatClassicBid(BidBeloteSuit _contratJoueur, String _lg) {
-        reason.append(format(HAND_VALUE_SUIT, _contratJoueur.getCouleur().toString(_lg), bid.getEnchere().toString(_lg))).append(RETURN_LINE);
-        reason.append(format(_lg, OVERBID_DUE));
-    }
-
-    private void formatOverBid(BidBeloteSuit _contratJoueur, String _lg) {
-        reason.append(format(HAND_VALUE_NO_SUIT, _contratJoueur.getEnchere().toString(_lg), bid.getEnchere().toString(_lg)));
-        reason.append(RETURN_LINE);
-        reason.append(format(_lg, OVERBID_DUE));
-    }
     public EqList<BidBeloteSuit> allowedBids() {
         EqList<BidBeloteSuit> encheres_ = new EqList<BidBeloteSuit>();
         if (getRegles().dealAll()) {
@@ -859,17 +807,14 @@ public final class GameBelote {
         return getProgressingTrick();
     }
     public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct, String _loc) {
-        reason = new StringBuilder();
         if(bid.getCouleurDominante()) {
             if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur,_loc)) {
-                reason=new StringBuilder(format(_loc,PLAY_BELOTE_REBELOTE, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(_loc)));
                 return true;
             }
         }
         return false;
     }
     public DeclareHandBelote strategieAnnonces(byte _joueurCourant) {
-        reason = new StringBuilder();
         EnumList<DeclaresBelote> annoncesAutorisees_ = new EnumList<DeclaresBelote>();
         for(DeclaresBelote a: rules.getAnnoncesAutorisees().getKeys()) {
             if(!rules.getAnnoncesAutorisees().getVal(a)) {
@@ -982,7 +927,6 @@ public final class GameBelote {
         return playedCard;
     }
     public CardBelote strategieJeuCarteUnique() {
-        reason = new StringBuilder();
         if(progressingTrick.estVide()) {
             return entame();
         }
@@ -4079,16 +4023,10 @@ public final class GameBelote {
                 }
                 if(trumps_.derniereCarte().strength(couleurDemandee_,bid)>valeurForte_) {
                     cartesJouables_.ajouterCartes(trumps_);
-                    if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                        gameError=Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-                    }
                     return cartesJouables_;
                 }
                 if(trumps_.premiereCarte().strength(couleurDemandee_,bid)<valeurForte_) {
                     cartesJouables_.ajouterCartes(trumps_);
-                    if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                        gameError=Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-                    }
                     return cartesJouables_;
                 }
                 byte indexTrump_ = CustList.FIRST_INDEX;
@@ -4096,16 +4034,10 @@ public final class GameBelote {
                     cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                     indexTrump_++;
                 }
-                if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                    gameError=Format.formatter(FOLDER, file, _loc, PLAY_STRONGER_CARD, carteForte_.toString(_loc));
-                }
                 return cartesJouables_;
             }
             if(!leadingSuit_.estVide()) {
                 cartesJouables_.ajouterCartes(leadingSuit_);
-                if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                    gameError=Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-                }
                 return cartesJouables_;
             }
             if(trumps_.estVide()) {
@@ -4120,17 +4052,11 @@ public final class GameBelote {
                     if(sousCoupeObligatoirePartenaire()) {
                         if(trumps_.premiereCarte().strength(couleurDemandee_,bid)<valeurForte_) {
                             cartesJouables_.ajouterCartes(trumps_);
-                            if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                                gameError=Format.formatter(FOLDER, file, _loc, UNDER_TRUMP_PARTNER, couleurAtout_.toString(_loc));
-                            }
                             return cartesJouables_;
                         }
                     }
                     if(trumps_.derniereCarte().strength(couleurDemandee_,bid)>valeurForte_) {
                         cartesJouables_.ajouterCartes(trumps_);
-                        if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                            gameError=Format.formatter(FOLDER, file, _loc, OVER_TRUMP_PARTNER, couleurAtout_.toString(_loc));
-                        }
                         return cartesJouables_;
                     }
                     if(trumps_.premiereCarte().strength(couleurDemandee_,bid)>valeurForte_) {
@@ -4138,9 +4064,6 @@ public final class GameBelote {
                         while (trumps_.carte(indexTrump_).strength(couleurDemandee_,bid)>valeurForte_) {
                             cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                             indexTrump_++;
-                        }
-                        if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                            gameError=Format.formatter(FOLDER, file, _loc, PLAY_STRONGER_CARD, carteForte_.toString(_loc));
                         }
                         return cartesJouables_;
                     }
@@ -4152,9 +4075,6 @@ public final class GameBelote {
                 if(sousCoupeObligatoirePartenaire()) {
                     if(trumps_.premiereCarte().strength(couleurDemandee_,bid)<valeurForte_) {
                         cartesJouables_.ajouterCartes(trumps_);
-                        if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                            gameError=Format.formatter(FOLDER, file, _loc, UNDER_TRUMP_PARTNER, couleurAtout_.toString(_loc));
-                        }
                         return cartesJouables_;
                     }
                 }
@@ -4167,17 +4087,11 @@ public final class GameBelote {
             if(trumpsTrick_.estVide()) {
                 /*PliBelote non coupe*/
                 cartesJouables_.ajouterCartes(trumps_);
-                if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                    gameError=Format.formatter(FOLDER, file, _loc, TRUMP_FOE, carteForte_.toString(_loc));
-                }
                 return cartesJouables_;
             }
             /*PliBelote coupe par un adversaire*/
             if(trumps_.derniereCarte().strength(couleurDemandee_,bid)>valeurForte_) {
                 cartesJouables_.ajouterCartes(trumps_);
-                if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                    gameError=Format.formatter(FOLDER, file, _loc, OVER_TRUMP_FOE, couleurAtout_.toString(_loc));
-                }
                 return cartesJouables_;
             }
             if(trumps_.premiereCarte().strength(couleurDemandee_,bid)>valeurForte_) {
@@ -4185,9 +4099,6 @@ public final class GameBelote {
                 while (trumps_.carte(indexTrump_).strength(couleurDemandee_,bid)>valeurForte_) {
                     cartesJouables_.ajouter(trumps_.carte(indexTrump_));
                     indexTrump_++;
-                }
-                if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                    gameError=Format.formatter(FOLDER, file, _loc, PLAY_STRONGER_CARD, carteForte_.toString(_loc));
                 }
                 return cartesJouables_;
             }
@@ -4198,9 +4109,6 @@ public final class GameBelote {
                 return cartesJouables_;
             }
             cartesJouables_.ajouterCartes(trumps_);
-            if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                gameError=Format.formatter(FOLDER, file, _loc, UNDER_TRUMP_FOE, couleurAtout_.toString(_loc));
-            }
             return cartesJouables_;
         }
         if(bid.ordreCouleur()) {
@@ -4211,9 +4119,6 @@ public final class GameBelote {
                 return cartesJouables_;
             }
             cartesJouables_.ajouterCartes(leadingSuit_);
-            if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                gameError=Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-            }
             return cartesJouables_;
         }
         if(leadingSuit_.estVide()) {
@@ -4226,18 +4131,12 @@ public final class GameBelote {
         if(leadingSuit_.derniereCarte().strength(couleurDemandee_,bid)>valeurForte_
                 ||leadingSuit_.premiereCarte().strength(couleurDemandee_,bid)<valeurForte_) {
             cartesJouables_.ajouterCartes(leadingSuit_);
-            if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                gameError=Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-            }
             return cartesJouables_;
         }
         byte indexTrump_ = CustList.FIRST_INDEX;
         while (leadingSuit_.carte(indexTrump_).strength(couleurDemandee_,bid)>valeurForte_) {
             cartesJouables_.ajouter(leadingSuit_.carte(indexTrump_));
             indexTrump_++;
-        }
-        if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-            gameError=Format.formatter(FOLDER, file, _loc, PLAY_STRONGER_CARD, carteForte_.toString(_loc));
         }
         return cartesJouables_;
     }
@@ -5728,7 +5627,7 @@ public final class GameBelote {
         return retour_;
     }
 
-    boolean memeEquipe(byte _numero1,byte _numero2) {
+    public boolean memeEquipe(byte _numero1, byte _numero2) {
         if (aPourDefenseur(_numero1)) {
             return aPourDefenseur(_numero2);
         }
@@ -5887,7 +5786,7 @@ public final class GameBelote {
     public void ajouterUneCarteDansPliEnCours(CardBelote _c) {
         progressingTrick.ajouter(_c);
     }
-    private static HandBelote main(EnumMap<Suit,HandBelote> _mains,Suit _couleur) {
+    public static HandBelote main(EnumMap<Suit, HandBelote> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
     private static EqList<HandBelote> suite(EnumMap<Suit,EqList<HandBelote>> _mains,Suit _couleur) {
@@ -6257,12 +6156,8 @@ public final class GameBelote {
         return joueursSusceptiblesDeCouper_;
     }
 
-    public String getRaison() {
-        return reason.toString();
-    }
-
-    private String format(String _lg, String _key, String... _vars) {
-        return Format.formatter(FOLDER, file, _lg, _key, _vars);
+    public BidBeloteSuit getBid() {
+        return bid;
     }
 
     public int getChargementSimulation() {

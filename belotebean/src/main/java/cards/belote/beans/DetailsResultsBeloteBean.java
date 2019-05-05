@@ -25,26 +25,26 @@ final class DetailsResultsBeloteBean extends BeloteBean {
             for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                 SumDeclaringPlayer sumDeclaring_ = new SumDeclaringPlayer();
                 sumDeclaring_.setNickname(getNicknames().get(p));
-                sumDeclaring_.setStatut(getGame().statutDe(p).toString(getLoc()));
+                sumDeclaring_.setStatut(toString(getGame().statutDe(p),getLoc()));
                 int sum_ = 0;
                 CustList<DeclaringPlayerValue> listDeclaring_ = new CustList<DeclaringPlayerValue>();
                 if (getGame().getAnnonce(p).getAnnonce() != DeclaresBelote.UNDEFINED) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(getGame().getAnnonce(p).getAnnonce().toString(getLoc()));
+                    decl_.setDeclaring(toString(getGame().getAnnonce(p).getAnnonce(),getLoc()));
                     decl_.setValue(getGame().getAnnonce(p).getAnnonce().getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }
                 if (!getGame().getAnnoncesBeloteRebelote(p).estVide()) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(getLoc()));
+                    decl_.setDeclaring(toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,getLoc()));
                     decl_.setValue(DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }
                 if (getGame().getDixDeDer(p)) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(BonusBelote.LAST_TRICK.toString(getLoc()));
+                    decl_.setDeclaring(toString(BonusBelote.LAST_TRICK,getLoc()));
                     decl_.setValue(BonusBelote.LAST_TRICK.getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);

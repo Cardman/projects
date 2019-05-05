@@ -23,7 +23,7 @@ public final class EquallableTarotUtil {
     }
     public static void assertEq(HandTarot _expected, HandTarot _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(_expected.eq(_result));
     }
     
     public static void assertEq(Suit _expected, Suit _result) {

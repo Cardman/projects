@@ -1,7 +1,12 @@
 package cards.president.beans;
+import cards.consts.CoreResourcesAccess;
+import cards.consts.MixCardsChoice;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
+import cards.president.enumerations.EqualtyPlaying;
+import cards.president.enumerations.PresidentResoucesAccess;
 import code.bean.Bean;
+import code.format.Format;
 
 final class RulesPresidentBean extends Bean {
 
@@ -30,10 +35,10 @@ final class RulesPresidentBean extends Bean {
     @Override
     public void beforeDisplaying() {
         RulesPresident rules_ = (RulesPresident) getDataBase();
-        cartesBattues=rules_.getMixedCards().toString(getLanguage());
+        cartesBattues=toString(rules_.getMixedCards(),getLanguage());
         nbPlayers = rules_.getNbPlayers();
         nbStacks = rules_.getNbStacks();
-        equalty = rules_.getEqualty().toString(getLanguage());
+        equalty = toString(rules_.getEqualty(),getLanguage());
         possibleReversing = rules_.isPossibleReversing();
         hasToPlay = rules_.isHasToPlay();
         loosingIfFinishByBestCards = rules_.isLoosingIfFinishByBestCards();
@@ -46,7 +51,14 @@ final class RulesPresidentBean extends Bean {
             nbCardsPerPlayerMax++;
         }
     }
-
+    static String toString(MixCardsChoice _b, String _locale) {
+        String folderName_ = CoreResourcesAccess.NOM_DOSSIER;
+        String fileName_ = CoreResourcesAccess.NOM_FICHIER;
+        return Format.getConstanteLangue(folderName_,fileName_, _locale, CoreResourcesAccess.MIX,_b.name());
+    }
+    static String toString(EqualtyPlaying _b, String _locale){
+        return Format.getConstanteLangue(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER, _locale, PresidentResoucesAccess.PRESIDENT_EQUAL_PLAY,_b.name());
+    }
     boolean sameAmount() {
         return nbCardsPerPlayerMin == nbCardsPerPlayerMax;
     }

@@ -1,10 +1,8 @@
 package cards.tarot.enumerations;
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**
     */
@@ -225,12 +223,7 @@ public enum CardTarot {
     public CardChar getNomFigure() {
         return nomFigure;
     }
-    public String getSymbol(String _loc) {
-        if (nomFigure != CardChar.UNDEFINED) {
-            return nomFigure.getSymbol(_loc);
-        }
-        return String.valueOf(force);
-    }
+
     public Suit couleur() {
         return couleur;
     }
@@ -240,10 +233,6 @@ public enum CardTarot {
 
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
         return (byte) (_couleurs.indexOfObj(couleur)+1);
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_CARD,name());
     }
 
     public String getImageFileName(String _ext) {
@@ -262,7 +251,8 @@ public enum CardTarot {
         }
         return false;
     }
-    public String display() {
-        return toString(Constants.getDefaultLanguage());
+
+    public byte getForce() {
+        return force;
     }
 }

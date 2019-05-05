@@ -9,6 +9,7 @@ import javax.swing.SpinnerListModel;
 
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
@@ -86,7 +87,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString(lg_));
+            trMix_.put(choix_, Games.toString(choix_,lg_));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -113,7 +114,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             if (choix_ == curThree_) {
                 i_ = index_;
             }
-            equality.addItem(choix_, lg_);
+            equality.addItem(choix_, Games.toString(choix_,lg_));
             index_++;
         }
         if (i_ > -1) {

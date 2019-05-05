@@ -20,17 +20,7 @@ import cards.tarot.comparators.HandTarotCharLongLengthComparator;
 import cards.tarot.comparators.HandTarotCharShortLengthComparator;
 import cards.tarot.comparators.HandTarotLongLengthComparator;
 import cards.tarot.comparators.HandTarotShortLengthComparator;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.BonusTarot;
-import cards.tarot.enumerations.CallingCard;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.DealingTarot;
-import cards.tarot.enumerations.EndDealTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
-import cards.tarot.enumerations.ModeTarot;
-import cards.tarot.enumerations.PlayingDog;
-import code.format.Format;
+import cards.tarot.enumerations.*;
 import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -54,41 +44,7 @@ public final class GameTarot {
 
     public static final int PTS_BASE = 25;
 
-    private static final String GAME_TAROT = "cards.tarot.gametarot";
-
-    private static final String FOLDER = "resources_cards/classes";
-
-    private static final String HANDFUL_EXCUSE = "handfulExcuse";
-
-    private static final String HANDFUL_NOT_ENOUGH_TRUMPS = "handfulNotEnoughTrumps";
-
-    private static final String HANDFUL_TOO_MANY_TRUMPS = "handfulTooManyTrumps";
-
     private static final String EMPTY = "";
-
-    private static final String RETURN_LINE = "\n";
-
-    private static final String TOO_MANY_CARDS = "tooManyCards";
-
-    private static final String DISCARDED_TRUMP = "discardedTrump";
-
-    private static final String NO_DISCARDED_CHARACTER = "noDiscardedCharacter";
-
-    private static final String NO_DISCARDED_OUDLER = "noDiscardedOudler";
-
-    private static final String NO_DISCARDED_TRUMP = "noDiscardedTrump";
-
-    private static final String FIRST_TRICK = "firstTrick";
-
-    private static final String OVERTRUMP = "overtrump";
-
-    private static final String PLAY_STRONGER_CARD = "playStrongerCard";
-
-    private static final String PLAY_SUIT = "playSuit";
-
-    private static final String TRUMP = "trump";
-
-    private static final String UNDERTRUMP = "undertrump";
 
     private static final int PERCENT_MAX = 100;
 
@@ -166,8 +122,6 @@ public final class GameTarot {
 
     private HandTarot cardsToBeDiscarded = new HandTarot();
 
-    private StringBuilder discardError = new StringBuilder();
-
     private HandTarot cardsToBePlayed = new HandTarot();
 
     private String errorHandful = EMPTY;
@@ -177,8 +131,6 @@ public final class GameTarot {
     private CardTarot playedCard = CardTarot.WHITE;
 
     private StringBuilder reason = new StringBuilder();
-
-    private final String file = Format.getClassProperties(GAME_TAROT);
 
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {
@@ -315,7 +267,6 @@ public final class GameTarot {
             handfuls.set( joueur_, new HandTarot());
         }
         cardsToBeDiscarded = new HandTarot();
-        discardError = new StringBuilder();
         cardsToBePlayed = new HandTarot();
         errorHandful = EMPTY;
         errorPlaying = EMPTY;
@@ -1756,14 +1707,11 @@ public final class GameTarot {
         return Status.DEFENDER;
     }
 
-
-    public boolean autoriseEcartDe(CardTarot _c, String _loc) {
+    public ReasonDiscard autoriseEcartDe(CardTarot _c, String _loc) {
         HandTarot m = getDistribution().main(getPreneur());
-        discardError = new StringBuilder();
         if(cardsToBeDiscarded.total() >= getDistribution()
                 .derniereMain().total()) {
-            discardError =new StringBuilder(Format.formatter(FOLDER, file, _loc, TOO_MANY_CARDS));
-            return false;
+            return ReasonDiscard.TOO_MUCH;
         }
         cardsToBeDiscarded.ajouter(_c);
         boolean allowed_ = getCartesEcartables(getDistribution()
@@ -1772,7 +1720,10 @@ public final class GameTarot {
         if (!allowed_) {
             cardsToBeDiscarded.jouer(_c);
         }
-        return allowed_;
+        if (allowed_) {
+            return ReasonDiscard.NOTHING;
+        }
+        return ReasonDiscard.FORBIDDEN;
     }
     HandTarot getCartesEcartables(int _nombreCartesChien,
             EnumMap<Suit,HandTarot> _repartition) {
@@ -1835,47 +1786,8 @@ public final class GameTarot {
                 }
                 cartesEcartables_.ajouter(c);
             }
-            for(CardTarot carte_:cardsToBeDiscarded) {
-                if(cartesEcartables_.contient(carte_)) {
-                    continue;
-                }
-                if (progressingTrick.contient(carte_)) {
-                    continue;
-                }
-                if(carte_.estUnBout()) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))).append(RETURN_LINE);
-                }
-                if(carte_.couleur() == couleurAtout() && !carte_.estUnBout()) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, DISCARDED_TRUMP, carte_.toString(_loc))).append(RETURN_LINE);
-                }
-                if(carte_.getNomFigure() == CardChar.KING) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))).append(RETURN_LINE);
-                }
-            }
-        } else {
-            for(CardTarot carte_:cardsToBeDiscarded) {
-                if(cartesEcartables_.contient(carte_)) {
-                    continue;
-                }
-                if (progressingTrick.contient(carte_)) {
-                    continue;
-                }
-                if(carte_.estUnBout()) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_OUDLER, carte_.toString(_loc))).append(RETURN_LINE);
-                }
-                if(carte_.couleur() == couleurAtout()) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_TRUMP, carte_.toString(_loc))).append(RETURN_LINE);
-                }
-                if(carte_.getNomFigure() == CardChar.KING) {
-                    discardError.append(Format.formatter(FOLDER, file, _loc, NO_DISCARDED_CHARACTER, carte_.toString(_loc), CardChar.KING.toString(_loc))).append(RETURN_LINE);
-                }
-            }
         }
         return cartesEcartables_;
-    }
-
-    public String getErreurDEcart() {
-        return discardError.toString();
     }
 
     public void ecarter(boolean _createTrick) {
@@ -1930,7 +1842,6 @@ public final class GameTarot {
     private HandTarot discarding(boolean _carteAppeleeExistante,HandTarot _carteAppelee,
             EnumList<Suit> _couleursNonAppelees) {
         HandTarot handStrat_ = strategieEcart(_carteAppeleeExistante,_carteAppelee,_couleursNonAppelees);
-        discardError = new StringBuilder();
         cardsToBeDiscarded = new HandTarot();
         return handStrat_;
     }
@@ -1941,7 +1852,6 @@ public final class GameTarot {
         EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         int tailleChien_ = getDistribution().derniereMain().total();
-        discardError = new StringBuilder();
         cardsToBeDiscarded = new HandTarot();
         HandTarot ecartables_ = getCartesEcartables(tailleChien_, repartition_);
         EnumMap<Suit,HandTarot> repEcartables_ = ecartables_.couleurs();
@@ -2616,23 +2526,9 @@ public final class GameTarot {
 
     public boolean isValidHandful(Handfuls _h, HandTarot _hand,HandTarot _excludedCards, String _loc) {
         int nbTrumps_ = rules.getPoigneesAutorisees().getVal(_h);
-        if (_hand.total()==nbTrumps_&&(!_hand.contient(CardTarot.excuse())||_excludedCards.estVide())) {
-            return true;
-        }
-        errorHandful = EMPTY;
-        if(_hand.total()>nbTrumps_) {
-            errorHandful = Format.formatter(FOLDER, file, _loc, HANDFUL_TOO_MANY_TRUMPS, Integer.toString(_hand.total()-nbTrumps_));
-        } else if(_hand.total()<nbTrumps_) {
-            errorHandful = Format.formatter(FOLDER, file, _loc, HANDFUL_NOT_ENOUGH_TRUMPS, Integer.toString(nbTrumps_-_hand.total()));
-        } else {
-            errorHandful = Format.formatter(FOLDER, file, _loc, HANDFUL_EXCUSE);
-        }
-        return false;
+        return _hand.total() == nbTrumps_ && (!_hand.contient(CardTarot.excuse()) || _excludedCards.estVide());
     }
 
-    public String getErrorHandful() {
-        return errorHandful;
-    }
     public HandTarot strategiePoignee(byte _numeroJoueur) {
         reason = new StringBuilder();
         HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
@@ -2895,7 +2791,7 @@ public final class GameTarot {
     HandTarot playableCards(EnumMap<Suit,HandTarot> _repartitionMain) {
         return cartesJouables(_repartitionMain, Constants.getDefaultLanguage());
     }
-    HandTarot cartesJouables(EnumMap<Suit,HandTarot> _repartitionMain, String _loc) {
+    public HandTarot cartesJouables(EnumMap<Suit,HandTarot> _repartitionMain, String _loc) {
         HandTarot atoutsJoues_ = progressingTrick.getCartes().couleurs().getVal(couleurAtout());
         Suit couleurDemandee_ = progressingTrick.couleurDemandee();
         HandTarot cartesJouables_ = new HandTarot();
@@ -2928,9 +2824,6 @@ public final class GameTarot {
                             cartesJouables_.ajouter(carte_);
                         }
                     }
-                    if(!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                        errorPlaying = Format.formatter(FOLDER, file, _loc, FIRST_TRICK, couleurAppele_.toString(_loc), calledCards.premiereCarte().toString(_loc));
-                    }
                     return cartesJouables_;
                 }
             }
@@ -2942,9 +2835,6 @@ public final class GameTarot {
                 && !_repartitionMain.getVal(couleurDemandee_).estVide()) {
             cartesJouables_
             .ajouterCartes(_repartitionMain.getVal(couleurDemandee_));
-            if (!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                errorPlaying = Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-            }
             return cartesJouables_;
         }
         if (_repartitionMain.getVal(couleurAtout()).estVide()) {
@@ -2955,9 +2845,6 @@ public final class GameTarot {
         }
         if (atoutsJoues_.estVide()) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(couleurAtout()));
-            if (!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                errorPlaying = Format.formatter(FOLDER, file, _loc, TRUMP, couleurDemandee_.toString(_loc));
-            }
             return cartesJouables_;
         }
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
@@ -2967,24 +2854,10 @@ public final class GameTarot {
         byte valeurForte_ = carteForte_.strength(couleurDemandee_);
         if (_repartitionMain.getVal(couleurAtout()).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(couleurAtout()));
-            if (!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                if (couleursOrdinaires().containsObj(couleurDemandee_)) {
-                    errorPlaying = Format.formatter(FOLDER, file, _loc, UNDERTRUMP, couleurDemandee_.toString(_loc));
-                } else {
-                    errorPlaying = Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-                }
-            }
             return cartesJouables_;
         }
         if (valeurForte_ < _repartitionMain.getVal(couleurAtout()).derniereCarte().strength(couleurDemandee_)) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(couleurAtout()));
-            if (!cartesJouables_.contientCartes(cardsToBePlayed)) {
-                if (couleursOrdinaires().containsObj(couleurDemandee_)) {
-                    errorPlaying = Format.formatter(FOLDER, file, _loc, OVERTRUMP, couleurDemandee_.toString(_loc));
-                } else {
-                    errorPlaying = Format.formatter(FOLDER, file, _loc, PLAY_SUIT, couleurDemandee_.toString(_loc));
-                }
-            }
             return cartesJouables_;
         }
         byte indiceCarte_ = CustList.FIRST_INDEX;
@@ -2993,9 +2866,6 @@ public final class GameTarot {
                 .strength(couleurDemandee_) > valeurForte_) {
             cartesJouables_.ajouter(trumps_.carte(indiceCarte_));
             indiceCarte_++;
-        }
-        if (!cartesJouables_.contientCartes(cardsToBePlayed)) {
-            errorPlaying = Format.formatter(FOLDER, file, _loc, PLAY_STRONGER_CARD, couleurDemandee_.toString(_loc));
         }
         return cartesJouables_;
     }
@@ -14141,5 +14011,16 @@ public final class GameTarot {
 
     public void setError(String _error) {
         error = _error;
+    }
+
+    public HandTarot getCardsToBeDiscarded() {
+        return cardsToBeDiscarded;
+    }
+    public HandTarot getCardsToBePlayed() {
+        return cardsToBePlayed;
+    }
+
+    public void setCardsToBePlayed(HandTarot _cardsToBePlayed) {
+        cardsToBePlayed = _cardsToBePlayed;
     }
 }

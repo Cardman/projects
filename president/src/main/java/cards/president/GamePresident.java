@@ -6,7 +6,6 @@ import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
-import code.format.Format;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EqList;
@@ -18,26 +17,9 @@ import code.util.TreeMap;
 
 public final class GamePresident {
 
-    private static final String GAME_PRESIDENT = "cards.president.gamepresident";
-    private static final String FOLDER = "resources_cards/classes";
 
     private static final String EMPTY = "";
 
-    private static final String RETURN_LINE = "\n";
-
-    private static final String SKIPPED = "skipped";
-
-    private static final String HAVE_PASSED = "havePassed";
-
-    private static final String HAS_TO_EQUAL_OR_SKIP = "hasToEqualOrSkip";
-
-    private static final String CANNOT_USE_LOWER_OR_EQ = "cannotUseLowerOrEq";
-
-    private static final String CANNOT_USE_LOWER = "cannotUseLower";
-
-    private static final String HAVE_PLAY_GIVEN_NUMBER_CARDS = "hasPlayGivenNumberCards";
-
-    private static final String CANNOT_PASS = "cannotPass";
 
     private static final int PERCENT_MAX = 100;
 
@@ -84,13 +66,9 @@ public final class GamePresident {
 
     private NumberMap<Byte,Playing> lastStatus = new NumberMap<Byte,Playing>();
 
-    private StringBuilder errorPlaying = new StringBuilder();
-
     private HandPresident playedCards = new HandPresident();
 
     private String reason = EMPTY;
-
-    private final String file = Format.getClassProperties(GAME_PRESIDENT);
 
     private CustList<CustList<EqList<HandPresident>>> userHands = new CustList<CustList<EqList<HandPresident>>>();
 
@@ -161,7 +139,6 @@ public final class GamePresident {
         }
         setLastStatus();
         cardsToBePlayed = new HandPresident();
-        errorPlaying = new StringBuilder();
         currentUserHands = new EqList<HandPresident>();
         simulated = false;
     }
@@ -1146,7 +1123,6 @@ public final class GamePresident {
     }
 
     public boolean canPass(byte _player, String _loc) {
-        errorPlaying = new StringBuilder();
         HandPresident playable_ = cartesJouables(_player, _loc);
         if (rules.isHasToPlay() && !playable_.estVide()) {
             HandPresident b_ = progressingTrick.getBestCards();
@@ -1162,21 +1138,18 @@ public final class GamePresident {
                     return true;
                 }
             }
-            errorPlaying = new StringBuilder(Format.formatter(FOLDER, file, _loc, CANNOT_PASS, b_.premiereCarte().toString(_loc)));
             return false;
         }
         return true;
     }
 
     public boolean allowPlaying(byte _player, HandPresident _card, String _loc) {
-        errorPlaying = new StringBuilder();
         cardsToBePlayed = new HandPresident(_card);
         HandPresident playable_ = cartesJouables(_player, _loc);
         return !playable_.getCardsByStrength(_card.premiereCarte().strength(reversed), reversed).estVide();
     }
 
     public boolean allowPlaying(byte _player, CardPresident _card, byte _nb, String _loc) {
-        errorPlaying = new StringBuilder();
         cardsToBePlayed = playHand(_player, _card, _nb);
         HandPresident playable_ = cartesJouables(_player, _loc);
         return !playable_.getCardsByStrength(_card.strength(reversed), reversed).estVide();
@@ -1212,21 +1185,14 @@ public final class GamePresident {
         if (progressingTrick.estVide()) {
             return new HandPresident(_hand);
         }
-        errorPlaying = new StringBuilder();
         Playing playing_ = getStatus(_player);
         if (playing_ == Playing.FINISH) {
             return new HandPresident();
         }
         if (playing_ == Playing.PASS) {
-            if (!cardsToBePlayed.estVide()) {
-                errorPlaying = new StringBuilder(Format.formatter(FOLDER, file, _loc, HAVE_PASSED));
-            }
             return new HandPresident();
         }
         if (playing_ == Playing.SKIPPED) {
-            if (!cardsToBePlayed.estVide()) {
-                errorPlaying = new StringBuilder(Format.formatter(FOLDER, file, _loc, SKIPPED));
-            }
             return new HandPresident();
         }
         NatTreeMap<Byte,HandPresident> filtered_;
@@ -1234,63 +1200,32 @@ public final class GamePresident {
         HandPresident l_ = progressingTrick.getBestCards();
         byte str_ = l_.premiereCarte().strength(reversed);
         if (playing_ == Playing.HAS_TO_EQUAL) {
-            if (!cardsToBePlayed.estVide() && cardsToBePlayed.premiereCarte().strength(reversed) != str_) {
-                errorPlaying.append(Format.formatter(FOLDER, file, _loc, HAS_TO_EQUAL_OR_SKIP, l_.premiereCarte().toString(_loc))).append(RETURN_LINE);
-            }
             NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
-//            HandPresident plCards_ = new HandPresident();
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s != str_) {
                     continue;
                 }
                 filtered_.put(s, h_);
-//                if (h_.total() < l_.total()) {
-//                    continue;
-//                }
-//                plCards_.ajouterCartes(h_);
             }
-//            return plCards_;
         } else if (rules.getEqualty() == EqualtyPlaying.FORBIDDEN) {
-//            HandPresident l_ = progressingTrick.getBestCards(getNombreDeJoueurs());
-//            byte str_ = l_.premiereCarte().strength(reversed);
             NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
-//            HandPresident plCards_ = new HandPresident();
-            if (!cardsToBePlayed.estVide() && cardsToBePlayed.premiereCarte().strength(reversed) <= str_) {
-                errorPlaying.append(Format.formatter(FOLDER, file, _loc, CANNOT_USE_LOWER_OR_EQ, l_.premiereCarte().toString(_loc))).append(RETURN_LINE);
-            }
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s <= str_) {
                     continue;
                 }
                 filtered_.put(s, h_);
-//                if (h_.total() < l_.total()) {
-//                    continue;
-//                }
-//                plCards_.ajouterCartes(h_);
             }
-//            return plCards_;
         } else {
-//            HandPresident l_ = progressingTrick.getBestCards(getNombreDeJoueurs());
-//            byte str_ = l_.premiereCarte().strength(reversed);
             NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
-//            HandPresident plCards_ = new HandPresident();
-            if (!cardsToBePlayed.estVide() && cardsToBePlayed.premiereCarte().strength(reversed) <= str_) {
-                errorPlaying.append(Format.formatter(FOLDER, file, _loc, CANNOT_USE_LOWER, l_.premiereCarte().toString(_loc))).append(RETURN_LINE);
-            }
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s < str_) {
                     continue;
                 }
                 filtered_.put(s, h_);
-//                if (h_.total() < l_.total()) {
-//                    continue;
-//                }
-//                plCards_.ajouterCartes(h_);
             }
-//            return plCards_;
         }
         HandPresident plCards_ = new HandPresident();
         for (byte s: filtered_.getKeys()) {
@@ -1299,9 +1234,6 @@ public final class GamePresident {
                 continue;
             }
             plCards_.ajouterCartes(h_);
-        }
-        if (cardsToBePlayed.total() != progressingTrick.getNombreDeCartesParJoueur()) {
-            errorPlaying.append(Format.formatter(FOLDER, file, _loc, HAVE_PLAY_GIVEN_NUMBER_CARDS, Long.toString(progressingTrick.getNombreDeCartesParJoueur()))).append(RETURN_LINE);
         }
         return plCards_;
     }
@@ -2488,10 +2420,6 @@ public final class GamePresident {
 
     public Numbers<Byte> getRanks() {
         return ranks;
-    }
-
-    public String getErrorPlaying() {
-        return errorPlaying.toString();
     }
 
     public NumberMap<Byte,HandPresident> getSwitchedCards() {

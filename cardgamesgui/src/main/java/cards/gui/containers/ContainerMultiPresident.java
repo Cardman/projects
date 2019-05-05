@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.containers.events.ChangePlaceEvent;
@@ -368,7 +369,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, lg_, JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().toString(lg_));
+            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringList.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
@@ -389,7 +390,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
-        ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, _card.getPlayedHand().toString(lg_), RETURN_LINE));
+        ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getPlayedHand(),lg_), RETURN_LINE));
         //PackingWindowAfter.pack(this, true);
         pack();
         DonePlaying dealt_ = new DonePlaying();

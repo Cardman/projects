@@ -614,14 +614,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         return cards.iterator();
     }
 
-    public String display() {
-        StringList retString_= new StringList();
-        for (CardTarot c: cards) {
-            retString_.add(c.display());
-        }
-        return retString_.join(SEPARATOR);
-    }
-
     public EnumList<CardTarot> getCards() {
         return cards;
     }
@@ -630,12 +622,5 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         cards = _cards;
     }
 
-    public String toString(String _lg) {
-        StringList retString_= new StringList();
-        for (CardTarot c: cards) {
-            retString_.add(c.toString(_lg));
-        }
-        return retString_.join(SEPARATOR);
-    }
 
 }

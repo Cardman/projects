@@ -1,6 +1,7 @@
 package cards.gui.animations;
 import javax.swing.SwingUtilities;
 
+import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
@@ -31,7 +32,7 @@ public final class AnimationBidTarot extends Thread {
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
             BidTarot contrat_=container.getContratUtilisateur();
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
-            String event_ = StringList.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,contrat_.toString(lg_),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(DealTarot.NUMERO_UTILISATEUR)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
@@ -52,7 +53,7 @@ public final class AnimationBidTarot extends Thread {
             ThreadUtil.sleep(delaiContrat_);
             BidTarot contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_,player_);
-            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,contrat_.toString(lg_),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);

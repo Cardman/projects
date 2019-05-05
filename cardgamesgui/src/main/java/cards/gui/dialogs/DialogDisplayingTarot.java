@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxSuit;
 import cards.gui.dialogs.events.AddSuitEvent;
@@ -95,7 +96,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             if (couleur_ == Suit.UNDEFINED) {
                 continue;
             }
-            trSuit_.add(couleur_, couleur_.toString(lg_));
+            trSuit_.add(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for(Suit couleur_:Suit.values()) {

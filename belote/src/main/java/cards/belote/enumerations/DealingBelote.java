@@ -1,6 +1,5 @@
 package cards.belote.enumerations;
 import cards.belote.HandBelote;
-import code.format.Format;
 import code.util.EnumList;
 import code.util.Numbers;
 
@@ -123,9 +122,5 @@ public enum DealingBelote {
             return false;
         }
         return getNombreCartesParJoueur()*nombreJoueurs+cartesAPart==HandBelote.pileBase().total();
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_DEAL, name());
     }
 }

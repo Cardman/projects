@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.PaintableLabel;
 import code.util.Numbers;
@@ -31,7 +32,7 @@ public class MiniTarotCard extends PaintableLabel {
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.drawRect(0,0,getWidth()-1,getHeight()-1);
-        _g.drawString(card.getSymbol(lg),0,20);
+        _g.drawString(Games.getSymbol(card,lg),0,20);
         if(card != CardTarot.EXCUSE) {
             dessinerGrandSymbole(_g, 0, 20);
         }

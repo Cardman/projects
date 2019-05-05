@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
@@ -91,7 +92,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         partie_.addCardsToCurrentTrick(_joueur,lg_);
         HandPresident h_ = partie_.getPlayedCards();
-        ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,h_.toString(lg_),RETURN_LINE)));
+        ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
         ThreadInvoker.invokeNow(new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()));
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
@@ -503,7 +504,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident partie_=partiePresident();
         if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR, lg_)) {
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), partie_.getErrorPlaying(), title_, lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(), Games.canPassMess(partie_, lg_), title_, lg_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         /*L'utilisateur joue sa carte*/
@@ -527,7 +528,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
         String lg_ = getOwner().getLanguageKey();
-        ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,partie_.getPlayedCards().toString(lg_),RETURN_LINE));
+        ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,Games.toString(partie_.getPlayedCards(),lg_),RETURN_LINE));
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(MainWindow.END_TRICK));
@@ -775,7 +776,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (game_.availableSwitchingCards()) {
             HandPresident d_ = game_.strategieEchange(DealPresident.NUMERO_UTILISATEUR);
             String message_;
-            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), d_.toString(lg_));
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), Games.toString(d_,lg_));
             message_=StringList.concat(message_,game_.getReason());
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -785,7 +786,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (h_.estVide()) {
             message_ = getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PASS);
         } else {
-            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), game_.playedCards(lg_).toString(lg_));
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), Games.toString(game_.playedCards(lg_),lg_));
         }
         message_=StringList.concat(message_,game_.getReason());
         ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);

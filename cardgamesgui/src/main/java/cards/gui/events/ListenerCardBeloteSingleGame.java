@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
@@ -64,8 +65,8 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 container.setaJoueCarte(true);
                 container.finPliBelote(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString(lg_));
-                String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,partie_.getErreurDeJeu());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
+                String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseBelote(partie_,lg_));
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
             }

@@ -92,7 +92,7 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteTest {
         assertTrue(!suits_.getVal(game.couleurAtout()).estVide());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.contientCartes(hand_));
     }
     @Test
     public void playableCards_WhileDiscarding2Test(){
@@ -121,6 +121,6 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteTest {
         assertTrue(!suits_.getVal(game.couleurAtout()).estVide());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.contientCartes(hand_));
     }
 }

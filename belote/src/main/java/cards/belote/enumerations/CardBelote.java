@@ -3,10 +3,8 @@ import cards.belote.BidBeloteSuit;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
-import code.util.consts.Constants;
 /**
     */
 public enum CardBelote {
@@ -196,12 +194,6 @@ public enum CardBelote {
         return nomFigure;
     }
 
-    public String getSymbol(String _loc) {
-        if (nomFigure != CardChar.UNDEFINED) {
-            return nomFigure.getSymbol(_loc);
-        }
-        return String.valueOf(valeur);
-    }
     public Suit couleur() {
         return couleur;
     }
@@ -210,10 +202,6 @@ public enum CardBelote {
     }
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
         return (byte) (_couleurs.indexOfObj(couleur)+1);
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_CARD, name());
     }
 
     public String getImageFileName(String _ext) {
@@ -242,7 +230,4 @@ public enum CardBelote {
         return jouable;
     }
 
-    public String display() {
-        return toString(Constants.getDefaultLanguage());
-    }
 }

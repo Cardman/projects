@@ -1,10 +1,7 @@
 package cards.tarot;
 
 import cards.consts.Suit;
-import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
-import cards.tarot.enumerations.PlayingDog;
+import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.consts.Constants;
@@ -333,8 +330,8 @@ public final class CheckerGameTarotWithRules {
                         return;
                     }
                     for (CardTarot c : discardedCards_) {
-                        if (!loadedGameCopy_.autoriseEcartDe(c,
-                                _lg)) {
+                        if (loadedGameCopy_.autoriseEcartDe(c,
+                                _lg) != ReasonDiscard.NOTHING) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }
@@ -367,8 +364,8 @@ public final class CheckerGameTarotWithRules {
                     loadedGameCopy_.ajouterCartes(loadedGameCopy_.getPreneur(),
                             loadedGameCopy_.derniereMain());
                     for (CardTarot c : discardedCards_) {
-                        if (!loadedGameCopy_.autoriseEcartDe(c,
-                                _lg)) {
+                        if (loadedGameCopy_.autoriseEcartDe(c,
+                                _lg) != ReasonDiscard.NOTHING) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }

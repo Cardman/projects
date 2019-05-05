@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
@@ -55,7 +56,7 @@ public final class DialogHelpPresident extends Dialog {
             if (char_ == CardChar.UNDEFINED) {
                 panelCards_.add(new JLabel(Byte.toString(c.valeur())));
             } else {
-                panelCards_.add(new JLabel(char_.toString(_lg)));
+                panelCards_.add(new JLabel(Games.toString(char_,_lg)));
             }
             byte pl_ = _playedCards.getVal(c);
             panelCards_.add(new JLabel(Byte.toString(pl_)));

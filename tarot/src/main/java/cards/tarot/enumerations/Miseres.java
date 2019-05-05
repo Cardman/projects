@@ -1,5 +1,4 @@
 package cards.tarot.enumerations;
-import code.format.Format;
 
 /**Miseres utilisees au tarot*/
 public enum Miseres {
@@ -12,7 +11,4 @@ public enum Miseres {
         return points;
     }
 
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_MISERES, name());
-    }
 }

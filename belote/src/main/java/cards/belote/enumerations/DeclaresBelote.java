@@ -1,6 +1,5 @@
 package cards.belote.enumerations;
 import cards.consts.CardChar;
-import code.format.Format;
 import code.util.EnumList;
 
 public enum DeclaresBelote {
@@ -118,9 +117,5 @@ public enum DeclaresBelote {
             }
         }
         return nb_;
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale,ResoucesAccess.BELOTE_DECLARES, name());
     }
 }

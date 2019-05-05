@@ -66,5 +66,10 @@
             <artifactId>formathtml</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+		<dependency>
+			<groupId>formatconst</groupId>
+			<artifactId>formatconst</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

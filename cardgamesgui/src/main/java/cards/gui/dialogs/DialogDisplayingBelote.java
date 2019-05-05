@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import cards.belote.DisplayingBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxSuit;
 import cards.gui.dialogs.events.AddSuitEvent;
@@ -95,7 +96,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
         String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {
-            trSuit_.add(couleur_, couleur_.toString(lg_));
+            trSuit_.add(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {

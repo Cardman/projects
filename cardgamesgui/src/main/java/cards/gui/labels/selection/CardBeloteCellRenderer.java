@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
@@ -82,7 +83,7 @@ public class CardBeloteCellRenderer extends CustCellRender{
             _g.setColor(Color.RED);
         }
         String lg_ = window.getLanguageKey();
-        _g.drawString(card.getSymbol(lg_),10,10);
+        _g.drawString(Games.getSymbol(card,lg_),10,10);
     }
     @Override
     public int getHeight() {

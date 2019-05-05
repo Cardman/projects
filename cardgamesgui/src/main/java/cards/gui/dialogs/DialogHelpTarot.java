@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -63,14 +64,14 @@ public final class DialogHelpTarot extends Dialog {
             for (Suit s: suits_) {
                 HandTarot h_ = tout_.couleur(s);
                 if(s != Suit.UNDEFINED) {
-                    zone_.append(StringList.concat(s.toString(_lg),RETURN_LINE));
+                    zone_.append(StringList.concat(Games.toString(s,_lg),RETURN_LINE));
                 }
                 for(CardTarot carte_:h_) {
                     zone_.append(TAB);
                     if(carte_ == CardTarot.EXCUSE) {
-                        zone_.append(StringList.concat(carte_.toString(_lg),SPACE));
+                        zone_.append(StringList.concat(Games.toString(carte_,_lg),SPACE));
                     } else {
-                        zone_.append(StringList.concat(carte_.getSymbol(_lg),SPACE));
+                        zone_.append(StringList.concat(Games.getSymbol(carte_,_lg),SPACE));
                     }
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);

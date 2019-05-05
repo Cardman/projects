@@ -10,6 +10,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.Dialog;
 import code.gui.Panel;
@@ -87,10 +88,10 @@ public final class DialogHelpBelote extends Dialog {
             zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {
                 HandBelote h_ = tout_.couleurs(_bid).getVal(s);
-                zone_.append(StringList.concat(s.toString(_lg),RETURN_LINE));
+                zone_.append(StringList.concat(Games.toString(s,_lg),RETURN_LINE));
                 for(CardBelote carte_:h_) {
                     zone_.append(TAB);
-                    zone_.append(StringList.concat(carte_.getSymbol(_lg),SPACE));
+                    zone_.append(StringList.concat(Games.getSymbol(carte_,_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);
                     }

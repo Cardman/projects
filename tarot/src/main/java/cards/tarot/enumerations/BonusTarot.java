@@ -1,5 +1,4 @@
 package cards.tarot.enumerations;
-import code.format.Format;
 
 /**Prime pour le chelem au tarot*/
 public enum BonusTarot {
@@ -13,7 +12,4 @@ public enum BonusTarot {
         return points;
     }
 
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_BONUS,name());
-    }
 }

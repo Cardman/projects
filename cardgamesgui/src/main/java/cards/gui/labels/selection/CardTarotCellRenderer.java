@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.CustCellRender;
@@ -91,7 +92,7 @@ public class CardTarotCellRenderer extends CustCellRender{
             _g.setColor(Color.RED);
         }
         String lg_ = window.getLanguageKey();
-        _g.drawString(card.getSymbol(lg_),10,10);
+        _g.drawString(Games.getSymbol(card,lg_),10,10);
     }
     @Override
     public int getHeight() {

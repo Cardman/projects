@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
+import cards.facade.Games;
 import code.gui.LabelButtonUtil;
 import code.gui.PaintableLabel;
 import code.util.Numbers;
@@ -24,7 +25,7 @@ public class SuitLabel extends PaintableLabel {
     public void setSuit(BidBeloteSuit _bid, String _lg) {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
-            setText(bid.getEnchere().toString(_lg));
+            setText(Games.toString(bid.getEnchere(),_lg));
             setBackground(Color.WHITE);
             setForeground(new Color(0, 0, 127));
             int h_ = getFontMetrics(getFont()).getHeight();

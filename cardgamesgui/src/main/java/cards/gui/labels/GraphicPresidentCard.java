@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.president.enumerations.CardPresident;
@@ -90,13 +91,13 @@ public class GraphicPresidentCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(_lg),5,12);
-                        g_.drawString(_card.getSymbol(_lg),83,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,12);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(_lg),5,18);
-                        g_.drawString(_card.getSymbol(_lg),80,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),80,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -124,15 +125,15 @@ public class GraphicPresidentCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(_lg),5,12);
-                        g_.drawString(_card.getSymbol(_lg),83,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,12);
                         dessinerPetitSymbole(_card,g_,5,17);
                         dessinerPetitSymbole(_card,g_,85,17);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(_lg),7,18);
-                        g_.drawString(_card.getSymbol(_lg),83,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),7,18);
+                        g_.drawString(Games.getSymbol(_card,_lg),83,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -156,8 +157,8 @@ public class GraphicPresidentCard extends PaintableLabel {
                     g_.setColor(Color.BLACK);
                 }
                 g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                g_.drawString(_card.getSymbol(_lg),5,12);
-                g_.drawString(_card.getSymbol(_lg),83,12);
+                g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                g_.drawString(Games.getSymbol(_card,_lg),83,12);
                 dessinerPetitSymbole(_card,g_,5,17);
                 dessinerPetitSymbole(_card,g_,85,17);
                 if(_card.getNomFigure() == CardChar.QUEEN) {

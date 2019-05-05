@@ -245,19 +245,5 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         cards = _cards;
     }
 
-    public String toString(String _lg) {
-        StringList retString_= new StringList();
-        for (CardPresident c: cards) {
-            retString_.add(c.toString(_lg));
-        }
-        return retString_.join(SEPARATOR);
-    }
 
-    public CharSequence display() {
-        StringList retString_= new StringList();
-        for (CardPresident c: cards) {
-            retString_.add(c.toString(Constants.getDefaultLanguage()));
-        }
-        return retString_.join(SEPARATOR);
-    }
 }

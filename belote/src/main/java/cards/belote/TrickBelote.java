@@ -41,7 +41,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
     byte getRamasseur(BidBeloteSuit _contrat) {
         return getRamasseurPliEnCours((byte) total(),_contrat);
     }
-    byte getRamasseurPliEnCours(byte _nombreJoueurs, BidBeloteSuit _contrat) {
+    public byte getRamasseurPliEnCours(byte _nombreJoueurs, BidBeloteSuit _contrat) {
         byte ramasseur_;
         byte max_=0;
         byte i=0;

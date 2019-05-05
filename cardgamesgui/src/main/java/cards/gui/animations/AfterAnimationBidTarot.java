@@ -1,5 +1,6 @@
 package cards.gui.animations;
 import cards.consts.Status;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
@@ -34,7 +35,7 @@ public final class AfterAnimationBidTarot extends Thread {
             container.getConsulting().setEnabledMenu(true);
             container.setCanBid(true);
             for(BidTarot b:gameTarot_.allowedBids()) {
-                container.ajouterBoutonContratTarot(b.toString(lg_),b,b.estDemandable(gameTarot_.getContrat()));
+                container.ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(gameTarot_.getContrat()));
             }
         } else {
             if(gameTarot_.getContrat().isJouerDonne()) {
@@ -100,7 +101,7 @@ public final class AfterAnimationBidTarot extends Thread {
         } else {
             partie_.intelligenceArtificielleAppel();
             if(partie_.existeCarteAppelee()) {
-                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().toString(lg_),ContainerGame.RETURN_LINE));
+                container.ajouterTexteDansZone(StringList.concat(_pseudo,ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
             }
             if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 container.addButtonSeeDogTarot(container.getMessages().getVal(MainWindow.SEE_DOG), true);
@@ -127,7 +128,7 @@ public final class AfterAnimationBidTarot extends Thread {
                 partie_.gererChienInconnu();
                 partie_.intelligenceArtificielleAppel();
                 if(partie_.existeCarteAppelee()) {
-                    container.ajouterTexteDansZone(StringList.concat(container.pseudosTarot().get(partie_.getPreneur()),ContainerGame.INTRODUCTION_PTS,partie_.getCarteAppelee().toString(lg_),ContainerGame.RETURN_LINE));
+                    container.ajouterTexteDansZone(StringList.concat(container.pseudosTarot().get(partie_.getPreneur()),ContainerGame.INTRODUCTION_PTS,Games.toString(partie_.getCarteAppelee(),lg_),ContainerGame.RETURN_LINE));
                 }
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
             }

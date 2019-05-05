@@ -3,6 +3,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.gui.containers.ContainerTarot;
@@ -43,7 +44,7 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
                 int exces_ = container.getCurrentIncludedTrumps().total()-container.getRequiredTrumps().getVal(container.getChoosenHandful());
-                container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), container.getChoosenHandful().toString(lg_)));
+                container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(container.getChoosenHandful(),lg_)));
             }
         }else{
             String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());

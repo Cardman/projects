@@ -23,6 +23,7 @@ import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.MixCardsChoice;
 import cards.enumerations.Launching;
+import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
@@ -1442,7 +1443,7 @@ public final class MainWindow extends NetGroupFrame {
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:ChoiceTarot.values()) {
 
-            sousMenu_=new MenuItem(ct_.toString(lg_));
+            sousMenu_=new MenuItem(Games.toString(ct_,lg_));
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
             training.addMenuItem(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
@@ -2010,7 +2011,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         training.setText(getMessages().getVal(TRAINING));
         for (ChoiceTarot c: ChoiceTarot.values()) {
-            trainingTarot.getVal(c).setText(c.toString(lg_));
+            trainingTarot.getVal(c).setText(Games.toString(c,lg_));
         }
         multiStop.setText(getMessages().getVal(MULTI_STOP));
         parameters.setText(getMessages().getVal(PARAMETERS));

@@ -30,6 +30,7 @@ import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
 import cards.consts.Status;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.containers.events.BidEvent;
@@ -194,7 +195,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         panel_.add(panelBids_);
         Panel panelOk_ = new Panel();
-        LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.toString(lg_));
+        LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
         buttonSuit_.addMouseListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
         panelOk_.add(getBidOk());
@@ -392,7 +393,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
         if (repBelote.getRemainingCards() > 0) {
             for (BidBeloteSuit b : _hand.getAllowedBids()) {
-                ajouterBoutonContratBeloteMulti(b.toString(lg_), b);
+                ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
             }
         } else {
             addButtonsForCoinche(_hand.getPoints(), _hand.getAllowedBids());
@@ -416,7 +417,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         if (repBelote.getRemainingCards() > 0) {
             for (BidBeloteSuit b : _bids.getBids()) {
-                ajouterBoutonContratBeloteMulti(b.toString(lg_), b);
+                ajouterBoutonContratBeloteMulti(Games.toString(b,lg_), b);
             }
         } else {
             addButtonsForCoinche(_bids.getPoints(), _bids.getBids());
@@ -433,7 +434,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void errorForBidding(ErrorBiddingBelote _error) {
         String lg_ = getOwner().getLanguageKey();
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().toString(lg_));
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), Games.toString(_error.getBid(),lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(), mes_, getMessages().getVal(MainWindow.CANT_BID_TITLE),
@@ -447,7 +448,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String lg_ = getOwner().getLanguageKey();
         getEvents().append(StringList.concat(getPseudoByPlace(_bid.getPlace()), INTRODUCTION_PTS,
-                bid_.getBidBelote().toString(lg_), RETURN_LINE));
+                Games.toString(bid_.getBidBelote(),lg_), RETURN_LINE));
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
@@ -467,7 +468,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (_declaration.isPossibleBeloteRebelote()) {
             Panel panneau_ = getPanneauBoutonsJeu();
             JCheckBox caseCoche_ = new JCheckBox(
-                    DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_));
+                    Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
@@ -482,8 +483,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
             Panel panneau_ = getPanneauBoutonsJeu();
-            JCheckBox caseCoche_ = new JCheckBox(StringList.concat(annonceMain_.getAnnonce().toString(lg_),
-                    INTRODUCTION_PTS, annonceMain_.getMain().toString(lg_)));
+            JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getAnnonce(),lg_),
+                    INTRODUCTION_PTS, Games.toString(annonceMain_.getMain(),lg_)));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(caseCoche_);
         }
@@ -508,7 +509,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
-            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_), RETURN_LINE));
+            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_), RETURN_LINE));
         }
         if (_card.isDeclaring()) {
             if (bidMax.getCouleurDominante()) {
@@ -524,11 +525,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
                                 getDisplayingBelote().getDecroissant(),
                                 bidMax.getOrdre());
             }
-            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, _card.getDeclare().getAnnonce().toString(lg_),
+            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getAnnonce(),lg_),
                     RETURN_LINE));
             if (!_card.getDeclare().getMain().estVide()) {
                 getHandfuls().getVal(relative_).setText(
-                        _card.getDeclare().getAnnonce().toString(lg_));
+                        Games.toString(_card.getDeclare().getAnnonce(),lg_));
             }
             Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
@@ -562,7 +563,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
             return;
         }
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString(lg_));
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_error.getCard(),lg_));
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
         ConfirmDialog.showMessage(getOwner(),
                 StringList.concat(mes_, RETURN_LINE, mesReason_),

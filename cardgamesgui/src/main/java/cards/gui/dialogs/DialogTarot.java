@@ -10,6 +10,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
 import cards.consts.MixCardsChoice;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
@@ -95,7 +96,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString(lg_));
+            trMix_.put(choix_, Games.toString(choix_,lg_));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -116,7 +117,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bids.clear();
         bidding.setLayout(new FlowLayout());
         for (BidTarot enchere_:BidTarot.values()) {
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString(lg_));
+            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesTarot().getContrats().getVal(enchere_));
             caseCroix_.setEnabled(
                     enchere_.getPossibiliteAnnonce()!=AllowedBiddingTarot.ALWAYS);
@@ -130,7 +131,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(new JLabel(getMessages().getVal(HANDFUL)));
         listeChoixFive = new ComboBoxEnumCards<Handfuls>();
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
-            listeChoixFive.addItem(p, lg_);
+            listeChoixFive.addItem(p, Games.toString(p,lg_));
         }
         listeChoixFive.setListener(new ListenerHandfulName(this));
         sousPanneau_.add(listeChoixFive);
@@ -152,7 +153,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         declaringMiseres.setLayout(new FlowLayout());
         declaringMiseres.add(new JLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
-            JCheckBox caseCroix_=new JCheckBox(annonce_.toString(lg_));
+            JCheckBox caseCroix_=new JCheckBox(Games.toString(annonce_,lg_));
             caseCroix_.setSelected(getReglesTarot().getMiseres().containsObj(annonce_));
             declaringMiseres.add(caseCroix_);
             miseres.add(caseCroix_);
@@ -178,7 +179,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if (mode_ == curOne_) {
                 i_ = index_;
             }
-            listeChoixTwo.addItem(mode_, lg_);
+            listeChoixTwo.addItem(mode_, Games.toString(mode_,lg_));
             index_++;
         }
         if (i_>-1) {
@@ -196,7 +197,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if (mode_ == curTwo_) {
                 i_ = index_;
             }
-            listeChoixThree.addItem(mode_, lg_);
+            listeChoixThree.addItem(mode_, Games.toString(mode_,lg_));
             index_++;
         }
         if (i_>-1) {
@@ -263,7 +264,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if (r == curThree_) {
                 i_ = index_;
             }
-            listeChoixFour.addItem(r, lg_);
+            listeChoixFour.addItem(r, Games.toString(r,lg_));
             index_++;
         }
         if (i_ > -1) {
@@ -311,7 +312,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if (r == curThree_) {
                 i_ = index_;
             }
-            listeChoixFour.addItem(r,lg_);
+            listeChoixFour.addItem(r,Games.toString(r, lg_));
             index_++;
         }
         if (i_ > -1) {

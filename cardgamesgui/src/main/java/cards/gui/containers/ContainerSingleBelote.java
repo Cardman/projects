@@ -32,6 +32,7 @@ import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Status;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.MainWindow;
@@ -107,17 +108,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(partie_.annoncerBeloteRebelote(_joueur,ct_,lg_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
-            ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
         }
         if (_premierTour) {
             partie_.annoncer(_joueur);
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
-            ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,usDecl_.getAnnonce().toString(lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getAnnonce(),lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
             if(!usDecl_.getMain().estVide()) {
                 JLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(new SettingText(label_, usDecl_.getAnnonce().toString(lg_)));
+                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(usDecl_.getAnnonce(),lg_)));
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
             if (partie_.getContrat().getCouleurDominante()) {
@@ -170,7 +171,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
             for(BidBeloteSuit b: partie_.tousContrats()) {
                 String pseudo_ = pseudos_.get(player_);
-                ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,b.toString(lg_),RETURN_LINE));
+                ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                 player_ = partie_.playerAfter(player_);
             }
             byte debut_= partie_.playerHavingToBid();
@@ -184,7 +185,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     setCanBid(true);
                     if (!partie_.getRegles().dealAll()) {
                         for(BidBeloteSuit e:partie_.allowedBids()) {
-                            ajouterBoutonContratBelote(e.toString(lg_),e,e.estDemandable(contrat_));
+                            ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(contrat_));
                         }
                     } else {
                         addButtonsForCoinche(partie_);
@@ -297,7 +298,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         panel_.add(panelBids_);
         Panel panelOk_ = new Panel();
-        LabelButton buttonSuit_ = new LabelButton(BidBelote.FOLD.toString(lg_));
+        LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
         buttonSuit_.addMouseListener(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
@@ -391,7 +392,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             Panel panneau_ =getPanneauBoutonsJeu();
-            JCheckBox caseCoche_ = new JCheckBox(DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_));
+            JCheckBox caseCoche_ = new JCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(partie_.autoriseBeloteRebelote(lg_));
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
@@ -401,7 +402,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
                 Panel panneau_ =getPanneauBoutonsJeu();
-                JCheckBox caseCoche_ = new JCheckBox(StringList.concat(annonceMain_.getAnnonce().toString(lg_),INTRODUCTION_PTS,annonceMain_.getMain().toString(lg_)));
+                JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getAnnonce(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getMain(),lg_)));
                 caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
                 panneau_.add(caseCoche_);
             }
@@ -523,7 +524,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             setCanBid(true);
             if (!partie_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:partie_.allowedBids()) {
-                    ajouterBoutonContratBelote(e.toString(lg_),e,true);
+                    ajouterBoutonContratBelote(Games.toString(e,lg_),e,true);
                 }
             } else {
                 addButtonsForCoinche(partie_);
@@ -587,9 +588,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
             if(partie_.getContrat().getCouleurDominante()) {
                 Suit couleurAtout_=partie_.couleurAtout();
-                ajouterTexteDansZone(StringList.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,couleurAtout_.toString(lg_),RETURN_LINE));
+                ajouterTexteDansZone(StringList.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(couleurAtout_,lg_),RETURN_LINE));
             } else {
-                ajouterTexteDansZone(StringList.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,partie_.getContrat().toString(lg_),RETURN_LINE));
+                ajouterTexteDansZone(StringList.concat(pseudos_.get(partie_.getPreneur()),INTRODUCTION_PTS,Games.toString(partie_.getContrat(),lg_),RETURN_LINE));
             }
             partie_.setPliEnCours();
         }
@@ -635,9 +636,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(annonceBelote) {
                 partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
                 DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
-                ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,usDecl_.getAnnonce().toString(lg_),RETURN_LINE));
+                ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getAnnonce(),lg_),RETURN_LINE));
                 if(!usDecl_.getMain().estVide()) {
-                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(usDecl_.getAnnonce().toString(lg_));
+                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(Games.toString(usDecl_.getAnnonce(),lg_));
                 }
                 Panel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
@@ -661,7 +662,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.ajouterUneCarteDansPliEnCours(_carteJouee);
         if (annonceBeloteRebelote) {
             partie_.setAnnoncesBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,_carteJouee);
-            ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_),RETURN_LINE));
+            ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE));
         }
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
@@ -888,11 +889,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 BidBelote enchere_ = enchereCouleur_.getEnchere();
                 if(enchere_ == BidBelote.FOLD ||
                         !enchere_.getCouleurDominante()) {
-                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_.toString(lg_));
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), Games.toString(enchere_,lg_));
                 } else {
-                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT), enchereCouleur_.getCouleur().toString(lg_));
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT), Games.toString(enchereCouleur_.getCouleur(),lg_));
                 }
-                mesBid_=StringList.concat(mesBid_,partie_.getRaison());
                 ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -901,19 +901,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
                 BidBelote enchere_ = enchereCouleur_.getEnchere();
                 if(enchere_ == BidBelote.FOLD) {
-                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), enchere_.toString(lg_));
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID), Games.toString(enchere_,lg_));
                 } else if(!enchere_.getCouleurDominante()) {
-                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_POINTS), enchere_.toString(lg_), Long.toString(enchereCouleur_.getPoints()));
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_POINTS), Games.toString(enchere_,lg_), Long.toString(enchereCouleur_.getPoints()));
                 } else {
-                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT_POINTS), enchereCouleur_.getCouleur().toString(lg_), Long.toString(enchereCouleur_.getPoints()));
+                    mesBid_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_BID_SUIT_POINTS), Games.toString(enchereCouleur_.getCouleur(),lg_), Long.toString(enchereCouleur_.getPoints()));
                 }
-                mesBid_=StringList.concat(mesBid_, partie_.getRaison());
                 ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_PLAYER), partie_.strategieJeuCarteUnique().toString(lg_));
-            message_=StringList.concat(message_, partie_.getRaison());
+            String message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_BELOTE_PLAYER), Games.toString(partie_.strategieJeuCarteUnique(),lg_));
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
             //JOptionPane.showMessageDialog(getOwner(),message_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
         }

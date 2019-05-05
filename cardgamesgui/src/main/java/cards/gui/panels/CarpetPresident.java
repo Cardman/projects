@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import cards.facade.Games;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
@@ -133,7 +134,7 @@ public class CarpetPresident extends Panel {
             } else {
                 l_.setBackground(Color.WHITE);
             }
-            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR,cards.getVal(p).toString(_lg)));
+            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
         }
         repaintValidate();
     }

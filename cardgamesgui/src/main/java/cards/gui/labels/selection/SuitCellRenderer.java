@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
@@ -87,7 +88,7 @@ public class SuitCellRenderer extends CustCellRender {
             _g.setColor(Color.RED);
         }
         String lg_ = window.getLanguageKey();
-        _g.drawString(couleur.toString(lg_),10,10);
+        _g.drawString(Games.toString(couleur,lg_),10,10);
     }
     @Override
     public int getHeight() {

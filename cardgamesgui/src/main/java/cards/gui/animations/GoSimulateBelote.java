@@ -130,7 +130,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
 //            container.ajouterTexteDansZone(StringList.simpleFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(joueur_))+ContainerBelote.RETURN_LINE_CHAR);
             ThreadUtil.sleep(1000);
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-            event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_), contrats_.get(indiceContrat_).toString(lg_)),ContainerGame.RETURN_LINE);
+            event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_), Games.toString(contrats_.get(indiceContrat_),lg_)),ContainerGame.RETURN_LINE);
             event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
@@ -239,7 +239,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
                     DeclareHandBelote decl_ = partie_.getAnnonce(joueur_);
                     if (decl_.getAnnonce() != DeclaresBelote.UNDEFINED) {
                         mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION_TWO);
-                        event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_), decl_.getAnnonce().toString(lg_), decl_.getMain().toString(lg_)),ContainerGame.RETURN_LINE);
+                        event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_), Games.toString(decl_.getAnnonce(),lg_), Games.toString(decl_.getMain(),lg_)),ContainerGame.RETURN_LINE);
                         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                        container.ajouterTexteDansZone(event_);
 //                        container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(joueur_), decl_.getAnnonce(), decl_.getMain())+ContainerBelote.RETURN_LINE_CHAR);
@@ -247,7 +247,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
                 }
                 if(partie_.cartesBeloteRebelote().contient(carte_)) {
                     mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-                    event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_),DeclaresBeloteRebelote.BELOTE_REBELOTE.toString(lg_)),ContainerGame.RETURN_LINE);
+                    event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(joueur_),Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_)),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(joueur_),DeclaresBeloteRebelote.BELOTE_REBELOTE)+ContainerBelote.RETURN_LINE_CHAR);
@@ -278,7 +278,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
             if(indicePli_==plisFaits_.size()-1) {
                 if(partie_.getDixDeDer(ramasseur_)) {
                     mess_ = container.getMessages().getVal(MainWindow.BONUS_WIN);
-                    event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_), BonusBelote.LAST_TRICK.toString(lg_)),ContainerGame.RETURN_LINE);
+                    event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_), Games.toString(BonusBelote.LAST_TRICK,lg_)),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(StringList.simpleFormat(mess_, pseudos_.get(ramasseur_), BonusBelote.LAST_TRICK)+ContainerBelote.RETURN_LINE_CHAR);

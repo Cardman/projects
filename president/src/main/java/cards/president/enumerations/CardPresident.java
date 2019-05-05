@@ -1,7 +1,6 @@
 package cards.president.enumerations;
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 
@@ -175,21 +174,12 @@ public enum CardPresident {
     public CardChar getNomFigure() {
         return nomFigure;
     }
-    public String getSymbol(String _loc) {
-        if (nomFigure != CardChar.UNDEFINED) {
-            return nomFigure.getSymbol(_loc);
-        }
-        return String.valueOf(valeur);
-    }
+
     public Suit couleur() {
         return suit;
     }
     public byte valeur() {
         return valeur;
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.PRESIDENT_CARD,name());
     }
 
     public String getImageFileName(String _ext) {

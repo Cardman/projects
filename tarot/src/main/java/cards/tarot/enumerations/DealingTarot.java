@@ -1,12 +1,10 @@
 package cards.tarot.enumerations;
 import cards.tarot.HandTarot;
-import code.format.Format;
-import code.format.Translatable;
 import code.util.EnumList;
 import code.util.NumberMap;
 import code.util.Numbers;
 
-public enum DealingTarot implements Translatable {
+public enum DealingTarot {
     DEAL_1_VS_2(3,CallingCard.WITHOUT,Numbers.wrapIntArray(3,3,3,3,3,3,3,3),6,0),
     DEAL_1_VS_3(4,CallingCard.WITHOUT,Numbers.wrapIntArray(3,3,3,3,3,3),6,0),
     DEAL_2_VS_2_WITHOUT_CALL(4,CallingCard.DEFINED,Numbers.wrapIntArray(3,3,3,3,3,3),6,1),
@@ -203,10 +201,5 @@ public enum DealingTarot implements Translatable {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale,ResoucesAccess.TAROT_DEAL, name());
     }
 }

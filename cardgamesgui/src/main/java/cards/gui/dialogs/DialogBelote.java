@@ -12,6 +12,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
@@ -73,7 +74,7 @@ public abstract class DialogBelote extends DialogCards {
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.toString(_lg));
+            trMix_.put(choix_, Games.toString(choix_,_lg));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -100,7 +101,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding=new Panel();
         bidding.setLayout(new GridLayout(1,0));
         for (BidBelote enchere_:BidBelote.values()) {
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString(_lg));
+            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);
@@ -117,7 +118,7 @@ public abstract class DialogBelote extends DialogCards {
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            JCheckBox caseCroix_=new JCheckBox(enchere_.toString(_lg));
+            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);
@@ -141,7 +142,7 @@ public abstract class DialogBelote extends DialogCards {
             if (choix_ == curOne_) {
                 i_ = index_;
             }
-            listChoiceTwo.addItem(choix_, _lg);
+            listChoiceTwo.addItem(choix_, Games.toString(choix_,_lg));
             index_++;
         }
         if (i_ > -1) {

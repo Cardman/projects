@@ -2,6 +2,7 @@ package cards.gui.animations;
 import cards.belote.BidBeloteSuit;
 import cards.belote.GameBelote;
 import cards.consts.Status;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerSingleBelote;
 
@@ -29,7 +30,7 @@ public final class AfterAnimationBidBelote extends Thread {
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:gameBelote_.allowedBids()){
-                    container.ajouterBoutonContratBelote(e.toString(lg_),e,e.estDemandable(gameBelote_.getContrat()));
+                    container.ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(gameBelote_.getContrat()));
                 }
             } else {
                 container.addButtonsForCoinche(gameBelote_);

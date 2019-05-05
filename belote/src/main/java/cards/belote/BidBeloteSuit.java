@@ -3,7 +3,6 @@ import cards.belote.enumerations.BidBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EqList;
-import code.util.consts.Constants;
 import code.util.ints.Equallable;
 
 
@@ -109,34 +108,6 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
             return false;
         }
         return true;
-    }
-    public String toString(String _loc) {
-        StringBuilder pts_ = new StringBuilder();
-        if (points > 0) {
-            pts_.append(SPACE);
-            pts_.append(points);
-        }
-        if (getCouleurDominante()) {
-            pts_.insert(0, suit.toString(_loc));
-            return pts_.toString();
-        }
-        pts_.insert(0, bid.toString(_loc));
-        return pts_.toString();
-    }
-
-    public String display() {
-        String lg_ = Constants.getDefaultLanguage();
-        StringBuilder pts_ = new StringBuilder();
-        if (points > 0) {
-            pts_.append(SPACE);
-            pts_.append(points);
-        }
-        if (getCouleurDominante()) {
-            pts_.insert(0, suit.toString(lg_));
-            return pts_.toString();
-        }
-        pts_.insert(0, bid.toString(lg_));
-        return pts_.toString();
     }
 
     public BidBelote getBid() {

@@ -1,5 +1,4 @@
 package cards.tarot.enumerations;
-import code.format.Format;
 import code.util.EnumList;
 
 public enum BidTarot {
@@ -64,10 +63,6 @@ public enum BidTarot {
             return true;
         }
         return estPlusFortQue(_c);
-    }
-
-    public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_BID,name());
     }
 
     public static EnumList<BidTarot> getValidBids() {

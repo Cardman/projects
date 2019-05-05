@@ -83,7 +83,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_KING));
         game.getDistribution().jouer(player_,CardBelote.HEART_KING);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_KING);
@@ -118,7 +118,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_8));
         game.getDistribution().jouer(player_,CardBelote.HEART_8);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_8);
@@ -155,7 +155,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_JACK));
         game.getDistribution().jouer(player_,CardBelote.HEART_JACK);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
@@ -192,7 +192,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteTest {
         HandBelote trumps_ = suits_.getVal(game.couleurAtout());
         HandBelote playableCards_ = game.playableCards(suits_);
         assertEq(trumps_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(trumps_));
+        assertTrue(playableCards_.contientCartes(trumps_));
         assertTrue(hand_.contient(CardBelote.HEART_JACK));
         game.getDistribution().jouer(player_,CardBelote.HEART_JACK);
         game.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
@@ -204,7 +204,7 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteTest {
         assertTrue(!suits_.getVal(game.couleurAtout()).estVide());
         playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.contientCartes(hand_));
     }
     @Test
     public void playableCards_WhileFollowingTrumpSuitGreaterOnFoe5Test() {

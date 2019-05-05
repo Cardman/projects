@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.CardChar;
 import cards.consts.Suit;
+import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import code.gui.PaintableLabel;
@@ -89,8 +90,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                         g_.setColor(Color.BLACK);
                     }
                     g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                    g_.drawString(_card.getSymbol(_lg),5,12);
-                    g_.drawString(_card.getSymbol(_lg),83,12);
+                    g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                    g_.drawString(Games.getSymbol(_card,_lg),83,12);
                     int xTabLen_ = coordonnees_[0].length;
                     for(int i=CustList.FIRST_INDEX;i<xTabLen_;i++) {
                         dessinerGrandSymbole(_card,g_,coordonnees_[0][i],coordonnees_[1][i]);
@@ -107,8 +108,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                         g_.setColor(Color.BLACK);
                     }
                     g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                    g_.drawString(_card.getSymbol(_lg),5,12);
-                    g_.drawString(_card.getSymbol(_lg),83,12);
+                    g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                    g_.drawString(Games.getSymbol(_card,_lg),83,12);
                     dessinerPetitSymbole(_card,g_,5,17);
                     dessinerPetitSymbole(_card,g_,85,17);
                     g_.rotate(Math.PI,50,75);
@@ -126,8 +127,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                     g_.setColor(Color.BLACK);
                 }
                 g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                g_.drawString(_card.getSymbol(_lg),5,12);
-                g_.drawString(_card.getSymbol(_lg),83,12);
+                g_.drawString(Games.getSymbol(_card,_lg),5,12);
+                g_.drawString(Games.getSymbol(_card,_lg),83,12);
                 dessinerPetitSymbole(_card,g_,5,17);
                 dessinerPetitSymbole(_card,g_,85,17);
                 if(_card.getNomFigure() == CardChar.QUEEN) {

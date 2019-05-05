@@ -58,7 +58,7 @@ final class ResultsBeloteBean extends BeloteBean {
             for (byte p: getGame().partenaires(preneur_)) {
                 calledPlayersList.add(getNicknames().get(p));
             }
-            bidString = getBid().toString(getLoc());
+            bidString = toString(getBid(),getLoc());
             pointsAttaqueDefinitif=getGame().scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
             pointsDefenseDefinitif=getGame().scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
             winEqualityLoose = getGame().getUserState(res_.getUser());

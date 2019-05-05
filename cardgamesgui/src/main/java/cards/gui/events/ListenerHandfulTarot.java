@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JRadioButton;
 
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
@@ -35,7 +36,7 @@ public class ListenerHandfulTarot extends MouseAdapter {
         String lg_ = container.getOwner().getLanguageKey();
         String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
         int exces_ = container.getCurrentIncludedTrumps().total()-requiredTrumps;
-        container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), handful.toString(lg_)));
+        container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(handful,lg_)));
         container.setChoosenHandful(handful);
         radio.setSelected(true);
     }

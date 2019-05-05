@@ -139,7 +139,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.contientCartes(hand_));
     }
     @Test
     public void playableCards_discardingOnTrump2Test() {
@@ -160,7 +160,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(hand_));
+        assertTrue(playableCards_.contientCartes(hand_));
     }
     @Test
     public void playableCards_constrainedFollowingOnTrump3Test() {
@@ -197,7 +197,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_11);
         expected_.ajouter(CardTarot.TRUMP_10);
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.contientCartes(expected_));
     }
     @Test
     public void playableCards_freeFollowingGreaterTrumps4Test() {
@@ -222,7 +222,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_17);
         expected_.ajouter(CardTarot.TRUMP_16);
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.contientCartes(expected_));
     }
     @Test
     public void playableCards_freeFollowingLowerTrumps5Test() {
@@ -247,6 +247,6 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_17);
         expected_.ajouter(CardTarot.TRUMP_16);
         assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.display(),playableCards_.contientCartes(expected_));
+        assertTrue(playableCards_.contientCartes(expected_));
     }
 }
