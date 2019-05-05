@@ -1835,6 +1835,33 @@ public class DataBase implements WithMathFactory {
                 return;
             }
         }
+        if (!StringList.equalsSet(litterals.getKeys(),
+                Constants.getAvailableLanguages())) {
+            setError(true);
+            return;
+        }
+        for (String va: variables) {
+            for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
+                boolean f_ = false;
+                String line_ = EMPTY_STRING;
+                for (EntryCust<String,String> e: m.getValue().entryList()) {
+                    if (StringList.quickEq(StringList.splitStrings(va,SEP_BETWEEN_KEYS).sub(0,2).join(SEP_BETWEEN_KEYS),StringList.concat(VAR_PREFIX ,e.getKey()))) {
+                        f_ = true;
+                        line_ = e.getValue();
+                        break;
+                    }
+                }
+                if (!f_) {
+                    setError(true);
+                    return;
+                }
+                StringList infos_ = StringList.splitStrings(line_, TAB);
+                if (infos_.size() < 3) {
+                    setError(true);
+                    return;
+                }
+            }
+        }
     }
 
     private static boolean hasDuplicates(Listable<String> _list) {
