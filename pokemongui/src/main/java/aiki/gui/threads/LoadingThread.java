@@ -12,33 +12,15 @@ public final class LoadingThread extends Thread {
 
     private String fileName;
 
-//    private LoadGame opening;
-
     /**This class thread is independant from EDT*/
     public LoadingThread(MainWindow _window, String _fileName) {
         window = _window;
         fileName = _fileName;
-//        opening = _opening;
     }
 
     @Override
     public void run() {
-        boolean error_ = false;
-        try {
-//            if (!new File(fileName).exists() || !Constants.isZippedFile(fileName)) {
-//                throw new FileNotFoundException(fileName);
-//            }
-            window.processLoad(fileName);
-        } catch (Exception _0) {
-            error_ = true;
-            //NumericString.setCheckSyntax(false);
-            _0.printStackTrace();
-        } catch (VirtualMachineError _0) {
-            error_ = true;
-            //NumericString.setCheckSyntax(false);
-            _0.printStackTrace();
-        }
-        //window.getDialog().dispose();
+        window.processLoad(fileName);
         FacadeGame fg_ = window.getFacade();
         boolean wasLoading_ = fg_.isLoading();
         fg_.setLoading(false);
@@ -46,18 +28,7 @@ public final class LoadingThread extends Thread {
             window.getDialog().setVisible(false);
             return;
         }
-        //window.getDialog().dispose();
-//        try {
-//            opening.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        SwingUtilities.invokeLater(new AfterLoadingThread(window, fileName, error_));
+        SwingUtilities.invokeLater(new AfterLoadingThread(window, fileName));
         window = null;
-//        if (error_) {
-//            window.showErrorMessageDialog(fileName);
-//        } else {
-//            window.showSuccessfulMessageDialog(fileName);
-//        }
     }
 }

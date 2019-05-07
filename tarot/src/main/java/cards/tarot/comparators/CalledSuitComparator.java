@@ -101,32 +101,8 @@ public final class CalledSuitComparator implements Comparing<Suit> {
             }
             CardTarot carteAppelee0_ = dealingCalledCards.getVal(_arg0).premiereCarte();
             CardTarot carteAppelee1_ = dealingCalledCards.getVal(_arg1).premiereCarte();
-            HandTarot cartesPossedesNonAppelees0_ = new HandTarot();
-            HandTarot cartesPossedesNonAppelees1_ = new HandTarot();
-            for(CardTarot c:HandTarot.couleurComplete(_arg0)) {
-                if(!c.isCharacter()) {
-                    continue;
-                }
-                if(c == carteAppelee0_) {
-                    continue;
-                }
-                if(!couleur(_arg0).contient(c)) {
-                    continue;
-                }
-                cartesPossedesNonAppelees0_.ajouter(c);
-            }
-            for(CardTarot c:HandTarot.couleurComplete(_arg1)) {
-                if(!c.isCharacter()) {
-                    continue;
-                }
-                if(c == carteAppelee1_) {
-                    continue;
-                }
-                if(!couleur(_arg1).contient(c)) {
-                    continue;
-                }
-                cartesPossedesNonAppelees1_.ajouter(c);
-            }
+            HandTarot cartesPossedesNonAppelees0_ = getCharCards(_arg0, carteAppelee0_);
+            HandTarot cartesPossedesNonAppelees1_ = getCharCards(_arg1, carteAppelee1_);
             HandTarot figures0_ = cartesPossedesNonAppelees0_.charCardsBySuit(_arg0);
             HandTarot figures1_ = cartesPossedesNonAppelees1_.charCardsBySuit(_arg1);
             int min_ = Math.min(figures0_.total(), figures1_.total());
@@ -172,6 +148,24 @@ public final class CalledSuitComparator implements Comparing<Suit> {
         return 0;
 
     }
+
+    private HandTarot getCharCards(Suit _suit, CardTarot _carteAppelee) {
+        HandTarot cartesPossedesNonAppelees_ = new HandTarot();
+        for(CardTarot c:HandTarot.couleurComplete(_suit)) {
+            if(!c.isCharacter()) {
+                continue;
+            }
+            if(c == _carteAppelee) {
+                continue;
+            }
+            if(!couleur(_suit).contient(c)) {
+                continue;
+            }
+            cartesPossedesNonAppelees_.ajouter(c);
+        }
+        return cartesPossedesNonAppelees_;
+    }
+
     /**
     @param _arg0
     @return

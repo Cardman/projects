@@ -6,7 +6,6 @@ import javax.swing.JScrollPane;
 
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.ints.SimpleIterable;
 
 public interface GraphicListable {
 
@@ -20,7 +19,8 @@ public interface GraphicListable {
     CustCellRender getRender();
 
     void setRender(CustCellRender _render);
-    SimpleIterable getList();
+
+    Object[] toArray();
 
     int getMaxWidth();
     int getFirstIndex();

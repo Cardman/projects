@@ -21,7 +21,7 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
         CustCellRender r_ = grList.getRender();
-        Object[] array_ = grList.getList().toArray();
+        Object[] array_ = grList.toArray();
         boolean sel_ = !_e.isPopupTrigger();
         if (!sel_) {
             Object v_ = array_[index];

@@ -11,13 +11,12 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.StringList;
 import code.util.ints.Equallable;
 /**
     */
 
 public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTarot> {
-    private static final String SEPARATOR = " - ";
+
     private EnumList<CardTarot> cards=new EnumList<CardTarot>();
     public HandTarot() {}
 
@@ -117,21 +116,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
             }
             main_.ajouter(carte_);
         }
-        return main_;
-    }
-
-    static HandTarot atoutsEntre(CardTarot _carte, CardTarot _carte2) {
-        HandTarot main_ = new HandTarot();
-        for(CardTarot carte_: atoutsSansExcuse()) {
-            if(carte_.strength(Suit.TRUMP) < _carte.strength(Suit.TRUMP)) {
-                continue;
-            }
-            if(carte_.strength(Suit.TRUMP) > _carte2.strength(Suit.TRUMP)) {
-                continue;
-            }
-            main_.ajouter(carte_);
-        }
-        main_.trierParForceEnCours(Suit.TRUMP);
         return main_;
     }
 
@@ -328,10 +312,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         cards.addAllElts(nouvelleMain_);
     }
 
-    //Tri par ordre decroissant
-    void trierParForceEntame() {
-        trierParForceEnCours(Suit.UNDEFINED);
-    }
     void trierParForceEnCours(Suit _couleurDemandee) {
         cards.sortElts(new GameStrengthCardTarotComparator(_couleurDemandee, true));
     }
@@ -451,17 +431,13 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
                     continue;
                 }
                 if(ajouterVec_) {
-                    if(!suites_.isEmpty()) {
-                        suites_.last().trierParForceEnCours(_couleurDemandee);
-                    }
+                    sortIfNotEmpty(_couleurDemandee, suites_);
                     suites_.add(new HandTarot());
                 }
                 ajouterVec_ = false;
                 suites_.last().ajouter(carte_);
             }
-            if(!suites_.isEmpty()) {
-                suites_.last().trierParForceEnCours(_couleurDemandee);
-            }
+            sortIfNotEmpty(_couleurDemandee, suites_);
         }else {
             for(CardTarot carte_:couleurComplete(couleur_)) {
                 if(_cartesJouees.getVal(couleur_).contient(carte_)) {
@@ -472,21 +448,24 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
                     continue;
                 }
                 if(ajouterVec_) {
-                    if(!suites_.isEmpty()) {
-                        suites_.last().trierParForceEnCours(_couleurDemandee);
-                    }
+                    sortIfNotEmpty(_couleurDemandee, suites_);
                     suites_.add(new HandTarot());
                 }
                 ajouterVec_ = false;
                 suites_.last().ajouter(carte_);
             }
-            if(!suites_.isEmpty()) {
-                suites_.last().trierParForceEnCours(_couleurDemandee);
-            }
+            sortIfNotEmpty(_couleurDemandee, suites_);
         }
         return suites_;
 
     }
+
+    private void sortIfNotEmpty(Suit _couleurDemandee, EqList<HandTarot> _suites) {
+        if(!_suites.isEmpty()) {
+            _suites.last().trierParForceEnCours(_couleurDemandee);
+        }
+    }
+
     public HandTarot atoutsMaitres(EnumMap<Suit,HandTarot> _cartesJouees) {
         if(estVide()) {
             return new HandTarot();

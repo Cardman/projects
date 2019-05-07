@@ -42,7 +42,6 @@ public final class VideoLoading {
                         try {
                             imgs_.add(ImageIO.read(new File(StringList.concat(path_,DataBase.SEPARATOR_FILES,folder_.getName(),DataBase.SEPARATOR_FILES,FILE,Long.toString(i),DataBase.IMG_FILES_RES_EXT))));
                         } catch (IOException _0) {
-                            //e.printStackTrace();
                         }
                     }
                     images.add(imgs_);

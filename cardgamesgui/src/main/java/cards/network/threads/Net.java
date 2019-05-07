@@ -83,7 +83,6 @@ public final class Net {
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
     }
 //

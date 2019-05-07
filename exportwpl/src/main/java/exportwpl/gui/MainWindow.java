@@ -114,7 +114,6 @@ public class MainWindow extends GroupFrame {
             }
             StreamTextFile.saveTextFile(txt_, escapedXml_.toString());
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
         }
     }
 

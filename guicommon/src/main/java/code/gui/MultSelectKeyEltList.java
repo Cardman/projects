@@ -27,7 +27,7 @@ public final class MultSelectKeyEltList extends KeyAdapter implements IndexableL
         CustCellRender r_ = grList.getRender();
         boolean sel_ = !_e.isShiftDown();
         int index_ = 0;
-        Object[] array_ = grList.getList().toArray();
+        Object[] array_ = grList.toArray();
         for (Object v: array_) {
             JLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v, index_, sel_, false);

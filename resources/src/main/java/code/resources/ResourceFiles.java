@@ -69,7 +69,6 @@ public final class ResourceFiles {
             if (_returnNullFail) {
                 return null;
             }
-            _0.printStackTrace();
             return lignes_;
         }
     }

@@ -78,99 +78,16 @@ public enum DealingTarot {
     public static EnumList<DealingTarot> getRepartitionsValides(){
         EnumList<DealingTarot> repartitions_ = new EnumList<DealingTarot>();
         for(DealingTarot r: DealingTarot.values()) {
-            if(!r.repartitionValide()) {
-                continue;
-            }
             repartitions_.add(r);
         }
         return repartitions_;
     }
-    public boolean repartitionValide(){
-        for(int i: distribution) {
-            if(i <= 0) {
-                return false;
-            }
-        }
-        if(nombreJoueurs < 2) {
-            return false;
-        }
-        if(nombreCartesChien <= 0) {
-            return false;
-        }
-        int nbToursTot_ = distribution.length * nombreJoueurs;
-        NumberMap<Integer,Integer> distributionChien_ = getDistributionAuChien();
-        if(distributionChien_.contains(nbToursTot_-1)) {
-            return false;
-        }
-        if(distributionChien_.contains(nbToursTot_)) {
-            return false;
-        }
-        int somme_ = 0;
-        for(int i: distributionChien_.getKeys()) {
-            somme_ += distributionChien_.getVal(i);
-        }
-        if(somme_ != nombreCartesChien) {
-            return false;
-        }
-        byte nbAttaquants_ = (byte) (1 + nbAppeles);
-        if (appel == CallingCard.WITHOUT) {
-            if(nbAppeles != 0) {
-                return false;
-            }
-        } else if (appel == CallingCard.DEFINED) {
-            if(nbAppeles == 0) {
-                return false;
-            }
-            if(2 * nbAttaquants_ > nombreJoueurs) {
-                return false;
-            }
-            for (byte p=0; p<nombreJoueurs; p++) {
-                Numbers<Byte> appeles_ = getAppelesDetermines(p);
-                if (appeles_.containsObj(p)) {
-                    return false;
-                }
-                if (appeles_.size() != nbAppeles) {
-                    return false;
-                }
-                for (byte a: appeles_) {
-                    int nb_ = 0;
-                    for (byte e: appeles_) {
-                        if (e == a) {
-                            nb_++;
-                        }
-                    }
-                    if(nb_ != 1) {
-                        return false;
-                    }
-                }
-            }
-        } else {
-            if(nbAppeles == 0) {
-                return false;
-            }
-            if(2 * nbAttaquants_ > nombreJoueurs) {
-                return false;
-            }
-        }
-        return getNombreCartesParJoueur()*nombreJoueurs+nombreCartesChien==HandTarot.pileBase().total();
-    }
+
     public NumberMap<Integer,Integer> getDistributionAuChien(){
         NumberMap<Integer,Integer> indices_ = new NumberMap<Integer,Integer>();
         int nbToursTot_ = distribution.length * nombreJoueurs;
-        if(nbToursTot_ > nombreCartesChien) {
-            for(int i=1;i<=nombreCartesChien;i++) {
-                indices_.put((nbToursTot_*i)/(nombreCartesChien+1)-1,1);
-            }
-            return indices_;
-        }
-        int somme_ = 0;
-        for(int i=1;i<nbToursTot_;i++) {
-            indices_.put(i-1,nombreCartesChien/(nbToursTot_-1));
-            somme_ +=indices_.getVal(i);
-        }
-        int reste_ = somme_-(nbToursTot_-1)*(nombreCartesChien/(nbToursTot_-1));
-        for(int i=1;i<=reste_;i++){
-            indices_.put(i-1,indices_.getVal(i)+1);
+        for(int i=1;i<=nombreCartesChien;i++) {
+            indices_.put((nbToursTot_*i)/(nombreCartesChien+1)-1,1);
         }
         return indices_;
     }

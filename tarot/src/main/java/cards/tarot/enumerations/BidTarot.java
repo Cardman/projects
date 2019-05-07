@@ -68,14 +68,6 @@ public enum BidTarot {
     public static EnumList<BidTarot> getValidBids() {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
         for (BidTarot e: BidTarot.values()) {
-            if (e.getCoefficient() < 0) {
-                continue;
-            }
-            if (e.isJouerDonne()) {
-                if (e.getCoefficient() == 0) {
-                    continue;
-                }
-            }
             bids_.add(e);
         }
         return bids_;
@@ -110,73 +102,7 @@ public enum BidTarot {
         }
         return bids_;
     }
-    public static boolean allOrderedBids() {
-        for (BidTarot e: BidTarot.values()) {
-            if (e.isJouerDonne()) {
-                for (BidTarot e2_: BidTarot.values()) {
-                    if (e2_.isJouerDonne()) {
-                        continue;
-                    }
-                    if (e.getForce() > e2_.getForce()) {
-                        continue;
-                    }
-                    return false;
-                }
-            } else {
-                for (BidTarot e2_: BidTarot.values()) {
-                    if (!e2_.isJouerDonne()) {
-                        continue;
-                    }
-                    if (e.getForce() < e2_.getForce()) {
-                        continue;
-                    }
-                    return false;
-                }
-            }
-        }
-        for (BidTarot e: BidTarot.values()) {
-            for (BidTarot e2_: BidTarot.values()) {
-                if (e == e2_) {
-                    continue;
-                }
-                if (e.getForce() == e2_.getForce()) {
-                    return false;
-                }
-            }
-        }
-        for (BidTarot e: BidTarot.values()) {
-            for (BidTarot e2_: BidTarot.values()) {
-                if (e == e2_) {
-                    continue;
-                }
-                if (e.getForce() < e2_.getForce()) {
-                    if (e.getCoefficient() >= e2_.getCoefficient()) {
-                        return false;
-                    }
-                }
-            }
-        }
-        for (BidTarot e: BidTarot.values()) {
-            if (!e.isFaireTousPlis()) {
-                continue;
-            }
-            if (!e.isJouerDonne()) {
-                return false;
-            }
-            for (BidTarot e2_: BidTarot.values()) {
-                if (e == e2_) {
-                    continue;
-                }
-                if (e2_.isFaireTousPlis()) {
-                    continue;
-                }
-                if (e.getForce() <= e2_.getForce()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
     public boolean strongerThan(BidTarot _o2) {
         return estPlusFortQue(_o2);
     }

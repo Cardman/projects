@@ -141,7 +141,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         indexableMouse.clear();
         indexableKey.clear();
         int index_ = 0;
-        for (Object o: getList()) {
+        for (Object o: list) {
             JLabel lab_ = new JLabel();
             listComponents.add(lab_);
             panel_.add(lab_);
@@ -212,7 +212,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         selectedIndexes.removeDuplicates();
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = getList().toArray();
+        Object[] array_ = list.toArray();
         for (Object v: array_) {
             JLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
@@ -227,7 +227,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         selectedIndexes.removeDuplicates();
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = getList().toArray();
+        Object[] array_ = list.toArray();
         for (Object v: array_) {
             JLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
@@ -240,7 +240,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     public void clearSelection() {
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = getList().toArray();
+        Object[] array_ = list.toArray();
         for (Object v: array_) {
             JLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, false, false);
@@ -307,9 +307,14 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     public void setRender(CustCellRender _render) {
         render = _render;
     }
-    @Override
+
     public CustList<T> getList() {
         return list;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return list.toArray();
     }
 
     @Override

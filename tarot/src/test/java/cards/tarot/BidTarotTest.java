@@ -49,8 +49,4 @@ public class BidTarotTest {
         nonZeroBids_.retainAllElements(alwaysUsableBids_);
         assertTrue(!nonZeroBids_.isEmpty());
     }
-    @Test
-    public void allOrderedBids1Test() {
-        assertTrue(BidTarot.allOrderedBids());
-    }
 }

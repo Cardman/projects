@@ -9,23 +9,16 @@ public final class AfterLoadingThread extends Thread {
 
     private String fileName;
 
-    private boolean error;
-
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public AfterLoadingThread(MainWindow _window, String _fileName, boolean _error) {
+    AfterLoadingThread(MainWindow _window, String _fileName) {
         window = _window;
         fileName = _fileName;
-        error = _error;
     }
 
     @Override
     public void run() {
         window.getDialog().setVisible(false);
         window.afterLoading();
-        if (error) {
-            window.showErrorMessageDialog(fileName);
-        } else {
-            window.showSuccessfulMessageDialogThenLoadHelp(fileName);
-        }
+        window.showSuccessfulMessageDialogThenLoadHelp(fileName);
     }
 }

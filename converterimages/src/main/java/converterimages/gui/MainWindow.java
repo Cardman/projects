@@ -105,10 +105,7 @@ public class MainWindow extends GroupFrame {
                     BufferedImage img_ = ImageIO.read(new File(pathExport.getText()+f));
                     String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
                     StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
-                } catch (IOException _0) {
-                    _0.printStackTrace();
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
+                } catch (Exception _0) {
                 }
                 //ConverterBufferedImage.
             }
@@ -130,10 +127,7 @@ public class MainWindow extends GroupFrame {
                     String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
                     BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
                     ImageIO.write(img_, PNG_EXT, new File(path.getText()+StreamTextFile.SEPARATEUR+StringList.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT)));
-                } catch (IOException _0) {
-                    _0.printStackTrace();
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
+                } catch (Exception _0) {
                 }
                 //ConverterBufferedImage.
             }

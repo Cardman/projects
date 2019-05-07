@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -82,7 +81,6 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         return grList;
     }
 
-    @Override
     public String getSelectedItem() {
         if (selectedIndex == -1) {
             return null;
@@ -94,6 +92,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     public void addItem(String _object) {
         grList.add(_object);
         if (grList.getList().size() == 1) {
+            selectedIndex = 0;
             int w_ = grList.getMaxWidth();
             Font font_ = panel.getFont();
             FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
@@ -111,16 +110,6 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     @Override
     public int getItemCount() {
         return grList.getList().size();
-    }
-
-    @Override
-    public CustList<String> getList() {
-        return grList.getList();
-    }
-
-    @Override
-    public String getItem(int _index) {
-        return grList.getList().get(_index);
     }
 
     @Override

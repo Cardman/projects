@@ -18,7 +18,7 @@ public final class MultSelectEltList extends MouseAdapter implements IndexableLi
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        Object[] array_ = grList.getList().toArray();
+        Object[] array_ = grList.toArray();
         boolean sel_ = !_e.isPopupTrigger();
         if (!_e.isShiftDown()) {
             grList.setFirstIndex(index);

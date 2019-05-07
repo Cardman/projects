@@ -16,39 +16,39 @@ public final class ResultsGame {
     private Numbers<Long> sums=new Numbers<Long>();
     private CustList<Numbers<Long>> scores;
 
-    public final String getGlobalResultsPageTitle() {
+    public String getGlobalResultsPageTitle() {
         return globalResultsPageTitle;
     }
 
-    public final void setGlobalResultsPageTitle(String _globalResultsPageTitle) {
+    public void setGlobalResultsPageTitle(String _globalResultsPageTitle) {
         globalResultsPageTitle = _globalResultsPageTitle;
     }
 
-    public final String getDetailResultsTitle() {
+    public String getDetailResultsTitle() {
         return detailResultsTitle;
     }
 
-    public final void setDetailResultsTitle(String _detailResultsTitle) {
+    public void setDetailResultsTitle(String _detailResultsTitle) {
         detailResultsTitle = _detailResultsTitle;
     }
 
-    public final StringMap<String> getRenderedPages() {
+    public StringMap<String> getRenderedPages() {
         return renderedPages;
     }
 
-    public final EqList<Rate> getSigmas() {
+    public EqList<Rate> getSigmas() {
         return sigmas;
     }
 
-    public final Numbers<Long> getSums() {
+    public Numbers<Long> getSums() {
         return sums;
     }
 
-    public final CustList<Numbers<Long>> getScores() {
+    public CustList<Numbers<Long>> getScores() {
         return scores;
     }
 
-    public final void setScores(CustList<Numbers<Long>> _scores) {
+    public void setScores(CustList<Numbers<Long>> _scores) {
         scores = new CustList<Numbers<Long>>(_scores);
     }
 

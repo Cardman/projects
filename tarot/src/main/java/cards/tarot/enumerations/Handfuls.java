@@ -1,5 +1,4 @@
 package cards.tarot.enumerations;
-import cards.tarot.HandTarot;
 import code.util.EnumList;
 import code.util.NumberMap;
 
@@ -20,14 +19,7 @@ public enum Handfuls {
         return points;
     }
     public static EnumList<Handfuls> getDeclarableHandFuls() {
-        EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
-        for(Handfuls p: Handfuls.values()) {
-            if(!p.declarable){
-                continue;
-            }
-            liste_.add(p);
-        }
-        return liste_;
+        return getPoigneesValidesParDefaut();
     }
     public static EnumList<Handfuls> getNonDeclarableHandFuls() {
         EnumList<Handfuls> liste_ = new EnumList<Handfuls>();
@@ -45,48 +37,11 @@ public enum Handfuls {
             if(!p.declarable){
                 continue;
             }
-            if(!configurationParDefautValide(p)){
-                continue;
-            }
             liste_.add(p);
         }
         return liste_;
     }
-    private static boolean configurationParDefautValide(Handfuls _poignee) {
-        NumberMap<Integer,Integer> configuration_ =
-                    getConfigurationParDefautAnnoncePoignee(_poignee);
-        int nbAtoutsExcuse_ = HandTarot.atoutsSansExcuse().total()+1;
-        for(DealingTarot r: DealingTarot.values()) {
-            int nbCartesParJoueur_ = r.getNombreCartesParJoueur();
-            if(!configuration_.contains(nbCartesParJoueur_)) {
-                return false;
-            }
-            int nbAtoutsNecessaires_ = configuration_.getVal(nbCartesParJoueur_);
-            if(nbAtoutsNecessaires_ <= 0){
-                return false;
-            }
-            if(nbCartesParJoueur_ < nbAtoutsNecessaires_) {
-                return false;
-            }
-            if(nbAtoutsExcuse_ < nbAtoutsNecessaires_){
-                return false;
-            }
-        }
-        for(int c: configuration_.getKeys()) {
-            boolean cleValide_ = false;
-            for(DealingTarot r: DealingTarot.values()) {
-                int nbCartesParJoueur_ = r.getNombreCartesParJoueur();
-                if(nbCartesParJoueur_ == c) {
-                    cleValide_ = true;
-                    break;
-                }
-            }
-            if(!cleValide_) {
-                return false;
-            }
-        }
-        return true;
-    }
+
     public static NumberMap<Integer,Integer> getConfigurationParDefautAnnoncePoignee(Handfuls _poignee){
         NumberMap<Integer,Integer> configuration_ = new NumberMap<Integer,Integer>();
         if (_poignee == Handfuls.ONE) {

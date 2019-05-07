@@ -73,7 +73,6 @@ public class ImageTask implements ActionListener {
             g_.drawImage(tmpImg_, pt_.x, pt_.y, null);
             ImageIO.write(b_, PNG, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

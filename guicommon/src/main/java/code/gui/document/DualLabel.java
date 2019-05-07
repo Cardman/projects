@@ -22,10 +22,6 @@ public abstract class DualLabel extends DualLeaf {
         super(_container, _component, _label, _page);
     }
 
-    public String getHref() {
-        return "";
-    }
-
     public final void clearSegments() {
         segments.clear();
     }

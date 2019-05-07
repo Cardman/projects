@@ -178,7 +178,6 @@ public final class AutoCompleteDocument implements Document {
                 // _textField.moveCaretPosition(offs + str.length());
             }
         } catch (BadLocationException _0) {
-            _0.printStackTrace();
         }
     }
 

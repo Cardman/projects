@@ -1,0 +1,27 @@
+package cards.consts;
+
+import code.util.Numbers;
+import code.util.StringList;
+import org.junit.Assert;
+
+public final class EquallableCardsUtil {
+
+    private static final String DIFF = " != ";
+
+    private EquallableCardsUtil() {
+    }
+    public static void assertEq(long _expected, Number _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    }
+
+    private static boolean sameValue(long _expected, Number _result) {
+        return _expected == _result.longValue();
+    }
+
+    
+    public static void assertEq(Suit _expected, Suit _result) {
+        Assert.assertSame(_expected, _result);
+    }
+
+}

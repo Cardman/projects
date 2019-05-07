@@ -159,7 +159,34 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
     }
-
+    @Test
+    public void check71Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.NORMAL);
+        rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        //assertEq(0, game_.getNbPlisTotal());
+        assertEq(2, game_.getPreneur());
+        assertEq(0, game_.getAppele().size());
+        assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
+        assertEq(2, game_.getEntameur());
+        assertEq(2, game_.getRamasseur());
+    }
     private static DealTarot deal1(byte _dealer) {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
         HandTarot hand_;

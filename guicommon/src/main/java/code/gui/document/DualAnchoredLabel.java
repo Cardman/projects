@@ -35,7 +35,6 @@ public final class DualAnchoredLabel extends DualLabel {
         }
     }
 
-    @Override
     public String getHref() {
         return href;
     }

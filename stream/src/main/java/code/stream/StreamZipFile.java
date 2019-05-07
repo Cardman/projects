@@ -331,7 +331,6 @@ public final class StreamZipFile {
             zos_.close();
             return true;
         }catch(Throwable _0){
-        	_0.printStackTrace();
         	return false;
         }
     }

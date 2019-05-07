@@ -398,7 +398,6 @@ public class MainWindow extends GroupFrame {
             try {
                 clipStream.getStream().close();
             } catch (IOException _0) {
-                _0.printStackTrace();
             }
             clipStream = null;
         }
@@ -413,7 +412,6 @@ public class MainWindow extends GroupFrame {
             try {
                 clipStream.getStream().close();
             } catch (IOException _0) {
-                _0.printStackTrace();
             }
             clipStream = null;
         }
@@ -429,7 +427,6 @@ public class MainWindow extends GroupFrame {
             try {
                 clipStream.getStream().close();
             } catch (IOException _0) {
-                _0.printStackTrace();
             }
             clipStream = null;
         }
@@ -451,7 +448,6 @@ public class MainWindow extends GroupFrame {
                 try {
                     clipStream.getStream().close();
                 } catch (IOException _0) {
-                    _0.printStackTrace();
                 }
                 next = false;
             }

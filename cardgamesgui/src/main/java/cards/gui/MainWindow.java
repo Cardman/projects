@@ -1056,10 +1056,7 @@ public final class MainWindow extends NetGroupFrame {
         try {
             closeConnexion();
             _socket.close();
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        } catch (IOException _0) {
-            _0.printStackTrace();
+        } catch (Exception _0) {
         }
         if (_exit.isClosing()) {
             dispose();

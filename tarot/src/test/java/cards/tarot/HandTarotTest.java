@@ -1,7 +1,6 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -21,6 +20,95 @@ public class HandTarotTest {
         HandTarot main_ = HandTarot.pileBase();
         assertEq(CardTarot.values().length-1, main_.total());
         assertTrue(!main_.contient(CardTarot.WHITE));
+        assertNotNull(Handfuls.getConfigurationParDefautAnnoncePoignee(Handfuls.NO));
+        assertNotNull(Handfuls.getNonDeclarableHandFuls());
+        assertNotNull(Handfuls.getDeclarableHandFuls());
+        assertNotNull(CardTarot.EXCUSE.getImageFileName(""));
+        EnumList<CardTarot> one_ = new EnumList<CardTarot>();
+        one_.add(CardTarot.EXCUSE);
+        EnumList<CardTarot> two_ = new EnumList<CardTarot>();
+        assertTrue(!CardTarot.equalsCards(one_,two_));
+        assertEq(0, CardTarot.EXCUSE.getForce());
+    }
+    @Test
+    public void vientAvant1Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(CardTarot.SPADE_KING.vientAvant(CardTarot.HEART_KING,false,suits_));
+    }
+    @Test
+    public void vientAvant2Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(CardTarot.SPADE_QUEEN.vientAvant(CardTarot.SPADE_KING,false,suits_));
+    }
+    @Test
+    public void vientAvant3Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(CardTarot.SPADE_KING.vientAvant(CardTarot.HEART_KING,true,suits_));
+    }
+    @Test
+    public void vientAvant4Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(!CardTarot.SPADE_QUEEN.vientAvant(CardTarot.SPADE_KING,true,suits_));
+    }
+    @Test
+    public void vientAvant5Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(!CardTarot.TRUMP_1.vientAvant(CardTarot.HEART_KING,false,suits_));
+    }
+    @Test
+    public void vientAvant6Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(!CardTarot.TRUMP_1.vientAvant(CardTarot.HEART_KING,true,suits_));
+    }
+    @Test
+    public void vientAvant7Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(!CardTarot.TRUMP_1.vientAvant(CardTarot.TRUMP_21,true,suits_));
+    }
+    @Test
+    public void vientAvant8Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        suits_.add(Suit.TRUMP);
+        assertTrue(CardTarot.TRUMP_1.vientAvant(CardTarot.TRUMP_21,false,suits_));
     }
     @Test
     public void trierParForceEnCours1(){
