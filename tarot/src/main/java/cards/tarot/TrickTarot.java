@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
 import code.util.Numbers;
 
@@ -114,25 +115,10 @@ public final class TrickTarot implements Iterable<CardTarot> {
         byte position_=(byte)cards.position(_c);
         return (byte)((position_+getEntameur())%_nombreDeJoueurs);
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero) {
+    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero, DealingTarot _d) {
         Numbers<Byte> joueurs_=new Numbers<Byte>();
-        boolean arreter_ = false;
-        byte nombreDeJoueurs_ = (byte) total();
-        for(byte j = starter; j< nombreDeJoueurs_;j++) {
-            if(!aJoue(j,nombreDeJoueurs_)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                arreter_ = true;
-                break;
-            }
-            joueurs_.add(j);
-        }
-        if(arreter_) {
-            return joueurs_;
-        }
-        for (byte j = CustList.FIRST_INDEX; j< starter;j++) {
-            if(!aJoue(j,nombreDeJoueurs_)) {
+        for(byte j : _d.getSortedPlayers(starter)) {
+            if(!aJoue(j, (byte) _d.getNombreJoueurs())) {
                 continue;
             }
             if(j == _pnumero) {
@@ -142,23 +128,9 @@ public final class TrickTarot implements Iterable<CardTarot> {
         }
         return joueurs_;
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero,byte _nombreDeJoueurs) {
+    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero, byte _nombreDeJoueurs, DealingTarot _d) {
         Numbers<Byte> joueurs_=new Numbers<Byte>();
-        boolean arreter_ = false;
-        for(byte j = starter; j< _nombreDeJoueurs;j++) {
-            if(!aJoue(j, _nombreDeJoueurs)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                arreter_ = true;
-                break;
-            }
-            joueurs_.add(j);
-        }
-        if(arreter_) {
-            return joueurs_;
-        }
-        for (byte j = CustList.FIRST_INDEX; j< starter;j++) {
+        for(byte j : _d.getSortedPlayers(starter)) {
             if(!aJoue(j, _nombreDeJoueurs)) {
                 continue;
             }
@@ -169,19 +141,10 @@ public final class TrickTarot implements Iterable<CardTarot> {
         }
         return joueurs_;
     }
-    Numbers<Byte> joueursAyantJoueApres(byte _pnumero) {
+    Numbers<Byte> joueursAyantJoueApres(byte _pnumero, DealingTarot _d) {
         Numbers<Byte> joueurs_=new Numbers<Byte>();
         byte nombreDeJoueurs_ = (byte) total();
-        for(byte j = starter; j< nombreDeJoueurs_;j++) {
-            if(aJoue(j,nombreDeJoueurs_)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                continue;
-            }
-            joueurs_.add(j);
-        }
-        for (byte j = CustList.FIRST_INDEX; j< starter;j++) {
+        for(byte j : _d.getSortedPlayers(starter)) {
             if(aJoue(j,nombreDeJoueurs_)) {
                 continue;
             }

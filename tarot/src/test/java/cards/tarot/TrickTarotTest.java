@@ -2,6 +2,7 @@ package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import cards.tarot.enumerations.DealingTarot;
 import org.junit.Test;
 
 import cards.consts.Suit;
@@ -382,19 +383,21 @@ public class TrickTarotTest {
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        Numbers<Byte> joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        Numbers<Byte> joueurs_ = pli_.joueursAyantJoueAvant((byte) 1, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 0));
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         pli_.getCartes().ajouter(CardTarot.CLUB_7);
-        assertEq(0, pli_.joueursAyantJoueAvant((byte) 0).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        assertEq(0, pli_.joueursAyantJoueAvant((byte) 0,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
@@ -405,15 +408,15 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         pli_.getCartes().ajouter(CardTarot.CLUB_7);
-        assertEq(0, pli_.joueursAyantJoueAvant((byte) 1).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        assertEq(0, pli_.joueursAyantJoueAvant((byte) 1,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
@@ -424,15 +427,15 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         pli_.getCartes().ajouter(CardTarot.CLUB_7);
-        assertEq(0, pli_.joueursAyantJoueAvant((byte) 2).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        assertEq(0, pli_.joueursAyantJoueAvant((byte) 2,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
@@ -443,15 +446,15 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
         pli_.getCartes().ajouter(CardTarot.HEART_KING);
         pli_.getCartes().ajouter(CardTarot.CLUB_7);
-        assertEq(0, pli_.joueursAyantJoueAvant((byte) 3).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        assertEq(0, pli_.joueursAyantJoueAvant((byte) 3,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
@@ -460,9 +463,9 @@ public class TrickTarotTest {
     @Test
     public void getRamasseur1Test(){
         byte nombreDeJoueurs_ = 4;
-        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
-        byte jTwo_ = (byte) ((0 + 2) % nombreDeJoueurs_);
-        byte jThree_ = (byte) ((0 + 3) % nombreDeJoueurs_);
+        byte j_ = (byte) 1;
+        byte jTwo_ = (byte) 2;
+        byte jThree_ = (byte) 3;
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);

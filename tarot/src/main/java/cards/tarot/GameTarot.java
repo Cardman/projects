@@ -3001,7 +3001,7 @@ public final class GameTarot {
                 Suit couleurDemandee_ = p.couleurDemandee();
                 byte forcePetit_ = carte_.strength(couleurDemandee_);
                 boolean petitRamasse_ = false;
-                for(byte j2_: p.joueursAyantJoueAvant(j)) {
+                for(byte j2_: p.joueursAyantJoueAvant(j,rules.getDealing())) {
                     if(p.carteDuJoueur(j2_).strength(couleurDemandee_) < forcePetit_) {
                         continue;
                     }
@@ -3195,7 +3195,7 @@ public final class GameTarot {
                     //carteJouee est une figure de la couleur demandee au premier tour
                     boolean carteJoueeRamassee_ = false;
                     byte max_ = carteJouee_.strength(c);
-                    for(byte j2_: p.joueursAyantJoueAvant(j)) {
+                    for(byte j2_: p.joueursAyantJoueAvant(j,rules.getDealing())) {
                         CardTarot carteJoueeAvant_ = p.carteDuJoueur(j2_);
                         if(carteJoueeAvant_.strength(c) < max_) {
                             continue;
@@ -7240,7 +7240,7 @@ public final class GameTarot {
                 if (joueur_ == _numero) {
                     continue;
                 }
-                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nombreJoueurs_);
+                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nombreJoueurs_,rules.getDealing());
                 byte forceLoc_ = c.strength(couleurDemande_);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;
@@ -8035,11 +8035,11 @@ public final class GameTarot {
                 continue;
             }
             //winner of the trick foe for the viewed player
-            if (!pli_.joueursAyantJoueAvant(_numero).containsObj(pli_.getRamasseur())) {
+            if (!pli_.joueursAyantJoueAvant(_numero,rules.getDealing()).containsObj(pli_.getRamasseur())) {
                 continue;
             }
             boolean entameSurExcuse_ = true;
-            for(byte j: pli_.joueursAyantJoueAvant(_numero)) {
+            for(byte j: pli_.joueursAyantJoueAvant(_numero,rules.getDealing())) {
                 CardTarot carteJouee_ = pli_.carteDuJoueur(j);
                 if(carteJouee_ != CardTarot.EXCUSE) {
                     entameSurExcuse_ = false;
@@ -8050,7 +8050,7 @@ public final class GameTarot {
                 continue;
             }
             boolean defausseToutJoueurApres_ = true;
-            for(byte j: pli_.joueursAyantJoueApres(_numero)) {
+            for(byte j: pli_.joueursAyantJoueApres(_numero,rules.getDealing())) {
                 if(defausses_.getVal(j)) {
                     continue;
                 }
@@ -8151,7 +8151,7 @@ public final class GameTarot {
             boolean sousCoupe_ = false;
             Suit couleurDemandee_ = pli_.couleurDemandee();
             byte force_ = carteObservee_.strength(couleurDemandee_);
-            for(byte j: pli_.joueursAyantJoueAvant(_joueurCourant)) {
+            for(byte j: pli_.joueursAyantJoueAvant(_joueurCourant,rules.getDealing())) {
                 if(pli_.carteDuJoueur(j).strength(couleurDemandee_) < force_) {
                     continue;
                 }
@@ -8231,7 +8231,7 @@ public final class GameTarot {
             byte force_ = carteObservee_.strength(couleurDemandee_);
             HandTarot atoutsJouesAvant_ = new HandTarot();
             boolean entameSurExcuse_ = true;
-            for(byte j: pli_.joueursAyantJoueAvant(_numero)) {
+            for(byte j: pli_.joueursAyantJoueAvant(_numero,rules.getDealing())) {
                 CardTarot carteJouee_ = pli_.carteDuJoueur(j);
                 if(carteJouee_ != CardTarot.EXCUSE) {
                     entameSurExcuse_ = false;
@@ -8254,7 +8254,7 @@ public final class GameTarot {
                 continue;
             }
             boolean defausseToutJoueurApres_ = true;
-            for(byte j: pli_.joueursAyantJoueApres(_numero)) {
+            for(byte j: pli_.joueursAyantJoueApres(_numero,rules.getDealing())) {
                 if(defausses_.getVal(j)) {
                     continue;
                 }
