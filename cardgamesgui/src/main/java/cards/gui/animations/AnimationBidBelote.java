@@ -50,7 +50,7 @@ public final class AnimationBidBelote extends Thread {
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(delaiContrat_);
-            BidBeloteSuit contrat_=partie_.strategieContrat(lg_);
+            BidBeloteSuit contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
             String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);

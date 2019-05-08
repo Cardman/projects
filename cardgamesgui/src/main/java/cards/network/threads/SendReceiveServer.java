@@ -380,7 +380,7 @@ public final class SendReceiveServer extends BasicServer {
                 Net.sendText(Net.getSocketByPlace(discarded_.getPlace()), _input);
                 return;
             }
-            ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard(), discarded_.getLocale());
+            ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
             if (reason_ != ReasonDiscard.NOTHING) {
                 ErrorDiscarding error_ = new ErrorDiscarding();
                 error_.setErrorMessage(Games.autoriseMessEcartDe(game_,reason_,discarded_.getCard(), discarded_.getLocale()).toString());
@@ -688,7 +688,7 @@ public final class SendReceiveServer extends BasicServer {
             String messErr_ = Games.isValidHandfulMessage(game_, info_.getChoosenHandful(),
                     info_.getHandful(), info_.getExcludedTrumps(), info_.getLocale());
             if (!game_.isValidHandful(info_.getChoosenHandful(),
-                    info_.getHandful(), info_.getExcludedTrumps(), info_.getLocale())) {
+                    info_.getHandful(), info_.getExcludedTrumps())) {
                 ErrorHandful error_ = new ErrorHandful();
                 error_.setHandful(info_.getChoosenHandful());
                 error_.setError(messErr_);
@@ -696,7 +696,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
         }
-        if (!game_.autorise(card_, info_.getLocale())) {
+        if (!game_.autorise(card_)) {
             ErrorPlaying error_ = new ErrorPlaying();
             error_.setCard(card_);
             error_.setReason(Games.autoriseTarot(game_, info_.getLocale()));
@@ -1135,7 +1135,7 @@ public final class SendReceiveServer extends BasicServer {
             PlayingCardBelote info_ = (PlayingCardBelote) _readObject;
             CardBelote card_ = info_.getPlayedCard();
             GameBelote game_ = Net.getGames().partieBelote();
-            boolean autorise_ = game_.autorise(card_, info_.getLocale());
+            boolean autorise_ = game_.autorise(card_);
             if(info_.isDeclaringBeloteRebelote()) {
                 boolean annonceBeloteRebelote_ = game_.cartesBeloteRebelote().contient(card_);
                 if (!annonceBeloteRebelote_) {
@@ -1328,7 +1328,7 @@ public final class SendReceiveServer extends BasicServer {
             PlayingCardPresident pl_ = (PlayingCardPresident) _readObject;
             byte player_ = pl_.getPlace();
             if (pl_.isPass()) {
-                if (!game_.canPass(player_, pl_.getLocale())) {
+                if (!game_.canPass(player_)) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setPassIssue(true);
                     e_.setReason(Games.canPassMess(game_, pl_.getLocale()));
@@ -1347,7 +1347,7 @@ public final class SendReceiveServer extends BasicServer {
                     Net.sendObject(Net.getSocketByPlace(player_),cardDto_);
                 }
             } else {
-                if (!game_.allowPlaying(player_, pl_.getPlayedCard(), pl_.getIndex(), pl_.getLocale())) {
+                if (!game_.allowPlaying(player_, pl_.getPlayedCard(), pl_.getIndex())) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setCard(pl_.getPlayedCard());
                     e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), pl_.getLocale()).toString());
@@ -1485,7 +1485,7 @@ public final class SendReceiveServer extends BasicServer {
                     }
                     CardBelote card_ = game_.getCarteJouee();
                     boolean declareBeloteRebelote_ = false;
-                    if(game_.annoncerBeloteRebelote(place_,card_, Constants.getDefaultLanguage())) {
+                    if(game_.annoncerBeloteRebelote(place_,card_)) {
                         game_.setAnnoncesBeloteRebelote(place_,card_);
                         declareBeloteRebelote_ = true;
                     }
@@ -1782,7 +1782,7 @@ public final class SendReceiveServer extends BasicServer {
                 decla_.setDeclaration(new DeclareHandBelote());
             }
             decla_.setPossibleBeloteRebelote(!game_.cartesBeloteRebelote().estVide());
-            decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote(place_, Constants.getDefaultLanguage()));
+            decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote(place_));
             Net.sendObject(Net.getSocketByPlace(place_),decla_);
             return;
         }
@@ -1792,7 +1792,7 @@ public final class SendReceiveServer extends BasicServer {
         }
         CardBelote card_ = game_.getCarteJouee();
         boolean declareBeloteRebelote_ = false;
-        if(game_.annoncerBeloteRebelote(place_,card_, Constants.getDefaultLanguage())) {
+        if(game_.annoncerBeloteRebelote(place_,card_)) {
             game_.setAnnoncesBeloteRebelote(place_,card_);
             declareBeloteRebelote_ = true;
         }

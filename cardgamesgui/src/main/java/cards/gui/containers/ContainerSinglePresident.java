@@ -502,7 +502,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         String lg_ = getOwner().getLanguageKey();
         GamePresident partie_=partiePresident();
-        if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR, lg_)) {
+        if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR)) {
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), Games.canPassMess(partie_, lg_), title_, lg_, JOptionPane.ERROR_MESSAGE);
             return;

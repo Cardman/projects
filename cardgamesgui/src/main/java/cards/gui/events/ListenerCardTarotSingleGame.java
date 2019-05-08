@@ -41,7 +41,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
             GameTarot partie_=container.partieTarot();
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String messErr_ = Games.isValidHandfulMessage(partie_, container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps(), lg_);
-                if (!partie_.isValidHandful(container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps(), lg_)) {
+                if (!partie_.isValidHandful(container.getChoosenHandful(), container.getCurrentIncludedTrumps(), container.getCurrentExcludedTrumps())) {
                     String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), Games.toString(container.getChoosenHandful(),lg_));
                     String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,messErr_);
                     String title_ = container.getMessages().getVal(MainWindow.CANT_DECLARE_TITLE);
@@ -75,7 +75,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 }
                 partie_.ajouterAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
             }
-            if(partie_.autorise(getCarteVerif(), lg_)) {
+            if(partie_.autorise(getCarteVerif())) {
                 if (container.getScrollDeclaringHandful().isVisible()) {
                     container.getScrollDeclaringHandful().setVisible(false);
                     container.pack();

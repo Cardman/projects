@@ -32,13 +32,11 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.consts.Constants;
 /**
  */
 
 public final class GameBelote {
 
-    private static final String EMPTY = "";
     private AtomicInteger chargementSimulation = new AtomicInteger(0);
 
     /**Le type d'une partie est aleatoire ou encore edite ou encore un entrainement*/
@@ -82,8 +80,6 @@ public final class GameBelote {
     private BidBeloteSuit lastBid=new BidBeloteSuit();
 
     private CardBelote playedCard = CardBelote.WHITE;
-
-    private HandBelote cardsToBePlayed = new HandBelote();
 
     private String error = "";
     /**Constructeur permettant le chargement d'une partie de belote*/
@@ -228,16 +224,15 @@ public final class GameBelote {
             declares.set(joueur_, new DeclareHandBelote());
         }
         tricks = new CustList<TrickBelote>();
-        cardsToBePlayed = new HandBelote();
     }
-    public void simuler(String _loc) {
+    public void simuler() {
         simulationWithBids = false;
         BidBeloteSuit contratTmp_;
         Numbers<Byte> players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
         if (rules.dealAll()) {
             byte joueur_ = playerAfter(getDistribution().getDonneur());
             while (true) {
-                contratTmp_=strategieContrat(_loc);
+                contratTmp_=strategieContrat();
                 ajouterContrat(contratTmp_,joueur_);
                 if (!keepBidding()) {
                     break;
@@ -248,7 +243,7 @@ public final class GameBelote {
         } else {
             boolean finished_ = false;
             for(byte joueur_:players_) {
-                contratTmp_=strategieContrat(_loc);
+                contratTmp_=strategieContrat();
                 ajouterContrat(contratTmp_,joueur_);
                 if (!keepBidding()) {
                     finished_ = true;
@@ -259,7 +254,7 @@ public final class GameBelote {
             if (!finished_) {
                 finEncherePremierTour();
                 for(byte joueur_:players_) {
-                    contratTmp_=strategieContrat(_loc);
+                    contratTmp_=strategieContrat();
                     ajouterContrat(contratTmp_,joueur_);
                     if (!keepBidding()) {
                         break;
@@ -284,7 +279,7 @@ public final class GameBelote {
             }
             for(byte joueur_:orderedPlayers(starter)) {
                 CardBelote ct_=strategieJeuCarteUnique();
-                if(annoncerBeloteRebelote(joueur_,ct_,_loc)) {
+                if(annoncerBeloteRebelote(joueur_,ct_)) {
                     setAnnoncesBeloteRebelote(joueur_,ct_);
                 }
                 if(!passe_) {
@@ -340,11 +335,9 @@ public final class GameBelote {
     private boolean sousCoupeObligatoireAdversaire() {
         return rules.getSousCoupeAdv();
     }
-    public boolean autorise(CardBelote _c, String _loc) {
-        cardsToBePlayed = new HandBelote();
-        cardsToBePlayed.ajouter(_c);
+    public boolean autorise(CardBelote _c) {
         HandBelote main_=getDistribution().main(playerHavingToPlay());
-        return cartesJouables(main_.couleurs(bid),_loc).contient(_c);
+        return cartesJouables(main_.couleurs(bid)).contient(_c);
     }
 
     private static HandBelote cartesAtouts(Suit _couleur) {
@@ -368,10 +361,10 @@ public final class GameBelote {
         }
         return cartes_;
     }
-    public boolean autoriseBeloteRebelote(String _loc) {
-        return autoriseBeloteRebelote(DealBelote.NUMERO_UTILISATEUR,_loc);
+    public boolean autoriseBeloteRebelote() {
+        return autoriseBeloteRebelote(DealBelote.NUMERO_UTILISATEUR);
     }
-    public boolean autoriseBeloteRebelote(byte _numero, String _loc) {
+    public boolean autoriseBeloteRebelote(byte _numero) {
         if(!bid.getCouleurDominante()) {
             return false;
         }
@@ -397,7 +390,7 @@ public final class GameBelote {
                 continue;
             }
             //carte c: non annoncee et dans la main
-            if(!autorise(c,_loc)) {
+            if(!autorise(c)) {
                 continue;
             }
             main_.ajouter(c);
@@ -406,7 +399,7 @@ public final class GameBelote {
     }
     /**for multi player*/
     public boolean playerHasAlreadyBidded(byte _player) {
-        BidBeloteSuit bid_ =strategieContrat(Constants.getDefaultLanguage());
+        BidBeloteSuit bid_ =strategieContrat();
         int nbBids_ = tailleContrats();
         int lastPlayer_ = lastHasBid;
         ajouterContrat(bid_,_player);
@@ -429,7 +422,7 @@ public final class GameBelote {
     public BidBeloteSuit getLastBid() {
         return lastBid;
     }
-    public BidBeloteSuit strategieContrat(String _lg) {
+    public BidBeloteSuit strategieContrat() {
         BidBeloteSuit contratJoueur_=contrat();
         if (getRegles().dealAll()) {
             return contratJoueur_;
@@ -806,9 +799,9 @@ public final class GameBelote {
     public TrickBelote getPliEnCours() {
         return getProgressingTrick();
     }
-    public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct, String _loc) {
+    public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct) {
         if(bid.getCouleurDominante()) {
-            if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur,_loc)) {
+            if(cartesBeloteRebelote().contient(_ct) &&autoriseBeloteRebelote(_numeroJoueur)) {
                 return true;
             }
         }
@@ -3990,10 +3983,10 @@ public final class GameBelote {
     }
 
     HandBelote playableCards(EnumMap<Suit,HandBelote> _repartitionMain) {
-        return cartesJouables(_repartitionMain,Constants.getDefaultLanguage());
+        return cartesJouables(_repartitionMain);
     }
 
-    private HandBelote cartesJouables(EnumMap<Suit, HandBelote> _repartitionMain, String _loc) {
+    private HandBelote cartesJouables(EnumMap<Suit, HandBelote> _repartitionMain) {
         /*Ensemble des cartes jouees sur ce pli*/
         byte numero_=playerHavingToPlay();
         HandBelote m=progressingTrick.getCartes();

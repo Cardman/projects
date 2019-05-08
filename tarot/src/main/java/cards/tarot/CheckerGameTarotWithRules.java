@@ -35,9 +35,6 @@ public final class CheckerGameTarotWithRules {
     }
 
     public static void check(GameTarot _loadedGame) {
-        check(_loadedGame, Constants.getDefaultLanguage());
-    }
-    public static void check(GameTarot _loadedGame, String _lg) {
         RulesTarot rules_ = _loadedGame.getRegles();
         if (!rules_.isValidRules()) {
             _loadedGame.setError(INVALID_RULES);
@@ -165,18 +162,6 @@ public final class CheckerGameTarotWithRules {
             if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH) {
                 for (byte p : players_) {
                     if (p == _loadedGame.getPreneur()) {
-                        if (deal_.main(p).total() < rules_.getRepartition()
-                                .getNombreCartesParJoueur()) {
-                            _loadedGame.setError(BAD_COUNT_FOR_HANDS);
-                            return;
-                        }
-                        if (deal_.main(p).total() > rules_.getRepartition()
-                                .getNombreCartesParJoueur()
-                                + rules_.getRepartition()
-                                        .getNombreCartesChien()) {
-                            _loadedGame.setError(BAD_COUNT_FOR_HANDS);
-                            return;
-                        }
                         continue;
                     }
                     if (deal_.main(p).total() != rules_.getRepartition()
@@ -234,10 +219,8 @@ public final class CheckerGameTarotWithRules {
                     .orderedPlayers(loadedGameCopy_.playerAfter(loadedGameCopy_
                             .getDistribution().getDonneur()));
             int i_ = 0;
-            for (byte p : players_) {
-                if (i_ == _loadedGame.contrats()) {
-                    break;
-                }
+            while (i_ < _loadedGame.contrats()) {
+                byte player_ = players_.get(i_);
                 if (!_loadedGame.contrat(i_).estDemandable(
                         loadedGameCopy_.getContrat())) {
                     _loadedGame.setError(INVALID_BID);
@@ -248,7 +231,7 @@ public final class CheckerGameTarotWithRules {
                     _loadedGame.setError(INVALID_BID);
                     return;
                 }
-                loadedGameCopy_.ajouterContrat(_loadedGame.contrat(i_), p);
+                loadedGameCopy_.ajouterContrat(_loadedGame.contrat(i_), player_);
                 if (!loadedGameCopy_.keepBidding()) {
                     if (_loadedGame.contrats() > i_ + 1) {
                         _loadedGame.setError(TOO_MUCH_BIDS);
@@ -330,8 +313,8 @@ public final class CheckerGameTarotWithRules {
                         return;
                     }
                     for (CardTarot c : discardedCards_) {
-                        if (loadedGameCopy_.autoriseEcartDe(c,
-                                _lg) != ReasonDiscard.NOTHING) {
+                        if (loadedGameCopy_.autoriseEcartDe(c
+                        ) != ReasonDiscard.NOTHING) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }
@@ -364,8 +347,8 @@ public final class CheckerGameTarotWithRules {
                     loadedGameCopy_.ajouterCartes(loadedGameCopy_.getPreneur(),
                             loadedGameCopy_.derniereMain());
                     for (CardTarot c : discardedCards_) {
-                        if (loadedGameCopy_.autoriseEcartDe(c,
-                                _lg) != ReasonDiscard.NOTHING) {
+                        if (loadedGameCopy_.autoriseEcartDe(c
+                        ) != ReasonDiscard.NOTHING) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }
@@ -469,7 +452,7 @@ public final class CheckerGameTarotWithRules {
                 }
                 CardTarot ct_ = trick_.carteDuJoueur(p,
                         loadedGameCopy_.getNombreDeJoueurs());
-                if (!loadedGameCopy_.autorise(ct_, _lg)) {
+                if (!loadedGameCopy_.autorise(ct_)) {
                     _loadedGame.setError(BAD_PLAYING);
                     return;
                 }
@@ -516,8 +499,8 @@ public final class CheckerGameTarotWithRules {
                                 excludedTrumps_.ajouter(CardTarot.EXCUSE);
                             }
                             if (!loadedGameCopy_.isValidHandful(h_,
-                                    _loadedGame.getPoignee(p), excludedTrumps_,
-                                    _lg)) {
+                                    _loadedGame.getPoignee(p), excludedTrumps_
+                            )) {
                                 _loadedGame.setError(BAD_DECLARING);
                                 return;
                             }

@@ -31,7 +31,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorEnum;
-import code.util.consts.Constants;
 
 /** */
 
@@ -43,8 +42,6 @@ public final class GameTarot {
     public static final int ALL_OUDLERS_PTS = 36;
 
     public static final int PTS_BASE = 25;
-
-    private static final String EMPTY = "";
 
     private static final int PERCENT_MAX = 100;
 
@@ -121,12 +118,6 @@ public final class GameTarot {
     private BidTarot lastBid = BidTarot.FOLD;
 
     private HandTarot cardsToBeDiscarded = new HandTarot();
-
-    private HandTarot cardsToBePlayed = new HandTarot();
-
-    private String errorHandful = EMPTY;
-
-    private String errorPlaying = EMPTY;
 
     private CardTarot playedCard = CardTarot.WHITE;
 
@@ -267,9 +258,6 @@ public final class GameTarot {
             handfuls.set( joueur_, new HandTarot());
         }
         cardsToBeDiscarded = new HandTarot();
-        cardsToBePlayed = new HandTarot();
-        errorHandful = EMPTY;
-        errorPlaying = EMPTY;
         lastHasBid = -1;
     }
 
@@ -1707,7 +1695,7 @@ public final class GameTarot {
         return Status.DEFENDER;
     }
 
-    public ReasonDiscard autoriseEcartDe(CardTarot _c, String _loc) {
+    public ReasonDiscard autoriseEcartDe(CardTarot _c) {
         HandTarot m = getDistribution().main(getPreneur());
         if(cardsToBeDiscarded.total() >= getDistribution()
                 .derniereMain().total()) {
@@ -1716,7 +1704,7 @@ public final class GameTarot {
         cardsToBeDiscarded.ajouter(_c);
         boolean allowed_ = getCartesEcartables(getDistribution()
                 .derniereMain().total() - (cardsToBeDiscarded.total() - 1),
-                m.couleurs(),_loc).contient(_c);
+                m.couleurs()).contient(_c);
         if (!allowed_) {
             cardsToBeDiscarded.jouer(_c);
         }
@@ -1726,11 +1714,7 @@ public final class GameTarot {
         return ReasonDiscard.FORBIDDEN;
     }
     HandTarot getCartesEcartables(int _nombreCartesChien,
-            EnumMap<Suit,HandTarot> _repartition) {
-        return getCartesEcartables(_nombreCartesChien, _repartition, Constants.getDefaultLanguage());
-    }
-    HandTarot getCartesEcartables(int _nombreCartesChien,
-            EnumMap<Suit,HandTarot> _repartition, String _loc) {
+                                  EnumMap<Suit, HandTarot> _repartition) {
         HandTarot cartesEcartables_ = new HandTarot();
         int atoutsExcuse_ = atoutsAvecExcuse(_repartition);
         int total_ = atoutsExcuse_;
@@ -2436,7 +2420,7 @@ public final class GameTarot {
             setEntameur(getPreneur());
         }
     }
-    private void ajouterChelem(byte _b, boolean _annonce) {
+    void ajouterChelem(byte _b, boolean _annonce) {
         declaresSlam.set( _b, _annonce);
     }
 
@@ -2524,7 +2508,7 @@ public final class GameTarot {
         return va_;
     }
 
-    public boolean isValidHandful(Handfuls _h, HandTarot _hand,HandTarot _excludedCards, String _loc) {
+    public boolean isValidHandful(Handfuls _h, HandTarot _hand, HandTarot _excludedCards) {
         int nbTrumps_ = rules.getPoigneesAutorisees().getVal(_h);
         return _hand.total() == nbTrumps_ && (!_hand.contient(CardTarot.excuse()) || _excludedCards.estVide());
     }
@@ -2779,19 +2763,16 @@ public final class GameTarot {
         }
     }
 
-    public boolean autorise(CardTarot _c, String _loc) {
-        cardsToBePlayed = new HandTarot();
-        cardsToBePlayed.ajouter(_c);
-        errorPlaying = EMPTY;
+    public boolean autorise(CardTarot _c) {
         HandTarot main_ = getDistribution().main(playerHavingToPlay());
         EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
-        return cartesJouables(repartition_,_loc).contient(_c);
+        return cartesJouables(repartition_).contient(_c);
     }
 
     HandTarot playableCards(EnumMap<Suit,HandTarot> _repartitionMain) {
-        return cartesJouables(_repartitionMain, Constants.getDefaultLanguage());
+        return cartesJouables(_repartitionMain);
     }
-    public HandTarot cartesJouables(EnumMap<Suit,HandTarot> _repartitionMain, String _loc) {
+    public HandTarot cartesJouables(EnumMap<Suit, HandTarot> _repartitionMain) {
         HandTarot atoutsJoues_ = progressingTrick.getCartes().couleurs().getVal(couleurAtout());
         Suit couleurDemandee_ = progressingTrick.couleurDemandee();
         HandTarot cartesJouables_ = new HandTarot();
@@ -2889,10 +2870,6 @@ public final class GameTarot {
         }
         plisTotal_ = tricks.size();
         return plisTotal_ <= 1;
-    }
-
-    public String getErreurDeJeu() {
-        return errorPlaying;
     }
 
     /**for multi player*/
@@ -3511,11 +3488,9 @@ public final class GameTarot {
         CardTarot card_;
         if (progressingTrick.estVide()) {
             card_ = entame();
-            cardsToBePlayed = new HandTarot();
             return card_;
         }
         card_ = enCours();
-        cardsToBePlayed = new HandTarot();
         return card_;
     }
 
@@ -3524,7 +3499,6 @@ public final class GameTarot {
         byte numero_ = (byte) ((starter + progressingTrick.total()) % nombreJoueurs_);
         HandTarot mainJoueur_ = getDistribution().main(numero_);
         EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
-        cardsToBePlayed = new HandTarot();
         HandTarot cartesJouables_ = playableCards(repartition_);
         if (cartesJouables_.total() == 1) {
             return cartesJouables_.premiereCarte();
@@ -4748,7 +4722,6 @@ public final class GameTarot {
         byte numero_ = (byte) ((starter + progressingTrick.total()) % nombreDeJoueurs_);
         HandTarot mainJoueur_ = getDistribution().main(numero_);
         EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
-        cardsToBePlayed = new HandTarot();
         HandTarot cartesJouables_ = playableCards(repartition_);
         //cartesJouables.total() > 1
         if (existePreneur()) {
@@ -5018,7 +4991,6 @@ public final class GameTarot {
         byte numero_ = (byte) ((progressingTrick.getEntameur() + progressingTrick.total()) % nombreJoueurs_);
         HandTarot mainJoueur_ = getDistribution().main(numero_);
         EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
-        cardsToBePlayed = new HandTarot();
         HandTarot cartesJouables_ = playableCards(repartition_);
         if (cartesJouables_.total() == 1) {
             return cartesJouables_.premiereCarte();
@@ -14016,11 +13988,5 @@ public final class GameTarot {
     public HandTarot getCardsToBeDiscarded() {
         return cardsToBeDiscarded;
     }
-    public HandTarot getCardsToBePlayed() {
-        return cardsToBePlayed;
-    }
 
-    public void setCardsToBePlayed(HandTarot _cardsToBePlayed) {
-        cardsToBePlayed = _cardsToBePlayed;
-    }
 }

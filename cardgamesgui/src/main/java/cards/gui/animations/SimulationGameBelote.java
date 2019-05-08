@@ -113,7 +113,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         EqList<HandBelote> mainsUtilisateurs_=new EqList<HandBelote>();
         GameBelote partie_=partieBeloteSimulee();
         String lg_ = container.getOwner().getLanguageKey();
-        partie_.simuler(lg_);
+        partie_.simuler();
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         if(partie_.getSimulationAvecContrats()) {
             CustList<TrickBelote> plisFaits_=partie_.unionPlis();

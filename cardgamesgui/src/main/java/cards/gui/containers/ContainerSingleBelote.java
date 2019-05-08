@@ -106,7 +106,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         CardBelote ct_=partie_.strategieJeuCarteUnique();
         String lg_ = getOwner().getLanguageKey();
-        if(partie_.annoncerBeloteRebelote(_joueur,ct_,lg_)) {
+        if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
             ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
@@ -393,7 +393,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             annonceBeloteRebelote = false;
             Panel panneau_ =getPanneauBoutonsJeu();
             JCheckBox caseCoche_ = new JCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
-            caseCoche_.setEnabled(partie_.autoriseBeloteRebelote(lg_));
+            caseCoche_.setEnabled(partie_.autoriseBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
         }
@@ -883,7 +883,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(partie_.keepBidding()) {
             if (!partie_.getRegles().dealAll()) {
-                BidBeloteSuit enchereCouleur_=partie_.strategieContrat(lg_);
+                BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
                 String mesBid_;
 
                 BidBelote enchere_ = enchereCouleur_.getEnchere();
@@ -896,7 +896,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
-                BidBeloteSuit enchereCouleur_=partie_.strategieContrat(lg_);
+                BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
                 String mesBid_;
 
                 BidBelote enchere_ = enchereCouleur_.getEnchere();

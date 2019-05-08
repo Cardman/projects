@@ -4,7 +4,6 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.consts.Constants;
 
 public final class CheckerGamePresidentWithRules {
 
@@ -12,11 +11,7 @@ public final class CheckerGamePresidentWithRules {
 
     private CheckerGamePresidentWithRules() {
     }
-
     public static void check(GamePresident _loadedGame) {
-        check(_loadedGame, Constants.getDefaultLanguage());
-    }
-    public static void check(GamePresident _loadedGame, String _lg) {
         RulesPresident rules_ = _loadedGame.getRegles();
         if (!rules_.isValidRules()) {
             _loadedGame.setError(MESSAGE_ERROR);
@@ -537,7 +532,7 @@ public final class CheckerGamePresidentWithRules {
                         }
                     }
                     if (curHand_.estVide()) {
-                        if (!loadedGameCopy_.canPass(player_,_lg)) {
+                        if (!loadedGameCopy_.canPass(player_)) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }
@@ -549,7 +544,7 @@ public final class CheckerGamePresidentWithRules {
                         // player_);
                         loadedGameCopy_.addEmptyHandToCurrentTrick(player_);
                     } else {
-                        if (!loadedGameCopy_.allowPlaying(player_, curHand_, _lg)) {
+                        if (!loadedGameCopy_.allowPlaying(player_, curHand_)) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }
