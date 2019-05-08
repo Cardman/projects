@@ -1973,13 +1973,6 @@ public class CheckerGameTarotWithRulesTest {
         game_.supprimerCartes(game_.getPreneur(),dog_);
         game_.ajouterChelem(game_.getPreneur(),true);
         game_.ajouterPliAttaque();
-//        for (int i = 0; i < 24; i++) {
-//            System.out.println("game_.setPliEnCours(true);");
-//            for (int j = 0; j < 3; j++) {
-//                System.out.println("game_.ajouterUneCarteDansPliEnCours((byte)"+j+",CardTarot."+game_.getDeal().getDeal().get(j).getCards().get(i).name()+");");
-//            }
-//            System.out.println("game_.ajouterPetitAuBoutPliEnCours();");
-//        }
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);

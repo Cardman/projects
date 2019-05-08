@@ -965,9 +965,7 @@ public final class MainWindow extends NetGroupFrame {
                 if (isAliveThread()) {
                     return false;
                 }
-            }
-            if (!battle.isEnabledChangeLanguage()) {
-                return false;
+                return battle.isEnabledChangeLanguage();
             }
         }
         return true;

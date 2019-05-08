@@ -1100,6 +1100,155 @@ public class CheckerGameBeloteWithRulesTest {
         assertEq(1, game_.getRamasseur());
     }
 
+    private static DealBelote deal1Slam(byte _dealer) {
+        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
+    @Test
+    public void check33Test() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1Slam((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_JACK);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_JACK);
+        game_.getDistribution().jouer((byte) 1,CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_KING);
+        game_.getDistribution().jouer((byte) 2,CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_QUEEN);
+        game_.getDistribution().jouer((byte) 3,CardBelote.CLUB_7);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_7);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_9);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
+        game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_9);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_9);
+        game_.getDistribution().jouer((byte) 2,CardBelote.SPADE_8);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_8);
+        game_.getDistribution().jouer((byte) 3,CardBelote.HEART_7);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_7);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
+        game_.getDistribution().jouer((byte) 1,CardBelote.DIAMOND_9);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_9);
+        game_.getDistribution().jouer((byte) 2,CardBelote.SPADE_7);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_7);
+        game_.getDistribution().jouer((byte) 3,CardBelote.HEART_9);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_9);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_10);
+        game_.getDistribution().jouer((byte) 1,CardBelote.HEART_8);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_8);
+        game_.getDistribution().jouer((byte) 2,CardBelote.DIAMOND_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_QUEEN);
+        game_.getDistribution().jouer((byte) 3,CardBelote.DIAMOND_JACK);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_JACK);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.DIAMOND_1);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_1);
+        game_.getDistribution().jouer((byte) 1,CardBelote.DIAMOND_8);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
+        game_.getDistribution().jouer((byte) 2,CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_7);
+        game_.getDistribution().jouer((byte) 3,CardBelote.DIAMOND_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_KING);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.DIAMOND_10);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_10);
+        game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_8);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_8);
+        game_.getDistribution().jouer((byte) 2,CardBelote.HEART_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_KING);
+        game_.getDistribution().jouer((byte) 3,CardBelote.HEART_JACK);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.HEART_1);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_1);
+        game_.getDistribution().jouer((byte) 1,CardBelote.HEART_10);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_10);
+        game_.getDistribution().jouer((byte) 2,CardBelote.CLUB_1);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_1);
+        game_.getDistribution().jouer((byte)3,CardBelote.HEART_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_QUEEN);
+        game_.ajouterPliEnCours();
+        game_.setPliEnCours();
+        game_.getDistribution().jouer((byte) 0,CardBelote.CLUB_KING);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_KING);
+        game_.getDistribution().jouer((byte) 1,CardBelote.CLUB_JACK);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_JACK);
+        game_.getDistribution().jouer((byte) 2,CardBelote.CLUB_10);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_10);
+        game_.getDistribution().jouer((byte) 3,CardBelote.CLUB_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours(CardBelote.CLUB_QUEEN);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.setEntameur();
+        game_.setPliEnCours();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getContrat().getEnchere());
+        assertEq(Suit.SPADE, game_.getContrat().getCouleur());
+    }
+
     @Test
     public void check1FailTest() {
         RulesBelote rules_ = new RulesBelote();
@@ -1911,6 +2060,57 @@ public class CheckerGameBeloteWithRulesTest {
         bid_.setCouleur(Suit.SPADE);
         bid_.setPoints(100);
         game_.ajouterContrat(bid_, (byte) first_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check32FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1Classic((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CardBelote c_ = deal_.getDeal().get(0).jouer(0);
+        deal_.getDeal().get(1).ajouter(c_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check33FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
+        DealBelote deal_ = deal1((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CardBelote c_ = deal_.getDeal().get(0).jouer(0);
+        deal_.getDeal().get(1).ajouter(c_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check34FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1Classic((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CardBelote c_ = deal_.getDeal().get(0).jouer(0);
+        deal_.derniereMain().ajouter(c_);
+        c_ = deal_.getDeal().get(1).jouer(0);
+        deal_.derniereMain().ajouter(c_);
+        c_ = deal_.getDeal().get(2).jouer(0);
+        deal_.derniereMain().ajouter(c_);
+        c_ = deal_.getDeal().get(3).jouer(0);
+        deal_.derniereMain().ajouter(c_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check35FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
+        DealBelote deal_ = deal1((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        deal_.getDeal().get(1).ajouter(CardBelote.WHITE);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }

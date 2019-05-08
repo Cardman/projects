@@ -7,7 +7,6 @@ import code.util.Numbers;
 
 public final class CheckerGameBeloteWithRules {
 
-    private static final String BAD_COUNT_FOR_HANDS_BEGINNING = "Bad count for hands beginning";
     private static final String BAD_PLAYING = "Bad playing";
     private static final String BAD_MATCHING_WITH_TRICK_LEADER = "Bad matching with trick leader";
     private static final String BAD_DECLARING = "Bad declaring";
@@ -21,7 +20,6 @@ public final class CheckerGameBeloteWithRules {
     private static final String TRICK_WITH_BAD_COUNT = "trick with bad count";
     private static final String BAD_COUNT_FOR_REMAINING_CARDS = "Bad count for remaining cards";
     private static final String BAD_COUNT_FOR_DEAL = "Bad count for deal";
-    private static final String INVALID_RULES = "invalid rules";
     private static final String BAD_CARD = "bad card";
 
     private CheckerGameBeloteWithRules() {
@@ -29,10 +27,6 @@ public final class CheckerGameBeloteWithRules {
 
     public static void check(GameBelote _loadedGame) {
         RulesBelote rules_ = _loadedGame.getRegles();
-        if (!rules_.isValidRules()) {
-            _loadedGame.setError(INVALID_RULES);
-            return;
-        }
         _loadedGame.loadGame();
         if (_loadedGame.getDistribution().nombreDeMains() != rules_
                 .getRepartition().getNombreJoueurs() + 1) {
@@ -115,9 +109,6 @@ public final class CheckerGameBeloteWithRules {
             }
             if (!rules_.dealAll()) {
                 reinitializeGame(deal_, _loadedGame);
-                if (!_loadedGame.getError().isEmpty()) {
-                    return;
-                }
             }
         } else {
             boolean allCompleted_ = true;
@@ -138,9 +129,6 @@ public final class CheckerGameBeloteWithRules {
                 }
             } else {
                 reinitializeGame(deal_, _loadedGame);
-                if (!_loadedGame.getError().isEmpty()) {
-                    return;
-                }
             }
         }
         boolean allCardsUsedOnce_ = true;
@@ -229,10 +217,9 @@ public final class CheckerGameBeloteWithRules {
             }
             if (!finished_) {
                 loadedGameCopy_.finEncherePremierTour();
-                for (byte joueur_ : players_) {
-                    if (i_ == _loadedGame.tailleContrats()) {
-                        break;
-                    }
+                int pl_ = 0;
+                while (i_ < _loadedGame.tailleContrats()) {
+                    byte p_ = players_.get(pl_);
                     if (!_loadedGame.contrat(i_).estDemandable(
                             loadedGameCopy_.getContrat())) {
                         _loadedGame.setError(INVALID_BID);
@@ -262,7 +249,7 @@ public final class CheckerGameBeloteWithRules {
                         return;
                     }
                     loadedGameCopy_.ajouterContrat(_loadedGame.contrat(i_),
-                            joueur_);
+                            p_);
                     if (!loadedGameCopy_.keepBidding()) {
                         if (_loadedGame.tailleContrats() > i_ + 1) {
                             _loadedGame.setError(TOO_MUCH_BIDS);
@@ -271,12 +258,10 @@ public final class CheckerGameBeloteWithRules {
                         break;
                     }
                     i_++;
+                    pl_++;
                 }
             }
         } else {
-            players_ = loadedGameCopy_
-                    .orderedPlayers(loadedGameCopy_.playerAfter(loadedGameCopy_
-                            .getDistribution().getDonneur()));
             int i_ = 0;
             int nbFold_ = 0;
             int pts_ = 0;
@@ -376,7 +361,14 @@ public final class CheckerGameBeloteWithRules {
                     return;
                 }
                 trick_ = firstTrick_;
-            } else if (ind_ + 1 < allTricks_.size()) {
+            } else if (ind_ == allTricks_.size()) {
+                if (allTricks_.last().getRamasseur(_loadedGame.getContrat()) != _loadedGame
+                        .getPliEnCours().getEntameur()) {
+                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
+                    return;
+                }
+                trick_ = _loadedGame.getPliEnCours();
+            } else {
                 if (allTricks_.get(ind_ - 1).getRamasseur(
                         _loadedGame.getContrat()) != allTricks_.get(ind_)
                         .getEntameur()) {
@@ -384,13 +376,6 @@ public final class CheckerGameBeloteWithRules {
                     return;
                 }
                 trick_ = allTricks_.get(ind_);
-            } else {
-                if (allTricks_.last().getRamasseur(_loadedGame.getContrat()) != _loadedGame
-                        .getPliEnCours().getEntameur()) {
-                    _loadedGame.setError(BAD_MATCHING_WITH_TRICK_LEADER);
-                    return;
-                }
-                trick_ = _loadedGame.getPliEnCours();
             }
             for (byte p : loadedGameCopy_.orderedPlayers(loadedGameCopy_
                     .getEntameur())) {
@@ -436,17 +421,14 @@ public final class CheckerGameBeloteWithRules {
 
     }
 
-    static void reinitializeGame(DealBelote _restitutedDeal,
-            GameBelote _loadedGame) {
-        Numbers<Byte> players_ = _loadedGame.orderedPlayers(_loadedGame
-                .getDistribution().getDonneur());
+    private static void reinitializeGame(DealBelote _restitutedDeal,
+                                         GameBelote _loadedGame) {
         RulesBelote rules_ = _loadedGame.getRegles();
         HandBelote talon_ = new HandBelote();
         talon_.ajouterCartes(_loadedGame.getDistribution().derniereMain());
         HandBelote h_ = new HandBelote();
         h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
         _restitutedDeal.main(_loadedGame.getPreneur()).supprimerCartes(h_);
-        boolean dejaCommence_ = false;
         for (int i : rules_.getRepartition().getDistributionFin()) {
             for (byte j : _loadedGame.orderedPlayers(_loadedGame
                     .playerAfter(_loadedGame.getDistribution().getDonneur()))) {
@@ -455,20 +437,11 @@ public final class CheckerGameBeloteWithRules {
                     h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
                     _restitutedDeal.main(j).supprimerCartes(h_);
                 }
-                if (j != _loadedGame.getPreneur() || dejaCommence_) {
+                if (j != _loadedGame.getPreneur()) {
                     h_ = new HandBelote();
                     h_.ajouter(talon_.jouer(CustList.FIRST_INDEX));
                     _restitutedDeal.main(j).supprimerCartes(h_);
                 }
-            }
-            dejaCommence_ = true;
-        }
-
-        for (byte p : players_) {
-            if (rules_.getRepartition().getFirstCards() != _restitutedDeal
-                    .main(p).total()) {
-                _loadedGame.setError(BAD_COUNT_FOR_HANDS_BEGINNING);
-                return;
             }
         }
     }

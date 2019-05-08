@@ -5938,7 +5938,7 @@ public final class GameBelote {
         setDixDeDer(trickWinner);
     }
     void setDixDeDer(byte _b) {
-        if(getDistribution().main().estVide()) {
+        if(!getDistribution().main().estVide()) {
             return;
         }
         wonLastTrick.set(_b, true);
