@@ -2401,6 +2401,78 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     @Test
+    public void check121FailTest() {
+        RulesTarot rules_ = new RulesTarot((byte)6);
+        rules_.setMode(ModeTarot.MISERE);
+        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        DealTarot deal_ = deal5((byte) 4);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        game_.setPliEnCours(true);
+        HandTarot handful_ = new HandTarot();
+        handful_.ajouter(CardTarot.TRUMP_1);
+        handful_.ajouter(CardTarot.TRUMP_4);
+        handful_.ajouter(CardTarot.TRUMP_10);
+        handful_.ajouter(CardTarot.TRUMP_14);
+        handful_.ajouter(CardTarot.TRUMP_21);
+        handful_.ajouter(CardTarot.EXCUSE);
+        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+        game_.ajouterPetitAuBoutPliEnCours();
+        game_.setPliEnCours(true);
+        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check122FailTest() {
+        RulesTarot rules_ = new RulesTarot((byte)6);
+        rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
+        rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        rules_.getMiseres().add(Miseres.LOW_CARDS);
+        DealTarot deal_ = deal5((byte) 4);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
+        game_.initPlayWithoutBid();
+        game_.setPliEnCours(true);
+        HandTarot handful_ = new HandTarot();
+        handful_.ajouter(CardTarot.TRUMP_1);
+        handful_.ajouter(CardTarot.TRUMP_4);
+        handful_.ajouter(CardTarot.TRUMP_10);
+        handful_.ajouter(CardTarot.TRUMP_14);
+        handful_.ajouter(CardTarot.TRUMP_21);
+        handful_.ajouter(CardTarot.EXCUSE);
+        game_.ajouterPoignee(handful_, (byte) 0);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_4);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardTarot.TRUMP_6);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardTarot.TRUMP_8);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.TRUMP_9);
+        game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_11);
+        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.TRUMP_16);
+        game_.ajouterPetitAuBoutPliEnCours();
+        game_.setPliEnCours(true);
+        game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+    @Test
     public void check13FailTest() {
         RulesTarot rules_ = new RulesTarot((byte)6);
         rules_.setMode(ModeTarot.NORMAL);

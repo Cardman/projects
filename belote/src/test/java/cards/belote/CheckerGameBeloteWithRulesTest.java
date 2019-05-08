@@ -2114,4 +2114,13 @@ public class CheckerGameBeloteWithRulesTest {
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check36FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
 }

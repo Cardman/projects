@@ -27,7 +27,6 @@ public final class CheckerGameBeloteWithRules {
 
     public static void check(GameBelote _loadedGame) {
         RulesBelote rules_ = _loadedGame.getRegles();
-        _loadedGame.loadGame();
         if (_loadedGame.getDistribution().nombreDeMains() != rules_
                 .getRepartition().getNombreJoueurs() + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
@@ -38,6 +37,7 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
+        _loadedGame.loadGame();
         CustList<TrickBelote> allTricks_ = _loadedGame.unionPlis();
         HandBelote cards_ = new HandBelote();
         for (TrickBelote t : allTricks_) {

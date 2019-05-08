@@ -273,15 +273,11 @@ public final class GameTarot {
             player_ = playerAfter(player_);
         }
         bid = bid_;
-        if (!avecContrat()) {
+        if (!avecContrat() || !bid_.isJouerDonne()) {
             initEquipeDetermineeSansPreneur();
             calledPlayers = new Numbers<Byte>();
         } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
-            if (!keepBidding()) {
-                initEquipeDeterminee();
-            } else {
-                calledPlayers = new Numbers<Byte>();
-            }
+            initEquipeDeterminee();
         } else if (rules.getRepartition().getAppel() == CallingCard.WITHOUT) {
             calledPlayers = new Numbers<Byte>();
             initDefense();

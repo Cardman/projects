@@ -1,5 +1,4 @@
 package cards.tarot.enumerations;
-import cards.tarot.HandTarot;
 import code.util.EnumList;
 import code.util.NumberMap;
 import code.util.Numbers;
