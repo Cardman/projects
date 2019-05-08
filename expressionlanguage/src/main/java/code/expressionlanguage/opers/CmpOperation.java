@@ -137,6 +137,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }
+    @Override
     void checkNull(Argument _arg, Analyzable _an) {
         if (Argument.isNullValue(_arg)) {
             okNum = false;

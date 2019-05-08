@@ -3,6 +3,7 @@ package aiki.fight.pokemon.evolution;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import code.util.StringList;
 
 
 public final class EvolutionTeam extends Evolution {
@@ -11,8 +12,12 @@ public final class EvolutionTeam extends Evolution {
 
     @Override
     public void validate(DataBase _dataBase, PokemonData _fPk) {
-        PokemonData pk_ = _dataBase.getPokemon(this.pokemon);
+        PokemonData pk_ = _dataBase.getPokemon(pokemon);
         if (pk_ == null) {
+            _dataBase.setError(true);
+            return;
+        }
+        if (!StringList.quickEq(pk_.getBaseEvo(),pokemon)) {
             _dataBase.setError(true);
             return;
         }

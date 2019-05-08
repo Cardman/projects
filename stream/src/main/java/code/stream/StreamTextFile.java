@@ -49,31 +49,6 @@ public final class StreamTextFile {
         return map_;
     }
 
-    public static void purgeFolder(String _folder, boolean _deleteRoot) {
-        String folder_ = StringList.replaceBackSlash(_folder);
-        StringList files_ = files(folder_);
-        StringList folders_ = new StringList();
-        for (String f: files_) {
-            if (new File(StringList.concat(folder_,f)).isDirectory()) {
-                folders_.add(StringList.concat(folder_,f));
-                continue;
-            }
-            new File(StringList.concat(folder_,f)).delete();
-        }
-        while (!folders_.isEmpty()) {
-            StringList newFolders_ = new StringList();
-            for (String f: folders_) {
-                if (!new File(f).delete()) {
-                    newFolders_.add(f);
-                }
-            }
-            folders_ = newFolders_;
-        }
-        if (_deleteRoot) {
-            new File(folder_).delete();
-        }
-    }
-
     public static StringList allSortedFiles(String _folder) {
         FileInfo f_ = new FileInfo(new File(_folder));
         StringList files_ = new StringList();
@@ -244,8 +219,7 @@ public final class StreamTextFile {
             if (_inputStream != null) {
                 _inputStream.close();
             }
-        } catch (RuntimeException _0) {
-        } catch (IOException _0) {
+        } catch (Exception _0) {
         }
     }
     public static Element contenuDocumentXmlExterne(String _nomFichier) {

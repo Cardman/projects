@@ -123,6 +123,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final boolean isStaticAccess() {
         return staticAccess;
     }
+    @Override
     public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         setPreviousResultClass(_previousResultClass);
         setStaticAccess(_staticAccess);

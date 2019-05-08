@@ -61,6 +61,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.PokemonFamily;
 import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.pokemon.evolution.EvolutionItem;
 import aiki.fight.pokemon.evolution.EvolutionMove;
@@ -968,6 +969,17 @@ public class DataBase implements WithMathFactory {
     }
 
     public void validateEvolutions() {
+        for (EntryCust<String,PokemonData> e: pokedex.entryList()) {
+            if (e.getValue().getGenderRep() != GenderRepartition.LEGENDARY) {
+                continue;
+            }
+            if (!e.getValue().getEvolutions().isEmpty()) {
+                setError(true);
+            }
+            if (!StringList.quickEq(e.getKey(),e.getValue().getBaseEvo())) {
+                setError(true);
+            }
+        }
         families = new StringMap<PokemonFamily>();
         StringList listEvoBases_ = new StringList();
         for (PokemonData d : getPokedex().values()) {
@@ -1844,8 +1856,10 @@ public class DataBase implements WithMathFactory {
             for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
+                StringList varParts_ = StringList.splitStrings(va, SEP_BETWEEN_KEYS);
+                String var_ = varParts_.sub(0, 2).join(SEP_BETWEEN_KEYS);
                 for (EntryCust<String,String> e: m.getValue().entryList()) {
-                    if (StringList.quickEq(StringList.splitStrings(va,SEP_BETWEEN_KEYS).sub(0,2).join(SEP_BETWEEN_KEYS),StringList.concat(VAR_PREFIX ,e.getKey()))) {
+                    if (StringList.quickEq(var_,StringList.concat(VAR_PREFIX ,e.getKey()))) {
                         f_ = true;
                         line_ = e.getValue();
                         break;
@@ -1859,6 +1873,56 @@ public class DataBase implements WithMathFactory {
                 if (infos_.size() < 3) {
                     setError(true);
                     return;
+                }
+                StringList infosVar_ = varParts_.mid(2);
+                if (infosVar_.isEmpty()) {
+                    continue;
+                }
+                StringList kinds_ = StringList.splitChar(infos_.first(), getSepartorSetChar());
+                int len_ = infosVar_.size();
+                if (len_ != kinds_.size()) {
+                    setError(true);
+                    return;
+                }
+                for (int i = 0; i < len_; i++) {
+                    String k_ = kinds_.get(i);
+                    if (StringList.quickEq(k_,MOVE_FORMULA)) {
+                        if (!moves.contains(infosVar_.get(i))) {
+                            setError(true);
+                            return;
+                        }
+                    }
+                    if (StringList.quickEq(k_,CAT_FORMULA)) {
+                        if (!categories.containsStr(infosVar_.get(i))) {
+                            setError(true);
+                            return;
+                        }
+                    }
+                    if (StringList.quickEq(k_,TYPE_FORMULA)) {
+                        if (!types.containsStr(infosVar_.get(i))) {
+                            setError(true);
+                            return;
+                        }
+                    }
+                    if (StringList.quickEq(k_,STATUS_FORMULA)) {
+                        if (!status.contains(infosVar_.get(i))) {
+                            setError(true);
+                            return;
+                        }
+                    }
+                    if (StringList.quickEq(k_,STATIS_FORMULA)) {
+                        boolean ok_ = false;
+                        for (Statistic s: Statistic.values()) {
+                            if (StringList.quickEq(s.name(),infosVar_.get(i))) {
+                                ok_ = true;
+                                break;
+                            }
+                        }
+                        if (!ok_) {
+                            setError(true);
+                            return;
+                        }
+                    }
                 }
             }
         }

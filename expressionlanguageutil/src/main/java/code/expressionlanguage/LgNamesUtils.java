@@ -631,6 +631,7 @@ public class LgNamesUtils extends LgNames {
         }
         return stringAppFile_;
     }
+    @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> m_ = super.allTableTypeMethodNames();
         m_.put(getAliasThread(), new StringList(
