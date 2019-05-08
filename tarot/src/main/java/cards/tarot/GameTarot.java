@@ -573,16 +573,7 @@ public final class GameTarot {
         int nbAtoutsQuinzeAuVingtEtUn_ = 0;
         int nbAtoutsSeptAuQuatorze_ = 0;
         int nbAtoutsMajeursConsecutifs_ = 0;
-        HandTarot bouts_ = new HandTarot();
-        if (!couleurs_.getVal(CardTarot.EXCUSE.couleur()).estVide()) {
-            bouts_.ajouter(CardTarot.excuse());
-        }
-        if (trumps_.contient(CardTarot.vingtEtUn())) {
-            bouts_.ajouter(CardTarot.vingtEtUn());
-        }
-        if (trumps_.contient(CardTarot.petit())) {
-            bouts_.ajouter(CardTarot.petit());
-        }
+        HandTarot bouts_ = getOulderInHand(couleurs_);
         for (HandTarot main_ : suitesAtouts_) {
             if (main_.total() > 1 && main_.premiereCarte().valeur() > 14) {
                 nbAtoutsMajeursConsecutifs_ += main_.total();
@@ -895,74 +886,27 @@ public final class GameTarot {
         }
         boolean sansAppel_ = rules.getRepartition().getAppel() == CallingCard.DEFINED
                 || rules.getRepartition().getAppel() == CallingCard.WITHOUT;
-        int nbCouleurs_ = couleursOrdinaires().size();
         if (total_ >= garde_) {
             if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
-                if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
-                    if (atouts_ >= 12) {
-                        BidTarot e_ = getStrongBid(bouts_);
-                        if(e_.isJouerDonne()) {
-                            return e_;
-                        }
-                    }
+                BidTarot f_ = tryGetStrongBid(sansAppel_,12,numero_);
+                if (f_.isJouerDonne()) {
+                    return f_;
                 }
             } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
-                if (sansAppel_) {
-                    if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
-                        if (atouts_ >= 9) {
-                            BidTarot e_ = getStrongBid(bouts_);
-                            if(e_.isJouerDonne()) {
-                                return e_;
-                            }
-                        }
-                    }
-                } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
-                        + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(numero_), nombreJoueurs_) == nbCouleurs_) {
-                    if (atouts_ >= 9) {
-                        BidTarot e_ = getStrongBid(bouts_);
-                        if(e_.isJouerDonne()) {
-                            return e_;
-                        }
-                    }
+                BidTarot f_ = tryGetStrongBid(sansAppel_,9,numero_);
+                if (f_.isJouerDonne()) {
+                    return f_;
                 }
             } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_CALL_KING.getNombreJoueurs()) {
-                if (sansAppel_) {
-                    if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
-                        if (atouts_ >= 7) {
-                            BidTarot e_ = getStrongBid(bouts_);
-                            if(e_.isJouerDonne()) {
-                                return e_;
-                            }
-                        }
-                    }
-                } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
-                        + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(numero_), nombreJoueurs_) == nbCouleurs_) {
-                    if (atouts_ >= 7) {
-                        BidTarot e_ = getStrongBid(bouts_);
-                        if(e_.isJouerDonne()) {
-                            return e_;
-                        }
-                    }
+                BidTarot f_ = tryGetStrongBid(sansAppel_,7,numero_);
+                if (f_.isJouerDonne()) {
+                    return f_;
                 }
             } else {
                 // nombreJoueurs == 6
-                if (sansAppel_) {
-                    if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
-                        if (atouts_ >= 6) {
-                            BidTarot e_ = getStrongBid(bouts_);
-                            if(e_.isJouerDonne()) {
-                                return e_;
-                            }
-                        }
-                    }
-                } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
-                        + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(numero_), nombreJoueurs_) == nbCouleurs_) {
-                    if (atouts_ >= 6) {
-                        BidTarot e_ = getStrongBid(bouts_);
-                        if(e_.isJouerDonne()) {
-                            return e_;
-                        }
-                    }
+                BidTarot f_ = tryGetStrongBid(sansAppel_,6,numero_);
+                if (f_.isJouerDonne()) {
+                    return f_;
                 }
             }
         }
@@ -983,6 +927,50 @@ public final class GameTarot {
             return c_;
         }
         return BidTarot.FOLD;
+    }
+
+    BidTarot tryGetStrongBid(boolean _withoutCall,int _trumps, byte _current) {
+        HandTarot mj_ = getDistribution().main(_current);
+        EnumMap<Suit,HandTarot> couleurs_ = mj_.couleurs();
+        int atouts_ = couleurs_.getVal(CardTarot.excuse().couleur()).total() + couleurs_.getVal(couleurAtout()).total();
+        HandTarot trumps_ = couleurs_.getVal(Suit.TRUMP);
+        HandTarot bouts_ = getOulderInHand(couleurs_);
+        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nbCouleurs_ = couleursOrdinaires().size();
+        if (_withoutCall) {
+            if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
+                if (atouts_ >= _trumps) {
+                    BidTarot e_ = getStrongBid(bouts_);
+                    if(e_.isJouerDonne()) {
+                        return e_;
+                    }
+                }
+            }
+        } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
+                + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(_current), nombreJoueurs_) == nbCouleurs_) {
+            if (atouts_ >= _trumps) {
+                BidTarot e_ = getStrongBid(bouts_);
+                if(e_.isJouerDonne()) {
+                    return e_;
+                }
+            }
+        }
+        return BidTarot.FOLD;
+    }
+
+    private static HandTarot getOulderInHand(EnumMap<Suit, HandTarot> _couleurs) {
+        HandTarot trumps_ = _couleurs.getVal(Suit.TRUMP);
+        HandTarot bouts_ = new HandTarot();
+        if (!_couleurs.getVal(CardTarot.EXCUSE.couleur()).estVide()) {
+            bouts_.ajouter(CardTarot.excuse());
+        }
+        if (trumps_.contient(CardTarot.vingtEtUn())) {
+            bouts_.ajouter(CardTarot.vingtEtUn());
+        }
+        if (trumps_.contient(CardTarot.petit())) {
+            bouts_.ajouter(CardTarot.petit());
+        }
+        return bouts_;
     }
 
     BidTarot getStrongBid(HandTarot _bouts) {
