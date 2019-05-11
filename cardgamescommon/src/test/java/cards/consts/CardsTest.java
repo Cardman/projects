@@ -30,6 +30,7 @@ public class CardsTest {
         assertNotNull(Hypothesis.values());
         assertNotNull(EndGameState.values());
         assertNotNull(CardChar.values());
+        assertNotNull(GameType.values());
     }
     @Test
     public void eqSuitTest() {

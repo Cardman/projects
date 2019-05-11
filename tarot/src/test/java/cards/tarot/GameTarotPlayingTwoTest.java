@@ -140,7 +140,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_1);
@@ -196,7 +196,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_3);
@@ -242,7 +242,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_KING);
@@ -288,7 +288,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.CLUB_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         assertTrue(game.keepPlayingCurrentGame());
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);

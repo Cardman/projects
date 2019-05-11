@@ -562,7 +562,7 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(0, game_.getRamasseur());
     }
 
-//ajouterPliAttaque()
+//addCurTrick()
     @Test
     public void check17Test() {
         RulesTarot rules_ = new RulesTarot();
@@ -687,7 +687,7 @@ public class CheckerGameTarotWithRulesTest {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -725,7 +725,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
         game_.autoriseEcartDe(CardTarot.HEART_7);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_7);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -979,7 +979,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.SPADE_10);
         game_.autoriseEcartDe(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.DIAMOND_2);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
         //assertEq(1, game_.getNbPlisTotal());
@@ -1025,7 +1025,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.autoriseEcartDe(CardTarot.DIAMOND_2);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.DIAMOND_2);
         game_.ajouterChelemUtilisateur();
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1972,7 +1972,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_JACK);
         game_.supprimerCartes(game_.getPreneur(),dog_);
         game_.ajouterChelem(game_.getPreneur(),true);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.TRUMP_1);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.CLUB_4);
@@ -2357,7 +2357,7 @@ public class CheckerGameTarotWithRulesTest {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -2879,7 +2879,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
         game_.autoriseEcartDe(CardTarot.HEART_7);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_7);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
@@ -2909,7 +2909,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_6);
         game_.autoriseEcartDe(CardTarot.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
@@ -2939,7 +2939,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_6);
         game_.autoriseEcartDe(CardTarot.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
@@ -3006,7 +3006,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_7);
         game_.autoriseEcartDe(CardTarot.SPADE_4);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.SPADE_4);
-        //game_.ajouterPliAttaque();
+        //game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3030,7 +3030,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.getDistribution().main((byte) 1).ajouter(CardTarot.EXCUSE);
         game_.getDistribution().main((byte) 2).jouer(CardTarot.EXCUSE);
-        //game_.ajouterPliAttaque();
+        //game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3061,7 +3061,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_7);
         game_.autoriseEcartDe(CardTarot.SPADE_4);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.SPADE_4);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
@@ -3094,7 +3094,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.CLUB_6);
         game_.autoriseEcartDe(CardTarot.HEART_1);
         game_.ajouterUneCarteDansPliEnCours(game_.getPreneur(),CardTarot.HEART_1);
-        game_.ajouterPliAttaque();
+        game_.addCurTrick();
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);

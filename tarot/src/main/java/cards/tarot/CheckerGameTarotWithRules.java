@@ -300,7 +300,7 @@ public final class CheckerGameTarotWithRules {
                 if (allTricks_.isEmpty()) {
                     discardedCards_ = _loadedGame.getPliEnCours();
                 } else {
-                    discardedCards_ = _loadedGame.getPlisAttaque().first();
+                    discardedCards_ = allTricks_.first();
                 }
                 if (!rules_.getDiscardAfterCall()) {
                     loadedGameCopy_.ajouterCartes(loadedGameCopy_.getPreneur(),
@@ -321,7 +321,7 @@ public final class CheckerGameTarotWithRules {
                         loadedGameCopy_.ajouterUneCarteDansPliEnCours(
                                 loadedGameCopy_.getPreneur(), c);
                     }
-                    loadedGameCopy_.ajouterPliAttaque();
+                    loadedGameCopy_.addCurTrick();
                     if (discardedCards_.total() != _loadedGame.derniereMain()
                             .total()) {
                         if (!_loadedGame.getCarteAppelee().estVide()) {
@@ -355,7 +355,7 @@ public final class CheckerGameTarotWithRules {
                         loadedGameCopy_.ajouterUneCarteDansPliEnCours(
                                 loadedGameCopy_.getPreneur(), c);
                     }
-                    loadedGameCopy_.ajouterPliAttaque();
+                    loadedGameCopy_.addCurTrick();
                 }
                 if (_loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
                     loadedGameCopy_.setEntameur(_loadedGame.getPreneur());
@@ -363,11 +363,7 @@ public final class CheckerGameTarotWithRules {
             } else if (_loadedGame.getContrat().isJouerDonne()) {
                 loadedGameCopy_.gererChienInconnu();
                 TrickTarot discardedCards_;
-                if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITHOUT) {
-                    discardedCards_ = _loadedGame.getPlisAttaque().first();
-                } else {
-                    discardedCards_ = _loadedGame.getPlisDefense().first();
-                }
+                discardedCards_ = allTricks_.first();
                 if (!HandTarot.equalsSet(loadedGameCopy_.getPliEnCours()
                         .getCartes(), discardedCards_.getCartes())) {
                     _loadedGame

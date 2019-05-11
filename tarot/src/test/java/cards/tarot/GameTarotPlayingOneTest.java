@@ -141,7 +141,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         assertEq(0,game.getEntameur());
@@ -173,7 +173,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         assertEq(4,game.getEntameur());
@@ -219,7 +219,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getPreneur(), CardTarot.EXCUSE);
@@ -267,7 +267,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         assertEq(1,game.getEntameur());
@@ -310,7 +310,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_3);
@@ -346,7 +346,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
-        game.ajouterPliAttaque();
+        game.addCurTrick();
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_7);

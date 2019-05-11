@@ -488,7 +488,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getHelpGame().setEnabledMenu(true);
         afficherMainUtilisateurTarot(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            HandTarot atouts_=partie_.getPlisAttaque().first().getCartes().couleur(Suit.TRUMP);
+            HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
                 for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
                     getPanelDiscardedTrumps().add(c);
@@ -584,7 +584,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         setCanDiscard(false);
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-            partie_.ajouterPliAttaque();
+            partie_.addCurTrick();
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
                 getPanelDiscardedTrumps().removeAll();
@@ -809,7 +809,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ajouterTexteDansZone(StringList.concat(StringList.simpleStringsFormat(getMessages().getVal(MainWindow.DECLARING_SLAM), pseudo()),RETURN_LINE));
             setCanDiscard(false);
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                partie_.ajouterPliAttaque();
+                partie_.addCurTrick();
                 HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
                 if(!atouts_.estVide()) {
                     for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {

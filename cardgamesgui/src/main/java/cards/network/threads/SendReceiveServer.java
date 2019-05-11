@@ -448,7 +448,7 @@ public final class SendReceiveServer extends BasicServer {
         if (_readObject instanceof ValidateDog) {
             GameTarot game_ = Net.getGames().partieTarot();
             if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                game_.ajouterPliAttaque();
+                game_.addCurTrick();
                 if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
@@ -474,7 +474,7 @@ public final class SendReceiveServer extends BasicServer {
                 game_.ajouterChelemUtilisateur();
             }
             if (!game_.getRegles().getDiscardAfterCall()) {
-                game_.ajouterPliAttaque();
+                game_.addCurTrick();
                 if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setDeclaringSlam(true);
