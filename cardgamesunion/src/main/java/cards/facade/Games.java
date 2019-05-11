@@ -157,7 +157,7 @@ public final class Games {
             return partieBelote().isSameTeam(_players);
         }
         if (enCoursDePartieTarot()) {
-            return partieTarot().isSameTeam(_players);
+            return partieTarot().getTeamsRelation().isSameTeam(_players);
         }
         if (enCoursDePartiePresident()) {
 //            return false;

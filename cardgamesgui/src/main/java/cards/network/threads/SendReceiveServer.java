@@ -756,7 +756,7 @@ public final class SendReceiveServer extends BasicServer {
             byte place_ = ((SelectTeams)_readObject).getPlace();
             TeamsPlayers teams_ = new TeamsPlayers();
             GameTarot game_ = Net.getGames().partieTarot();
-            teams_.setTeams(game_.playersBelongingToSameTeam());
+            teams_.setTeams(game_.getTeamsRelation().playersBelongingToSameTeam());
             Net.sendObject(Net.getSocketByPlace(place_), teams_);
         }
     }

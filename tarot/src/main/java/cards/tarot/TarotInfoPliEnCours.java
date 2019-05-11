@@ -9,10 +9,10 @@ import code.util.Numbers;
 final class TarotInfoPliEnCours {
 
     private HandTarot cartesJouables;
-    private HandTarot cartesAJouer;
     private Numbers<Byte> joueursNonJoue;
     private Numbers<Byte> joueursJoue;
     private CustList<TrickTarot> plisFaits;
+    private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
     private EnumMap<Suit,HandTarot> repartitionCartesJouees;
     private boolean carteAppeleeJouee;
@@ -26,6 +26,8 @@ final class TarotInfoPliEnCours {
     private EnumMap<Suit,HandTarot> cartesMaitresses;
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
+    private EnumList<Suit> calledSuits;
+    private TeamsRelation teamsRelation;
 
     TarotInfoPliEnCours() {
     }
@@ -36,14 +38,6 @@ final class TarotInfoPliEnCours {
 
     public void setCartesJouables(HandTarot _cartesJouables) {
         cartesJouables = _cartesJouables;
-    }
-
-    public HandTarot getCartesAJouer() {
-        return cartesAJouer;
-    }
-
-    public void setCartesAJouer(HandTarot _cartesAJouer) {
-        cartesAJouer = _cartesAJouer;
     }
 
     public Numbers<Byte> getJoueursNonJoue() {
@@ -68,6 +62,14 @@ final class TarotInfoPliEnCours {
 
     public void setPlisFaits(CustList<TrickTarot> _plisFaits) {
         plisFaits = _plisFaits;
+    }
+
+    public TrickTarot getProgressingTrick() {
+        return progressingTrick;
+    }
+
+    public void setProgressingTrick(TrickTarot _progressingTrick) {
+        progressingTrick = _progressingTrick;
     }
 
     public HandTarot getCartesJouees() {
@@ -174,4 +176,19 @@ final class TarotInfoPliEnCours {
         coupesFranches = _coupesFranches;
     }
 
+    public EnumList<Suit> getCalledSuits() {
+        return calledSuits;
+    }
+
+    public void setCalledSuits(EnumList<Suit> _calledSuits) {
+        calledSuits = _calledSuits;
+    }
+
+    public TeamsRelation getTeamsRelation() {
+        return teamsRelation;
+    }
+
+    public void setTeamsRelation(TeamsRelation _teamsRelation) {
+        teamsRelation = _teamsRelation;
+    }
 }

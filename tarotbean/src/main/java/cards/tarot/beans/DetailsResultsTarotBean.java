@@ -1,5 +1,6 @@
 package cards.tarot.beans;
 import cards.consts.Status;
+import cards.tarot.EndTarotGame;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
@@ -75,17 +76,18 @@ final class DetailsResultsTarotBean extends TarotBean {
         bonuses = new CustList<BonusesPlayers>();
         playersScores = new CustList<ScoresPlayers>();
         if (getBid().isJouerDonne()) {
-            short doubledScoreTaker_=getGame().scorePreneurPlisDouble();
-            short needlyScoresTaker_=getGame().scoreNecessairePreneur();
-            short scorePreneurPlis_=getGame().scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
+            EndTarotGame end_ = getGame().getEndTarotGame();
+            short doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
+            short needlyScoresTaker_=end_.scoreNecessairePreneur(getBid());
+            short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
             differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker_);
-            basePoints=getGame().base(doubledScoreTaker_,differenceScoreTaker);
-            short scoreTakerWithoutDeclaring_=getGame().scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
-            joueurPetitAuBout=getGame().joueurPetitAuBout();
+            basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
+            short scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
+            joueurPetitAuBout=end_.joueurPetitAuBout();
             playerSmall = EMPTY_STRING;
             if (joueurPetitAuBout>-1) {
                 playerSmall = getNicknames().get(joueurPetitAuBout);
-                if (getGame().aPourDefenseur(joueurPetitAuBout)) {
+                if (end_.getRelations().aPourDefenseur(joueurPetitAuBout)) {
                     small = StringList.concat(MINUS,Long.toString(BonusTarot.SMALL_BOUND.getPoints()),RIGHT_PAR);
                 } else {
                     small = String.valueOf(BonusTarot.SMALL_BOUND.getPoints());
@@ -106,13 +108,13 @@ final class DetailsResultsTarotBean extends TarotBean {
             }
             if(existeAnnonce_) {
                 int sumPlayers_ = 0;
-                CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = getGame().getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
-                CustList<TreeMap<Miseres,Short>> miseresTaker_ = getGame().getMiseresPointsForTaker();
+                CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
+                CustList<TreeMap<Miseres,Short>> miseresTaker_ = end_.getMiseresPointsForTaker();
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                     SumDeclaringPlayer line_ = new SumDeclaringPlayer();
                     TreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
                     line_.setNickname(getNicknames().get(p));
-                    line_.setStatus(toString(getGame().statutDe(p),loc_));
+                    line_.setStatus(toString(end_.getRelations().statutDe(p),loc_));
                     StringMap<Short> str_ = new StringMap<Short>();
                     for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
                         Handfuls h_ = e.getKey();
@@ -135,18 +137,19 @@ final class DetailsResultsTarotBean extends TarotBean {
                 }
                 sumPlayers = sumPlayers_;
             }
-            EnumMap<Status,Rate> repartitionRate_=getGame().coefficientsRepartition();
+            EnumMap<Status,Rate> repartitionRate_=end_.coefficientsRepartition();
             for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++) {
                 ScoresPlayers scoresPayer_ = new ScoresPlayers();
                 scoresPayer_.setNickname(getNicknames().get(p));
-                scoresPayer_.setRate(repartitionRate_.getVal(getGame().statutDe(p)));
+                scoresPayer_.setRate(repartitionRate_.getVal(end_.getRelations().statutDe(p)));
                 scoresPayer_.setScore(getGame().getScores().get(p));
                 playersScores.add(scoresPayer_);
             }
-            additionnalBonusesAttack = getGame().additionnalBonusesAttack();
-            additionnalBonusesDefense = getGame().additionnalBonusesDefense();
+            additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
+            additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
             diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
         }else if (!getGame().unionPlis(true).isEmpty()) {
+            EndTarotGame end_ = getGame().getEndTarotGame();
             Numbers<Short> positions_ = new Numbers<Short>();
             Numbers<Short> positions1_ = new Numbers<Short>();
             Numbers<Short> positions2_ = new Numbers<Short>();
@@ -160,29 +163,29 @@ final class DetailsResultsTarotBean extends TarotBean {
             boolean pasJeuMisere_=getGame().pasJeuMisere();
             if(pasJeuMisere_) {
                 for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-                    doubledScoresPlayersTricks_.add(getGame().scoreJoueurPlisDouble( joueur_));
-                    needlyScoresPlayers_.add(getGame().scoreNecessaireJoueur(joueur_));
-                    doublesDifferencesPlayers_.add(GameTarot.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                    additionnalBonuses_.add(getGame().primeSupplementaire(joueur_));
+                    doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
+                    needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                    doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                    additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
                 }
-                positions_=GameTarot.positionsDifference(doublesDifferencesPlayers_);
-                positions1_ = getGame().changePositionsOne(positions_,pasJeuMisere_);
-                positions2_ = getGame().changePositionsTwo(positions1_,pasJeuMisere_);
-                positions3_ = getGame().changePositionsThree(positions2_,pasJeuMisere_);
-                positions4_ = getGame().changePositionsFour(positions3_, pasJeuMisere_);
-                coefficients_=getGame().coefficients(positions4_);
+                positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
+                positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
+                positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
+                positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                coefficients_=end_.coefficients(positions4_);
             } else {
                 for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-                    doubledScoresPlayersTricks_.add(getGame().scoreJoueurPlisDouble(joueur_));
-                    needlyScoresPlayers_.add(getGame().scoreNecessaireJoueur(joueur_));
-                    doublesDifferencesPlayers_.add(GameTarot.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                    doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
+                    needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                    doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
                 }
-                positions_=GameTarot.positionsDifference(doublesDifferencesPlayers_);
-                positions1_ = getGame().changePositionsOne(positions_,pasJeuMisere_);
-                positions2_ = getGame().changePositionsTwo(positions1_,pasJeuMisere_);
-                positions3_ = getGame().changePositionsThree(positions2_,pasJeuMisere_);
-                positions4_ = getGame().changePositionsFour(positions3_, pasJeuMisere_);
-                coefficients_=getGame().coefficientsMisere(positions4_);
+                positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
+                positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
+                positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
+                positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                coefficients_=end_.coefficientsMisere(positions4_);
             }
             for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                 RankingPlayerVariantGame or_ = new RankingPlayerVariantGame();
@@ -208,7 +211,7 @@ final class DetailsResultsTarotBean extends TarotBean {
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                     SumDeclaringPlayer line_ = new SumDeclaringPlayer();
                     TreeMap<Handfuls,Short> handfulsTakerLoc_ = new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>());
-                    for (Handfuls h: getGame().calculHandfulsScorePlayer(p).get(p).getKeys()) {
+                    for (Handfuls h: end_.calculHandfulsScorePlayer(p).get(p).getKeys()) {
                         handfulsTakerLoc_.put(h, (short)0);
                     }
                     line_.setNickname(getNicknames().get(p));
@@ -219,7 +222,7 @@ final class DetailsResultsTarotBean extends TarotBean {
                     }
                     line_.setHandfuls(str_);
                     TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>());
-                    for (Miseres m: getGame().calculMiseresScorePlayer(p).get(p).getKeys()) {
+                    for (Miseres m: end_.calculMiseresScorePlayer(p).get(p).getKeys()) {
                         miseres_.put(m, (short)0);
                     }
                     line_.setMiseres(miseres_);

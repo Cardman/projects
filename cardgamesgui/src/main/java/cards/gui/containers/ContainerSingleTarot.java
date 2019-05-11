@@ -63,14 +63,7 @@ import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
-import cards.tarot.CallDiscard;
-import cards.tarot.DealTarot;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.ResultsTarot;
-import cards.tarot.RulesTarot;
-import cards.tarot.TrickTarot;
-import cards.tarot.TricksHandsTarot;
+import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -1432,7 +1425,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void showTeams() {
         GameTarot game_ = partieTarot();
         TeamsPlayers teams_ = new TeamsPlayers();
-        teams_.setTeams(game_.playersBelongingToSameTeam());
+        teams_.setTeams(game_.getTeamsRelation().playersBelongingToSameTeam());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
         DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_);
     }
@@ -1453,18 +1446,18 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         GameTarot partie_=partieTarot();
         HandTarot mainUtilisateur_=partie_.getDistribution().main();
-        EnumMap<Suit,HandTarot> repartition_=mainUtilisateur_.couleurs();
         HandTarot cartesJouees_=partie_.cartesJoueesEnCours(DealTarot.NUMERO_UTILISATEUR);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
-        boolean carteAppeleeJouee_ = partie_.carteAppeleeJouee(cartesJouees_);
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_=partie_.cartesPossibles(
-                !repartitionCartesJouees_.getVal(CardTarot.EXCUSE.couleur()).estVide(),
-                repartitionCartesJouees_,partie_.unionPlis(false),
-                !repartition_.getVal(CardTarot.EXCUSE.couleur()).estVide(),repartition_,
+        DoneTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
+        TeamsRelation teamsRelation_ = partie_.getTeamsRelation();
+        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(
+                teamsRelation_,
+                partie_.unionPlis(false),
+                mainUtilisateur_,
                 DealTarot.NUMERO_UTILISATEUR,
-                carteAppeleeJouee_);
+                partie_.derniereMain());
         DialogHelpTarot.setTitleDialog(getWindow(),StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = partie_.cartesCertaines(cartesPossibles_);
+        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(teamsRelation_,cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
         DialogHelpTarot.setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
