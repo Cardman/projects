@@ -8,6 +8,7 @@ import cards.gui.MainWindow;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.GameTarot;
+import cards.tarot.GameTarotCommonPlaying;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.ConfirmDialog;
@@ -40,7 +41,7 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
                 container.getCurrentIncludedTrumps().ajouter(getCarteVerif());
                 container.getCurrentExcludedTrumps().jouer(getCarteVerif());
             }
-            container.displayTrumpsForHandfulMulti(GameTarot.atoutsPoignee(container.getPlayerHand().couleurs()));
+            container.displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(container.getPlayerHand().couleurs()));
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
                 int exces_ = container.getCurrentIncludedTrumps().total()-container.getRequiredTrumps().getVal(container.getChoosenHandful());

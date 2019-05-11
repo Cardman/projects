@@ -21,7 +21,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         handSuit_.ajouter(CardTarot.HEART_10);
         handSuit_.ajouter(CardTarot.HEART_6);
         hand_.put(Suit.HEART,handSuit_);
-        assertEq(0,GameTarot.nbCartesMaitresses(hand_,played_,Suit.HEART));
+        assertEq(0,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void nbCartesMaitresses2Test() {
@@ -35,7 +35,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         handSuit_.ajouter(CardTarot.HEART_KING);
         handSuit_.ajouter(CardTarot.HEART_6);
         hand_.put(Suit.HEART,handSuit_);
-        assertEq(1,GameTarot.nbCartesMaitresses(hand_,played_,Suit.HEART));
+        assertEq(1,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void nbCartesMaitresses3Test() {
@@ -49,7 +49,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         handSuit_.ajouter(CardTarot.HEART_QUEEN);
         handSuit_.ajouter(CardTarot.HEART_6);
         hand_.put(Suit.HEART,handSuit_);
-        assertEq(1,GameTarot.nbCartesMaitresses(hand_,played_,Suit.HEART));
+        assertEq(1,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void nbCartesMaitresses4Test() {
@@ -66,7 +66,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         handSuit_.ajouter(CardTarot.HEART_9);
         handSuit_.ajouter(CardTarot.HEART_6);
         hand_.put(Suit.HEART,handSuit_);
-        assertEq(2,GameTarot.nbCartesMaitresses(hand_,played_,Suit.HEART));
+        assertEq(2,GameTarotBid.nbCartesMaitresses(hand_,played_,Suit.HEART));
     }
     @Test
     public void estUnJeuDeChelemSur1Test() {
@@ -91,7 +91,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         plSuit_.ajouter(CardTarot.HEART_JACK);
         plSuit_.ajouter(CardTarot.HEART_9);
         plSuit_.ajouter(CardTarot.HEART_6);
-        assertTrue(!GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(!GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
     @Test
     public void estUnJeuDeChelemSur2Test() {
@@ -116,7 +116,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         plSuit_.ajouter(CardTarot.HEART_JACK);
         plSuit_.ajouter(CardTarot.HEART_9);
         plSuit_.ajouter(CardTarot.HEART_6);
-        assertTrue(!GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(!GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
     @Test
     public void estUnJeuDeChelemSur3Test() {
@@ -143,7 +143,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         plSuit_.ajouter(CardTarot.HEART_6);
         plSuit_.ajouterCartes(HandTarot.atoutsSansExcuse());
         plSuit_.supprimerCartes(handSuit_.couleur(Suit.TRUMP));
-        assertTrue(!GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(!GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
     @Test
     public void estUnJeuDeChelemSur4Test() {
@@ -170,7 +170,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         plSuit_.ajouter(CardTarot.HEART_6);
         plSuit_.ajouterCartes(HandTarot.atoutsSansExcuse());
         plSuit_.supprimerCartes(handSuit_.couleur(Suit.TRUMP));
-        assertTrue(!GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(!GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
     @Test
     public void estUnJeuDeChelemSur5Test() {
@@ -191,7 +191,7 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         handSuit_.ajouter(CardTarot.CLUB_4);
         HandTarot plSuit_ = new HandTarot();
-        assertTrue(!GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(!GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
     @Test
     public void estUnJeuDeChelemSur6Test() {
@@ -214,6 +214,6 @@ public class GameTarotHelpersTest extends CommonTarotGame {
         plSuit_.ajouter(CardTarot.CLUB_QUEEN);
         plSuit_.ajouterCartes(HandTarot.atoutsSansExcuse());
         plSuit_.supprimerCartes(handSuit_.couleur(Suit.TRUMP));
-        assertTrue(GameTarot.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
+        assertTrue(GameTarotBid.estUnJeuDeChelemSur(handSuit_.couleurs(),plSuit_.couleurs()));
     }
 }

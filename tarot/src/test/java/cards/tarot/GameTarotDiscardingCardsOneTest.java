@@ -143,7 +143,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         HandTarot takerHand_ = game.getDistribution().main(game.getPreneur());
         EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
-            game.getCartesEcartables(game.getDistribution()
+                GameTarotCallDiscard.getCartesEcartables(game.getDistribution()
                     .derniereMain().total(),suits_);
         HandTarot expected_ = new HandTarot();
         expected_.ajouter(CardTarot.TRUMP_20);
@@ -183,7 +183,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         HandTarot takerHand_ = game.getDistribution().main(game.getPreneur());
         EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
-            game.getCartesEcartables(game.getDistribution()
+            GameTarotCallDiscard.getCartesEcartables(game.getDistribution()
                     .derniereMain().total(),suits_);
         HandTarot expected_ = new HandTarot();
         expected_.ajouter(CardTarot.CLUB_QUEEN);

@@ -699,7 +699,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             GameTarot partie_=partieTarot();
             EnumList<Handfuls> poignees_ = partie_.getAnnoncesPoigneesPossibles(DealTarot.NUMERO_UTILISATEUR);
             RulesTarot regles_=partie_.getRegles();
-            HandTarot trumps_ = GameTarot.atoutsPoignee(partie_.getDistribution().main().couleurs());
+            HandTarot trumps_ = GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().main().couleurs());
             displayTrumpsForHandful(trumps_);
             Panel panneau_=getPanneauBoutonsJeu();
             Panel handFuls_ = new Panel(new FlowLayout(FlowLayout.TRAILING,0,0));
@@ -1446,10 +1446,10 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         GameTarot partie_=partieTarot();
         HandTarot mainUtilisateur_=partie_.getDistribution().main();
-        HandTarot cartesJouees_=partie_.cartesJoueesEnCours(DealTarot.NUMERO_UTILISATEUR);
-        EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
         DoneTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
         TeamsRelation teamsRelation_ = partie_.getTeamsRelation();
+        HandTarot cartesJouees_=doneTrickInfo_.cartesJoueesEnCours(teamsRelation_,DealTarot.NUMERO_UTILISATEUR);
+        EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(
                 teamsRelation_,
                 partie_.unionPlis(false),

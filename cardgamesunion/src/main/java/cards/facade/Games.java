@@ -15,6 +15,7 @@ import cards.president.enumerations.Playing;
 import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.GameTarot;
+import cards.tarot.GameTarotCommon;
 import cards.tarot.HandTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
@@ -185,7 +186,7 @@ public final class Games {
         }
         HandTarot m = _g.getDistribution().main(_g.getPreneur());
         EnumMap<Suit,HandTarot> rep_ = m.couleurs();
-        int atoutsExcuse_ = GameTarot.atoutsAvecExcuse(rep_);
+        int atoutsExcuse_ = GameTarotCommon.atoutsAvecExcuse(rep_);
         int total_ = atoutsExcuse_;
         int rois_ = 0;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
@@ -200,7 +201,7 @@ public final class Games {
             }
         }
         int nbDog_ = _g.getDistribution()
-                .derniereMain().total() - (_g.getCardsToBeDiscarded().total() - 1);
+                .derniereMain().total() - (_g.getCardsToBeDiscarded() - 1);
         StringBuilder m_ = new StringBuilder();
         if (total_ - rois_ - atoutsExcuse_ < nbDog_) {
             if(_c.estUnBout()) {

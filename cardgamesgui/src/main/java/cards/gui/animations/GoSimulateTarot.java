@@ -14,11 +14,7 @@ import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
-import cards.tarot.DealTarot;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.ResultsTarot;
-import cards.tarot.TrickTarot;
+import cards.tarot.*;
 import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.BonusTarot;
@@ -317,7 +313,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                     return;
                 }
             }
-            byte ramasseur_=GameTarot.ramasseur(plisFaits_,(byte)indicePli_);
+            byte ramasseur_=GameTarotCommonPlaying.ramasseur(plisFaits_,(byte)indicePli_);
             String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
             event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_)),ContainerGame.RETURN_LINE);
             event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);
