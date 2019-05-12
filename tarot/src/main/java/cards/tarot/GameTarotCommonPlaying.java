@@ -5,6 +5,7 @@ import cards.consts.Suit;
 import cards.tarot.comparators.GameTarotLeastDemandedSuitComparator;
 import cards.tarot.comparators.GameTarotMostDemandedSuitComparator;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.PlayingDog;
 import code.maths.Rate;
 import code.util.*;
@@ -19,6 +20,101 @@ public final class GameTarotCommonPlaying {
         teamsRelation = _teamsRelation;
     }
 
+    HandTarot playableCards(HandTarot _calledCards,EnumMap<Suit,HandTarot> _repartitionMain) {
+        return cartesJouables(_calledCards,_repartitionMain);
+    }
+    public HandTarot cartesJouables(HandTarot _calledCards, EnumMap<Suit, HandTarot> _repartitionMain) {
+        HandTarot atoutsJoues_ = doneTrickInfo.getProgressingTrick().getCartes().couleurs().getVal(Suit.TRUMP);
+        Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
+        HandTarot cartesJouables_ = new HandTarot();
+        int nombreCartes_ = 0;
+        /* Dans la main */
+        for (HandTarot main_ : _repartitionMain.values()) {
+            nombreCartes_ += main_.total();
+        }
+        if (doneTrickInfo.getProgressingTrick().couleurDemandee() == Suit.UNDEFINED) {
+            if (premierTour() && _calledCards.total() == 1) {
+                Suit couleurAppele_ = _calledCards.premiereCarte().couleur();
+                if (nombreCartes_ > _repartitionMain
+                        .getVal(couleurAppele_).total()) {
+                    cartesJouables_.ajouterCartes(_repartitionMain
+                            .getVal(CardTarot.excuse().couleur()));
+                    cartesJouables_.ajouterCartes(_repartitionMain
+                            .getVal(Suit.TRUMP));
+
+                    for (Suit couleur_ : Suit.couleursOrdinaires()) {
+                        if(couleur_ != couleurAppele_) {
+                            cartesJouables_.ajouterCartes(_repartitionMain
+                                    .getVal(couleur_));
+                            continue;
+                        }
+                        for(CardTarot carte_:_repartitionMain
+                                .getVal(couleur_)) {
+                            if(!CardTarot.eq(carte_, _calledCards.premiereCarte())) {
+                                continue;
+                            }
+                            cartesJouables_.ajouter(carte_);
+                        }
+                    }
+                    return cartesJouables_;
+                }
+            }
+            cartesJouables_.ajouterCartes(HandTarot.reunion(_repartitionMain));
+            return cartesJouables_;
+        }
+        cartesJouables_.ajouterCartes(_repartitionMain.getVal(CardTarot.EXCUSE.couleur()));
+        if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)
+                && !_repartitionMain.getVal(couleurDemandee_).estVide()) {
+            cartesJouables_
+                    .ajouterCartes(_repartitionMain.getVal(couleurDemandee_));
+            return cartesJouables_;
+        }
+        if (_repartitionMain.getVal(Suit.TRUMP).estVide()) {
+            for (Suit couleur_ : Suit.couleursOrdinaires()) {
+                cartesJouables_.ajouterCartes(_repartitionMain.getVal(couleur_));
+            }
+            return cartesJouables_;
+        }
+        if (atoutsJoues_.estVide()) {
+            cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            return cartesJouables_;
+        }
+        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
+        byte ramasseurVirtuel_ = doneTrickInfo.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
+        CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(
+                ramasseurVirtuel_, nombreDeJoueurs_);
+        byte valeurForte_ = carteForte_.strength(couleurDemandee_);
+        if (_repartitionMain.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
+            cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            return cartesJouables_;
+        }
+        if (valeurForte_ < _repartitionMain.getVal(Suit.TRUMP).derniereCarte().strength(couleurDemandee_)) {
+            cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
+            return cartesJouables_;
+        }
+        byte indiceCarte_ = CustList.FIRST_INDEX;
+        HandTarot trumps_ = _repartitionMain.getVal(Suit.TRUMP);
+        while (trumps_.carte(indiceCarte_)
+                .strength(couleurDemandee_) > valeurForte_) {
+            cartesJouables_.ajouter(trumps_.carte(indiceCarte_));
+            indiceCarte_++;
+        }
+        return cartesJouables_;
+    }
+    boolean premierTour() {
+        int plisTotal_ = 0;
+        if(teamsRelation.existePreneur()) {
+            for(TrickTarot p:doneTrickInfo.getTricks()) {
+                if(!p.getVuParToutJoueur()) {
+                    continue;
+                }
+                plisTotal_++;
+            }
+            return plisTotal_ == 0;
+        }
+        plisTotal_ = doneTrickInfo.getTricks().size();
+        return plisTotal_ <= 1;
+    }
     TarotInfoPliEnCours initInformations(
             HandTarot _lastHand,
             byte _joueurCourant,
@@ -361,7 +457,7 @@ public final class GameTarotCommonPlaying {
                     + _excusePossible.get(joueur_).total();
         }
         /*
-        Fin for int joueur=0;joueur<cartesPossibles.get(couleurAtout()).size()-1;joueur++
+        Fin for int joueur=0;joueur<cartesPossibles.get(Suit.TRUMP).size()-1;joueur++
         (Fin boucle sur le calcul de la valeur maximale possible des atouts
         */
         if (max_ == CustList.SIZE_EMPTY) {
