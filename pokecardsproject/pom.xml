@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 <properties>
         <jdk.version>1.6</jdk.version>
-        <jacoco.version>0.6.5.201403032054</jacoco.version>
+        <jacoco.version>0.8.2</jacoco.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.jacoco.reportPath>${basedir}/target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
