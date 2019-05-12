@@ -5,17 +5,16 @@ import cards.consts.Suit;
 import cards.tarot.comparators.GameTarotLeastDemandedSuitComparator;
 import cards.tarot.comparators.GameTarotMostDemandedSuitComparator;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.PlayingDog;
 import code.maths.Rate;
 import code.util.*;
 
 public final class GameTarotCommonPlaying {
-    private DoneTrickInfo doneTrickInfo;
-    private TeamsRelation teamsRelation;
+    private GameTarotTrickInfo doneTrickInfo;
+    private GameTarotTeamsRelation teamsRelation;
     private HandTarot lastHand;
 
-    public GameTarotCommonPlaying(DoneTrickInfo _doneTrickInfo, TeamsRelation _teamsRelation) {
+    public GameTarotCommonPlaying(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation) {
         doneTrickInfo = _doneTrickInfo;
         teamsRelation = _teamsRelation;
     }
@@ -128,7 +127,7 @@ public final class GameTarotCommonPlaying {
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
         boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        Numbers<Byte> joueursJoue_ = TeamsRelation.autresJoueurs(joueursNonJoue_, nombreDeJoueurs_);
+        Numbers<Byte> joueursJoue_ = GameTarotTeamsRelation.autresJoueurs(joueursNonJoue_, nombreDeJoueurs_);
         joueursJoue_.removeObj(_joueurCourant);
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(
                 teamsRelation,
@@ -254,10 +253,10 @@ public final class GameTarotCommonPlaying {
         }
         return cartes_;
     }
-    boolean appeleConnuDefenseur(TeamsRelation _teamRel,byte _joueur, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles) {
+    boolean appeleConnuDefenseur(GameTarotTeamsRelation _teamRel, byte _joueur, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles) {
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         if (doneTrickInfo.getBid().getJeuChien() == PlayingDog.WITH) {
-            return _teamRel.joueursConfiance(_joueur, TeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 + teamsRelation.getCalledPlayers().size() == nombreDeJoueurs_;
+            return _teamRel.joueursConfiance(_joueur, GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 + teamsRelation.getCalledPlayers().size() == nombreDeJoueurs_;
         }
         if (existeCarteAppelee()) {
             boolean aucuneCouleurAppelePreneur_ = true;
@@ -268,10 +267,10 @@ public final class GameTarotCommonPlaying {
                 aucuneCouleurAppelePreneur_ = false;
             }
             if (aucuneCouleurAppelePreneur_) {
-                return _teamRel.joueursConfiance(_joueur, TeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 + teamsRelation.getCalledPlayers().size() == nombreDeJoueurs_;
+                return _teamRel.joueursConfiance(_joueur, GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 + teamsRelation.getCalledPlayers().size() == nombreDeJoueurs_;
             }
         }
-        return _teamRel.joueursConfiance(_joueur, TeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 == nombreDeJoueurs_;
+        return _teamRel.joueursConfiance(_joueur, GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 == nombreDeJoueurs_;
     }
     boolean existeCarteAppelee() {
         return !doneTrickInfo.getCalledCards().estVide();

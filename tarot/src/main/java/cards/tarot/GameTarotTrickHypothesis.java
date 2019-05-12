@@ -9,15 +9,15 @@ import cards.tarot.enumerations.PlayingDog;
 import code.maths.Rate;
 import code.util.*;
 
-public final class TrickHypothesis {
+public final class GameTarotTrickHypothesis {
 
-    private TrickHypothesis(){
+    private GameTarotTrickHypothesis(){
     }
-    static void hypothesesRepartitionsJoueurs(TeamsRelation _teamReal, HandTarot _calledCards,
-                                       BidTarot _bid,
-                                       CustList<TrickTarot> _plisFaits, byte _numero,
-                                       EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
-                                       EnumMap<Suit,EqList<HandTarot>> _cartesCertaines) {
+    static void hypothesesRepartitionsJoueurs(GameTarotTeamsRelation _teamReal, HandTarot _calledCards,
+                                              BidTarot _bid,
+                                              CustList<TrickTarot> _plisFaits, byte _numero,
+                                              EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
+                                              EnumMap<Suit,EqList<HandTarot>> _cartesCertaines) {
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         boolean appelesTousConnus_ = true;
         for(CardTarot c: _calledCards) {
@@ -190,7 +190,7 @@ public final class TrickHypothesis {
             byte ramasseur_ = -1;
             byte nombreAtoutsJouesAvantPetit_ = 0;
             boolean petitJoueDemandeAtout_ = false;
-            boolean defausse_ = DoneTrickInfo.defausseTarot(j, _plisFaits);
+            boolean defausse_ = GameTarotTrickInfo.defausseTarot(j, _plisFaits);
             for(TrickTarot p: _plisFaits) {
                 if(!p.getVuParToutJoueur()) {
                     continue;
@@ -511,7 +511,7 @@ public final class TrickHypothesis {
             TarotInfoPliEnCours _info,
             byte _numero,
             CardTarot _carteForte) {
-        TeamsRelation teamRel_ = _info.getTeamsRelation();
+        GameTarotTeamsRelation teamRel_ = _info.getTeamsRelation();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
@@ -525,8 +525,8 @@ public final class TrickHypothesis {
         Numbers<Byte> joueursConfianceNonJoue_ = new Numbers<Byte>(
                 joueursNonJoue_);
         byte nombreDeJoueurs_ = teamRel_.getNombreDeJoueurs();
-        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(_numero,TeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(_numero,TeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(_numero,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(_numero,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
         joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();

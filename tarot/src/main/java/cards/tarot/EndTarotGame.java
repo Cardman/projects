@@ -30,7 +30,7 @@ public final class EndTarotGame {
     public static final int ALL_OUDLERS_PTS = 36;
 
     public static final int PTS_BASE = 25;
-    private TeamsRelation relations;
+    private GameTarotTeamsRelation relations;
     private CustList<TrickTarot> tricks;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
     private CustList<EnumList<Handfuls>> declaresHandfuls;
@@ -41,7 +41,7 @@ public final class EndTarotGame {
     /** Ce sont les petits au bout par le(s) joueur(s) */
     private BooleanList smallBound;
 
-    public EndTarotGame(TeamsRelation _relations, CustList<TrickTarot> _tricks,
+    public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
                         EqList<EnumList<Miseres>> _declaresMiseres,
                         BooleanList _declaresSlam, BooleanList _smallBound) {
@@ -63,7 +63,7 @@ public final class EndTarotGame {
             chelemAttaque_ = true;
         }
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), TeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
+        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
             chelemDefense_ = true;
         }
         CustList<TrickTarot> trAttack_ = getPlisAttaque(_bid);
@@ -177,7 +177,7 @@ public final class EndTarotGame {
             chelemAttaque_ = true;
         }
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), TeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
+        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
             chelemDefense_ = true;
         }
         CustList<TrickTarot> trAtt_ = getPlisAttaque(_bid);
@@ -2013,12 +2013,12 @@ public final class EndTarotGame {
                 tricks_.add(tricks.first());
             }
         }
-        Numbers<Byte> defs_ = relations.adversaires(relations.getTaker(),TeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
+        Numbers<Byte> defs_ = relations.adversaires(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         tricks_.addAllElts(getWonTricksListTeam(tricks,defs_));
         return tricks_;
     }
     CustList<TrickTarot> getWonTricksListTeam(byte _player) {
-        Numbers<Byte> team_ = relations.coequipiers(_player, TeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
+        Numbers<Byte> team_ = relations.coequipiers(_player, GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         team_.add(_player);
         return getWonTricksListTeam(tricks,team_);
     }
@@ -2026,14 +2026,14 @@ public final class EndTarotGame {
     boolean aucunPliAdverseFin(byte _joueur, CustList<TrickTarot> _unionPlis) {
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         Numbers<Byte> partenaires_ = relations.coequipiers(_joueur,
-                TeamsRelation.tousJoueurs(nombreDeJoueurs_));
+                GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         partenaires_.add(_joueur);
         return plisTousFaitsParFin(partenaires_, _unionPlis, nombreDeJoueurs_);
     }
 
     static boolean plisTousFaitsParFin(Numbers<Byte> _joueurs,
                                                CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
-        Numbers<Byte> autresJoueurs_ = TeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
+        Numbers<Byte> autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
         return getWonTricksListTeam(_unionPlis,autresJoueurs_).isEmpty();
     }
 
@@ -2072,7 +2072,7 @@ public final class EndTarotGame {
         return tricks_;
     }
 
-    public TeamsRelation getRelations() {
+    public GameTarotTeamsRelation getRelations() {
         return relations;
     }
 }

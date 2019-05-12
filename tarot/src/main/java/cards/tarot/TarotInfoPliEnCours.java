@@ -27,7 +27,7 @@ final class TarotInfoPliEnCours {
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
     private EnumList<Suit> calledSuits;
-    private TeamsRelation teamsRelation;
+    private GameTarotTeamsRelation teamsRelation;
 
     TarotInfoPliEnCours() {
     }
@@ -184,11 +184,11 @@ final class TarotInfoPliEnCours {
         calledSuits = _calledSuits;
     }
 
-    public TeamsRelation getTeamsRelation() {
+    public GameTarotTeamsRelation getTeamsRelation() {
         return teamsRelation;
     }
 
-    public void setTeamsRelation(TeamsRelation _teamsRelation) {
+    public void setTeamsRelation(GameTarotTeamsRelation _teamsRelation) {
         teamsRelation = _teamsRelation;
     }
 }

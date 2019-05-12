@@ -8,13 +8,13 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public final class GameTarotDeclaring {
-    private DoneTrickInfo doneTrickInfo;
-    private TeamsRelation teamsRelation;
+    private GameTarotTrickInfo doneTrickInfo;
+    private GameTarotTeamsRelation teamsRelation;
     private HandTarot curHand;
     private CustList<EnumList<Handfuls>> declaresHandfuls;
     private EqList<EnumList<Miseres>> declaresMiseres;
 
-    public GameTarotDeclaring(DoneTrickInfo _doneTrickInfo, TeamsRelation _teamsRelation, HandTarot _curHand,CustList<EnumList<Handfuls>> _declaresHandfuls, EqList<EnumList<Miseres>> _declaresMiseres) {
+    public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<EnumList<Handfuls>> _declaresHandfuls, EqList<EnumList<Miseres>> _declaresMiseres) {
         doneTrickInfo = _doneTrickInfo;
         teamsRelation = _teamsRelation;
         curHand = _curHand;

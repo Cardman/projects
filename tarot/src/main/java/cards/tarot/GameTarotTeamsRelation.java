@@ -5,15 +5,15 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
 
-public final class TeamsRelation {
+public final class GameTarotTeamsRelation {
 
     private byte taker;
     private Numbers<Byte> calledPlayers;
     private CustList<BooleanList> confidence;
     private RulesTarot rules;
 
-    public TeamsRelation(byte _taker, Numbers<Byte> _calledPlayers,
-                         CustList<BooleanList> _confidence, RulesTarot _rules) {
+    public GameTarotTeamsRelation(byte _taker, Numbers<Byte> _calledPlayers,
+                                  CustList<BooleanList> _confidence, RulesTarot _rules) {
         taker = _taker;
         calledPlayers = _calledPlayers;
         confidence = _confidence;
@@ -183,7 +183,7 @@ public final class TeamsRelation {
     void fixConfidenceDefender(byte _numero, byte _nbPlayers) {
         //ramasseur == preneur ==> j == appele
         //j == preneur ==> ramasseur == appele
-        for(byte j2_: TeamsRelation.tousJoueurs(_nbPlayers)) {
+        for(byte j2_: GameTarotTeamsRelation.tousJoueurs(_nbPlayers)) {
             if(!memeEquipe(_numero, j2_)) {
                 continue;
             }
@@ -249,9 +249,9 @@ public final class TeamsRelation {
     boolean aucunPliAdverse(byte _joueur, CustList<TrickTarot> _unionPlis) {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         Numbers<Byte> partenaires_ = coequipiers(_joueur,
-                TeamsRelation.tousJoueurs(nombreDeJoueurs_));
+                GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         partenaires_.add(_joueur);
-        return DoneTrickInfo.plisTousFaitsPar(partenaires_, _unionPlis, nombreDeJoueurs_);
+        return GameTarotTrickInfo.plisTousFaitsPar(partenaires_, _unionPlis, nombreDeJoueurs_);
     }
 
     void faireConfiance(byte _joueur, byte _enjoueur) {

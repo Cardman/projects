@@ -1446,8 +1446,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         GameTarot partie_=partieTarot();
         HandTarot mainUtilisateur_=partie_.getDistribution().main();
-        DoneTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
-        TeamsRelation teamsRelation_ = partie_.getTeamsRelation();
+        GameTarotTrickInfo doneTrickInfo_ = partie_.getDoneTrickInfo();
+        GameTarotTeamsRelation teamsRelation_ = partie_.getTeamsRelation();
         HandTarot cartesJouees_=doneTrickInfo_.cartesJoueesEnCours(teamsRelation_,DealTarot.NUMERO_UTILISATEUR);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(
