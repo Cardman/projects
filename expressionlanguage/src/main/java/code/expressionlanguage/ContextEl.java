@@ -2106,7 +2106,7 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                if (!classes.isCustomType(typeLoc_)) {
+                if (getClassBody(typeLoc_) == null) {
                     continue;
                 }
                 types_.add(typeLoc_);
@@ -2137,7 +2137,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
                 String typeLoc_ = StringList.concat(begin_,".",look_);
-                if (!classes.isCustomType(typeLoc_)) {
+                if (getClassBody(typeLoc_) == null) {
                     continue;
                 }
                 types_.add(typeLoc_);
@@ -2178,7 +2178,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
                 String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
-                if (!classes.isCustomType(foundCandidate_)) {
+                if (getClassBody(foundCandidate_) == null) {
                     continue;
                 }
                 types_.add(foundCandidate_);
@@ -2211,7 +2211,7 @@ public abstract class ContextEl implements ExecutableCode {
                 String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")+1));
                 String typeLoc_ = StringList.concat(begin_,look_);
                 String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
-                if (!classes.isCustomType(foundCandidate_)) {
+                if (getClassBody(foundCandidate_) == null) {
                     continue;
                 }
                 types_.add(foundCandidate_);
