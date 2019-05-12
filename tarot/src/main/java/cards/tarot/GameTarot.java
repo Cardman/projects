@@ -250,22 +250,16 @@ public final class GameTarot {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
             for (TrickTarot t: tricks_) {
-                for (CardTarot c: calledCards) {
-                    byte called_ = t.joueurAyantJoue(c);
-                    if (called_ > -1) {
-                        calledPlayers.add(called_);
-                    }
+                if (!t.getVuParToutJoueur()) {
+                    continue;
                 }
+                retrieveCalledPlayers(t);
             }
+            retrieveCalledPlayers(progressingTrick);
         } else if (progressingTrick.getVuParToutJoueur()) {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
-            for (CardTarot c: calledCards) {
-                byte called_ = progressingTrick.joueurAyantJoue(c);
-                if (called_ > -1) {
-                    calledPlayers.add(called_);
-                }
-            }
+            retrieveCalledPlayers(progressingTrick);
         } else if (!avecContrat()) {
             starter = playerAfter(deal.getDonneur());
             trickWinner = starter;
@@ -279,6 +273,15 @@ public final class GameTarot {
         } else {
             starter = playerAfter(deal.getDonneur());
             trickWinner = starter;
+        }
+    }
+
+    void retrieveCalledPlayers(TrickTarot _t) {
+        for (CardTarot c: calledCards) {
+            byte called_ = _t.joueurAyantJoue(c);
+            if (called_ > -1) {
+                calledPlayers.add(called_);
+            }
         }
     }
 

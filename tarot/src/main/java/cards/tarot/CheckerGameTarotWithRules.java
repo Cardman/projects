@@ -288,6 +288,7 @@ public final class CheckerGameTarotWithRules {
                 return;
             }
         }
+        boolean slam_ = false;
         if (_loadedGame.avecContrat()) {
             if (_loadedGame.existePreneur() && allTricks_.isEmpty()
                     && _loadedGame.getPliEnCours().estVide()) {
@@ -389,6 +390,7 @@ public final class CheckerGameTarotWithRules {
                 if (_loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
                     loadedGameCopy_.annoncerUnChelem(_loadedGame.getPreneur());
                     loadedGameCopy_.setEntameur(_loadedGame.getPreneur());
+                    slam_ = true;
                 }
             }
         } else {
@@ -400,6 +402,9 @@ public final class CheckerGameTarotWithRules {
                     return;
                 }
             }
+        }
+        if (!slam_) {
+            loadedGameCopy_.setEntameur(loadedGameCopy_.playerAfter(deal_.getDonneur()));
         }
         int ind_ = 1;
         boolean passe_ = false;
