@@ -1367,4 +1367,20 @@ public final class DoneTrickInfo {
     HandTarot getPoignee(byte _b) {
         return handfuls.get(_b);
     }
+
+    TrickTarot getProgressingTrick() {
+        return progressingTrick;
+    }
+
+    HandTarot getCalledCards() {
+        return calledCards;
+    }
+
+    CustList<TrickTarot> getTricks() {
+        return tricks;
+    }
+
+    BidTarot getBid() {
+        return bid;
+    }
 }
