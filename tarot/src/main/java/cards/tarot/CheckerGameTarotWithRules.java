@@ -360,6 +360,7 @@ public final class CheckerGameTarotWithRules {
                 }
                 if (_loadedGame.chelemAnnonce(_loadedGame.getPreneur())) {
                     loadedGameCopy_.setEntameur(_loadedGame.getPreneur());
+                    slam_ = true;
                 }
             } else if (_loadedGame.getContrat().isJouerDonne()) {
                 loadedGameCopy_.gererChienInconnu();
