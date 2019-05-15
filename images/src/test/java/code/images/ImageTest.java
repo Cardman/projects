@@ -184,6 +184,90 @@ public class ImageTest {
     }
 
     @Test
+    public void clipSixtyFour1Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = Image.clipSixtyFour(img_, 0, 0, 3, 2);
+        assertEq(2, out_.length);
+        assertEq(3, out_[0].length);
+        assertEq(2, out_[0][0]);
+        assertEq(5, out_[0][1]);
+        assertEq(8, out_[0][2]);
+        assertEq(3, out_[1].length);
+        assertEq(7, out_[1][0]);
+        assertEq(1, out_[1][1]);
+        assertEq(3, out_[1][2]);
+    }
+
+    @Test
+    public void clipSixtyFour2Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = Image.clipSixtyFour(img_, 1, 1, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(1, out_[0][0]);
+        assertEq(3, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour3Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = Image.clipSixtyFour(img_, 1, 1, 3, 2);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(1, out_[0][0]);
+        assertEq(3, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour4Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = Image.clipSixtyFour(img_, 0, 1, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(7, out_[0][0]);
+        assertEq(1, out_[0][1]);
+    }
+
+    @Test
+    public void clipSixtyFour5Test() {
+        int[][] img_ = new int[2][3];
+        img_[0][0] = 2;
+        img_[0][1] = 5;
+        img_[0][2] = 8;
+        img_[1][0] = 7;
+        img_[1][1] = 1;
+        img_[1][2] = 3;
+        int[][] out_ = Image.clipSixtyFour(img_, 1, 0, 2, 1);
+        assertEq(1, out_.length);
+        assertEq(2, out_[0].length);
+        assertEq(5, out_[0][0]);
+        assertEq(8, out_[0][1]);
+    }
+    @Test
     public void isValidNotEmpty1Test() {
         StringList pixels_ = new StringList();
         String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));

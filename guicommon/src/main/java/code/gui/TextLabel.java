@@ -27,6 +27,20 @@ public final class TextLabel extends PaintableLabel {
         LabelButtonUtil.paintDefaultLabel(_g2, text, w_, getWidth(), h_, getForeground(), getBackground());
     }
 
+    @Override
+    public int getHeight() {
+        Font font_ = getFont();
+        FontMetrics fontMetrics_ = getFontMetrics(font_);
+        return fontMetrics_.getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        Font font_ = getFont();
+        FontMetrics fontMetrics_ = getFontMetrics(font_);
+        return fontMetrics_.stringWidth(text);
+    }
+
     public void setText(String _simpleNumberFormat) {
         text = _simpleNumberFormat;
         Font font_ = getFont();

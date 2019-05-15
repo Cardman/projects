@@ -53,30 +53,6 @@ public final class Image implements Displayable {
         return pixels.size() % width == 0;
     }
 
-    public static boolean isValid(String _img) {
-        int nb_ = 0;
-        for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringList.isNumber(s)) {
-                return false;
-            }
-            nb_ ++;
-        }
-        if (_img.charAt(0) == MINUS) {
-            return false;
-        }
-        nb_ --;
-        int i_ = _img.indexOf(SEPARATOR_CHAR);
-        if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return StringList.quickEq(_img,EMPTY_IMAGE);
-        }
-        String w_ = _img.substring(0, i_);
-        int width_ = Numbers.parseInt(w_);
-        if (width_ <= 0) {
-            return false;
-        }
-        return nb_ % width_ == 0;
-    }
-
     public static boolean isValidNotEmpty(String _img, int _sideLength) {
         if (StringList.quickEq(_img,EMPTY_IMAGE)) {
             return false;
@@ -162,31 +138,6 @@ public final class Image implements Displayable {
             return false;
         }
         return nb_ == _width * _height;
-    }
-
-    public static boolean isValidNotEmptyScale(String _img, int _sideLength) {
-        int nb_ = 0;
-        for (String s: StringList.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringList.isNumber(s)) {
-                return false;
-            }
-            nb_ ++;
-        }
-        if (_img.charAt(0) == MINUS) {
-            return false;
-        }
-        nb_ --;
-        int i_ = _img.indexOf(SEPARATOR_CHAR);
-        if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        String w_ = _img.substring(0, i_);
-        int width_ = Numbers.parseInt(w_);
-        if (width_ % _sideLength != 0) {
-            return false;
-        }
-        int heigth_ = nb_ / width_;
-        return heigth_ % _sideLength == 0;
     }
 
     public static IntPoint getDimensions(String _img, int _sideLength) {

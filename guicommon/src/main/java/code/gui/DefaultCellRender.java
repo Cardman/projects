@@ -21,6 +21,9 @@ public final class DefaultCellRender extends CustCellRender {
         text = (String) _value;
         JLabel label_ = (JLabel) _list.getListComponents().get(_index);
         label = label_;
+        Font font_ = label.getFont();
+        FontMetrics fontMetrics_ = label.getFontMetrics(font_);
+        maxWidth = Math.max(maxWidth,fontMetrics_.stringWidth(text));
         selected = _isSelected;
         return label_;
     }

@@ -123,6 +123,14 @@ public final class BaseSixtyFourUtilTest {
     }
 
     @Test
+    public void parseFourChars14Test() {
+        byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("|1z_");
+        assertEq(3, bytes_.length);
+        assertEq(-1, bytes_[0]);
+        assertEq(92, bytes_[1]);
+        assertEq(-1, bytes_[2]);
+    }
+    @Test
     public void printThreeBytes1Test() {
         byte[] bytes_ = BaseSixtyFourUtil.parseFourChars("AAAA");
         assertEq("AAAA", BaseSixtyFourUtil.printThreeBytes(bytes_));
@@ -390,6 +398,58 @@ public final class BaseSixtyFourUtilTest {
         assertEq(1, img_.length);
         assertEq(128, img_[0].length);
         checkZero(img_[0]);
+    }
+    @Test
+    public void getImageByString9Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACAAADAAAEAAAFAAAGAAAHAAAI");
+        assertEq(3, img_.length);
+        assertEq(2, img_[0].length);
+        assertEq(3, img_[0][0]);
+        assertEq(4, img_[0][1]);
+        assertEq(2, img_[1].length);
+        assertEq(5, img_[1][0]);
+        assertEq(6, img_[1][1]);
+        assertEq(2, img_[2].length);
+        assertEq(7, img_[2][0]);
+        assertEq(8, img_[2][1]);
+    }
+    @Test
+    public void getImageByString10Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAADAAADAAAEAAAFAAAGAAAHAAAI");
+        assertEq(2, img_.length);
+        assertEq(3, img_[0].length);
+        assertEq(3, img_[0][0]);
+        assertEq(4, img_[0][1]);
+        assertEq(5, img_[0][2]);
+        assertEq(3, img_[1].length);
+        assertEq(6, img_[1][0]);
+        assertEq(7, img_[1][1]);
+        assertEq(8, img_[1][2]);
+    }
+    @Test
+    public void getImageByString11Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACbaba");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString12Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAACba");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString13Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAAC");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString14Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAAA");
+        assertEq(0, img_.length);
+    }
+    @Test
+    public void getImageByString15Test() {
+        int[][] img_ = BaseSixtyFourUtil.getImageByString("AAA");
+        assertEq(0, img_.length);
     }
     @Test
     public void getSringByImage1Test() {

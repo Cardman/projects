@@ -31,7 +31,7 @@ public class GraphicStringList extends GraphicList<String> implements Input {
         JPanel panel_ = getPanel();
         Font font_ = panel_.getFont();
         FontMetrics fontMetics_ = panel_.getFontMetrics(font_);
-        int width_ = 0;
+        int width_ = 4;
         for (String s: getList()) {
             width_ = Math.max(width_, fontMetics_.stringWidth(s));
         }

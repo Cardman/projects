@@ -81,7 +81,18 @@ public class MainWindow extends GroupFrame {
     private static final String BEGIN_ESC = "&#";
 
     private static final String END_ESC = ";";
-
+    private static final int FIRST_DIGIT = '0';
+    private static final int FIRST_LOW_LETTER = 'a';
+    private static final int FIRST_UPP_LETTER = 'A';
+    private static final short BYTE = 256;
+    private static final byte SIXTY_FOUR_BITS = 64;
+    private static final byte SIXTEEN_BITS = 16;
+    private static final byte FOUR_BITS = 4;
+    private static final byte THREE_COLORS_BYTES = 3;
+    private static final byte PADDING = 127;
+    private static final byte NB_LETTERS = 26;
+    private static final byte NB_LETTERS_UPP_LOW = 52;
+    private static final byte NB_DIGITS_LETTERS = 62;
     private static StringMap<String> _messages_ = new StringMap<String>();
 
     private Timer timer;
@@ -385,11 +396,89 @@ public class MainWindow extends GroupFrame {
     }
 
     public static ClipStream openClip(String _imageString) {
-        return StreamSoundFile.openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), null);
+        return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString), null);
+    }
+    public static ClipStream openClip(String _imageString, LineListener _l) {
+        return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString), _l);
     }
 
-    public static ClipStream openClip(String _imageString, LineListener _l) {
-        return StreamSoundFile.openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), _l);
+    public static byte[] parseBaseSixtyFourBinary(String _text) {
+        int buflen_ = guessLength(_text);
+        byte[] out_ = new byte[buflen_];
+        int o_=0;
+
+        int len_ = _text.length();
+
+        byte[] quadruplet_ = new byte[FOUR_BITS];
+        int q_=0;
+
+        // convert each quadruplet to three bytes.
+        for(int i=0; i<len_; i++ ) {
+            char ch_ = _text.charAt(i);
+
+            byte v_;
+            if (ch_ >= FIRST_DIGIT && ch_ <= '9') {
+                int diff_ = ch_ - FIRST_DIGIT;
+                v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
+            } else if (ch_ >= FIRST_LOW_LETTER && ch_ <= 'z') {
+                int diff_ = ch_ - FIRST_LOW_LETTER;
+                v_ = (byte) (NB_LETTERS+diff_);
+            } else if (ch_ >= FIRST_UPP_LETTER && ch_ <= 'Z') {
+                int diff_ = ch_ - FIRST_UPP_LETTER;
+                v_ = (byte) diff_;
+            } else if (ch_ == '+') {
+                v_ = NB_DIGITS_LETTERS;
+            } else if (ch_ == '/') {
+                v_ = NB_DIGITS_LETTERS + 1;
+            } else {
+                v_ = PADDING;
+            }
+
+            //v!=-1
+            quadruplet_[q_] = v_;
+            q_++;
+
+            if(q_==FOUR_BITS) {
+                // quadruplet is now filled.
+                int firstBytes_ = quadruplet_[0];
+                int secondBytes_ = quadruplet_[1];
+                int thirdBytes_ = quadruplet_[2];
+                int fourthBytes_ = quadruplet_[THREE_COLORS_BYTES];
+                out_[o_] = (byte) (FOUR_BITS * firstBytes_ + secondBytes_ / SIXTEEN_BITS);
+                o_++;
+                if( quadruplet_[2]!=PADDING ) {
+                    out_[o_] = (byte)(secondBytes_ * SIXTEEN_BITS + thirdBytes_ / FOUR_BITS);
+                    o_++;
+                }
+                if( quadruplet_[THREE_COLORS_BYTES]!=PADDING ) {
+                    out_[o_] = (byte)(thirdBytes_ * SIXTY_FOUR_BITS +fourthBytes_);
+                    o_++;
+                }
+                q_=0;
+            }
+        }
+        return out_;
+    }
+    private static int guessLength(String _text) {
+        int len_ = _text.length();
+
+        int size_ = len_/FOUR_BITS*THREE_COLORS_BYTES;
+        int j_=len_-1;
+        while (j_ >= 0) {
+            if (_text.charAt(j_) == '=') {
+                j_--;
+                continue;
+            }
+            break;
+        }
+
+        j_++;
+        int padSize_ = len_-j_;
+        if(padSize_ >2) {
+            return size_;
+        }
+
+        return size_-padSize_;
     }
     public void nextSong() {
         if (clipStream != null && !next) {
