@@ -14,7 +14,7 @@ public final class TextLabel extends PaintableLabel {
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(text);
+        int w_ = fontMetrics_.stringWidth(text)+2;
         setPreferredSize(new Dimension(w_, h_));
     }
 
@@ -38,7 +38,7 @@ public final class TextLabel extends PaintableLabel {
     public int getWidth() {
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
-        return fontMetrics_.stringWidth(text);
+        return fontMetrics_.stringWidth(text)+2;
     }
 
     public void setText(String _simpleNumberFormat) {
@@ -46,7 +46,7 @@ public final class TextLabel extends PaintableLabel {
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(text);
+        int w_ = fontMetrics_.stringWidth(text)+2;
         setPreferredSize(new Dimension(w_, h_));
     }
 

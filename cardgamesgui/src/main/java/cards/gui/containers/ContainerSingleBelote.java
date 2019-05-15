@@ -424,7 +424,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealBelote(getMessages().getVal(MainWindow.END_DEAL), true);
         } else {
-            partie_.setPliEnCours();
             addButtonNextTrickBelote(getMessages().getVal(MainWindow.NEXT_TRICK), true);
         }
     }

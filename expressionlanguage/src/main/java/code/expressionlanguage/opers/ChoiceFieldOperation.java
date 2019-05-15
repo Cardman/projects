@@ -32,7 +32,7 @@ public final class ChoiceFieldOperation extends
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         StringList classMethod_ = StringList.splitChars(str_, PAR_RIGHT);
-        return classMethod_.last();
+        return classMethod_.last().trim();
     }
 
     @Override

@@ -61,7 +61,7 @@ public final class StandardInstancingOperation extends
     public void preAnalyze(Analyzable _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(newKeyWord_.length());
+        String className_ = methodName.trim().substring(newKeyWord_.length()).trim();
         ClassArgumentMatching arg_ = getPreviousResultClass();
         StringMap<String> ownersMap_ = new StringMap<String>();
         StringMap<String> vars_ = new StringMap<String>();
@@ -203,7 +203,7 @@ public final class StandardInstancingOperation extends
         className = _conf.getStandards().getAliasObject();
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(newKeyWord_.length());
+        String className_ = methodName.trim().substring(newKeyWord_.length()).trim();
         String realClassName_ = className_;
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);

@@ -1886,14 +1886,32 @@ public final class Classes {
             for (OperatorBlock o : getOperators()) {
                 page_.setImporting(o);
                 _context.getCoverage().putCalls(_context,"",o);
-                StringList params_ = o.getParametersNames();
-                StringList types_ = o.getImportedParametersTypes();
-                int len_ = params_.size();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    String p_ = params_.get(i);
-                    String c_ = types_.get(i);
+                if (!o.isVarargs()) {
+                    StringList params_ = o.getParametersNames();
+                    StringList types_ = o.getImportedParametersTypes();
+                    int len_ = params_.size();
+                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                        String p_ = params_.get(i);
+                        String c_ = types_.get(i);
+                        LocalVariable lv_ = new LocalVariable();
+                        lv_.setClassName(c_);
+                        page_.getParameters().put(p_, lv_);
+                    }
+                } else {
+                    StringList params_ = o.getParametersNames();
+                    StringList types_ = o.getImportedParametersTypes();
+                    int len_ = params_.size();
+                    for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
+                        String p_ = params_.get(i);
+                        String c_ = types_.get(i);
+                        LocalVariable lv_ = new LocalVariable();
+                        lv_.setClassName(c_);
+                        page_.getParameters().put(p_, lv_);
+                    }
+                    String p_ = params_.last();
+                    String c_ = types_.last();
                     LocalVariable lv_ = new LocalVariable();
-                    lv_.setClassName(c_);
+                    lv_.setClassName(StringList.concat(c_,VARARG));
                     page_.getParameters().put(p_, lv_);
                 }
                 o.buildFctInstructions(_context);

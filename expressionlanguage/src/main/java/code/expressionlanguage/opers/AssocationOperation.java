@@ -21,7 +21,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op, String _fieldName) {
         super(_index, _indexChild, _m, _op);
-        fieldName = _fieldName;
+        fieldName = _fieldName.trim();
     }
 
     @Override
@@ -33,7 +33,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     @Override
     public void preAnalyze(Analyzable _conf) {
-        fieldName = fieldName.trim();
         MethodOperation mOp_ = getParent();
         if (!(mOp_ instanceof AnnotationInstanceOperation)) {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

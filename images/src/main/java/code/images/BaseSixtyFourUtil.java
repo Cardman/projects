@@ -34,14 +34,15 @@ public final class BaseSixtyFourUtil {
             width_ *= 256;
             width_ += real_;
         }
-        if (width_ == 0) {
+        int fourWidth_ = width_ * 4;
+        if (fourWidth_ <= 0) {
             return new int[0][0];
         }
-        if ((len_ - 4) % (width_ * 4) != 0) {
+        if ((len_ - 4) % fourWidth_ != 0) {
             return new int[0][0];
         }
-        int height_ = (len_ - 4) / (width_ * 4);
-        if (height_ == 0) {
+        int height_ = (len_ - 4) / fourWidth_;
+        if (height_ <= 0) {
             return new int[0][0];
         }
         int[][] image_ = new int[height_][width_];

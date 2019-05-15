@@ -63,13 +63,14 @@ final class NamePartType extends LeafPartType {
                 part_ = part_.getPreviousSibling();
             }
         }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
         if (!previous_.isEmpty()) {
             previous_ = previous_.getReverse();
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             StringList deps_;
-            String type_ = getTypeName();
             TypeOwnersDepends res_ = TypeUtil.getOwnersDepends(lastInner_, fullName_, id_, type_, _an);
             StringList owners_ = res_.getTypeOwners();
             if (owners_.size() == 1) {
@@ -83,8 +84,6 @@ final class NamePartType extends LeafPartType {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             if (_rooted.isTypeHidden(type_, _an)) {
                 _an.getCurrentBadIndexes().add(getIndexInType());
@@ -158,7 +157,7 @@ final class NamePartType extends LeafPartType {
                 lastInner_ = true;
             }
         }
-        String type_ = getTypeName();
+        String type_ = getTypeName().trim();
         StringList allAncestors_ = new StringList();
         RootBlock p_ = _rooted.getParentType();
         StringList deps_;
@@ -246,12 +245,13 @@ final class NamePartType extends LeafPartType {
                 part_ = part_.getPreviousSibling();
             }
         }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
         if (!previous_.isEmpty()) {
             previous_ = previous_.getReverse();
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             Classes classes_ = _an.getClasses();
-            String type_ = getTypeName();
             StringList foundOwners_ = TypeUtil.getGenericOwners(true, lastInner_, _globalType, owner_, type_, _an);
             if (foundOwners_.size() == 1) {
                 String id_ = Templates.getIdFromAllTypes(foundOwners_.first());
@@ -272,8 +272,6 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             analyzeFullType(_an, _rooted, type_);
             return;
@@ -321,7 +319,7 @@ final class NamePartType extends LeafPartType {
                 lastInner_ = true;
             }
         }
-        String type_ = getTypeName();
+        String type_ = getTypeName().trim();
         StringList allAncestors_ = new StringList();
         RootBlock p_ = _rooted.getParentType();
         Classes classes_ = _an.getClasses();
@@ -401,12 +399,13 @@ final class NamePartType extends LeafPartType {
                 part_ = part_.getPreviousSibling();
             }
         }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
         if (!previous_.isEmpty()) {
             previous_ = previous_.getReverse();
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             Classes classes_ = _an.getClasses();
-            String type_ = getTypeName();
             StringList foundOwners_ = TypeUtil.getGenericOwners(false, true, _globalType, owner_, type_, _an);
             if (foundOwners_.size() == 1) {
                 String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
@@ -428,8 +427,6 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             analyzeFullType(_an, _rooted, type_);
             return;
@@ -488,11 +485,12 @@ final class NamePartType extends LeafPartType {
                 part_ = part_.getPreviousSibling();
             }
         }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
         if (!previous_.isEmpty()) {
             previous_ = previous_.getReverse();
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
-            String type_ = getTypeName();
             String id_ = Templates.getIdFromAllTypes(owner_);
             StringList foundOwners_ = TypeUtil.getOwners(false, true, _globalType, id_, type_, false, _an);
             if (foundOwners_.size() == 1) {
@@ -502,8 +500,6 @@ final class NamePartType extends LeafPartType {
             }
             return;
         }
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             analyzeFullType(_an, _rooted, type_);
             return;
@@ -555,7 +551,7 @@ final class NamePartType extends LeafPartType {
 
     private void tryAnalyzeInnerParts(Analyzable _an, String _globalType,
                                       AccessingImportingBlock _rooted) {
-        String type_ = getTypeName();
+        String type_ = getTypeName().trim();
         if (_rooted instanceof RootBlock) {
             RootBlock c = (RootBlock)_rooted;
             StringList allAncestors_ = new StringList();
@@ -587,7 +583,7 @@ final class NamePartType extends LeafPartType {
     }
     private void tryAnalyzeInnerPartsLine(Analyzable _an, String _globalType,
                                       AccessingImportingBlock _rooted) {
-        String type_ = getTypeName();
+        String type_ = getTypeName().trim();
         if (_rooted instanceof RootBlock) {
             RootBlock c = (RootBlock)_rooted;
             StringList allAncestors_ = new StringList();
@@ -636,12 +632,13 @@ final class NamePartType extends LeafPartType {
                 part_ = part_.getPreviousSibling();
             }
         }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
         if (!previous_.isEmpty()) {
             previous_ = previous_.getReverse();
             PartType last_ = previous_.last();
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
-            String type_ = getTypeName();
             String in_ = StringList.concat(id_,"..",type_);
             Classes classes_ = _an.getClasses();
             RootBlock inner_ = classes_.getClassBody(in_);
@@ -660,8 +657,6 @@ final class NamePartType extends LeafPartType {
             setAnalyzedType(StringList.concat(owner_,"..",type_));
             return;
         }
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             setAnalyzedType(type_);
             return;
@@ -742,7 +737,7 @@ final class NamePartType extends LeafPartType {
         }
         if (getParent() instanceof TemplatePartType) {
             PartType prev_ = getParent().getFirstChild();
-            String base_ = ((NamePartType)prev_).getTypeName();
+            String base_ = ((NamePartType)prev_).exportHeader();
             if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
                 if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setImportedTypeName(getTypeName().trim());

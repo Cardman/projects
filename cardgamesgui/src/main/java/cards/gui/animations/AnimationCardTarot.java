@@ -41,6 +41,7 @@ public final class AnimationCardTarot extends Thread {
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
                 partie_.ajouterPetitAuBoutPliEnCours();
+                partie_.setPliEnCours(true);
                 if (container.getParametres().getAttentePlisClic()) {
                     break;
                 }
@@ -53,7 +54,6 @@ public final class AnimationCardTarot extends Thread {
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
                 container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
                 //validate container.pack();
-                partie_.setPliEnCours(true);
             }
             byte player_ = partie_.playerHavingToPlay();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {

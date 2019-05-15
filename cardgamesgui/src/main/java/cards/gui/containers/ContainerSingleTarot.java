@@ -745,7 +745,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealTarot(getMessages().getVal(MainWindow.END_DEAL), true);
         } else {
-            partie_.setPliEnCours(true);
             addButtonNextTrickTarot(getMessages().getVal(MainWindow.NEXT_TRICK), true);
         }
     }

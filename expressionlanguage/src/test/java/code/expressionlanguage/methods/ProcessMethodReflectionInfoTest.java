@@ -7174,12 +7174,12 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $return $Class.getOperators(\"+\",$true,$class(Ex)).length:\n");
+        xml_.append("  $return $Class.getOperators(\"+\",$true,$class($int),$class(Ex)).length:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append("}\n");
-        xml_.append("$operator+ pkg.Ex(pkg.Ex... p) {\n");
+        xml_.append("$operator+ pkg.Ex($int q,pkg.Ex... p) {\n");
         xml_.append(" $return $null:\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

@@ -290,11 +290,11 @@ public abstract class OperationNode implements Operable {
                 if (fctName_.isEmpty()) {
                     return new InferArrayInstancing(_index, _indexChild, _m, _op);
                 }
-                char op_ = _op.getOperators().firstValue().charAt(0);
-                if (op_ == '{') {
+                String op_ = _op.getOperators().firstValue();
+                if (StringList.quickEq(op_,"{")) {
                     return new ElementArrayInstancing(_index, _indexChild, _m, _op);
                 }
-                if (op_ == '[') {
+                if (StringList.quickEq(op_,"[")) {
                     return new DimensionArrayInstancing(_index, _indexChild, _m, _op);
                 }
                 return new StandardInstancingOperation(_index, _indexChild, _m, _op);

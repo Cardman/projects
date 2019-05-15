@@ -45,6 +45,7 @@ public final class AnimationCardBelote extends Thread {
                 if(partie_.premierTour()) {
                     partie_.annulerAnnonces();
                 }
+                partie_.setPliEnCours();
                 if (container.getParametres().getAttentePlisClic()) {
                     break;
                 }
@@ -56,7 +57,6 @@ public final class AnimationCardBelote extends Thread {
                 }
                 container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs(),lg_);
                 //validate container.pack();
-                partie_.setPliEnCours();
             }
             byte player_ = partie_.playerHavingToPlay();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
