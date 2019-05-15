@@ -5,8 +5,6 @@ public final class ConverterBufferedImage {
 
     public static final int WHITE_RGB_INT = 256*256*256-1;
 
-    private static boolean _handsFeet_ = true;
-
     private ConverterBufferedImage() {
     }
 
@@ -35,7 +33,7 @@ public final class ConverterBufferedImage {
         for (int i = offy_; i < hLoc_; i++) {
             for (int j = offx_; j < wLoc_; j++) {
                 int pixel_ = _front[i-offy_][j-offx_];
-                if (pixel_ != 256*256*256 - 1) {
+                if (pixel_ != WHITE_RGB_INT) {
                     str_[i][j] =pixel_;
                 }
             }
@@ -55,30 +53,11 @@ public final class ConverterBufferedImage {
         return Numbers.mod((ints_.first() *256*256 + ints_.get(1) *256 + ints_.last()), (256*256*256));
     }
 
-    public static boolean containsInsideWhites(int[][] _buffered) {
+    public static EqList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
-        EqList<IntPoint> addedPixels_ = whitePixels(_buffered);
-        for (int i = CustList.FIRST_INDEX; i < h_; i++) {
-            for (int j = CustList.FIRST_INDEX; j < w_; j++) {
-                if (addedPixels_.containsObj(new IntPoint(j,i))) {
-                    continue;
-                }
-                int rgb_ = _buffered[i][j];
-                if (rgb_ == white_) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static EqList<IntPoint> containedWhiteInside(int[][] _buffered) {
-        int h_ = _buffered.length;
-        int w_ = _buffered[0].length;
-        int white_ = WHITE_RGB_INT;
-        EqList<IntPoint> addedPixels_ = whitePixels(_buffered);
+        EqList<IntPoint> addedPixels_ = whitePixels(_hf,_buffered);
         EqList<IntPoint> list_ = new EqList<IntPoint>();
         for (int i = CustList.FIRST_INDEX; i < h_; i++) {
             for (int j = CustList.FIRST_INDEX; j < w_; j++) {
@@ -95,14 +74,14 @@ public final class ConverterBufferedImage {
         return list_;
     }
 
-    public static EqList<IntPoint> whitePixels(int[][] _buffered) {
+    public static EqList<IntPoint> whitePixels(boolean _hf,int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
         int white_ = WHITE_RGB_INT;
         EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
         EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
         EqList<IntPoint> newPixels_ = new EqList<IntPoint>();
-        if (isHandsFeet()) {
+        if (_hf) {
             if (_buffered[CustList.FIRST_INDEX][CustList.FIRST_INDEX] == white_) {
                 addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));
             }
@@ -160,14 +139,6 @@ public final class ConverterBufferedImage {
             currentPixels_ = new EqList<IntPoint>(newPixels_);
         }
         return addedPixels_;
-    }
-
-    public static boolean isHandsFeet() {
-        return _handsFeet_;
-    }
-
-    public static void setHandsFeet(boolean _handsFeet) {
-        _handsFeet_ = _handsFeet;
     }
 
     public static String getSquareColorSixtyFour(String _color,

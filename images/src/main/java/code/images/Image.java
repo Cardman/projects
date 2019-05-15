@@ -38,11 +38,6 @@ public final class Image implements Displayable {
         }
     }
 
-    
-    public static Image newImage(String _string) {
-        return new Image(_string);
-    }
-
     public boolean isValid() {
         if (pixels.isEmpty()) {
             return width == 0;
@@ -227,18 +222,8 @@ public final class Image implements Displayable {
     }
 
 
-    public void setWidth(int _width) {
-        width = _width;
-    }
-
-
     public Numbers<Integer> getPixels() {
         return pixels;
-    }
-
-
-    public void setPixels(Numbers<Integer> _pixels) {
-        pixels = _pixels;
     }
 
     
