@@ -15,8 +15,8 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
     private static final String SEPARATOR = "/";
     private static final String SEPARATOR_TIME = ",";
     private static final String EMPTY_STRING = "";
-    private static final String PAUSE = "_";
-    private static final String DIESE = "#";
+    private static final String SYMBOL_PAUSE = "_";
+    private static final String SYMBOL_DIESE = "#";
     private static final int DELTA = 12;
     private static boolean _displayDoubleValue_;
     private Note note;
@@ -86,11 +86,8 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
         double duration_ = note.getDuration();
         BigDecimal durationCopy_ = new BigDecimal(duration_, MathContext.UNLIMITED);
         durationDen = 1;
-        while (true) {
-            if (durationCopy_.remainder(BigDecimal.ONE).signum() == CustList.SIZE_EMPTY) {
-                break;
-            }
-            durationCopy_ = durationCopy_.multiply(new BigDecimal(2));
+        while (durationCopy_.remainder(BigDecimal.ONE).signum() != CustList.SIZE_EMPTY) {
+            durationCopy_ = durationCopy_.multiply(BigDecimal.valueOf(2));
             durationDen *= 2;
         }
         int durationCopyInt_ = durationCopy_.intValue();
@@ -222,11 +219,11 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
         }
         String dyn_ = Integer.toString(dynamic);
         if (pause) {
-            return StringList.concat(PAUSE,time_,SEPARATOR_TIME,dyn_);
+            return StringList.concat(SYMBOL_PAUSE,time_,SEPARATOR_TIME,dyn_);
         }
         String diese_;
         if (diese) {
-            diese_ = DIESE;
+            diese_ = SYMBOL_DIESE;
         } else {
             diese_ = EMPTY_STRING;
         }
@@ -250,9 +247,6 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
     }
 
     private static boolean isValidPitch(int _pitch) {
-        if (_pitch < Note.MIN_PITCH && _pitch > Note.REST + 2) {
-            return false;
-        }
-        return true;
+        return _pitch >= Note.MIN_PITCH || _pitch <= Note.REST + 2;
     }
 }
