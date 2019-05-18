@@ -84,7 +84,7 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
         gammePitch_ += DELTA;
         level = level_;
         double duration_ = note.getDuration();
-        BigDecimal durationCopy_ = new BigDecimal(duration_, MathContext.UNLIMITED);
+        BigDecimal durationCopy_ = BigDecimal.valueOf(duration_);
         durationDen = 1;
         while (durationCopy_.remainder(BigDecimal.ONE).signum() != CustList.SIZE_EMPTY) {
             durationCopy_ = durationCopy_.multiply(BigDecimal.valueOf(2));

@@ -927,7 +927,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 //the method is never callable
                                 continue;
                             }
-                            addClass(signatures_, id_, new ClassMethodId(formattedType_, ((GeneMethod)m_).getId()));
+                            addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId()));
                         }
                     }
                 } else {

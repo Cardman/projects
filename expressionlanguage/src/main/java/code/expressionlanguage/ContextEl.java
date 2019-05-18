@@ -1812,8 +1812,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
@@ -1842,11 +1842,11 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
                 String beginImp_ = begin_;
                 String pre_ = EMPTY_PREFIX;
                 if (startsWithKeyWord(begin_, keyWordStatic_)) {
@@ -1880,8 +1880,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
@@ -1916,11 +1916,11 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
                 String beginImp_ = begin_;
                 String pre_ = EMPTY_PREFIX;
                 if (startsWithKeyWord(begin_, keyWordStatic_)) {
@@ -2016,8 +2016,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
@@ -2053,11 +2053,11 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!i.contains(".")) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
                 String beginImp_ = begin_;
                 String pre_ = EMPTY_PREFIX;
                 if (startsWithKeyWord(begin_, keyWordStatic_)) {
@@ -2100,8 +2100,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (startsWithKeyWord(i, keyWordStatic_)) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
@@ -2131,11 +2131,11 @@ public abstract class ContextEl implements ExecutableCode {
                 if (startsWithKeyWord(i, keyWordStatic_)) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf('.')));
                 String typeLoc_ = StringList.concat(begin_,".",look_);
                 if (getClassBody(typeLoc_) == null) {
                     continue;
@@ -2171,8 +2171,8 @@ public abstract class ContextEl implements ExecutableCode {
                 if (startsWithKeyWord(i, keyWordStatic_)) {
                     typeImp_ = i.substring(keyWordStatic_.length()).trim();
                 }
-                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")+1));
-                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf('.')+1));
+                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
@@ -2204,11 +2204,11 @@ public abstract class ContextEl implements ExecutableCode {
                 if (startsWithKeyWord(i, keyWordStatic_)) {
                     typeImp_ = i.substring(keyWordStatic_.length()).trim();
                 }
-                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(typeImp_.substring(typeImp_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf(".")+1));
+                String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf('.')+1));
                 String typeLoc_ = StringList.concat(begin_,look_);
                 String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
                 if (getClassBody(foundCandidate_) == null) {
@@ -2259,12 +2259,12 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 GeneType root_ = getClassBody(typeLoc_);
                 if (root_ == null) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, _method.trim())) {
                     continue;
                 }
@@ -2283,11 +2283,11 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 GeneType root_ = getClassBody(typeLoc_);
                 if (root_ == null) {
                     continue;
@@ -2340,12 +2340,12 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 GeneType root_ = getClassBody(typeLoc_);
                 if (root_ == null) {
                     continue;
                 }
-                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, _method.trim())) {
                     continue;
                 }
@@ -2364,11 +2364,11 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String st_ = i.trim().substring(keyWordStatic_.length()).trim();
-                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf('.')+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
                 }
-                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 GeneType root_ = getClassBody(typeLoc_);
                 if (root_ == null) {
                     continue;

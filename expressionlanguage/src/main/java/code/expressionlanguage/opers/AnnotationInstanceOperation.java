@@ -195,8 +195,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         setStaticAccess(_conf.isStaticContext());
         analyzeCtor(_conf);
     }

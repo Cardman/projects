@@ -237,7 +237,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             } else if (len_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(len_),"<0"));
             } else {
-                _out.setErrorMessage(StringList.concat(Long.toString(offset_ + len_),">", Long.toString(lenChar_)));
+                _out.setErrorMessage(StringList.concat(Long.toString((long)offset_ + len_),">", Long.toString(lenChar_)));
             }
             _out.setError(lgNames_.getAliasBadIndex());
             return;
@@ -369,7 +369,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             } else if (len_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(len_),"<0"));
             } else {
-                _out.setErrorMessage(StringList.concat(Long.toString(offset_ + len_),">", Long.toString(chars_.length)));
+                _out.setErrorMessage(StringList.concat(Long.toString((long)offset_ + len_),">", Long.toString(chars_.length)));
             }
             _out.setError(lgNames_.getAliasBadIndex());
             return;

@@ -1798,7 +1798,7 @@ final class FightEffects {
             if(_criticalHit&&fCapac_.getMaxStatisticsIfCh().containsObj(c)){
                 byte boostActuel_=creatureCible_.getStatisBoost().getVal(c);
                 creatureCible_.variationBoostStatistique(c,(byte) (maxBoost_-boostActuel_));
-                _fight.addStatisticMessage(_cible, c, maxBoost_-boostActuel_, _import);
+                _fight.addStatisticMessage(_cible, c, (long)maxBoost_-boostActuel_, _import);
                 continue;
             }
             byte var_=0;
@@ -2068,7 +2068,7 @@ final class FightEffects {
                 byte boost_=creature_.getStatisBoost().getVal(c);
                 if(boost_<baseBoost_){
                     creature_.variationBoostStatistique(c,(byte) (baseBoost_-boost_));
-                    _fight.addStatisticMessage(new TeamPosition(_combattant.getTeam(), c2_), c, baseBoost_-boost_, _import);
+                    _fight.addStatisticMessage(new TeamPosition(_combattant.getTeam(), c2_), c, (long)baseBoost_-boost_, _import);
                 }
             }
         }
@@ -2077,7 +2077,7 @@ final class FightEffects {
                 Fighter creature_=equipeAdv_.refPartMembres(c2_);
                 byte boost_=creature_.getStatisBoost().getVal(c);
                 creature_.variationBoostStatistique(c,(byte) (baseBoost_-boost_));
-                _fight.addStatisticMessage(new TeamPosition(Fight.foe(_combattant.getTeam()), c2_), c, baseBoost_-boost_, _import);
+                _fight.addStatisticMessage(new TeamPosition(Fight.foe(_combattant.getTeam()), c2_), c, (long)baseBoost_-boost_, _import);
             }
         }
     }
@@ -2154,7 +2154,7 @@ final class FightEffects {
                 Fighter creature_= _fight.getFighter(c);
                 byte boost_=creature_.getStatisBoost().getVal(s);
                 creature_.variationBoostStatistique(s, (byte) (base_ - boost_));
-                _fight.addStatisticMessage(c, s, base_ - boost_, _import);
+                _fight.addStatisticMessage(c, s, (long)base_ - boost_, _import);
             }
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){

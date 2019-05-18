@@ -206,7 +206,7 @@ public final class ParserType {
         operators_ = new NatTreeMap<Integer,String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (!_indexes.containsObj(i_+_offset)) {
+            if (!_indexes.containsObj((long)i_+_offset)) {
                 i_++;
                 continue;
             }
@@ -303,7 +303,7 @@ public final class ParserType {
         operators_ = new NatTreeMap<Integer,String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (!_indexes.containsObj(i_+_offset)) {
+            if (!_indexes.containsObj((long)i_+_offset)) {
                 i_++;
                 continue;
             }

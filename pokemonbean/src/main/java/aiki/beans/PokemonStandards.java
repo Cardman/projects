@@ -1097,7 +1097,6 @@ public final class PokemonStandards extends BeanLgNames {
     }
 
     private static void buildSelectedBoolean(BeanLgNames _std) {
-        StandardClass type_;
         StringMap<StandardField> fields_;
         ObjectMap<MethodId, StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;

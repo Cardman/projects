@@ -82,7 +82,7 @@ public final class StringStruct extends CharSequenceStruct {
             } else if (two_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(two_),"<0"));
             } else {
-                _res.setErrorMessage(StringList.concat(Long.toString(one_ + two_),">", Long.toString(arr_.length)));
+                _res.setErrorMessage(StringList.concat(Long.toString((long)one_ + two_),">", Long.toString(arr_.length)));
             }
             _res.setError(_stds.getAliasBadIndex());
             return;
@@ -132,7 +132,7 @@ public final class StringStruct extends CharSequenceStruct {
             } else if (two_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(two_),"<0"));
             } else {
-                _res.setErrorMessage(StringList.concat(Long.toString(one_ + two_),">", Long.toString(arr_.length)));
+                _res.setErrorMessage(StringList.concat(Long.toString((long)one_ + two_),">", Long.toString(arr_.length)));
             }
             _res.setError(_stds.getAliasBadIndex());
             return;
@@ -187,11 +187,22 @@ public final class StringStruct extends CharSequenceStruct {
                 return;
             }
         }
-        char[] arr_ = tryGetCharArray(arg_,_res,lgNames_);
-        if (arr_ == null) {
+        if (!(arg_ instanceof ArrayStruct)) {
+            String nullPe_ = lgNames_.getAliasNullPe();
+            _res.setError(nullPe_);
             return;
         }
-        if (list_.size() == 1) {
+        tryGetCharArray(_res, list_, lgNames_, (ArrayStruct) arg_, _args);
+    }
+
+    private static void tryGetCharArray(ResultErrorStd _res, StringList _list, LgNames _lgNames, ArrayStruct _arg, Struct[] _args) {
+        Struct[] argArr_ = _arg.getInstance();
+        int len_ = argArr_.length;
+        char[] arr_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+        }
+        if (_list.size() == 1) {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
         }
@@ -203,28 +214,14 @@ public final class StringStruct extends CharSequenceStruct {
             } else if (two_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(two_),"<0"));
             } else {
-                _res.setErrorMessage(StringList.concat(Long.toString(one_ + two_),">", Long.toString(arr_.length)));
+                _res.setErrorMessage(StringList.concat(Long.toString((long)one_ + two_),">", Long.toString(arr_.length)));
             }
-            _res.setError(lgNames_.getAliasBadIndex());
+            _res.setError(_lgNames.getAliasBadIndex());
             return;
         }
         _res.setResult(new StringStruct(String.valueOf(arr_,one_,two_)));
     }
-    private static char[] tryGetCharArray(Struct _arg, ResultErrorStd _res, LgNames _stds) {
-        if (!(_arg instanceof ArrayStruct)) {
-            String nullPe_ = _stds.getAliasNullPe();
-            _res.setError(nullPe_);
-            return null;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) _arg;
-        Struct[] argArr_ = chArr_.getInstance();
-        int len_ = argArr_.length;
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = ((CharStruct)argArr_[i]).getChar();
-        }
-        return arr_;
-    }
+
     private void calculateLocString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();

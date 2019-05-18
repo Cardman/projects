@@ -2380,7 +2380,7 @@ public final class ElResolver {
             return infos_;
         }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.substring(i_).startsWith(unicodeStr_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
+        if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             infos_.setIndex(-i_);
             return infos_;
         }

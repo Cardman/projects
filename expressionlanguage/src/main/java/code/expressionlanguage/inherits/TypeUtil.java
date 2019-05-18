@@ -442,7 +442,7 @@ public final class TypeUtil {
             GeneClass subClassBlock_ = (GeneClass) c;
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
-            for (String s: ((GeneClass)subClassBlock_).getAllInterfaces()) {
+            for (String s: subClassBlock_.getAllInterfaces()) {
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }

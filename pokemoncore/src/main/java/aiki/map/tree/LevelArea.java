@@ -102,7 +102,7 @@ public class LevelArea {
     }
 
     public long size() {
-        return height * width;
+        return (long)height * width;
     }
 
     public EqList<GenderName> getPokemon(Point _pt) {

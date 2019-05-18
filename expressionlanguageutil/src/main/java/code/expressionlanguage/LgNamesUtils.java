@@ -409,7 +409,7 @@ public class LgNamesUtils extends LgNames {
                     boolean alive_ = thread_.isAlive();
                     thread_.join();
                     res_.setResult(new BooleanStruct(alive_));
-                } catch (InterruptedException _0) {
+                } catch (Exception _0) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
                 return res_;

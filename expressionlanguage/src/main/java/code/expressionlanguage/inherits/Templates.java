@@ -177,7 +177,7 @@ public final class Templates {
                 i_++;
                 continue;
             }
-            if (_type.substring(i_).startsWith(INNER_TYPE)) {
+            if (_type.startsWith(INNER_TYPE,i_)) {
                 types_.add(out_.toString());
                 out_.delete(0, out_.length());
                 i_++;

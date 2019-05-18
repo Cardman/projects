@@ -3453,7 +3453,6 @@ public final class FormatHtml {
         }
     }
     private static String getCssHref(Element _link) {
-        NamedNodeMap map_ = _link.getAttributes();
         if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
             return null;
         }

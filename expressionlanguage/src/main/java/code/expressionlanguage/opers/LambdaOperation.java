@@ -73,7 +73,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        String extr_ = className.substring(className.indexOf("(")+1, className.lastIndexOf(")"));
+        String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = Templates.getAllSepCommaTypes(extr_);
         int len_ = args_.size();
         if (len_ < 2) {

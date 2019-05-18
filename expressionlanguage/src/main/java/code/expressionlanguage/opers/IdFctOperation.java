@@ -31,7 +31,7 @@ public final class IdFctOperation extends ConstLeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        String extr_ = className.substring(className.indexOf("(")+1, className.lastIndexOf(")"));
+        String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = Templates.getAllSepCommaTypes(extr_);
         String fromType_ = ContextEl.removeDottedSpaces(args_.first());
         String cl_ = _conf.resolveAccessibleIdType(fromType_);

@@ -303,7 +303,7 @@ public final class NumParsers {
         long t_ = _l;
         if (_l < 0) {
             bits_[0] = true;
-            t_ = Integer.MAX_VALUE + _l + 1;
+            t_ = (long) Integer.MAX_VALUE + _l + 1;
         }
         int k_ = 31;
         for (int i = 0; i < 31; i++) {
