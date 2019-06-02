@@ -3,14 +3,8 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecAffectationOperation extends ExecReflectableOpering implements AffectationOperable {

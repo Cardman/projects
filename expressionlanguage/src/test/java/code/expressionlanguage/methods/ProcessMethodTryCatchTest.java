@@ -1,19 +1,15 @@
 package code.expressionlanguage.methods;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.variables.VariableSuffix;
-import org.junit.Test;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 
 public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {

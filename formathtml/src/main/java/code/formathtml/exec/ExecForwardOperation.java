@@ -6,13 +6,11 @@ import code.expressionlanguage.opers.ForwardOperation;
 
 public final class ExecForwardOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
     private boolean intermediate;
-    private int off;
     private Argument previousArgument;
 
     ExecForwardOperation(ForwardOperation _v) {
         super(_v);
         intermediate = _v.isIntermediate();
-        off = _v.getOff();
     }
 
     @Override

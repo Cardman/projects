@@ -1,27 +1,21 @@
 package code.expressionlanguage.methods;
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.VariableSuffix;
+import code.util.*;
 import org.junit.Test;
 
-import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.variables.VariableSuffix;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 
 public final class ClassesTest {

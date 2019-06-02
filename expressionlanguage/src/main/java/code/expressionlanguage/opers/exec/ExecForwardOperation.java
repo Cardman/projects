@@ -8,12 +8,10 @@ import code.util.IdMap;
 
 public final class ExecForwardOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
     private boolean intermediate;
-    private int off;
 
     ExecForwardOperation(ForwardOperation _v) {
         super(_v);
         intermediate = _v.isIntermediate();
-        off = _v.getOff();
         setPreviousArgument(null);
     }
 

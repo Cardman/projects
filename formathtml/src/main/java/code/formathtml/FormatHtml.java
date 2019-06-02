@@ -9,6 +9,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stacks.LoopStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
@@ -861,7 +862,9 @@ public final class FormatHtml {
             en_ = forLoopLoc_;
             rw_.setRead(en_);
             rw_.setWrite(currentNode_);
-            stack_.setFinished(true);
+            if (stack_ instanceof LoopStack) {
+                ((LoopStack)stack_).setFinished(true);
+            }
             return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,RETURN_TAG))) {
@@ -1046,7 +1049,6 @@ public final class FormatHtml {
             }
             if_.setStruct(arg_.getStruct());
             if (if_.getNodes().isEmpty()) {
-                if_.setFinished(true);
                 ip_.addBlock(if_);
                 return ip_;
             }
@@ -1061,7 +1063,6 @@ public final class FormatHtml {
                 if (!en_.hasChildNodes()) {
                     sw_.increment();
                     if (sw_.lastVisitedNode() == en_) {
-                        sw_.setFinished(true);
                         rw_.setRead(sw_.getReadNode());
                         return ip_;
                     }
@@ -1110,7 +1111,6 @@ public final class FormatHtml {
                         rw_.setRead(en_.getNextSibling());
                         return ip_;
                     }
-                    sw_.setFinished(true);
                     rw_.setRead(sw_.getReadNode());
                     return ip_;
                 }
@@ -1118,7 +1118,6 @@ public final class FormatHtml {
                 return ip_;
             }
             if (sw_.lastVisitedNode() == en_) {
-                sw_.setFinished(true);
                 rw_.setRead(sw_.getReadNode());
                 return ip_;
             }
@@ -1131,7 +1130,6 @@ public final class FormatHtml {
                 if (!en_.hasChildNodes()) {
                     sw_.increment();
                     if (sw_.lastVisitedNode() == en_) {
-                        sw_.setFinished(true);
                         rw_.setRead(sw_.getReadNode());
                         return ip_;
                     }
@@ -1158,7 +1156,6 @@ public final class FormatHtml {
                     rw_.setRead(en_.getNextSibling());
                     return ip_;
                 }
-                sw_.setFinished(true);
                 rw_.setRead(sw_.getReadNode());
                 return ip_;
             }
@@ -4292,7 +4289,6 @@ public final class FormatHtml {
                         }
                         sib_ = sib_.getNextSibling();
                     }
-                    if_.setFinished(true);
                     rw_.setRead(if_.getReadNode());
                 } else {
                     if_.increment();
@@ -4300,7 +4296,6 @@ public final class FormatHtml {
                 }
                 currentNode_ = if_.getWriteNode();
                 rw_.setWrite(currentNode_);
-                return;
             }
         }
     }

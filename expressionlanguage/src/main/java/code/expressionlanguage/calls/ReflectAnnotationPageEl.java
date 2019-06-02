@@ -16,12 +16,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {

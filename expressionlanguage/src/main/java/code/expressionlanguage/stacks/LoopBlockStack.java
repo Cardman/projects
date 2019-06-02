@@ -3,7 +3,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 
-public final class LoopBlockStack extends LoopStack implements BreakableBlockStack, RemovableVars {
+public final class LoopBlockStack extends LoopStack implements RemovableVars {
 
     private boolean evaluatingKeepLoop;
 

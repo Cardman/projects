@@ -1,10 +1,5 @@
 package code.expressionlanguage.methods;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.inherits.TypeUtil;
@@ -12,11 +7,11 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 
 public final class RootBlockTest {

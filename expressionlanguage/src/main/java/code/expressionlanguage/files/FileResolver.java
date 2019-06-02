@@ -9,11 +9,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
+import code.util.*;
 
 public final class FileResolver {
 
@@ -1491,7 +1487,6 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(currentParent_);
         after_.setEnabledEnumHeader(enableByEndLine_);
-        after_.setBlock(br_);
         return after_;
     }
     private static RootBlock processTypeHeader(ContextEl _context, InputTypeCreation _input,

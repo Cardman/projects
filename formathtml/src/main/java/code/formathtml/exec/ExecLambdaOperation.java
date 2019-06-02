@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -16,7 +15,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
 
     private boolean intermediate;
     private Argument previousArgument;
-    private boolean staticAccess;
 
     private ClassMethodId method;
     private String foundClass;
@@ -33,7 +31,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         super(_l);
         intermediate = _l.isIntermediate();
         previousArgument = _l.getPreviousArgument();
-        staticAccess = _l.isStaticAccess();
         method = _l.getMethod();
         foundClass = _l.getFoundClass();
         ancestor = _l.getAncestor();
@@ -66,7 +63,7 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);
         if (realId == null && method == null) {
             String formatType_ = _conf.getOperationPageEl().formatVarType(returnFieldType, _conf);
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
+            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
             arg_.setStruct(l_);
             return arg_;
@@ -84,13 +81,6 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
         return arg_;
     }
 
-    public final void setStaticAccess(boolean _staticAccess) {
-        staticAccess = _staticAccess;
-    }
-
-    public final boolean isStaticAccess() {
-        return staticAccess;
-    }
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;

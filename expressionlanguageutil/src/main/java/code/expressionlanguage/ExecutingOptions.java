@@ -28,4 +28,12 @@ public final class ExecutingOptions {
     public void setCovering(boolean _covering) {
         covering = _covering;
     }
+
+    public int getTabWidth() {
+        return tabWidth;
+    }
+
+    public void setTabWidth(int _tabWidth) {
+        tabWidth = _tabWidth;
+    }
 }

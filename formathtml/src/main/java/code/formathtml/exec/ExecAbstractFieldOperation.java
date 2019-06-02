@@ -10,7 +10,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
 public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted, ReductibleOperable {
 
-    private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
 
     private Argument previousArgument;
@@ -19,7 +18,6 @@ public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperati
 
     public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
-        previousResultClass = _a.getPreviousResultClass();
         intermediate = _a.isIntermediateDottedOperation();
         previousArgument = _a.getPreviousArgument();
         off = _a.getOff();

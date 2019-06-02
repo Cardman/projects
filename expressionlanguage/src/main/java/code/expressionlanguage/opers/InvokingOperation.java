@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.inherits.Mapping;
@@ -15,7 +15,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;

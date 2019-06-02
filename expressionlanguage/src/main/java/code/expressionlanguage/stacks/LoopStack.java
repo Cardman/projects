@@ -1,7 +1,7 @@
 package code.expressionlanguage.stacks;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class LoopStack implements BreakableStack {
+public abstract class LoopStack {
 
     private boolean finished;
     
@@ -31,7 +31,6 @@ public abstract class LoopStack implements BreakableStack {
         return finished;
     }
 
-    @Override
     public void setFinished(boolean _finished) {
         finished = _finished;
     }

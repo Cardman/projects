@@ -58,7 +58,7 @@ public class CustInitializer extends DefaultInitializer {
         	String toFile_ = getCurrentFileThread(_cont);
         	String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
         	text_ = StringList.concat(LgNamesUtils.getDateTimeText("_", "_", "_"),":",text_);
-        	ExecutingOptions ex_ = _cont.getExecuting();
+        	ExecutingOptions ex_ = _cont.getExecutingOptions();
         	String folder_ = ex_.getLogFolder();
         	new File(folder_).mkdirs();
         	toFile_ = StringList.concat(folder_,"/",toFile_);
@@ -70,7 +70,7 @@ public class CustInitializer extends DefaultInitializer {
     public String getCurrentFileThread(RunnableContextEl _cont) {
         String toFile_ = getCurrentTreadIdDate();
         if (toFile_ == null) {
-            toFile_ = _cont.getExecuting().getMainThread();
+            toFile_ = _cont.getExecutingOptions().getMainThread();
         }
         return toFile_;
     }

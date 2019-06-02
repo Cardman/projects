@@ -22,7 +22,7 @@ import code.util.ints.Equallable;
  */
 
 public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote> {
-    private static final String SEPARATOR = " - ";
+
     private Order order;
     private EnumList<CardBelote> cards=new EnumList<CardBelote>();
     public HandBelote() {

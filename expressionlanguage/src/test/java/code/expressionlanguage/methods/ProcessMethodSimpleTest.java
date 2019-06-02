@@ -1,18 +1,17 @@
 package code.expressionlanguage.methods;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.structs.*;
-import org.junit.Test;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.util.CustList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 
 public final class ProcessMethodSimpleTest extends ProcessMethodCommon {

@@ -2,7 +2,7 @@ package code.expressionlanguage.stacks;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
-public final class SwitchBlockStack extends SwitchStack implements BreakableBlockStack, RemovableVars {
+public final class SwitchBlockStack extends SwitchStack implements RemovableVars {
 
     private BracedBlock block;
 

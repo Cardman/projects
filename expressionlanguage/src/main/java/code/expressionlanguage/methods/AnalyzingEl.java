@@ -4,11 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AnalyzingEl {
 

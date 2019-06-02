@@ -161,25 +161,25 @@ public final class ParserType {
         }
         if (isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
-            a_.setupValue(_string, _offset);
+            a_.setupValue(_string);
             return a_;
         }
         if (_options.isSingleInnerParts()) {
             if (isTypeLeafPart(_string.trim())) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset);
+                a_.setupValue(_string);
                 return a_;
             }
         } else {
             if (isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset);
+                a_.setupValue(_string);
                 return a_;
             }
         }
         if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
-            a_.setupValue(_string, _offset);
+            a_.setupValue(_string);
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUB_TYPE)) {
@@ -242,7 +242,7 @@ public final class ParserType {
         if (_options.isSingleInnerParts() && operators_.isEmpty()) {
             if (isTypeLeaf(_string)) {
                 a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string, _offset);
+                a_.setupValue(_string);
                 return a_;
             }
         }
@@ -261,17 +261,17 @@ public final class ParserType {
         }
         if (isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
-            a_.setupValueExec(_string, _offset);
+            a_.setupValueExec(_string);
             return a_;
         }
         if (isTypeLeaf(_string)) {
             a_.setKind(KindPartType.TYPE_NAME);
-            a_.setupValueExec(_string, _offset);
+            a_.setupValueExec(_string);
             return a_;
         }
         if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
-            a_.setupValueExec(_string, _offset);
+            a_.setupValueExec(_string);
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUB_TYPE)) {

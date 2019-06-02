@@ -1,7 +1,5 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.common.GeneConstructor;
-
 public final class ConstrustorIdVarArg {
 
     private ConstructorId realId;
@@ -9,8 +7,6 @@ public final class ConstrustorIdVarArg {
     private ConstructorId constId;
 
     private boolean varArgToCall;
-
-    private GeneConstructor ctor;
 
     public ConstructorId getRealId() {
         return realId;
@@ -36,7 +32,4 @@ public final class ConstrustorIdVarArg {
         varArgToCall = _varArgToCall;
     }
 
-    public void setCtor(GeneConstructor _ctor) {
-        ctor = _ctor;
-    }
 }

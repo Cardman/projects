@@ -1,23 +1,22 @@
 package code.expressionlanguage.inherits;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.*;
-
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ErrorType;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.structs.*;
-import code.util.CustList;
-import org.junit.Test;
-
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 
 public final class TemplatesTest {

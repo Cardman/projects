@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

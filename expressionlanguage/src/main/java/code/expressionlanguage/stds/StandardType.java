@@ -1,16 +1,11 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class StandardType implements GeneType {
 

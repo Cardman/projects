@@ -1,8 +1,8 @@
 package code.expressionlanguage.opers.util;
 
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
-import code.util.CustList;
 
 public final class AssignmentsUtil {
     private AssignmentsUtil() {

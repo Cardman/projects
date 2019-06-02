@@ -8,8 +8,6 @@ import code.util.ints.Equallable;
 
 public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
 
-    private static final String SPACE = " ";
-
     private BidBelote bid = BidBelote.FOLD;
 
     private Suit suit = Suit.UNDEFINED;

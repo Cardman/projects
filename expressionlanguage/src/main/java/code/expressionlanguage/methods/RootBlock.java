@@ -24,14 +24,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.PartTypeUtil;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.graphs.Graph;
 
 public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock, AnnotableBlock {
@@ -62,10 +55,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private NatTreeMap<Integer, String> rowColDirectSuperTypes;
     private NatTreeMap<Integer, Boolean> explicitDirectSuperTypes = new NatTreeMap<Integer, Boolean>();
 
-    private String realName;
-
-    private String realPackageName;
-
     private int idRowCol;
 
     private int categoryOffset;
@@ -91,8 +80,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
-        realName = _name;
-        realPackageName = _packageName;
         rowColDirectSuperTypes = _directSuperTypes;
         idRowCol = _idRowCol;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
@@ -101,6 +88,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             ancestorsIndexes.add(-1);
             explicitDirectSuperTypes.put(t.getKey(), true);
         }
+    }
+
+    public int getAccessOffset() {
+        return accessOffset;
+    }
+
+    public int getCategoryOffset() {
+        return categoryOffset;
     }
 
     public abstract StringList getDirectGenericSuperTypes(Analyzable _classes);

@@ -590,7 +590,7 @@ public class LgNamesUtils extends LgNames {
                             ClassMethodId _method, Struct... _args) {
         String stringAppFile_ = buildLog(_cont, _method, _args);
         stringAppFile_ = StringList.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
-        String folder_ = _cont.getExecuting().getLogFolder();
+        String folder_ = _cont.getExecutingOptions().getLogFolder();
         new File(folder_).mkdirs();
         String toFile_ = StringList.concat(folder_,"/",_dtPart);
         StreamTextFile.logToFile(toFile_, stringAppFile_);

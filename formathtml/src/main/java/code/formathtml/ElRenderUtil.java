@@ -287,7 +287,6 @@ public final class ElRenderUtil {
         String value_ = block_.getChildren().getValue(0);
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
-        d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
             if (_index == CustList.FIRST_INDEX) {
@@ -321,7 +320,6 @@ public final class ElRenderUtil {
         String value_ = children_.getValue(_block.getIndexChild() + delta_);
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
-        d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);

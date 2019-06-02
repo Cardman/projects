@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.opers.LeafOperation;
-import code.util.CustList;
 
 public abstract class ExecLeafOperation extends ExecOperationNode {
 

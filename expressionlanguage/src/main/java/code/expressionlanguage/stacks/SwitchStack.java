@@ -1,15 +1,8 @@
 package code.expressionlanguage.stacks;
 
-public abstract class SwitchStack implements BreakableStack {
-
-    private boolean finished;
+public abstract class SwitchStack {
 
     private boolean entered;
-
-    @Override
-    public void setFinished(boolean _finished) {
-        finished = _finished;
-    }
 
     public boolean isEntered() {
         return entered;

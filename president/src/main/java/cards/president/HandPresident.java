@@ -16,7 +16,6 @@ import code.util.ints.Equallable;
 
 public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident> {
 
-    private static final String SEPARATOR = " - ";
     private EnumList<CardPresident> cards=new EnumList<CardPresident>();
 
     public HandPresident() {

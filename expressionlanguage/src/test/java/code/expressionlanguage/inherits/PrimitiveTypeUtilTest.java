@@ -1,29 +1,22 @@
 package code.expressionlanguage.inherits;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.CustList;
-import org.junit.Test;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 
 public final class PrimitiveTypeUtilTest {

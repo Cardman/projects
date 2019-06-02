@@ -1,6 +1,5 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessibleBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;

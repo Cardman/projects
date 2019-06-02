@@ -92,8 +92,6 @@ public class Configuration implements ExecutableCode {
 
     private boolean uncompressed;
 
-    private boolean ambigous;
-
     private int nextIndex;
 
     private boolean staticContext;

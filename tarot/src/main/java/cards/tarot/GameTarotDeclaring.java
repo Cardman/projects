@@ -5,21 +5,18 @@ import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public final class GameTarotDeclaring {
     private GameTarotTrickInfo doneTrickInfo;
     private GameTarotTeamsRelation teamsRelation;
     private HandTarot curHand;
     private CustList<EnumList<Handfuls>> declaresHandfuls;
-    private EqList<EnumList<Miseres>> declaresMiseres;
 
-    public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<EnumList<Handfuls>> _declaresHandfuls, EqList<EnumList<Miseres>> _declaresMiseres) {
+    public GameTarotDeclaring(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation, HandTarot _curHand, CustList<EnumList<Handfuls>> _declaresHandfuls) {
         doneTrickInfo = _doneTrickInfo;
         teamsRelation = _teamsRelation;
         curHand = _curHand;
         declaresHandfuls = _declaresHandfuls;
-        declaresMiseres = _declaresMiseres;
     }
 
     public EnumList<Handfuls> strategieAnnoncesPoignees(BidTarot _bid, HandTarot _calledCards,byte _numeroJoueur) {

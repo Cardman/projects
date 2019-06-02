@@ -1,6 +1,6 @@
+
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 
 public final class AfterBuiltInstruction {
@@ -8,8 +8,6 @@ public final class AfterBuiltInstruction {
     private int index;
 
     private BracedBlock parent;
-
-    private Block block;
 
     private boolean enabledEnumHeader;
 
@@ -27,10 +25,6 @@ public final class AfterBuiltInstruction {
 
     public void setParent(BracedBlock _parent) {
         parent = _parent;
-    }
-
-    public void setBlock(Block _block) {
-        block = _block;
     }
 
     public boolean isEnabledEnumHeader() {

@@ -1,22 +1,18 @@
 package code.expressionlanguage.methods;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.structs.*;
-import code.util.StringList;
-import org.junit.Test;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
 

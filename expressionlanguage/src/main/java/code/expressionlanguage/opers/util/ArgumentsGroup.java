@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
+
 import code.expressionlanguage.Analyzable;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 

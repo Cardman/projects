@@ -63,7 +63,6 @@ public final class DefaultCondition extends SwitchPartBlock {
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
         if (if_.getLastVisitedBlock() == this) {
-            if_.setFinished(true);
             rw_.setBlock(if_.getBlock());
         } else {
             rw_.setBlock(getNextSibling());

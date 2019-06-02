@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -14,11 +15,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 

@@ -14,25 +14,9 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.FieldMetaInfo;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AliasReflection {
     private String aliasAnnotation;

@@ -1,10 +1,8 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
 public final class SuperFieldOperation extends

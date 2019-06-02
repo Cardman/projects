@@ -4,11 +4,9 @@ import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.Eval;
 
-public final class TryBlockStack extends TryStack implements BreakableBlockStack, RemovableVars {
+public final class TryBlockStack extends TryStack implements RemovableVars {
 
     private CallingFinally calling;
-
-    private boolean finished;
 
     private BracedBlock block;
 
@@ -55,8 +53,4 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
         currentBlock.processToFinally(_ip, this);
     }
 
-    @Override
-    public void setFinished(boolean _finished) {
-        finished = _finished;
-    }
 }

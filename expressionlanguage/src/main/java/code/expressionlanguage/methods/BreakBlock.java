@@ -7,11 +7,7 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.stacks.BreakableBlockStack;
-import code.expressionlanguage.stacks.LoopBlockStack;
-import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.stacks.*;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -140,7 +136,9 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         }
         Block forLoopLoc_ = stack_.getLastBlock();
         rw_.setBlock(forLoopLoc_);
-        ((BreakableBlockStack)stack_).setFinished(true);
+        if (stack_ instanceof LoopStack) {
+            ((LoopStack)stack_).setFinished(true);
+        }
     }
 
 }

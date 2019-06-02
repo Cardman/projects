@@ -1,8 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ConstructorEdge;
-import code.util.EqList;
 import code.util.StringList;
 
 public final class CyclicInheritingGraph extends FoundErrorInterpret {

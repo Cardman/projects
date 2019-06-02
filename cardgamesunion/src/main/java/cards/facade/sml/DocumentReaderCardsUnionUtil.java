@@ -19,7 +19,7 @@ public final class DocumentReaderCardsUnionUtil {
 
     private static final String ATTR_FIELD = "field";
     private static final String ATTR_VALUE = "value";
-    private static final char DOT = '.';
+
     private static final String FIELD_DELAY_WAITING_BIDS = "delayWaitingBids";
     private static final String FIELD_DELAY_WAITING_CARDS = "delayWaitingCards";
     private static final String FIELD_DELAY_WAITING_TRICKS = "delayWaitingTricks";

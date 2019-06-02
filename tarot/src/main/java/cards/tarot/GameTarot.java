@@ -1026,7 +1026,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls,declaresMiseres);
+                mainJoueur_,declaresHandfuls);
         return g_.getAnnoncesPoigneesPossibles();
 
     }
@@ -1037,7 +1037,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls,declaresMiseres);
+                mainJoueur_,declaresHandfuls);
         return g_.strategieAnnoncesPoignees(bid,calledCards,_numeroJoueur);
     }
 
@@ -1052,7 +1052,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls,declaresMiseres);
+                mainJoueur_,declaresHandfuls);
         return g_.strategiePoignee(_numeroJoueur);
     }
 
@@ -1081,7 +1081,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls,declaresMiseres);
+                mainJoueur_,declaresHandfuls);
         return g_.getAnnoncesMiseresPossibles();
     }
 
@@ -1090,7 +1090,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,declaresHandfuls,declaresMiseres);
+                mainJoueur_,declaresHandfuls);
         return g_.strategieAnnoncesMiseres();
     }
 

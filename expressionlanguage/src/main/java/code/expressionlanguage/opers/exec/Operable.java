@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.CustList;
 
 public interface Operable {
 

@@ -357,7 +357,6 @@ public final class PokemonStandards extends BeanLgNames {
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
     public PokemonStandards() {
-        setSelectedBoolean(ALIAS_SB);
         setCustList(ALIAS_LS);
         setCustMap(ALIAS_LSE);
         DefaultInitialization.basicStandards(this);
@@ -3353,9 +3352,6 @@ public final class PokemonStandards extends BeanLgNames {
     }
     public String getSelectedBoolean() {
         return ALIAS_SB;
-    }
-    public void setSelectedBoolean(String _selectedBoolean) {
-
     }
 
 }

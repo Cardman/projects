@@ -1,7 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
 
 public final class FinalMethod extends FoundErrorInterpret {

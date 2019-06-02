@@ -1,11 +1,10 @@
 package code.expressionlanguage.instr;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.methods.IndexerBlock;
-import code.expressionlanguage.methods.MemberCallingsBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldResult;
@@ -14,17 +13,11 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.NumParsers;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.util.BooleanList;
-import code.util.CharList;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
+import code.util.*;
 
 
 public final class ElResolver {
 
-    public static final int BAD_PRIO = -1;
     public static final int CONST_PRIO = 0;
     public static final int DECL_PRIO = 1;
     public static final int AFF_PRIO = 2;
@@ -62,7 +55,7 @@ public final class ElResolver {
     private static final char SEP_ARG = ',';
     private static final char DOT_VAR = '.';
     private static final char DOUBLE = 'd';
-    private static final char LONG = 'L';
+
     private static final char INTEGER = 'i';
     private static final char NB_INTERN_SP = '_';
     private static final String GET_INDEX = ";;";
@@ -2452,7 +2445,6 @@ public final class ElResolver {
         String decExp_ = _key.getKeyWordNbExpDec();
         String binExp_ = _key.getKeyWordNbExpBin();
         if (_seenDot) {
-            nbInfos_.setDotted(true);
             nbInfos_.setSuffix(DOUBLE);
             decPart_.append(startChar_);
         } else {
@@ -2517,7 +2509,6 @@ public final class ElResolver {
                         String nextPart_ = _string.substring(j_ + 1).trim();
                         if (nextPart_.isEmpty()) {
                             if (base_ == 10) {
-                                nbInfos_.setDotted(true);
                                 nbInfos_.setSuffix(DOUBLE);
                                 output_.setNextIndex(j_ + 1);
                                 return output_;
@@ -2611,14 +2602,12 @@ public final class ElResolver {
             j_++;
         }
         if (j_ + 1 >= _max && dot_) {
-            nbInfos_.setDotted(true);
             nbInfos_.setSuffix(DOUBLE);
             output_.setNextIndex(j_ + 1);
             return output_;
         }
         if (dot_) {
             nbInfos_.setSuffix(DOUBLE);
-            nbInfos_.setDotted(true);
             char next_ = _string.charAt(j_ + 1);
             String sub_ = _string.substring(j_ + 1);
             int off_;
@@ -3435,8 +3424,6 @@ public final class ElResolver {
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
-            op_.getNbInfos().setFirstPrintable(firstPrintChar_);
-            op_.getNbInfos().setFirstDigit(firstPrintChar_);
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;

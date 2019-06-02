@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -19,11 +20,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.structs.EnumerableStruct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl,BuildableElMethod {
 
@@ -313,7 +310,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
                 rw_.setBlock(def_);
             } else {
                 _cont.getCoverage().passSwitch(_cont,arg_);
-                if_.setFinished(true);
             }
         }
         ip_.addBlock(if_);

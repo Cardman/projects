@@ -1,11 +1,8 @@
 package code.expressionlanguage.opers;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.BadConstructorCall;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
-import code.expressionlanguage.errors.custom.UndefinedFieldError;
-import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -16,11 +13,7 @@ import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 

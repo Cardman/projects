@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
@@ -9,17 +10,8 @@ import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.expressionlanguage.opers.util.*;
+import code.util.*;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
 

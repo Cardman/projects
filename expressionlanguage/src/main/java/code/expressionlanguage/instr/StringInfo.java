@@ -6,7 +6,7 @@ public final class StringInfo {
 
     private CharList chars = new CharList();
     private char[] builtUnicode = new char[4];
-    private int indexUnicode;
+
 
     public CharList getChars() {
         return chars;

@@ -1,4 +1,5 @@
 package code.expressionlanguage.structs;
+
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
@@ -9,7 +10,10 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.util.*;
+import code.util.CustList;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class ClassMetaInfo implements Struct, ExportableStringStruct {
 

@@ -6,17 +6,11 @@ public final class NumberInfos {
 
     private StringBuilder intPart;
 
-    private boolean dotted;
-
     private StringBuilder decimalPart;
 
     private StringBuilder exponentialPart;
 
     private char suffix;
-
-    private int firstPrintable;
-
-    private int firstDigit;
 
     private int base;
 
@@ -34,10 +28,6 @@ public final class NumberInfos {
 
     public void setIntPart(StringBuilder _intPart) {
         intPart = _intPart;
-    }
-
-    public void setDotted(boolean _dotted) {
-        dotted = _dotted;
     }
 
     public StringBuilder getDecimalPart() {
@@ -62,14 +52,6 @@ public final class NumberInfos {
 
     public void setSuffix(char _suffix) {
         suffix = _suffix;
-    }
-
-    public void setFirstPrintable(int _firstPrintable) {
-        firstPrintable = _firstPrintable;
-    }
-
-    public void setFirstDigit(int _firstDigit) {
-        firstDigit = _firstDigit;
     }
 
     public int getBase() {

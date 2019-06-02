@@ -1,4 +1,5 @@
 package code.expressionlanguage.instr;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -6,33 +7,15 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.DeclareVariable;
-import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.ForMutableIterativeLoop;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.AbstractInvokingConstructor;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.DotOperation;
-import code.expressionlanguage.opers.ErrorPartOperation;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.MethodOperation;
-import code.expressionlanguage.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.PossibleIntermediateDotted;
-import code.expressionlanguage.opers.PreAnalyzableOperation;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.StandardInstancingOperation;
-import code.expressionlanguage.opers.StaticAccessOperation;
-import code.expressionlanguage.opers.StaticInitOperation;
-import code.expressionlanguage.opers.VariableOperation;
+import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ElUtil {
@@ -254,7 +237,6 @@ public final class ElUtil {
         String value_ = block_.getChildren().getValue(0);
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
-        d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
             if (_index == CustList.FIRST_INDEX) {
@@ -288,7 +270,6 @@ public final class ElUtil {
         String value_ = children_.getValue(_block.getIndexChild() + delta_);
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
-        d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);

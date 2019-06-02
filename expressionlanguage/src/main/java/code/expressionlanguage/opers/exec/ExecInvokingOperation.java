@@ -1,32 +1,21 @@
 package code.expressionlanguage.opers.exec;
+
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.calls.util.CustomFoundAnnotation;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.calls.util.CustomReflectMethod;
-import code.expressionlanguage.calls.util.InstancingStep;
-import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.InvokingOperation;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.Identifiable;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
-    private boolean staticAccess;
     private boolean intermediate;
 
     private Argument previousArgument;
@@ -34,7 +23,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public ExecInvokingOperation(
             InvokingOperation _inter) {
         super(_inter);
-        staticAccess = _inter.isStaticAccess();
         intermediate = _inter.isIntermediateDottedOperation();
         setPreviousArgument(_inter.getPreviousArgument());
     }

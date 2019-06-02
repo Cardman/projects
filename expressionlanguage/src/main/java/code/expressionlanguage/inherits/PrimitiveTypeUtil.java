@@ -1,4 +1,5 @@
 package code.expressionlanguage.inherits;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -6,7 +7,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -14,25 +14,8 @@ import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.IndexesComparator;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.expressionlanguage.structs.*;
+import code.util.*;
 
 public final class PrimitiveTypeUtil {
     public static final String ARR_CLASS = "[";

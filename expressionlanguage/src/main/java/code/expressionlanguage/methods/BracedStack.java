@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
@@ -6,18 +7,9 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.SettableElResult;
-import code.expressionlanguage.opers.VariableOperation;
+import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.util.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class BracedStack extends BracedBlock {
 

@@ -2418,24 +2418,6 @@ public class DataBase implements WithMathFactory {
         }
     }
 
-    private static StringList getElements(StringList _list, String _prefixWord) {
-        StringList elts_ = new StringList();
-        for (String l : _list) {
-            if (!l.startsWith(_prefixWord)) {
-                continue;
-            }
-            if (StringList.quickEq(l, _prefixWord)) {
-                elts_.add(l);
-                continue;
-            }
-            char next_ = l.charAt(_prefixWord.length());
-            if (!StringList.isWordChar(next_)) {
-                elts_.add(l);
-            }
-        }
-        return elts_;
-    }
-
     public void checkCaseOfFiles(String _folderName, StringList _files) {
         StringList filesNamesWithSameCase_;
         filesNamesWithSameCase_ = new StringList();

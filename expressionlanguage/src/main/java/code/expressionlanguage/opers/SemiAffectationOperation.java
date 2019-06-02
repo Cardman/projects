@@ -11,13 +11,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;

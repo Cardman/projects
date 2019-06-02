@@ -1,14 +1,9 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class SwitchPartBlock extends BracedStack implements
         StackableBlockGroup, BuildableElMethod {

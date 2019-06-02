@@ -6,9 +6,6 @@ import code.util.StringList;
 public final class Delimiters {
 
     private int badOffset=-1;
-    private int firstPrintableChar = CustList.INDEX_NOT_FOUND_ELT;
-    private int absoluteOffset;
-    private int childOffest;
     private int indexBegin;
     private int indexEnd;
     private char begin;
@@ -119,9 +116,6 @@ public final class Delimiters {
         return callings;
     }
 
-    public void setChildOffest(int _childOffest) {
-        childOffest = _childOffest;
-    }
     public int getIndexBegin() {
         return indexBegin;
     }

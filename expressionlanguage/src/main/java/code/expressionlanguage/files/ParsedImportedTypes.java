@@ -12,7 +12,6 @@ public final class ParsedImportedTypes {
     private final Numbers<Integer> offsetsImports = new Numbers<Integer>();
     private int nextIndex;
     private boolean ok;
-    private boolean foundBrace;
     public ParsedImportedTypes(int _nextIndex, String _fullFile, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
         if (_nextIndex >= _fullFile.length()) {
@@ -22,7 +21,6 @@ public final class ParsedImportedTypes {
             ok = true;
             return;
         }
-        foundBrace = true;
         nextIndex = FileResolver.incrementRowCol(nextIndex, _fullFile, _enabledSpaces);
         int indexImport_ = 0;
         int len_ = _fullFile.length();

@@ -1,10 +1,9 @@
 package code.expressionlanguage;
 
-import org.junit.Assert;
-
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.Numbers;
 import code.util.StringList;
+import org.junit.Assert;
 
 public final class EquallableElUtil {
 

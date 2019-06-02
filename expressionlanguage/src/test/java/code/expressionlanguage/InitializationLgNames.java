@@ -1,13 +1,12 @@
 package code.expressionlanguage;
 
-import org.junit.Assert;
-
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import org.junit.Assert;
 
 public final class InitializationLgNames {
 

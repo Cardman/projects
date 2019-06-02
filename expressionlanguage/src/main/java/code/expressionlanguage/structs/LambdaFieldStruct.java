@@ -9,7 +9,6 @@ public class LambdaFieldStruct implements Struct {
     private Argument instanceCall;
 
     private final String className;
-    private final String formClassName;
 
     private final ClassField fid;
 
@@ -19,10 +18,9 @@ public class LambdaFieldStruct implements Struct {
     private final boolean affect;
     private final String returnFieldType;
 
-    public LambdaFieldStruct(String _className,String _formClassName, ClassField _fid,
-            boolean _shiftInstance, int _ancestor, boolean _affect,String _returnFieldType) {
+    public LambdaFieldStruct(String _className, ClassField _fid,
+                             boolean _shiftInstance, int _ancestor, boolean _affect, String _returnFieldType) {
         className = _className;
-        formClassName = _formClassName;
         fid = _fid;
         shiftInstance = _shiftInstance;
         ancestor = _ancestor;

@@ -1,11 +1,5 @@
 package code.expressionlanguage.methods;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.opers.util.ClassField;
@@ -14,6 +8,11 @@ import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {

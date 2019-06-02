@@ -1,24 +1,17 @@
 package code.expressionlanguage.files;
 
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.methods.*;
-import org.junit.Test;
-
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
 
 
 public final class FileResolverTest {
@@ -38,6 +31,8 @@ public final class FileResolverTest {
         RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
+        assertEq(42,cl_.getAccessOffset());
+        assertEq(50,cl_.getCategoryOffset());
         assertNull(cl_.getFirstChild());
         assertEq(1, countFileTypes(context_));
         assertEq(10, getFileTypes(context_,0).getLineReturns().size());

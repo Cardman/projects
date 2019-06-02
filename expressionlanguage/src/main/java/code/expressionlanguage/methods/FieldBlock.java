@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
@@ -22,11 +23,7 @@ import code.expressionlanguage.opers.exec.ExecSettableFieldOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.IdMap;
-import code.util.Numbers;
-import code.util.StringList;
+import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 

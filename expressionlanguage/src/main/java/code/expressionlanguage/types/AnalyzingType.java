@@ -14,13 +14,11 @@ public final class AnalyzingType {
     private NatTreeMap<Integer, String> values = new NatTreeMap<Integer, String>();
     private boolean error;
     private KindPartType kind = KindPartType.NOTHING;
-    private int offset;
     private int prio;
 
-    public void setupValue(String _string, int _offset) {
+    public void setupValue(String _string) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
-        offset = _offset;
     }
 
     public void setupValues(String _string, Options _options) {
@@ -58,10 +56,9 @@ public final class AnalyzingType {
         }
         values.put(beginValuePart_, str_);
     }
-    public void setupValueExec(String _string, int _offset) {
+    public void setupValueExec(String _string) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
-        offset = _offset;
     }
     public void setupArrayValuesExec(String _string) {
         int first_ = StringList.getFirstPrintableCharIndex(_string);

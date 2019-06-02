@@ -224,29 +224,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class DocumentReaderAikiCoreUtil {
 
-
-    public static final String VAR_PREFIX = "VAR__";
-
     public static final String EMPTY_STRING = "";
-    public static final String MIN_BOOST = "MIN_BOOST";
-    public static final String MAX_BOOST = "MAX_BOOST";
-    public static final String VALEUR_DEF_STATIS = "VALEUR_DEF_STATIS";
-    public static final String NIVEAU_PK_ECLOSION = "NIVEAU_PK_ECLOSION";
-    public static final short INVALID_LEVEL = -1;
-    public static final String PAS_NECES_INCREMENT_BONHEUR = "PAS_NECES_INCREMENT_BONHEUR";
-    public static final String PP_MAX = "PP_MAX";
-    public static final String DEF_PKEQ = "DEF_PKEQ";
-    public static final String MAX_EV = "MAX_EV";
-    public static final String MAX_IV = "MAX_IV";
-    public static final String NIVEAU_PK_MAX = "NIVEAU_PK_MAX";
-    public static final String GAIN_BONHEUR_NIV = "GAIN_BONHEUR_NIV";
-    public static final String EVO_BONHEUR = "EVO_BONHEUR";
-    public static final String MAX_BONHEUR = "MAX_BONHEUR";
-    public static final String ARGENT = "ARGENT";
-    public static final String STRONG_MOVE = "STRONG_MOVE";
-    public static final String SEPARATOR_MOVES = ";";
     public static final String SEPARATOR_RAND = ";";
-    public static final String SEPARATOR_RGB = ";";
     public static final String SEPARATOR_RAND_EVENTS = " ";
     public static final String DEF_MOVE = "DEF_MOVE";
     public static final String RATE_CATCHING = "RATE_CATCHING";
@@ -255,24 +234,14 @@ public final class DocumentReaderAikiCoreUtil {
     public static final String RATE_BOOST_CRITICAL_HIT = "RATE_BOOST_CRITICAL_HIT";
     public static final String DAMAGE_FORMULA = "DAMAGE_FORMULA";
     public static final String DEFAULT_EGG_GROUP = "DEFAULT_EGG_GROUP";
-    public static final String MAX_STEPS_SAME_EVO_BASE = "MAX_STEPS_SAME_EVO_BASE";
-    public static final String MAX_STEPS = "MAX_STEPS";
-    public static final String MIN_HP = "MIN_HP";
-    public static final String BONUS_BOOST = "BONUS_BOOST";
-
-    public static final String SEP_BETWEEN_KEYS = "__";
-    public static final String ZIP_FILES_EXT = ".zip";
-    public static final String IMG_FILES_RES_EXT = ".png";
     public static final String IMG_FILES_RES_EXT_TXT = ".txt";
     public static final String FILES_RES_EXT = ".xml";
-    public static final String DASH_FILE_INFO = "-";
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and
      * even projects core, gui ...
      */
 
-    public static final int MAX_MULT_FIGHT = 4;
     public static final String IMAGES_FOLDER = "images";
     public static final String LINKS_FOLDER = "links";
     public static final String PEOPLE_FOLDER = "people";
@@ -293,28 +262,12 @@ public final class DocumentReaderAikiCoreUtil {
     public static final String TYPES_COLOR_CODE = "types_color";
     public static final String SEPARATOR_FILES = "/";
     public static final String END_GAME_IMAGE = "end_game";
-    public static final int ONE_POSSIBLE_CHOICE = 1;
-    public static final String AUTRE = "AUTRE";
-    public static final String WEB_FOLDER = "web";
-    public static final String WEB_FIGHT = "web_fight";
-    public static final String WEB_GAME = "web_game";
-    public static final String WEB_PROG = "web_prog";
-    public static final String WEB_PK = "web_pk";
-    public static final String BEANS_FOLDER = "java_beans";
 
     public static final String ANIM_STATIS = "anim_statis";
 
     public static final String ANIM_STATUS = "anim_status";
 
     public static final String ANIM_ABSORB = "anim_absorb/absorb.txt";
-
-    private static final int DEFAULT_POWER_INT = 80;
-
-    private static final int DEFAULT_HEAL_RATE_NUM = 1;
-    private static final int DEFAULT_HEAL_RATE_DEN = 2;
-
-    private static final int DEFAULT_INFLICTED_RATE_NUM = 1;
-    private static final int DEFAULT_INFLICTED_RATE_DEN = 8;
 
     private static final String POKEDEX_FOLDER = "pokedex";
     private static final String MOVES_FOLDER = "moves";
@@ -328,7 +281,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TAB = "\t";
 
     private static final char RETURN_LINE_CHAR = '\n';
-    private static final String RETURN_LINE = "\n";
     private static final String CS = "CS";
     private static final String CT = "CT";
     private static final String CT_CS_FILE = "ct_cs.txt";
@@ -359,14 +311,7 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TRANSLATION_CLASSES = "classes.txt";
     private static final String TRANSLATION_LITTERAL = "litteral.txt";
 
-    private static final String DEF_MAX_ATT = "DEF_MAX_ATT";
     private static final String BALL_DEF = "BALL_DEF";
-
-    private static final String MOVE_FORMULA = "move";
-    private static final String CAT_FORMULA = "cat";
-    private static final String STATIS_FORMULA = "statis";
-    private static final String STATUS_FORMULA = "status";
-    private static final String TYPE_FORMULA = "type";
 
     private static final char UNDERSCORE = '_';
 

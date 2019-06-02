@@ -4,16 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.errors.custom.AbstractMethod;
-import code.expressionlanguage.errors.custom.BadImplicitCast;
-import code.expressionlanguage.errors.custom.BadOperandsNumber;
-import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
-import code.expressionlanguage.errors.custom.StaticAccessError;
-import code.expressionlanguage.errors.custom.UndefinedFieldError;
-import code.expressionlanguage.errors.custom.UndefinedMethodError;
-import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
-import code.expressionlanguage.errors.custom.UnknownClassName;
-import code.expressionlanguage.errors.custom.VarargError;
+import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -23,16 +14,7 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.IndexerBlock;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -44,7 +26,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private Argument previousArgument;
-    private boolean staticAccess;
 
     private String className;
     private int offset;
@@ -389,7 +370,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        getRefConstraints(_conf, maps_, glClass_);
+        getRefConstraints(_conf, maps_);
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
@@ -804,7 +785,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                getRefConstraints(_conf, map_, glClass_);
+                getRefConstraints(_conf, map_);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
@@ -855,7 +836,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 String arg_ = _conf.resolveCorrectType(type_);
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getGlobalClass();
-                getRefConstraints(_conf, map_, glClass_);
+                getRefConstraints(_conf, map_);
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(arg_);
                 mapping_.setParam(out_);
@@ -911,7 +892,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         map_.setParam(new ClassArgumentMatching(str_));
         StringMap<StringList> maps_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
-        getRefConstraints(_conf, maps_, glClass_);
+        getRefConstraints(_conf, maps_);
         map_.setMapping(maps_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
@@ -967,7 +948,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         setResultClass(new ClassArgumentMatching(fct_));
     }
 
-    private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map, String _glClass) {
+    private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map) {
         _map.putAllMap(_conf.getCurrentConstraints());
     }
 
@@ -1201,13 +1182,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, paramsReturn_.join(Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 
-    public final void setStaticAccess(boolean _staticAccess) {
-        staticAccess = _staticAccess;
-    }
-
-    public final boolean isStaticAccess() {
-        return staticAccess;
-    }
     @Override
     public final void setIntermediateDotted() {
         intermediate = true;
@@ -1220,7 +1194,6 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     @Override
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
-        setStaticAccess(_staticAccess);
     }
 
     public final Argument getPreviousArgument() {

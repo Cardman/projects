@@ -19,11 +19,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AffectationOperation extends ReflectableOpering implements AffectationOperable {
 

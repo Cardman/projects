@@ -12,13 +12,13 @@ public final class RunnableContextEl extends ContextEl {
     private CustInitializer custInit;
     private AtomicBoolean interrupt;
 
-    private ExecutingOptions executing;
+    private ExecutingOptions executingOptions;
 
     RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_exec.isCovering(),_stackOverFlow, _lock, _options, _keyWords, _stds, _tabWidth);
         custInit = _init;
-        executing = _exec;
+        executingOptions = _exec;
         interrupt = _exec.getInterrupt();
     }
     RunnableContextEl(ContextEl _context) {
@@ -32,7 +32,7 @@ public final class RunnableContextEl extends ContextEl {
         setThrowing(_context.getThrowing());
         setCovering(_context.isCovering());
         setCoverage(_context.getCoverage());
-        executing = ((RunnableContextEl)_context).executing;
+        executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = (CustInitializer) _context.getInit();
     }
@@ -45,12 +45,12 @@ public final class RunnableContextEl extends ContextEl {
         return custInit;
     }
 
-    public ExecutingOptions getExecuting() {
-        return executing;
+    public ExecutingOptions getExecutingOptions() {
+        return executingOptions;
     }
 
-    public void setExecuting(ExecutingOptions _executing) {
-        executing = _executing;
+    public void setExecutingOptions(ExecutingOptions _executing) {
+        executingOptions = _executing;
     }
     @Override
     public boolean hasException() {

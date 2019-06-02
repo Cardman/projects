@@ -3,13 +3,11 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 
-public final class IfBlockStack extends IfStack implements BreakableBlockStack, RemovableVars {
+public final class IfBlockStack extends IfStack implements RemovableVars {
 
     private BracedBlock block;
     private BracedBlock lastBlock;
     private BracedBlock curentVisitedBlock;
-
-    private boolean finished;
 
     @Override
     public BracedBlock getBlock() {
@@ -36,11 +34,6 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
         BracedBlock cur_ = getCurrentVisitedBlock();
         cur_.removeLocalVars(_ip);
         _ip.removeLastBlock();
-    }
-
-    @Override
-    public void setFinished(boolean _finished) {
-        finished = _finished;
     }
 
     @Override

@@ -18,7 +18,6 @@ public final class ForwardOperation extends VariableLeafOperation implements Pos
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
-    private int off;
     private String classType = EMPTY_STRING;
     private boolean staticChoiceMethod;
     private boolean accessSuperTypes = true;
@@ -26,9 +25,6 @@ public final class ForwardOperation extends VariableLeafOperation implements Pos
 
     ForwardOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
     }
 
     @Override
@@ -132,9 +128,7 @@ public final class ForwardOperation extends VariableLeafOperation implements Pos
     public boolean isIntermediate() {
         return intermediate;
     }
-    public int getOff() {
-        return off;
-    }
+
 
     public boolean isStaticChoiceMethod() {
         return staticChoiceMethod;

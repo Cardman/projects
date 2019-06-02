@@ -1,17 +1,17 @@
 package code.expressionlanguage.instr;
-import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import code.expressionlanguage.methods.*;
-import code.util.*;
-import org.junit.Test;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.util.*;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 public final class ElResolverTest extends ProcessMethodCommon{

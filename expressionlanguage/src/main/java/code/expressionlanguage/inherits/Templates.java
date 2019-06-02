@@ -1,10 +1,6 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ErrorType;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.*;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
@@ -17,11 +13,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardInterface;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;

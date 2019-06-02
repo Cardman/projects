@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers;
+
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -17,25 +18,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
-import code.expressionlanguage.opers.util.ArgumentsGroup;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorInfo;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.Identifiable;
-import code.expressionlanguage.opers.util.InvocationMethod;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodInfo;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.ParametersGroup;
-import code.expressionlanguage.opers.util.Parametrable;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LoopVariable;
@@ -727,7 +710,6 @@ public abstract class OperationNode implements Operable {
         out_.setRealId(ctor_);
         out_.setConstId(cInfo_.getFormatted());
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
-        out_.setCtor(ctors_.first());
         return out_;
     }
 

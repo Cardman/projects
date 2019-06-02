@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
+
 import code.util.StringList;
-import code.util.ints.Displayable;
 
 public final class ConstructorInfo implements Parametrable {
 

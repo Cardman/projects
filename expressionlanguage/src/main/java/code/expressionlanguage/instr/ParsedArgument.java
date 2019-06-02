@@ -3,15 +3,7 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.NumParsers;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.StringList;
 
 public final class ParsedArgument {

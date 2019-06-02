@@ -1,6 +1,6 @@
 package code.expressionlanguage.errors.custom;
+
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.StringList;
 
 public final class DuplicateConstructor extends FoundErrorInterpret {
