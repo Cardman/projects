@@ -1481,7 +1481,7 @@ public final class PokemonStandards extends BeanLgNames {
     }
 
     @Override
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof AbilitiesBean) {
             return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _value);

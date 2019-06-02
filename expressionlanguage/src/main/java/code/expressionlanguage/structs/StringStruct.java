@@ -353,9 +353,26 @@ public final class StringStruct extends CharSequenceStruct {
         return _contextEl.getStandards().getAliasString();
     }
 
-    @Override
     public String getInstance() {
         return instance;
     }
 
+    @Override
+    public int length() {
+        return instance.length();
+    }
+    @Override
+    public char charAt(int _i) {
+        return instance.charAt(_i);
+    }
+
+    @Override
+    public String toStringInstance() {
+        return instance;
+    }
+
+    @Override
+    public String substring(int _i, int _j) {
+        return instance.substring(_i,_j);
+    }
 }

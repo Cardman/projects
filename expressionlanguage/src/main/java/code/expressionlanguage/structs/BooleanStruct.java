@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 
-public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct,RealInstanceStruct {
+public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
 
     private final boolean value;
 
@@ -35,7 +35,7 @@ public final class BooleanStruct implements DisplayableStruct, ExportableStringS
         }
         return new StringStruct("0");
     }
-    @Override
+
     public Boolean getInstance() {
         return value;
     }

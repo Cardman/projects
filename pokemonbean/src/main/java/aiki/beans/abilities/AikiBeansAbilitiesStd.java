@@ -1017,13 +1017,12 @@ public final class AikiBeansAbilitiesStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_ABILITY)) {
-            instance_.setTypedAbility((String) value_);
+            instance_.setTypedAbility((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

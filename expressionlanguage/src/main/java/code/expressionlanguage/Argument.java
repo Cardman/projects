@@ -65,7 +65,7 @@ public final class Argument {
     }
 
     public String getString() {
-        return ((CharSequenceStruct)object).getInstance().toString();
+        return ((CharSequenceStruct)object).toStringInstance();
     }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();

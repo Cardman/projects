@@ -298,13 +298,12 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultAllyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultAllyBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         AllyBean instance_ = (AllyBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,ALLY)) {
-            instance_.setAlly((Ally) value_);
+            instance_.setAlly((Ally) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

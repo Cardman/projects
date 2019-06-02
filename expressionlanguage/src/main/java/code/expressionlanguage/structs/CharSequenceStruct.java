@@ -8,7 +8,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct, RealInstanceStruct {
+public abstract class CharSequenceStruct implements DisplayableStruct, ExportableStringStruct {
     @Override
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -19,14 +19,12 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             return false;
         }
         CharSequenceStruct other_ = (CharSequenceStruct) _other;
-        CharSequence first_ = getInstance();
-        CharSequence second_ = other_.getInstance();
-        int len_ = first_.length();
-        if (len_ != second_.length()) {
+        int len_ = length();
+        if (len_ != other_.length()) {
             return false;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (first_.charAt(i) != second_.charAt(i)) {
+            if (charAt(i) != other_.charAt(i)) {
                 return false;
             }
         }
@@ -166,33 +164,32 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         _res.setResult(getDisplayedString(_cont));
     }
     private void length(ResultErrorStd _res) {
-        _res.setResult(new IntStruct(getInstance().length()));
+        _res.setResult(new IntStruct(length()));
     }
 
     private void isEmpty(ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(getInstance().length() == 0));
+        _res.setResult(new BooleanStruct(length() == 0));
     }
 
     private void charAt(Struct _index, LgNames _stds, ResultErrorStd _res) {
         NumberStruct nb_ = (NumberStruct)_index;
         int ind_ = nb_.getInstance().intValue();
         String badIndex_ = _stds.getAliasBadIndex();
-        CharSequence seq_ = getInstance();
-        if (ind_ < 0 || ind_ >= seq_.length()) {
+        if (ind_ < 0 || ind_ >= length()) {
             if (ind_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(ind_),"<0"));
             } else {
-                _res.setErrorMessage(StringList.concat(Long.toString(ind_),">=", Long.toString(seq_.length())));
+                _res.setErrorMessage(StringList.concat(Long.toString(ind_),">=", Long.toString(length())));
             }
             _res.setError(badIndex_);
             return;
         }
-        _res.setResult(new CharStruct(seq_.charAt(ind_)));
+        _res.setResult(new CharStruct(charAt(ind_)));
     }
 
     private void getBytes(LgNames _stds, ResultErrorStd _res) {
         String bytePrim_ = _stds.getAliasPrimByte();
-        CharSequence seq_ = getInstance();
+        String seq_ = toStringInstance();
         byte[] list_ = StringList.encode(seq_);
         bytePrim_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrim_);
         int len_ = list_.length;
@@ -209,9 +206,8 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct st_ = (CharSequenceStruct)_anotherString;
-        _res.setResult(new IntStruct(seq_.toString().compareTo(st_.getInstance().toString())));
+        _res.setResult(new IntStruct(toStringInstance().compareTo(st_.toStringInstance())));
     }
 
     private void regionMatches(NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
@@ -221,12 +217,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct other_ = (CharSequenceStruct) _other;
         int comLen_ = _len.getInstance().intValue();
         int to_ = _toffset.getInstance().intValue();
         int po_ = _ooffset.getInstance().intValue();
-        _res.setResult(new BooleanStruct(seq_.toString().regionMatches(to_, other_.getInstance().toString(), po_, comLen_)));
+        _res.setResult(new BooleanStruct(toStringInstance().regionMatches(to_, other_.toStringInstance(), po_, comLen_)));
     }
 
     private void startsWith(Struct _prefix, LgNames _stds, ResultErrorStd _res) {
@@ -239,9 +234,8 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct suffix_ = (CharSequenceStruct) _suffix;
-        _res.setResult(new BooleanStruct(seq_.toString().endsWith(suffix_.getInstance().toString())));
+        _res.setResult(new BooleanStruct(toStringInstance().endsWith(suffix_.toStringInstance())));
     }
     private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
@@ -249,10 +243,9 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct pref_ = (CharSequenceStruct) _prefix;
         int to_ = _toffset.getInstance().intValue();
-        _res.setResult(new BooleanStruct(seq_.toString().startsWith(pref_.getInstance().toString(), to_)));
+        _res.setResult(new BooleanStruct(toStringInstance().startsWith(pref_.toStringInstance(), to_)));
     }
 
     private void indexOf(Struct _ch, ResultErrorStd _res) {
@@ -260,12 +253,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
 
     private void indexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
         NumberStruct ch_ = (NumberStruct) _ch;
         int int_ = ch_.getInstance().intValue();
         NumberStruct index_ = (NumberStruct) _fromIndex;
         int from_ = index_.getInstance().intValue();
-        _res.setResult(new IntStruct(seq_.toString().indexOf(int_, from_)));
+        _res.setResult(new IntStruct(toStringInstance().indexOf(int_, from_)));
     }
     //getAliasFormat,replaceMult,getAliasSplit chars
 
@@ -275,9 +267,8 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct arg_ = (CharSequenceStruct) _str;
-        _res.setResult(new BooleanStruct(seq_.toString().contains(arg_.getInstance())));
+        _res.setResult(new BooleanStruct(toStringInstance().contains(arg_.toStringInstance())));
     }
 
     private void indexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
@@ -286,9 +277,8 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct str_ = (CharSequenceStruct) _str;
-        _res.setResult(new IntStruct(seq_.toString().indexOf(str_.getInstance().toString())));
+        _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance())));
     }
 
     private void indexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
@@ -298,14 +288,12 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct str_ = (CharSequenceStruct) _str;
-        _res.setResult(new IntStruct(seq_.toString().indexOf(str_.getInstance().toString(), from_)));
+        _res.setResult(new IntStruct(toStringInstance().indexOf(str_.toStringInstance(), from_)));
     }
 
     private void lastIndexOf(Struct _ch, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
-        lastIndexOf(_ch, new IntStruct(seq_.length()),_res);
+        lastIndexOf(_ch, new IntStruct(length()),_res);
     }
 
     private void lastIndexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
@@ -313,13 +301,11 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         int int_ = ch_.getInstance().intValue();
         NumberStruct index_ = (NumberStruct) _fromIndex;
         int from_ = index_.getInstance().intValue();
-        CharSequence seq_ = getInstance();
-        _res.setResult(new IntStruct(seq_.toString().lastIndexOf(int_, from_)));
+        _res.setResult(new IntStruct(toStringInstance().lastIndexOf(int_, from_)));
     }
 
     private void lastIndexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
-        lastIndexOfString(_str,new IntStruct(seq_.length()), _stds, _res);
+        lastIndexOfString(_str,new IntStruct(length()), _stds, _res);
     }
 
     private void lastIndexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
@@ -328,45 +314,41 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         CharSequenceStruct str_ = (CharSequenceStruct)_str;
         int from_ = _fromIndex.getInstance().intValue();
-        _res.setResult(new IntStruct(seq_.toString().lastIndexOf(str_.getInstance().toString(), from_)));
+        _res.setResult(new IntStruct(toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
     }
     private void substring(NumberStruct _beginIndex, LgNames _stds, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
-        substring(_beginIndex, new IntStruct(seq_.length()), _stds, _res);
+        substring(_beginIndex, new IntStruct(length()), _stds, _res);
     }
 
     private void substring(NumberStruct _beginIndex, NumberStruct _endIndex, LgNames _stds, ResultErrorStd _res) {
         int begin_ = _beginIndex.getInstance().intValue();
         int end_ = _endIndex.getInstance().intValue();
-        CharSequence seq_ = getInstance();
-        if (begin_ < 0 || end_ > seq_.length() || begin_ > end_) {
+        if (begin_ < 0 || end_ > length() || begin_ > end_) {
             if (begin_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(begin_),"<0"));
-            } else if (end_ > seq_.length()) {
-                _res.setErrorMessage(StringList.concat(Long.toString(end_),">", Long.toString(seq_.length())));
+            } else if (end_ > length()) {
+                _res.setErrorMessage(StringList.concat(Long.toString(end_),">", Long.toString(length())));
             } else {
                 _res.setErrorMessage(StringList.concat(Long.toString(begin_),">", Long.toString(end_)));
             }
             _res.setError(_stds.getAliasBadIndex());
             return;
         }
-        _res.setResult(new StringStruct(seq_.subSequence(begin_, end_).toString()));
+        _res.setResult(new StringStruct(substring(begin_, end_)));
     }
 
     private void splitSingleChar(CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
         splitSingleChar(_sep, new IntStruct(-1), _stds, _res);
     }
     private void splitSingleChar(CharStruct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
         int lim_ = _lim.getInstance().intValue();
         if (lim_ < -1) {
             lim_ = -1;
         }
         char ch_ = _sep.getChar();
-        StringList parts_ = StringList.splitChars(seq_.toString(), ch_);
+        StringList parts_ = StringList.splitChars(toStringInstance(), ch_);
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
@@ -380,7 +362,6 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     private void splitChars(Struct _seps, LgNames _stds, ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_seps instanceof ArrayStruct)) {
             _res.setError(nullPe_);
@@ -394,7 +375,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             Struct curSep_ = arrStructSep_[i];
             seps_[i] = ((CharStruct)curSep_).getChar();
         }
-        StringList parts_ = StringList.splitChars(seq_.toString(), seps_);
+        StringList parts_ = StringList.splitChars(toStringInstance(), seps_);
         int lenArr_ = parts_.size();
         Struct[] arr_ = new Struct[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
@@ -416,7 +397,6 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
         Struct[] arrStructSep_ = arrSep_.getInstance();
         int lenSeps_ = arrStructSep_.length;
@@ -427,13 +407,13 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = ((CharSequenceStruct)curSep_).getInstance().toString();
+            seps_[i] = ((CharSequenceStruct)curSep_).toStringInstance();
         }
         int lim_ = _lim.getInstance().intValue();
         if (lim_ < -1) {
             lim_ = -1;
         }
-        StringList parts_ = StringList.splitStrings(seq_.toString(), seps_);
+        StringList parts_ = StringList.splitStrings(toStringInstance(), seps_);
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
@@ -452,13 +432,12 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         int lim_ = _lim.getInstance().intValue();
         if (lim_ < -1) {
             lim_ = -1;
         }
         CharSequenceStruct str_ = (CharSequenceStruct)_sep;
-        StringList parts_ = StringList.splitStrings(seq_.toString(), str_.getInstance().toString());
+        StringList parts_ = StringList.splitStrings(toStringInstance(), str_.toStringInstance());
         int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
@@ -473,18 +452,16 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
     }
     
     private void trim(ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
-        _res.setResult(new StringStruct(seq_.toString().trim()));
+        _res.setResult(new StringStruct(toStringInstance().trim()));
     }
 
     private void toCharArray(LgNames _stds,ResultErrorStd _res) {
-        CharSequence seq_ = getInstance();
         String aliasChar_ = _stds.getAliasPrimChar();
         aliasChar_ = PrimitiveTypeUtil.getPrettyArrayType(aliasChar_);
-        int len_ = seq_.length();
+        int len_ = length();
         Struct[] arrOut_ = new Struct[len_];
         for (int i = 0; i < len_; i++) {
-            arrOut_[i] = new CharStruct(seq_.charAt(i));
+            arrOut_[i] = new CharStruct(charAt(i));
         }
         ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
         _res.setResult(arr_);
@@ -496,7 +473,6 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
             _res.setError(nullPe_);
             return;
         }
-        CharSequence seq_ = getInstance();
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
         Struct[] arrStructSep_ = arrSep_.getInstance();
         int lenSeps_ = arrStructSep_.length;
@@ -507,21 +483,21 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
                 _res.setError(nullPe_);
                 return;
             }
-            seps_[i] = ((CharSequenceStruct)curSep_).getInstance().toString();
+            seps_[i] = ((CharSequenceStruct)curSep_).toStringInstance();
         }
-        _res.setResult(new StringStruct(StringList.simpleStringsFormat(seq_.toString(), seps_)));
+        _res.setResult(new StringStruct(StringList.simpleStringsFormat(toStringInstance(), seps_)));
     }
     
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return new StringStruct(getInstance().toString());
+        return new StringStruct(toStringInstance());
     }
 
     @Override
     public StringStruct exportValue() {
         StringBuilder out_ = new StringBuilder();
         out_.append("\"");
-        for (char c: getInstance().toString().toCharArray()) {
+        for (char c: toStringInstance().toCharArray()) {
             if (c == '"' || c == '\\') {
                 out_.append("\\");
                 out_.append(c);
@@ -547,6 +523,9 @@ public abstract class CharSequenceStruct implements DisplayableStruct, Exportabl
         return new StringStruct(out_.toString());
     }
 
-    @Override
-    public abstract CharSequence getInstance();
+    public abstract int length();
+    public abstract char charAt(int _i);
+    public abstract String toStringInstance();
+    public abstract String substring(int _i,int _j);
+
 }

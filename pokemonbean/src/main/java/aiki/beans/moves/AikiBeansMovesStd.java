@@ -653,70 +653,68 @@ public final class AikiBeansMovesStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) value_);
+            instance_.setIndex((Long) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_LINE)) {
-            instance_.setMoveLine((MoveLine) value_);
+            instance_.setMoveLine((MoveLine) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,SORTED_MOVES)) {
-            instance_.setSortedMoves((StringList) value_);
+            instance_.setSortedMoves((StringList) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName((String) value_);
+            instance_.setTypedName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORY)) {
-            instance_.setCategory((String) value_);
+            instance_.setCategory((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_TYPE)) {
-            instance_.setTypedType((String) value_);
+            instance_.setTypedType((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
-            instance_.setWholeWord((Boolean) value_);
+            instance_.setWholeWord((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MIN_ACCURACY)) {
-            instance_.setMinAccuracy((String) value_);
+            instance_.setMinAccuracy((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAX_ACCURACY)) {
-            instance_.setMaxAccuracy((String) value_);
+            instance_.setMaxAccuracy((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MIN_POWER)) {
-            instance_.setMinPower((String) value_);
+            instance_.setMinPower((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAX_POWER)) {
-            instance_.setMaxPower((String) value_);
+            instance_.setMaxPower((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

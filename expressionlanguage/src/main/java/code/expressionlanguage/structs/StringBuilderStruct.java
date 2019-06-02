@@ -41,7 +41,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         CharSequenceStruct arg_ = (CharSequenceStruct) _arg;
-        _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.getInstance())));
+        _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
     }
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res) {
         int one_ = _arg.getInstance().intValue();
@@ -330,7 +330,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         CharSequenceStruct ch_ = (CharSequenceStruct) _str;
-        instance.replace(start_, end_, ch_.getInstance().toString());
+        instance.replace(start_, end_, ch_.toStringInstance());
         _out.setResult(this);
     }
 
@@ -517,10 +517,26 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         return _contextEl.getStandards().getAliasStringBuilder();
     }
 
-    @Override
     public StringBuilder getInstance() {
         return instance;
     }
 
+    @Override
+    public int length() {
+        return instance.length();
+    }
+    @Override
+    public char charAt(int _i) {
+        return instance.charAt(_i);
+    }
 
+    @Override
+    public String toStringInstance() {
+        return instance.toString();
+    }
+
+    @Override
+    public String substring(int _i, int _j) {
+        return instance.substring(_i,_j);
+    }
 }

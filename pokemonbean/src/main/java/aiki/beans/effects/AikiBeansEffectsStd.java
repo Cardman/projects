@@ -331,30 +331,28 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectComboBean instance_ = (EffectComboBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) value_);
+            instance_.setIndex((Long) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBOS)) {
-            instance_.setCombos((ComboDto) value_);
+            instance_.setCombos((ComboDto) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,EFFECT)) {
-            instance_.setEffect((EffectWhileSending) value_);
+            instance_.setEffect((EffectWhileSending) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

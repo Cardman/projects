@@ -1120,35 +1120,33 @@ public final class AikiBeansItemsStd {
         }
         return AikiBeansItemsStd.getResultItemBean(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultItemBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultItemBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         ItemBean instance_ = (ItemBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,NAME)) {
-            instance_.setName((String) value_);
+            instance_.setName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultItemsBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultItemsBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         ItemsBean instance_ = (ItemsBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName((String) value_);
+            instance_.setTypedName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_PRICE)) {
-            instance_.setTypedPrice((String) value_);
+            instance_.setTypedPrice((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_CLASS)) {
-            instance_.setTypedClass((String) value_);
+            instance_.setTypedClass((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

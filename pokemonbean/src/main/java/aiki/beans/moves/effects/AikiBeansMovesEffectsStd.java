@@ -2147,18 +2147,17 @@ public final class AikiBeansMovesEffectsStd {
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultEffectBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultEffectBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectBean instance_ = (EffectBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Integer) value_);
+            instance_.setIndex((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE)) {
-            instance_.setMove((String) value_);
+            instance_.setMove((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

@@ -322,23 +322,22 @@ public final class AikiBeansPokemonEvolutionsStd {
         }
         return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultEvolutionBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultEvolutionBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) value_);
+            instance_.setIndex((Long) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,NAME)) {
-            instance_.setName((String) value_);
+            instance_.setName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,BASE)) {
-            instance_.setBase((String) value_);
+            instance_.setBase((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

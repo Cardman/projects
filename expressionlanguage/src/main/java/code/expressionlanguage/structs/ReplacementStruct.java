@@ -8,7 +8,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.Replacement;
 import code.util.StringList;
 
-public final class ReplacementStruct implements RealInstanceStruct {
+public final class ReplacementStruct implements Struct {
 
     private final Replacement instance;
 
@@ -19,10 +19,10 @@ public final class ReplacementStruct implements RealInstanceStruct {
     public static void instantiate(ResultErrorStd _res, Struct... _args) {
         Replacement rep_ = new Replacement();
         if (_args[0] instanceof CharSequenceStruct) {
-            rep_.setOldString(((CharSequenceStruct)_args[0]).getInstance().toString());
+            rep_.setOldString(((CharSequenceStruct)_args[0]).toStringInstance());
         }
         if (_args[1] instanceof CharSequenceStruct) {
-            rep_.setNewString(((CharSequenceStruct)_args[1]).getInstance().toString());
+            rep_.setNewString(((CharSequenceStruct)_args[1]).toStringInstance());
         }
         _res.setResult(new ReplacementStruct(rep_));
     }
@@ -66,7 +66,6 @@ public final class ReplacementStruct implements RealInstanceStruct {
         return _contextEl.getStandards().getAliasReplacement();
     }
 
-    @Override
     public Replacement getInstance() {
         return instance;
     }

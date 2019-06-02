@@ -499,93 +499,92 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         DifficultyBean instance_ = (DifficultyBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setDiffWinningExpPtsFight((DifficultyWinPointsFight) value_);
+            instance_.setDiffWinningExpPtsFight((DifficultyWinPointsFight) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
-            instance_.setAllowCatchingKo((Boolean) value_);
+            instance_.setAllowCatchingKo((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOWED_SWITCH_PLACES_END_ROUND)) {
-            instance_.setAllowedSwitchPlacesEndRound((Boolean) value_);
+            instance_.setAllowedSwitchPlacesEndRound((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            instance_.setWinTrainerExp((Rate) value_);
+            instance_.setWinTrainerExp((Rate) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setRateWinningExpPtsFight((Rate) value_);
+            instance_.setRateWinningExpPtsFight((Rate) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
-            instance_.setEndFightIfOneTeamKo((Boolean) value_);
+            instance_.setEndFightIfOneTeamKo((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,IV_PLAYER)) {
-            instance_.setIvPlayer((Short) value_);
+            instance_.setIvPlayer((Short) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,IV_FOE)) {
-            instance_.setIvFoe((Short) value_);
+            instance_.setIvFoe((Short) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            instance_.setRateWinMoneyBase((Rate) value_);
+            instance_.setRateWinMoneyBase((Rate) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            instance_.setRateLooseMoneyWin((Rate) value_);
+            instance_.setRateLooseMoneyWin((Rate) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
-            instance_.setRestoredMovesEndFight((Boolean) value_);
+            instance_.setRestoredMovesEndFight((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENABLED_CLOSING)) {
-            instance_.setEnabledClosing((Boolean) value_);
+            instance_.setEnabledClosing((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,RANDOM_WILD_FIGHT)) {
-            instance_.setRandomWildFight((Boolean) value_);
+            instance_.setRandomWildFight((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,STILL_POSSIBLE_FLEE)) {
-            instance_.setStillPossibleFlee((Boolean) value_);
+            instance_.setStillPossibleFlee((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
-            instance_.setSkipLearningMovesWhileNotGrowingLevel((Boolean) value_);
+            instance_.setSkipLearningMovesWhileNotGrowingLevel((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            instance_.setDamageRatePlayer((DifficultyModelLaw) value_);
+            instance_.setDamageRatePlayer((DifficultyModelLaw) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            instance_.setDamageRateLawFoe((DifficultyModelLaw) value_);
+            instance_.setDamageRateLawFoe((DifficultyModelLaw) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

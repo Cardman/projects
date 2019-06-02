@@ -1476,7 +1476,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     }
     private String getString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((CharSequenceStruct)str_).getInstance().toString();
+        return ((CharSequenceStruct)str_).toStringInstance();
     }
     private boolean isNotPolymorph(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

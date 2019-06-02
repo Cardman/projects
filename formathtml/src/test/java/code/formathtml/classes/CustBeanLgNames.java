@@ -1112,46 +1112,45 @@ public final class CustBeanLgNames extends BeanLgNames {
     }
 
     @Override
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         Object instance_ =  ((RealInstanceStruct)_instance).getInstance();
-        Object value_ =  ((RealInstanceStruct)_value).getInstance();
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
             BeanOne i_ = (BeanOne)instance_;
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBER)) {
-                i_.setChosenNumber((EnumNumber)value_);
+                i_.setChosenNumber((EnumNumber)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                i_.setChosenNumbers((EnumNumbers)value_);
+                i_.setChosenNumbers((EnumNumbers)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMBOBOX)) {
-                i_.setCombobox((EnumNumbers)value_);
+                i_.setCombobox((EnumNumbers)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMMON_CLASS)) {
-                i_.setCommonClass((String)value_);
+                i_.setCommonClass((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMPOSITE)) {
-                i_.setComposite((Composite)value_);
+                i_.setComposite((Composite)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,MESSAGE)) {
-                i_.setMessage((String)value_);
+                i_.setMessage((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,SELECTED_STRING)) {
-                i_.setSelectedString((String)value_);
+                i_.setSelectedString((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1159,47 +1158,47 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo i_ = (BeanTwo)instance_;
             if (StringList.quickEq(fieldName_,CHECKED)) {
-                i_.setChecked((Boolean)value_);
+                i_.setChecked((Boolean)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,CHOOSE)) {
-                i_.setChoose((String)value_);
+                i_.setChoose((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBER)) {
-                i_.setChosenNumber((EnumNumber)value_);
+                i_.setChosenNumber((EnumNumber)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,FIELD)) {
-                i_.setField((String)value_);
+                i_.setField((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,NULLABLE_CHECKBOX)) {
-                i_.setNullableCheckbox((Boolean)value_);
+                i_.setNullableCheckbox((Boolean)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,NULLABLE_INT)) {
-                i_.setNullableInt((Long)value_);
+                i_.setNullableInt((Long)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,RATE)) {
-                i_.setRate((Rate)value_);
+                i_.setRate((Rate)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,TYPED_INT)) {
-                i_.setTypedInt((Integer)value_);
+                i_.setTypedInt((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,TYPED_STRING)) {
-                i_.setTypedString((String)value_);
+                i_.setTypedString((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1207,12 +1206,12 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_THREE)) {
             BeanThree i_ = (BeanThree)instance_;
             if (StringList.quickEq(fieldName_,INDEX)) {
-                i_.setIndex((Integer)value_);
+                i_.setIndex((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,INDEX_TWO)) {
-                i_.setIndexTwo((Integer)value_);
+                i_.setIndexTwo((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1220,22 +1219,22 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_FIVE)) {
             BeanFive i_ = (BeanFive)instance_;
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                i_.setChosenNumbers((EnumNumbers)value_);
+                i_.setChosenNumbers((EnumNumbers)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBERS_NULL)) {
-                i_.setChosenNumbersNull((StringList)value_);
+                i_.setChosenNumbersNull((StringList)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMBOBOX)) {
-                i_.setCombobox((EnumNumbers)value_);
+                i_.setCombobox((EnumNumbers)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,SELECTED_STRINGS)) {
-                i_.setSelectedStrings((StringList)value_);
+                i_.setSelectedStrings((StringList)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1243,17 +1242,17 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_SIX)) {
             BeanSix i_ = (BeanSix)instance_;
             if (StringList.quickEq(fieldName_,MY_ENUM_ONE)) {
-                i_.setMyEnumOne((EnumNumber)value_);
+                i_.setMyEnumOne((EnumNumber)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,MY_ENUM_THREE)) {
-                i_.setMyEnumThree((EnumNumber)value_);
+                i_.setMyEnumThree((EnumNumber)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,MY_ENUM_TWO)) {
-                i_.setMyEnumTwo((EnumNumber)value_);
+                i_.setMyEnumTwo((EnumNumber)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1261,7 +1260,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_SEVEN)) {
             BeanSeven i_ = (BeanSeven)instance_;
             if (StringList.quickEq(fieldName_,COMPOSITE)) {
-                i_.setComposite((Composite)value_);
+                i_.setComposite((Composite)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1269,27 +1268,27 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_COMPOSITE)) {
             Composite i_ = (Composite)instance_;
             if (StringList.quickEq(fieldName_,DISPLAYED)) {
-                i_.setDisplayed((Boolean)value_);
+                i_.setDisplayed((Boolean)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,INTEGER)) {
-                i_.setInteger((Integer)value_);
+                i_.setInteger((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,MY_CHAR)) {
-                i_.setMyChar((Character)value_);
+                i_.setMyChar((Character)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,STRING)) {
-                i_.setString((String)value_);
+                i_.setString((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_,STRINGS)) {
-                i_.setStrings((StringList)value_);
+                i_.setStrings((StringList)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2018,20 +2017,20 @@ public final class CustBeanLgNames extends BeanLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(NullStruct.NULL_VALUE);
         if (((RealInstanceStruct)_struct).getInstance() instanceof StringList) {
-            ((StringList)((RealInstanceStruct)_struct).getInstance()).set(_index, (String) ((RealInstanceStruct)_element).getInstance());
+            ((StringList)((RealInstanceStruct)_struct).getInstance()).set(_index, ((StringStruct)_element).getInstance());
             return res_;
         }
         if (((RealInstanceStruct)_struct).getInstance() instanceof NatTreeMapStringInteger) {
             if (_key) {
-                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setKey(_index, (String) ((RealInstanceStruct)_element).getInstance());
+                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setKey(_index, ((StringStruct)_element).getInstance());
                 ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).applyChanges();
                 return res_;
             }
-            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, (Integer) ((RealInstanceStruct)_element).getInstance());
+            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, (Integer) ((IntStruct)_element).getInstance());
             return res_;
         }
         if (((RealInstanceStruct)_struct).getInstance() instanceof Ints) {
-            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, (Integer) ((RealInstanceStruct)_element).getInstance());
+            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, (Integer) ((IntStruct)_element).getInstance());
             return res_;
         }
         return res_;

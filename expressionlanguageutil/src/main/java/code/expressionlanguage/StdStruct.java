@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class StdStruct implements RealInstanceStruct {
+public final class StdStruct implements Struct {
 
     private final Object instance;
 
@@ -57,7 +57,6 @@ public final class StdStruct implements RealInstanceStruct {
         return className;
     }
 
-    @Override
     public Object getInstance() {
         return instance;
     }

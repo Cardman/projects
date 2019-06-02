@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
 
-public final class ArrayStruct implements RealInstanceStruct {
+public final class ArrayStruct implements Struct {
 
     private final Struct[] instance;
 
@@ -33,7 +33,6 @@ public final class ArrayStruct implements RealInstanceStruct {
         return className;
     }
 
-    @Override
     public Struct[] getInstance() {
         return instance;
     }

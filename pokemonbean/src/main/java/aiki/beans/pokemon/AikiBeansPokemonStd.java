@@ -391,43 +391,42 @@ public final class AikiBeansPokemonStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName((String) value_);
+            instance_.setTypedName((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_TYPE)) {
-            instance_.setTypedType((String) value_);
+            instance_.setTypedType((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,WHOLE_WORD)) {
-            instance_.setWholeWord((Boolean) value_);
+            instance_.setWholeWord((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
-            instance_.setTypedMinNbPossEvos((String) value_);
+            instance_.setTypedMinNbPossEvos((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
-            instance_.setTypedMaxNbPossEvos((String) value_);
+            instance_.setTypedMaxNbPossEvos((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            instance_.setIsEvo((SelectedBoolean) value_);
+            instance_.setIsEvo((SelectedBoolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            instance_.setIsLeg((SelectedBoolean) value_);
+            instance_.setIsLeg((SelectedBoolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

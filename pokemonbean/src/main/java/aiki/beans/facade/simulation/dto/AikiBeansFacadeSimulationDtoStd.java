@@ -149,25 +149,23 @@ public final class AikiBeansFacadeSimulationDtoStd {
         }
         return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,EV)) {
-            instance_.setEv((Short) value_);
+            instance_.setEv((Short) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
-        Object value_ = ((RealInstanceStruct)_value).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,SELECTED)) {
-            instance_.setSelected((Boolean) value_);
+            instance_.setSelected((Boolean) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

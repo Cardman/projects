@@ -495,23 +495,19 @@ public final class CustLgNames extends BeanLgNames {
     }
     @Override
     public ResultErrorStd setOtherResult(ContextEl _cont,
-            ClassField _classField, Struct _instance, Struct _value) {
+            ClassField _classField, Struct _instance, Object _value) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(_classField.getClassName(), aliasComposite)) {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
-                cpt_.setInteger((Integer) ((RealInstanceStruct)_value).getInstance());
+                cpt_.setInteger((Integer) _value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
                 Composite cpt_ = (Composite) ((RealInstanceStruct)_instance).getInstance();
-                if (_value != NullStruct.NULL_VALUE) {
-                    cpt_.setObjInteger((Integer) ((RealInstanceStruct)_value).getInstance());
-                } else {
-                    cpt_.setObjInteger(null);
-                }
+                cpt_.setObjInteger((Integer)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

@@ -14,7 +14,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
-public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct,RealInstanceStruct {
+public abstract class NumberStruct implements DisplayableStruct, ExportableStringStruct {
     private static final int DEFAULT_RADIX = 10;
     @Override
     public final Struct getParent() {
@@ -102,7 +102,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String floatType_ = lgNames_.getAliasFloat();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
-                String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+                String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
                 if (StringList.quickEq(one_, lgNames_.getTrueString())) {
                     _res.setResult(new BooleanStruct(true));
                 } else {
@@ -484,7 +484,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _arg).toStringInstance();
         boolean valid_ = true;
         NumberInfos infos_ = NumParsers.trySplitDouble(one_);
         if (infos_ == null) {
@@ -515,7 +515,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _arg).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _arg).toStringInstance();
         boolean valid_ = true;
         NumberInfos infos_ = NumParsers.trySplitDouble(one_);
         if (infos_ == null) {
@@ -550,7 +550,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -578,7 +578,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -606,7 +606,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -634,7 +634,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             _res.setError(_stds.getAliasNullPe());
             return;
         }
-        String one_ = ((CharSequenceStruct) _args[0]).getInstance().toString();
+        String one_ = ((CharSequenceStruct) _args[0]).toStringInstance();
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
@@ -665,14 +665,14 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         return new BooleanStruct(Numbers.gt(a_, b_));
     }
     public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
-        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        String first_ = ((CharSequenceStruct)_a).toStringInstance();
+        String second_ = ((CharSequenceStruct)_b).toStringInstance();
         return new BooleanStruct(first_.compareTo(second_) < 0);
     }
 
     public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
-        String first_ = ((CharSequenceStruct)_a).getInstance().toString();
-        String second_ = ((CharSequenceStruct)_b).getInstance().toString();
+        String first_ = ((CharSequenceStruct)_a).toStringInstance();
+        String second_ = ((CharSequenceStruct)_b).toStringInstance();
         return new BooleanStruct(first_.compareTo(second_) > 0);
     }
     public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
@@ -1185,7 +1185,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     public StringStruct exportValue() {
         return new StringStruct(Numbers.toString(getInstance()));
     }
-    @Override
+
     public abstract Number getInstance();
 
 }
