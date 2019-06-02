@@ -276,26 +276,23 @@ public final class AliasMath {
         String aliasPrimLong_ = lgNames_.getAliasPrimLong();
         String aliasPrimFloat_ = lgNames_.getAliasPrimFloat();
         if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
-            Number n_ = ((NumberStruct) args_[0]).getInstance();
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                result_.setResult(new LongStruct(Math.abs(n_.longValue())));
+                result_.setResult(new LongStruct(Math.abs(((NumberStruct) args_[0]).longValue())));
             } else {
-                result_.setResult(new IntStruct(Math.abs(n_.intValue())));
+                result_.setResult(new IntStruct(Math.abs(((NumberStruct) args_[0]).intValue())));
             }
         } else if (StringList.quickEq(name_, lgNames_.getAliasMod())) {
-            Number n_ = ((NumberStruct) args_[0]).getInstance();
-            Number d_ = ((NumberStruct) args_[1]).getInstance();
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = n_.longValue();
-                long den_ = d_.longValue();
+                long num_ = ((NumberStruct) args_[0]).longValue();
+                long den_ = ((NumberStruct) args_[1]).longValue();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
                     result_.setResult(new LongStruct(Numbers.mod(num_, den_)));
                 }
             } else {
-                int num_ = n_.intValue();
-                int den_ = d_.intValue();
+                int num_ = ((NumberStruct) args_[0]).intValue();
+                int den_ = ((NumberStruct) args_[1]).intValue();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
@@ -303,19 +300,17 @@ public final class AliasMath {
                 }
             }
         } else if (StringList.quickEq(name_, lgNames_.getAliasQuot())) {
-            Number n_ = ((NumberStruct) args_[0]).getInstance();
-            Number d_ = ((NumberStruct) args_[1]).getInstance();
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = n_.longValue();
-                long den_ = d_.longValue();
+                long num_ = ((NumberStruct) args_[0]).longValue();
+                long den_ = ((NumberStruct) args_[1]).longValue();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
                     result_.setResult(new LongStruct(Numbers.quot(num_, den_)));
                 }
             } else {
-                int num_ = n_.intValue();
-                int den_ = d_.intValue();
+                int num_ = ((NumberStruct) args_[0]).intValue();
+                int den_ = ((NumberStruct) args_[1]).intValue();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {

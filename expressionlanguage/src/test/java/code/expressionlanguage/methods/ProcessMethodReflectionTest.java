@@ -77,7 +77,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", ret_.getString());
-        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
+        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intValue());
     }
 
     @Test
@@ -457,7 +457,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq(15, ret_.getNumber());
         NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        assertEq(14, res_.getInstance());
+        assertEq(14, res_.intValue());
     }
     @Test
     public void processEl253Test() {
@@ -897,7 +897,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
         assertNull(cont_.getException());
-        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
+        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intValue());
     }
     @Test
     public void processEl262Test() {

@@ -736,8 +736,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         NumberStruct res_ = (NumberStruct) ret_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertTrue(res_.getInstance().doubleValue() >= 0.0d);
-        assertTrue(res_.getInstance().doubleValue() < 1.0d);
+        assertTrue(res_.doubleValue() >= 0.0d);
+        assertTrue(res_.doubleValue() < 1.0d);
     }
     @Test
     public void calculateArgument41Test() {
@@ -757,8 +757,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         NumberStruct res_ = (NumberStruct) ret_.getStruct();
         assertTrue(res_ instanceof LongStruct);
-        assertTrue(res_.getInstance().longValue() >= 0);
-        assertTrue(res_.getInstance().longValue() < 8);
+        assertTrue(res_.longValue() >= 0);
+        assertTrue(res_.longValue() < 8);
     }
 
     @Test

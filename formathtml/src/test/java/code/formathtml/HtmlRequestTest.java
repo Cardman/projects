@@ -74,9 +74,9 @@ public class HtmlRequestTest {
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("88 8", bean_.getComposite().getStrings().first());
         ValueChangeEvent changing_ = bean_.getComposite().getChanging();
-        int new_ = (Integer) ((NumberStruct) changing_.getNewValue()).getInstance();
+        int new_ = ((NumberStruct) changing_.getNewValue()).intValue();
         assertEq(88, new_);
-        int old_ = (Integer) ((NumberStruct) changing_.getOldValue()).getInstance();
+        int old_ = ((NumberStruct) changing_.getOldValue()).intValue();
         assertEq(8, old_);
         Numbers<Long> list_ = changing_.getIndexes();
         assertEq(1, list_.size());
@@ -268,8 +268,8 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
         assertEq(2, inst_.length);
-        assertEq(5, ((NumberStruct) inst_[0]).getInstance());
-        assertEq(3, ((NumberStruct) inst_[1]).getInstance());
+        assertEq(5, ((NumberStruct) inst_[0]).intValue());
+        assertEq(3, ((NumberStruct) inst_[1]).intValue());
     }
 
     @Test

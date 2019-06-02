@@ -302,7 +302,7 @@ public final class ExpressionLanguageTest {
         ArrayStruct res_ = (ArrayStruct) arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName());
         assertEq(1, res_.getInstance().length);
-        assertEq(0, ((NumberStruct) res_.getInstance()[0]).getInstance());
+        assertEq(0, ((NumberStruct) res_.getInstance()[0]).intValue());
     }
 
     @Test
@@ -407,7 +407,7 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(1, o_.length);
-        assertEq(2, ((NumberStruct) o_[0]).getInstance().intValue());
+        assertEq(2, ((NumberStruct) o_[0]).intValue());
     }
 
     @Test
@@ -417,8 +417,8 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((NumberStruct) o_[0]).getInstance().intValue());
-        assertEq(7, ((NumberStruct) o_[1]).getInstance().intValue());
+        assertEq(3, ((NumberStruct) o_[0]).intValue());
+        assertEq(7, ((NumberStruct) o_[1]).intValue());
     }
 
     @Test
@@ -437,8 +437,8 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INTEGER, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((NumberStruct) o_[0]).getInstance().intValue());
-        assertEq(7, ((NumberStruct) o_[1]).getInstance().intValue());
+        assertEq(3, ((NumberStruct) o_[0]).intValue());
+        assertEq(7, ((NumberStruct) o_[1]).intValue());
     }
 
     @Test
@@ -487,7 +487,7 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl125Test() {
         Argument arg_ = directCalculate("-.25e0+.5");
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
 
     @Test
@@ -516,7 +516,7 @@ public final class ExpressionLanguageTest {
         assertEq(1, res_.getInstance().length);
         assertEq(ARR_INT, ((ArrayStruct) res_.getInstance()[0]).getClassName());
         assertEq(1, ((ArrayStruct) res_.getInstance()[0]).getInstance().length);
-        assertEq(0, ((NumberStruct) ((ArrayStruct) res_.getInstance()[0]).getInstance()[0]).getInstance());
+        assertEq(0, ((NumberStruct) ((ArrayStruct) res_.getInstance()[0]).getInstance()[0]).intValue());
     }
 
     @Test
@@ -562,13 +562,13 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl138Test() {
         Argument arg_ = directCalculate("-.2_5e0+.5");
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
 
     @Test
     public void processEl139Test() {
         Argument arg_ = directCalculate("-.25e0_0+.5");
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
 
     @Test
@@ -580,199 +580,199 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl141Test() {
         Argument arg_ = directCalculate("1.05e1");
-        assertEq(10.5d, arg_.getNumber());
+        assertEq(10.5d, arg_.getDouble());
     }
 
     @Test
     public void processEl142Test() {
         Argument arg_ = directCalculate("1.00625e1");
-        assertEq(10.0625d, arg_.getNumber());
+        assertEq(10.0625d, arg_.getDouble());
     }
 
     @Test
     public void processEl143Test() {
         Argument arg_ = directCalculate("100.625e-1");
-        assertEq(10.0625d, arg_.getNumber());
+        assertEq(10.0625d, arg_.getDouble());
     }
 
     @Test
     public void processEl144Test() {
         Argument arg_ = directCalculate("100.625");
-        assertEq(100.625d, arg_.getNumber());
+        assertEq(100.625d, arg_.getDouble());
     }
 
     @Test
     public void processEl145Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.0");
-        assertEq(1.2345678912345678912e26, arg_.getNumber());
+        assertEq(1.2345678912345678912e26, arg_.getDouble());
     }
 
     @Test
     public void processEl147Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.");
-        assertEq(1.2345678912345678912e26, arg_.getNumber());
+        assertEq(1.2345678912345678912e26, arg_.getDouble());
     }
 
     @Test
     public void processEl148Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.e-1");
-        assertEq(1.2345678912345678912e25, arg_.getNumber());
+        assertEq(1.2345678912345678912e25, arg_.getDouble());
     }
 
     @Test
     public void processEl149Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.e1");
-        assertEq(1.2345678912345678912e27, arg_.getNumber());
+        assertEq(1.2345678912345678912e27, arg_.getDouble());
     }
 
     @Test
     public void processEl150Test() {
         Argument arg_ = directCalculate("123456.e1");
-        assertEq(1234560, arg_.getNumber());
+        assertEq(1234560, arg_.getDouble());
     }
 
     @Test
     public void processEl151Test() {
         Argument arg_ = directCalculate(".078125e-1");
-        assertEq(.078125e-1, arg_.getNumber());
+        assertEq(.078125e-1, arg_.getDouble());
     }
 
     @Test
     public void processEl152Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.0e-36");
-        assertEq(1.2345678912345678912e-10, arg_.getNumber());
+        assertEq(1.2345678912345678912e-10, arg_.getDouble());
     }
 
     @Test
     public void processEl153Test() {
         Argument arg_ = directCalculate("0.0e-36");
-        assertEq(0.0, arg_.getNumber());
+        assertEq(0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl154Test() {
         Argument arg_ = directCalculate("-0.0e-36");
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl155Test() {
         Argument arg_ = directCalculate("0.625e-1");
-        assertEq(0.0625, arg_.getNumber());
+        assertEq(0.0625, arg_.getDouble());
     }
 
     @Test
     public void processEl156Test() {
         Argument arg_ = directCalculate(".625e-1");
-        assertEq(0.0625, arg_.getNumber());
+        assertEq(0.0625, arg_.getDouble());
     }
 
     @Test
     public void processEl157Test() {
         Argument arg_ = directCalculate("0.625e1");
-        assertEq(6.25, arg_.getNumber());
+        assertEq(6.25, arg_.getDouble());
     }
 
     @Test
     public void processEl158Test() {
         Argument arg_ = directCalculate(".625e1");
-        assertEq(6.25, arg_.getNumber());
+        assertEq(6.25, arg_.getDouble());
     }
 
     @Test
     public void processEl159Test() {
         Argument arg_ = directCalculate("0.625e0");
-        assertEq(0.625, arg_.getNumber());
+        assertEq(0.625, arg_.getDouble());
     }
 
     @Test
     public void processEl160Test() {
         Argument arg_ = directCalculate(".625e0");
-        assertEq(0.625, arg_.getNumber());
+        assertEq(0.625, arg_.getDouble());
     }
 
     @Test
     public void processEl161Test() {
         Argument arg_ = directCalculate("-.625e1");
-        assertEq(-6.25, arg_.getNumber());
+        assertEq(-6.25, arg_.getDouble());
     }
 
     @Test
     public void processEl162Test() {
         Argument arg_ = directCalculate("-.6e1");
-        assertEq(-6.0, arg_.getNumber());
+        assertEq(-6.0, arg_.getDouble());
     }
 
     @Test
     public void processEl163Test() {
         Argument arg_ = directCalculate("-.60e1");
-        assertEq(-6.0, arg_.getNumber());
+        assertEq(-6.0, arg_.getDouble());
     }
 
     @Test
     public void processEl164Test() {
         Argument arg_ = directCalculate(".6e1");
-        assertEq(6.0, arg_.getNumber());
+        assertEq(6.0, arg_.getDouble());
     }
 
     @Test
     public void processEl165Test() {
         Argument arg_ = directCalculate(".6e2");
-        assertEq(60.0, arg_.getNumber());
+        assertEq(60.0, arg_.getDouble());
     }
 
     @Test
     public void processEl166Test() {
         Argument arg_ = directCalculate("123456789123456789123456789.1e1");
-        assertEq(1.2345678912345678912e27, arg_.getNumber());
+        assertEq(1.2345678912345678912e27, arg_.getDouble());
     }
 
     @Test
     public void processEl167Test() {
         Argument arg_ = directCalculate("100.e-1");
-        assertEq(10.0, arg_.getNumber());
+        assertEq(10.0, arg_.getDouble());
     }
 
     @Test
     public void processEl168Test() {
         Argument arg_ = directCalculate("-100.e-1");
-        assertEq(-10.0, arg_.getNumber());
+        assertEq(-10.0, arg_.getDouble());
     }
 
     @Test
     public void processEl169Test() {
         Argument arg_ = directCalculate("-1.e1");
-        assertEq(-10.0, arg_.getNumber());
+        assertEq(-10.0, arg_.getDouble());
     }
 
     @Test
     public void processEl170Test() {
         Argument arg_ = directCalculate("-1.");
-        assertEq(-1.0, arg_.getNumber());
+        assertEq(-1.0, arg_.getDouble());
     }
 
     @Test
     public void processEl171Test() {
         Argument arg_ = directCalculate("1e-123456789123456789123");
-        assertEq(0.0, arg_.getNumber());
+        assertEq(0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl172Test() {
         Argument arg_ = directCalculate("-1e-123456789123456789123");
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl173Test() {
         Argument arg_ = directCalculate("1e123456789123456789123");
-        assertEq(Double.POSITIVE_INFINITY, arg_.getNumber());
+        assertEq(Double.POSITIVE_INFINITY, arg_.getDouble());
     }
 
     @Test
     public void processEl174Test() {
         Argument arg_ = directCalculate("-1e123456789123456789123");
-        assertEq(Double.NEGATIVE_INFINITY, arg_.getNumber());
+        assertEq(Double.NEGATIVE_INFINITY, arg_.getDouble());
     }
 
     @Test
@@ -1114,13 +1114,13 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl356Test() {
         Argument arg_ = directCalculate("0x1.8");
-        assertEq(1.5d, arg_.getNumber());
+        assertEq(1.5d, arg_.getDouble());
     }
 
     @Test
     public void processEl357Test() {
         Argument arg_ = directCalculate("0x1.8xd");
-        assertEq(1.5d, arg_.getNumber());
+        assertEq(1.5d, arg_.getDouble());
     }
 
     @Test
@@ -1207,13 +1207,13 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("0.5d*2l");
         NumberStruct res_ = (NumberStruct) arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertEq(1d, res_.getInstance());
+        assertEq(1d, res_.doubleValue());
     }
 
     @Test
     public void processEl372Test() {
         Argument arg_ = directCalculate("$math.random()");
-        Number res_ = arg_.getNumber();
+        Number res_ = arg_.getDouble();
         assertTrue(res_ instanceof Double);
         assertTrue(res_.doubleValue() >= 0.0d);
         assertTrue(res_.doubleValue() < 1.0d);
@@ -1763,16 +1763,16 @@ public final class ExpressionLanguageTest {
         assertEq("[$char", arr_.getClassName());
         Struct[] res_ = arr_.getInstance();
         assertEq(10, res_.length);
-        assertEq('h', ((CharStruct) res_[0]).getInstance());
-        assertEq('e', ((CharStruct) res_[1]).getInstance());
-        assertEq('l', ((CharStruct) res_[2]).getInstance());
-        assertEq('l', ((CharStruct) res_[3]).getInstance());
-        assertEq('o', ((CharStruct) res_[4]).getInstance());
-        assertEq(' ', ((CharStruct) res_[5]).getInstance());
-        assertEq('w', ((CharStruct) res_[6]).getInstance());
-        assertEq('o', ((CharStruct) res_[7]).getInstance());
-        assertEq('r', ((CharStruct) res_[8]).getInstance());
-        assertEq('d', ((CharStruct) res_[9]).getInstance());
+        assertEq('h', ((CharStruct) res_[0]).getChar());
+        assertEq('e', ((CharStruct) res_[1]).getChar());
+        assertEq('l', ((CharStruct) res_[2]).getChar());
+        assertEq('l', ((CharStruct) res_[3]).getChar());
+        assertEq('o', ((CharStruct) res_[4]).getChar());
+        assertEq(' ', ((CharStruct) res_[5]).getChar());
+        assertEq('w', ((CharStruct) res_[6]).getChar());
+        assertEq('o', ((CharStruct) res_[7]).getChar());
+        assertEq('r', ((CharStruct) res_[8]).getChar());
+        assertEq('d', ((CharStruct) res_[9]).getChar());
     }
     @Test
     public void processE449Test() {
@@ -4942,49 +4942,49 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl945Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1.5\")");
-        assertEq(1.5, arg_.getNumber());
+        assertEq(1.5, arg_.getDouble());
     }
 
     @Test
     public void processEl946Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1.5e1\")");
-        assertEq(15, arg_.getNumber());
+        assertEq(15, arg_.getDouble());
     }
 
     @Test
     public void processEl947Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1.5E1\")");
-        assertEq(15, arg_.getNumber());
+        assertEq(15, arg_.getDouble());
     }
 
     @Test
     public void processEl948Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"15.0e-1\")");
-        assertEq(1.5, arg_.getNumber());
+        assertEq(1.5, arg_.getDouble());
     }
 
     @Test
     public void processEl949Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1E1\")");
-        assertEq(10, arg_.getNumber());
+        assertEq(10, arg_.getDouble());
     }
 
     @Test
     public void processEl950Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"5E-1\")");
-        assertEq(0.5, arg_.getNumber());
+        assertEq(0.5, arg_.getDouble());
     }
 
     @Test
     public void processEl951Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1e1\")");
-        assertEq(10, arg_.getNumber());
+        assertEq(10, arg_.getDouble());
     }
 
     @Test
     public void processEl952Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"5e-1\")");
-        assertEq(0.5, arg_.getNumber());
+        assertEq(0.5, arg_.getDouble());
     }
 
     @Test
@@ -5024,7 +5024,7 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl958Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\".5\")");
-        assertEq(0.5, arg_.getNumber());
+        assertEq(0.5, arg_.getDouble());
     }
     @Test
     public void processEl959Test() {
@@ -5036,91 +5036,91 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl960Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1\")");
-        assertEq(-1.0, arg_.getNumber());
+        assertEq(-1.0, arg_.getDouble());
     }
 
     @Test
     public void processEl961Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.5\")");
-        assertEq(-1.5, arg_.getNumber());
+        assertEq(-1.5, arg_.getDouble());
     }
 
     @Test
     public void processEl962Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.5e1\")");
-        assertEq(-15, arg_.getNumber());
+        assertEq(-15, arg_.getDouble());
     }
 
     @Test
     public void processEl963Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.5E1\")");
-        assertEq(-15, arg_.getNumber());
+        assertEq(-15, arg_.getDouble());
     }
 
     @Test
     public void processEl964Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-15.0e-1\")");
-        assertEq(-1.5, arg_.getNumber());
+        assertEq(-1.5, arg_.getDouble());
     }
 
     @Test
     public void processEl965Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1E1\")");
-        assertEq(-10, arg_.getNumber());
+        assertEq(-10, arg_.getDouble());
     }
 
     @Test
     public void processEl966Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-5E-1\")");
-        assertEq(-0.5, arg_.getNumber());
+        assertEq(-0.5, arg_.getDouble());
     }
 
     @Test
     public void processEl967Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1e1\")");
-        assertEq(-10, arg_.getNumber());
+        assertEq(-10, arg_.getDouble());
     }
 
     @Test
     public void processEl968Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-5e-1\")");
-        assertEq(-0.5, arg_.getNumber());
+        assertEq(-0.5, arg_.getDouble());
     }
 
     @Test
     public void processEl969Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-.5\")");
-        assertEq(-0.5, arg_.getNumber());
+        assertEq(-0.5, arg_.getDouble());
     }
 
     @Test
     public void processEl970Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-123456789123456789123456789.0\")");
-        assertEq(-1.2345678912345678912e26, arg_.getNumber());
+        assertEq(-1.2345678912345678912e26, arg_.getDouble());
     }
 
     @Test
     public void processEl971Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-0.0e-36\")");
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl972Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.0\")");
-        assertEq(-1.0, arg_.getNumber());
+        assertEq(-1.0, arg_.getDouble());
     }
 
     @Test
     public void processEl973Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1e-123456789123456789123\")");
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
 
     @Test
     public void processEl974Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1e123456789123456789123\")");
-        assertEq(Double.NEGATIVE_INFINITY, arg_.getNumber());
+        assertEq(Double.NEGATIVE_INFINITY, arg_.getDouble());
     }
 
     @Test
@@ -5136,7 +5136,7 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(1, o_.length);
-        assertEq(2, ((NumberStruct) o_[0]).getInstance().intValue());
+        assertEq(2, ((NumberStruct) o_[0]).intValue());
     }
     @Test
     public void processEl977Test() {
@@ -5369,6 +5369,427 @@ public final class ExpressionLanguageTest {
     public void processEl1018Test() {
         Argument arg_ = directCalculate("Byte.parseByteOrNull(\"\")");
         assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl1019Test() {
+        Argument arg_ = directCalculate("((Byte)1).intValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1020Test() {
+        Argument arg_ = directCalculate("((Byte)1).longValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1021Test() {
+        Argument arg_ = directCalculate("((Byte)1).shortValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1022Test() {
+        Argument arg_ = directCalculate("((Byte)1).byteValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1023Test() {
+        Argument arg_ = directCalculate("((Byte)1).floatValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1024Test() {
+        Argument arg_ = directCalculate("((Byte)1).doubleValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+
+    @Test
+    public void processEl1025Test() {
+        Argument arg_ = directCalculate("((Short)1).intValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1026Test() {
+        Argument arg_ = directCalculate("((Short)1).longValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1027Test() {
+        Argument arg_ = directCalculate("((Short)1).shortValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1028Test() {
+        Argument arg_ = directCalculate("((Short)1).byteValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1029Test() {
+        Argument arg_ = directCalculate("((Short)1).floatValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1030est() {
+        Argument arg_ = directCalculate("((Short)1).doubleValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10251Test() {
+        Argument arg_ = directCalculate("((Character)1).intValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10261Test() {
+        Argument arg_ = directCalculate("((Character)1).longValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10271Test() {
+        Argument arg_ = directCalculate("((Character)1).shortValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10281Test() {
+        Argument arg_ = directCalculate("((Character)1).byteValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10291Test() {
+        Argument arg_ = directCalculate("((Character)1).floatValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10301est() {
+        Argument arg_ = directCalculate("((Character)1).doubleValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10252Test() {
+        Argument arg_ = directCalculate("((Float)1).intValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10262Test() {
+        Argument arg_ = directCalculate("((Float)1).longValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10272Test() {
+        Argument arg_ = directCalculate("((Float)1).shortValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10282Test() {
+        Argument arg_ = directCalculate("((Float)1).byteValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10292Test() {
+        Argument arg_ = directCalculate("((Float)1).floatValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10302est() {
+        Argument arg_ = directCalculate("((Float)1).doubleValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10253Test() {
+        Argument arg_ = directCalculate("((Double)1).intValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10263Test() {
+        Argument arg_ = directCalculate("((Double)1).longValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10273Test() {
+        Argument arg_ = directCalculate("((Double)1).shortValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10283Test() {
+        Argument arg_ = directCalculate("((Double)1).byteValue()");
+        assertEq(1, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10293Test() {
+        Argument arg_ = directCalculate("((Double)1).floatValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl10303est() {
+        Argument arg_ = directCalculate("((Double)1).doubleValue()");
+        assertEq(1.0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl103031est() {
+        Argument arg_ = directCalculate("1d == 1f");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103032est() {
+        Argument arg_ = directCalculate("1d == 1L");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103034est() {
+        Argument arg_ = directCalculate("1d == 2f");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103035est() {
+        Argument arg_ = directCalculate("1d == 2L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103036est() {
+        Argument arg_ = directCalculate("1f == 1d");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103037est() {
+        Argument arg_ = directCalculate("1f == 1L");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103038est() {
+        Argument arg_ = directCalculate("1f == 2d");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103039est() {
+        Argument arg_ = directCalculate("1f == 2L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103040est() {
+        Argument arg_ = directCalculate("1L == 1d");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103041est() {
+        Argument arg_ = directCalculate("1L == 1f");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl103042est() {
+        Argument arg_ = directCalculate("1L == 2d");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103043est() {
+        Argument arg_ = directCalculate("1L == 2f");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processElCmp1est() {
+        Argument arg_ = directCalculate("Number.compare(1L,2d)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp2est() {
+        Argument arg_ = directCalculate("Number.compare(1L,2f)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp3est() {
+        Argument arg_ = directCalculate("Number.compare(1f,2d)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp4est() {
+        Argument arg_ = directCalculate("Number.compare(1f,2f)");
+        assertEq(-1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp5est() {
+        Argument arg_ = directCalculate("Number.compare(2d,1L)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp6est() {
+        Argument arg_ = directCalculate("Number.compare(2f,1L)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp7est() {
+        Argument arg_ = directCalculate("Number.compare(2d,1f)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp8est() {
+        Argument arg_ = directCalculate("Number.compare(2f,1f)");
+        assertEq(1,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp9est() {
+        Argument arg_ = directCalculate("Number.compare(1L,1d)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp10est() {
+        Argument arg_ = directCalculate("Number.compare(1L,1f)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp11est() {
+        Argument arg_ = directCalculate("Number.compare(1d,1L)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processElCmp12est() {
+        Argument arg_ = directCalculate("Number.compare(1f,1L)");
+        assertEq(0,arg_.getNumber());
+    }
+
+    @Test
+    public void processEl1LtG11test() {
+        Argument arg_ = directCalculate("1L < 2f");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG2test() {
+        Argument arg_ = directCalculate("1L < 2d");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG13test() {
+        Argument arg_ = directCalculate("1d < 2L");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG4test() {
+        Argument arg_ = directCalculate("1f < 2L");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG15test() {
+        Argument arg_ = directCalculate("2L < 1f");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG6test() {
+        Argument arg_ = directCalculate("2L < 1d");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG17test() {
+        Argument arg_ = directCalculate("2d < 1L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG8test() {
+        Argument arg_ = directCalculate("2f < 1L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG19test() {
+        Argument arg_ = directCalculate("1L > 2f");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG10test() {
+        Argument arg_ = directCalculate("1L > 2d");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG111test() {
+        Argument arg_ = directCalculate("1d > 2L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG12test() {
+        Argument arg_ = directCalculate("1f > 2L");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl1LtG113test() {
+        Argument arg_ = directCalculate("2L > 1f");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG14test() {
+        Argument arg_ = directCalculate("2L > 1d");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG115test() {
+        Argument arg_ = directCalculate("2d > 1L");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl1LtG16test() {
+        Argument arg_ = directCalculate("2f > 1L");
+        assertTrue(arg_.isTrue());
     }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);

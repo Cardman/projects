@@ -720,7 +720,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
                 for (Argument a: _values) {
-                    int dim_ = ((NumberStruct)a.getStruct()).getInstance().intValue();
+                    int dim_ = ((NumberStruct)a.getStruct()).intValue();
                     if (dim_ < 0) {
                         _conf.setException(new ErrorStruct(_conf,size_));
                         return result_;

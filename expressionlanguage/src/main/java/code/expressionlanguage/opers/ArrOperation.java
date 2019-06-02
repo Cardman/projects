@@ -139,8 +139,7 @@ public final class ArrOperation extends ReflectableInvokingOperation implements 
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
         if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
-            Number value_ = ((NumberStruct)rightArg_.getStruct()).getInstance();
-            long valueUnwrapped_ = value_.longValue();
+            long valueUnwrapped_ = ((NumberStruct)rightArg_.getStruct()).longValue();
             if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                 right_.getResultClass().setUnwrapObject(primInt_);
                 convertNumber_ = true;

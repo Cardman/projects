@@ -588,9 +588,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         ip_.clearCurrentEls();
         String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).getInstance().longValue();
-        long toValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).getInstance().longValue();
-        stepValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).getInstance().longValue();
+        fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).longValue();
+        long toValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).longValue();
+        stepValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).longValue();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -682,8 +682,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Number element_ = ((NumberStruct) lv_.getStruct()).getInstance();
-        Number o_ = element_.longValue()+lv_.getStep();
+        Number o_ = ((NumberStruct) lv_.getStruct()).longValue()+lv_.getStep();
         lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_.longValue()), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }

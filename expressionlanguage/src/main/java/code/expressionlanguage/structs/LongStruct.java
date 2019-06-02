@@ -16,8 +16,33 @@ public final class LongStruct extends NumberStruct {
     }
 
     @Override
-    public Number getInstance() {
+    public double doubleValue() {
         return value;
+    }
+
+    @Override
+    public float floatValue() {
+        return value;
+    }
+
+    @Override
+    public long longValue() {
+        return value;
+    }
+
+    @Override
+    public int intValue() {
+        return (int) value;
+    }
+
+    @Override
+    public short shortValue() {
+        return (short) value;
+    }
+
+    @Override
+    public byte byteValue() {
+        return (byte) value;
     }
 
 }

@@ -43,7 +43,7 @@ public final class ExecDimensionArrayInstancing extends
         for (ExecOperationNode o: filter_) {
             NumberStruct n_ = (NumberStruct)_arguments.get(i_).getStruct();
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-            int dim_ = n_.getInstance().intValue();
+            int dim_ = n_.intValue();
             if (dim_ < 0) {
                 _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
                 return Argument.createVoid();

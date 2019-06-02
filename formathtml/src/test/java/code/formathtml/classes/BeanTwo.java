@@ -113,10 +113,6 @@ public class BeanTwo extends Bean {
         return Long.toString(_index);
     }
 
-    public void changeText(ValueChangeEvent _changing) {
-        newOld = StringList.concat(StringList.concat(((NumberStruct)_changing.getNewValue()).getInstance().toString()," ",((NumberStruct)_changing.getOldValue()).getInstance().toString()));
-    }
-
     public boolean isChecked() {
         return checked;
     }

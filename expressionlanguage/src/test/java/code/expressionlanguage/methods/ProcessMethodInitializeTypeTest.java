@@ -1353,8 +1353,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).getInstance());
-        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).getInstance());
+        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).intValue());
+        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).intValue());
     }
     @Test
     public void calculate67Test() {
@@ -1466,13 +1466,13 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((BooleanStruct)str_).getInstance();
     }
-    private Number getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
+    private int getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).getInstance();
+        return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).intValue();
     }
-    private Number getNumber(ContextEl _cont,String _className, String _fieldName) {
+    private int getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((NumberStruct)str_).getInstance();
+        return ((NumberStruct)str_).intValue();
     }
     private String getString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

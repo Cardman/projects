@@ -67,15 +67,18 @@ public final class Argument {
     public String getString() {
         return ((CharSequenceStruct)object).toStringInstance();
     }
-    public Number getNumber() {
-        return ((NumberStruct)object).getInstance();
+    public long getNumber() {
+        return ((NumberStruct)object).longValue();
+    }
+    public double getDouble() {
+        return ((NumberStruct)object).doubleValue();
     }
 
     public long getLong() {
-        return ((NumberStruct)object).getInstance().longValue();
+        return ((NumberStruct)object).longValue();
     }
     public int getInt() {
-        return ((NumberStruct)object).getInstance().intValue();
+        return ((NumberStruct)object).intValue();
     }
     public boolean isTrue() {
         return ((BooleanStruct)object).getInstance();

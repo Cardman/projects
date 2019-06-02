@@ -563,7 +563,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_, getAliasGet())) {
-                res_.setResult(StdStruct.wrapStd(((Countable) instance_).get(((NumberStruct) _args[0]).getInstance().intValue()), _cont));
+                res_.setResult(StdStruct.wrapStd(((Countable) instance_).get(((NumberStruct) _args[0]).intValue()), _cont));
                 return res_;
             }
         }
@@ -823,7 +823,7 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (_instance instanceof NumberStruct) {
-            res_.setResult(new StringStruct(Numbers.toString(((NumberStruct)_instance).getInstance())));
+            res_.setResult(new StringStruct(Numbers.toString(((NumberStruct)_instance).longValue())));
             return res_;
         }
         return getOtherName(_cont, _instance);
@@ -851,7 +851,7 @@ public abstract class BeanLgNames extends LgNames {
                     byte[] adapt_ = new byte[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().byteValue();
+                        adapt_[i_] = ((NumberStruct)s).byteValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -861,7 +861,7 @@ public abstract class BeanLgNames extends LgNames {
                     short[] adapt_ = new short[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().shortValue();
+                        adapt_[i_] = ((NumberStruct)s).shortValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -871,7 +871,7 @@ public abstract class BeanLgNames extends LgNames {
                     int[] adapt_ = new int[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().intValue();
+                        adapt_[i_] = ((NumberStruct)s).intValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -891,7 +891,7 @@ public abstract class BeanLgNames extends LgNames {
                     long[] adapt_ = new long[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().longValue();
+                        adapt_[i_] = ((NumberStruct)s).longValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -901,7 +901,7 @@ public abstract class BeanLgNames extends LgNames {
                     float[] adapt_ = new float[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().floatValue();
+                        adapt_[i_] = ((NumberStruct)s).floatValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -911,7 +911,7 @@ public abstract class BeanLgNames extends LgNames {
                     double[] adapt_ = new double[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).getInstance().doubleValue();
+                        adapt_[i_] = ((NumberStruct)s).doubleValue();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -921,7 +921,7 @@ public abstract class BeanLgNames extends LgNames {
                     String[] adapt_ = new String[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((CharSequenceStruct)s).getInstance().toString();
+                        adapt_[i_] = ((CharSequenceStruct)s).toStringInstance();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -957,13 +957,17 @@ public abstract class BeanLgNames extends LgNames {
                     if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
                         args_[i] = ((CharStruct) argStruct_).getChar();
                     } else {
-                        args_[i] = ((NumberStruct) argStruct_).getInstance();
+                        args_[i] = ((NumberStruct) argStruct_).longValue();
                     }
+                } else if (argStruct_ instanceof IntStruct) {
+                    args_[i] = ((NumberStruct) argStruct_).intValue();
+                } else if (argStruct_ instanceof DoubleStruct) {
+                    args_[i] = ((DoubleStruct) argStruct_).doubleValue();
                 } else {
                     if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
-                        args_[i] = (char) ((NumberStruct) argStruct_).getInstance().intValue();
+                        args_[i] = (char) ((NumberStruct) argStruct_).intValue();
                     } else {
-                        args_[i] = ((NumberStruct) argStruct_).getInstance();
+                        args_[i] = ((NumberStruct) argStruct_).longValue();
                     }
                 }
             } else if (argStruct_ instanceof StringStruct) {
@@ -991,7 +995,7 @@ public abstract class BeanLgNames extends LgNames {
                 byte[] adapt_ = new byte[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().byteValue();
+                    adapt_[i_] = ((NumberStruct)s).byteValue();
                     i_++;
                 }
                 return adapt_;
@@ -1000,7 +1004,7 @@ public abstract class BeanLgNames extends LgNames {
                 short[] adapt_ = new short[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().shortValue();
+                    adapt_[i_] = ((NumberStruct)s).shortValue();
                     i_++;
                 }
                 return adapt_;
@@ -1009,7 +1013,7 @@ public abstract class BeanLgNames extends LgNames {
                 int[] adapt_ = new int[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().intValue();
+                    adapt_[i_] = ((NumberStruct)s).intValue();
                     i_++;
                 }
                 return adapt_;
@@ -1027,7 +1031,7 @@ public abstract class BeanLgNames extends LgNames {
                 long[] adapt_ = new long[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().longValue();
+                    adapt_[i_] = ((NumberStruct)s).longValue();
                     i_++;
                 }
                 return adapt_;
@@ -1036,7 +1040,7 @@ public abstract class BeanLgNames extends LgNames {
                 float[] adapt_ = new float[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().floatValue();
+                    adapt_[i_] = ((NumberStruct)s).floatValue();
                     i_++;
                 }
                 return adapt_;
@@ -1045,7 +1049,7 @@ public abstract class BeanLgNames extends LgNames {
                 double[] adapt_ = new double[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).getInstance().doubleValue();
+                    adapt_[i_] = ((NumberStruct)s).doubleValue();
                     i_++;
                 }
                 return adapt_;
@@ -1054,7 +1058,7 @@ public abstract class BeanLgNames extends LgNames {
                 String[] adapt_ = new String[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((CharSequenceStruct)s).getInstance().toString();
+                    adapt_[i_] = ((CharSequenceStruct)s).toStringInstance();
                     i_++;
                 }
                 return adapt_;
@@ -1083,7 +1087,10 @@ public abstract class BeanLgNames extends LgNames {
             if (_args instanceof CharStruct) {
                 return ((CharStruct) _args).getChar();
             }
-            return ((NumberStruct) _args).getInstance();
+            if (_args instanceof IntStruct) {
+                return ((IntStruct) _args).intValue();
+            }
+            return ((NumberStruct) _args).longValue();
         }
         if (_args instanceof StringStruct) {
             return ((StringStruct)_args).getInstance();

@@ -62,11 +62,6 @@ public class BeanFive extends Bean {
         composite = _composite;
     }
 
-    public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(StringList.concat(((NumberStruct)_changing.getNewValue()).getInstance().toString()," ",((NumberStruct)_changing.getOldValue()).getInstance().toString()));
-        changing = _changing;
-    }
-
     public String invokeMethod(Long _index) {
         composite.getStrings().add(_index.toString());
         return "returned value";

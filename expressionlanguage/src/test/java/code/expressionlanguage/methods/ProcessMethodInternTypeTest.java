@@ -2584,7 +2584,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Outer..Inner", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, ((NumberStruct)field_).getInstance());
+        assertEq(5, ((NumberStruct)field_).intValue());
         field_ = str_.getParent();
         assertEq("pkg.Outer", field_.getClassName(cont_));
     }

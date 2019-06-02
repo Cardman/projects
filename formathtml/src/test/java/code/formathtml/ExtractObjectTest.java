@@ -671,7 +671,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(2L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).getInstance());
+        assertEq(2L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).intValue());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -775,7 +775,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(6L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "{composite.integer}+1")).getInstance());
+        assertEq(6L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "{composite.integer}+1")).intValue());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);

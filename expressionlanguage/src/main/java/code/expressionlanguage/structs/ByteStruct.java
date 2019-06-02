@@ -16,7 +16,32 @@ public final class ByteStruct extends NumberStruct {
     }
 
     @Override
-    public Number getInstance() {
+    public double doubleValue() {
+        return value;
+    }
+
+    @Override
+    public float floatValue() {
+        return value;
+    }
+
+    @Override
+    public long longValue() {
+        return value;
+    }
+
+    @Override
+    public int intValue() {
+        return value;
+    }
+
+    @Override
+    public short shortValue() {
+        return value;
+    }
+
+    @Override
+    public byte byteValue() {
         return value;
     }
 

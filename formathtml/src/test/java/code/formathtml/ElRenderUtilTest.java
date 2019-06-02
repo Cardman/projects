@@ -532,7 +532,7 @@ public final class ElRenderUtilTest {
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
-        assertEq(0, ((NumberStruct) (((ArrayStruct) res_).getInstance())[0]).getInstance());
+        assertEq(0, ((NumberStruct) (((ArrayStruct) res_).getInstance())[0]).intValue());
     }
     @Test
     public void processEl64Test() {
@@ -779,7 +779,7 @@ public final class ElRenderUtilTest {
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(1, o_.length);
-        assertEq(2, (((NumberStruct)o_[0]).getInstance()).intValue());
+        assertEq(2, ((NumberStruct)o_[0]).intValue());
     }
     @Test
     public void processEl97Test() {
@@ -790,8 +790,8 @@ public final class ElRenderUtilTest {
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
-        assertEq(3, (((NumberStruct)o_[0]).getInstance()).intValue());
-        assertEq(7, (((NumberStruct)o_[1]).getInstance()).intValue());
+        assertEq(3, ((NumberStruct)o_[0]).intValue());
+        assertEq(7, ((NumberStruct)o_[1]).intValue());
     }
     @Test
     public void processEl98Test() {
@@ -812,8 +812,8 @@ public final class ElRenderUtilTest {
         assertEq(ARR_INTEGER, res_.getClassName(context_.getContext()));
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
-        assertEq(3, (((NumberStruct)o_[0]).getInstance()).intValue());
-        assertEq(7, (((NumberStruct)o_[1]).getInstance()).intValue());
+        assertEq(3, ((NumberStruct)o_[0]).intValue());
+        assertEq(7, ((NumberStruct)o_[1]).intValue());
     }
     @Test
     public void processEl100Test() {
@@ -1081,7 +1081,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.25e0+.5",0, context_);
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
     @Test
     public void processEl126Test() {
@@ -1140,7 +1140,7 @@ public final class ElRenderUtilTest {
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertEq(ARR_INT, (((ArrayStruct) res_).getInstance())[0].getClassName(context_.getContext()));
         assertEq(1, (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance()).length);
-        assertEq(0, ((NumberStruct) (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance())[0]).getInstance());
+        assertEq(0, ((NumberStruct) (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance())[0]).intValue());
     }
     @Test
     public void processEl132Test() {
@@ -1193,14 +1193,14 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.2_5e0+.5",0, context_);
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
     @Test
     public void processEl139Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.25e0_0+.5",0, context_);
-        assertEq(0.25d, arg_.getNumber());
+        assertEq(0.25d, arg_.getDouble());
     }
     @Test
     public void processEl140Test() {
@@ -1214,231 +1214,231 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1.05e1",0, context_);
-        assertEq(10.5d, arg_.getNumber());
+        assertEq(10.5d, arg_.getDouble());
     }
     @Test
     public void processEl142Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1.00625e1",0, context_);
-        assertEq(10.0625d, arg_.getNumber());
+        assertEq(10.0625d, arg_.getDouble());
     }
     @Test
     public void processEl143Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("100.625e-1",0, context_);
-        assertEq(10.0625d, arg_.getNumber());
+        assertEq(10.0625d, arg_.getDouble());
     }
     @Test
     public void processEl144Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("100.625",0, context_);
-        assertEq(100.625d, arg_.getNumber());
+        assertEq(100.625d, arg_.getDouble());
     }
     @Test
     public void processEl145Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.0",0, context_);
-        assertEq(1.2345678912345678912e26, arg_.getNumber());
+        assertEq(1.2345678912345678912e26, arg_.getDouble());
     }
     @Test
     public void processEl147Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.",0, context_);
-        assertEq(1.2345678912345678912e26, arg_.getNumber());
+        assertEq(1.2345678912345678912e26, arg_.getDouble());
     }
     @Test
     public void processEl148Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.e-1",0, context_);
-        assertEq(1.2345678912345678912e25, arg_.getNumber());
+        assertEq(1.2345678912345678912e25, arg_.getDouble());
     }
     @Test
     public void processEl149Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.e1",0, context_);
-        assertEq(1.2345678912345678912e27, arg_.getNumber());
+        assertEq(1.2345678912345678912e27, arg_.getDouble());
     }
     @Test
     public void processEl150Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456.e1",0, context_);
-        assertEq(1234560, arg_.getNumber());
+        assertEq(1234560, arg_.getDouble());
     }
     @Test
     public void processEl151Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".078125e-1",0, context_);
-        assertEq(.078125e-1, arg_.getNumber());
+        assertEq(.078125e-1, arg_.getDouble());
     }
     @Test
     public void processEl152Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.0e-36",0, context_);
-        assertEq(1.2345678912345678912e-10, arg_.getNumber());
+        assertEq(1.2345678912345678912e-10, arg_.getDouble());
     }
     @Test
     public void processEl153Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("0.0e-36",0, context_);
-        assertEq(0.0, arg_.getNumber());
+        assertEq(0.0, arg_.getDouble());
     }
     @Test
     public void processEl154Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-0.0e-36",0, context_);
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
     @Test
     public void processEl155Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("0.625e-1",0, context_);
-        assertEq(0.0625, arg_.getNumber());
+        assertEq(0.0625, arg_.getDouble());
     }
     @Test
     public void processEl156Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".625e-1",0, context_);
-        assertEq(0.0625, arg_.getNumber());
+        assertEq(0.0625, arg_.getDouble());
     }
     @Test
     public void processEl157Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("0.625e1",0, context_);
-        assertEq(6.25, arg_.getNumber());
+        assertEq(6.25, arg_.getDouble());
     }
     @Test
     public void processEl158Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".625e1",0, context_);
-        assertEq(6.25, arg_.getNumber());
+        assertEq(6.25, arg_.getDouble());
     }
     @Test
     public void processEl159Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("0.625e0",0, context_);
-        assertEq(0.625, arg_.getNumber());
+        assertEq(0.625, arg_.getDouble());
     }
     @Test
     public void processEl160Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".625e0",0, context_);
-        assertEq(0.625, arg_.getNumber());
+        assertEq(0.625, arg_.getDouble());
     }
     @Test
     public void processEl161Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.625e1",0, context_);
-        assertEq(-6.25, arg_.getNumber());
+        assertEq(-6.25, arg_.getDouble());
     }
     @Test
     public void processEl162Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.6e1",0, context_);
-        assertEq(-6.0, arg_.getNumber());
+        assertEq(-6.0, arg_.getDouble());
     }
     @Test
     public void processEl163Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-.60e1",0, context_);
-        assertEq(-6.0, arg_.getNumber());
+        assertEq(-6.0, arg_.getDouble());
     }
     @Test
     public void processEl164Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".6e1",0, context_);
-        assertEq(6.0, arg_.getNumber());
+        assertEq(6.0, arg_.getDouble());
     }
     @Test
     public void processEl165Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl(".6e2",0, context_);
-        assertEq(60.0, arg_.getNumber());
+        assertEq(60.0, arg_.getDouble());
     }
     @Test
     public void processEl166Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("123456789123456789123456789.1e1",0, context_);
-        assertEq(1.2345678912345678912e27, arg_.getNumber());
+        assertEq(1.2345678912345678912e27, arg_.getDouble());
     }
     @Test
     public void processEl167Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("100.e-1",0, context_);
-        assertEq(10.0, arg_.getNumber());
+        assertEq(10.0, arg_.getDouble());
     }
     @Test
     public void processEl168Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-100.e-1",0, context_);
-        assertEq(-10.0, arg_.getNumber());
+        assertEq(-10.0, arg_.getDouble());
     }
     @Test
     public void processEl169Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-1.e1",0, context_);
-        assertEq(-10.0, arg_.getNumber());
+        assertEq(-10.0, arg_.getDouble());
     }
     @Test
     public void processEl170Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-1.",0, context_);
-        assertEq(-1.0, arg_.getNumber());
+        assertEq(-1.0, arg_.getDouble());
     }
     @Test
     public void processEl171Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1e-123456789123456789123",0, context_);
-        assertEq(0.0, arg_.getNumber());
+        assertEq(0.0, arg_.getDouble());
     }
     @Test
     public void processEl172Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-1e-123456789123456789123",0, context_);
-        assertEq(-0.0, arg_.getNumber());
+        assertEq(-0.0, arg_.getDouble());
     }
     @Test
     public void processEl173Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1e123456789123456789123",0, context_);
-        assertEq(Double.POSITIVE_INFINITY, arg_.getNumber());
+        assertEq(Double.POSITIVE_INFINITY, arg_.getDouble());
     }
     @Test
     public void processEl174Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("-1e123456789123456789123",0, context_);
-        assertEq(Double.NEGATIVE_INFINITY, arg_.getNumber());
+        assertEq(Double.NEGATIVE_INFINITY, arg_.getDouble());
     }
     @Test
     public void processEl175Test() {
@@ -1804,7 +1804,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(4, ((NumberStruct)lv_.getStruct()).intValue());
     }
     @Test
     public void processEl180Test() {
@@ -2032,7 +2032,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(4, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(3, arg_.getNumber());
     }
     @Test
@@ -2061,7 +2061,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(4, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(4, arg_.getNumber());
     }
     @Test
@@ -2092,7 +2092,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_[0]).getInstance());
+        assertEq(6, ((NumberStruct) in_[0]).intValue());
         assertEq(5, arg_.getNumber());
     }
     @Test
@@ -2123,7 +2123,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_[0]).getInstance());
+        assertEq(6, ((NumberStruct) in_[0]).intValue());
         assertEq(6, arg_.getNumber());
     }
     @Test
@@ -2152,7 +2152,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(5, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(5, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(5, arg_.getNumber());
     }
     @Test
@@ -2183,7 +2183,7 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(8, ((NumberStruct) in_[0]).getInstance());
+        assertEq(8, ((NumberStruct) in_[0]).intValue());
         assertEq(8, arg_.getNumber());
     }
     @Test
@@ -2216,8 +2216,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(12, ((NumberStruct)lv2_.getStruct()).getInstance());
-        assertEq(4, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(12, ((NumberStruct)lv2_.getStruct()).intValue());
+        assertEq(4, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(15, arg_.getNumber());
     }
     @Test
@@ -2250,8 +2250,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(12, ((NumberStruct)lv2_.getStruct()).getInstance());
-        assertEq(2, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(12, ((NumberStruct)lv2_.getStruct()).intValue());
+        assertEq(2, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(-9, arg_.getNumber());
     }
     @Test
@@ -2284,8 +2284,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(13, ((NumberStruct)lv2_.getStruct()).getInstance());
-        assertEq(13, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(13, ((NumberStruct)lv2_.getStruct()).intValue());
+        assertEq(13, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(13, arg_.getNumber());
     }
     @Test
@@ -2318,8 +2318,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(13, ((NumberStruct)lv2_.getStruct()).getInstance());
-        assertEq(13, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(13, ((NumberStruct)lv2_.getStruct()).intValue());
+        assertEq(13, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(13, arg_.getNumber());
     }
     @Test
@@ -2865,7 +2865,7 @@ public final class ElRenderUtilTest {
         addImportingPage(cont_);
         Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()", 0, cont_);
         assertEq("pkg.Ex",arg_.getString());
-        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
+        assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intValue());
     }
     @Test
     public void processEl240Test() {
@@ -3138,7 +3138,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
         assertEq(15, arg_.getNumber());
         NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        assertEq(14, res_.getInstance());
+        assertEq(14, res_.intValue());
     }
     @Test
     public void processEl253Test() {
@@ -3533,7 +3533,7 @@ public final class ElRenderUtilTest {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(arg_.isNull());
         assertNull(cont_.getContext().getException());
-        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).getInstance());
+        assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intValue());
     }
     @Test
     public void processEl262Test() {
@@ -5505,8 +5505,8 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv2_.getStruct()).getInstance());
-        assertEq(4, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(4, ((NumberStruct)lv2_.getStruct()).intValue());
+        assertEq(4, ((NumberStruct)lv_.getStruct()).intValue());
         assertEq(4, arg_.getNumber());
     }
     @Test
@@ -5693,7 +5693,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
-        assertEq(1, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(1, ((NumberStruct)lv_.getStruct()).intValue());
     }
     @Test
     public void processAffect2Test() {
@@ -5725,7 +5725,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.[0i]=12i", 0, context_);
-        assertEq(12, ((NumberStruct) in_[0]).getInstance());
+        assertEq(12, ((NumberStruct) in_[0]).intValue());
     }
     @Test
     public void processAffect4Test() {
@@ -5743,7 +5743,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.[0i][0i]=12i", 0, context_);
-        assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
     }
     @Test
     public void processAffect5Test() {
@@ -5757,7 +5757,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.+=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
-        assertEq(2, ((NumberStruct)lv_.getStruct()).getInstance());
+        assertEq(2, ((NumberStruct)lv_.getStruct()).intValue());
     }
     @Test
     public void processAffect6Test() {
@@ -5790,7 +5790,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("v;.[0i]-=12i", 0, context_);
-        assertEq(-12, ((NumberStruct) in_[0]).getInstance());
+        assertEq(-12, ((NumberStruct) in_[0]).intValue());
         assertEq(-12, res_.getNumber());
     }
     @Test
@@ -5809,7 +5809,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]-=12i", 0, context_);
-        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
         assertEq(-12, res_.getNumber());
     }
     @Test
@@ -5828,7 +5828,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]++", 0, context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
         assertEq(0, res_.getNumber());
     }
     @Test
@@ -5847,7 +5847,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]--", 0, context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
         assertEq(0, res_.getNumber());
     }
     @Test
@@ -5866,7 +5866,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("++v;.[0i][0i]", 0, context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
         assertEq(1, res_.getNumber());
     }
     @Test
@@ -5885,7 +5885,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = ElRenderUtil.processEl("--v;.[0i][0i]", 0, context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).getInstance());
+        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intValue());
         assertEq(-1, res_.getNumber());
     }
     @Test
@@ -5912,7 +5912,7 @@ public final class ElRenderUtilTest {
         NumberStruct arg_;
         ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=2i", 0, cont_);
         arg_ = (NumberStruct) cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        assertEq(2, arg_.getInstance());
+        assertEq(2, arg_.intValue());
     }
     @Test
     public void processAffect22Test() {
@@ -5991,7 +5991,7 @@ public final class ElRenderUtilTest {
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = ((ArrayStruct) arg_).getInstance();
         assertEq(1,res_.length);
-        assertEq(2,((NumberStruct)res_[0]).getInstance());
+        assertEq(2,((NumberStruct)res_[0]).intValue());
     }
     @Test
     public void processAffect26Test() {

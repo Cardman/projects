@@ -795,8 +795,7 @@ public abstract class LgNames {
             if (paramList_.isEmpty()) {
                 result_.setResult(new DoubleStruct(Math.random()));
             } else {
-                Number value_ = ((NumberStruct) args_[0]).getInstance();
-                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(value_.longValue())));
+                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(((NumberStruct) args_[0]).longValue())));
             }
             return result_;
         }

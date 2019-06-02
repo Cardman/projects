@@ -47,7 +47,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         Struct subField_;
         subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)subField_).getInstance());
+        assertEq(2, ((NumberStruct)subField_).intValue());
     }
     @Test
     public void instanceArgument96Test() {
@@ -84,7 +84,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         assertEq(ARR_NUMBER, subField_.getClassName(cont_));
         Struct[] nbs_ = ((ArrayStruct) subField_).getInstance();
         assertEq(1, nbs_.length);
-        assertEq(8, ((NumberStruct) nbs_[0]).getInstance());
+        assertEq(8, ((NumberStruct) nbs_[0]).intValue());
     }
     @Test
     public void instanceArgument97Test() {
@@ -125,12 +125,12 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         Struct subField_;
         subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)subField_).getInstance());
+        assertEq(1, ((NumberStruct)subField_).intValue());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq("pkg.ExTwo<java.lang.String>", field_.getClassName(cont_));
         subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)subField_).getInstance());
+        assertEq(2, ((NumberStruct)subField_).intValue());
     }
     @Test
     public void instanceArgument98Test() {
@@ -170,6 +170,6 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         Struct subSubField_;
         subSubField_ = ((FieldableStruct)subField_).getFields().getVal(new ClassField("pkg.ExThree", "inst"));
         assertEq(INTEGER, subSubField_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)subSubField_).getInstance());
+        assertEq(2, ((NumberStruct)subSubField_).intValue());
     }
 }

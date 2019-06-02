@@ -505,7 +505,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(3, ((NumberStruct)field_).getInstance());
+        assertEq(3, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument16Test() {
@@ -559,7 +559,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(3, ((NumberStruct)field_).getInstance());
+        assertEq(3, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument17Test() {
@@ -612,7 +612,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument18Test() {
@@ -665,7 +665,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument19Test() {
@@ -718,7 +718,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument20Test() {
@@ -772,7 +772,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument21Test() {
@@ -811,7 +811,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
     @Test
     public void calculateArgument22Test() {
@@ -901,7 +901,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).getInstance());
+        assertEq(2, ((NumberStruct)field_).intValue());
     }
 
     @Test
@@ -941,7 +941,7 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(4, ((NumberStruct)field_).getInstance());
+        assertEq(4, ((NumberStruct)field_).intValue());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("generic", ((StringStruct)field_).getInstance());
@@ -949,14 +949,14 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<java.lang.Integer>", str_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(5, ((NumberStruct)field_).getInstance());
+        assertEq(5, ((NumberStruct)field_).intValue());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
         assertSame(NullStruct.NULL_VALUE,field_);
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "THREE"));
         assertEq("pkg.Ex<pkg.ExTwo>", str_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, ((NumberStruct)field_).getInstance());
+        assertEq(6, ((NumberStruct)field_).intValue());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "second"));
         assertEq("pkg.ExTwo", field_.getClassName(cont_));
     }

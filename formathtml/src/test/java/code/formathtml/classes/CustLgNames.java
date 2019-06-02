@@ -241,7 +241,7 @@ public final class CustLgNames extends BeanLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getClassName(), aliasInts)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasAdd)) {
-                Integer arg_ = ((NumberStruct) _args[0]).getInstance().intValue();
+                Integer arg_ = ((NumberStruct) _args[0]).intValue();
                 ((Ints)instance_).add(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -266,7 +266,7 @@ public final class CustLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasRemoveAndExistAfter)) {
-                Integer arg_ = ((NumberStruct) _args[0]).getInstance().intValue();
+                Integer arg_ = ((NumberStruct) _args[0]).intValue();
                 res_.setResult(new BooleanStruct(((PickableList)instance_).removeAndExistAfter(arg_)));
                 return res_;
             }
@@ -313,25 +313,25 @@ public final class CustLgNames extends BeanLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenThree)) {
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasDouble())) {
-                    Double arg_ = ((NumberStruct) _args[0]).getInstance().doubleValue();
+                    Double arg_ = ((NumberStruct) _args[0]).doubleValue();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimDouble())) {
-                    Double arg_ = ((NumberStruct) _args[0]).getInstance().doubleValue();
+                    Double arg_ = ((NumberStruct) _args[0]).doubleValue();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenThree(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
@@ -344,13 +344,13 @@ public final class CustLgNames extends BeanLgNames {
                         res_.setResult(new StringStruct(resLoc_));
                         return res_;
                     }
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenFour(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenFour(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
@@ -358,13 +358,13 @@ public final class CustLgNames extends BeanLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenFive)) {
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimDouble())) {
-                    Double arg_ = ((NumberStruct) _args[0]).getInstance().doubleValue();
+                    Double arg_ = ((NumberStruct) _args[0]).doubleValue();
                     String resLoc_ = ((Composite)instance_).getOverridenFive(arg_.doubleValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
@@ -372,19 +372,19 @@ public final class CustLgNames extends BeanLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetOverridenSix)) {
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasPrimLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_.longValue());
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasLong())) {
-                    Long arg_ = ((NumberStruct) _args[0]).getInstance().longValue();
+                    Long arg_ = ((NumberStruct) _args[0]).longValue();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasDouble())) {
-                    Double arg_ = ((NumberStruct) _args[0]).getInstance().doubleValue();
+                    Double arg_ = ((NumberStruct) _args[0]).doubleValue();
                     String resLoc_ = ((Composite)instance_).getOverridenSix(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;
@@ -395,7 +395,7 @@ public final class CustLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasSetPrivateInt)) {
-                Integer arg_ = ((NumberStruct) _args[0]).getInstance().intValue();
+                Integer arg_ = ((NumberStruct) _args[0]).intValue();
                 ((Composite)instance_).setPrivateInt(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
