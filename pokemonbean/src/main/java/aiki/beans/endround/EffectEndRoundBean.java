@@ -163,11 +163,6 @@ public class EffectEndRoundBean extends CommonBean {
         return STATUS;
     }
 
-    private StringList getFailEndRoundReasons() {
-        EffectEndRound effect_ = effect;
-        return getReasons(effect_.getFailEndRound());
-    }
-
     public String getMove() {
         return move;
     }

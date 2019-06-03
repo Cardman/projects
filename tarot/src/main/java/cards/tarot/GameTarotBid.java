@@ -448,77 +448,22 @@ public final class GameTarotBid {
                                          byte _joueurs) {
         byte atouts_ = (byte) (_couleurs.getVal(CardTarot.excuse().couleur()).total() + _couleurs.getVal(Suit.TRUMP).total());
         byte atoutsMaitres_ = nbAtoutsMaitres(_couleurs);
+        int fr_ = 1;
+        int to_ = 6;
+        int nb_ = 14;
         if (_joueurs == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
-            if (atouts_ > 20) {
-                return atoutsMaitres_ > 0;
-            }
-            if (atouts_ > 18) {
-                return atoutsMaitres_ > 1;
-            }
-            if (atouts_ > 16) {
-                return atoutsMaitres_ > 2;
-            }
-            if (atouts_ > 14) {
-                return atoutsMaitres_ > 3;
-            }
-            if (atouts_ > 12) {
-                return atoutsMaitres_ > 4;
-            }
-            if (atouts_ > 10) {
-                return atoutsMaitres_ > 5;
-            }
-            if (atouts_ > 8) {
-                return atoutsMaitres_ > 6;
-            }
-            return false;
+            fr_ = 0;
+            to_ = 7;
+            nb_ = 20;
+        } else if (_joueurs == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreJoueurs()) {
+            fr_ = 2;
+        } else if (_joueurs == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
+            nb_ = 17;
         }
-        if (_joueurs == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
-            if (atouts_ > 15) {
-                return atoutsMaitres_ > 1;
+        for (int i = fr_; i < to_; i++) {
+            if (atouts_ > nb_ - 2 * i) {
+                return atoutsMaitres_ > i;
             }
-            if (atouts_ > 13) {
-                return atoutsMaitres_ > 2;
-            }
-            if (atouts_ > 11) {
-                return atoutsMaitres_ > 3;
-            }
-            if (atouts_ > 9) {
-                return atoutsMaitres_ > 4;
-            }
-            if (atouts_ > 7) {
-                return atoutsMaitres_ > 5;
-            }
-            return false;
-        }
-        if (_joueurs == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreJoueurs()) {
-            if (atouts_ > 10) {
-                return atoutsMaitres_ > 2;
-            }
-            if (atouts_ > 8) {
-                return atoutsMaitres_ > 3;
-            }
-            if (atouts_ > 6) {
-                return atoutsMaitres_ > 4;
-            }
-            if (atouts_ == 6) {
-                return atoutsMaitres_ > 5;
-            }
-            return false;
-        }
-        if (atouts_ == 15) {
-            return atoutsMaitres_ > 1;
-        }
-        if (atouts_ > 12) {
-            return atoutsMaitres_ > 2;
-        }
-        if (atouts_ > 10) {
-            return atoutsMaitres_ > 3;
-        }
-        if (atouts_ > 8) {
-            return atoutsMaitres_ > 4;
-        }
-        if (atouts_ > 6) {
-            return atoutsMaitres_ > 5;
         }
         return false;
     }
@@ -652,16 +597,7 @@ public final class GameTarotBid {
         if (maitreDansUneCouleur(_couleurs, new HandTarot().couleurs(), _noCouleur)) {
             return true;
         }
-        if (_nombreJoueurs == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
-            return nbCartesMaitresses(_couleurs, new HandTarot().couleurs(), _noCouleur) > 5;
-        }
-        if (_nombreJoueurs == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
-            return nbCartesMaitresses(_couleurs, new HandTarot().couleurs(), _noCouleur) > 4;
-        }
-        if (_nombreJoueurs == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreJoueurs()) {
-            return nbCartesMaitresses(_couleurs, new HandTarot().couleurs(), _noCouleur) > 2;
-        }
-        return nbCartesMaitresses(_couleurs, new HandTarot().couleurs(), _noCouleur) > 3;
+        return nbCartesMaitresses(_couleurs, new HandTarot().couleurs(), _noCouleur) > 8 - _nombreJoueurs;
     }
 
     static boolean pseudoMaitreDansUneCouleur(
@@ -677,14 +613,11 @@ public final class GameTarotBid {
             return true;
         }
         byte totalCouleur_ = (byte) HandTarot.couleurComplete(_noCouleur).total();
-        if (nombreCartesMaitresses_ > totalCouleur_/2) {
+        if (nombreCartesMaitresses_ >= totalCouleur_/2) {
             return true;
         }
         int nb_ = nombreCartesMaitresses_ + _couleurs.getVal(_noCouleur).total();
-        if (nb_ > totalCouleur_) {
-            return true;
-        }
-        return nb_ > totalCouleur_ - 1 && !_couleurs.getVal(CardTarot.EXCUSE.couleur()).estVide();
+        return nb_ >= totalCouleur_;
     }
 
     static int nbCartesMaitresses(EnumMap<Suit,HandTarot> _couleurs,
@@ -709,6 +642,9 @@ public final class GameTarotBid {
             }
         }
         if(cartesMaitressesToutesJoueesOuPossedes_) {
+            if (suites_.isEmpty()) {
+                return 0;
+            }
             return suites_.first().total();
         }
         return 0;

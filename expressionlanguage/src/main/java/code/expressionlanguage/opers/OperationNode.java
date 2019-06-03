@@ -28,7 +28,6 @@ public abstract class OperationNode implements Operable {
 
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
-    protected static final char DOT_VAR = '.';
     protected static final String VAR_ARG = "$vararg";
     protected static final String FIRST_OPT = "$firstopt";
 
@@ -709,7 +708,6 @@ public abstract class OperationNode implements Operable {
         }
         out_.setRealId(ctor_);
         out_.setConstId(cInfo_.getFormatted());
-        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
         return out_;
     }
 
