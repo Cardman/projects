@@ -10,7 +10,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class CombosBean extends CommonBean {
-    private final String combo="web/html/combo/combo.html";
+    static final String COMBO="web/html/combo/combo.html";
     private ComboDto combos;
 
     @Override
@@ -21,20 +21,6 @@ public class CombosBean extends CommonBean {
     private TreeMap<StringList, EffectCombo> getLocCombos() {
         DataBase data_ = (DataBase) getDataBase();
         TreeMap<StringList,EffectCombo> combos_;
-//        combos_ = new TreeMap<new>(new NaturalComparator<StringList>() {
-//            @Override
-//            public int compare(StringList _o1, StringList _o2) {
-//                int min_ = Math.min(_o1.size(), _o2.size());
-//                for (int i = List.FIRST_INDEX; i < min_; i++) {
-//                    int res_ = _o1.get(i).compareTo(_o2.get(i));
-//                    if (res_ != 0) {
-//                        return res_;
-//                    }
-//                }
-//                return _o1.size() - _o2.size();
-//            }
-//        });
-//        combos_ = new TreeMap<new>(new ComparatorStringList(data_, getLanguage(), true));
         combos_ = new TreeMap<StringList, EffectCombo>(new ComparatorStringList(data_, getLanguage(), false));
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -56,26 +42,8 @@ public class CombosBean extends CommonBean {
             key_.sortElts(new ComparatorTrStrings(translatedMoves_));
             combos_.add(key_);
         }
-//        combos_.sort(new NaturalComparator<StringList>() {
-//            @Override
-//            public int compare(StringList _o1, StringList _o2) {
-//                int min_ = Math.min(_o1.size(), _o2.size());
-//                for (int i = List.FIRST_INDEX; i < min_; i++) {
-//                    int res_ = _o1.get(i).compareTo(_o2.get(i));
-//                    if (res_ != 0) {
-//                        return res_;
-//                    }
-//                }
-//                return _o1.size() - _o2.size();
-//            }
-//        });
-//        combos_.sort(new ComparatorStringList(data_, getLanguage(), true));
         combos_.sortElts(new ComparatorStringList(data_, getLanguage(), false));
         return combos_;
-    }
-
-    public String getCombo() {
-        return combo;
     }
 
     public ComboDto getCombos() {

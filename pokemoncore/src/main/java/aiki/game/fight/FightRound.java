@@ -150,9 +150,9 @@ final class FightRound {
     }
 
     static NextUsers nextFighters(Fight _fight, EqList<TeamPosition> _fighters,DataBase _import) {
-        EqList<TeamPosition> cbts_ = new EqList<TeamPosition>();
         NextUsers nextFighters_;
         nextFighters_ = new NextUsers(new EqList<TeamPosition>(),new EqList<TeamPosition>());
+        EqList<TeamPosition> cbts_;
         if (_fighters.isEmpty()) {
             cbts_ = FightOrder.fightersHavingToAct(_fight,false,_import);
             cbts_ = FightOrder.fightersBeingHealed(_fight, cbts_);
@@ -181,7 +181,6 @@ final class FightRound {
             FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
             cbts_ = _fight.getOrderedFighters();
         } else {
-//            nextFighters_.setFirst(_fighters);
             nextFighters_ = new NextUsers(_fighters, nextFighters_.getItemUsers());
             return nextFighters_;
         }

@@ -735,10 +735,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (reste_.isZero()) {
             return _b.absNb();
         }
-        LgInt a_ = _a;
         LgInt b_ = _b;
         while (!reste_.isZero()) {
-            a_ = b_;
+            LgInt a_ = b_;
             b_ = reste_;
             reste_ = remain(a_, b_);
         }

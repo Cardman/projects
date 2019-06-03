@@ -200,7 +200,7 @@ public final class AikiBeansEffectsStd {
         CombosBean instance_ = (CombosBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,COMBO)) {
-            res_.setResult(new StringStruct(instance_.getCombo()));
+            res_.setResult(new StringStruct(CombosBean.COMBO));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBOS)) {

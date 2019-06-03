@@ -65,9 +65,6 @@ public final class AliasNumber {
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
         ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
         StandardType std_;
         StandardClass stdcl_;
         methods_ = new ObjectMap<MethodId, StandardMethod>();

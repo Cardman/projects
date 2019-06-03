@@ -328,10 +328,7 @@ public final class MainWindow extends NetGroupFrame {
         if (loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
                 String name_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
-//                String path_ = new File(name_).getAbsolutePath();
-//                path_ = StringList.replaceBackSlash(path_);
                 loadingConf.setLastSavedGame(name_);
-//                facade.save(path_);
                 save(name_);
                 if (!new File(name_).exists()) {
                     name_ = StringList.concat(ConstFiles.getInitFolder(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
@@ -535,17 +532,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         }
-//        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
-//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filterEndsWith(CLASS_FILES_EXT));
-//        ForwardingJavaCompiler.initialize(this, facade.isCompileFiles());
-//        for (EntryCust<String, String> e: facade.getData().getJavaBeans().entryList()) {
-//            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
-//        }
-//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filter(ext_));
-        //helpInfo.setText(messages.getVal(HELP_INFO));
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
-        //pack();
-        //DataBase.setLoading(false);
     }
 
     /**thread safe method*/
@@ -559,7 +546,6 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringList.replaceBackSlash(path_);
-            //startThread = true;
             StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
             DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_);
             if (!facade.isLoadedData()) {
@@ -569,20 +555,11 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         } else {
-            path_ = _configuration.getLastRom();
             DocumentReaderAikiCoreUtil.loadResources(facade);
             if (!facade.isLoading()) {
                 return;
             }
         }
-//        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
-//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filter(ext_));
-//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filterEndsWith(CLASS_FILES_EXT));
-//        ForwardingJavaCompiler.initialize(this, facade.isCompileFiles());
-//        for (EntryCust<String, String> e: facade.getData().getJavaBeans().entryList()) {
-//            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
-//        }
-        //helpInfo.setText(messages.getVal(HELP_INFO));
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
@@ -613,8 +590,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         facade.changeCamera();
         ThreadInvoker.invokeNow(new AfterLoadGame(this));
-        //pack();
-        //DataBase.setLoading(false);
     }
 
     public void afterLoadZip() {

@@ -1086,7 +1086,7 @@ public final class FileResolver {
                 break;
             }
             if (endInstruction_) {
-                after_ = processInstruction(_context, _input, currentChar_, currentParent_, bracedSwitchPart_, _braces, instructionLocation_, instruction_, _file, declType_, i_, _nextIndex, len_, enableByEndLine_);
+                after_ = processInstruction(_context, _input, currentChar_, currentParent_, bracedSwitchPart_, _braces, instructionLocation_, instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
                 if (after_ == null) {
                     badIndexes_.add(_nextIndex);
                     return _out;
@@ -1147,7 +1147,7 @@ public final class FileResolver {
     }
     private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
                                                             BracedBlock _currentParent, IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, Numbers<Integer> _braces,
-                                                            int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, int _len, boolean _enabledEnum) {
+                                                            int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
         Numbers<Integer> badIndexes_ = _input.getBadIndexes();
@@ -1183,7 +1183,7 @@ public final class FileResolver {
                             _file,
                             instructionLocation_, instructionRealLocation_,
                             found_, enabledSpaces_,
-                            currentParent_, _len, trimmedInstruction_,
+                            currentParent_, trimmedInstruction_,
                             AccessEnum.PUBLIC);
                     if (built_ == null) {
                         return null;
@@ -1371,7 +1371,7 @@ public final class FileResolver {
                                 _file,
                                 instructionLocation_, instructionRealLocation_,
                                 found_, enabledSpaces_,
-                                currentParent_, _len, trimmedInstruction_,
+                                currentParent_, trimmedInstruction_,
                                 AccessEnum.PACKAGE);
                         if (built_ == null) {
                             return null;
@@ -1493,7 +1493,7 @@ public final class FileResolver {
                                                boolean _defStatic, String _file,
                                                int _instructionLocation, int _instructionRealLocation, String _found,
                                                EnablingSpaces _enLoc,
-                                               BracedBlock _currentParent, int _len, String _trimmedInstruction,
+                                               BracedBlock _currentParent, String _trimmedInstruction,
                                                AccessEnum _defAccess) {
         //Inner types
         KeyWords keyWords_ = _context.getKeyWords();
@@ -1553,7 +1553,6 @@ public final class FileResolver {
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
-        int bk_;
         String beforeQu_ = _file.substring(locIndex_);
         if (ContextEl.startsWithKeyWord(beforeQu_,keyWordAbstract_)) {
             abstractType_ = true;
@@ -1574,7 +1573,7 @@ public final class FileResolver {
             locIndex_ = incrementRowCol(locIndex_, keyWordFinal_.length(), _file, enLoc_);
             locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
         }
-        String type_ = EMPTY_STRING;
+        String type_;
         int categoryOffset_ = locIndex_;
         String infoModifiers_ = _file.substring(locIndex_);
         if (ContextEl.startsWithKeyWord(infoModifiers_,keyWordClass_)) {
@@ -1590,15 +1589,14 @@ public final class FileResolver {
             type_ = keyWordAnnotation_;
             locIndex_ = incrementRowCol(locIndex_, keyWordAnnotation_.length(), _file, enLoc_);
         }
-        bk_ = locIndex_;
         locIndex_ = skipWhitespace(locIndex_, _file, enLoc_);
 
-        return tryBuiltTypeWithInfos(_file, _instructionLocation, _instructionRealLocation, _currentParent, _len, accessFct_, trFound_, annotationsIndexes_, annotations_, typeOffset_, locIndex_, enLoc_, badIndexes_, staticType_, abstractType_, finalType_, keyWordClass_, keyWordEnum_, keyWordInterface_, keyWordInterfaces_, bk_, type_, categoryOffset_);
+        return tryBuiltTypeWithInfos(_file, _instructionLocation, _instructionRealLocation, _currentParent, accessFct_, trFound_, annotationsIndexes_, annotations_, typeOffset_, locIndex_, enLoc_, badIndexes_, staticType_, abstractType_, finalType_, keyWordClass_, keyWordEnum_, keyWordInterface_, keyWordInterfaces_, type_, categoryOffset_);
     }
 
-    private static RootBlock tryBuiltTypeWithInfos(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len, AccessEnum _accessFct, int _trFound,
+    private static RootBlock tryBuiltTypeWithInfos(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, AccessEnum _accessFct, int _trFound,
                                                    Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, EnablingSpaces _enLoc, Numbers<Integer> _badIndexes,
-                                                   boolean _staticType, boolean _abstractType, boolean _finalType, String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, int _bk, String _type,
+                                                   boolean _staticType, boolean _abstractType, boolean _finalType, String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, String _type,
                                                    int _categoryOffset) {
         ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex, _file, _badIndexes, _enLoc);
         StringList importedTypes_ = p_.getImportedTypes();
@@ -1632,12 +1630,12 @@ public final class FileResolver {
             }
             locIndex_ = end_ + 1;
         }
-        return tryBuildType(_file, _instructionLocation, _instructionRealLocation, _currentParent, _len, _accessFct, _trFound, _annotationsIndexes, _annotations, _typeOffset, locIndex_, _enLoc, _badIndexes, _staticType, _abstractType, _finalType, _keyWordClass, _keyWordEnum, _keyWordInterface, _type, _categoryOffset, importedTypes_, offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
+        return tryBuildType(_file, _instructionLocation, _instructionRealLocation, _currentParent, _accessFct, _trFound, _annotationsIndexes, _annotations, _typeOffset, locIndex_, _enLoc, _staticType, _abstractType, _finalType, _keyWordClass, _keyWordEnum, _keyWordInterface, _type, _categoryOffset, importedTypes_, offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
     }
 
-    private static RootBlock tryBuildType(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, int _len,
+    private static RootBlock tryBuildType(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent,
                                           AccessEnum _accessFct, int _trFound, Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
-                                          EnablingSpaces _enLoc, Numbers<Integer> _badIndexes, boolean _staticType, boolean _abstractType, boolean _finalType,
+                                          EnablingSpaces _enLoc, boolean _staticType, boolean _abstractType, boolean _finalType,
                                           String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _type, int _categoryOffset, StringList _importedTypes,
                                           Numbers<Integer> _offsetsImports, StringList _staticInitInterfaces, Numbers<Integer> _staticInitInterfacesOffset) {
         int locIndex_ = skipWhitespace(_locIndex, _file, _enLoc);
@@ -1753,7 +1751,6 @@ public final class FileResolver {
             accessFct_ = AccessEnum.PRIVATE;
             word_ = keyWordPrivate_;
         } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordPackage_)) {
-            accessFct_ = AccessEnum.PACKAGE;
             word_ = keyWordPackage_;
         } else if (ContextEl.startsWithKeyWord(trimmedInstruction_,keyWordProtected_)) {
             accessFct_ = AccessEnum.PROTECTED;
@@ -2139,13 +2136,13 @@ public final class FileResolver {
             exp_ = exp_.substring(beg_ +1, lastPar_);
             conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
             if (child_ instanceof DoBlock) {
-                br_ = new DoWhileCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_ = new DoWhileCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             } else {
                 label_ = label_.substring(lastPar_ + 1);
                 if (!label_.isEmpty()) {
                     labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                 }
-                br_ = new WhileCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_ = new WhileCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordCatch_)) {
@@ -2188,7 +2185,7 @@ public final class FileResolver {
             if (!label_.isEmpty()) {
                 labelOff_ += StringList.getFirstPrintableCharIndex(label_);
             }
-            br_ = new IfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_ = new IfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordElseif_)) {
             String exp_ = _trimmedInstruction.substring(keyWordElseif_.length());
@@ -2202,7 +2199,7 @@ public final class FileResolver {
             }
             exp_ = exp_.substring(beg_ +1, lastPar_);
             conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-            br_ = new ElseIfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordElse_)) {
             String afterElse_ = _trimmedInstruction.substring(keyWordElse_.length());
@@ -2223,7 +2220,7 @@ public final class FileResolver {
                 }
                 exp_ = exp_.substring(beg_ +1, lastPar_);
                 conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-                br_ = new ElseIfCondition(_context, _currentParent, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                 _currentParent.appendChild(br_);
             } else {
                 br_ = new ElseCondition(new OffsetsBlock(_instructionRealLocation, _instructionLocation));

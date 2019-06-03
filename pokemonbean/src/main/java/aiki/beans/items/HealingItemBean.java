@@ -6,7 +6,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class HealingItemBean extends ItemBean {
-    private final String healingItemBean="web/html/items/healingitem.html";
+    static final String HEALING_ITEM_BEAN="web/html/items/healingitem.html";
     private TreeMap<String, Short> happiness;
     private boolean healingTeam;
 
@@ -38,10 +38,6 @@ public class HealingItemBean extends ItemBean {
         String item_ = happiness.getKey(_index.intValue());
         getForms().put(ITEM, item_);
         return BALL;
-    }
-
-    public String getHealingItemBean() {
-        return healingItemBean;
     }
 
     public boolean getHealingTeam() {

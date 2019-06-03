@@ -128,7 +128,6 @@ public final class ParsedArgument {
                 return out_;
             }
             boolean[] bits_ = NumParsers.parseLongBinaryToBits(nb_);
-            longValue_ = NumParsers.toLong(bits_);
             if (suffix_ == 'L' || suffix_ == 'l') {
                 longValue_ = NumParsers.toLong(bits_);
                 if (suffix_ == 'l') {

@@ -36,8 +36,6 @@ public class LgNamesUtils extends LgNames {
     private String aliasSleep;
     private String aliasRun;
     private String aliasIsAlive;
-    private String aliasIsInterrupted;
-    private String aliasInterrupt;
     private String aliasGetId;
     private String aliasGetPriority;
     private String aliasSetPriority;
@@ -100,11 +98,7 @@ public class LgNamesUtils extends LgNames {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasJoin, params_, getAliasBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasIsAlive, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasIsInterrupted, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasInterrupt, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasIsAlive, params_, getAliasBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetId, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -114,7 +108,7 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasSetPriority, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimLong());
-        method_ = new StandardMethod(aliasSleep, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasSleep, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasYield, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
@@ -395,41 +389,29 @@ public class LgNamesUtils extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                try {
-                    Thread.sleep(((NumberStruct)_args[0]).longValue());
-                    res_.setResult(new BooleanStruct(true));
-                } catch (Exception _0) {
-                    res_.setResult(new BooleanStruct(false));
+                if (!(_args[0] instanceof NumberStruct)) {
+                    res_.setError(getAliasNullPe());
+                    return res_;
                 }
+                sleep(((NumberStruct)_args[0]).longValue());
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                try {
-                    boolean alive_ = thread_.isAlive();
-                    thread_.join();
-                    res_.setResult(new BooleanStruct(alive_));
-                } catch (Exception _0) {
-                    res_.setResult(NullStruct.NULL_VALUE);
+                CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                boolean alive_ = cust_.isAlive(thread_);
+                while (cust_.isAlive(thread_)) {
+                    continue;
                 }
+                res_.setResult(new BooleanStruct(alive_));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                boolean alive_ = thread_.isAlive();
+                CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                boolean alive_ = cust_.isAlive(thread_);
                 res_.setResult(new BooleanStruct(alive_));
-                return res_;
-            }
-            if (StringList.quickEq(name_,aliasIsInterrupted)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                boolean alive_ = thread_.isInterrupted();
-                res_.setResult(new BooleanStruct(alive_));
-                return res_;
-            }
-            if (StringList.quickEq(name_,aliasInterrupt)) {
-                Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                thread_.interrupt();
-                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetId)) {
@@ -638,8 +620,6 @@ public class LgNamesUtils extends LgNames {
                 getAliasStart(),
                 getAliasIsAlive(),
                 getAliasJoin(),
-                getAliasIsInterrupted(),
-                getAliasInterrupt(),
                 getAliasGetId(),
                 getAliasGetPriority(),
                 getAliasSetPriority(),
@@ -725,18 +705,6 @@ public class LgNamesUtils extends LgNames {
     }
     public void setAliasIsAlive(String _aliasIsAlive) {
         aliasIsAlive = _aliasIsAlive;
-    }
-    public String getAliasIsInterrupted() {
-        return aliasIsInterrupted;
-    }
-    public void setAliasIsInterrupted(String _aliasIsInterrupted) {
-        aliasIsInterrupted = _aliasIsInterrupted;
-    }
-    public String getAliasInterrupt() {
-        return aliasInterrupt;
-    }
-    public void setAliasInterrupt(String _aliasInterrupt) {
-        aliasInterrupt = _aliasInterrupt;
     }
     public String getAliasGetId() {
         return aliasGetId;
@@ -867,8 +835,6 @@ public class LgNamesUtils extends LgNames {
             setAliasJoin("join");
             setAliasSleep("sleep");
             setAliasIsAlive("isAlive");
-            setAliasIsInterrupted("isInterrupted");
-            setAliasInterrupt("interrupt");
             setAliasGetId("getId");
             setAliasGetPriority("getPriority");
             setAliasSetPriority("setPriority");
@@ -896,8 +862,6 @@ public class LgNamesUtils extends LgNames {
             setAliasJoin("attendre");
             setAliasSleep("dormir");
             setAliasIsAlive("estActif");
-            setAliasIsInterrupted("estInterrompu");
-            setAliasInterrupt("interrompre");
             setAliasGetId("valId");
             setAliasGetPriority("valPriorite");
             setAliasSetPriority("majPriorite");
@@ -916,6 +880,12 @@ public class LgNamesUtils extends LgNames {
             setAliasWrite("ecrire");
             setAliasAppendToFile("ajouterFinFichier");
             setAliasIllegalThreadStateException("$coeur.IllegalEtatTache");
+        }
+    }
+    private static void sleep(long _time) {
+        long millis_ = System.currentTimeMillis();
+        while (millis_ + _time > System.currentTimeMillis()) {
+            continue;
         }
     }
 }

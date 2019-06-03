@@ -18,12 +18,6 @@ public final class CreateMainWindowParam extends Thread {
 
     private LoadingGame load;
 
-    private boolean error;
-
-    private boolean stopLoad;
-
-    private String fileName;
-
     private String path;
 
     private StringMap<Object> files;
@@ -38,8 +32,7 @@ public final class CreateMainWindowParam extends Thread {
 
     @Override
     public void run() {
-        boolean error_ = false;
-        String loadRom_ = DataBase.EMPTY_STRING;
+        String loadRom_;
         boolean stoppedLoading_ = false;
         FacadeGame fg_ = window.getFacade();
         String path_;
@@ -68,10 +61,7 @@ public final class CreateMainWindowParam extends Thread {
         }
         fg_.setLoading(false);
         window.setLoadingConf(load, false);
-        error = error_;
-        stopLoad = stoppedLoading_;
-        fileName = loadRom_;
-        SwingUtilities.invokeLater(new AfterLoadingBegin(window, stopLoad, error, fileName));
+        SwingUtilities.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 
     public MainWindow getWindow() {

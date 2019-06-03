@@ -18,6 +18,8 @@ public final class PaginationPokemonPlayer
         extends
         Pagination<SortingPokemonPlayer, PokemonPlayer> {
 
+    public static final int NB_COMPARATORS = 6;
+
     private LongFieldComparator cmpLevel = new LongFieldComparator();
 
     private StringFieldComparator cmpName = new StringFieldComparator();
@@ -39,8 +41,6 @@ public final class PaginationPokemonPlayer
     private StringMap<String> translatedItems;
 
     private StringMap<String> translatedAbilities;
-
-    private final int nbComparators = 6;
 
     private TreeMap<SortingPokemonPlayer, PokemonPlayer> pokemon = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
             new ComparatorPokemonPlayer());
@@ -180,7 +180,7 @@ public final class PaginationPokemonPlayer
     public void sort() {
         TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
                 new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
-                        cmpItem, cmpGender, cmpPossEvos, nbComparators));
+                        cmpItem, cmpGender, cmpPossEvos, NB_COMPARATORS));
         eggs_.putAllMap(pokemon);
         pokemon = eggs_;
     }
@@ -219,7 +219,4 @@ public final class PaginationPokemonPlayer
         return pokemon;
     }
 
-    public int getNbComparators() {
-        return nbComparators;
-    }
 }

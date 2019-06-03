@@ -16,6 +16,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -301,19 +302,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
-        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
-        boolean add_ = false;
-        AssignedBooleanVariables varsWhile_ = null;
-        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-            if (e.getKey() == this) {
-                add_ = true;
-                varsWhile_ = (AssignedBooleanVariables) e.getValue();
-            } else if (add_) {
-                allDesc_.put(e.getKey(), e.getValue());
-            }
-        }
+        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
+        AssignedVariables varsWhile_ = ass_.getVarsWhile();
+        IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         CustList<StringMap<AssignmentBefore>> mutableHypot_;

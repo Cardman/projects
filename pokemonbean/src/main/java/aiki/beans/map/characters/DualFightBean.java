@@ -6,8 +6,8 @@ import aiki.map.characters.TempTrainer;
 import code.images.BaseSixtyFourUtil;
 
 public class DualFightBean extends CommonBean {
-    private final String pageAlly = "web/html/map/elements/ally.html";
-    private final String pageTeam = "web/html/map/elements/pokemon_team.html";
+    static final String PAGE_ALLY = "web/html/map/elements/ally.html";
+    static final String PAGE_TEAM = "web/html/map/elements/pokemon_team.html";
     private TempTrainer trainer;
     private Ally ally;
     private String image;
@@ -36,16 +36,8 @@ public class DualFightBean extends CommonBean {
         return imageMiniSecond;
     }
 
-    public String getPageAlly() {
-        return pageAlly;
-    }
-
     public Ally getAlly() {
         return ally;
-    }
-
-    public String getPageTeam() {
-        return pageTeam;
     }
 
     public TempTrainer getTrainer() {

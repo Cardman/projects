@@ -18,12 +18,6 @@ public final class CreateMainWindowNoParam extends Thread {
 
     private LoadingGame load;
 
-    private boolean error;
-
-    private boolean stopLoad;
-
-    private String fileName;
-
     private String path;
 
     /**This class thread is independant from EDT*/
@@ -36,12 +30,8 @@ public final class CreateMainWindowNoParam extends Thread {
     @Override
     public void run() {
         FacadeGame fg_ = window.getFacade();
-        //Timer t_ = null;
         boolean stoppedLoading_ = false;
-        //t_ = new Timer(0, OpeningGame.getTaskPaintingLabel());
-        stoppedLoading_ = false;
-        boolean error_ = false;
-        String loadRom_ = DataBase.EMPTY_STRING;
+        String loadRom_;
         if (!load.isLoadLastRom()) {
             window.setLoadingConf(load, true);
             return;
@@ -61,9 +51,7 @@ public final class CreateMainWindowNoParam extends Thread {
         loadRom_ = path_;
         OpeningGame opening_ = new OpeningGame(window);
         fg_.setLoading(true);
-        //ThreadInvoker.invokeNow(opening_);
         opening_.start();
-//            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
         if (load.loadRomAndGame()) {
             window.loadRomGame(load, path, new StringMap<Object>(), false);
         } else {
@@ -73,11 +61,7 @@ public final class CreateMainWindowNoParam extends Thread {
             stoppedLoading_ = true;
         }
         fg_.setLoading(false);
-        //SoftApplication.setLocation(window, topLeft);
-        error = error_;
-        stopLoad = stoppedLoading_;
-        fileName = loadRom_;
         window.setLoadingConf(load, true);
-        SwingUtilities.invokeLater(new AfterLoadingBegin(window, stopLoad, error, fileName));
+        SwingUtilities.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 }

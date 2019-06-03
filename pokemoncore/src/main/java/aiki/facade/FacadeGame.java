@@ -933,10 +933,6 @@ public class FacadeGame implements WithMathFactory {
         firstPaginationPk.getCriteria().setMaxNbPossEvols(_minNbPossEvols);
     }
 
-    public int getNbComparatorsFirstBox() {
-        return firstPaginationPk.getNbComparators();
-    }
-
     public int getLineFirstBox() {
         return firstPaginationPk.getLine();
     }
@@ -1085,10 +1081,6 @@ public class FacadeGame implements WithMathFactory {
         setCmpStepsIncreasingEgg(SelectedBoolean.YES_AND_NO);
         setCmpNamePriorityEgg(0);
         setCmpStepsPriorityEgg(0);
-    }
-
-    public int getNbComparatorsEgg() {
-        return paginationEgg.getNbComparators();
     }
 
     public int getLineEgg() {
@@ -1363,7 +1355,7 @@ public class FacadeGame implements WithMathFactory {
     // %%%%begin%%%% functions for buy/sell items
     public void searchObjectToBuyOrSell(boolean _buy) {
         if (_buy) {
-            Coords coords_ = game.getPlayerCoords();
+            Coords coords_;
             coords_ = game.closestTile(data.getMap());
             City pl_ = (City) data.getMap().getPlaces()
                     .getVal(coords_.getNumberPlace());
@@ -1644,10 +1636,6 @@ public class FacadeGame implements WithMathFactory {
         return paginationItem.getLine();
     }
 
-    public int getNbComparatorsItem() {
-        return paginationItem.getNbComparators();
-    }
-
     public void clearFoundResultsHealingItems() {
         paginationHealingItem.clear();
     }
@@ -1678,7 +1666,7 @@ public class FacadeGame implements WithMathFactory {
 
     // %%%%begin%%%% functions for buy/use technical moves
     public void searchTmToBuy() {
-        Coords coords_ = game.getPlayerCoords();
+        Coords coords_;
         coords_ = game.closestTile(data.getMap());
         City pl_ = (City) data.getMap().getPlaces()
                 .getVal(coords_.getNumberPlace());
@@ -1944,10 +1932,6 @@ public class FacadeGame implements WithMathFactory {
 
     public int getLineMove() {
         return paginationMove.getLine();
-    }
-
-    public int getNbComparatorsMoves() {
-        return paginationMove.getNbComparators();
     }
 
     public void addTmToBuy() {
@@ -2649,10 +2633,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setLineHealingItem(int _line) {
         paginationHealingItem.setLine(_line);
-    }
-
-    public int getNbComparatorsHealingItem() {
-        return paginationHealingItem.getNbComparators();
     }
 
     public void clearFiltersHealingItem() {

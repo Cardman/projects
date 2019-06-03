@@ -8,6 +8,7 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.EmptyTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -15,8 +16,7 @@ import code.util.*;
 
 public final class DoWhileCondition extends Condition {
 
-    public DoWhileCondition(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
+    public DoWhileCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_condition, _offset);
     }
 
@@ -94,8 +94,10 @@ public final class DoWhileCondition extends Condition {
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         CustList<StringMap<AssignmentBefore>> mutableHypot_;
 
+        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,dBlock_);
+        IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
         AssignedVariables varsDo_;
-        varsDo_ = id_.getVal(dBlock_);
+        varsDo_ = ass_.getVarsWhile();
         AssignedBooleanVariables varsWhile_;
         varsWhile_ = (AssignedBooleanVariables) id_.getVal(this);
         fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an);
@@ -106,15 +108,6 @@ public final class DoWhileCondition extends Condition {
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an);
         varsDo_.getMutableLoopRootBefore().clear();
         varsDo_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
-        boolean add_ = false;
-        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-            if (e.getKey() == dBlock_) {
-                add_ = true;
-            } else if (add_) {
-                allDesc_.put(e.getKey(), e.getValue());
-            }
-        }
         processFinalFields(_an, allDesc_, varsDo_, fieldsHypot_);
         processFinalVars(_an, allDesc_, varsDo_, varsHypot_);
         processFinalMutableLoop(_an, allDesc_, varsDo_, mutableHypot_);

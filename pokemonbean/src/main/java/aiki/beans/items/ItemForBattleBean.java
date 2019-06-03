@@ -19,7 +19,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class ItemForBattleBean extends ItemBean {
-    private final String effectSendBean="web/html/sending/effsending.html";
+    static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
     private StringList typesPk;
     private StringList typesPkAbilities;
     private boolean cancelImmuType;
@@ -500,10 +500,6 @@ public class ItemForBattleBean extends ItemBean {
 
     public boolean getSending() {
         return sending;
-    }
-
-    public String getEffectSendBean() {
-        return effectSendBean;
     }
 
     public boolean getCancelImmuType() {

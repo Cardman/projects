@@ -32,7 +32,7 @@ import code.util.StringList;
 /**Thread safe class*/
 public final class GoSimulatePresident extends Thread implements GoSimulate {
 
-    private Games partieSimulee = new Games();
+    private Games partieSimulee;
     private HandPresident userHand = new HandPresident();
     private ContainerSimuPresident container;
     private LabelButton stopButton;

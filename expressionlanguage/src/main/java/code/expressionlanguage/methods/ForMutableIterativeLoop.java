@@ -14,6 +14,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -352,23 +353,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         vars_.getMutableLoopRoot().clear();
         vars_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignClassic(mutableRes_));
     }
-    @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void buildIncrementPart(Analyzable _an) {
         _an.setMerged(false);
         FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
-        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
-        boolean add_ = false;
-        IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables varsWhile_ = null;
-        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-            if (e.getKey() == this) {
-                add_ = true;
-                varsWhile_ = e.getValue();
-            } else if (add_) {
-                allDesc_.put(e.getKey(), e.getValue());
-            }
-        }
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
@@ -382,6 +369,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(static_));
         }
         _an.setMerged(false);
+    }
+    @Override
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
+        AssignedVariables varsWhile_ = ass_.getVarsWhile();
+        IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         CustList<StringMap<AssignmentBefore>> mutableHypot_;

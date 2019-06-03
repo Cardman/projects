@@ -59,7 +59,7 @@ import code.util.ints.Listable;
 
 public class FightHelpBean extends CommonBean {
 
-    private final String varBoost="b";
+    private static final String VAR_BOOST ="b";
     private StringList abilitiesSentBeginWeather;
     private StringList abilitiesSentBeginOther;
     private StringList abilitiesSentStatis;
@@ -230,13 +230,13 @@ public class FightHelpBean extends CommonBean {
         strongMove = data_.getStrongMovePower();
         StringMap<String> replace_ = new StringMap<String>();
         rateFormula = data_.getRateBoost();
-        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), varBoost);
-//        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, varBoost);
+        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+//        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormula = StringList.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
-        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), varBoost);
-//        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, varBoost);
+        replace_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
+//        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
         rateFormulaCh = StringList.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();

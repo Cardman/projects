@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class HealingStatusBean extends HealingItemBean {
-    private final String healingStatusBean="web/html/items/healingstatus.html";
+    static final String HEALING_STATUS_BEAN="web/html/items/healingstatus.html";
     private StringList status;
     private boolean healingKo;
 
@@ -35,10 +35,6 @@ public class HealingStatusBean extends HealingItemBean {
         String status_ = status.get(_index.intValue());
         getForms().put(STATUS, status_);
         return STATUS;
-    }
-
-    public String getHealingStatusBean() {
-        return healingStatusBean;
     }
 
     public boolean getHealingKo() {

@@ -78,7 +78,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 _cont.getClasses().addError(deadCode_);
             }
             Block n_ = en_.getFirstChild();
-            if (n_ != null) {
+            if (en_ instanceof BracedBlock && n_ != null) {
                 _cont.getAnalyzing().initLocalVars();
                 _cont.getAnalyzing().initVars();
                 _cont.getAnalyzing().initMutableLoopVars();
@@ -134,6 +134,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ == this) {
                     setAssignmentAfterCall(_cont, anEl_);
                     return;
+                }
+                if (par_ instanceof ForMutableIterativeLoop) {
+                    ((ForMutableIterativeLoop)par_).buildIncrementPart(_cont);
                 }
                 par_.setAssignmentAfter(_cont, anEl_);
                 parents_.removeLast();

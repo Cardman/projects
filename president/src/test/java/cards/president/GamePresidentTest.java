@@ -10,7 +10,6 @@ import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.consts.Constants;
 
 
 public class GamePresidentTest {

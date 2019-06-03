@@ -9,8 +9,7 @@ public final class ConverterBufferedImage {
     }
 
     public static int[][] stackImages(int[][] _back, int[][] _front) {
-        int[][] img_ = _front;
-        if (img_.length == 0) {
+        if (_front.length == 0) {
             return _back;
         }
         int w_ = Math.max(_back[0].length, _front[0].length);
@@ -56,7 +55,6 @@ public final class ConverterBufferedImage {
     public static EqList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {
         int h_ = _buffered.length;
         int w_ = _buffered[0].length;
-        int white_ = WHITE_RGB_INT;
         EqList<IntPoint> addedPixels_ = whitePixels(_hf,_buffered);
         EqList<IntPoint> list_ = new EqList<IntPoint>();
         for (int i = CustList.FIRST_INDEX; i < h_; i++) {
@@ -65,7 +63,7 @@ public final class ConverterBufferedImage {
                     continue;
                 }
                 int rgb_ = _buffered[i][j];
-                if (rgb_ != white_) {
+                if (rgb_ != WHITE_RGB_INT) {
                     continue;
                 }
                 list_.add(new IntPoint(j,i));
@@ -80,7 +78,7 @@ public final class ConverterBufferedImage {
         int white_ = WHITE_RGB_INT;
         EqList<IntPoint> addedPixels_ = new EqList<IntPoint>();
         EqList<IntPoint> currentPixels_ = new EqList<IntPoint>();
-        EqList<IntPoint> newPixels_ = new EqList<IntPoint>();
+        EqList<IntPoint> newPixels_;
         if (_hf) {
             if (_buffered[CustList.FIRST_INDEX][CustList.FIRST_INDEX] == white_) {
                 addedPixels_.add(new IntPoint((int)CustList.FIRST_INDEX, (int)CustList.FIRST_INDEX));

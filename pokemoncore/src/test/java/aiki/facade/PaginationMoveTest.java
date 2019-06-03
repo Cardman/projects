@@ -1229,10 +1229,4 @@ public class PaginationMoveTest extends InitializationDataBase {
         assertEq(-1, pagination_.getLine());
     }
 
-    @Test
-    public void cmpNbTest() {
-        PaginationMove pagination_;
-        pagination_ = new PaginationMove();
-        assertEq(6, pagination_.getNbComparators());
-    }
 }

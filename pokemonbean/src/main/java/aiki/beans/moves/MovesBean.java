@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class MovesBean extends CommonBean {
-    private final String movesBean="web/html/moves/moveline.html";
+    static final String MOVES_BEAN="web/html/moves/moveline.html";
     private CustList<MoveLine> moves = new CustList<MoveLine>();
     private StringList sortedMoves = new StringList();
     private String category = DataBase.EMPTY_STRING;
@@ -304,10 +304,6 @@ public class MovesBean extends CommonBean {
 
     public CustList<MoveLine> getMoves() {
         return moves;
-    }
-
-    public String getMovesBean() {
-        return movesBean;
     }
 
     public StringList getSortedMoves() {

@@ -18,6 +18,7 @@ public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
 	private final ConcurrentHashMap<Thread, String> threadIdDate = new ConcurrentHashMap<Thread, String>();
+	private final ConcurrentHashMap<Thread, Boolean> alive = new ConcurrentHashMap<Thread, Boolean>();
 	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
@@ -66,6 +67,7 @@ public class CustInitializer extends DefaultInitializer {
         }
         Thread thread_ = Thread.currentThread();
         threadIdDate.remove(thread_);
+        alive.remove(thread_);
     }
     public String getCurrentFileThread(RunnableContextEl _cont) {
         String toFile_ = getCurrentTreadIdDate();
@@ -78,6 +80,19 @@ public class CustInitializer extends DefaultInitializer {
     void putNewCustTreadIdDate(Thread _id, String _value) {
 		threadIdDate.put(_id,_value);
 	}
+
+	boolean isAlive(Thread _id) {
+        Boolean alive_ = alive.get(_id);
+        if (alive_ == null) {
+            return false;
+        }
+        return alive_;
+    }
+
+    public void initAlive(Thread _id) {
+        alive.put(_id, true);
+    }
+
     long increment() {
     	return countThreads.getAndIncrement();
     }

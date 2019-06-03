@@ -384,7 +384,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_HTML)) {
-            res_.setResult(new StringStruct(instance_.getEndRoundHtml()));
+            res_.setResult(new StringStruct(EffectEndRoundBean.END_ROUND_HTML));
             return res_;
         }
         return res_;
@@ -502,7 +502,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,END_ROUND_STATUS_HTML)) {
-            res_.setResult(new StringStruct(instance_.getEndRoundStatusHtml()));
+            res_.setResult(new StringStruct(EffectEndRoundStatusBean.END_ROUND_STATUS_HTML));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);

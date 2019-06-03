@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.PaginationMove;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.gui.MainWindow;
@@ -153,10 +154,9 @@ public final class PaginatorMove extends Paginator {
         cmpPriceSorting = new ComboBoxSelectedBool();
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        int nb_ = getFacade().getNbComparatorsMoves();
+        int nb_ = PaginationMove.NB_CMPARATORS;
         for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
-//            cmpTypesPrio.addItem(i);
             cmpTargetsPrio.addItem(i);
             cmpDamagingPrio.addItem(i);
             cmpPrioPrio.addItem(i);

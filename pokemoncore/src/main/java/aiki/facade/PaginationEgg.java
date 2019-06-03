@@ -14,13 +14,13 @@ import code.util.TreeMap;
 public final class PaginationEgg extends
         Pagination<SortingEgg, Egg> {
 
+    public static final int NB_COMPARATORS = 2;
+
     private LongFieldComparator cmpSteps = new LongFieldComparator();
 
     private StringFieldComparator cmpName = new StringFieldComparator();
 
     private StringMap<String> translatedPokemon;
-
-    private final int nbComparators = 2;
 
     private TreeMap<SortingEgg, Egg> eggs = new TreeMap<SortingEgg, Egg>(
             new ComparatorEgg());
@@ -104,7 +104,7 @@ public final class PaginationEgg extends
     @Override
     public void sort() {
         TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
-                new ComparatorEgg(cmpSteps, cmpName, nbComparators));
+                new ComparatorEgg(cmpSteps, cmpName, NB_COMPARATORS));
         eggs_.putAllMap(eggs);
         eggs = eggs_;
     }
@@ -127,7 +127,4 @@ public final class PaginationEgg extends
         return eggs;
     }
 
-    public int getNbComparators() {
-        return nbComparators;
-    }
 }

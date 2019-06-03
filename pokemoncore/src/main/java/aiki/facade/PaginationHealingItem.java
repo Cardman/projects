@@ -28,6 +28,8 @@ import code.util.ints.Listable;
 public final class PaginationHealingItem extends
         Pagination<SortingHealingItem, String> {
 
+    public static final int NB_COMPARATORS = 13;
+
     private StringFieldComparator cmpName = new StringFieldComparator();
 
     private StringFieldComparator cmpDescription = new StringFieldComparator();
@@ -63,8 +65,6 @@ public final class PaginationHealingItem extends
     private EnumMap<Statistic, String> translatedStatistics;
 
     private Inventory inventory;
-
-    private final int nbComparators = 13;
 
     private TreeMap<SortingHealingItem, String> items = new TreeMap<SortingHealingItem, String>(
             new ComparatorHealingItem());
@@ -314,7 +314,7 @@ public final class PaginationHealingItem extends
                 new ComparatorHealingItem(cmpName, cmpDescription, cmpPrice,
                         cmpNbHealedStatus, cmpRelativeRateHp, cmpHp, cmpRateHp,
                         cmpRelativeRatePp, cmpPp, cmpHealOneMove,
-                        cmpStatistics, cmpKo, cmpNumber, nbComparators));
+                        cmpStatistics, cmpKo, cmpNumber, NB_COMPARATORS));
         items_.putAllMap(items);
         items = items_;
     }
@@ -369,10 +369,6 @@ public final class PaginationHealingItem extends
 
     public BooleanFieldComparator getCmpKo() {
         return cmpKo;
-    }
-
-    public int getNbComparators() {
-        return nbComparators;
     }
 
     @Override

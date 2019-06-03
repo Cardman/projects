@@ -30,7 +30,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 
 public class AbilityBean extends CommonBean {
-    private final String effectSendBean="web/html/sending/effsending.html";
+    static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
     private String name;
     private String displayName;
     private boolean achievedDisappearedPk;
@@ -1139,10 +1139,6 @@ public class AbilityBean extends CommonBean {
 
     public boolean getSending() {
         return sending;
-    }
-
-    public String getEffectSendBean() {
-        return effectSendBean;
     }
 
     public boolean getAchievedDisappearedPk() {

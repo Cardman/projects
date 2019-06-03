@@ -41,12 +41,11 @@ final class FightArtificialIntelligence {
         _fight.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>());
         StringMap<EqList<TargetCoords>> possibleChoicesAlly_ = new StringMap<EqList<TargetCoords>>();
         TeamPosition userPk_ = new TeamPosition();
-        TeamPosition partner_ = new TeamPosition();
         EqList<TeamPosition> partners_ = FightOrder.notKoFrontFightersBelongingToUser(_fight,false);
         if (partners_.isEmpty()) {
             return;
         }
-        partner_ = partners_.first();
+        TeamPosition partner_ = partners_.first();
         for (String m: FightFacade.allowedMovesNotEmpty(_fight,partner_, _import)) {
             MoveData fAtt_ = _import.getMove(m);
             if (!(fAtt_ instanceof DamagingMoveData)) {

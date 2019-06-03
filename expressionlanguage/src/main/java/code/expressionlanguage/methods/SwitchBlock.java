@@ -193,9 +193,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
+        StringMap<SimpleAssignment> after_;
+        CustList<StringMap<SimpleAssignment>> afterVars_;
+        CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ =buildAssFieldsAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _an, _anEl);

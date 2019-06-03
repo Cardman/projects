@@ -2965,7 +2965,6 @@ public final class GameBelote {
                 }
                 return PossibleTrickWinner.UNKNOWN;
             }
-            ramasseurVirtuelEgalCertain_=false;
             for(byte joueur_:joueursNonConfianceNonJoue_) {
                 if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
                     ramasseurVirtuelEgalCertain_ = true;

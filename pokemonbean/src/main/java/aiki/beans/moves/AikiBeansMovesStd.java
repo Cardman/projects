@@ -644,7 +644,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getMovesBean()));
+            res_.setResult(new StringStruct(MovesBean.MOVES_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SORTED_MOVES)) {

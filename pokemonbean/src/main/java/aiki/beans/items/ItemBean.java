@@ -7,9 +7,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class ItemBean extends CommonBean {
-    private final String itemBean="web/html/items/item.html";
+    static final String ITEM_BEAN="web/html/items/item.html";
 
-    private Item item;
     private String name;
     private String displayName;
     private int price;
@@ -29,10 +28,9 @@ public class ItemBean extends CommonBean {
         }
         itemImage = BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(name));
         displayName = translationsItems_.getVal(name);
-        item = data_.getItem(name);
-        price = item.getPrice();
-//        description = translationsClasses_.getVal(item.getClass().getName());
-        description = translationsClasses_.getVal(item.getItemType());
+        Item item_ = data_.getItem(name);
+        price = item_.getPrice();
+        description = translationsClasses_.getVal(item_.getItemType());
     }
     public String clickItems() {
         if (!getForms().contains(ITEMS_SET)) {
@@ -60,10 +58,6 @@ public class ItemBean extends CommonBean {
 
     public String getDisplayName() {
         return displayName;
-    }
-
-    public String getItemBean() {
-        return itemBean;
     }
 
     public String getItemImage() {

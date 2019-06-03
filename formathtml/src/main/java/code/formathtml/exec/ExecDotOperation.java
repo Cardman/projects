@@ -21,14 +21,14 @@ public final class ExecDotOperation extends ExecReflectableOpering {
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<ExecDynOperationNode> chidren_ = getChildrenNodes();
-        boolean simple_ = false;
+        boolean simple_;
         if (getParent() instanceof ExecSemiAffectationOperation) {
             simple_ = false;
         } else if (getParent() instanceof ExecAffectationOperation) {
             ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
-            if (aff_.getSettable() == chidren_.last()) {
-                simple_ = true;
-            }
+            simple_ = aff_.getSettable() == chidren_.last();
+        } else {
+            simple_ = false;
         }
         if (simple_) {
             setQuickSimpleArgument(chidren_.last().getArgument(), _conf);

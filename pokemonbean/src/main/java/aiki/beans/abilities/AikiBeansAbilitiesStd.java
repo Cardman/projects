@@ -672,7 +672,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getEffectSendBean()));
+            res_.setResult(new StringStruct(AbilityBean.EFFECT_SEND_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ACHIEVED_DISAPPEARED_PK)) {

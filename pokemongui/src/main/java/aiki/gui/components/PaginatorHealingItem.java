@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.PaginationHealingItem;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
@@ -217,7 +218,7 @@ public final class PaginatorHealingItem extends Paginator {
         cmpNbStatusSorting = new ComboBoxSelectedBool();
         cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        int nb_ = getFacade().getNbComparatorsHealingItem();
+        int nb_ = PaginationHealingItem.NB_COMPARATORS;
         for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
             cmpDescriptionPrio.addItem(i);
@@ -770,13 +771,6 @@ public final class PaginatorHealingItem extends Paginator {
         getResultsLabels().clear();
         getHeader().clearStrings();
         int side_ = getFacade().getMap().getSideLength();
-        int nameWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
-        int numberWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
-        int width_ = side_+nameWidth_+numberWidth_;
-        width_ += getHeader().width(StringList.concat(getMessages().getVal(PRICE),SPACES));
-        if (width_ < getHeader().width(getMessages().getVal(DESCRIPTION))) {
-            width_ = getHeader().width(getMessages().getVal(DESCRIPTION));
-        }
         getHeader().addString(StringList.concat(getMessages().getVal(NAME),SPACES), side_);
         getHeader().addString(getMessages().getVal(DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
 

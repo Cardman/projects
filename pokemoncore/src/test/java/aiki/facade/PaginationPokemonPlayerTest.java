@@ -2075,12 +2075,6 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
-    @Test
-    public void cmpNbTest() {
-        PaginationPokemonPlayer pagination_;
-        pagination_ = new PaginationPokemonPlayer();
-        assertEq(6, pagination_.getNbComparators());
-    }
     private static SortingPokemonPlayer toSorting(
             PokemonPlayer _pk, int _index) {
         SortingPokemonPlayer sorting_;

@@ -9,8 +9,6 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.ints.Equallable;
 
 

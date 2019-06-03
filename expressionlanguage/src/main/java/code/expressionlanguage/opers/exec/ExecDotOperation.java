@@ -24,11 +24,7 @@ public final class ExecDotOperation extends ExecReflectableOpering {
             simple_ = false;
         } else if (getParent() instanceof ExecAffectationOperation) {
             ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
-            if (aff_.getSettable() == chidren_.last()) {
-                simple_ = true;
-            } else {
-                simple_ = false;
-            }
+            simple_ = aff_.getSettable() == chidren_.last();
         } else {
             simple_ = false;
         }

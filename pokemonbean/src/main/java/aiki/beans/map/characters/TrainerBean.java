@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public class TrainerBean extends CommonBean {
-    private final String pageTeam = "web/html/map/elements/pokemon_team.html";
+    static final String PAGE_TEAM = "web/html/map/elements/pokemon_team.html";
     private Trainer trainer;
     private String move = DataBase.EMPTY_STRING;
     private String image;
@@ -60,10 +60,6 @@ public class TrainerBean extends CommonBean {
 
     public String getImageMini() {
         return imageMini;
-    }
-
-    public String getPageTeam() {
-        return pageTeam;
     }
 
     public Trainer getTrainer() {

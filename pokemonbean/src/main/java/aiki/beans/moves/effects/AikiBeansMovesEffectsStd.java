@@ -1393,7 +1393,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getEffectBean()));
+            res_.setResult(new StringStruct(EffectBean.EFFECT_BEAN));
             return res_;
         }
         return res_;

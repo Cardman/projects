@@ -4,7 +4,6 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.consts.Constants;
 
 public final class CheckerGameTarotWithRules {
 

@@ -2460,14 +2460,12 @@ public final class DocumentBuilder {
         int begin_ = _att.getBegin();
         int end_ = _att.getEnd();
         int i_ = begin_;
-        int delta_ = 0;
-        delta_ = begin_ - _beginNode;
-        int beginEscaped_ = i_;
+        int delta_ = begin_ - _beginNode;
         NatTreeMap<Integer, Integer> indexes_;
         indexes_ = new NatTreeMap<Integer, Integer>();
         while (i_ < end_) {
             if (_html.charAt(i_) == ENCODED) {
-                beginEscaped_ = i_;
+                int beginEscaped_ = i_;
                 i_++;
                 while (_html.charAt(i_) != END_ESCAPED) {
                     i_++;

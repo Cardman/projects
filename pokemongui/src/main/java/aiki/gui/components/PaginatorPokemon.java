@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.PaginationPokemonPlayer;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
@@ -148,7 +149,7 @@ public final class PaginatorPokemon extends Paginator {
         cmpPossEvosSorting = new ComboBoxSelectedBool();
         cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        int nb_ = getFacade().getNbComparatorsFirstBox();
+        int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;
         for (int i = CustList.FIRST_INDEX; i <= nb_; i++) {
             cmpNamePrio.addItem(i);
             cmpAbilityPrio.addItem(i);

@@ -824,7 +824,7 @@ public final class AikiBeansItemsStd {
         HealingItemBean instance_ = (HealingItemBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,HEALING_ITEM_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getHealingItemBean()));
+            res_.setResult(new StringStruct(HealingItemBean.HEALING_ITEM_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALING_TEAM)) {
@@ -865,7 +865,7 @@ public final class AikiBeansItemsStd {
         HealingStatusBean instance_ = (HealingStatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,HEALING_STATUS_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getHealingStatusBean()));
+            res_.setResult(new StringStruct(HealingStatusBean.HEALING_STATUS_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEALING_KO)) {
@@ -887,7 +887,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEM_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getItemBean()));
+            res_.setResult(new StringStruct(ItemBean.ITEM_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NAME)) {
@@ -934,7 +934,7 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECT_SEND_BEAN)) {
-            res_.setResult(new StringStruct(instance_.getEffectSendBean()));
+            res_.setResult(new StringStruct(ItemForBattleBean.EFFECT_SEND_BEAN));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_IMMU_TYPE)) {

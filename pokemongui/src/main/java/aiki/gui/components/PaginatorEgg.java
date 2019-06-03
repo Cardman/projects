@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
+import aiki.facade.PaginationEgg;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
@@ -78,7 +79,7 @@ public final class PaginatorEgg extends Paginator {
         cmpStepsSorting = new ComboBoxSelectedBool();
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        int nbCmp_ = getFacade().getNbComparatorsEgg();
+        int nbCmp_ = PaginationEgg.NB_COMPARATORS;
         for (int i = CustList.FIRST_INDEX; i <= nbCmp_; i++) {
             cmpNamePrio.addItem(i);
             cmpStepsPrio.addItem(i);

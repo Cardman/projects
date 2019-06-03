@@ -13,7 +13,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class EffectEndRoundBean extends CommonBean {
-    private final String endRoundHtml="web/html/endround/eff.html";
+    static final String END_ROUND_HTML="web/html/endround/eff.html";
 
     private EffectEndRound effect;
     private long index;
@@ -30,7 +30,6 @@ public class EffectEndRoundBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        //super.beforeDisplaying();
         DataBase data_ = (DataBase) getDataBase();
         element = data_.getEvtEndRound().get((int) index);
         move = DataBase.EMPTY_STRING;
@@ -39,34 +38,18 @@ public class EffectEndRoundBean extends CommonBean {
         item = DataBase.EMPTY_STRING;
         moves = new StringList();
         if (element.getEndRoundType() == EndTurnType.ATTAQUE) {
-//            move = element.getElement();
             move = data_.translateMove(element.getElement());
-//            for (Effect e: data_.getMove(move).getEffects()) {
-//                if (e instanceof EffectEndRound) {
-//                    effect_ = (EffectEndRound) e;
-//                    break;
-//                }
-//            }
         } else if (element.getEndRoundType() == EndTurnType.CAPACITE) {
             ability = data_.translateAbility(element.getElement());
-            //effect_ = data_.getAbility(ability).getEffectEndRound().first();
         } else if (element.getEndRoundType() == EndTurnType.OBJET) {
             item = data_.translateItem(element.getElement());
-//            Item it_ = data_.getItem(item);
-//            ItemForBattle itBat_ = (ItemForBattle) it_;
-//            effect_ = itBat_.getEffectEndRound().first();
         } else if (element.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
             StringList moves_ = StringList.splitStrings(element.getElement(), DataBase.SEPARATOR_MOVES);
             for (String m: moves_) {
                 moves.add(data_.translateMove(m));
             }
-//            Map<String,String> translatedMoves_;
-//            translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-//            moves.sort(new ComparatorTrString<>(translatedMoves_));
-            //effect_ = data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().first();
         } else {
             status = data_.translateStatus(element.getElement());
-            //effect_ = data_.getStatus(status).getEffectEndRound().first();
         }
         if (element.isIncrementNumberOfRounds()) {
             endRoundRank = element.getNumberIncrement();
@@ -83,24 +66,8 @@ public class EffectEndRoundBean extends CommonBean {
         }
         effect = effect_;
         endRoundRank = element.getNumberIncrement();
-//        Map<String,String> locHtml_ = new Map<>();
-//        locHtml_.put(EAMP, E_AMP);
-//        locHtml_.put(EGT, E_GT);
-//        locHtml_.put(ELT, E_LT);
-//        locHtml_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
-//        locHtml_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        StringList reasons_ = CommonBean.getFormattedReasons(data_, getFailEndRoundReasons(), getLanguage());
+        StringList reasons_;
         reasons_ = new StringList();
-//        for (String f: getFailEndRoundReasons()) {
-//            String formula_ = data_.getFormula(f, getLanguage());
-////            formula_ = StringList.replace(formula_, locHtml_);
-////            formula_ = formula_.replace(EAMP, E_AMP);
-////            formula_ = formula_.replace(EGT, E_GT);
-////            formula_ = formula_.replace(ELT, E_LT);
-////            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
-////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-//            reasons_.add(formula_);
-//        }
         reasonsEndRound = reasons_;
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
@@ -142,9 +109,6 @@ public class EffectEndRoundBean extends CommonBean {
             effect_ = itBat_.getEffectEndRound().first();
         } else if (element_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
             StringList moves_ = StringList.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
-//            if (data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().isEmpty()) {
-//                return null;
-//            }
             effect_ = data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().first();
         } else {
             String status_ = element_.getElement();
@@ -244,7 +208,4 @@ public class EffectEndRoundBean extends CommonBean {
         return mapVarsFailEndRound;
     }
 
-    public String getEndRoundHtml() {
-        return endRoundHtml;
-    }
 }

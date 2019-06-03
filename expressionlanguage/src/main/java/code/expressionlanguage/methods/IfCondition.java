@@ -21,8 +21,7 @@ public final class IfCondition extends Condition implements BlockCondition {
     private String label;
     private int labelOffset;
 
-    public IfCondition(ContextEl _importingPage,
-            BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
+    public IfCondition(OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_condition, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
@@ -66,9 +65,9 @@ public final class IfCondition extends Condition implements BlockCondition {
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
-        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
+        StringMap<SimpleAssignment> after_;
+        CustList<StringMap<SimpleAssignment>> afterVars_;
+        CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ = buildAssFieldsAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(true, new CustList<Block>(this), _an, _anEl);

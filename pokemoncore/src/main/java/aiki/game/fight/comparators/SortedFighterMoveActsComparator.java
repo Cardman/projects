@@ -37,11 +37,9 @@ public final class SortedFighterMoveActsComparator implements
         boolean slowOne_=false;
         boolean canAttackLastOne_=false;
         byte varPrioOne_=0;
-        byte prioOne_=0;
-        String categOne_=DataBase.EMPTY_STRING;
         MoveData fAtt_=data.getMove(moveOne_);
-        prioOne_=fAtt_.getPriority();
-        categOne_ = fAtt_.getCategory();
+        byte prioOne_ = fAtt_.getPriority();
+        String categOne_ = fAtt_.getCategory();
         if(fighterOne_.capaciteActive()){
             AbilityData fCapac_=fighterOne_.ficheCapaciteActuelle(data);
             slowOne_=fCapac_.isSlowing();
@@ -67,11 +65,9 @@ public final class SortedFighterMoveActsComparator implements
         boolean slowTwo_=false;
         boolean canAttackLastTwo_=false;
         byte varPrioTwo_=0;
-        byte prioTwo_=0;
-        String categTwo_=DataBase.EMPTY_STRING;
         fAtt_=data.getMove(moveTwo_);
-        prioTwo_=fAtt_.getPriority();
-        categTwo_ = fAtt_.getCategory();
+        byte prioTwo_ = fAtt_.getPriority();
+        String categTwo_ = fAtt_.getCategory();
         if(fighterTwo_.capaciteActive()){
             AbilityData fCapac_=fighterTwo_.ficheCapaciteActuelle(data);
             slowTwo_=fCapac_.isSlowing();

@@ -255,7 +255,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PAGE_ALLY)) {
-            res_.setResult(new StringStruct(instance_.getPageAlly()));
+            res_.setResult(new StringStruct(DualFightBean.PAGE_ALLY));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY)) {
@@ -263,7 +263,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PAGE_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getPageTeam()));
+            res_.setResult(new StringStruct(DualFightBean.PAGE_TEAM));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {
@@ -285,7 +285,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PAGE_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getPageTeam()));
+            res_.setResult(new StringStruct(TrainerBean.PAGE_TEAM));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {

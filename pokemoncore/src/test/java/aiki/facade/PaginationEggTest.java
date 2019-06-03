@@ -2725,10 +2725,4 @@ public class PaginationEggTest extends InitializationDataBase {
         assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
-    @Test
-    public void cmpNbTest() {
-        PaginationEgg pagination_;
-        pagination_ = new PaginationEgg();
-        assertEq(2, pagination_.getNbComparators());
-    }
 }

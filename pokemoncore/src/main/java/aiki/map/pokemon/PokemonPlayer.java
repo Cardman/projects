@@ -289,7 +289,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         StringMap<Short> evolutionsLevels_ = new StringMap<Short>();
         StringMap<Short> currentEvolutions_ = new StringMap<Short>();
         currentEvolutions_.put(_base, (short) CustList.FIRST_INDEX);
-        StringMap<Short> newEvolutions_ = new StringMap<Short>();
+        StringMap<Short> newEvolutions_;
         if (_sep) {
             while (true) {
                 newEvolutions_ = new StringMap<Short>();

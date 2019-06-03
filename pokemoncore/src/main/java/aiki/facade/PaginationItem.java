@@ -18,6 +18,8 @@ import code.util.ints.Listable;
 public final class PaginationItem extends
         Pagination<SortingItem, String> {
 
+    public static final int NB_CMPARATORS = 4;
+
     private StringFieldComparator cmpName = new StringFieldComparator();
 
     private LongFieldComparator cmpPrice = new LongFieldComparator();
@@ -31,8 +33,6 @@ public final class PaginationItem extends
     private StringMap<String> translatedDescription;
 
     private Inventory inventory;
-
-    private final int nbComparators = 4;
 
     private TreeMap<SortingItem, String> items = new TreeMap<SortingItem, String>(
             new ComparatorItem());
@@ -142,7 +142,7 @@ public final class PaginationItem extends
     protected void sort() {
         TreeMap<SortingItem, String> items_ = new TreeMap<SortingItem, String>(
                 new ComparatorItem(cmpName, cmpPrice, cmpDescription,
-                        cmpNumber, nbComparators));
+                        cmpNumber, NB_CMPARATORS));
         items_.putAllMap(items);
         items = items_;
     }
@@ -161,10 +161,6 @@ public final class PaginationItem extends
 
     public FieldCustComparator<LgInt> getCmpNumber() {
         return cmpNumber;
-    }
-
-    public int getNbComparators() {
-        return nbComparators;
     }
 
     @Override
