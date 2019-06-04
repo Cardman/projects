@@ -1244,6 +1244,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 String ret_ = sup_.getImportedReturnType();
                 retClasses_.add(Templates.quickFormat(name_, ret_, _context));
             }
+            if (!StringList.isDollarWord(cst_.getName())) {
+                //indexer
+                retClasses_.removeDuplicates();
+                if (retClasses_.size() != 1) {
+                    for (ClassMethodId c: classes_) {
+                        addClass(output_, e.getKey(), c);
+                    }
+                }
+                continue;
+            }
             fClasses_.removeDuplicates();
             if (fClasses_.size() == 1) {
                 ClassMethodId subInt_ = fClasses_.first();

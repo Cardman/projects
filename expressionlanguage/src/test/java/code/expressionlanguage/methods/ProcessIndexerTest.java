@@ -1655,6 +1655,98 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, ret_.getNumber());
     }
     @Test
+    public void calculate42Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex:ExInt:ExIntTwo {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $int $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExIntTwo {\n");
+        xml_.append(" $int $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(5, ret_.getNumber());
+    }
+    @Test
+    public void calculate43Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex<Elt> e = $new Ex<Elt>():\n");
+        xml_.append("  e;.inst = $new Elt():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T:ExInt&ExIntTwo> {\n");
+        xml_.append(" $public T inst:\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Elt:ExInt:ExIntTwo {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $int $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExIntTwo {\n");
+        xml_.append(" $int $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(5, ret_.getNumber());
+    }
+    @Test
     public void calculateFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -1914,6 +2006,25 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         xml_.append(" {\n");
         xml_.append("  inst[($int)p;.;] = $value;.;*2:\n");
         xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculate9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T:ExInt&ExIntTwo> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExInt {\n");
+        xml_.append(" $int $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExIntTwo {\n");
+        xml_.append(" $long $this($int p):\n");
+        xml_.append(" $void $this($int p):\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
