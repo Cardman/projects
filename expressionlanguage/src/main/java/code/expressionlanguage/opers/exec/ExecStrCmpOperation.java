@@ -18,7 +18,7 @@ public final class ExecStrCmpOperation extends ExecReflectableOpering {
         opOffset = _r.getOpOffset();
     }
     @Override
-    public final void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(Analyzable _conf) {
         CmpOperation.tryGetResult(_conf, oper, null, true, this);
     }
     @Override

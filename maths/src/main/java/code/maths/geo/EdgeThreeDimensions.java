@@ -99,7 +99,7 @@ public final class EdgeThreeDimensions {
             if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
-            index_ ++;
+            index_++;
         }
         return true;
 //        if (!linear_) {

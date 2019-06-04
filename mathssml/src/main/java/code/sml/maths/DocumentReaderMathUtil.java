@@ -11,7 +11,16 @@ import code.maths.montecarlo.MonteCarloString;
 import code.sml.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.*;
+import code.util.BooleanList;
+import code.util.BooleanMap;
+import code.util.CollCapacity;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class DocumentReaderMathUtil {
 

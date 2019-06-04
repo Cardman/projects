@@ -108,16 +108,16 @@ public final class ThisOperation extends VariableLeafOperation implements Possib
     }
 
     @Override
-    public final void setIntermediateDotted() {
+    public void setIntermediateDotted() {
         intermediate = true;
     }
     @Override
-    public final boolean isIntermediateDottedOperation() {
+    public boolean isIntermediateDottedOperation() {
         return intermediate;
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
     }
 

@@ -33,7 +33,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
-    private StringMap<String> messages = new StringMap<String>();
+    private StringMap<String> messages;
     private Panel cards;
     private Panel tricks;
     private Panel selectedTrick;
@@ -170,7 +170,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
             hands.add(sousPanneau4_);
         }
         int nbBots_ = numberPlayers;
-        nbBots_ --;
+        nbBots_--;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
             hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }
@@ -208,7 +208,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         if(numeroPli_>1) {
             tricks.setLayout(new GridLayout(0,numeroPli_ - 1));
         }
-        for(byte indicePli_=1;indicePli_<numeroPli_ ;indicePli_++) {
+        for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
             byte entameur_=tricks_.get(indicePli_-1).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
@@ -269,7 +269,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
             hands.add(sousPanneau4_);
         }
         int nbBots_ = numberPlayers;
-        nbBots_ --;
+        nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
             hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
         }

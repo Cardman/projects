@@ -3,7 +3,10 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import code.util.*;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.SortableCustList;
+import code.util.TreeMap;
 import org.junit.Test;
 
 

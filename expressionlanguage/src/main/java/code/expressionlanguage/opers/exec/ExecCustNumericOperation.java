@@ -18,7 +18,7 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         classMethodId = _n.getClassMethodId();
     }
     @Override
-    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);

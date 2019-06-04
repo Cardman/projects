@@ -321,7 +321,7 @@ public final class GameTarotBeginTrickClassic {
                                 return carteCouleurAppeleeSousCarte(currentHand, couleurs_.first(), calledCards);
                             }
                         }
-                        couleursMaitres_ =GameTarotCommon. couleursLesPlusLongues(currentHand, couleursMaitres_);
+                        couleursMaitres_ =GameTarotCommon.couleursLesPlusLongues(currentHand, couleursMaitres_);
                         HandTarot couleurCandidate_ = repartition_.getVal(couleursMaitres_.first());
                         couleurCandidate_.trierParForceEnCours(couleursMaitres_.first());
                         return couleurCandidate_.premiereCarte();
@@ -1308,8 +1308,8 @@ public final class GameTarotBeginTrickClassic {
         }
         return couleurs_;
     }
-    static CardTarot jeuMainMaitresse(HandTarot currentHand,HandTarot _cartesJouees) {
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+    static CardTarot jeuMainMaitresse(HandTarot _currentHand,HandTarot _cartesJouees) {
+        EnumMap<Suit,HandTarot> repartition_ = _currentHand.couleurs();
         HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
         HandTarot atoutsSansPetit_ = new HandTarot();
         for(CardTarot carte_ :atouts_) {
@@ -1321,10 +1321,10 @@ public final class GameTarotBeginTrickClassic {
         if(!atoutsSansPetit_.estVide()) {
             return atoutsSansPetit_.premiereCarte();
         }
-        EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursAvecCarteMaitresse(currentHand,
+        EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursAvecCarteMaitresse(_currentHand,
                 _cartesJouees, Suit.couleursOrdinaires());
         if(!couleurs_.isEmpty()) {
-            couleurs_ = GameTarotCommon.couleursLesPlusLongues(currentHand,couleurs_);
+            couleurs_ = GameTarotCommon.couleursLesPlusLongues(_currentHand,couleurs_);
             HandTarot cartesCouleur_ = repartition_.getVal(couleurs_.first());
             cartesCouleur_.trierParForceEnCours(couleurs_.first());
             return cartesCouleur_.premiereCarte();
@@ -1409,8 +1409,8 @@ public final class GameTarotBeginTrickClassic {
         return _main.couleur(Suit.TRUMP).total() * nombreJoueursAvecAtout_ >= 2 * atoutsNonJoues_
                 .total();
     }
-    static CardTarot jeuAtoutOffensif(HandTarot currentHand,HandTarot _cartesJouees) {
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+    static CardTarot jeuAtoutOffensif(HandTarot _currentHand,HandTarot _cartesJouees) {
+        EnumMap<Suit,HandTarot> repartition_ = _currentHand.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _cartesJouees.couleurs();
         HandTarot atoutsMaitres_ = repartition_.getVal(Suit.TRUMP)
                 .atoutsMaitres(repartitionCartesJouees_);

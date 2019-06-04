@@ -180,7 +180,7 @@ public final class ConverterGraphicBufferedImage {
             if (!whiteCol_) {
                 break;
             }
-            indexOne_ ++;
+            indexOne_++;
         }
         while (maxIndexOne_ >= 0) {
             boolean whiteCol_ = true;
@@ -198,7 +198,7 @@ public final class ConverterGraphicBufferedImage {
             if (!whiteCol_) {
                 break;
             }
-            maxIndexOne_ --;
+            maxIndexOne_--;
         }
 //        while (indexOne_ < maxIndexOne_) {
 //            boolean whiteCol_ = true;
@@ -221,8 +221,8 @@ public final class ConverterGraphicBufferedImage {
 //            if (!whiteCol_) {
 //                break;
 //            }
-//            indexOne_ ++;
-//            maxIndexOne_ --;
+//            indexOne_++;
+//            maxIndexOne_--;
 //        }
         int newWidth_ = maxIndexOne_ - indexOne_ + 1;
         while (indexTwo_ < h_) {
@@ -241,7 +241,7 @@ public final class ConverterGraphicBufferedImage {
             if (!whiteRow_) {
                 break;
             }
-            indexTwo_ ++;
+            indexTwo_++;
         }
         while (maxIndexTwo_ >= 0) {
             boolean whiteRow_ = true;
@@ -259,7 +259,7 @@ public final class ConverterGraphicBufferedImage {
             if (!whiteRow_) {
                 break;
             }
-            maxIndexTwo_ --;
+            maxIndexTwo_--;
         }
         int newHeight_ = maxIndexTwo_ - indexTwo_ + 1;
         return new IntPointPair(new IntPoint(indexOne_, indexTwo_),new IntPoint(newWidth_, newHeight_));

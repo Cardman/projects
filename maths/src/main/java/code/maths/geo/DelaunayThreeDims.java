@@ -65,12 +65,12 @@ public class DelaunayThreeDims {
                 zMax_ = c.getZcoords();
             }
         }
-        xMin_ --;
-        yMin_ --;
-        zMin_ --;
-        xMax_ ++;
-        yMax_ ++;
-        zMax_ ++;
+        xMin_--;
+        yMin_--;
+        zMin_--;
+        xMax_++;
+        yMax_++;
+        zMax_++;
         CustPointThreeDims firstPoint_ = new CustPointThreeDims(xMin_, yMin_, zMin_);
         CustPointThreeDims secondPoint_ = new CustPointThreeDims(xMax_ + xMax_ - xMin_, yMin_, zMin_);
         CustPointThreeDims thirdPoint_ = new CustPointThreeDims(xMin_, yMax_ + yMax_ - yMin_, zMin_);
@@ -168,10 +168,10 @@ public class DelaunayThreeDims {
 //                }
 //            }
 //        }
-//        xMin_ --;
-//        yMin_ --;
-//        xMax_ ++;
-//        yMax_ ++;
+//        xMin_--;
+//        yMin_--;
+//        xMax_++;
+//        yMax_++;
 //        CustPoint firstPoint_ = new CustPoint(xMin_, yMin_);
 //        CustPoint secondPoint_ = new CustPoint(xMax_ + xMax_ - xMin_, yMin_);
 //        CustPoint thirdPoint_ = new CustPoint(xMin_, yMax_ + yMax_ - yMin_);
@@ -250,13 +250,13 @@ public class DelaunayThreeDims {
 //                        int nbPoints_ = List.SIZE_EMPTY;
 //                        for (CustPoint p: t.getPoints()) {
 //                            if (p == k_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                            if (p == one_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                            if (p == two_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                        }
 //                        if (nbPoints_ == Triangle.NB_POINTS) {
@@ -301,13 +301,13 @@ public class DelaunayThreeDims {
 //                        int nbPoints_ = List.SIZE_EMPTY;
 //                        for (CustPoint p: t.getPoints()) {
 //                            if (p == k_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                            if (p == one_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                            if (p == two_) {
-//                                nbPoints_ ++;
+//                                nbPoints_++;
 //                            }
 //                        }
 //                        if (nbPoints_ == Triangle.NB_POINTS) {
@@ -350,13 +350,13 @@ public class DelaunayThreeDims {
 //                    int nbPoints_ = List.SIZE_EMPTY;
 //                    for (CustPoint p: t.getPoints()) {
 //                        if (p == k_) {
-//                            nbPoints_ ++;
+//                            nbPoints_++;
 //                        }
 //                        if (p == one_) {
-//                            nbPoints_ ++;
+//                            nbPoints_++;
 //                        }
 //                        if (p == two_) {
-//                            nbPoints_ ++;
+//                            nbPoints_++;
 //                        }
 //                    }
 //                    if (nbPoints_ == Triangle.NB_POINTS) {

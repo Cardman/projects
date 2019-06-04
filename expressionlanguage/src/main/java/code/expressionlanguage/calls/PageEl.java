@@ -21,18 +21,18 @@ public abstract class PageEl {
 
     private final StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
+    protected PageEl() {
+        setVars(new StringMap<LoopVariable>());
+        setCatchVars(new StringMap<LocalVariable>());
+        setLocalVars(new StringMap<LocalVariable>());
+    }
+
     public String getGlobalClass() {
         return globalClass;
     }
 
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
-    }
-
-    protected PageEl() {
-        setVars(new StringMap<LoopVariable>());
-        setCatchVars(new StringMap<LocalVariable>());
-        setLocalVars(new StringMap<LocalVariable>());
     }
     public String formatVarType(String _varType, ExecutableCode _cont) {
         if (globalArgument == null) {

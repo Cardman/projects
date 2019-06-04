@@ -120,7 +120,7 @@ public final class Edge implements Displayable {
             if (sites_.last().getInfo().getNumber() < SiteInfo.QUAD_THREE) {
                 return false;
             }
-            index_ ++;
+            index_++;
         }
         return true;
     }

@@ -15,7 +15,7 @@ public final class NatTreeMapStringInteger implements ListableEntries<String,Int
     }
 
     @Override
-    public final SimpleIterable entries() {
+    public SimpleIterable entries() {
         return tree.entries();
     }
 
@@ -30,7 +30,7 @@ public final class NatTreeMapStringInteger implements ListableEntries<String,Int
     }
 
     @Override
-    public final Iterable<EntryCust<String, Integer>> entryList() {
+    public Iterable<EntryCust<String, Integer>> entryList() {
         return tree.entryList();
     }
 

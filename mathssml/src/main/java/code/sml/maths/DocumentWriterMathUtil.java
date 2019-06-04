@@ -11,7 +11,12 @@ import code.maths.montecarlo.MonteCarloString;
 import code.sml.Document;
 import code.sml.DocumentWriterCoreUtil;
 import code.sml.Element;
-import code.util.*;
+import code.util.BooleanMap;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
+import code.util.StringMap;
 
 public final class DocumentWriterMathUtil {
 

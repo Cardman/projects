@@ -22,7 +22,7 @@ public class AnimatedLabel extends PaintableLabel {
 
     public void increment() {
         repaint();
-        index ++;
+        index++;
         if (index >= list.size()) {
             index = 0;
         }

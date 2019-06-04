@@ -39,20 +39,20 @@ public final class ExecSettableFieldOperation extends
     }
 
     @Override
-    public final boolean resultCanBeSet() {
+    public boolean resultCanBeSet() {
         return variable;
     }
 
     @Override
-    public final void setStaticAccess(boolean _staticAccess) {
+    public void setStaticAccess(boolean _staticAccess) {
         staticAccess = _staticAccess;
     }
     @Override
-    public final boolean isStaticAccess() {
+    public boolean isStaticAccess() {
         return staticAccess;
     }
     @Override
-    final Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         int off_ = getOff();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
@@ -71,19 +71,15 @@ public final class ExecSettableFieldOperation extends
         return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
     }
     
-    public final ClassField getFieldId() {
+    public ClassField getFieldId() {
         if (fieldMetaInfo == null) {
             return null;
         }
         return fieldMetaInfo.getClassField();
     }
 
-    public final FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
-    }
-
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
         if (fieldMetaInfo == null) {
             return;
         }
@@ -114,7 +110,7 @@ public final class ExecSettableFieldOperation extends
         }
     }
     @Override
-    public final void calculateSetting(ExecutableCode _conf, Argument _right) {
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
@@ -136,7 +132,7 @@ public final class ExecSettableFieldOperation extends
         setSimpleArgument(arg_, _conf);
     }
     @Override
-    public final void calculateCompoundSetting(ExecutableCode _conf, String _op,
+    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
             Argument _right) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
@@ -153,7 +149,7 @@ public final class ExecSettableFieldOperation extends
         setSimpleArgument(arg_, _conf);
     }
     @Override
-    public final void calculateSemiSetting(ExecutableCode _conf, String _op,
+    public void calculateSemiSetting(ExecutableCode _conf, String _op,
             boolean _post) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
@@ -175,7 +171,7 @@ public final class ExecSettableFieldOperation extends
         setSimpleArgument(arg_, _conf);
         
     }
-    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
+    Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
         int off_ = getOff();
         String fieldType_ = fieldMetaInfo.getRealType();
         boolean isStatic_ = fieldMetaInfo.isStaticField();
@@ -193,7 +189,7 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
+    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
@@ -256,7 +252,7 @@ public final class ExecSettableFieldOperation extends
         Argument a_ = res_;
         return a_;
     }
-    final Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
+    Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();

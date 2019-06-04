@@ -275,7 +275,7 @@ public final class ParsedArgument {
                 if (value_ >= Integer.MAX_VALUE + 1L) {
                     while (value_ >= 0) {
                         value_ -= Integer.MAX_VALUE;
-                        value_ --;
+                        value_--;
                     }
                 }
                 if (suffix_ == 'i') {
@@ -290,7 +290,7 @@ public final class ParsedArgument {
                 if (value_ >= Short.MAX_VALUE + 1L) {
                     while (value_ >= 0) {
                         value_ -= Short.MAX_VALUE;
-                        value_ --;
+                        value_--;
                     }
                 }
                 if (suffix_ == 's') {
@@ -304,7 +304,7 @@ public final class ParsedArgument {
             if (value_ >= Byte.MAX_VALUE + 1L) {
                 while (value_ >= 0) {
                     value_ -= Byte.MAX_VALUE;
-                    value_ --;
+                    value_--;
                 }
             }
             longValue_ = value_;

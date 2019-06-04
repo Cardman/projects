@@ -164,7 +164,7 @@ public final class StreamTextFile {
                 if (ligne_ == null) {
                     break;
                 }
-                i_ ++;
+                i_++;
             }
             br_.close();
             reader_.close();

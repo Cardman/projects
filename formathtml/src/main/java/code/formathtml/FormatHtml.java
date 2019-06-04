@@ -596,7 +596,7 @@ public final class FormatHtml {
                     curForm_ = tag_;
                     containersMap_.put(currentForm_, containers_);
                     containers_ = new NatTreeMap<Long, NodeContainer>();
-                    currentForm_ ++;
+                    currentForm_++;
                     indexes_.setInput(0);
                 }
                 processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
@@ -1304,7 +1304,7 @@ public final class FormatHtml {
                     int i_ = 0;
                     while (n.getActions().get(i_) == ActionNext.PARENT_NODE) {
                         currentNode_ = currentNode_.getParentNode();
-                        i_ ++;
+                        i_++;
                     }
                 }
                 if (nLoc_ instanceof Text) {
@@ -4217,7 +4217,7 @@ public final class FormatHtml {
                 int i_ = 0;
                 while (na_.getActions().get(i_) == ActionNext.PARENT_NODE) {
                     currentNode_ = currentNode_.getParentNode();
-                    i_ ++;
+                    i_++;
                 }
             }
             en_ = na_.getNode();

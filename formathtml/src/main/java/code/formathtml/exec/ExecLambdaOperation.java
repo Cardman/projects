@@ -82,16 +82,16 @@ public final class ExecLambdaOperation extends ExecVariableLeafOperation impleme
     }
 
     @Override
-    public final boolean isIntermediateDottedOperation() {
+    public boolean isIntermediateDottedOperation() {
         return intermediate;
     }
 
-    public final Argument getPreviousArgument() {
+    public Argument getPreviousArgument() {
         return previousArgument;
     }
 
     @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
+    public void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
     }
 }

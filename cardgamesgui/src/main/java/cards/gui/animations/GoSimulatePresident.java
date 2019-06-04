@@ -197,10 +197,10 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                        if (noUserHand_ < userHands_.size()) {
 //                            HandPresident hUser_ = userHands_.get(noUserHand_);
 //                            afficherMainUtilisateurSimuPresident(hUser_);
-//                            noUserHand_ ++;
+//                            noUserHand_++;
 //                        }
                     }
-                    noHand_ ++;
+                    noHand_++;
                     if(container.isArretDemo()) {
                         arretDemo();
                         return;
@@ -222,11 +222,11 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                if (t.getNombreDeCartesParJoueur() == 0) {
 //
 //                }
-//                noTrick_ ++;
+//                noTrick_++;
 //            }
             ThreadInvoker.invokeNow(new EndSimulation(this));
             ThreadUtil.sleep(2000);
-            noDeal_ ++;
+            noDeal_++;
         }
     }
 

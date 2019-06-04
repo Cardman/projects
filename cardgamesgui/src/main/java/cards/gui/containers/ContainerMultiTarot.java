@@ -890,13 +890,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             if (p == _otherPlayerIndex) {
                 return iter_;
             }
-            iter_ ++;
+            iter_++;
         }
         for (byte p = CustList.FIRST_INDEX;p<indexInGame;p++) {
             if (p == _otherPlayerIndex) {
                 return iter_;
             }
-            iter_ ++;
+            iter_++;
         }
         return iter_;
     }

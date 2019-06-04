@@ -4,7 +4,13 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
-import code.expressionlanguage.methods.*;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.AnalyzingEl;
+import code.expressionlanguage.methods.AssignedVariablesBlock;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -16,7 +22,11 @@ import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.util.*;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public interface Analyzable {
 

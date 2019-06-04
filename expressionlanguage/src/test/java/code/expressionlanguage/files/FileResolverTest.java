@@ -10294,26 +10294,26 @@ public final class FileResolverTest {
         }
         return count_;
     }
-    private static FileBlock getFileTypes(ContextEl _cont,int i) {
+    private static FileBlock getFileTypes(ContextEl _cont,int _i) {
         int count_ = 0;
         for (EntryCust<String, FileBlock> r: _cont.getClasses().getFilesBodies().entryList()) {
             if (r.getValue().isPredefined()) {
                 continue;
             }
-            if (count_ == i) {
+            if (count_ == _i) {
                 return r.getValue();
             }
             count_++;
         }
         return null;
     }
-    private static RootBlock getCustomTypes(ContextEl _cont,int i) {
+    private static RootBlock getCustomTypes(ContextEl _cont,int _i) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {
             if (_cont.getStandards().getPredefinedClasses().containsStr(r.getFullName())) {
                 continue;
             }
-            if (count_ == i) {
+            if (count_ == _i) {
                 return r;
             }
             count_++;

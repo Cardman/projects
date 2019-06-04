@@ -66,7 +66,7 @@ public final class Vect implements Equallable<Vect>, Displayable {
         int index_ = CustList.FIRST_INDEX;
         for (Rate n: numbers) {
             r_.addNb(Rate.multiply(n, _v.get(index_)));
-            index_ ++;
+            index_++;
         }
         return r_;
     }

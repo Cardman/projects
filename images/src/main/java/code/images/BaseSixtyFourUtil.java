@@ -123,10 +123,10 @@ public final class BaseSixtyFourUtil {
         bytes_[1] = (byte) ((w_ / 256)%256);
         bytes_[2] = (byte) (w_ %256);
         str_.append(printThreeBytes(bytes_));
-        for (int[] aImage : _image) {
+        for (int[] a : _image) {
             for (int j = 0; j < w_; j++) {
                 bytes_ = new byte[THREE_COLORS_BYTES];
-                int p_ = aImage[j];
+                int p_ = a[j];
                 bytes_[0] = (byte) ((p_ / (256 * 256)) % 256);
                 bytes_[1] = (byte) ((p_ / 256) % 256);
                 bytes_[2] = (byte) (p_ % 256);

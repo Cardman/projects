@@ -584,7 +584,7 @@ public class LgNamesUtils extends LgNames {
         StringList paramType_ = _method.getConstraints().getParametersTypes();
         if (paramType_.size() == 1) {
             if (_args[0] instanceof DisplayableStruct) {
-                stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+                stringAppFile_ = ((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance();
             } else {
                 stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
             }
@@ -599,13 +599,13 @@ public class LgNamesUtils extends LgNames {
                     }
                 }
                 if (_args[0] instanceof StringStruct) {
-                    stringAppFile_ = (StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_.toArray()));
+                    stringAppFile_ = StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_.toArray());
                 } else {
                     stringAppFile_ = _cont.getStandards().getNullString();
                 }
             } else {
                 if (_args[0] instanceof DisplayableStruct) {
-                    stringAppFile_ = (((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance());
+                    stringAppFile_ = ((DisplayableStruct)_args[0]).getDisplayedString(_cont).getInstance();
                 } else {
                     stringAppFile_ = StringList.concat(_args[0].getClassName(_cont),"...");
                 }

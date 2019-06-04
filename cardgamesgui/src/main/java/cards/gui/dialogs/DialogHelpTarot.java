@@ -50,7 +50,7 @@ public final class DialogHelpTarot extends Dialog {
 //        Suit couleur_;
 //        Suit couleurMemo_=null;
         int nbPlayers_ = _pseudos.size();
-        nbPlayers_ ++;
+        nbPlayers_++;
         //Dog hand
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbPlayers_;indicePseudo_++) {
             zone_=new JTextArea(EMPTY,84,15);

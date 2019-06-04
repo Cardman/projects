@@ -162,12 +162,12 @@ public class CustLine {
         }
         while (i_ < dx_) {
             r_.getXcoords().addNb(Rate.one());
-            i_ ++;
+            i_++;
         }
         i_ = CustList.FIRST_INDEX;
         while (i_ < dy_) {
             r_.getYcoords().addNb(Rate.one());
-            i_ ++;
+            i_++;
         }
         Rate x_ = getAbs(r_);
         Rate y_ = getOrd(r_);
@@ -180,12 +180,12 @@ public class CustLine {
         i_ = CustList.FIRST_INDEX;
         while (i_ < _dx) {
             r_.getXcoords().addNb(Rate.one());
-            i_ ++;
+            i_++;
         }
         i_ = CustList.FIRST_INDEX;
         while (i_ < _dy) {
             r_.getYcoords().addNb(Rate.one());
-            i_ ++;
+            i_++;
         }
         Rate x_ = getAbs(r_);
         Rate y_ = getAbs(r_);

@@ -40,7 +40,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
-    private StringMap<String> messages = new StringMap<String>();
+    private StringMap<String> messages;
     private Panel cards;
     private Panel selectedTrick;
     private Panel hands;
@@ -209,7 +209,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
 //                selectedTrick.add(etiquette2_);
-                row_ ++;
+                row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
@@ -229,10 +229,10 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 }
 //                indice_++;
                 panels_.put(new CoordsHands(col_, row_), cards_);
-                row_ ++;
+                row_++;
                 if (row_ % numberPlayers == 0) {
                     row_ = 0;
-                    col_ ++;
+                    col_++;
                 }
 //                selectedTrick.add(cards_);
 //                indice_++;
@@ -307,7 +307,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
 //                selectedTrick.add(etiquette2_);
-                row_ ++;
+                row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
@@ -325,10 +325,10 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                     cards_.add(etiquette2_);
                 }
                 panels_.put(new CoordsHands(col_, row_), cards_);
-                row_ ++;
+                row_++;
                 if (row_ % numberPlayers == 0) {
                     row_ = 0;
-                    col_ ++;
+                    col_++;
                 }
 //                selectedTrick.add(cards_);
 //                indice_++;
@@ -405,7 +405,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
 //                selectedTrick.add(etiquette2_);
-                row_ ++;
+                row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
@@ -425,10 +425,10 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                         cards_.add(etiquette2_);
                     }
                     panels_.put(new CoordsHands(col_, row_), cards_);
-                    row_ ++;
+                    row_++;
                     if (row_ % numberPlayers == 0) {
                         row_ = 0;
-                        col_ ++;
+                        col_++;
                     }
 //                    selectedTrick.add(cards_);
                     indice2_++;
@@ -506,7 +506,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setBackground(Color.WHITE);
 //                selectedTrick.add(etiquette2_);
 //                indice_++;
-                row_ ++;
+                row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
@@ -527,10 +527,10 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //                    selectedTrick.add(cards_);
 //                    indice_++;
                     panels_.put(new CoordsHands(col_, row_), cards_);
-                    row_ ++;
+                    row_++;
                     if (row_ % numberPlayers == 0) {
                         row_ = 0;
-                        col_ ++;
+                        col_++;
                     }
                     indice2_++;
                 } else {

@@ -1876,7 +1876,7 @@ public final class FileResolver {
                     modifier_ = keyWordFinal_;
                     prefModifier_ = modifier_;
                 }
-                String afterModifier_ = info_.substring((prefModifier_).length());
+                String afterModifier_ = info_.substring(prefModifier_.length());
                 typeOffset_ = modifierOffest_ + prefModifier_.length();
                 if (modifier_.isEmpty()) {
                     if (_currentParent instanceof InterfaceBlock) {

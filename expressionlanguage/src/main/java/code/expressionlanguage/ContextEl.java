@@ -1559,7 +1559,7 @@ public abstract class ContextEl implements ExecutableCode {
         String res_;
         if (gType_ == null) {
             String name_ = EMPTY_TYPE;
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
+            CustList<RootBlock> allAncestors_ = new CustList<RootBlock>();
             RootBlock p_ = _root.getParentType();
             while (p_ != null) {
                 allAncestors_.add(p_);

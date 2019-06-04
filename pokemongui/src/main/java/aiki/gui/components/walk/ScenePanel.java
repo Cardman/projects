@@ -1244,7 +1244,7 @@ public class ScenePanel extends Panel {
         byte i_ = CustList.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);
-            i_ ++;
+            i_++;
         }
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel);
     }
@@ -1255,7 +1255,7 @@ public class ScenePanel extends Panel {
         byte i_ = CustList.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);
-            i_ ++;
+            i_++;
         }
         teamPan.initFighters(pks_,messagesTeamPanel);
         enabledClick = true;

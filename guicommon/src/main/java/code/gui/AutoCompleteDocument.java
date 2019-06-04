@@ -53,12 +53,12 @@ public final class AutoCompleteDocument implements Document {
     }
 
     @Override
-    public final Object getProperty(Object _key) {
+    public Object getProperty(Object _key) {
         return doc.getProperty(_key);
     }
 
     @Override
-    public final void putProperty(Object _key, Object _value) {
+    public void putProperty(Object _key, Object _value) {
         doc.putProperty(_key, _value);
     }
 
@@ -72,12 +72,12 @@ public final class AutoCompleteDocument implements Document {
     }
 
     @Override
-    public final Position getStartPosition() {
+    public Position getStartPosition() {
         return doc.getStartPosition();
     }
 
     @Override
-    public final Position getEndPosition() {
+    public Position getEndPosition() {
         return doc.getEndPosition();
     }
 

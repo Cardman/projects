@@ -72,10 +72,10 @@ public final class MainWindow extends GroupFrame {
     public void quit() {
         int nb_ = CustList.SIZE_EMPTY;
         if (LaunchingPokemon.alreadyLaunched()) {
-            nb_ ++;
+            nb_++;
         }
         if (LaunchingCards.alreadyLaunched()) {
-            nb_ ++;
+            nb_++;
         }
         if (nb_ > CustList.SIZE_EMPTY) {
             return;
@@ -95,7 +95,7 @@ public final class MainWindow extends GroupFrame {
             int i_ = CustList.SECOND_INDEX;
             while (i_ < GroupFrame.getFrameCount()) {
                 GroupFrame.getFrame(i_).changeLanguage(_language);
-                i_ ++;
+                i_++;
             }
             selectLangagueButton(_language);
         } else {

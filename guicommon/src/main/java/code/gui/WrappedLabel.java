@@ -50,7 +50,7 @@ public class WrappedLabel extends PaintableLabel {
         int i_ = CustList.FIRST_INDEX;
         for (String l: lines) {
             _g.drawString(l, 0, hLine_ * (i_ + 1));
-            i_ ++;
+            i_++;
         }
     }
 }

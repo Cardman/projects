@@ -1852,11 +1852,11 @@ public class DataBase implements WithMathFactory {
             setError(true);
             return;
         }
-        for (String va: variables) {
+        for (String v: variables) {
             for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
-                StringList varParts_ = StringList.splitStrings(va, SEP_BETWEEN_KEYS);
+                StringList varParts_ = StringList.splitStrings(v, SEP_BETWEEN_KEYS);
                 String var_ = varParts_.sub(0, 2).join(SEP_BETWEEN_KEYS);
                 for (EntryCust<String,String> e: m.getValue().entryList()) {
                     if (StringList.quickEq(var_,StringList.concat(VAR_PREFIX ,e.getKey()))) {

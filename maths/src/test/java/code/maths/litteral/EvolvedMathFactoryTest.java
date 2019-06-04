@@ -5,7 +5,7 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.maths.EquallableMathUtil.assertEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class EvolvedMathFactoryTest {
 

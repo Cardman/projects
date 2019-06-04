@@ -99,10 +99,10 @@ public final class Delaunay {
                 yMax_ = c.getYcoords();
             }
         }
-        xMin_ --;
-        yMin_ --;
-        xMax_ ++;
-        yMax_ ++;
+        xMin_--;
+        yMin_--;
+        xMax_++;
+        yMax_++;
         CustPoint firstPoint_ = new CustPoint(xMin_, yMin_);
         CustPoint secondPoint_ = new CustPoint(xMax_ + xMax_ - xMin_, yMin_);
         CustPoint thirdPoint_ = new CustPoint(xMin_, yMax_ + yMax_ - yMin_);
@@ -201,7 +201,7 @@ public final class Delaunay {
             if (v_.det(vLoc_) != 0) {
                 break;
             }
-            index_ ++;
+            index_++;
         }
         if (index_ >= points_.size()) {
             return;
@@ -524,7 +524,7 @@ public final class Delaunay {
             if (v_.det(vLoc_) != 0) {
                 break;
             }
-            index_ ++;
+            index_++;
         }
         if (index_ >= points_.size()) {
             return;
@@ -553,10 +553,10 @@ public final class Delaunay {
                 yMax_ = c.getYcoords();
             }
         }
-        xMin_ --;
-        yMin_ --;
-        xMax_ ++;
-        yMax_ ++;
+        xMin_--;
+        yMin_--;
+        xMax_++;
+        yMax_++;
         CustPoint firstPoint_ = new CustPoint(xMin_, yMin_);
         CustPoint secondPoint_ = new CustPoint(xMax_ + xMax_ - xMin_, yMin_);
         CustPoint thirdPoint_ = new CustPoint(xMin_, yMax_ + yMax_ - yMin_);
@@ -758,13 +758,13 @@ public final class Delaunay {
                         int nbPoints_ = CustList.SIZE_EMPTY;
                         for (CustPoint p: t.getPoints()) {
                             if (p == k_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                             if (p == one_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                             if (p == two_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                         }
                         if (nbPoints_ == Triangle.NB_POINTS) {
@@ -811,13 +811,13 @@ public final class Delaunay {
                         int nbPoints_ = CustList.SIZE_EMPTY;
                         for (CustPoint p: t.getPoints()) {
                             if (p == k_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                             if (p == one_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                             if (p == two_) {
-                                nbPoints_ ++;
+                                nbPoints_++;
                             }
                         }
                         if (nbPoints_ == Triangle.NB_POINTS) {
@@ -858,13 +858,13 @@ public final class Delaunay {
                     int nbPoints_ = CustList.SIZE_EMPTY;
                     for (CustPoint p: t.getPoints()) {
                         if (p == k_) {
-                            nbPoints_ ++;
+                            nbPoints_++;
                         }
                         if (p == one_) {
-                            nbPoints_ ++;
+                            nbPoints_++;
                         }
                         if (p == two_) {
-                            nbPoints_ ++;
+                            nbPoints_++;
                         }
                     }
                     if (nbPoints_ == Triangle.NB_POINTS) {

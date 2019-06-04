@@ -63,7 +63,7 @@ public class PokemonPanel extends Panel {
             if (map_.getVal(b)) {
                 liste.setSelectedIndice(index_);
             }
-            index_ ++;
+            index_++;
         }
         //liste.validate();
     }

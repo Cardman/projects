@@ -4,7 +4,10 @@ import code.util.CustList;
 import org.junit.Test;
 
 import static code.sml.EquallableRowColUtil.assertEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 public class DocReqTest {
 

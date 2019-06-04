@@ -35,7 +35,7 @@ public final class Nicknames {
             }
         }
         int nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
             pseudosBelote.add(StringList.simpleNumberFormat(player_, b));
         }
@@ -46,13 +46,13 @@ public final class Nicknames {
             }
         }
         nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
             pseudosTarot.add(StringList.simpleNumberFormat(player_, b));
         }
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         for(byte b=CustList.FIRST_INDEX;b<nBots_;b++){
             pseudosPresident.add(StringList.simpleNumberFormat(player_, b));
         }
@@ -72,7 +72,7 @@ public final class Nicknames {
             }
         }
         int nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         if (pseudosBelote.size() < nBots_) {
             return false;
         }
@@ -83,13 +83,13 @@ public final class Nicknames {
             }
         }
         nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         if (pseudosTarot.size() < nBots_) {
             return false;
         }
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
-        nBots_ --;
+        nBots_--;
         if (pseudosPresident.size() < nBots_) {
             return false;
         }

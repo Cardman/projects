@@ -33,12 +33,12 @@ public final class ExecSettableFieldOperation extends
         anc = _s.getAnc();
     }
 
-    public final boolean resultCanBeSet() {
+    public boolean resultCanBeSet() {
         return variable;
     }
 
     @Override
-    final Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         int off_ = getOff();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
@@ -57,16 +57,16 @@ public final class ExecSettableFieldOperation extends
         return ExecInvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
     }
     
-    public final ClassField getFieldId() {
+    public ClassField getFieldId() {
         return fieldMetaInfo.getClassField();
     }
 
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
         SettableAbstractFieldOperation.trySet(_conf,this,fieldMetaInfo);
     }
     @Override
-    public final Argument calculateSetting(
+    public Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
@@ -75,7 +75,7 @@ public final class ExecSettableFieldOperation extends
         return arg_;
     }
     @Override
-    public final Argument calculateCompoundSetting(
+    public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
@@ -86,7 +86,7 @@ public final class ExecSettableFieldOperation extends
         return arg_;
     }
     @Override
-    public final Argument calculateSemiSetting(
+    public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
@@ -96,7 +96,7 @@ public final class ExecSettableFieldOperation extends
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
+    Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
         int off_ = getOff();
         String fieldType_ = fieldMetaInfo.getRealType();
         boolean isStatic_ = fieldMetaInfo.isStaticField();
@@ -114,7 +114,7 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
+    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
@@ -155,7 +155,7 @@ public final class ExecSettableFieldOperation extends
         ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, res_.getStruct());
         return res_;
     }
-    final Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
+    Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();

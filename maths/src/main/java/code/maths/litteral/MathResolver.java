@@ -1,5 +1,8 @@
 package code.maths.litteral;
-import code.util.*;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 
 public final class MathResolver {

@@ -38,7 +38,7 @@ import code.util.StringList;
 Thread safe class*/
 public final class GoSimulateBelote extends Thread implements GoSimulate {
 
-    private Games partieSimulee = new Games();
+    private Games partieSimulee;
     private ContainerSimuBelote container;
     private LabelButton stopButton;
 
@@ -183,7 +183,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
                 mess_ = container.getMessages().getVal(MainWindow.DEAL_SET_CARDS);
                 if(joueur_==preneur_) {
                     if (first_) {
-                        gotCards_ --;
+                        gotCards_--;
                     }
                 }
                 event_ = StringList.concat(ContainerBelote.TAB,StringList.simpleStringsFormat(mess_, Long.toString(step_), Long.toString(gotCards_), pseudos_.get(joueur_)));

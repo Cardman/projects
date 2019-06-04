@@ -245,7 +245,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Numbers<Integer> points_ = RulesBelote.getPoints();
         int size_ = points_.size();
         while (square_ * square_ < size_) {
-            square_ ++;
+            square_++;
         }
         setPanneauBoutonsJeuPoints(new Panel(new GridLayout(0, square_)));
         getPointsButtons().clear();

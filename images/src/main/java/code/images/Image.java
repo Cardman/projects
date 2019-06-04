@@ -63,12 +63,12 @@ public final class Image implements Displayable {
             if (!StringList.isNumber(s)) {
                 return false;
             }
-            nb_ ++;
+            nb_++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
         }
-        nb_ --;
+        nb_--;
         if (!_img.startsWith(StringList.concat(String.valueOf(_sideLength), String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }
@@ -92,7 +92,7 @@ public final class Image implements Displayable {
                 return false;
             }
             int int_ = Numbers.parseInt(s);
-            nb_ ++;
+            nb_++;
             if (w_ < 0) {
                 w_ = int_;
             }
@@ -100,7 +100,7 @@ public final class Image implements Displayable {
         if (_img.charAt(0) == MINUS) {
             return false;
         }
-        nb_ --;
+        nb_--;
         if (nb_ % w_ != 0) {
             return false;
         }
@@ -123,12 +123,12 @@ public final class Image implements Displayable {
             if (!StringList.isNumber(s)) {
                 return false;
             }
-            nb_ ++;
+            nb_++;
         }
         if (_img.charAt(0) == MINUS) {
             return false;
         }
-        nb_ --;
+        nb_--;
         if (!_img.startsWith(StringList.concat(String.valueOf(_width),String.valueOf(SEPARATOR_CHAR)))) {
             return false;
         }

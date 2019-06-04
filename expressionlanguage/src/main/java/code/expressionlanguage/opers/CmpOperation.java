@@ -35,7 +35,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
     }
 
     @Override
-    public final void analyze(Analyzable _conf) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         okNum = true;
@@ -145,21 +145,21 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         }
         super.checkNull(_arg,_an);
     }
-    public final boolean isStringCompare() {
+    public boolean isStringCompare() {
         return stringCompare;
     }
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 
     @Override
-    public final void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(Analyzable _conf) {
         if (!okNum) {
             return;
         }
@@ -226,7 +226,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
     }
 
     @Override
-    final void calculateChildren() {
+    void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }

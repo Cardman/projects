@@ -73,7 +73,7 @@ public abstract class GroupFrame extends CommonFrame {
                 nativeDispose();
                 break;
             }
-            index_ ++;
+            index_++;
         }
         if(FRAMES.isEmpty()) {
             ThreadUtil.exit();

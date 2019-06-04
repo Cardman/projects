@@ -17,14 +17,14 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
         if (getFirstChild().getArgument() == null) {
             return;
         }
         quickCalculate(_conf);
     }
     @Override
-    public final void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(Analyzable _conf) {
         CustList<ExecDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (ExecDynOperationNode o: chidren_) {
@@ -46,7 +46,7 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override
-    public final void calculate(ExecutableCode _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<ExecDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (ExecDynOperationNode o: chidren_) {
@@ -56,7 +56,7 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
         setSimpleArgument(res_, _conf);
     }
 
-    final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;

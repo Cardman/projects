@@ -53,7 +53,7 @@ public final class TryEval extends BracedStack implements Eval {
         id_.put(nextSibling_, assBl_);
     }
     @Override
-    public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {

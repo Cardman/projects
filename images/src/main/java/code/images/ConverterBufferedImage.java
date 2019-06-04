@@ -49,7 +49,7 @@ public final class ConverterBufferedImage {
         if (ints_.size() != 3) {
             return -1;
         }
-        return Numbers.mod((ints_.first() *256*256 + ints_.get(1) *256 + ints_.last()), (256*256*256));
+        return Numbers.mod(ints_.first() *256*256 + ints_.get(1) *256 + ints_.last(), 256*256*256);
     }
 
     public static EqList<IntPoint> containedWhiteInside(boolean _hf,int[][] _buffered) {

@@ -22,6 +22,11 @@ public abstract class Dialog implements ChangeableTitle {
 
     private JDialog dialog = new JDialog();
     private Ownable owner;
+    protected Dialog() {
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.addWindowListener(new CrossClosingDialogEvent(this));
+    }
 
     public void setSize(Dimension _d) {
         dialog.setSize(_d);
@@ -31,11 +36,6 @@ public abstract class Dialog implements ChangeableTitle {
         dialog.setSize(_width, _height);
     }
 
-    protected Dialog() {
-        dialog.setModal(true);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.addWindowListener(new CrossClosingDialogEvent(this));
-    }
 
     public void setResizable(boolean _resizable) {
         dialog.setResizable(_resizable);

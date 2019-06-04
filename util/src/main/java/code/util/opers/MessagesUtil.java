@@ -25,7 +25,7 @@ public final class MessagesUtil {
                 }
             } else {
                 int indexSep_ = l.indexOf(EQUALS);
-                if (indexSep_ > - 1) {
+                if (indexSep_ > -1) {
                     lastKey_ = l.substring(0,indexSep_);
                     messages_.put(lastKey_, l.substring(indexSep_+1));
                 }

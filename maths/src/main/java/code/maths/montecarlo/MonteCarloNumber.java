@@ -53,7 +53,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 maxIndice_=i_;
                 break;
             }
-            i_ ++;
+            i_++;
         }
         if (!remain_.isZero()) {
             ObjectMap<Rate,LgInt> lawTwo_=new ObjectMap<Rate,LgInt>();

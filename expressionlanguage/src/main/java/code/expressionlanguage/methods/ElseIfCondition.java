@@ -113,7 +113,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        StringMap<SimpleAssignment> after_ ;
+        StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;
         CustList<StringMap<SimpleAssignment>> mutableVars_;
         after_ = buildAssFieldsAfterIf(true, prev_, _an, _anEl);

@@ -38,7 +38,7 @@ public class TargetsPanel extends Panel {
             }
             target_.setSelectable(chosablePl_.get(k));
             playerTargets.add(target_);
-            i_ ++;
+            i_++;
         }
         //TreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         i_ = CustList.FIRST_INDEX;
@@ -52,7 +52,7 @@ public class TargetsPanel extends Panel {
             }
             target_.setSelectable(chosableFoe_.get(k));
             foeTargets.add(target_);
-            i_ ++;
+            i_++;
         }
         placeLabels(mult_);
     }

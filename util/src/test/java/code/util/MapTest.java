@@ -1,6 +1,9 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import code.util.classestest.MyEnum;
 import org.junit.Test;

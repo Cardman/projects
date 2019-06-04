@@ -353,7 +353,7 @@ public class FrontBattle extends PaintableLabel {
                     t.setyPoint(maxHeight);
                 }
             }
-            i_ ++;
+            i_++;
         }
 //        for (Byte k: teamFoe_.getKeys()) {
 //            TargetLabel target_ = new TargetLabel();
@@ -610,7 +610,7 @@ public class FrontBattle extends PaintableLabel {
     void drawAnimationInstant(AnimationInt _animation) {
         wild = false;
         drawImage = true;
-        imageNumber ++;
+        imageNumber++;
         int xEnd_;
         int yEnd_;
         if (_animation instanceof AnimationEffect) {
@@ -800,9 +800,9 @@ public class FrontBattle extends PaintableLabel {
                 }
                 label_.apply(this, facade);
                 drawImage = false;
-                imageNumber ++;
-                imageNumber ++;
-                imageNumber ++;
+                imageNumber++;
+                imageNumber++;
+                imageNumber++;
                 //decrease nb images
             } else {
                 hMax_ = 0;
@@ -847,9 +847,9 @@ public class FrontBattle extends PaintableLabel {
                     }
                     label_.apply(this, facade);
                     drawImage = false;
-                    imageNumber ++;
-                    imageNumber ++;
-                    imageNumber ++;
+                    imageNumber++;
+                    imageNumber++;
+                    imageNumber++;
                 } else {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
                     image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
@@ -867,9 +867,9 @@ public class FrontBattle extends PaintableLabel {
                 playerUser = e_.isPlayerFromFighter();
                 groundPlace = e_.getFromFighter().getPosition();
                 drawImage = false;
-                imageNumber ++;
-                imageNumber ++;
-                imageNumber ++;
+                imageNumber++;
+                imageNumber++;
+                imageNumber++;
             } else {
                 paintDefaultEffect = true;
             }
@@ -947,7 +947,7 @@ public class FrontBattle extends PaintableLabel {
     void drawAnimationFightIniInst() {
         wild = false;
         drawImages = true;
-        imageNumber ++;
+        imageNumber++;
         int xEndPlayer_ = 0;
         int xEndOther_;
         if (mult == 1) {
@@ -989,7 +989,7 @@ public class FrontBattle extends PaintableLabel {
         wild = true;
         drawImage = true;
         drawBlueRect = false;
-        imageNumber ++;
+        imageNumber++;
         int xEnd_;
         int yEnd_;
 //        xEnd_ = xCoordsFoe.getVal((byte) CustList.FIRST_INDEX);
@@ -1198,12 +1198,12 @@ public class FrontBattle extends PaintableLabel {
 //            i_ = CustList.FIRST_INDEX;
 //            for (Byte k: xCoords.getKeys()) {
 //                _g.drawImage(playerTargets.get(i_).getImage(), xCoords.getVal(k), yCoords.getVal(k), null);
-//                i_ ++;
+//                i_++;
 //            }
 //            i_ = CustList.FIRST_INDEX;
 //            for (Byte k: xCoordsFoe.getKeys()) {
 //                _g.drawImage(foeTargets.get(i_).getImage(), xCoordsFoe.getVal(k), yCoordsFoe.getVal(k), null);
-//                i_ ++;
+//                i_++;
 //            }
             for (byte k: playerTargets.getKeys()) {
                 _g.drawImage(playerTargets.getVal(k).getImage(), playerTargets.getVal(k).getxPoint(), playerTargets.getVal(k).getyPoint(), null);

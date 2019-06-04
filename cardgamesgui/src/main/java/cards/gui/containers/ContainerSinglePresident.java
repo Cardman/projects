@@ -708,14 +708,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
             int curStr_ = c.getCard().strength(partiePresident().isReversed());
             if (iter_ > CustList.FIRST_INDEX) {
                 if (curStr_ == str_) {
-                    index_ ++;
+                    index_++;
                 } else {
                     index_ = CustList.SECOND_INDEX;
                 }
             }
             c.addMouseListener(new ListenerCardPresidentSingleGame(this,c.getCard(), index_));
             str_ = curStr_;
-            iter_ ++;
+            iter_++;
             _panel.add(c);
         }
         _panel.validate();
@@ -729,7 +729,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand));
             _panel.add(c);
-            index_ ++;
+            index_++;
         }
         if (!_inHand) {
             int rec_ = getReceivedCards().total();
@@ -743,7 +743,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 l_.setBackground(_panel.getBackground());
                 l_.setForeground(_panel.getForeground());
                 _panel.add(l_);
-                index_ ++;
+                index_++;
             }
         }
         _panel.validate();

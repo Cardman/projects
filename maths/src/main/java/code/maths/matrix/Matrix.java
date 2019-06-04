@@ -276,9 +276,9 @@ public final class Matrix implements Equallable<Matrix>, Displayable {
         return rk_;
     }
 
-    private void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int i2) {
+    private void swapHelperTest(Matrix _copy, int _nbCols, int _nbLines, int _i, int _i2) {
         if (_copy.cell(_i, _i).isZero()) {
-            swapHelper(_copy, _nbCols, _nbLines, _i, i2);
+            swapHelper(_copy, _nbCols, _nbLines, _i, _i2);
         }
     }
 

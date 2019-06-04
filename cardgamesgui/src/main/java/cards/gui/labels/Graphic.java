@@ -36,7 +36,7 @@ public class Graphic extends PaintableLabel {
         int nombreJoueurs_=scores.last().size();
         double esperance_;
         int nbDealsMinusOne_ = scores.size();
-        nbDealsMinusOne_ --;
+        nbDealsMinusOne_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
             g2_.setColor(couleurs.get(joueur_));
             esperance_=sommes.first()/(double)nombreJoueurs_;

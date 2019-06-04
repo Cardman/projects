@@ -20,22 +20,22 @@ public final class ExecTernaryOperation extends ExecReflectableOpering {
     }
 
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(Analyzable _conf) {
         quickCalculate(_conf);
     }
     @Override
-    public final void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(Analyzable _conf) {
         AbstractTernaryOperation.tryGetResult(_conf, this);
     }
 
     @Override
-    public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    final Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;

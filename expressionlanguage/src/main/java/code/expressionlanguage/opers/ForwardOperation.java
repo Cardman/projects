@@ -107,11 +107,11 @@ public final class ForwardOperation extends VariableLeafOperation implements Pos
     }
 
     @Override
-    public final void setIntermediateDotted() {
+    public void setIntermediateDotted() {
         intermediate = true;
     }
     @Override
-    public final boolean isIntermediateDottedOperation() {
+    public boolean isIntermediateDottedOperation() {
         return intermediate;
     }
 

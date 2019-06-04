@@ -21,8 +21,8 @@ public final class MetaDocument {
     private StringList stacks;
 
     private MetaContainer currentParent;
-    private int partGroup = 0;
-    private int rowGroup = 0;
+    private int partGroup;
+    private int rowGroup;
     private CustList<MetaContainer> containers;
     private CustList<MetaTable> tables;
     private Numbers<Integer> lis;

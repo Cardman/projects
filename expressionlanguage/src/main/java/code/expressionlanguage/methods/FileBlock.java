@@ -25,7 +25,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         predefined = _predefined;
         tabWidth = _tabWidth;
     }
-    public final int getRowFile(int _sum) {
+    public int getRowFile(int _sum) {
         int len_ = lineReturns.size();
         int i_ = 0;
         while (i_ < len_) {
@@ -36,7 +36,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         }
         return i_/2;
     }
-    public final int getColFile(int _sum, int _row) {
+    public int getColFile(int _sum, int _row) {
         int r_ = _row * 2;
         int j_ = 0;
         if (r_ < lineReturns.size()) {

@@ -156,7 +156,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         }
         int i_ = CustList.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS_CHAR) {
-            i_ ++;
+            i_++;
         }
         if (i_ >= _input.length()) {
             return false;
@@ -212,7 +212,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         }
         i_++;
         if (_input.charAt(i_) == MINUS_CHAR) {
-            i_ ++;
+            i_++;
         }
 //        if (i_ >= _input.length()) {
 //            return false;

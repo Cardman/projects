@@ -1179,25 +1179,25 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
     }
 
     @Override
-    public final void setIntermediateDotted() {
+    public void setIntermediateDotted() {
         intermediate = true;
     }
     @Override
-    public final boolean isIntermediateDottedOperation() {
+    public boolean isIntermediateDottedOperation() {
         return intermediate;
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
     }
 
-    public final Argument getPreviousArgument() {
+    public Argument getPreviousArgument() {
         return previousArgument;
     }
 
     @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
+    public void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
     }
 

@@ -231,7 +231,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int i_ = CustList.FIRST_INDEX;
         if (_input.charAt(i_) == MINUS_CHAR) {
-            i_ ++;
+            i_++;
         }
         if (i_ >= _input.length()) {
             return false;
@@ -686,7 +686,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 pgcd_ = pgcd(numerateur_.get(j), denominateur_.get(i));
                 numerateur_.set(j, divide(numerateur_.get(j), pgcd_));
                 denominateur_.set(i, divide(denominateur_.get(i), pgcd_));
-                j ++;
+                j++;
             }
         }
         for (int i = CustList.FIRST_INDEX; i < nombre_; i++) {
@@ -830,7 +830,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         int nbDig_ = resultatChiffres_.size();
         int nbDigMinusOne_ = nbDig_;
-        nbDigMinusOne_ --;
+        nbDigMinusOne_--;
         for (int i = nbDigMinusOne_; i >= CustList.FIRST_INDEX; i--) {
             resultatChiffres_.set(i, (long) Math.floor(grDigits.get(i) * _db));
             tmp_ = (grDigits.get(i) * _db - resultatChiffres_.get(i)) * BASE;
@@ -872,7 +872,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int expo_ = 0;
         if (longueur_ < longueurBis_) {
             int first_ = longueur_;
-            first_ --;
+            first_--;
             for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
                 tmp_ = _autre.multiplyBy(grDigits.get(i));
                 for (int j = CustList.SIZE_EMPTY; j < expo_; j++) {
@@ -884,7 +884,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
         } else {
             int first_ = longueurBis_;
-            first_ --;
+            first_--;
             for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
                 tmp_ = multiplyBy(_autre.grDigits.get(i));
                 for (int j = CustList.SIZE_EMPTY; j < expo_; j++) {
@@ -1250,7 +1250,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long retenue_ = 0;
         long reste_;
         int first_ = grDigits.size();
-        first_ --;
+        first_--;
         for (int i = first_; i >= CustList.FIRST_INDEX; i--) {
             quotient_ = grDigits.get(i) * _autre + retenue_;
             retenue_ = quotient_ / BASE;
