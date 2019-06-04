@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
-import cards.tarot.comparators.BidTarotComparator;
 import cards.tarot.enumerations.*;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -441,7 +440,6 @@ public final class GameTarot {
             }
             bids_.add(b);
         }
-        bids_.sortElts(new BidTarotComparator());
         return bids_;
     }
     boolean contratAccepte(BidTarot _enchere) {

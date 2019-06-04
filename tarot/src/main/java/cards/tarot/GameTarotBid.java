@@ -2,7 +2,6 @@ package cards.tarot;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import cards.tarot.comparators.BidTarotComparator;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
 import code.util.EnumList;
@@ -535,7 +534,6 @@ public final class GameTarotBid {
             }
             bids_.add(b);
         }
-        bids_.sortElts(new BidTarotComparator());
         return bids_;
     }
 
@@ -711,138 +709,17 @@ public final class GameTarotBid {
     HandTarot cartesAppeler() {
         HandTarot main_ = new HandTarot();
         if (rules.getRepartition().getAppel() == CallingCard.KING) {
-            int nbAppeles_ = rules.getRepartition().getNbAppeles();
             if (currentHand.tailleRois() < HandTarot.charCards(CardChar.KING).total()) {
                 main_.ajouterCartes(HandTarot.charCards(CardChar.KING));
-                if (currentHand.tailleRois() + nbAppeles_ > HandTarot.charCards(CardChar.KING).total()) {
-                    //nbAppeles > 0
-                    if (currentHand.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
-                        main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
-                        if (currentHand.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
-                            if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
-                                main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
-                                if (currentHand.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
-                                    if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                        main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                        if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                            main_.ajouter(CardTarot.petit());
-                                            main_.ajouter(CardTarot.vingtEtUn());
-                                            main_.ajouter(CardTarot.excuse());
-                                        }
-                                    } else {
-                                        main_.ajouter(CardTarot.petit());
-                                        main_.ajouter(CardTarot.vingtEtUn());
-                                        main_.ajouter(CardTarot.excuse());
-                                    }
-                                }
-                            } else {
-                                if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                    if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                        main_.ajouter(CardTarot.petit());
-                                        main_.ajouter(CardTarot.vingtEtUn());
-                                        main_.ajouter(CardTarot.excuse());
-                                    }
-                                } else {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            }
-                        }
-                    } else {
-                        if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
-                            if (currentHand.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
-                                if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                    if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                        main_.ajouter(CardTarot.petit());
-                                        main_.ajouter(CardTarot.vingtEtUn());
-                                        main_.ajouter(CardTarot.excuse());
-                                    }
-                                } else {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            }
-                        } else {
-                            if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            } else {
-                                main_.ajouter(CardTarot.petit());
-                                main_.ajouter(CardTarot.vingtEtUn());
-                                main_.ajouter(CardTarot.excuse());
-                            }
-                        }
-                    }
-                }
             } else {
                 if (currentHand.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
                     main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
-                    if (currentHand.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
-                        if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
-                            if (currentHand.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
-                                if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                    if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                        main_.ajouter(CardTarot.petit());
-                                        main_.ajouter(CardTarot.vingtEtUn());
-                                        main_.ajouter(CardTarot.excuse());
-                                    }
-                                } else {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            }
-                        } else {
-                            if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            } else {
-                                main_.ajouter(CardTarot.petit());
-                                main_.ajouter(CardTarot.vingtEtUn());
-                                main_.ajouter(CardTarot.excuse());
-                            }
-                        }
-                    }
                 } else {
                     if (currentHand.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
                         main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
-                        if (currentHand.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
-                            if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                                if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                    main_.ajouter(CardTarot.petit());
-                                    main_.ajouter(CardTarot.vingtEtUn());
-                                    main_.ajouter(CardTarot.excuse());
-                                }
-                            } else {
-                                main_.ajouter(CardTarot.petit());
-                                main_.ajouter(CardTarot.vingtEtUn());
-                                main_.ajouter(CardTarot.excuse());
-                            }
-                        }
                     } else {
                         if (currentHand.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
                             main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
-                            if (currentHand.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
-                                main_.ajouter(CardTarot.petit());
-                                main_.ajouter(CardTarot.vingtEtUn());
-                                main_.ajouter(CardTarot.excuse());
-                            }
                         } else {
                             main_.ajouter(CardTarot.petit());
                             main_.ajouter(CardTarot.vingtEtUn());

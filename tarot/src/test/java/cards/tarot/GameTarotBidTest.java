@@ -1,7 +1,10 @@
 package cards.tarot;
 
 import cards.consts.Suit;
+import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.DealingTarot;
+import code.util.EnumList;
 import code.util.EnumMap;
 import org.junit.Test;
 
@@ -582,6 +585,95 @@ public final class GameTarotBidTest {
         assertTrue(out_.getVal(Suit.CLUB).contient(CardTarot.CLUB_KING));
     }
     @Test
+    public void couleursPseudosMaitres1Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        HandTarot other_ = new HandTarot();
+        other_.ajouter(CardTarot.SPADE_KING);
+        HandTarot played_ = new HandTarot();
+        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        EnumMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
+        EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
+        assertEq(1, out_.size());
+        assertTrue(out_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursPseudosMaitres2Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_7);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        HandTarot other_ = new HandTarot();
+        other_.ajouter(CardTarot.SPADE_KING);
+        HandTarot played_ = new HandTarot();
+        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        EnumMap<Suit, HandTarot> pseudo_ = GameTarotBid.cartesPseudoMaitresses(suits_, other_, played_.couleurs());
+        EnumList<Suit> out_ = GameTarotBid.couleursPseudosMaitres(suits_, pseudo_);
+        assertEq(2, out_.size());
+        assertTrue(out_.containsObj(Suit.SPADE));
+        assertTrue(out_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void nbCouleursPseudoMaitresses1Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        HandTarot other_ = new HandTarot();
+        other_.ajouter(CardTarot.SPADE_KING);
+        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        assertEq(0,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
+    }
+    @Test
+    public void nbCouleursPseudoMaitresses2Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_7);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        HandTarot other_ = new HandTarot();
+        other_.ajouter(CardTarot.SPADE_KING);
+        EnumMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
+        assertEq(1,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
+    }
+    @Test
     public void estUnJeuDeChelem1Test() {
         HandTarot handSuit_ = new HandTarot();
         handSuit_.ajouter(CardTarot.TRUMP_11);
@@ -631,5 +723,514 @@ public final class GameTarotBidTest {
         RulesTarot r_ = new RulesTarot();
         assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
     }
-
+    @Test
+    public void estUnJeuDeChelem3Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.TRUMP_12);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot((byte) 3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
+    }
+    @Test
+    public void estUnJeuDeChelem4Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.TRUMP_12);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot((byte) 3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
+    }
+    @Test
+    public void estUnJeuDeChelem5Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
+    }
+    @Test
+    public void estUnJeuDeChelem6Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
+    }
+    @Test
+    public void estUnJeuDeChelem7Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_KING);
+        assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_, cartesAppeler_));
+    }
+    @Test
+    public void estUnJeuDeChelem8Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_10);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_JACK);
+        assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,cartesAppeler_));
+    }
+    @Test
+    public void estUnJeuDeChelem9Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
+        assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,cartesAppeler_));
+    }
+    @Test
+    public void estUnJeuDeChelem10Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_JACK);
+        assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,cartesAppeler_));
+    }
+    @Test
+    public void estUnJeuDeChelem11Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        HandTarot plSuit_ = new HandTarot();
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_KNIGHT);
+        assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,cartesAppeler_));
+    }
+    @Test
+    public void cartesAppeler1Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(4, called_.total());
+        assertTrue(called_.contient(CardTarot.HEART_KING));
+        assertTrue(called_.contient(CardTarot.SPADE_KING));
+        assertTrue(called_.contient(CardTarot.DIAMOND_KING));
+        assertTrue(called_.contient(CardTarot.CLUB_KING));
+    }
+    @Test
+    public void cartesAppeler2Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(4, called_.total());
+        assertTrue(called_.contient(CardTarot.HEART_QUEEN));
+        assertTrue(called_.contient(CardTarot.SPADE_QUEEN));
+        assertTrue(called_.contient(CardTarot.DIAMOND_QUEEN));
+        assertTrue(called_.contient(CardTarot.CLUB_QUEEN));
+    }
+    @Test
+    public void cartesAppeler3Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.TRUMP_15);
+        handSuit_.ajouter(CardTarot.TRUMP_14);
+        handSuit_.ajouter(CardTarot.TRUMP_13);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(4, called_.total());
+        assertTrue(called_.contient(CardTarot.HEART_KNIGHT));
+        assertTrue(called_.contient(CardTarot.SPADE_KNIGHT));
+        assertTrue(called_.contient(CardTarot.DIAMOND_KNIGHT));
+        assertTrue(called_.contient(CardTarot.CLUB_KNIGHT));
+    }
+    @Test
+    public void cartesAppeler4Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.TRUMP_19);
+        handSuit_.ajouter(CardTarot.TRUMP_18);
+        handSuit_.ajouter(CardTarot.TRUMP_17);
+        handSuit_.ajouter(CardTarot.TRUMP_16);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(4, called_.total());
+        assertTrue(called_.contient(CardTarot.HEART_JACK));
+        assertTrue(called_.contient(CardTarot.SPADE_JACK));
+        assertTrue(called_.contient(CardTarot.DIAMOND_JACK));
+        assertTrue(called_.contient(CardTarot.CLUB_JACK));
+    }
+    @Test
+    public void cartesAppeler5Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.DIAMOND_JACK);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_JACK);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(3, called_.total());
+        assertTrue(called_.contient(CardTarot.TRUMP_21));
+        assertTrue(called_.contient(CardTarot.EXCUSE));
+        assertTrue(called_.contient(CardTarot.TRUMP_1));
+    }
+    @Test
+    public void cartesAppeler6Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.DIAMOND_JACK);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_JACK);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_CHAR);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(19, called_.total());
+        assertTrue(called_.contient(CardTarot.TRUMP_21));
+        assertTrue(called_.contient(CardTarot.EXCUSE));
+        assertTrue(called_.contient(CardTarot.TRUMP_1));
+        assertTrue(called_.contient(CardTarot.HEART_JACK));
+        assertTrue(called_.contient(CardTarot.SPADE_JACK));
+        assertTrue(called_.contient(CardTarot.DIAMOND_JACK));
+        assertTrue(called_.contient(CardTarot.CLUB_JACK));
+        assertTrue(called_.contient(CardTarot.HEART_KNIGHT));
+        assertTrue(called_.contient(CardTarot.SPADE_KNIGHT));
+        assertTrue(called_.contient(CardTarot.DIAMOND_KNIGHT));
+        assertTrue(called_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(called_.contient(CardTarot.HEART_QUEEN));
+        assertTrue(called_.contient(CardTarot.SPADE_QUEEN));
+        assertTrue(called_.contient(CardTarot.DIAMOND_QUEEN));
+        assertTrue(called_.contient(CardTarot.CLUB_QUEEN));
+        assertTrue(called_.contient(CardTarot.HEART_KING));
+        assertTrue(called_.contient(CardTarot.SPADE_KING));
+        assertTrue(called_.contient(CardTarot.DIAMOND_KING));
+        assertTrue(called_.contient(CardTarot.CLUB_KING));
+    }
+    @Test
+    public void cartesAppeler7Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.DIAMOND_JACK);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_JACK);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        HandTarot called_ = g_.cartesAppeler();
+        assertEq(0, called_.total());
+    }
+    @Test
+    public void allowedBidsTest() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.TRUMP_21);
+        handSuit_.ajouter(CardTarot.TRUMP_20);
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_KING);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.DIAMOND_QUEEN);
+        handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        handSuit_.ajouter(CardTarot.DIAMOND_JACK);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
+        handSuit_.ajouter(CardTarot.CLUB_JACK);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_1_VS_3);
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        GameTarotBid g_ = new GameTarotBid(handSuit_,r_,new EnumList<BidTarot>(),BidTarot.FOLD);
+        EnumList<BidTarot> called_ = g_.allowedBids();
+        assertEq(5, called_.size());
+    }
 }
