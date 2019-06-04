@@ -300,18 +300,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new CharStruct(ch_.getChar()));
                 return;
             }
-            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-                if (!(_args[0] instanceof CharStruct)) {
-                    _res.setError(lgNames_.getAliasNullPe());
-                    return;
-                }
-                Character one_ = ch_.getChar();
-                Character two_ = ((CharStruct) _args[0]).getChar();
-                _res.setResult(new IntStruct(one_.compareTo(two_)));
+            if (!(_args[0] instanceof CharStruct)) {
+                _res.setError(lgNames_.getAliasNullPe());
                 return;
             }
             Character one_ = ch_.getChar();
-            _res.setResult(new StringStruct(Character.toString(one_)));
+            Character two_ = ((CharStruct) _args[0]).getChar();
+            _res.setResult(new IntStruct(one_.compareTo(two_)));
             return;
         }
         if (StringList.quickEq(type_, byteType_)
@@ -361,21 +356,11 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 } else if (StringList.quickEq(type_, floatType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
                         Float one_;
-                        if (list_.isEmpty()) {
-                            NumberStruct instance_ = (NumberStruct) _struct;
-                            one_ = instance_.getFloat();
-                        } else {
-                            one_ = ((NumberStruct) _args[0]).getFloat();
-                        }
+                        one_ = ((NumberStruct) _args[0]).getFloat();
                         _res.setResult(new BooleanStruct(Double.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                         Float one_;
-                        if (list_.isEmpty()) {
-                            NumberStruct instance_ = (NumberStruct) _struct;
-                            one_ = instance_.getFloat();
-                        } else {
-                            one_ = ((NumberStruct) _args[0]).getFloat();
-                        }
+                        one_ = ((NumberStruct) _args[0]).getFloat();
                         _res.setResult(new BooleanStruct(Double.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                         Float one_ = ((NumberStruct) _args[0]).getFloat();
@@ -454,7 +439,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new DoubleStruct(instance_.doubleValue()));
             } else if (list_.isEmpty()) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(instance_.exportValue());
+                _res.setResult(instance_.getDisplayedString(_cont));
             } else {
                 _res.setResult(((DisplayableStruct)_args[0]).getDisplayedString(_cont));
             }

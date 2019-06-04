@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -14,17 +15,11 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.maths.montecarlo.AbMonteCarlo;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class LgNames {
     protected static final String LOC_VAR = ".";
@@ -764,7 +759,8 @@ public abstract class LgNames {
         _cont.setAnalyzing(new AnalyzedPageEl());
         TypeUtil.buildInherits(_cont);
         for (StandardType t: standards.values()) {
-            TypeUtil.buildOverrides(t, _cont);
+            ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = TypeUtil.getAllInstanceSignatures(t, _cont);
+            t.getAllOverridingMethods().putAllMap(allOv_);
         }
     }
 

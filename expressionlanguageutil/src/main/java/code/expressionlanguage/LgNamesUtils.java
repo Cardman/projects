@@ -96,9 +96,9 @@ public class LgNamesUtils extends LgNames {
         stdcl_ = new StandardClass(aliasThread, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         method_ = new StandardMethod(aliasStart, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasJoin, params_, getAliasBoolean(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasJoin, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliasIsAlive, params_, getAliasBoolean(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasIsAlive, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasGetId, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -108,7 +108,7 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasSetPriority, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimLong());
-        method_ = new StandardMethod(aliasSleep, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasSleep, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasYield, params_, getAliasVoid(), false, MethodModifier.STATIC, stdcl_);
@@ -393,16 +393,17 @@ public class LgNamesUtils extends LgNames {
                     res_.setError(getAliasNullPe());
                     return res_;
                 }
-                sleep(((NumberStruct)_args[0]).longValue());
-                res_.setResult(NullStruct.NULL_VALUE);
+                res_.setResult(new BooleanStruct(sleep(((NumberStruct)_args[0]).longValue())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 CustInitializer cust_ = (CustInitializer) _cont.getInit();
                 boolean alive_ = cust_.isAlive(thread_);
-                while (cust_.isAlive(thread_)) {
-                    continue;
+                try {
+                    thread_.join();
+                } catch (Exception e) {
+                    //skip exception
                 }
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;
@@ -882,10 +883,12 @@ public class LgNamesUtils extends LgNames {
             setAliasIllegalThreadStateException("$coeur.IllegalEtatTache");
         }
     }
-    private static void sleep(long _time) {
+    private static boolean sleep(long _time) {
         long millis_ = System.currentTimeMillis();
+        boolean slept_ = false;
         while (millis_ + _time > System.currentTimeMillis()) {
-            continue;
+            slept_ = true;
         }
+        return slept_;
     }
 }

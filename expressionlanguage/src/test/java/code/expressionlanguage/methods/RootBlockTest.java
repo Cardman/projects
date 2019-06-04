@@ -1199,6 +1199,67 @@ public final class RootBlockTest {
         assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
     }
     @Test
+    public void test25() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E e){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append(" $public $normal $void instancemethod(#T e){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#F>:pkg.ExTwo<#F> {\n");
+        xml_.append(" $public $normal $void instancemethod(#F e){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour<#U> :pkg.ExThree<#U>{\n");
+        xml_.append(" $public $normal $void instancemethod(#U e){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateIds(cont_,false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExFour").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList("#U")));
+        assertEq(4, superTypes_.size());
+        assertEq("pkg.ExFour<#U>", superTypes_.first());
+        assertEq("pkg.ExThree<#U>", superTypes_.get(1));
+        assertEq("pkg.ExTwo<#U>", superTypes_.get(2));
+        assertEq("pkg.Ex<#U>", superTypes_.last());
+        map_ = toList(classes_.getClassBody("pkg.ExThree").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList("#F")));
+        assertEq(3, superTypes_.size());
+        assertEq("pkg.ExThree<#F>", superTypes_.first());
+        assertEq("pkg.ExTwo<#F>", superTypes_.get(1));
+        assertEq("pkg.Ex<#F>", superTypes_.last());
+        map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList("#T")));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+    }
+    @Test
     public void testFail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

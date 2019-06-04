@@ -159,14 +159,8 @@ public final class AliasNumber {
         numbersConstructors(_lgNames,constructors_, aliasPrimFloat_, std_);
         numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, std_, false);
         numbersSafeParsersMethods(_lgNames,methods_, aliasFloat, aliasParseFloatOrNull, std_, false);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
-        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimFloat_);
         method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, std_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimFloat_);
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, std_);
@@ -257,9 +251,6 @@ public final class AliasNumber {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
         method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasToString, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
         ctor_ = new StandardConstructor(params_, false, stdcl_);

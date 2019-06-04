@@ -82,11 +82,7 @@ public class CustInitializer extends DefaultInitializer {
 	}
 
 	boolean isAlive(Thread _id) {
-        Boolean alive_ = alive.get(_id);
-        if (alive_ == null) {
-            return false;
-        }
-        return alive_;
+        return alive.containsKey(_id);
     }
 
     public void initAlive(Thread _id) {

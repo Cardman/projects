@@ -3,7 +3,7 @@ package code.expressionlanguage.inherits;
 import code.util.StringList;
 import code.util.ints.SortedEdge;
 
-public class ClassInheritsDeps implements SortedEdge<ClassInheritsDeps> {
+public final class ClassInheritsDeps implements SortedEdge<ClassInheritsDeps> {
 
     private int order = -1;
 

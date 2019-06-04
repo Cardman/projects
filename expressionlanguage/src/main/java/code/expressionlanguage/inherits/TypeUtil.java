@@ -222,12 +222,9 @@ public final class TypeUtil {
         _ints.removeAllObj(aliasObject_);
         _ints.removeDuplicates();
     }
-    public static void buildOverrides(GeneType _type,ContextEl _context) {
+    public static void buildOverrides(RootBlock _type,ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        String fileName_ = "";
-        if (_type instanceof RootBlock) {
-            fileName_ = ((RootBlock)_type).getFile().getFileName();
-        }
+        String fileName_ = _type.getFile().getFileName();
         for (ClassMethodId c: getAllDuplicates(_type, _context)) {
             BadReturnTypeInherit err_;
             err_ = new BadReturnTypeInherit();
