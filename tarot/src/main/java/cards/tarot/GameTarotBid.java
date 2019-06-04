@@ -27,7 +27,7 @@ public final class GameTarotBid {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         int atouts_ = couleurs_.getVal(CardTarot.excuse().couleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
-        boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler(), nombreJoueurs_);
+        boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
         if (chelem_) {
             BidTarot e_ = BidTarot.FOLD;
             for(BidTarot e: allowedBids()) {
@@ -417,23 +417,24 @@ public final class GameTarotBid {
         }
         return BidTarot.FOLD;
     }
-    static boolean estUnJeuDeChelem(EnumMap<Suit,HandTarot> _couleurs,
-                                    EnumMap<Suit,HandTarot> _cartesJouees,
-                                    RulesTarot _infos, HandTarot _cartesAppeler,byte _joueurs) {
+    static boolean estUnJeuDeChelem(EnumMap<Suit, HandTarot> _couleurs,
+                                    EnumMap<Suit, HandTarot> _cartesJouees,
+                                    RulesTarot _infos, HandTarot _cartesAppeler) {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
             return true;
         }
-        if (!maitreAtoutPourChelem(_couleurs,_joueurs)) {
+        byte nbPlayers_ = (byte) _infos.getRepartition().getNombreJoueurs();
+        if (!maitreAtoutPourChelem(_couleurs,nbPlayers_)) {
             return false;
         }
         byte nombreCouleursLargMait_ = nbCouleursLargementMaitresses(
-                _couleurs, _joueurs);
-        if (_joueurs == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+                _couleurs, nbPlayers_);
+        if (nbPlayers_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
             return nombreCouleursLargMait_ == Suit.couleursOrdinaires().size();
         }
         byte nombreCouleursPseuMait_ = nbCouleursPseudoMaitresses(_couleurs,
                 _cartesAppeler,
-                _joueurs);
+                nbPlayers_);
         boolean avecAppel_ = _infos.getRepartition().getAppel() == CallingCard.KING;
         if (_infos.getRepartition().getAppel() == CallingCard.CHARACTER_CARD) {
             avecAppel_ = true;
