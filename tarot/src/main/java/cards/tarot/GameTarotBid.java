@@ -487,7 +487,7 @@ public final class GameTarotBid {
     static boolean estUnJeuDeChelemSur(EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
         int nbTr_ = nbAtoutsMaitres(_couleurs) + _cartesJouees.getVal(Suit.TRUMP).total() + _couleurs.getVal(Suit.TRUMP).total();
         int nbFullTr_ = HandTarot.atoutsSansExcuse().total() + _couleurs.getVal(CardTarot.excuse().couleur()).total();
-        if (nbTr_ == nbFullTr_) {
+        if (nbTr_ >= nbFullTr_) {
             return nbCouleursMaitresses(_couleurs, _cartesJouees) == Suit.couleursOrdinaires().size();
         }
         return false;
@@ -688,10 +688,6 @@ public final class GameTarotBid {
     }
     byte getNombreDeJoueurs() {
         return (byte) rules.getRepartition().getNombreJoueurs();
-    }
-
-    RulesTarot getRules() {
-        return rules;
     }
 
     HandTarot getCurrentHand() {

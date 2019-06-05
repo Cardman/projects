@@ -257,6 +257,15 @@ public final class GameTarotCommon {
         }
         return couleurs_;
     }
+    static HandTarot inter(HandTarot _one, HandTarot _two) {
+        HandTarot o_ = new HandTarot();
+        for (CardTarot c: _one) {
+            if (_two.contient(c)) {
+                o_.ajouter(c);
+            }
+        }
+        return o_;
+    }
     static EnumMap<Suit,HandTarot> cartesMaitresses(
             EnumMap<Suit,HandTarot> _couleurs, EnumMap<Suit,HandTarot> _cartesJouees) {
         EnumMap<Suit,HandTarot> suits_ = new EnumMap<Suit,HandTarot>();
