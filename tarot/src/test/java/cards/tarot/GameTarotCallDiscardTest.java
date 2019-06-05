@@ -623,6 +623,144 @@ public class GameTarotCallDiscardTest {
         HandTarot callable_ = g_.callableCards();
         assertSame(CardTarot.TRUMP_21,GameTarotCallDiscard.couleurAappeler(callable_,handSuit_));
     }
+    @Test
+    public void strategieAppel1Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_QUEEN);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.CLUB_KING,h_.premiereCarte());
+    }
+    @Test
+    public void strategieAppel2Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_4);
+        handSuit_.ajouter(CardTarot.HEART_3);
+        handSuit_.ajouter(CardTarot.HEART_2);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_4);
+        handSuit_.ajouter(CardTarot.SPADE_3);
+        handSuit_.ajouter(CardTarot.SPADE_2);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_1);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.CLUB_KING,h_.premiereCarte());
+    }
+    @Test
+    public void strategieAppel3Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_8);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
+    }
+    @Test
+    public void strategieAppel4Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_QUEEN);
+        handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
+        handSuit_.ajouter(CardTarot.SPADE_JACK);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
+    }
+    @Test
+    public void strategieAppel5Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.SPADE_10);
+        handSuit_.ajouter(CardTarot.SPADE_9);
+        handSuit_.ajouter(CardTarot.SPADE_4);
+        handSuit_.ajouter(CardTarot.SPADE_3);
+        handSuit_.ajouter(CardTarot.SPADE_2);
+        handSuit_.ajouter(CardTarot.SPADE_1);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
+    }
+    @Test
+    public void strategieAppel6Test() {
+        HandTarot handSuit_ = new HandTarot();
+        handSuit_.ajouter(CardTarot.HEART_KING);
+        handSuit_.ajouter(CardTarot.HEART_QUEEN);
+        handSuit_.ajouter(CardTarot.HEART_KNIGHT);
+        handSuit_.ajouter(CardTarot.HEART_10);
+        handSuit_.ajouter(CardTarot.HEART_9);
+        handSuit_.ajouter(CardTarot.HEART_5);
+        handSuit_.ajouter(CardTarot.HEART_4);
+        handSuit_.ajouter(CardTarot.HEART_3);
+        handSuit_.ajouter(CardTarot.HEART_2);
+        handSuit_.ajouter(CardTarot.HEART_1);
+        handSuit_.ajouter(CardTarot.DIAMOND_KING);
+        handSuit_.ajouter(CardTarot.CLUB_KING);
+        RulesTarot r_ = new RulesTarot(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        GameTarotBid g_ = newGameTarotBid(handSuit_,r_,BidTarot.TAKE);
+        GameTarotCallDiscard d_ = new GameTarotCallDiscard(g_,6);
+        HandTarot h_ = d_.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
+    }
     static GameTarotBid newGameTarotBid(HandTarot _h, RulesTarot _r, BidTarot _b) {
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
         bids_.add(_b);

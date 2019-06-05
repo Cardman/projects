@@ -17,10 +17,11 @@ public final class GameTarotCallDiscard {
         tailleChien = _tailleChien;
     }
 
-    HandTarot strategieAppel(HandTarot _mainPreneur) {
-        EnumMap<Suit,HandTarot> repartition_ = _mainPreneur.couleurs();
+    HandTarot strategieAppel() {
+        HandTarot curHand_ = infosBid.getCurrentHand();
+        EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         if (GameTarotBid.estUnJeuDeChelemSur(repartition_, new HandTarot().couleurs())) {
-            HandTarot figuresPreneur_ = _mainPreneur.figures();
+            HandTarot figuresPreneur_ = curHand_.figures();
             HandTarot cartesAppelerChelem_ = new HandTarot();
             for(CardTarot c: infosBid.callableCards()) {
                 if(figuresPreneur_.contient(c)) {
@@ -32,7 +33,7 @@ public final class GameTarotCallDiscard {
             h_.ajouter(infosBid.callableCards().premiereCarte());
             return h_;
         }
-        HandTarot rois_ = _mainPreneur.figuresMain(CardChar.KING);
+        HandTarot rois_ = curHand_.figuresMain(CardChar.KING);
         HandTarot roisAppeler_ = infosBid.callableCards().figuresMain(CardChar.KING);
         if (rois_.total() < roisAppeler_.total()) {
             //0 <= rois.total() && rois.total() < roisAppeler.total()
@@ -40,73 +41,74 @@ public final class GameTarotCallDiscard {
             //il manque au moins un roi pour le preneur
             //il faut appeler un roi
             Suit couleurRoiAppele_;
-            int nbAtoutLimite_ = _mainPreneur.total() / 2;
-            int nbAtouts_ = _mainPreneur.couleur(Suit.TRUMP).total();
+            int nbAtoutLimite_ = curHand_.total() / 2;
+            int nbAtouts_ = curHand_.couleur(Suit.TRUMP).total();
             EnumList<Suit> couleurs_;
             EnumList<Suit> couleursAppelables_ = GameTarotCommon.couleursNonAtoutNonVides(roisAppeler_,Suit.couleursOrdinaires());
             if (nbAtouts_ <= nbAtoutLimite_) {
-                couleurs_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(_mainPreneur,
+                couleurs_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(curHand_,
                         couleursAppelables_, 3);
-                EnumList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(_mainPreneur,
+                EnumList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
                         rois_,
                         couleurs_);
+                couleursSansRoi_ =GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursSansRoi_);
                 if (!couleursSansRoi_.isEmpty()) {
                     // il existe une couleur ayant moins de trois cartes sans roi
                     EnumList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursAvecFigures(
-                            _mainPreneur, couleursSansRoi_);
+                            curHand_, couleursSansRoi_);
                     if (!couleursAvecFigues_.isEmpty()) {
                         couleursAvecFigues_ = GameTarotCommon.couleursPLonguePHaute(
-                                _mainPreneur, couleursAvecFigues_);
+                                curHand_, couleursAvecFigues_);
                         couleurRoiAppele_ = couleursAvecFigues_.first();
                     } else {
-                        couleursSansRoi_ = GameTarotCommon.couleursPLongueMHaute(_mainPreneur,
+                        couleursSansRoi_ = GameTarotCommon.couleursPLongueMHaute(curHand_,
                                 couleursSansRoi_);
                         couleurRoiAppele_ = couleursSansRoi_.first();
                     }
                 } else {
-                    couleursSansRoi_ = GameTarotCommon.couleursSansCartes(_mainPreneur,
+                    couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
                             rois_,
                             couleursAppelables_);
-                    couleursSansRoi_ =GameTarotCommon.couleursNonAtoutNonVides(_mainPreneur, couleursSansRoi_);
+                    couleursSansRoi_ =GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursSansRoi_);
                     if (!couleursSansRoi_.isEmpty()) {
                         EnumList<Suit> couleursAvecFigues_ = GameTarotCommon.couleursAvecFigures(
-                                _mainPreneur, couleursSansRoi_);
+                                curHand_, couleursSansRoi_);
                         if (!couleursAvecFigues_.isEmpty()) {
                             couleursAvecFigues_ = GameTarotCommon.couleursPHauteMLongue(
-                                    _mainPreneur, couleursAvecFigues_);
+                                    curHand_, couleursAvecFigues_);
                             couleurRoiAppele_ = couleursAvecFigues_.first();
                         } else {
                             couleursSansRoi_ = GameTarotCommon.couleursMLongueMHaute(
-                                    _mainPreneur, couleursSansRoi_);
+                                    curHand_, couleursSansRoi_);
                             couleurRoiAppele_ = couleursSansRoi_.first();
                         }
                     } else {
                         //couleurs avec roi ou couleurs vides et pas tous les rois => au moins une couleur vide
                         couleursSansRoi_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
-                                _mainPreneur, couleursAppelables_, 0);
+                                curHand_, couleursAppelables_, 0);
                         couleurRoiAppele_ = couleursSansRoi_.first();
                     }
                 }
             } else {
-                couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(_mainPreneur, couleursAppelables_);
-                EnumList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(_mainPreneur,
+                couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(curHand_, couleursAppelables_);
+                EnumList<Suit> couleursSansRoi_ = GameTarotCommon.couleursSansCartes(curHand_,
                         rois_,
                         couleurs_);
                 if (!couleursSansRoi_.isEmpty()) {
-                    couleursSansRoi_ = GameTarotCommon.couleursPLonguePHaute(_mainPreneur,
+                    couleursSansRoi_ = GameTarotCommon.couleursPLonguePHaute(curHand_,
                             couleursSansRoi_);
                     couleurRoiAppele_ = couleursSansRoi_.first();
                 } else {
                     //couleurs avec roi ou couleurs vides et pas tous les rois => au moins une couleur vide
                     couleursSansRoi_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
-                            _mainPreneur, couleursAppelables_, 0);
+                            curHand_, couleursAppelables_, 0);
                     couleurRoiAppele_ = couleursSansRoi_.first();
                 }
             }
             return HandTarot.figureCouleur(couleurRoiAppele_, CardChar.KING);
         }
         HandTarot carteChoisie_ = new HandTarot();
-        carteChoisie_.ajouter(couleurAappeler(infosBid.callableCards(), _mainPreneur));
+        carteChoisie_.ajouter(couleurAappeler(infosBid.callableCards(), curHand_));
         return carteChoisie_;
 
     }

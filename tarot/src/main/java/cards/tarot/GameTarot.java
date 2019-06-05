@@ -788,7 +788,7 @@ public final class GameTarot {
 
         GameTarotBid gb_ = new GameTarotBid(_mainPreneur,rules,bids,bid);
         GameTarotCallDiscard g_ = new GameTarotCallDiscard(gb_,derniereMain().total());
-        return g_.strategieAppel(_mainPreneur);
+        return g_.strategieAppel();
 
     }
 
