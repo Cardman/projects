@@ -3,17 +3,15 @@ import cards.tarot.enumerations.BidTarot;
 
 public class CommonTarotGame {
 
-    GameTarot game;
-
-    void bidding(BidTarot _bid,byte _taker) {
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
-        while (game.keepBidding()) {
+    void bidding(BidTarot _bid, byte _taker, GameTarot _game) {
+        byte player_ = _game.playerAfter(_game.getDistribution().getDonneur());
+        while (_game.keepBidding()) {
             if (player_ == _taker) {
-                game.ajouterContrat(_bid, player_);
+                _game.ajouterContrat(_bid, player_);
             } else {
-                game.ajouterContrat(BidTarot.FOLD,player_);
+                _game.ajouterContrat(BidTarot.FOLD,player_);
             }
-            player_ = game.playerAfter(player_);
+            player_ = _game.playerAfter(player_);
         }
     }
 }

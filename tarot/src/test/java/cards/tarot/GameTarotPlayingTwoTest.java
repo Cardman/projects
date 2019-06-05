@@ -13,6 +13,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public class GameTarotPlayingTwoTest extends CommonTarotGame {
+    private GameTarot game;
 
     static DealTarot initializeHands(byte _dealer) {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
@@ -124,7 +125,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 4),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
@@ -180,7 +181,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
@@ -226,7 +227,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
@@ -272,7 +273,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);

@@ -14,6 +14,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public class GameTarotPlayingOneTest extends CommonTarotGame {
+    private GameTarot game;
 
     static DealTarot initializeHands(byte _dealer) {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
@@ -125,7 +126,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 4),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game.setCarteAppelee(cartesAppeler_);
@@ -157,7 +158,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 3),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game.setCarteAppelee(cartesAppeler_);
@@ -203,7 +204,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 3),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
         game.setCarteAppelee(cartesAppeler_);
@@ -251,7 +252,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game.setCarteAppelee(cartesAppeler_);
@@ -294,7 +295,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game.setCarteAppelee(cartesAppeler_);
@@ -330,7 +331,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD, (byte) 4);
+        bidding(BidTarot.GUARD, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.HEART_QUEEN);
         game.setCarteAppelee(cartesAppeler_);

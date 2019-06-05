@@ -12,6 +12,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public class GameTarotCallingCardOneTest extends CommonTarotGame {
+    private GameTarot game;
 
     static DealTarot initializeHands() {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();

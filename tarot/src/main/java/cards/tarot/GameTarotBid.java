@@ -2,7 +2,11 @@ package cards.tarot;
 
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import cards.tarot.enumerations.*;
+import cards.tarot.enumerations.BidTarot;
+import cards.tarot.enumerations.CallingCard;
+import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.DealingTarot;
+import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -27,30 +31,9 @@ public final class GameTarotBid {
         EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         int atouts_ = couleurs_.getVal(CardTarot.excuse().couleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         boolean chelem_ = estUnJeuDeChelem(couleurs_, new HandTarot().couleurs(), rules, cartesAppeler());
+        EnumList<BidTarot> bidTarotRule_ = allowedBids();
         if (chelem_) {
-            BidTarot e_ = BidTarot.FOLD;
-            for(BidTarot e: allowedBids()) {
-                if(!e.isFaireTousPlis()) {
-                    continue;
-                }
-                if(e.estDemandable(e_)) {
-                    e_ = e;
-                }
-            }
-            if(e_.isJouerDonne()) {
-                return e_;
-            }
-        }
-        if (chelem_) {
-            BidTarot e_ = BidTarot.FOLD;
-            for(BidTarot e: allowedBids()) {
-                if(e.estDemandable(e_)) {
-                    e_ = e;
-                }
-            }
-            if(e_.isJouerDonne()) {
-                return e_;
-            }
+            return bidTarotRule_.last();
         }
         Suit couleurAtout_ = Suit.TRUMP;
         HandTarot trumps_ = couleurs_.getVal(couleurAtout_);
@@ -67,59 +50,28 @@ public final class GameTarotBid {
                 nbAtoutsMajeursConsecutifs_ += main_.total();
             }
         }
-        if (!trumps_.estVide()) {
-            if (trumps_.premiereCarte().valeur() > 14) {
-                nbAtoutsQuinzeAuVingtEtUn_++;
-            } else if (trumps_.premiereCarte().valeur() > 6) {
-                nbAtoutsSeptAuQuatorze_++;
-            }
-        }
         int nbTrumps_ = trumps_.total();
-        for (int indiceCarte_ = CustList.SECOND_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
+        for (int indiceCarte_ = CustList.FIRST_INDEX; indiceCarte_ < nbTrumps_; indiceCarte_++) {
             if (trumps_.carte(indiceCarte_).valeur() > 14) {
                 nbAtoutsQuinzeAuVingtEtUn_++;
             } else if (trumps_.carte(indiceCarte_).valeur() > 6) {
-                boolean continuer_ = false;
-                for (HandTarot main_ : suitesAtouts_) {
-                    if (main_.premiereCarte().valeur() <= 14) {
-                        break;
-                    }
-                    if (main_.contient(trumps_.carte(
-                            indiceCarte_))) {
-                        nbAtoutsQuinzeAuVingtEtUn_++;
-                        continuer_ = true;
-                        break;
-                    }
-                }
+                boolean continuer_ = incr(trumps_.carte(
+                        indiceCarte_),suitesAtouts_,14);
                 if (continuer_) {
+                    nbAtoutsQuinzeAuVingtEtUn_++;
                     continue;
                 }
                 nbAtoutsSeptAuQuatorze_++;
             } else {
-                boolean continuer_ = false;
-                for (HandTarot main_ : suitesAtouts_) {
-                    if (main_.premiereCarte().valeur() <= 14) {
-                        break;
-                    }
-                    if (main_.contient(trumps_.carte(
-                            indiceCarte_))) {
-                        nbAtoutsQuinzeAuVingtEtUn_++;
-                        continuer_ = true;
-                        break;
-                    }
-                }
+                boolean continuer_ = incr(trumps_.carte(
+                        indiceCarte_),suitesAtouts_,14);
                 if (continuer_) {
+                    nbAtoutsQuinzeAuVingtEtUn_++;
                     continue;
                 }
-                for (HandTarot main_ : suitesAtouts_) {
-                    if (main_.premiereCarte().valeur() <= 6) {
-                        break;
-                    }
-                    if (main_.contient(trumps_.carte(
-                            indiceCarte_))) {
-                        nbAtoutsSeptAuQuatorze_++;
-                        break;
-                    }
+                if (incr(trumps_.carte(
+                        indiceCarte_),suitesAtouts_,6)) {
+                    nbAtoutsSeptAuQuatorze_++;
                 }
             }
         }
@@ -296,14 +248,8 @@ public final class GameTarotBid {
         for(Suit c: Suit.couleursOrdinaires()) {
             totalCouleur_+= HandTarot.couleurComplete(c).total();
         }
-        if(totalCouleur_ > 0) {
-            totalCouleur_ /= Suit.couleursOrdinaires().size();
-        }
-        if (totalCouleur_ % nombreJoueurs_ == 0) {
-            nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 1;
-        } else {
-            nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
-        }
+        totalCouleur_ /= Suit.couleursOrdinaires().size();
+        nombreLimiteLongue_ = totalCouleur_ / nombreJoueurs_ + 2;
         if (bouts_.contient(CardTarot.petit())) {
             total_ += valeurPetitBout_;
         }
@@ -374,28 +320,20 @@ public final class GameTarotBid {
         }
         boolean sansAppel_ = rules.getRepartition().getAppel() == CallingCard.DEFINED
                 || rules.getRepartition().getAppel() == CallingCard.WITHOUT;
-        if (total_ >= garde_) {
-            if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
-                BidTarot f_ = tryGetStrongBid(sansAppel_,12);
-                if (f_.isJouerDonne()) {
-                    return f_;
-                }
-            } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
-                BidTarot f_ = tryGetStrongBid(sansAppel_,9);
-                if (f_.isJouerDonne()) {
-                    return f_;
-                }
-            } else if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_CALL_KING.getNombreJoueurs()) {
-                BidTarot f_ = tryGetStrongBid(sansAppel_,7);
-                if (f_.isJouerDonne()) {
-                    return f_;
-                }
-            } else {
-                // nombreJoueurs == 6
-                BidTarot f_ = tryGetStrongBid(sansAppel_,6);
-                if (f_.isJouerDonne()) {
-                    return f_;
-                }
+        int limTr_;
+        if (nombreJoueurs_ == DealingTarot.DEAL_1_VS_2.getNombreJoueurs()) {
+            limTr_ = 12;
+        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL.getNombreJoueurs()) {
+            limTr_ = 9;
+        } else  if (nombreJoueurs_ == DealingTarot.DEAL_2_VS_3_CALL_KING.getNombreJoueurs()) {
+            limTr_ = 7;
+        } else {
+            limTr_ = 6;
+        }
+        if (atouts_ >= limTr_ && total_ >= garde_) {
+            BidTarot f_ = tryGetStrongBid(sansAppel_);
+            if (f_.isJouerDonne()) {
+                return f_;
             }
         }
         BidTarot c_;
@@ -415,6 +353,19 @@ public final class GameTarotBid {
             return c_;
         }
         return BidTarot.FOLD;
+    }
+    static boolean incr(CardTarot _c, CustList<HandTarot> _l, int _lim) {
+        boolean continuer_ = false;
+        for (HandTarot main_ : _l) {
+            if (main_.premiereCarte().valeur() <= _lim) {
+                break;
+            }
+            if (main_.contient(_c)) {
+                continuer_ = true;
+                break;
+            }
+        }
+        return continuer_;
     }
     static boolean estUnJeuDeChelem(EnumMap<Suit, HandTarot> _couleurs,
                                     EnumMap<Suit, HandTarot> _cartesJouees,
@@ -468,28 +419,23 @@ public final class GameTarotBid {
         return false;
     }
 
-    BidTarot tryGetStrongBid(boolean _withoutCall, int _trumps) {
+    BidTarot tryGetStrongBid(boolean _withoutCall) {
         EnumMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
-        int atouts_ = couleurs_.getVal(CardTarot.excuse().couleur()).total() + couleurs_.getVal(Suit.TRUMP).total();
         HandTarot bouts_ = getOulderInHand(couleurs_);
         byte nombreJoueurs_ = getNombreDeJoueurs();
         int nbCouleurs_ = Suit.couleursOrdinaires().size();
         if (_withoutCall) {
             if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
-                if (atouts_ >= _trumps) {
-                    BidTarot e_ = getStrongBid(bouts_);
-                    if(e_.isJouerDonne()) {
-                        return e_;
-                    }
-                }
-            }
-        } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
-                + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(), nombreJoueurs_) == nbCouleurs_) {
-            if (atouts_ >= _trumps) {
                 BidTarot e_ = getStrongBid(bouts_);
                 if(e_.isJouerDonne()) {
                     return e_;
                 }
+            }
+        } else if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs())
+                + nbCouleursPseudoMaitresses(couleurs_, cartesAppeler(), nombreJoueurs_) == nbCouleurs_) {
+            BidTarot e_ = getStrongBid(bouts_);
+            if(e_.isJouerDonne()) {
+                return e_;
             }
         }
         return BidTarot.FOLD;
@@ -506,11 +452,12 @@ public final class GameTarotBid {
             if(e.getJeuChien() != jeuChien_) {
                 continue;
             }
-            if(e.estDemandable(e_)) {
-                e_ = e;
-            }
+            e_ = e;
         }
-        return e_;
+        if (e_.estDemandable(bid)) {
+            return e_;
+        }
+        return BidTarot.FOLD;
     }
     static HandTarot getOulderInHand(EnumMap<Suit, HandTarot> _couleurs) {
         HandTarot trumps_ = _couleurs.getVal(Suit.TRUMP);

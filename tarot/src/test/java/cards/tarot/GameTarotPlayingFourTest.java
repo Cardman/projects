@@ -14,6 +14,7 @@ import code.util.EnumMap;
 import code.util.EqList;
 
 public class GameTarotPlayingFourTest extends CommonTarotGame {
+    private GameTarot game;
 
     static DealTarot initializeHands(byte _dealer) {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
@@ -129,7 +130,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4);
+        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game.setCarteAppelee(cartesAppeler_);
@@ -151,7 +152,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 2),regles_);
         //game.resetNbPlisTotal();
-        bidding(BidTarot.GUARD_AGAINST, (byte) 4);
+        bidding(BidTarot.GUARD_AGAINST, (byte) 4, game);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game.setCarteAppelee(cartesAppeler_);

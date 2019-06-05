@@ -975,7 +975,6 @@ public final class GameTarot {
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur) {
         EnumMap<Suit,HandTarot> repartition_ = _mainJoueur.couleurs();
-        byte nombreJoueurs_ = getNombreDeJoueurs();
         return GameTarotBid.estUnJeuDeChelem(repartition_, new HandTarot().couleurs(), rules, calledCards);
     }
 

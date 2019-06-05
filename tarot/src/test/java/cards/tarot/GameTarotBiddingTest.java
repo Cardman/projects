@@ -1,5 +1,6 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -16,6 +17,7 @@ import code.util.EqList;
 
 public class GameTarotBiddingTest extends CommonTarotGame {
 
+    private GameTarot game;
 
     static DealTarot initializeHands() {
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
@@ -1137,5 +1139,32 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         assertTrue(game.confiance((byte)1 ,(byte) 4));
         assertTrue(game.confiance((byte)4 ,(byte) 1));
         //game.setContrat(contrat_tmp);
+    }
+    @Test
+    public void strategieContrat1Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        assertTrue(game.keepBidding());
+        assertEq(0,game.playerHavingToBid());
+        assertSame(BidTarot.FOLD,game.strategieContrat());
+
+    }
+    @Test
+    public void strategieContrat2Test(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        game.ajouterContrat(game.strategieContrat(), (byte) 0);
+        assertTrue(game.keepBidding());
+        assertEq(1,game.playerHavingToBid());
+        assertSame(BidTarot.FOLD,game.strategieContrat());
+
+    }
+    @Test
+    public void playerHasAlreadyBiddedTest(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        assertTrue(game.keepBidding());
+        assertTrue(!game.playerHasAlreadyBidded((byte) 0));
+        assertTrue(game.playerHasAlreadyBidded((byte) 0));
     }
 }
