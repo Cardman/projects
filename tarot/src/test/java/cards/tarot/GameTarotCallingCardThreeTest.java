@@ -1,5 +1,6 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -227,5 +228,24 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         assertTrue(!game.confiance((byte)3,(byte)0));
         assertTrue(!game.confiance((byte)3,(byte)1));
         assertTrue(!game.confiance((byte)3,(byte)2));
+    }
+    @Test
+    public void strategieAppelTest() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        HandTarot h_ = game.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.CLUB_KING,h_.premiereCarte());
     }
 }

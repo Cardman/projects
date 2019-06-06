@@ -120,8 +120,9 @@ public final class GameTarotCallDiscard {
         return couleurs_.first();
     }
 
-    HandTarot strategieEcart(boolean _carteAppeleeExistante,HandTarot _carteAppelee,
-                             EnumList<Suit> _couleursNonAppelees) {
+    HandTarot strategieEcart(HandTarot _carteAppelee) {
+        boolean exist_ = !_carteAppelee.estVide();
+        EnumList<Suit> others_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(_carteAppelee,Suit.couleursOrdinaires(),0);
         HandTarot mainPreneur_ = infosBid.getCurrentHand();
         EnumMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
         byte nombreJoueurs_ = infosBid.getNombreDeJoueurs();
@@ -158,7 +159,7 @@ public final class GameTarotCallDiscard {
                         couleursEntieresEcartables_ =
                                 GameTarotCommon.couleursAvecFigures(mainPreneur_, couleursEntieresEcartables_);
                         couleursEntieresEcartables_ =
-                                GameTarotCommon.intersectionCouleurs(couleursEntieresEcartables_, _couleursNonAppelees);
+                                GameTarotCommon.intersectionCouleurs(couleursEntieresEcartables_, others_);
                         if(!couleursEntieresEcartables_.isEmpty()) {
                             //couleurs non appelees entierement ecartables avec figures
                             couleursEntieresEcartables_ = GameTarotCommon.couleursLesPlusCourtes(mainPreneur_, couleursEntieresEcartables_);
@@ -169,7 +170,7 @@ public final class GameTarotCallDiscard {
                                     mainPreneur_, tailleChien, ecart_,
                                     Suit.couleursOrdinaires());
                             couleursEntieresEcartables_ =
-                                    GameTarotCommon.intersectionCouleurs(couleursEntieresEcartables_, _couleursNonAppelees);
+                                    GameTarotCommon.intersectionCouleurs(couleursEntieresEcartables_, others_);
                             if(!couleursEntieresEcartables_.isEmpty()) {
                                 //couleurs non appelees entierement ecartables
                                 couleursEntieresEcartables_ = GameTarotCommon.couleursLesPlusCourtes(mainPreneur_, couleursEntieresEcartables_);
@@ -194,14 +195,12 @@ public final class GameTarotCallDiscard {
             HandTarot cartesPseudosMaitres_ = new HandTarot();
             int nbCartesMaitresses_ = 0;
             int nbCartesCouleurs_ = 0;
-            if (_carteAppeleeExistante) {
+            if (exist_) {
                 EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
                 for(CardTarot c: _carteAppelee) {
-                    if(couleursAppelees_.containsObj(c.couleur())) {
-                        continue;
-                    }
                     couleursAppelees_.add(c.couleur());
                 }
+                couleursAppelees_.removeDuplicates();
                 carteAppelee_.ajouterCartes(_carteAppelee);
                 for (Suit couleur_ : couleursAppelees_) {
                     cartesPseudosMaitres_.ajouterCartes(GameTarotBid.cartesPseudoMaitresses(repartition_,
@@ -209,10 +208,7 @@ public final class GameTarotCallDiscard {
                 }
                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                     HandTarot main_ = cartesMaitresses_.getVal(couleur_);
-                    if (main_.estVide()) {
-                        continue;
-                    }
-                    if (!couleursAppelees_.containsObj(couleur_)) {
+                    if (couleursAppelees_.containsObj(couleur_)) {
                         nbCartesMaitresses_ += cartesPseudosMaitres_.total();
                     } else {
                         nbCartesMaitresses_ += main_.total();
@@ -235,21 +231,11 @@ public final class GameTarotCallDiscard {
                 }
                 //cartesPseudosMaitres est suppose etre trie decroissant
                 for (CardTarot carte_ : cartesPseudosMaitres_) {
-                    if (ecart_.total() == tailleChien) {
-                        return ecart_;
-                    }
-                    if (repEcartables_.getVal(carte_.couleur()).contient(carte_)) {
-                        ecart_.ajouter(carte_);
-                    }
+                    addIfPossible(ecart_,carte_,ecartables_);
                 }
                 for (HandTarot main_ : cartesMaitresses_.values()) {
                     for (CardTarot carte_ : main_) {
-                        if (ecart_.total() == tailleChien) {
-                            return ecart_;
-                        }
-                        if (repEcartables_.getVal(carte_.couleur()).contient(carte_)) {
-                            ecart_.ajouter(carte_);
-                        }
+                        addIfPossible(ecart_,carte_,ecartables_);
                     }
                 }
             } else {
@@ -262,13 +248,7 @@ public final class GameTarotCallDiscard {
                         cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
                         cartesNonMaitresses_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: cartesNonMaitresses_) {
-                            if (!mainPreneur_.contient(carte_)) {
-                                continue;
-                            }
-                            if (ecart_.total() == tailleChien) {
-                                return ecart_;
-                            }
-                            ecart_.ajouter(carte_);
+                            addIfPossible(ecart_,carte_,ecartables_);
                         }
                     }
 
@@ -281,13 +261,7 @@ public final class GameTarotCallDiscard {
                         cartesNonMaitresses_ = cartesNonMaitresses_.cartesBasses(couleur_);
                         cartesNonMaitresses_.trierParForceEcart(couleur_);
                         for(CardTarot carte_: cartesNonMaitresses_) {
-                            if (!mainPreneur_.contient(carte_)) {
-                                continue;
-                            }
-                            if (ecart_.total() == tailleChien) {
-                                return ecart_;
-                            }
-                            ecart_.ajouter(carte_);
+                            addIfPossible(ecart_,carte_,ecartables_);
                         }
                     }
 
@@ -300,30 +274,18 @@ public final class GameTarotCallDiscard {
                         cartesNonMaitresses_ = cartesNonMaitresses_.cartesBasses(couleur_);
                         cartesNonMaitresses_.trierParForceEcart(couleur_);
                         for(CardTarot carte_: cartesNonMaitresses_) {
-                            if (!mainPreneur_.contient(carte_)) {
-                                continue;
-                            }
-                            if (ecart_.total() == tailleChien) {
-                                return ecart_;
-                            }
-                            ecart_.ajouter(carte_);
+                            addIfPossible(ecart_,carte_,ecartables_);
                         }
                     }
 
                 }
-                couleurs_ = GameTarotCommon.couleursAvecFigures(mainPreneur_, _couleursNonAppelees);
+                couleurs_ = GameTarotCommon.couleursAvecFigures(mainPreneur_, others_);
                 for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
                     for(Suit couleur_: suits_) {
                         HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                         figures_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: figures_) {
-                            if (!ecartables_.contient(carte_)) {
-                                continue;
-                            }
-                            if (ecart_.total() == tailleChien) {
-                                return ecart_;
-                            }
-                            ecart_.ajouter(carte_);
+                            addIfPossible(ecart_,carte_,ecartables_);
                         }
                     }
                 }
@@ -333,43 +295,41 @@ public final class GameTarotCallDiscard {
                         HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                         figures_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: figures_) {
-                            if (!ecartables_.contient(carte_)) {
-                                continue;
-                            }
-                            if (ecart_.total() == tailleChien) {
-                                return ecart_;
-                            }
-                            ecart_.ajouter(carte_);
+                            addIfPossible(ecart_,carte_,ecartables_);
+                        }
+                    }
+                }
+                couleurs_ = Suit.couleursOrdinaires();
+                for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
+                    for(Suit couleur_: suits_) {
+                        HandTarot figures_ = mainPreneur_.cartesBasses(couleur_);
+                        figures_.trierParForceEnCours(couleur_);
+                        for(CardTarot carte_: figures_) {
+                            addIfPossible(ecart_,carte_,ecartables_);
                         }
                     }
                 }
             }
             return ecart_;
         }
-        EnumList<Suit> couleurs_ = GameTarotCommon.couleursSansRoi(mainPreneur_, Suit.couleursOrdinaires());
+        EnumList<Suit> couleurs_ = GameTarotCommon.couleursSansRoi(mainPreneur_, others_);
         couleurs_ = GameTarotCommon.couleursAvecFigures(mainPreneur_, couleurs_);
         for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
             for(Suit couleur_: suits_) {
                 HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                 figures_.trierParForceEnCours(couleur_);
                 for(CardTarot carte_: figures_) {
-                    if (ecart_.total() == tailleChien) {
-                        return ecart_;
-                    }
-                    ecart_.ajouter(carte_);
+                    addIfPossible(ecart_,carte_,ecartables_);
                 }
             }
         }
-        couleurs_ = couleursTotalEcartables(mainPreneur_, tailleChien, ecart_, _couleursNonAppelees);
+        couleurs_ = couleursTotalEcartables(mainPreneur_, tailleChien, ecart_, others_);
         for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
             for(EnumList<Suit> couleurs2_: GameTarotCommon.couleursTrieesPlusHautes(mainPreneur_, suits_)) {
                 for(Suit s_: couleurs2_) {
                     HandTarot couleur_ = mainPreneur_.couleur(s_);
                     for(CardTarot carte_: couleur_) {
-                        if (ecart_.total() == tailleChien) {
-                            return ecart_;
-                        }
-                        ecart_.ajouter(carte_);
+                        addIfPossible(ecart_,carte_,ecartables_);
                     }
                 }
             }
@@ -380,45 +340,75 @@ public final class GameTarotCallDiscard {
                 HandTarot cartesBasses_ = mainPreneur_.cartesBasses(couleur_);
                 cartesBasses_.trierParForceEcart(couleur_);
                 for(CardTarot carte_: cartesBasses_) {
-                    if (ecart_.total() == tailleChien) {
-                        return ecart_;
-                    }
-                    ecart_.ajouter(carte_);
+                    addIfPossible(ecart_,carte_,ecartables_);
+                }
+            }
+        }
+        couleurs_ = Suit.couleursOrdinaires();
+        EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
+        for(CardTarot c: _carteAppelee) {
+            couleursAppelees_.add(c.couleur());
+        }
+        couleursAppelees_.removeDuplicates();
+        HandTarot cartesPseudosMaitres_ = new HandTarot();
+        for (Suit couleur_ : couleursAppelees_) {
+            cartesPseudosMaitres_.ajouterCartes(GameTarotBid.cartesPseudoMaitresses(repartition_,
+                    _carteAppelee, new HandTarot().couleurs()).getVal(couleur_));
+        }
+        for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
+            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(mainPreneur_,
+                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
+            for(Suit couleur_: suits_) {
+                cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
+                cartesNonMaitresses_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: cartesNonMaitresses_) {
+                    addIfPossible(ecart_,carte_,ecartables_);
+                }
+            }
+        }
+        for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
+            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(mainPreneur_,
+                    cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);
+            for(Suit couleur_: suits_) {
+                cartesNonMaitresses_ = cartesNonMaitresses_.cartesBasses(couleur_);
+                cartesNonMaitresses_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: cartesNonMaitresses_) {
+                    addIfPossible(ecart_,carte_,ecartables_);
                 }
             }
         }
         couleurs_ = Suit.couleursOrdinaires();
         for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
-            HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(mainPreneur_,
-                    cartesMaitresses_, new HandTarot(), new HandTarot());
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
-                cartesNonMaitresses_.trierParForceEcart(couleur_);
-                for(CardTarot carte_: cartesNonMaitresses_) {
-                    if (!mainPreneur_.contient(carte_)) {
-                        continue;
-                    }
-                    if (ecart_.total() == tailleChien) {
-                        return ecart_;
-                    }
-                    ecart_.ajouter(carte_);
+                HandTarot cartesBasses_ = mainPreneur_.charCardsBySuit(couleur_);
+                cartesBasses_.trierParForceEcart(couleur_);
+                for(CardTarot carte_: cartesBasses_) {
+                    addIfPossible(ecart_,carte_,ecartables_);
                 }
             }
         }
-        couleurs_ = Suit.couleursOrdinaires();
         for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
             for(Suit couleur_: suits_) {
                 HandTarot cartesBasses_ = mainPreneur_.cartesBasses(couleur_);
                 cartesBasses_.trierParForceEcart(couleur_);
                 for(CardTarot carte_: cartesBasses_) {
-                    if (ecart_.total() == tailleChien) {
-                        return ecart_;
-                    }
-                    ecart_.ajouter(carte_);
+                    addIfPossible(ecart_,carte_,ecartables_);
                 }
             }
         }
         return ecart_;
+    }
+    private void addIfPossible(HandTarot _discard, CardTarot _c, HandTarot _dis) {
+        if (_discard.total() >= tailleChien) {
+            return;
+        }
+        if (_discard.contient(_c)) {
+            return;
+        }
+        if (!_dis.contient(_c)) {
+            return;
+        }
+        _discard.ajouter(_c);
     }
     static HandTarot getCartesEcartables(int _nombreCartesChien,
                                          EnumMap<Suit, HandTarot> _repartition) {

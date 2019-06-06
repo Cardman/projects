@@ -1,5 +1,6 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
@@ -110,7 +111,7 @@ public class GameTarotCallingCardOneTest extends CommonTarotGame {
     }
     static RulesTarot initializeRulesWithBids() {
         RulesTarot regles_=new RulesTarot();
-        regles_.setRepartition(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_KING);
         regles_.setCartesBattues(MixCardsChoice.NEVER);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot b: regles_.getContrats().getKeys()) {
@@ -143,5 +144,24 @@ public class GameTarotCallingCardOneTest extends CommonTarotGame {
         assertEq(expected_,callableCards_);
         //game.setContrat(contrat_tmp);
 
+    }
+    @Test
+    public void strategieAppelTest() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        //game.resetNbPlisTotal();
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        HandTarot h_ = game.strategieAppel();
+        assertEq(1, h_.total());
+        assertSame(CardTarot.SPADE_KING,h_.premiereCarte());
     }
 }
