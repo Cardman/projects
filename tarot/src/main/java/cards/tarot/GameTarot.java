@@ -317,10 +317,7 @@ public final class GameTarot {
                     ecarter(true);
                 } else {
                     gererChienInconnu();
-                    ajouterChelem(taker, annoncerUnChelem(taker));
-                    if (declaresSlam.get(taker)) {
-                        setEntameur(taker);
-                    }
+                    slam();
                 }
             } else {
                 if (bid.getJeuChien() == PlayingDog.WITH) {
@@ -335,10 +332,7 @@ public final class GameTarot {
                         initDefense();
                     }
                     gererChienInconnu();
-                    ajouterChelem(taker, annoncerUnChelem(taker));
-                    if (declaresSlam.get(taker)) {
-                        setEntameur(taker);
-                    }
+                    slam();
                 }
             }
         }
@@ -1048,8 +1042,16 @@ public final class GameTarot {
         if (bid == BidTarot.SLAM) {
             starter = taker;
         } else {
-            starter = _i;
+            setStarter(_i);
         }
+    }
+
+    public void setStarter(byte _starter) {
+        starter = _starter;
+    }
+
+    void setTrickWinner(byte _trickWinner) {
+        trickWinner = _trickWinner;
     }
 
     public boolean autorise(CardTarot _c) {

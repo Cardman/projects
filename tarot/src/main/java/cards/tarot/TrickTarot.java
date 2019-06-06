@@ -142,18 +142,12 @@ public final class TrickTarot implements Iterable<CardTarot> {
         return joueurs_;
     }
     Numbers<Byte> joueursAyantJoueApres(byte _pnumero, DealingTarot _d) {
-        Numbers<Byte> joueurs_=new Numbers<Byte>();
         byte nombreDeJoueurs_ = (byte) total();
-        for(byte j : _d.getSortedPlayers(starter)) {
-            if(aJoue(j,nombreDeJoueurs_)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                continue;
-            }
-            joueurs_.add(j);
-        }
-        return joueurs_;
+        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_);
+        Numbers<Byte> before_ = joueursAyantJoueAvant(_pnumero, nombreDeJoueurs_, _d);
+        all_.removeAllElements(before_);
+        all_.removeAllLong(_pnumero);
+        return all_;
     }
     //Pli en cours
     public boolean aJoueUtilisateur(byte _nombreDeJoueurs) {

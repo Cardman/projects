@@ -946,7 +946,7 @@ public final class GameTarotTrickInfo {
             boolean sousCoupe_ = false;
             Suit couleurDemandee_ = pli_.couleurDemandee();
             byte force_ = carteObservee_.strength(couleurDemandee_);
-            for(byte j: pli_.joueursAyantJoueAvant(_joueurCourant, _teamRel.getRules().getDealing())) {
+            for(byte j: pli_.joueursAyantJoueAvant(_numero, _teamRel.getRules().getDealing())) {
                 if(pli_.carteDuJoueur(j).strength(couleurDemandee_) < force_) {
                     continue;
                 }
@@ -1024,12 +1024,8 @@ public final class GameTarotTrickInfo {
             boolean coupe_ = true;
             byte force_ = carteObservee_.strength(couleurDemandee_);
             HandTarot atoutsJouesAvant_ = new HandTarot();
-            boolean entameSurExcuse_ = true;
             for(byte j: pli_.joueursAyantJoueAvant(_numero, _teamRel.getRules().getDealing())) {
                 CardTarot carteJouee_ = pli_.carteDuJoueur(j);
-                if(carteJouee_ != CardTarot.EXCUSE) {
-                    entameSurExcuse_ = false;
-                }
                 if(carteJouee_.strength(couleurDemandee_) < force_) {
                     if(carteJouee_.couleur() == Suit.TRUMP) {
                         atoutsJouesAvant_.ajouter(carteJouee_);
@@ -1038,10 +1034,6 @@ public final class GameTarotTrickInfo {
                 }
                 coupe_ = false;
                 break;
-            }
-            if(entameSurExcuse_) {
-                key_++;
-                continue;
             }
             if(!coupe_) {
                 key_++;
@@ -1070,12 +1062,9 @@ public final class GameTarotTrickInfo {
         cartesVues_.ajouterCartes(_curHand.couleur(Suit.TRUMP));
         cartesVues_.trierParForceEnCours(Suit.TRUMP);
         key_ = 0;
-        for (TrickTarot pli_ : plis_) {
-            if (!atoutsJouesPlis_.contains(key_)) {
-                key_++;
-                continue;
-            }
-            HandTarot atoutsJouesPli_ = atoutsJouesPlis_.getVal(key_);
+        for (EntryCust<Byte,HandTarot> e: atoutsJouesPlis_.entryList()) {
+            TrickTarot pli_ = plis_.get(key_);
+            HandTarot atoutsJouesPli_ = e.getValue();
             CardTarot carteObservee_ = pli_.carteDuJoueur(_numero);
             HandTarot mainLocale_ = new HandTarot();
             for (CardTarot carte_ : cartesVues_) {
@@ -1177,56 +1166,7 @@ public final class GameTarotTrickInfo {
      d'atout ou sur demande de coupe de couleur sauf pli en cours
      */
     static boolean defausseTarot(byte _numero, CustList<TrickTarot> _unionPlis) {
-        boolean coupe_ = false;
-        // coupe retourne vrai si on sait que le joueur ne
-        // peut que jouer de l'atout sur des couleurs
-        if (coupeTarot(Suit.TRUMP, _numero, _unionPlis)) {
-            coupe_ = true;
-        }
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            if (coupeTarot(couleur_, _numero, _unionPlis)) {
-                coupe_ = true;
-            }
-        }
-        // coupe est vrai si et seulement si il existe au moins une coupe a une
-        // des couleurs
-        if (!coupe_) {
-            return false;
-        }
-        if (coupeTarot(Suit.TRUMP, _numero, _unionPlis)) {
-            // Si le joueur ne
-            // joue pas d'atout
-            // sur demande
-            // d'atout
-            return true;
-        }
-        // Le joueur a deja joue une carte d'une autre couleur que celle
-        // demandee differente de l'atout
-        int lastIndex_ = _unionPlis.getLastIndex();
-        for (int indicePli_ = lastIndex_; indicePli_ >= CustList.FIRST_INDEX; indicePli_--) {
-            /*
-            On effectue une boucle
-            sur les plis faits
-            par les joueurs en
-            commencant par
-            le plus recent
-            ( numero le plus eleve )
-            */
-            TrickTarot pli_ = _unionPlis.get(indicePli_);
-            if (!pli_.getVuParToutJoueur()) {
-                continue;
-            }
-            Suit couleurDemandee_ = pli_.couleurDemandee();
-            Suit couleurCarte_ = pli_.carteDuJoueur(_numero).couleur();
-            if (couleurCarte_ == couleurDemandee_) {
-                continue;
-            }
-            if (couleurCarte_ == Suit.TRUMP) {
-                continue;
-            }
-            return true;
-        }
-        return false;
+        return coupeTarot(Suit.TRUMP, _numero, _unionPlis);
     }
 
     /**
