@@ -835,17 +835,6 @@ public final class GameTarotTrickInfo {
             if (!pli_.joueursAyantJoueAvant(_numero, _teamRel.getRules().getDealing()).containsObj(pli_.getRamasseur())) {
                 continue;
             }
-            boolean entameSurExcuse_ = true;
-            for(byte j: pli_.joueursAyantJoueAvant(_numero, _teamRel.getRules().getDealing())) {
-                CardTarot carteJouee_ = pli_.carteDuJoueur(j);
-                if(carteJouee_ != CardTarot.EXCUSE) {
-                    entameSurExcuse_ = false;
-                    break;
-                }
-            }
-            if(entameSurExcuse_) {
-                continue;
-            }
             boolean defausseToutJoueurApres_ = true;
             for(byte j: pli_.joueursAyantJoueApres(_numero, _teamRel.getRules().getDealing())) {
                 if(defausses_.getVal(j)) {
