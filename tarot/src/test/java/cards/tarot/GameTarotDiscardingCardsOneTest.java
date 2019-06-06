@@ -111,7 +111,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         hands_.add(hand_);
         return new DealTarot(hands_,(byte) 4);
     }
-    static RulesTarot initializeRulesWithBids() {
+    static RulesTarot initializeRulesWithBids(boolean _discardAfterCall) {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_KING);
         regles_.setCartesBattues(MixCardsChoice.NEVER);
@@ -120,11 +120,36 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
             contrats_.put(b,true);
         }
         regles_.setContrats(contrats_);
+        regles_.setDiscardAfterCall(_discardAfterCall);
+        return regles_;
+    }
+    static RulesTarot initializeRulesWithBids2(boolean _discardAfterCall) {
+        RulesTarot regles_=new RulesTarot(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        regles_.setRepartition(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
+        for (BidTarot b: regles_.getContrats().getKeys()) {
+            contrats_.put(b,true);
+        }
+        regles_.setContrats(contrats_);
+        regles_.setDiscardAfterCall(_discardAfterCall);
+        return regles_;
+    }
+    static RulesTarot initializeRulesWithBids3(boolean _discardAfterCall) {
+        RulesTarot regles_=new RulesTarot(DealingTarot.DEAL_1_VS_3);
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_3);
+        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
+        for (BidTarot b: regles_.getContrats().getKeys()) {
+            contrats_.put(b,true);
+        }
+        regles_.setContrats(contrats_);
+        regles_.setDiscardAfterCall(_discardAfterCall);
         return regles_;
     }
     @Test
     public void discardableCards_WithTrumpsForGame1Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -164,7 +189,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
     @Test
     public void discardableCards_WithoutTrumpsForGame2Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
@@ -395,11 +420,197 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         return new DealTarot(hands_,(byte) 4);
     }
 
+    static DealTarot strategieEcart3() {
+        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_10);
+        hand_.ajouter(CardTarot.SPADE_8);
+        hand_.ajouter(CardTarot.SPADE_7);
+        hand_.ajouter(CardTarot.TRUMP_15);
+        hand_.ajouter(CardTarot.TRUMP_14);
+        hand_.ajouter(CardTarot.TRUMP_13);
+        hand_.ajouter(CardTarot.TRUMP_8);
+        hand_.ajouter(CardTarot.TRUMP_7);
+        hand_.ajouter(CardTarot.TRUMP_12);
+        hand_.ajouter(CardTarot.HEART_3);
+        hand_.ajouter(CardTarot.HEART_2);
+        hand_.ajouter(CardTarot.HEART_1);
+        hand_.ajouter(CardTarot.SPADE_5);
+        hand_.ajouter(CardTarot.SPADE_4);
+        hand_.ajouter(CardTarot.SPADE_3);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_8);
+        hand_.ajouter(CardTarot.DIAMOND_7);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_2);
+        hand_.ajouter(CardTarot.HEART_10);
+        hand_.ajouter(CardTarot.TRUMP_6);
+        hand_.ajouter(CardTarot.TRUMP_18);
+        hand_.ajouter(CardTarot.TRUMP_17);
+        hand_.ajouter(CardTarot.TRUMP_16);
+        hand_.ajouter(CardTarot.CLUB_3);
+        hand_.ajouter(CardTarot.CLUB_2);
+        hand_.ajouter(CardTarot.CLUB_1);
+        hand_.ajouter(CardTarot.HEART_6);
+        hand_.ajouter(CardTarot.HEART_5);
+        hand_.ajouter(CardTarot.HEART_4);
+        hand_.ajouter(CardTarot.TRUMP_5);
+        hand_.ajouter(CardTarot.TRUMP_4);
+        hand_.ajouter(CardTarot.TRUMP_3);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_8);
+        hand_.ajouter(CardTarot.HEART_7);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.SPADE_2);
+        hand_.ajouter(CardTarot.TRUMP_19);
+        hand_.ajouter(CardTarot.TRUMP_9);
+        hand_.ajouter(CardTarot.TRUMP_20);
+        hand_.ajouter(CardTarot.SPADE_10);
+        hand_.ajouter(CardTarot.SPADE_9);
+        hand_.ajouter(CardTarot.SPADE_1);
+        hand_.ajouter(CardTarot.DIAMOND_6);
+        hand_.ajouter(CardTarot.DIAMOND_5);
+        hand_.ajouter(CardTarot.DIAMOND_4);
+        hand_.ajouter(CardTarot.DIAMOND_3);
+        hand_.ajouter(CardTarot.CLUB_10);
+        hand_.ajouter(CardTarot.CLUB_9);
+        hand_.ajouter(CardTarot.CLUB_8);
+        hand_.ajouter(CardTarot.TRUMP_11);
+        hand_.ajouter(CardTarot.DIAMOND_1);
+        hand_.ajouter(CardTarot.CLUB_5);
+        hand_.ajouter(CardTarot.CLUB_4);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_KING);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        hand_.ajouter(CardTarot.CLUB_KING);
+        hand_.ajouter(CardTarot.CLUB_QUEEN);
+        hand_.ajouter(CardTarot.CLUB_JACK);
+        hand_.ajouter(CardTarot.SPADE_KING);
+        hand_.ajouter(CardTarot.SPADE_KNIGHT);
+        hand_.ajouter(CardTarot.SPADE_JACK);
+        hand_.ajouter(CardTarot.TRUMP_21);
+        hand_.ajouter(CardTarot.TRUMP_1);
+        hand_.ajouter(CardTarot.HEART_KNIGHT);
+        hand_.ajouter(CardTarot.SPADE_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        hand_.ajouter(CardTarot.CLUB_KNIGHT);
+        hand_.ajouter(CardTarot.SPADE_6);
+        hand_.ajouter(CardTarot.DIAMOND_10);
+        hand_.ajouter(CardTarot.DIAMOND_2);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.EXCUSE);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_JACK);
+        hand_.ajouter(CardTarot.CLUB_7);
+        hand_.ajouter(CardTarot.CLUB_6);
+        hands_.add(hand_);
+        return new DealTarot(hands_,(byte) 3);
+    }
+
+    static DealTarot slam() {
+        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.SPADE_8);
+        hand_.ajouter(CardTarot.SPADE_7);
+        hand_.ajouter(CardTarot.SPADE_6);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_JACK);
+        hand_.ajouter(CardTarot.DIAMOND_10);
+        hand_.ajouter(CardTarot.DIAMOND_2);
+        hand_.ajouter(CardTarot.DIAMOND_1);
+        hand_.ajouter(CardTarot.CLUB_7);
+        hand_.ajouter(CardTarot.CLUB_6);
+        hand_.ajouter(CardTarot.CLUB_5);
+        hand_.ajouter(CardTarot.CLUB_4);
+        hand_.ajouter(CardTarot.TRUMP_6);
+        hand_.ajouter(CardTarot.HEART_10);
+        hand_.ajouter(CardTarot.EXCUSE);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_9);
+        hand_.ajouter(CardTarot.TRUMP_8);
+        hand_.ajouter(CardTarot.TRUMP_7);
+        hand_.ajouter(CardTarot.HEART_KNIGHT);
+        hand_.ajouter(CardTarot.SPADE_KING);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        hand_.ajouter(CardTarot.HEART_3);
+        hand_.ajouter(CardTarot.HEART_2);
+        hand_.ajouter(CardTarot.HEART_1);
+        hand_.ajouter(CardTarot.SPADE_5);
+        hand_.ajouter(CardTarot.SPADE_4);
+        hand_.ajouter(CardTarot.SPADE_3);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_8);
+        hand_.ajouter(CardTarot.DIAMOND_7);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.CLUB_KNIGHT);
+        hand_.ajouter(CardTarot.CLUB_QUEEN);
+        hand_.ajouter(CardTarot.CLUB_JACK);
+        hand_.ajouter(CardTarot.CLUB_3);
+        hand_.ajouter(CardTarot.CLUB_2);
+        hand_.ajouter(CardTarot.CLUB_1);
+        hand_.ajouter(CardTarot.HEART_6);
+        hand_.ajouter(CardTarot.HEART_5);
+        hand_.ajouter(CardTarot.HEART_4);
+        hand_.ajouter(CardTarot.TRUMP_5);
+        hand_.ajouter(CardTarot.TRUMP_4);
+        hand_.ajouter(CardTarot.TRUMP_3);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_8);
+        hand_.ajouter(CardTarot.HEART_7);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.SPADE_2);
+        hand_.ajouter(CardTarot.SPADE_KNIGHT);
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.SPADE_JACK);
+        hand_.ajouter(CardTarot.SPADE_10);
+        hand_.ajouter(CardTarot.SPADE_9);
+        hand_.ajouter(CardTarot.SPADE_1);
+        hand_.ajouter(CardTarot.DIAMOND_6);
+        hand_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        hand_.ajouter(CardTarot.DIAMOND_5);
+        hand_.ajouter(CardTarot.DIAMOND_4);
+        hand_.ajouter(CardTarot.DIAMOND_3);
+        hand_.ajouter(CardTarot.CLUB_10);
+        hand_.ajouter(CardTarot.CLUB_9);
+        hand_.ajouter(CardTarot.CLUB_8);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_19);
+        hand_.ajouter(CardTarot.TRUMP_21);
+        hand_.ajouter(CardTarot.TRUMP_20);
+        hand_.ajouter(CardTarot.TRUMP_18);
+        hand_.ajouter(CardTarot.TRUMP_17);
+        hand_.ajouter(CardTarot.TRUMP_16);
+        hand_.ajouter(CardTarot.TRUMP_15);
+        hand_.ajouter(CardTarot.TRUMP_14);
+        hand_.ajouter(CardTarot.TRUMP_13);
+        hand_.ajouter(CardTarot.TRUMP_2);
+        hand_.ajouter(CardTarot.TRUMP_1);
+        hand_.ajouter(CardTarot.HEART_KING);
+        hand_.ajouter(CardTarot.SPADE_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        hand_.ajouter(CardTarot.CLUB_KING);
+        hands_.add(hand_);
+        hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_12);
+        hand_.ajouter(CardTarot.TRUMP_11);
+        hand_.ajouter(CardTarot.TRUMP_10);
+        hands_.add(hand_);
+        return new DealTarot(hands_,(byte) 4);
+    }
     @Test
     public void strategieEcartTest() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -423,9 +634,8 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
     @Test
     public void strategieAppelApresEcart1Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -450,9 +660,8 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
     @Test
     public void strategieAppelApresEcart2Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
-        //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -477,9 +686,8 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
     @Test
     public void strategieAppelApresEcart3Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -506,9 +714,8 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
     @Test
     public void strategieAppelApresEcart4Test() {
-        RulesTarot regles_=initializeRulesWithBids();
+        RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
-        //game.resetNbPlisTotal();
         byte player_ = game.playerAfter(game.getDistribution().getDonneur());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
@@ -532,5 +739,220 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
         assertTrue(h_.contient(CardTarot.DIAMOND_KNIGHT));
         assertTrue(h_.contient(CardTarot.HEART_KNIGHT));
+    }
+    @Test
+    public void strategieAppelApresEcart5Test() {
+        RulesTarot regles_=initializeRulesWithBids2(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        CallDiscard callDiscard_ = game.strategieAppelApresEcart(false);
+        assertTrue(!callDiscard_.isChelem());
+        HandTarot c_ = callDiscard_.getCarteAppelee();
+        assertEq(1, c_.total());
+        assertTrue(c_.contient(CardTarot.TRUMP_1));
+        HandTarot h_ = callDiscard_.getEcartAFaire();
+        assertEq(6, h_.total());
+    }
+    @Test
+    public void strategieAppelApresEcart6Test() {
+        RulesTarot regles_=initializeRulesWithBids3(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        CallDiscard callDiscard_ = game.strategieAppelApresEcart(false);
+        assertTrue(!callDiscard_.isChelem());
+        HandTarot c_ = callDiscard_.getCarteAppelee();
+        assertEq(0, c_.total());
+        HandTarot h_ = callDiscard_.getEcartAFaire();
+        assertEq(6, h_.total());
+    }
+    @Test
+    public void appelApresEcart1Test() {
+        RulesTarot regles_=initializeRulesWithBids(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.appelApresEcart();
+        assertTrue(game.chelemAnnonce());
+        HandTarot c_ = game.getCarteAppelee();
+        assertEq(1, c_.total());
+        assertTrue(c_.contient(CardTarot.SPADE_KING));
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(h_.contient(CardTarot.DIAMOND_KNIGHT));
+        assertTrue(h_.contient(CardTarot.HEART_KNIGHT));
+    }
+    @Test
+    public void appelApresEcart2Test() {
+        RulesTarot regles_=initializeRulesWithBids(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.appelApresEcart();
+        assertTrue(!game.chelemAnnonce());
+        HandTarot c_ = game.getCarteAppelee();
+        assertEq(1, c_.total());
+        assertTrue(c_.contient(CardTarot.SPADE_KING));
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(h_.contient(CardTarot.DIAMOND_KNIGHT));
+        assertTrue(h_.contient(CardTarot.HEART_KNIGHT));
+    }
+    @Test
+    public void appelApresEcart3Test() {
+        RulesTarot regles_=initializeRulesWithBids3(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        game.appelApresEcart();
+        assertTrue(!game.chelemAnnonce());
+        HandTarot c_ = game.getCarteAppelee();
+        assertEq(0, c_.total());
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(6, h_.total());
+    }
+    @Test
+    public void ecarter1Test() {
+        RulesTarot regles_=initializeRulesWithBids(true);
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_KING);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ecarter(true);
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_QUEEN));
+        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(h_.contient(CardTarot.CLUB_JACK));
+    }
+    @Test
+    public void ecarter2Test() {
+        RulesTarot regles_=initializeRulesWithBids(true);
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_KING);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.setEntameur(game.getPreneur());
+        game.setPliEnCours(false);
+        game.ajouterCartes(game.getPreneur(),game.derniereMain());
+        game.ajouterUneCarteDansPliEnCours(game.getPreneur(),CardTarot.CLUB_QUEEN);
+        game.ecarter(false);
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_QUEEN));
+        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(h_.contient(CardTarot.CLUB_JACK));
+    }
+    @Test
+    public void ecarter3Test() {
+        RulesTarot regles_=initializeRulesWithBids(false);
+        game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD,player_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ecarter(true);
+        assertTrue(game.chelemAnnonce());
+        HandTarot c_ = game.getCarteAppelee();
+        assertEq(1, c_.total());
+        assertTrue(c_.contient(CardTarot.SPADE_KING));
+        HandTarot h_ = game.getTricks().first().getCartes();
+        assertEq(3, h_.total());
+        assertTrue(h_.contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(h_.contient(CardTarot.DIAMOND_KNIGHT));
+        assertTrue(h_.contient(CardTarot.HEART_KNIGHT));
+    }
+    @Test
+    public void slamTest() {
+        RulesTarot regles_=initializeRulesWithBids(false);
+        game = new GameTarot(GameType.RANDOM,slam(),regles_);
+        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.FOLD,player_);
+        player_ = game.playerAfter(player_);
+        game.ajouterContrat(BidTarot.GUARD_WITHOUT,player_);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_KING);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.gererChienInconnu();
+        game.slam();
+        assertTrue(game.chelemAnnonce());
     }
 }

@@ -190,22 +190,22 @@ public final class GameTarotCallDiscard {
             }
         }
         EnumMap<Suit,HandTarot> cartesMaitresses_ = cartesMaitressesDebutPartie(repartition_);
+        HandTarot cartesPseudosMaitres_ = new HandTarot();
+        EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
+        for(CardTarot c: _carteAppelee) {
+            couleursAppelees_.add(c.couleur());
+        }
+        couleursAppelees_.removeDuplicates();
+        HandTarot carteAppelee_ = new HandTarot();
+        carteAppelee_.ajouterCartes(_carteAppelee);
+        for (Suit couleur_ : GameTarotCommon.intersectionCouleurs(couleursAppelees_,Suit.couleursOrdinaires())) {
+            cartesPseudosMaitres_.ajouterCartes(GameTarotBid.cartesPseudoMaitresses(repartition_,
+                    carteAppelee_, new HandTarot().couleurs()).getVal(couleur_));
+        }
         if(GameTarotBid.maitreAtoutPourChelem(repartition_,nombreJoueurs_)) {
-            HandTarot carteAppelee_ = new HandTarot();
-            HandTarot cartesPseudosMaitres_ = new HandTarot();
             int nbCartesMaitresses_ = 0;
             int nbCartesCouleurs_ = 0;
             if (exist_) {
-                EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
-                for(CardTarot c: _carteAppelee) {
-                    couleursAppelees_.add(c.couleur());
-                }
-                couleursAppelees_.removeDuplicates();
-                carteAppelee_.ajouterCartes(_carteAppelee);
-                for (Suit couleur_ : couleursAppelees_) {
-                    cartesPseudosMaitres_.ajouterCartes(GameTarotBid.cartesPseudoMaitresses(repartition_,
-                            carteAppelee_, new HandTarot().couleurs()).getVal(couleur_));
-                }
                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                     HandTarot main_ = cartesMaitresses_.getVal(couleur_);
                     if (couleursAppelees_.containsObj(couleur_)) {
@@ -345,16 +345,6 @@ public final class GameTarotCallDiscard {
             }
         }
         couleurs_ = Suit.couleursOrdinaires();
-        EnumList<Suit> couleursAppelees_ = new EnumList<Suit>();
-        for(CardTarot c: _carteAppelee) {
-            couleursAppelees_.add(c.couleur());
-        }
-        couleursAppelees_.removeDuplicates();
-        HandTarot cartesPseudosMaitres_ = new HandTarot();
-        for (Suit couleur_ : couleursAppelees_) {
-            cartesPseudosMaitres_.ajouterCartes(GameTarotBid.cartesPseudoMaitresses(repartition_,
-                    _carteAppelee, new HandTarot().couleurs()).getVal(couleur_));
-        }
         for(EnumList<Suit> suits_: GameTarotCommon.couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
             HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(mainPreneur_,
                     cartesMaitresses_, _carteAppelee, cartesPseudosMaitres_);

@@ -669,10 +669,8 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             byte dealer_=game_.getDistribution().getDonneur();
-            if(!game_.chelemAnnonce()) {
-                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                game_.setEntameur(game_.playerAfter(dealer_));
-            }
+            /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+            game_.setEntameur(game_.playerAfter(dealer_));
             game_.setPliEnCours(true);
             playingTarotCard();
             return;
@@ -1669,10 +1667,8 @@ public final class SendReceiveServer extends BasicServer {
                     return;
                 }
                 byte dealer_=game_.getDistribution().getDonneur();
-                if(!game_.chelemAnnonce()) {
-                    /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                    game_.setEntameur(game_.playerAfter(dealer_));
-                }
+                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+                game_.setEntameur(game_.playerAfter(dealer_));
                 game_.setPliEnCours(true);
                 playingTarotCard();
                 return;

@@ -566,12 +566,7 @@ public final class GameTarot {
         return false;
     }
     boolean maximumBid(BidTarot _enchere) {
-        BidTarot e_ = BidTarot.FOLD;
-        for(BidTarot e: allowedBids()) {
-            if(e.estDemandable(e_)) {
-                e_ = e;
-            }
-        }
+        BidTarot e_ = allowedBids().last();
         return e_.getForce() == _enchere.getForce();
     }
 
@@ -668,13 +663,13 @@ public final class GameTarot {
         EqList<HandTarot> cartesAppelablesFinales_ = new EqList<HandTarot>();
         cartesAppelablesFinales_.add(new HandTarot());
         EqList<HandTarot> cartesAppelables_ = new EqList<HandTarot>();
-        int nbAppeles_ = rules.getRepartition().getNbAppeles();
+        boolean call_ = rules.getRepartition().callCard();
         HandTarot cartesAppeler_ = callableCards();
         cartesAppeler_.supprimerCartes(mainPreneur_);
         if (_removeDog) {
             cartesAppeler_.supprimerCartes(getPliEnCours().getCartes());
         }
-        if (nbAppeles_ > 0) {
+        if (call_) {
             for(CardTarot c:cartesAppeler_) {
                 HandTarot m2_ = new HandTarot();
                 m2_.ajouter(c);
@@ -697,11 +692,13 @@ public final class GameTarot {
             }
         }
         HandTarot hand_ = copyHand(_removeDog, mainPreneur_);
-        cartesAppeler_ = strategieAppel(hand_);
-        EnumList<Suit> couleursNonAppelees_ = new EnumList<Suit>();
-        for (Suit couleur_ : couleursOrdinaires()) {
-            if(cartesAppeler_.tailleCouleur(couleur_) == 0) {
-                couleursNonAppelees_.add(couleur_);
+        if (call_) {
+            cartesAppeler_ = strategieAppel(hand_);
+            EnumList<Suit> couleursNonAppelees_ = new EnumList<Suit>();
+            for (Suit couleur_ : couleursOrdinaires()) {
+                if(cartesAppeler_.tailleCouleur(couleur_) == 0) {
+                    couleursNonAppelees_.add(couleur_);
+                }
             }
         }
         HandTarot ecart_ = discarding(cartesAppeler_,hand_);
@@ -728,9 +725,6 @@ public final class GameTarot {
 
     public void intelligenceArtificielleAppel() {
         HandTarot cartesAppeler_ = strategieAppel();
-        if(cartesAppeler_.estVide()) {
-            return;
-        }
         setCarteAppelee(cartesAppeler_);
         initConfianceAppele();
     }
@@ -765,13 +759,6 @@ public final class GameTarot {
 
     }
 
-    private boolean appelAFaire() {
-        CallingCard appel_ = rules.getRepartition().getAppel();
-        if (appel_ == CallingCard.CHARACTER_CARD || appel_ == CallingCard.KING) {
-            return !callableCards().estVide();
-        }
-        return false;
-    }
     public void setCarteAppelee(HandTarot _c) {
         calledCards = new HandTarot();
         calledCards.ajouterCartes(_c);
@@ -847,19 +834,18 @@ public final class GameTarot {
     public void ecarter(boolean _createTrick) {
         if (!_createTrick) {
             ajouterCartes(taker,getPliEnCours().getCartes());
+            getPliEnCours().getCartes().supprimerCartes();
             //On ajoute les cartes du chien au preneur pour en ecarter d'autres
             HandTarot mt_=strategieEcart();
             //Le preneur ecarte les cartes qu'il veut
             supprimerCartes(taker,mt_);
 
             ajouterChelem(taker, annoncerUnChelem(taker));
-            if(chelemAnnonce(taker)) {
-                setEntameur(taker);
-            }
             for(CardTarot ct_:mt_) {
                 ajouterUneCarteDansPliEnCours(ct_);
             }
             tricks.add(progressingTrick);
+            setStarterIfSlam();
             return;
         }
         ajouterCartes(taker,derniereMain());
@@ -869,16 +855,22 @@ public final class GameTarot {
         supprimerCartes(taker,mt_);
 
         ajouterChelem(taker, annoncerUnChelem(taker));
-        if(chelemAnnonce(taker)) {
-            setEntameur(taker);
-        }
 
+        setEntameur(taker);
         setPliEnCours(false);
         for(CardTarot ct_:mt_) {
             ajouterUneCarteDansPliEnCours(ct_);
         }
         tricks.add(progressingTrick);
+        setStarterIfSlam();
     }
+
+    private void setStarterIfSlam() {
+        if(chelemAnnonce(taker)) {
+            setEntameur(taker);
+        }
+    }
+
     public HandTarot strategieEcart() {
         HandTarot mainPreneur_ = getDistribution().main(taker);
         return discarding(calledCards,mainPreneur_);
@@ -935,9 +927,7 @@ public final class GameTarot {
     }
     public void ajouterChelemUtilisateur() {
         ajouterChelem(getPreneur(), true);
-        if (declaresSlam.get(getPreneur())) {
-            setEntameur(getPreneur());
-        }
+        setEntameur(getPreneur());
     }
     void ajouterChelem(byte _b, boolean _annonce) {
         declaresSlam.set( _b, _annonce);
@@ -1101,9 +1091,6 @@ public final class GameTarot {
     }
     public void changerConfiance() {
         if (!existePreneur()) {
-            return;
-        }
-        if (!appelAFaire()) {
             return;
         }
         if (!existeAppele()) {
