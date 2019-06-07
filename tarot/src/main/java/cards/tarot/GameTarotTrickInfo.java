@@ -332,51 +332,36 @@ public final class GameTarotTrickInfo {
                 m.last().removeCardIfPresent(carte_);
             }
         }
-        byte joueur_ = 0;
-        for (HandTarot main_ : m) {
-            if (joueur_ == nombreJoueurs_) {
-                break;
-            }
-            if (joueur_ == _numero) {
-                joueur_++;
+        for (byte i = 0; i < nombreJoueurs_; i++) {
+            HandTarot main_ = m.get(i);
+            if (i == _numero) {
                 continue;
             }
             //filtre sur le jeu d'une carte couleur atout apres un adversaire ramasseur
-            HandTarot atoutsFiltres_ = sousCoupeTarot(_teamRel,_numero, _curHand,joueur_,
+            HandTarot atoutsFiltres_ = sousCoupeTarot(_teamRel,_numero, _curHand,i,
                     main_);
-            m.set( joueur_, atoutsFiltres_);
-            joueur_++;
+            m.set(i, atoutsFiltres_);
         }
-        joueur_ = 0;
-        for (HandTarot main_ : m) {
-            if (joueur_ == nombreJoueurs_) {
-                break;
-            }
-            if (joueur_ == _numero) {
-                joueur_++;
+        for (byte i = 0; i < nombreJoueurs_; i++) {
+            HandTarot main_ = m.get(i);
+            if (i == _numero) {
                 continue;
             }
             //filtre sur la fourniture d'un atout a une couleur
-            HandTarot atoutsFiltres_ = coupeTarot(_teamRel,_numero, _curHand,joueur_,
+            HandTarot atoutsFiltres_ = coupeTarot(_teamRel,_numero, _curHand,i,
                     main_);
-            m.set( joueur_, atoutsFiltres_);
-            joueur_++;
+            m.set(i, atoutsFiltres_);
         }
         if(playedCalledCard_) {
-            joueur_ = 0;
-            for (HandTarot main_ : m) {
-                if (joueur_ == nombreJoueurs_) {
-                    break;
-                }
-                if (joueur_ == _numero) {
-                    joueur_++;
+            for (byte i = 0; i < nombreJoueurs_; i++) {
+                HandTarot main_ = m.get(i);
+                if (i == _numero) {
                     continue;
                 }
-                if(petitJoueDemandeAtoutRamasseurAdv(_teamRel,joueur_)) {
+                if(petitJoueDemandeAtoutRamasseurAdv(_teamRel,i)) {
                     main_.supprimerCartes();
                 }
                 //filtre sur la fourniture d'un atout a une couleur
-                joueur_++;
             }
         }
         return m;
@@ -396,15 +381,16 @@ public final class GameTarotTrickInfo {
         EqList<HandTarot> m = new EqList<HandTarot>();
         byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            m.add(new HandTarot());
+            HandTarot h_ = new HandTarot();
+            m.add(h_);
             if(joueur_ == _numero) {
-                m.last().ajouterCartes(_curHand.couleur(_couleur));
+                h_.ajouterCartes(_curHand.couleur(_couleur));
                 continue;
             }
             for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
                 if (!playedCards_.contient(carte_)
                         && !_curHand.contient(carte_)) {
-                    m.last().ajouter(carte_);
+                    h_.ajouter(carte_);
                 }
             }
             if (GameTarotTrickInfo.defausseTarot(joueur_, _couleur, tricks)
@@ -417,18 +403,18 @@ public final class GameTarotTrickInfo {
                 // peuvent pas
                 // avoir de
                 // l'atout
-                m.get(joueur_).supprimerCartes();
+                h_.supprimerCartes();
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.SUIT)) {
-                m.get(joueur_).supprimerCartes();
+                h_.supprimerCartes();
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)
                     || declaresMiseres.get(joueur_).containsObj(Miseres.CHARACTER)) {
-                m.get(joueur_).supprimerCartes(m.get(joueur_).charCardsBySuit(_couleur));
+                h_.supprimerCartes(h_.charCardsBySuit(_couleur));
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.LOW_CARDS)) {
-                m.get(joueur_).supprimerCartes(
-                        m.get(joueur_).cartesBasses(_couleur));
+                h_.supprimerCartes(
+                        h_.cartesBasses(_couleur));
             }
         }
         m.add(new HandTarot());
@@ -482,9 +468,8 @@ public final class GameTarotTrickInfo {
                     // Les cartes d'une couleur du chien (si il est vu) ne
                     // peuvent possedes que par le preneur ou etre ecartees
                     for (CardTarot carte_ : _lastHand) {
-                        if (carte_.couleur() == _couleur
-                                && m.get(joueur_).contient(carte_)) {
-                            m.get(joueur_).jouer(carte_);
+                        if (carte_.couleur() == _couleur) {
+                            m.get(joueur_).removeCardIfPresent(carte_);
                         }
                     }
                 } else if (tricks.first().getCartes().tailleCouleur(Suit.TRUMP) > 0) {
@@ -499,30 +484,9 @@ public final class GameTarotTrickInfo {
                         if (carte_.getNomFigure() == CardChar.KING) {
                             continue;
                         }
-                        if (m.get(_teamRel.getTaker()).contient(carte_)) {
-                            m.get(_teamRel.getTaker()).jouer(carte_);
-                        }
+                        m.get(_teamRel.getTaker()).removeCardIfPresent(carte_);
                     }
                 }
-            }
-        }
-        /*
-        Les cartes jouees dans le pli en cours ne peuvent pas (ou plus) etre
-        possedees par les joueurs ni faire partie de l'ecart
-        */
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            if (joueur_ == _numero) {
-                continue;
-            }
-            for (CardTarot carte_ : progressingTrick.getCartes()) {
-                if (m.get(joueur_).contient(carte_)) {
-                    m.get(joueur_).jouer(carte_);
-                }
-            }
-        }
-        for (CardTarot carte_ : progressingTrick.getCartes()) {
-            if (m.last().contient(carte_)) {
-                m.last().jouer(carte_);
             }
         }
         if (progressingTrick.couleurDemandee() == _couleur) {
@@ -550,50 +514,37 @@ public final class GameTarotTrickInfo {
                 }
             }
         }
-        byte joueur_ = 0;
-        for (HandTarot couleurLoc_ : m) {
-            if (joueur_ == nombreJoueurs_) {
-                break;
-            }
-            if (joueur_ == _numero) {
-                joueur_++;
+        for (byte i = 0; i < nombreJoueurs_; i++) {
+            HandTarot couleurLoc_ = m.get(i);
+            if (i == _numero) {
                 continue;
             }
             if (couleurLoc_.estVide()) {
-                joueur_++;
                 continue;
             }
             Suit noCouleur_ = couleurLoc_.premiereCarte()
                     .couleur();
             //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
             HandTarot atoutsFiltres_ = joueCarteBasseTarot(_teamRel,_numero,_curHand,
-                    joueur_, noCouleur_, couleurLoc_, tricks);
-            m.set( joueur_, atoutsFiltres_);
-            joueur_++;
+                    i, noCouleur_, couleurLoc_, tricks);
+            m.set(i, atoutsFiltres_);
         }
         if (playedCalledCard_) {
-            joueur_ = 0;
-            for (HandTarot couleurLoc_ : m) {
-                if (joueur_ == nombreJoueurs_) {
-                    break;
-                }
-                if (joueur_ == _numero) {
-                    joueur_++;
+            for (byte i = 0; i < nombreJoueurs_; i++) {
+                HandTarot couleurLoc_ = m.get(i);
+                if (i == _numero) {
                     continue;
                 }
                 if (couleurLoc_.estVide()) {
-                    joueur_++;
                     continue;
                 }
                 Suit noCouleur_ = couleurLoc_.premiereCarte()
                         .couleur();
                 HandTarot filteredCharacters_ = playCharacterCardTarot(
-                        _teamRel,joueur_, noCouleur_, couleurLoc_, tricks);
-                m.set( joueur_, filteredCharacters_);
-                joueur_++;
+                        _teamRel,i, noCouleur_, couleurLoc_, tricks);
+                m.set(i, filteredCharacters_);
             }
         }
-        //playCharacterCardTarot
         return m;
     }
 
@@ -1107,14 +1058,7 @@ public final class GameTarotTrickInfo {
     }
     HandTarot cartesJouees(GameTarotTeamsRelation _teamRel, byte _numero) {
         HandTarot m = new HandTarot();
-        if (!_teamRel.existePreneur()) {
-            for (TrickTarot t: tricks) {
-                if (!t.getVuParToutJoueur()) {
-                    continue;
-                }
-                m.ajouterCartes(t.getCartes());
-            }
-        } else if (_numero == _teamRel.getTaker() && bid.getJeuChien() == PlayingDog.WITH) {
+        if (_numero == _teamRel.getTaker() && bid.getJeuChien() == PlayingDog.WITH) {
             for (TrickTarot t: tricks) {
                 m.ajouterCartes(t.getCartes());
             }
