@@ -43,26 +43,30 @@ public final class GameTarotTrickInfo {
         HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,_numero);
         boolean plExcuse_ = playedCards_.contient(CardTarot.EXCUSE);
         boolean containsExcuse_ = _cartesJoueur.contient(CardTarot.EXCUSE);
+        boolean noExc_ = plExcuse_ || containsExcuse_;
         EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
         EqList<HandTarot> possibleExcuse_ = new EqList<HandTarot>();
         byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            possibleExcuse_.add(new HandTarot());
-            if (containsExcuse_) {
-                possibleExcuse_.last().ajouter(CardTarot.excuse());
+            HandTarot h_ = new HandTarot();
+            possibleExcuse_.add(h_);
+            if(joueur_ == _numero) {
+                if (containsExcuse_) {
+                    h_.ajouter(CardTarot.EXCUSE);
+                }
                 continue;
             }
-            if (!plExcuse_) {
-                possibleExcuse_.last().ajouter(CardTarot.excuse());
+            if (!noExc_) {
+                h_.ajouter(CardTarot.EXCUSE);
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)
                     || declaresMiseres.get(joueur_).containsObj(Miseres.TRUMP)) {
-                possibleExcuse_.get(joueur_).supprimerCartes();
+                h_.supprimerCartes();
             }
         }
         possibleExcuse_.add(new HandTarot());
         if (bid.getJeuChien() != PlayingDog.WITH) {
-            if (!plExcuse_ && !containsExcuse_) {
+            if (!noExc_) {
                 possibleExcuse_.last().ajouter(CardTarot.excuse());
             }
         } else {
@@ -79,14 +83,10 @@ public final class GameTarotTrickInfo {
                 if (joueur_ == _numero) {
                     continue;
                 }
-                if (_teamRel.getTaker() != joueur_) {
+                if (_teamRel.getTaker() != joueur_ && _lastHand.contient(CardTarot.EXCUSE)) {
                     // L'Excuse du chien (si il est vu) ne
                     // peut etre possedee que par le preneur
-                    if (!possibleExcuse_.get(joueur_).estVide()
-                            && _lastHand.contient(
-                            CardTarot.excuse())) {
-                        possibleExcuse_.get(joueur_).jouer(CardTarot.excuse());
-                    }
+                    possibleExcuse_.get(joueur_).supprimerCartes();
                 }
             }
         }
@@ -111,20 +111,10 @@ public final class GameTarotTrickInfo {
                     possibleExcuse_.get(joueur_).supprimerCartes();
                 }
             }
-            if (progressingTrick.contient(CardTarot.excuse())) {
-                possibleExcuse_.get(joueur_).supprimerCartes();
-            }
         }
-        if (bid.getJeuChien() != PlayingDog.WITH) {
-            for (HandTarot poignee_ : handfuls) {
-                if (!possibleExcuse_.last().estVide()
-                        && poignee_.contient(CardTarot.excuse())) {
-                    possibleExcuse_.last().jouer(CardTarot.excuse());
-                }
-            }
-            if (!possibleExcuse_.last().estVide()
-                    && progressingTrick.contient(CardTarot.excuse())) {
-                possibleExcuse_.last().jouer(CardTarot.excuse());
+        for (HandTarot poignee_ : handfuls) {
+            if (poignee_.contient(CardTarot.EXCUSE)) {
+                possibleExcuse_.last().supprimerCartes();
             }
         }
         m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
@@ -587,31 +577,8 @@ public final class GameTarotTrickInfo {
                 cartesCertaines_.getVal(couleur_).add(new HandTarot());
             }
         }
-        int nombreCartesPossiblesJoueur_;
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ <= nombreJoueurs_; joueur_++) {
-            nombreCartesPossiblesJoueur_ = 0;
-            for (Suit couleur_: toutesCouleurs_) {
-                nombreCartesPossiblesJoueur_ += cartesPossibles_.getVal(couleur_)
-                        .get(joueur_).total();
-            }
-            if (nombreCartesPossiblesJoueur_ ==handLengths
-                    .get(joueur_)) {
-                /*
-                    L'ensemble des cartes d'un joueur
-                    reellement possedees est inclus
-                    dans l'ensemble des cartes
-                    probablement possedees par ce
-                    joueur
-                    */
-
-                for (Suit couleur_:toutesCouleurs_) {
-                    cartesCertaines_.getVal(couleur_)
-                            .get(joueur_).ajouterCartes(
-                            cartesPossibles_.getVal(couleur_).get(joueur_));
-                }
-                joueursRepartitionConnue_.add(joueur_);
-                joueursRepartitionConnueMemo_.add(joueur_);
-            }
+            addToKnown(toutesCouleurs_,cartesPossibles_,joueur_,cartesCertaines_,joueursRepartitionConnue_,joueursRepartitionConnueMemo_);
         }
         while (!joueursRepartitionConnue_.isEmpty()) {
             /*
@@ -638,26 +605,7 @@ public final class GameTarotTrickInfo {
                                             joueur_));
                         }
                     }
-                    nombreCartesPossiblesJoueur_ = 0;
-                    for (Suit couleur_:toutesCouleurs_) {
-                        nombreCartesPossiblesJoueur_ += cartesPossibles_
-                                .getVal(couleur_).get(joueur2_).total();
-                    }
-                    if (nombreCartesPossiblesJoueur_ == handLengths
-                            .get(joueur2_)
-                            && !joueursRepartitionConnueMemo_
-                            .containsObj(joueur2_)) {
-                        for (Suit couleur_:toutesCouleurs_) {
-                            cartesCertaines_.getVal(couleur_).get(joueur2_)
-                                    .supprimerCartes();
-                            cartesCertaines_.getVal(couleur_)
-                                    .get(joueur2_).ajouterCartes(
-                                    cartesPossibles_.getVal(couleur_).get(
-                                            joueur2_));
-                        }
-                        joueursRepartitionConnue2_.add(joueur2_);
-                        joueursRepartitionConnueMemo_.add(joueur2_);
-                    }
+                    addToKnown(toutesCouleurs_,cartesPossibles_,joueur_,cartesCertaines_,joueursRepartitionConnue2_,joueursRepartitionConnueMemo_);
                 }
             }
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ <= nombreJoueurs_; joueur_++) {
@@ -684,31 +632,7 @@ public final class GameTarotTrickInfo {
                         }
                     }
                 }
-                nombreCartesPossiblesJoueur_ = 0;
-                for (Suit couleur_:toutesCouleurs_) {
-                    nombreCartesPossiblesJoueur_ += cartesCertaines_
-                            .getVal(couleur_).get(joueur_).total();
-                }
-                if (nombreCartesPossiblesJoueur_ == handLengths.get(
-                        joueur_)
-                        && !joueursRepartitionConnueMemo_.containsObj(joueur_)) {
-                    cartesPossibles_.getVal(Suit.TRUMP).get(joueur_).supprimerCartes();
-                    cartesPossibles_.getVal(Suit.TRUMP).get(joueur_).ajouterCartes(
-                            cartesCertaines_.getVal(Suit.TRUMP).get(joueur_));
-                    cartesPossibles_.getVal(Suit.TRUMP).get(joueur_).trierParForceEnCours(Suit.TRUMP);
-
-                    for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                        cartesPossibles_.getVal(couleur_).get(joueur_)
-                                .supprimerCartes();
-                        cartesPossibles_
-                                .getVal(couleur_).get(joueur_).ajouterCartes(
-                                cartesCertaines_.getVal(couleur_).get(
-                                        joueur_));
-                        cartesPossibles_.getVal(couleur_).get(joueur_).trierParForceEnCours(couleur_);
-                    }
-                    joueursRepartitionConnueMemo_.add(joueur_);
-                    joueursRepartitionConnue2_.add(joueur_);
-                }
+                addToKnown(toutesCouleurs_,cartesCertaines_,joueur_,cartesPossibles_,joueursRepartitionConnue2_,joueursRepartitionConnueMemo_);
             }
             joueursRepartitionInconnue_.clear();
             joueursRepartitionConnue_.clear();
@@ -729,6 +653,35 @@ public final class GameTarotTrickInfo {
         retour_.put(Hypothesis.POSSIBLE, cartesPossibles_);
         retour_.put(Hypothesis.SURE, cartesCertaines_);
         return retour_;
+    }
+
+    void addToKnown(EnumList<Suit> _all,EnumMap<Suit,EqList<HandTarot>> _poss,byte _player,
+                    EnumMap<Suit,EqList<HandTarot>> _sure,
+                    Numbers<Byte> _joueursRepartitionConnue, Numbers<Byte> _joueursRepartitionConnueMemo) {
+        int nombreCartesPossiblesJoueur_ = 0;
+        for (Suit couleur_: _all) {
+            nombreCartesPossiblesJoueur_ += _poss.getVal(couleur_)
+                    .get(_player).total();
+        }
+        if (nombreCartesPossiblesJoueur_ ==handLengths
+                .get(_player) && !_joueursRepartitionConnueMemo.containsObj(_player)) {
+                /*
+                    L'ensemble des cartes d'un joueur
+                    reellement possedees est inclus
+                    dans l'ensemble des cartes
+                    probablement possedees par ce
+                    joueur
+                    */
+            affect(_all,_poss,_player,_sure);
+            _joueursRepartitionConnue.add(_player);
+            _joueursRepartitionConnueMemo.add(_player);
+        }
+    }
+    static void affect(EnumList<Suit> _all,EnumMap<Suit,EqList<HandTarot>> _from, byte _player,EnumMap<Suit,EqList<HandTarot>> _to) {
+        for (Suit s: _all) {
+            _to.getVal(s).get(_player).supprimerCartes();
+            _to.getVal(s).get(_player).ajouterCartes(_from.getVal(s).get(_player));
+        }
     }
 
     HandTarot playCharacterCardTarot(GameTarotTeamsRelation _teamRel, byte _numero,
