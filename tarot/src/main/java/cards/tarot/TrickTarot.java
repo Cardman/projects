@@ -237,7 +237,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
     <li>sinon on cherche les joueurs ayant joue une autre couleur que celle demandee</li></ol>
     Ces joueurs sont classes par ordre chronologique de jeu*/
-    Numbers<Byte> joueursDefausses() {
+    Numbers<Byte> joueursDefausses(byte _nbPlayers) {
         Numbers<Byte> coupes_=new Numbers<Byte>();
         Suit couleur_;
         if(total()<2) {
@@ -247,13 +247,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
         if(couleur_==Suit.TRUMP) {
             for(CardTarot c: cards) {
                 if(c.couleur()!=Suit.TRUMP) {
-                    coupes_.add(joueurAyantJoue(c));
+                    coupes_.add(joueurAyantJouePliEnCours(c,_nbPlayers));
                 }
             }
         } else {
             for(CardTarot c: cards) {
                 if(c.couleur()!=Suit.TRUMP&&c.couleur()!=couleur_) {
-                    coupes_.add(joueurAyantJoue(c));
+                    coupes_.add(joueurAyantJouePliEnCours(c,_nbPlayers));
                 }
             }
         }

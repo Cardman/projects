@@ -1451,7 +1451,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         EnumMap<Suit,HandTarot> repartitionCartesJouees_=cartesJouees_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(
                 teamsRelation_,
-                partie_.unionPlis(false),
                 mainUtilisateur_,
                 DealTarot.NUMERO_UTILISATEUR,
                 partie_.derniereMain());

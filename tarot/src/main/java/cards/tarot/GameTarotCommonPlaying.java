@@ -131,7 +131,6 @@ public final class GameTarotCommonPlaying {
         joueursJoue_.removeObj(_joueurCourant);
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(
                 teamsRelation,
-                plisFaits_,
                 _cartes,
                 _joueurCourant,
                 _lastHand);

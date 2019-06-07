@@ -1130,7 +1130,6 @@ public final class GameTarot {
         }
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(
                 teamRel_,
-                plisFaits_,
                 mainJoueur_,
                 numero_,
                 derniereMain());

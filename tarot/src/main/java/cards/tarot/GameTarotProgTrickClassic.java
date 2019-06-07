@@ -319,7 +319,7 @@ public final class GameTarotProgTrickClassic {
             }
             /* C'est au moins le deuxieme tour */
             dernierPli_ = plisFaits_.get(tours_.last());
-            dernieresDefausses_ = dernierPli_.joueursDefausses();
+            dernieresDefausses_ = dernierPli_.joueursDefausses(nombreDeJoueurs_);
             joueursSusceptiblesDeCouper_ = GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,joueursNonJoue_);
             if (!joueursSusceptiblesDeCouper_.isEmpty()) {
                 if (!GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_, joueursSusceptiblesDeCouper_).isEmpty()) {
@@ -519,7 +519,7 @@ public final class GameTarotProgTrickClassic {
                 return repartitionCouleDem_.premiereCarte();
             }
             dernierPli_ = plisFaits_.get(tours_.last());
-            dernieresDefausses_ = dernierPli_.joueursDefausses();
+            dernieresDefausses_ = dernierPli_.joueursDefausses(nombreDeJoueurs_);
             /*
             Deuxieme tour pour un appele ne coupant pas la
             couleur demandee differente de l'atout
