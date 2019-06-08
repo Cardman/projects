@@ -252,26 +252,24 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (!partie_.avecContrat()) {
             //Desactiver les conseils
             getConsulting().setEnabledMenu(false);
-            boolean firstRound_ = true;
             for (TrickTarot t: partie_.unionPlis(true)) {
                 if (!t.getVuParToutJoueur()) {
                     continue;
                 }
                 Numbers<Byte> players_ = partie_.orderedPlayers(t.getEntameur());
                 for (byte p: players_) {
-                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_),firstRound_);
+                    addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
                 }
-                firstRound_ = false;
             }
             TrickTarot pliEnCours_=partie_.getPliEnCours();
             Numbers<Byte> joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
             for (byte p: joueurs_) {
-                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()),partie_.premierTour());
+                addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
             }
             for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
                 tapisTarot().setCarteTarot(lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
             }
-            if (firstRound_ && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
+            if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
                 partie_.setPliEnCours(true);
             }
             getHelpGame().setEnabledMenu(true);
@@ -499,21 +497,19 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 getPanelDiscardedTrumps().repaint();
             }
         }
-        boolean firstRound_ = true;
         for (TrickTarot t: partie_.unionPlis(true)) {
             if (!t.getVuParToutJoueur()) {
                 continue;
             }
             Numbers<Byte> players_ = partie_.orderedPlayers(t.getEntameur());
             for (byte p: players_) {
-                addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_),firstRound_);
+                addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
             }
-            firstRound_ = false;
         }
         TrickTarot pliEnCours_=partie_.getPliEnCours();
         Numbers<Byte> joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
         for (byte p: joueurs_) {
-            addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()),partie_.premierTour());
+            addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
         }
         for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
             tapisTarot().setCarteTarot(lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
@@ -601,7 +597,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
         tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
-        debutPliTarot(false);
+        debutPliTarot();
     }
 //    public void addButtonValidateDogTarot(String _texte,boolean _apte) {
 //        JPanel panneau_=getPanneauBoutonsJeu();
@@ -682,7 +678,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setCanDiscard(_ecouteur);
         updateCardsInPanelTarotDog(tapisTarot().getCenterDeck(), _main, false);
     }
-    public void placerBoutonsAvantJeuUtilisateurTarot(boolean _premierTour) {
+    public void placerBoutonsAvantJeuUtilisateurTarot() {
         getHelpGame().setEnabledMenu(true);
         //Activer les conseils
         getConsulting().setEnabledMenu(true);
@@ -694,9 +690,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new EnumMap<Miseres,Boolean>());
         String lg_ = getOwner().getLanguageKey();
-        if(_premierTour) {
+        GameTarot partie_=partieTarot();
+        if(partie_.premierTourNoMisere()) {
             setCanExcludeTrumps(true);
-            GameTarot partie_=partieTarot();
             EnumList<Handfuls> poignees_ = partie_.getAnnoncesPoigneesPossibles(DealTarot.NUMERO_UTILISATEUR);
             RulesTarot regles_=partie_.getRegles();
             HandTarot trumps_ = GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().main().couleurs());
@@ -758,15 +754,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         updateCardsInPanelTarotCallBeforeDog(getPanelCallableCards(),partie_.callableCards());
         getScrollCallableCards().setVisible(true);
     }
-    public void debutPliTarot(boolean _premierPliFait) {
+    public void debutPliTarot() {
         //Activer le sous-menu conseil
         getConsulting().setEnabledMenu(false);
         //Activer le sous-menu aide au jeu
         getHelpGame().setEnabledMenu(true);
-        boolean premierTour_;
         GameTarot partie_=partieTarot();
-        premierTour_=partie_.premierTour();
-        if(premierTour_&&!_premierPliFait) {
+        if(partie_.premierTour()) {
             byte donneur_=partie_.getDistribution().getDonneur();
             if(!partie_.chelemAnnonce()) {
                 /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
@@ -824,34 +818,32 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getPanneauBoutonsJeu().validate();
             tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
             tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
-            debutPliTarot(false);
+            debutPliTarot();
         }
         //pack();
     }
-    private void addTextInAreaByLoading(byte _joueur,String _pseudo,CardTarot _ct,boolean _premierTour) {
+    private void addTextInAreaByLoading(byte _joueur, String _pseudo, CardTarot _ct) {
         GameTarot partie_=partieTarot();
         String lg_ = getOwner().getLanguageKey();
-        if(_premierTour) {
-            if(partie_.pasJeuMisere()) {
-                HandTarot poignee_=partie_.getPoignee(_joueur);
-                for(Handfuls annonce_:partie_.getAnnoncesPoignees(_joueur)) {
-                    ajouterTexteDansZone(StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
-                }
-                for(Miseres annonce_:partie_.getAnnoncesMiseres(_joueur)) {
-                    ajouterTexteDansZone(StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
-                }
-                if(!poignee_.estVide()) {
-                    getHandfuls().getVal(_joueur).setText(Games.toString(partie_.getAnnoncesPoignees(_joueur).first(),lg_));
-                }
-                poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
-                Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-                panelToSet_.removeAll();
-                for(CardTarot c: poignee_) {
-                    MiniTarotCard carte_=new MiniTarotCard(lg_, c);
-                    panelToSet_.add(carte_);
-                }
-                pack();
+        if(partie_.premierTourNoMisere()) {
+            HandTarot poignee_=partie_.getPoignee(_joueur);
+            for(Handfuls annonce_:partie_.getAnnoncesPoignees(_joueur)) {
+                ajouterTexteDansZone(StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
             }
+            for(Miseres annonce_:partie_.getAnnoncesMiseres(_joueur)) {
+                ajouterTexteDansZone(StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE));
+            }
+            if(!poignee_.estVide()) {
+                getHandfuls().getVal(_joueur).setText(Games.toString(partie_.getAnnoncesPoignees(_joueur).first(),lg_));
+            }
+            poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+            Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+            panelToSet_.removeAll();
+            for(CardTarot c: poignee_) {
+                MiniTarotCard carte_=new MiniTarotCard(lg_, c);
+                panelToSet_.add(carte_);
+            }
+            pack();
         }
         if(partie_.getCarteAppelee().contient(_ct)) {
             getMini().setStatus(Status.CALLED_PLAYER, _joueur);
@@ -859,35 +851,34 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
 
     }
-    public void jouerTarot(byte _joueur,String _pseudo,boolean _premierTour) {
+    public void jouerTarot(byte _joueur, String _pseudo) {
         GameTarot partie_=partieTarot();
         partie_.changerConfianceJeuCarteUnique();
         CardTarot ct_= partie_.getCarteJoueee();
         String lg_ = getOwner().getLanguageKey();
-        if(_premierTour) {
-            if(partie_.pasJeuMisere()) {
-                EnumList<Handfuls> annoncesPoignees_ = partie_.strategieAnnoncesPoignees(_joueur);
-                partie_.setAnnoncesPoignees(_joueur, annoncesPoignees_);
-                EnumList<Miseres> annoncesMiseres_ = partie_.strategieAnnoncesMiseres(_joueur);
-                partie_.setAnnoncesMiseres(_joueur, annoncesMiseres_);
-                HandTarot poignee_=partie_.strategiePoignee(_joueur);
-                partie_.ajouterPoignee(poignee_,_joueur);
-                for(Handfuls annonce_:annoncesPoignees_) {
-                    ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+        if(partie_.premierTourNoMisere()) {
+            EnumList<Handfuls> annoncesPoignees_ = partie_.strategieAnnoncesPoignees(_joueur);
+            partie_.setAnnoncesPoignees(_joueur, annoncesPoignees_);
+            EnumList<Miseres> annoncesMiseres_ = partie_.strategieAnnoncesMiseres(_joueur);
+            partie_.setAnnoncesMiseres(_joueur, annoncesMiseres_);
+            HandTarot poignee_=partie_.strategiePoignee(_joueur);
+            partie_.ajouterPoignee(poignee_,_joueur);
+            for(Handfuls annonce_:annoncesPoignees_) {
+                ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
-                }
-                for(Miseres annonce_:annoncesMiseres_) {
-                    ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+            }
+            for(Miseres annonce_:annoncesMiseres_) {
+                ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
-                }
-                if(!poignee_.estVide()) {
-                    JLabel label_ = getHandfuls().getVal(_joueur);
-                    ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
+            }
+            if(!poignee_.estVide()) {
+                JLabel label_ = getHandfuls().getVal(_joueur);
+                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
-                }
-                poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
-                Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(new HandfulThread(poignee_, panelToSet_, getWindow()));
+            }
+            poignee_.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+            Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
+            ThreadInvoker.invokeNow(new HandfulThread(poignee_, panelToSet_, getWindow()));
 //                panelToSet_.removeAll();
 //                for(CardTarot c:poignee_)
 //                {
@@ -895,8 +886,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    panelToSet_.add(carte_);
 //                }
 //                panelToSet_.validate();
-                //pack();
-            }
+            //pack();
         }
         if(partie_.getCarteAppelee().contient(ct_)) {
             getMini().setStatus(Status.CALLED_PLAYER, _joueur);
@@ -1176,7 +1166,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     pack();
                 }
             } else {
-                debutPliTarot(false);
+                debutPliTarot();
             }
         }
     }
@@ -1483,7 +1473,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
         tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
-        debutPliTarot(!partie_.premierTour());
+        debutPliTarot();
     }
 
     @Override

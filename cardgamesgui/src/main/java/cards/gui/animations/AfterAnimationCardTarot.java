@@ -20,7 +20,7 @@ public final class AfterAnimationCardTarot extends Thread {
         container.getPause().setEnabledMenu(false);
         if(currentGame_.keepPlayingCurrentTrick()) {
             container.setThreadAnime(false);
-            container.placerBoutonsAvantJeuUtilisateurTarot(currentGame_.premierTour());
+            container.placerBoutonsAvantJeuUtilisateurTarot();
         } else {
             if (currentGame_.keepPlayingCurrentGame() && container.getParametres().getAttentePlisClic()) {
                 container.setThreadAnime(false);

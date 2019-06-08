@@ -61,7 +61,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
                 container.pack();
             } else {
-                container.debutPliTarot(false);
+                container.debutPliTarot();
             }
             return;
         }
@@ -82,7 +82,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 container.pack();
             } else {
-                container.debutPliTarot(false);
+                container.debutPliTarot();
             }
         }
     }

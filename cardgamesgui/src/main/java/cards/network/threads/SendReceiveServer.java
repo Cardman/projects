@@ -1843,8 +1843,9 @@ public final class SendReceiveServer extends BasicServer {
         if (Net.isHumanPlayer(place_)) {
             AllowPlayingTarot decla_ = new AllowPlayingTarot();
             decla_.setTakerIndex(game_.getPreneur());
+            boolean firstRound_ = game_.premierTourNoMisere();
             decla_.setFirstRoundPlaying(game_.premierTour());
-            if (game_.pasJeuMisere() && game_.premierTour()) {
+            if (firstRound_) {
                 EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
                 EnumMap<Handfuls,Integer> allowedHanduls_ = game_.getRegles().getPoigneesAutorisees();
                 handfuls_.sortElts(new AllowedHandfulComparator(allowedHanduls_));
@@ -1869,7 +1870,7 @@ public final class SendReceiveServer extends BasicServer {
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);
         cardDto_.setLocale(Constants.getDefaultLanguage());
-        if (game_.premierTour() && !game_.pasJeuMisere()) {
+        if (game_.premierTourNoMisere()) {
             EnumList<Handfuls> annoncesPoignees_ = game_.strategieAnnoncesPoignees(place_);
             game_.setAnnoncesPoignees(place_, annoncesPoignees_);
             EnumList<Miseres> annoncesMiseres_ = game_.strategieAnnoncesMiseres(place_);

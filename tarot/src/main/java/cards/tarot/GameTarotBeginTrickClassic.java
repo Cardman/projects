@@ -138,7 +138,7 @@ public final class GameTarotBeginTrickClassic {
                 couleurs_ = GameTarotCommon.couleursLesPlusLongues(cartesJouees_, couleurs_);
                 return repartition_.getVal(couleurs_.first()).premiereCarte();
             }
-            if(common.appeleConnuDefenseur(teamsRelation,_numero,cartesPossibles_)) {
+            if(common.appeleConnuDefenseur(_numero,cartesPossibles_)) {
                 //L'appele existe et est connu du defenseur courant
                 EnumList<Suit> couleursAjouer_ = Suit.couleursOrdinaires();
                 EnumList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(_cartesJouables, couleursAjouer_);
@@ -249,7 +249,7 @@ public final class GameTarotBeginTrickClassic {
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = info_.getCartesCertaines();
         boolean strictMaitreAtout_ = info_.isMaitreAtout();
         boolean maitreAtout_ = GameTarotCommonPlaying.maitreAtout(suites_.getVal(Suit.TRUMP),
-                cartesJouees_, excuseJouee_, contientExcuse_);
+                cartesJouees_, contientExcuse_);
         EnumList<Suit> couleursMaitres_ = info_.getCouleursMaitresses();
         HandTarot atoutsMaitres_ = repartition_.getVal(Suit.TRUMP)
                 .atoutsMaitres(repartitionCartesJouees_);
@@ -565,32 +565,30 @@ public final class GameTarotBeginTrickClassic {
         //Defenseur
         for(Suit c: couleursAppelees_) {
             if(!carteAppeleeJouee_ && !_cartesJouables.couleur(c).estVide()) {
-                if(!common.appeleConnuDefenseur(teamsRelation,_numero,cartesPossibles_)) {
-                    boolean defausseTousJoueurs_ = true;
-                    EqList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
-                    for(byte joueur_: joueursNonConfiance_) {
-                        if (!(atoutsJoueurs_.get(joueur_).estVide())) {
-                            defausseTousJoueurs_ = false;
+                boolean defausseTousJoueurs_ = true;
+                EqList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
+                for(byte joueur_: joueursNonConfiance_) {
+                    if (!(atoutsJoueurs_.get(joueur_).estVide())) {
+                        defausseTousJoueurs_ = false;
+                    }
+                }
+                if(!defausseTousJoueurs_) {
+                    if(GameTarotCommon.couleursAvecFigures(_cartesJouables,Suit.couleursOrdinaires()).containsObj(c)) {
+                        if(couleursCoupeeParJoueurs(_cartesJouables,
+                                joueursNonConfiance_, cartesPossibles_,
+                                cartesCertaines_, Suit.couleursOrdinaires()).containsObj(c)) {
+                            return repartition_.getVal(c).premiereCarte();
                         }
                     }
-                    if(!defausseTousJoueurs_) {
-                        if(GameTarotCommon.couleursAvecFigures(_cartesJouables,Suit.couleursOrdinaires()).containsObj(c)) {
-                            if(couleursCoupeeParJoueurs(_cartesJouables,
-                                    joueursNonConfiance_, cartesPossibles_,
-                                    cartesCertaines_, Suit.couleursOrdinaires()).containsObj(c)) {
-                                return repartition_.getVal(c).premiereCarte();
-                            }
-                        }
-                    }
-                    if(GameTarotCommon.couleursAvecCartesBasses(_cartesJouables,Suit.couleursOrdinaires()).containsObj(c)) {
-                        return repartition_.getVal(c).derniereCarte();
-                    }
+                }
+                if(GameTarotCommon.couleursAvecCartesBasses(_cartesJouables,Suit.couleursOrdinaires()).containsObj(c)) {
+                    return repartition_.getVal(c).derniereCarte();
                 }
             }
         }
 
         //ouvreur
-        if(defenseOuvreur(teamsRelation,_numero, cartesPossibles_)) {
+        if(defenseOuvreur(_numero, cartesPossibles_)) {
             if(defenseOuvreurStrict(teamsRelation,_numero, cartesPossibles_)) {
                 EnumList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(_cartesJouables,
                         plisFaits_, couleursNonVidesAjouer_);
@@ -1199,10 +1197,10 @@ public final class GameTarotBeginTrickClassic {
         return jeuMainMaitresse(_hand,_playedCards);
     }
 
-    boolean defenseOuvreur(GameTarotTeamsRelation _teamRel, byte _joueur, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles) {
+    boolean defenseOuvreur(byte _joueur, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles) {
         Numbers<Byte> attaque_ = new Numbers<Byte>();
         attaque_.add(teamsRelation.getTaker());
-        if (common.appeleConnuDefenseur(_teamRel,_joueur,_cartesPossibles) && teamsRelation.existeAppele()) {
+        if (common.appeleConnuDefenseur(_joueur,_cartesPossibles) && teamsRelation.existeAppele()) {
             for (byte a: teamsRelation.getCalledPlayers()) {
                 if (!attaque_.containsObj(a)) {
                     attaque_.add(a);
@@ -1228,10 +1226,10 @@ public final class GameTarotBeginTrickClassic {
     }
 
     boolean defenseOuvreurStrict(GameTarotTeamsRelation _teamRel, byte _joueur, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles) {
-        if (!defenseOuvreur(_teamRel,_joueur, _cartesPossibles)) {
+        if (!defenseOuvreur(_joueur, _cartesPossibles)) {
             return false;
         }
-        if (common.appeleConnuDefenseur(_teamRel,_joueur,_cartesPossibles) && teamsRelation.existeAppele() && !teamsRelation.getCalledPlayers().containsObj(teamsRelation.getTaker())) {
+        if (common.appeleConnuDefenseur(_joueur,_cartesPossibles) && teamsRelation.existeAppele() && !teamsRelation.getCalledPlayers().containsObj(teamsRelation.getTaker())) {
             Numbers<Byte> attaque_ = new Numbers<Byte>();
             attaque_.add(teamsRelation.getTaker());
             for (byte a: teamsRelation.getCalledPlayers()) {

@@ -461,7 +461,7 @@ public final class GameTarotTrickHypothesis {
                         must follow a card belonging to the current demanded suit.*/
                         Numbers<Byte> joueursNonConfiancePreneur_ = new Numbers<Byte>();
                         for (byte j: joueursNonConfianceNonJoue_) {
-                            if (teamRel_.statutDe(j) != Status.TAKER) {
+                            if (j != teamRel_.getTaker()) {
                                 continue;
                             }
                             joueursNonConfiancePreneur_.add(j);
@@ -539,14 +539,7 @@ public final class GameTarotTrickHypothesis {
                 */
                 if (couleursAppelees_.containsObj(couleurDemandee_) && !carteAppeleeJouee_
                         && _numero == teamRel_.getTaker()) {
-                    Numbers<Byte> joueursConfianceNonJoueDiffAppele_ = new Numbers<Byte>();
-                    for (byte j: joueursConfianceNonJoue_) {
-                        if (teamRel_.statutDe(j) == Status.CALLED_PLAYER) {
-                            continue;
-                        }
-                        joueursConfianceNonJoueDiffAppele_.add(j);
-                    }
-                    joueursConfianceNonJoue_ = joueursConfianceNonJoueDiffAppele_;
+                    joueursConfianceNonJoue_ = new Numbers<Byte>();
                 }
                 /*
                 On cherche a savoir si le ramasseur virtuel (joueur de non

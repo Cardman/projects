@@ -1272,7 +1272,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     private void tryToLoadDeal(String _nomFichier, Object _deal) {
-        ContainerGame containerGame_ = null;
+        ContainerGame containerGame_;
 
         if (_deal instanceof GameBelote) {
             CheckerGameBeloteWithRules.check((GameBelote) _deal);

@@ -180,16 +180,7 @@ public final class GameTarotTeamsRelation {
         }
         return confiance(_numero1, _numero2) || _numero1 == _numero2;
     }
-    void fixConfidenceDefender(byte _numero, byte _nbPlayers) {
-        //ramasseur == preneur ==> j == appele
-        //j == preneur ==> ramasseur == appele
-        for(byte j2_: GameTarotTeamsRelation.tousJoueurs(_nbPlayers)) {
-            if(!memeEquipe(_numero, j2_)) {
-                continue;
-            }
-            faireConfiance(_numero, j2_);
-        }
-    }
+
     void determinerConfiance(byte _numero, byte _nombreJoueurs) {
         if (!aPourDefenseur(_numero)) {
             faireConfiance(_numero, taker);

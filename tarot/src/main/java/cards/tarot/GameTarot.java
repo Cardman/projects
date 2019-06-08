@@ -1070,6 +1070,9 @@ public final class GameTarot {
         return g_.cartesJouables(calledCards,_repartitionMain);
     }
 
+    public boolean premierTourNoMisere() {
+        return premierTour() && pasJeuMisere();
+    }
     public boolean premierTour() {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();

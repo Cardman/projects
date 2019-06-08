@@ -61,7 +61,7 @@ public final class AnimationCardTarot extends Thread {
             }
             ThreadUtil.sleep(delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
-            container.jouerTarot(player_,pseudos_.get(player_),partie_.premierTour());
+            container.jouerTarot(player_,pseudos_.get(player_));
             container.pause();
         }
         SwingUtilities.invokeLater(new AfterAnimationCardTarot(container));
