@@ -5,7 +5,6 @@ import cards.consts.Status;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.PlayingDog;
 import code.maths.Rate;
 import code.util.*;
 
@@ -54,7 +53,6 @@ public final class GameTarotTrickHypothesis {
                     }
                 }
             }
-//            Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_);
             for (byte b: GameTarotTeamsRelation.autresJoueurs(possibleAlly_,nombreJoueurs_)) {
                 joueursNonConfiancePresqueSure_.add(b);
             }
@@ -305,10 +303,8 @@ public final class GameTarotTrickHypothesis {
                 _teamReal.faireMefiance(_numero,b);
             }
         } else if (_teamReal.aPourDefenseur(_numero)) {
-            if (possibleAlly_.size() < nombreJoueurs_ - 1) {
-                for (byte b: possibleAlly_) {
-                    _teamReal.faireConfiance(_numero,b);
-                }
+            for (byte b: possibleAlly_) {
+                _teamReal.faireConfiance(_numero,b);
             }
         } else {
             if (possibleAlly_.size() < 3) {

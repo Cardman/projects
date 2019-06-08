@@ -132,7 +132,6 @@ public final class GameTarotCommonPlaying {
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(
                 teamsRelation,
                 _cartes,
-                _joueurCourant,
                 _lastHand);
         EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(teamsRelation,cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);

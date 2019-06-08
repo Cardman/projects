@@ -38,6 +38,9 @@ public final class TrickTarot implements Iterable<CardTarot> {
         return seenByAllPlayers;
     }
 
+    public byte getNextPlayer(byte _nbPlayer) {
+        return (byte) ((starter + total()) % _nbPlayer);
+    }
     /**Retourne l'entameur du pli*/
     public byte getEntameur() {
         return starter;
@@ -149,10 +152,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
         all_.removeAllLong(_pnumero);
         return all_;
     }
-    //Pli en cours
-    public boolean aJoueUtilisateur(byte _nombreDeJoueurs) {
-        return aJoue(DealTarot.NUMERO_UTILISATEUR,_nombreDeJoueurs);
-    }
+
     //Pli en cours
     public boolean aJoue(byte _joueur,byte _nombreDeJoueurs) {
         if(total()<_nombreDeJoueurs) {

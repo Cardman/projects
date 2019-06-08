@@ -38,19 +38,20 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     public EnumMap<Suit,EqList<HandTarot>> cartesPossibles(GameTarotTeamsRelation _teamRel,
-                                                           HandTarot _cartesJoueur, byte _numero,
+                                                           HandTarot _cartesJoueur,
                                                            HandTarot _lastHand) {
-        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,_numero);
+        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
+        byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
+        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,next_);
         boolean plExcuse_ = playedCards_.contient(CardTarot.EXCUSE);
         boolean containsExcuse_ = _cartesJoueur.contient(CardTarot.EXCUSE);
         boolean noExc_ = plExcuse_ || containsExcuse_;
         EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
         EqList<HandTarot> possibleExcuse_ = new EqList<HandTarot>();
-        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             HandTarot h_ = new HandTarot();
             possibleExcuse_.add(h_);
-            if(joueur_ == _numero) {
+            if(joueur_ == next_) {
                 if (containsExcuse_) {
                     h_.ajouter(CardTarot.EXCUSE);
                 }
@@ -80,7 +81,7 @@ public final class GameTarotTrickInfo {
             chien
             */
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (joueur_ == _numero) {
+                if (joueur_ == next_) {
                     continue;
                 }
                 if (_teamRel.getTaker() != joueur_ && _lastHand.contient(CardTarot.EXCUSE)) {
@@ -98,7 +99,7 @@ public final class GameTarotTrickInfo {
             // qu'un autre
             // joueur ait
             // celle-ci
-            if (joueur_ == _numero) {
+            if (joueur_ == next_) {
                 continue;
             }
             int nbHandfuls_ = handfuls.size();
@@ -119,12 +120,12 @@ public final class GameTarotTrickInfo {
         }
         m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
         m.put(Suit.TRUMP,atoutsPossibles(_teamRel,
-                _cartesJoueur, _numero,_lastHand));
+                _cartesJoueur,_lastHand));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             // On fait une boucle sur les
             // couleurs autres que l'atout
             m.put(couleur_,cartesPossibles(_teamRel,couleur_,
-                    _numero,_cartesJoueur, _lastHand));
+                    _cartesJoueur, _lastHand));
         }
         return m;
     }
@@ -135,21 +136,22 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     EqList<HandTarot> atoutsPossibles(GameTarotTeamsRelation _teamRel,
-                                      HandTarot _curHand, byte _numero,
+                                      HandTarot _curHand,
                                       HandTarot _lastHand) {
+        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
+        byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
-        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,_numero);
+        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
         EnumMap<Suit,HandTarot> plRep_ = playedCards_.couleurs();
         HandTarot plTr_ = plRep_.getVal(Suit.TRUMP);
         HandTarot curTr_ = curRep_.getVal(Suit.TRUMP);
         EqList<HandTarot> m = new EqList<HandTarot>();
-        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
 
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             HandTarot h_ = new HandTarot();
             m.add(h_);
-            if(joueur_ == _numero) {
+            if(joueur_ == next_) {
                 h_.ajouterCartes(curTr_);
                 continue;
             }
@@ -205,7 +207,7 @@ public final class GameTarotTrickInfo {
                     continue;
                 }
                 byte joueur_ = pli_.joueurAyantJouePliEnCours(c,nombreJoueurs_);
-                if (joueur_ == _numero) {
+                if (joueur_ == next_) {
                     continue;
                 }
                 Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nombreJoueurs_, _teamRel.getRules().getDealing());
@@ -241,7 +243,7 @@ public final class GameTarotTrickInfo {
         }
         if (bid.getJeuChien() == PlayingDog.WITH) {
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (joueur_ == _numero) {
+                if (joueur_ == next_) {
                     continue;
                 }
                 if (_teamRel.getTaker() != joueur_) {
@@ -266,7 +268,7 @@ public final class GameTarotTrickInfo {
             }
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-            if (joueur_ == _numero) {
+            if (joueur_ == next_) {
                 continue;
             }
             int nbHandfuls_ = handfuls.size();
@@ -324,28 +326,28 @@ public final class GameTarotTrickInfo {
         }
         for (byte i = 0; i < nombreJoueurs_; i++) {
             HandTarot main_ = m.get(i);
-            if (i == _numero) {
+            if (i == next_) {
                 continue;
             }
             //filtre sur le jeu d'une carte couleur atout apres un adversaire ramasseur
-            HandTarot atoutsFiltres_ = sousCoupeTarot(_teamRel,_numero, _curHand,i,
+            HandTarot atoutsFiltres_ = sousCoupeTarot(_teamRel,next_, _curHand,i,
                     main_);
             m.set(i, atoutsFiltres_);
         }
         for (byte i = 0; i < nombreJoueurs_; i++) {
             HandTarot main_ = m.get(i);
-            if (i == _numero) {
+            if (i == next_) {
                 continue;
             }
             //filtre sur la fourniture d'un atout a une couleur
-            HandTarot atoutsFiltres_ = coupeTarot(_teamRel,_numero, _curHand,i,
+            HandTarot atoutsFiltres_ = coupeTarot(_teamRel,next_, _curHand,i,
                     main_);
             m.set(i, atoutsFiltres_);
         }
         if(playedCalledCard_) {
             for (byte i = 0; i < nombreJoueurs_; i++) {
                 HandTarot main_ = m.get(i);
-                if (i == _numero) {
+                if (i == next_) {
                     continue;
                 }
                 if(petitJoueDemandeAtoutRamasseurAdv(_teamRel,i)) {
@@ -364,16 +366,17 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     EqList<HandTarot> cartesPossibles(GameTarotTeamsRelation _teamRel, Suit _couleur,
-                                      byte _numero, HandTarot _curHand,
+                                      HandTarot _curHand,
                                       HandTarot _lastHand) {
-        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,_numero);
+        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
+        byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
+        HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
         EqList<HandTarot> m = new EqList<HandTarot>();
-        byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             HandTarot h_ = new HandTarot();
             m.add(h_);
-            if(joueur_ == _numero) {
+            if(joueur_ == next_) {
                 h_.ajouterCartes(_curHand.couleur(_couleur));
                 continue;
             }
@@ -416,7 +419,7 @@ public final class GameTarotTrickInfo {
                 }
             }
         } else {
-            if (_numero == _teamRel.getTaker()) {
+            if (next_ == _teamRel.getTaker()) {
                 /*
             Le preneur sait ce qu'il a mis au chien
             pour une Petite ou une Garde
@@ -451,7 +454,7 @@ public final class GameTarotTrickInfo {
                 }
             }
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (joueur_ == _numero) {
+                if (joueur_ == next_) {
                     continue;
                 }
                 if (_teamRel.getTaker() != joueur_) {
@@ -481,7 +484,7 @@ public final class GameTarotTrickInfo {
         }
         if (progressingTrick.couleurDemandee() == _couleur) {
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (joueur_ == _numero) {
+                if (joueur_ == next_) {
                     continue;
                 }
                 if (!progressingTrick.aJoue(joueur_, nombreJoueurs_)) {
@@ -506,7 +509,7 @@ public final class GameTarotTrickInfo {
         }
         for (byte i = 0; i < nombreJoueurs_; i++) {
             HandTarot couleurLoc_ = m.get(i);
-            if (i == _numero) {
+            if (i == next_) {
                 continue;
             }
             if (couleurLoc_.estVide()) {
@@ -515,14 +518,14 @@ public final class GameTarotTrickInfo {
             Suit noCouleur_ = couleurLoc_.premiereCarte()
                     .couleur();
             //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
-            HandTarot atoutsFiltres_ = joueCarteBasseTarot(_teamRel,_numero,_curHand,
+            HandTarot atoutsFiltres_ = joueCarteBasseTarot(_teamRel,next_,_curHand,
                     i, noCouleur_, couleurLoc_, tricks);
             m.set(i, atoutsFiltres_);
         }
         if (playedCalledCard_) {
             for (byte i = 0; i < nombreJoueurs_; i++) {
                 HandTarot couleurLoc_ = m.get(i);
-                if (i == _numero) {
+                if (i == next_) {
                     continue;
                 }
                 if (couleurLoc_.estVide()) {

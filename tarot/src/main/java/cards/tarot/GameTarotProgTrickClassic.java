@@ -35,7 +35,7 @@ public final class GameTarotProgTrickClassic {
     CardTarot enCoursClassic(
             HandTarot _lastHand) {
         byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        byte numero_ = (byte) ((doneTrickInfo.getProgressingTrick().getEntameur() + doneTrickInfo.getProgressingTrick().total()) % nombreJoueurs_);
+        byte numero_ = doneTrickInfo.getProgressingTrick().getNextPlayer(nombreJoueurs_);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot cartesJouables_ = common.playableCards(calledCards,repartition_);
         if (cartesJouables_.total() == 1) {
