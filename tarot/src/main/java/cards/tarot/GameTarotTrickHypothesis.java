@@ -3,20 +3,22 @@ package cards.tarot;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Status;
 import cards.consts.Suit;
-import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.maths.Rate;
-import code.util.*;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
 
 public final class GameTarotTrickHypothesis {
 
     private GameTarotTrickHypothesis(){
     }
     static void hypothesesRepartitionsJoueurs(GameTarotTeamsRelation _teamReal, HandTarot _calledCards,
-                                              BidTarot _bid,
                                               CustList<TrickTarot> _plisFaits, byte _numero,
-                                              EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
-                                              EnumMap<Suit,EqList<HandTarot>> _cartesCertaines) {
+                                              EnumMap<Suit, EqList<HandTarot>> _cartesPossibles,
+                                              EnumMap<Suit, EqList<HandTarot>> _cartesCertaines) {
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
         for (TrickTarot t:_plisFaits) {
@@ -223,7 +225,7 @@ public final class GameTarotTrickHypothesis {
                 if(ramasseurVirtuel_ == -1) {
                     continue;
                 }
-                if(!otherCard(fullTricksProg_,nombreJoueurs_,cartesCouleurJouees_,j)) {
+                if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
                 res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
@@ -258,7 +260,7 @@ public final class GameTarotTrickHypothesis {
                 if(ramasseurVirtuel_ == -1) {
                     continue;
                 }
-                if(!otherCard(fullTricksProg_,nombreJoueurs_,cartesCouleurJouees_,j)) {
+                if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
                 res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
@@ -314,7 +316,7 @@ public final class GameTarotTrickHypothesis {
             }
         }
     }
-    static boolean otherCard(CustList<TrickTarot> _full, byte _nbPl, HandTarot _played,byte _cur) {
+    private static boolean onlyOnePlayedCard(CustList<TrickTarot> _full, byte _nbPl, HandTarot _played, byte _cur) {
         boolean autreCarteCouleurJouee_ = false;
         boolean figureJouee_ = false;
         CardTarot premiereFigureJouee_ = _played.premiereCarte();
@@ -337,9 +339,9 @@ public final class GameTarotTrickHypothesis {
             autreCarteCouleurJouee_ = true;
             break;
         }
-        return autreCarteCouleurJouee_;
+        return !autreCarteCouleurJouee_;
     }
-    static CustList<TrickTarot> filter(CustList<TrickTarot> _tricks, byte _nbPl, byte _current) {
+    private static CustList<TrickTarot> filter(CustList<TrickTarot> _tricks, byte _nbPl, byte _current) {
         CustList<TrickTarot> l_ = new CustList<TrickTarot>();
         for (TrickTarot t: _tricks) {
             if (!t.aJoue(_current,_nbPl)) {
@@ -349,8 +351,8 @@ public final class GameTarotTrickHypothesis {
         }
         return l_;
     }
-    static void res(byte _current, Numbers<Byte> _possibleAlly,byte _ram,GameTarotTeamsRelation _teamReal, byte _nbPl,
-                   Numbers<Byte> _potentialFoesNearlySure,byte _numero) {
+    private static void res(byte _current, Numbers<Byte> _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, byte _nbPl,
+                            Numbers<Byte> _potentialFoesNearlySure, byte _numero) {
         //ramasseur != j && ramasseur != -1
         Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(_nbPl);
         if(_teamReal.aPourDefenseur(_numero)) {
@@ -381,8 +383,8 @@ public final class GameTarotTrickHypothesis {
         addPotentialFoePlayers(_potentialFoesNearlySure, _current,
                 _ram);
     }
-    static void addPotentialFoePlayers(Numbers<Byte> _potentialFoesNearlySure,
-                                       byte _otherPlayer, byte _leader) {
+    private static void addPotentialFoePlayers(Numbers<Byte> _potentialFoesNearlySure,
+                                               byte _otherPlayer, byte _leader) {
         _potentialFoesNearlySure.add(_leader);
         _potentialFoesNearlySure.add(_otherPlayer);
     }

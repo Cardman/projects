@@ -1137,7 +1137,7 @@ public final class GameTarot {
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         plisFaits_.add(progressingTrick);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(teamRel_,calledCards,bid,plisFaits_, numero_, cartesPossibles_,
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(teamRel_,calledCards, plisFaits_, numero_, cartesPossibles_,
                 cartesCertaines_);
     }
 

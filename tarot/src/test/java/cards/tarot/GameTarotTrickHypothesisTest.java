@@ -77,7 +77,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(), tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,4);
         notConfidence(team_,next_,1);
@@ -144,7 +144,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -211,7 +211,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,3);
         notConfidence(team_,next_,1);
@@ -278,7 +278,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -345,7 +345,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,4);
         notConfidence(team_,next_,1);
@@ -421,7 +421,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_,next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         notConfidence(team_,next_,0);
@@ -491,7 +491,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,0);
         notConfidence(team_,next_,1);
@@ -567,7 +567,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,0);
         notConfidence(team_,next_,1);
@@ -640,7 +640,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -713,7 +713,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -780,7 +780,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -847,7 +847,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -914,7 +914,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_,next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -981,7 +981,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_,next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -1048,7 +1048,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -1115,7 +1115,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1182,7 +1182,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1249,7 +1249,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1322,7 +1322,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -1395,7 +1395,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -1468,7 +1468,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1535,7 +1535,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1602,7 +1602,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1669,7 +1669,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_,next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1742,7 +1742,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -1809,7 +1809,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,2);
         notConfidence(team_,next_,1);
@@ -1873,7 +1873,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         notConfidence(team_,next_,0);
@@ -1938,7 +1938,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         confidence(team_,next_,3);
@@ -2003,7 +2003,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,1);
         confidence(team_,next_,2);
@@ -2068,7 +2068,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,3);
         confidence(team_,next_,4);
@@ -2135,7 +2135,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,4);
         notConfidence(team_,next_,0);
@@ -2202,7 +2202,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -2269,7 +2269,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,3);
         confidence(team_,next_,4);
@@ -2336,7 +2336,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         confidence(team_,next_,3);
         confidence(team_,next_,4);
@@ -2403,7 +2403,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(),tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -2470,7 +2470,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(), tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -2537,7 +2537,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(), tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,1);
         notConfidence(team_,next_,2);
@@ -2606,7 +2606,7 @@ public final class GameTarotTrickHypothesisTest {
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
-        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(),g_.getContrat(), tricks_, next_,poss_,sure_);
+        GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
         confidence(team_,next_);
         notConfidence(team_,next_,0);
         notConfidence(team_,next_,1);

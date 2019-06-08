@@ -1452,7 +1452,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_= doneTrickInfo_.cartesPossibles(
                 teamsRelation_,
                 mainUtilisateur_,
-                DealTarot.NUMERO_UTILISATEUR,
                 partie_.derniereMain());
         DialogHelpTarot.setTitleDialog(getWindow(),StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.TAROT.toString(lg_)));
         EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(teamsRelation_,cartesPossibles_);
