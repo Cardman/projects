@@ -19,19 +19,46 @@ public final class GameTarotTrickHypothesis {
                                               EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
                                               EnumMap<Suit,EqList<HandTarot>> _cartesCertaines) {
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        CustList<TrickTarot> fullTricks_ = new CustList<TrickTarot>();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
         for (TrickTarot t:_plisFaits) {
             if (!t.getVuParToutJoueur()) {
                 continue;
             }
             fullTricksProg_.add(t);
-            if (t.total() == nombreJoueurs_) {
-                fullTricks_.add(t);
+        }
+        boolean appelesTousConnus_ = _teamReal.allKnownCalledPlayers(_calledCards,_cartesCertaines,
+                nombreJoueurs_);
+        Numbers<Byte> joueursNonConfiancePresqueSure_ = new Numbers<Byte>();
+        Numbers<Byte> possibleAlly_ = new Numbers<Byte>();
+        possibleAlly_.add(_numero);
+        if(appelesTousConnus_) {
+            if (_teamReal.aPourDefenseur(_numero)) {
+                for(CardTarot c: _calledCards) {
+                    for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                        if (joueur_ == _teamReal.getTaker()) {
+                            continue;
+                        }
+                        if (!_cartesCertaines.getVal(c.couleur())
+                                .get(joueur_).contient(c)) {
+                            possibleAlly_.add(joueur_);
+                        }
+                    }
+                }
+            } else {
+                for(CardTarot c: _calledCards) {
+                    for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                        if (_cartesCertaines.getVal(c.couleur())
+                                .get(joueur_).contient(c)) {
+                            possibleAlly_.add(joueur_);
+                        }
+                    }
+                }
+            }
+//            Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_);
+            for (byte b: GameTarotTeamsRelation.autresJoueurs(possibleAlly_,nombreJoueurs_)) {
+                joueursNonConfiancePresqueSure_.add(b);
             }
         }
-        Numbers<Byte> joueursNonConfiancePresqueSure_ = new Numbers<Byte>();
-        boolean ramasseurDuPliAvecPetitNonPreneur_ = false;
         boolean arreterRechercheJoueurJoueCartePoint_;
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //iteration sur la confiance du joueur numero en le joueur j
@@ -39,7 +66,7 @@ public final class GameTarotTrickHypothesis {
             //le Petit doit etre ramasse par le plus grand atout encore en jeu
             //ramasse par un autre atout
             byte ramasseur_ = -1;
-            for(TrickTarot p: fullTricks_) {
+            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                 CardTarot carte_ = p.carteDuJoueur(j, nombreJoueurs_);
                 if(carte_.couleur() != Suit.TRUMP) {
                     continue;
@@ -72,17 +99,13 @@ public final class GameTarotTrickHypothesis {
             if(ramasseur_ == -1) {
                 continue;
             }
-            int res_ = res(j, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
-            if (res_ == 0) {
-                return;
-            }
-            ramasseurDuPliAvecPetitNonPreneur_ = res_ == 2;
+            res(j, possibleAlly_, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant l'entameur du Petit
             byte ramasseur_ = -1;
-            for(TrickTarot p: fullTricks_) {
+            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                 if(j != p.getEntameur()) {
                     continue;
                 }
@@ -107,18 +130,14 @@ public final class GameTarotTrickHypothesis {
             if(arreterRechercheJoueurJoueCartePoint_) {
                 break;
             }
-            int res_ = res(j, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
-            if (res_ == 0) {
-                return;
-            }
-            ramasseurDuPliAvecPetitNonPreneur_ = res_ == 2;
+            res(j, possibleAlly_, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
             byte ramasseur_ = -1;
             boolean petitJoueDemandeAtout_ = false;
-            boolean defausse_ = GameTarotTrickInfo.defausseTarot(j, fullTricks_);
-            for(TrickTarot p: fullTricks_) {
+            boolean defausse_ = _cartesPossibles.getVal(Suit.TRUMP).get(j).estVide();
+            for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                 CardTarot carte_ = p.carteDuJoueur(j,nombreJoueurs_);
                 if(petitJoueDemandeAtout_) {
                     if(!defausse_) {
@@ -153,38 +172,36 @@ public final class GameTarotTrickHypothesis {
                 //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
                 //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
                 //de plus numero est un defenseur
-                _teamReal.faireConfiance(_numero, j);
+                Numbers<Byte> found_ = new Numbers<Byte>();
+                found_.add(j);
+                found_.add(_numero);
+                for (byte b: GameTarotTeamsRelation.autresJoueurs(found_,nombreJoueurs_)) {
+                    joueursNonConfiancePresqueSure_.add(b);
+                }
+                possibleAlly_.add(j);
                 // confiance en j
             } else {
                 //!aPourDefenseur(numero) ==> numero == preneur ==> mefiance de j
-                ramasseurDuPliAvecPetitNonPreneur_ = true;
-                if(!joueursNonConfiancePresqueSure_.containsObj(j)) {
-                    joueursNonConfiancePresqueSure_.add(j);
-                }
+                joueursNonConfiancePresqueSure_.add(j);
             }
         }
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant les figures jouees au premier tour d'une couleur ordinaire demandee
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
-                boolean passerCouleurSuivante_ = false;
-                int nbTours_ = 0;
                 byte ramasseurVirtuel_ = -1;
-                for(TrickTarot p: fullTricks_) {
+                for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                     Suit couleurDemandee_ = p.couleurDemandee();
                     if(couleurDemandee_ != c) {
                         continue;
                     }
-                    nbTours_++;
                     CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
                     //Premier tour a la couleur demandee c
                     if(carteJouee_.couleur() != c) {
-                        passerCouleurSuivante_ = true;
                         break;
                     }
                     //carteJouee est une carte de la couleur demandee au premier tour
                     if(!carteJouee_.isCharacter()) {
-                        passerCouleurSuivante_ = true;
                         break;
                     }
                     //carteJouee est une figure de la couleur demandee au premier tour
@@ -200,54 +217,18 @@ public final class GameTarotTrickHypothesis {
                         carteJoueeRamassee_ = true;
                     }
                     if(!carteJoueeRamassee_) {
-                        passerCouleurSuivante_ = true;
                         break;
                     }
                     cartesCouleurJouees_.ajouter(carteJouee_);
-                    if(ramasseurVirtuel_ == j) {
-                        passerCouleurSuivante_ = true;
-                    }
                     break;
                 }
                 if(ramasseurVirtuel_ == -1) {
                     continue;
                 }
-                if(nbTours_ < 1) {
+                if(!otherCard(fullTricksProg_,nombreJoueurs_,cartesCouleurJouees_,j)) {
                     continue;
                 }
-                if(passerCouleurSuivante_) {
-                    continue;
-                }
-                boolean autreCarteCouleurJouee_ = false;
-                boolean figureJouee_ = false;
-                CardTarot premiereFigureJouee_ = cartesCouleurJouees_.premiereCarte();
-                for(TrickTarot p: fullTricks_) {
-                    CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
-                    if(carteJouee_.couleur() != premiereFigureJouee_.couleur()) {
-                        continue;
-                    }
-                    if(carteJouee_ == premiereFigureJouee_) {
-                        figureJouee_ = true;
-                        continue;
-                    }
-                    if(!figureJouee_) {
-                        continue;
-                    }
-                    if(carteJouee_.points() > premiereFigureJouee_.points()) {
-                        continue;
-                    }
-                    //la carte jouee est une carte inferieure a la premiere en points mais de la meme couleur
-                    autreCarteCouleurJouee_ = true;
-                    break;
-                }
-                if(!autreCarteCouleurJouee_) {
-                    continue;
-                }
-                int res_ = res(j, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
-                if (res_ == 0) {
-                    return;
-                }
-                ramasseurDuPliAvecPetitNonPreneur_ = res_ == 2;
+                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
             }
 
         }
@@ -256,7 +237,7 @@ public final class GameTarotTrickHypothesis {
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
                 byte ramasseurVirtuel_ = -1;
-                for(TrickTarot p: fullTricks_) {
+                for(TrickTarot p: filter(fullTricksProg_,nombreJoueurs_,j)) {
                     Suit couleurDemandee_ = p.couleurDemandee();
                     if(couleurDemandee_ != Suit.TRUMP) {
                         continue;
@@ -279,101 +260,135 @@ public final class GameTarotTrickHypothesis {
                 if(ramasseurVirtuel_ == -1) {
                     continue;
                 }
-                boolean autreCarteCouleurJouee_ = false;
-                boolean figureJouee_ = false;
-                CardTarot premiereFigureJouee_ = cartesCouleurJouees_.premiereCarte();
-                for(TrickTarot p: fullTricks_) {
-                    CardTarot carteJouee_ = p.carteDuJoueur(j,nombreJoueurs_);
-                    if(carteJouee_.couleur() != premiereFigureJouee_.couleur()) {
-                        continue;
-                    }
-                    if(carteJouee_ == premiereFigureJouee_) {
-                        figureJouee_ = true;
-                        continue;
-                    }
-                    if(!figureJouee_) {
-                        continue;
-                    }
-                    if(carteJouee_.points() > premiereFigureJouee_.points()) {
-                        continue;
-                    }
-                    //la carte jouee est une carte inferieure a la premiere en points mais de la meme couleur
-                    autreCarteCouleurJouee_ = true;
-                    break;
-                }
-                if(!autreCarteCouleurJouee_) {
+                if(!otherCard(fullTricksProg_,nombreJoueurs_,cartesCouleurJouees_,j)) {
                     continue;
                 }
-                int res_ = res(j, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
-                if (res_ == 0) {
-                    return;
-                }
-                ramasseurDuPliAvecPetitNonPreneur_ = res_ == 2;
+                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
             }
 
         }
-        boolean appelesTousConnus_ = _teamReal.allKnownCalledPlayers(_calledCards,_cartesCertaines,
-                nombreJoueurs_);
-        if(appelesTousConnus_) {
-            _teamReal.determinerConfiance(_numero, nombreJoueurs_);
-            return;
-        }
-        for(CardTarot c: _calledCards) {
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (_cartesPossibles.getVal(c.couleur())
-                        .get(joueur_).estVide()) {
-                    //si le joueur ne possede pas de la couleur appele
-                    if (_teamReal.aPourDefenseur(_numero)) {
-                        _teamReal.faireConfiance(_numero, joueur_);
-                    } else {
-                        //numero == preneur
-                        if(!joueursNonConfiancePresqueSure_.containsObj(joueur_)) {
-                            joueursNonConfiancePresqueSure_.add(joueur_);
-                        }
+        if (_teamReal.aPourDefenseur(_numero)) {
+            for(CardTarot c: _calledCards) {
+                for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                    if (joueur_ == _teamReal.getTaker()) {
+                        continue;
+                    }
+                    if (_cartesPossibles.getVal(c.couleur())
+                            .get(joueur_).estVide()) {
+                        possibleAlly_.add(joueur_);
+                    }
+                }
+            }
+        } else {
+            for(CardTarot c: _calledCards) {
+                for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+                    if (_cartesPossibles.getVal(c.couleur())
+                            .get(joueur_).estVide()) {
+                        joueursNonConfiancePresqueSure_.add(joueur_);
                     }
                 }
             }
         }
-        if(ramasseurDuPliAvecPetitNonPreneur_) {
-            if(joueursNonConfiancePresqueSure_.size() + 2 == nombreJoueurs_ && _bid.getJeuChien() == PlayingDog.WITH) {
-                for(byte a: _teamReal.getCalledPlayers()) {
-                    _teamReal.faireConfiance(_teamReal.getTaker(), a);
+        possibleAlly_.removeDuplicates();
+        if (_teamReal.aPourDefenseur(_numero)) {
+            joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
+        }
+        joueursNonConfiancePresqueSure_.removeDuplicates();
+        Numbers<Byte> allConf_ = new Numbers<Byte>();
+        allConf_.addAllElts(possibleAlly_);
+        allConf_.addAllElts(joueursNonConfiancePresqueSure_);
+        if (Numbers.equalsSetBytes(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
+            for (byte b: possibleAlly_) {
+                _teamReal.faireConfiance(_numero,b);
+            }
+            for (byte b: joueursNonConfiancePresqueSure_) {
+                _teamReal.faireMefiance(_numero,b);
+            }
+        } else if (_teamReal.aPourDefenseur(_numero)) {
+            if (possibleAlly_.size() < nombreJoueurs_ - 1) {
+                for (byte b: possibleAlly_) {
+                    _teamReal.faireConfiance(_numero,b);
+                }
+            }
+        } else {
+            if (possibleAlly_.size() < 3) {
+                for (byte b: possibleAlly_) {
+                    _teamReal.faireConfiance(_numero,b);
                 }
             }
         }
     }
-    static int res(byte _current,byte _ram,GameTarotTeamsRelation _teamReal, byte _nbPl,
+    static boolean otherCard(CustList<TrickTarot> _full, byte _nbPl, HandTarot _played,byte _cur) {
+        boolean autreCarteCouleurJouee_ = false;
+        boolean figureJouee_ = false;
+        CardTarot premiereFigureJouee_ = _played.premiereCarte();
+        for(TrickTarot p: filter(_full,_nbPl,_cur)) {
+            CardTarot carteJouee_ = p.carteDuJoueur(_cur,_nbPl);
+            if(carteJouee_.couleur() != premiereFigureJouee_.couleur()) {
+                continue;
+            }
+            if(carteJouee_ == premiereFigureJouee_) {
+                figureJouee_ = true;
+                continue;
+            }
+            if(!figureJouee_) {
+                continue;
+            }
+            if(carteJouee_.points() > premiereFigureJouee_.points()) {
+                continue;
+            }
+            //la carte jouee est une carte inferieure a la premiere en points mais de la meme couleur
+            autreCarteCouleurJouee_ = true;
+            break;
+        }
+        return autreCarteCouleurJouee_;
+    }
+    static CustList<TrickTarot> filter(CustList<TrickTarot> _tricks, byte _nbPl, byte _current) {
+        CustList<TrickTarot> l_ = new CustList<TrickTarot>();
+        for (TrickTarot t: _tricks) {
+            if (!t.aJoue(_current,_nbPl)) {
+                continue;
+            }
+            l_.add(t);
+        }
+        return l_;
+    }
+    static void res(byte _current, Numbers<Byte> _possibleAlly,byte _ram,GameTarotTeamsRelation _teamReal, byte _nbPl,
                    Numbers<Byte> _potentialFoesNearlySure,byte _numero) {
         //ramasseur != j && ramasseur != -1
+        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(_nbPl);
         if(_teamReal.aPourDefenseur(_numero)) {
             if(_ram == _teamReal.getTaker() || _current == _teamReal.getTaker()) {
-                _teamReal.fixConfidenceDefender(_numero, _nbPl);
-                return 0;
+                all_.removeObj(_current);
+                all_.removeObj(_ram);
+                all_.removeObj(_teamReal.getTaker());
+                _possibleAlly.addAllElts(all_);
+                return;
             }
             //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
             //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
             //de plus numero est un defenseur
-            _teamReal.faireConfiance(_numero, _current);
-            _teamReal.faireConfiance(_numero, _ram);
-            return 1;
+            Numbers<Byte> found_ = new Numbers<Byte>();
+            found_.add(_current);
+            found_.add(_ram);
+            _possibleAlly.add(_current);
+            _possibleAlly.add(_ram);
+            return;
         }
         //!aPourDefenseur(numero) ==> numero == preneur ==> j == appele
         if(_numero == _ram) {
-            _teamReal.faireConfiance(_numero, _current);
-            return 0;
+            Numbers<Byte> found_ = new Numbers<Byte>();
+            found_.add(_current);
+            _possibleAlly.add(_current);
+            return;
         }
         addPotentialFoePlayers(_potentialFoesNearlySure, _current,
                 _ram);
-        return 2;
     }
     static void addPotentialFoePlayers(Numbers<Byte> _potentialFoesNearlySure,
                                        byte _otherPlayer, byte _leader) {
-        if(!_potentialFoesNearlySure.containsObj(_leader)) {
-            _potentialFoesNearlySure.add(_leader);
-        }
-        if(!_potentialFoesNearlySure.containsObj(_otherPlayer)) {
-            _potentialFoesNearlySure.add(_otherPlayer);
-        }
+        _potentialFoesNearlySure.add(_leader);
+        _potentialFoesNearlySure.add(_otherPlayer);
     }
     /**
      Renvoie un entier 0 si joueur de non confiance qui va faire le pli 1 si
