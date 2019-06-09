@@ -116,19 +116,20 @@ public final class GameTarotCommonPlaying {
     }
     TarotInfoPliEnCours initInformations(
             HandTarot _lastHand,
-            byte _joueurCourant,
-            HandTarot _cartes) {
+            HandTarot _cartes,
+            HandTarot _cartesJouables) {
         lastHand = _lastHand;
+        byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
-        Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(_joueurCourant);
+        Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickTarot> plisFaits_ = unionPlis(false);
-        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(teamsRelation,_joueurCourant);
+        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(teamsRelation,nextPlayer_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
         boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         Numbers<Byte> joueursJoue_ = GameTarotTeamsRelation.autresJoueurs(joueursNonJoue_, nombreDeJoueurs_);
-        joueursJoue_.removeObj(_joueurCourant);
+        joueursJoue_.removeObj(nextPlayer_);
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(
                 teamsRelation,
                 _cartes,
@@ -166,19 +167,21 @@ public final class GameTarotCommonPlaying {
 
         boolean maitreAtout_ = GameTarotCommonPlaying.strictMaitreAtout(
                 cartesPossibles_,
-                _joueurCourant,
+                nextPlayer_,
                 suitesTouteCouleur_.getVal(Suit.TRUMP), cartesJouees_);
         EnumList<Suit> couleursMaitresses_ = couleursMaitres(
                 suitesTouteCouleur_, cartesJouees_,
-                cartesPossibles_, _joueurCourant);
+                cartesPossibles_, nextPlayer_);
         EnumMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 repartition_, repartitionCartesJouees_);
         boolean maitreJeu_ = maitreAtout_ && couleursMaitresses_.size() == Suit.couleursOrdinaires().size();
         EnumList<Suit> coupesFranches_ = GameTarotCommonPlaying.coupesFranchesStrictes(plisFaits_,
-                repartition_, _joueurCourant);
+                repartition_, nextPlayer_);
 
         TarotInfoPliEnCours info_ = new TarotInfoPliEnCours();
+        info_.setCurrentPlayer(nextPlayer_);
         info_.setJoueursNonJoue(joueursNonJoue_);
+        info_.setCartesJouables(_cartesJouables);
         info_.setJoueursJoue(joueursJoue_);
         info_.setPlisFaits(plisFaits_);
         info_.setCartesJouees(cartesJouees_);
@@ -449,6 +452,13 @@ public final class GameTarotCommonPlaying {
         return existeAtoutMaitre_ && _suites.first().total() >= max_;
     }
 
+    static boolean maitreAtout(TarotInfoPliEnCours _info) {
+        boolean contientExcuse_ = _info.isContientExcuse();
+        HandTarot cartesJouees_ = _info.getCartesJouees();
+        EnumMap<Suit,EqList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
+        return  GameTarotCommonPlaying.maitreAtout(suites_.getVal(Suit.TRUMP),
+                cartesJouees_, contientExcuse_);
+    }
     /**
      Est vrai si et seulement si le nombre
      2 x nb_atout_maitres_joueur+3 x nb_atout_non_maitres_joueur/2+atouts_jouees

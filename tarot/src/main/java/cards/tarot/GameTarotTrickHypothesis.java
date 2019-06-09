@@ -19,6 +19,7 @@ public final class GameTarotTrickHypothesis {
                                               CustList<TrickTarot> _plisFaits, byte _numero,
                                               EnumMap<Suit, EqList<HandTarot>> _cartesPossibles,
                                               EnumMap<Suit, EqList<HandTarot>> _cartesCertaines) {
+        Status st_ = _teamReal.statutDe(_numero);
         byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
         for (TrickTarot t:_plisFaits) {
@@ -33,7 +34,7 @@ public final class GameTarotTrickHypothesis {
         Numbers<Byte> possibleAlly_ = new Numbers<Byte>();
         possibleAlly_.add(_numero);
         if(appelesTousConnus_) {
-            if (_teamReal.aPourDefenseur(_numero)) {
+            if (st_ == Status.DEFENDER) {
                 for(CardTarot c: _calledCards) {
                     for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                         if (joueur_ == _teamReal.getTaker()) {
@@ -99,7 +100,7 @@ public final class GameTarotTrickHypothesis {
             if(ramasseur_ == -1) {
                 continue;
             }
-            res(j, possibleAlly_, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
+            res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
@@ -130,7 +131,7 @@ public final class GameTarotTrickHypothesis {
             if(arreterRechercheJoueurJoueCartePoint_) {
                 break;
             }
-            res(j, possibleAlly_, ramasseur_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
+            res(j, possibleAlly_, ramasseur_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
         }
         arreterRechercheJoueurJoueCartePoint_ = false;
         for (byte j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
@@ -168,7 +169,7 @@ public final class GameTarotTrickHypothesis {
                 break;
             }
             //le ramasseur du pli et le joueur du Petit (entameur) sont dans la meme equipe
-            if(_teamReal.aPourDefenseur(_numero)) {
+            if(st_ == Status.DEFENDER) {
                 //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
                 //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
                 //de plus numero est un defenseur
@@ -228,7 +229,7 @@ public final class GameTarotTrickHypothesis {
                 if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
-                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
+                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
             }
 
         }
@@ -263,11 +264,11 @@ public final class GameTarotTrickHypothesis {
                 if(onlyOnePlayedCard(fullTricksProg_, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
-                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, nombreJoueurs_, joueursNonConfiancePresqueSure_, _numero);
+                res(j, possibleAlly_, ramasseurVirtuel_, _teamReal, st_, joueursNonConfiancePresqueSure_, _numero);
             }
 
         }
-        if (_teamReal.aPourDefenseur(_numero)) {
+        if (st_ == Status.DEFENDER) {
             for(CardTarot c: _calledCards) {
                 for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                     if (joueur_ == _teamReal.getTaker()) {
@@ -290,7 +291,7 @@ public final class GameTarotTrickHypothesis {
             }
         }
         possibleAlly_.removeDuplicates();
-        if (_teamReal.aPourDefenseur(_numero)) {
+        if (st_ == Status.DEFENDER) {
             joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
         }
         joueursNonConfiancePresqueSure_.removeDuplicates();
@@ -304,7 +305,7 @@ public final class GameTarotTrickHypothesis {
             for (byte b: joueursNonConfiancePresqueSure_) {
                 _teamReal.faireMefiance(_numero,b);
             }
-        } else if (_teamReal.aPourDefenseur(_numero)) {
+        } else if (st_ == Status.DEFENDER) {
             for (byte b: possibleAlly_) {
                 _teamReal.faireConfiance(_numero,b);
             }
@@ -351,11 +352,12 @@ public final class GameTarotTrickHypothesis {
         }
         return l_;
     }
-    private static void res(byte _current, Numbers<Byte> _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, byte _nbPl,
+    private static void res(byte _current, Numbers<Byte> _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, Status _st,
                             Numbers<Byte> _potentialFoesNearlySure, byte _numero) {
         //ramasseur != j && ramasseur != -1
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(_nbPl);
-        if(_teamReal.aPourDefenseur(_numero)) {
+        byte nbPl_ = _teamReal.getNombreDeJoueurs();
+        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nbPl_);
+        if(_st == Status.DEFENDER) {
             if(_ram == _teamReal.getTaker() || _current == _teamReal.getTaker()) {
                 all_.removeObj(_current);
                 all_.removeObj(_ram);
@@ -416,7 +418,7 @@ public final class GameTarotTrickHypothesis {
      */
     static PossibleTrickWinner equipeQuiVaFairePli(
             TarotInfoPliEnCours _info,
-            byte _numero,
+            boolean _defender,
             CardTarot _carteForte) {
         GameTarotTeamsRelation teamRel_ = _info.getTeamsRelation();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
@@ -432,8 +434,9 @@ public final class GameTarotTrickHypothesis {
         Numbers<Byte> joueursConfianceNonJoue_ = new Numbers<Byte>(
                 joueursNonJoue_);
         byte nombreDeJoueurs_ = teamRel_.getNombreDeJoueurs();
-        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(_numero,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(_numero,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        byte player_ = _info.getCurrentPlayer();
+        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
         joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
@@ -442,9 +445,9 @@ public final class GameTarotTrickHypothesis {
         Le pli est
         coupe
         */
-            if (!cartesCertaines_.getVal(couleurDemandee_).get(_numero).estVide()
-                    || cartesCertaines_.getVal(Suit.TRUMP).get(_numero).estVide()
-                    || cartesCertaines_.getVal(Suit.TRUMP).get(_numero).premiereCarte()
+            if (!cartesCertaines_.getVal(couleurDemandee_).get(player_).estVide()
+                    || cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()
+                    || cartesCertaines_.getVal(Suit.TRUMP).get(player_).premiereCarte()
                     .strength(couleurDemandee_) < _carteForte.strength(couleurDemandee_)) {
                     /*
                     Le joueur
@@ -455,7 +458,7 @@ public final class GameTarotTrickHypothesis {
                     */
                 if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
                     if (couleursAppelees_.containsObj(couleurDemandee_)
-                            && !carteAppeleeJouee_ && teamRel_.aPourDefenseur(_numero)) {
+                            && !carteAppeleeJouee_ && _defender) {
                         /* The player, probably called by the current taker
                         and still owing one called card of the current led suit,
                         must follow a card belonging to the current demanded suit.*/
@@ -538,7 +541,7 @@ public final class GameTarotTrickHypothesis {
                 joueur numero
                 */
                 if (couleursAppelees_.containsObj(couleurDemandee_) && !carteAppeleeJouee_
-                        && _numero == teamRel_.getTaker()) {
+                        && player_ == teamRel_.getTaker()) {
                     joueursConfianceNonJoue_ = new Numbers<Byte>();
                 }
                 /*
@@ -621,7 +624,7 @@ public final class GameTarotTrickHypothesis {
             de non confiance n'ayant pas joue
             */
             if (existeJoueurBatAdvNum(joueursNonConfianceNonJoue_,
-                    joueursConfianceNonJoue_, _numero, couleurDemandee_,
+                    joueursConfianceNonJoue_, player_, couleurDemandee_,
                     cartesPossibles_, cartesCertaines_)) {
                 return PossibleTrickWinner.TEAM;
             }
@@ -632,7 +635,7 @@ public final class GameTarotTrickHypothesis {
             de non confiance n'ayant pas joue
             */
             if (existeJoueurBatPtmNum(joueursNonConfianceNonJoue_,
-                    joueursConfianceNonJoue_, joueursJoue_, _numero,
+                    joueursConfianceNonJoue_, joueursJoue_, player_,
                     couleurDemandee_, cartesPossibles_, cartesCertaines_)) {
                 return PossibleTrickWinner.TEAM;
             }
@@ -643,7 +646,7 @@ public final class GameTarotTrickHypothesis {
             joueurs de non confiance n'ayant pas joue
             */
             if (existeJoueurBatAdvNum(joueursConfianceNonJoue_,
-                    joueursNonConfianceNonJoue_, _numero, couleurDemandee_,
+                    joueursNonConfianceNonJoue_, player_, couleurDemandee_,
                     cartesPossibles_, cartesCertaines_)) {
                 return PossibleTrickWinner.FOE_TEAM;
             }
@@ -654,7 +657,7 @@ public final class GameTarotTrickHypothesis {
             de non confiance n'ayant pas joue
             */
             if (existeJoueurBatPtmNum(joueursConfianceNonJoue_,
-                    joueursNonConfianceNonJoue_, joueursJoue_, _numero,
+                    joueursNonConfianceNonJoue_, joueursJoue_, player_,
                     couleurDemandee_, cartesPossibles_, cartesCertaines_)) {
                 return PossibleTrickWinner.FOE_TEAM;
             }
@@ -764,8 +767,8 @@ public final class GameTarotTrickHypothesis {
                 }
                 return PossibleTrickWinner.UNKNOWN;
             }
-            if (!cartesPossibles_.getVal(couleurDemandee_).get(_numero).estVide()
-                    && cartesPossibles_.getVal(couleurDemandee_).get(_numero)
+            if (!cartesPossibles_.getVal(couleurDemandee_).get(player_).estVide()
+                    && cartesPossibles_.getVal(couleurDemandee_).get(player_)
                     .premiereCarte().strength(couleurDemandee_) > _carteForte.strength(couleurDemandee_)) {
                 /* Si le joueur numero peut prendre la main sans couper */
                 /*
@@ -784,7 +787,7 @@ public final class GameTarotTrickHypothesis {
                 return PossibleTrickWinner.UNKNOWN;
             }
             /* Fin si le joueur numero peut prendre la main sans couper */
-            if (peutCouper(couleurDemandee_, _numero, cartesPossibles_)) {
+            if (peutCouper(couleurDemandee_, player_, cartesPossibles_)) {
                 /* Si le joueur
                 numero peut
                 prendre la
@@ -797,7 +800,7 @@ public final class GameTarotTrickHypothesis {
                 ainsi que les joueurs de non confiance n'ayant pas joue
                 */
                 if (existeJoueurBatAdvNum(joueursNonConfianceNonJoue_,
-                        joueursConfianceNonJoue_, _numero, couleurDemandee_,
+                        joueursConfianceNonJoue_, player_, couleurDemandee_,
                         cartesPossibles_, cartesCertaines_)) {
                     return PossibleTrickWinner.TEAM;
                 }
@@ -808,7 +811,7 @@ public final class GameTarotTrickHypothesis {
                 ainsi que les joueurs de non confiance n'ayant pas joue
                 */
                 if (existeJoueurBatPtmNum(joueursNonConfianceNonJoue_,
-                        joueursConfianceNonJoue_, joueursJoue_, _numero,
+                        joueursConfianceNonJoue_, joueursJoue_, player_,
                         couleurDemandee_, cartesPossibles_, cartesCertaines_)) {
                     return PossibleTrickWinner.TEAM;
                 }
@@ -819,7 +822,7 @@ public final class GameTarotTrickHypothesis {
                 ainsi que les joueurs de non confiance n'ayant pas joue
                 */
                 if (existeJoueurBatAdvNum(joueursConfianceNonJoue_,
-                        joueursNonConfianceNonJoue_, _numero,
+                        joueursNonConfianceNonJoue_, player_,
                         couleurDemandee_, cartesPossibles_, cartesCertaines_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
@@ -830,7 +833,7 @@ public final class GameTarotTrickHypothesis {
                 ainsi que les joueurs de non confiance n'ayant pas joue
                 */
                 if (existeJoueurBatPtmNum(joueursConfianceNonJoue_,
-                        joueursNonConfianceNonJoue_, joueursJoue_, _numero,
+                        joueursNonConfianceNonJoue_, joueursJoue_, player_,
                         couleurDemandee_, cartesPossibles_, cartesCertaines_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
@@ -855,8 +858,8 @@ public final class GameTarotTrickHypothesis {
             return PossibleTrickWinner.UNKNOWN;
         }
         /* Le pli n'est pas coupe et la couleur demandee est l'atout */
-        if (cartesCertaines_.getVal(Suit.TRUMP).get(_numero).estVide()
-                || cartesCertaines_.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(couleurDemandee_) < _carteForte
+        if (cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()
+                || cartesCertaines_.getVal(Suit.TRUMP).get(player_).premiereCarte().strength(couleurDemandee_) < _carteForte
                 .strength(couleurDemandee_)) {
             /*
                 Si le joueur numero ne peut pas prendre
@@ -994,7 +997,7 @@ public final class GameTarotTrickHypothesis {
         confiance n'ayant pas joue
         */
         if (existeJouBatAdvNumDemat(joueursNonConfianceNonJoue_,
-                joueursConfianceNonJoue_, _numero, cartesPossibles_,
+                joueursConfianceNonJoue_, player_, cartesPossibles_,
                 cartesCertaines_)) {
             return PossibleTrickWinner.TEAM;
         }
@@ -1005,7 +1008,7 @@ public final class GameTarotTrickHypothesis {
         confiance n'ayant pas joue
         */
         if (existeJouBatPtmNumDemat(joueursNonConfianceNonJoue_,
-                joueursConfianceNonJoue_, joueursJoue_, _numero,
+                joueursConfianceNonJoue_, joueursJoue_, player_,
                 cartesPossibles_)) {
             return PossibleTrickWinner.TEAM;
         }
@@ -1016,7 +1019,7 @@ public final class GameTarotTrickHypothesis {
         confiance n'ayant pas joue
         */
         if (existeJouBatAdvNumDemat(joueursConfianceNonJoue_,
-                joueursNonConfianceNonJoue_, _numero, cartesPossibles_,
+                joueursNonConfianceNonJoue_, player_, cartesPossibles_,
                 cartesCertaines_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
@@ -1027,7 +1030,7 @@ public final class GameTarotTrickHypothesis {
         confiance n'ayant pas joue
         */
         if (existeJouBatPtmNumDemat(joueursConfianceNonJoue_,
-                joueursNonConfianceNonJoue_, joueursJoue_, _numero,
+                joueursNonConfianceNonJoue_, joueursJoue_, player_,
                 cartesPossibles_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }

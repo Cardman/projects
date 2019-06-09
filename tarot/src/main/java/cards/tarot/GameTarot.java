@@ -1161,15 +1161,15 @@ public final class GameTarot {
 
     private CardTarot entame() {
         byte nombreJoueurs_ = getNombreDeJoueurs();
-        byte numero_ = (byte) ((starter + progressingTrick.total()) % nombreJoueurs_);
+        byte numero_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         HandTarot mainJoueur_ = getDistribution().main(numero_);
         EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
         HandTarot cartesJouables_ = playableCards(repartition_);
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         if (existePreneur() || pasJeuMisere()) {
-            GameTarotBeginTrickClassic g_ = new GameTarotBeginTrickClassic(doneTrickInfo_,teamsRelation_,calledCards,mainJoueur_);
-            return g_.entameClassique(numero_, derniereMain(), cartesJouables_);
+            GameTarotBeginTrickClassic g_ = new GameTarotBeginTrickClassic(doneTrickInfo_,teamsRelation_,calledCards,mainJoueur_,numero_);
+            return g_.entameClassique(derniereMain(), cartesJouables_);
         }
         GameTarotMisere g_ = new GameTarotMisere(doneTrickInfo_,teamsRelation_,mainJoueur_,starter);
         return g_.entame();

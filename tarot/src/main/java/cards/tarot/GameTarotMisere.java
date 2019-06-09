@@ -34,12 +34,11 @@ public final class GameTarotMisere {
         if (cartesJouables_.total() == 1) {
             return cartesJouables_.premiereCarte();
         }
-        return entameMiserePetite(numero_, currentHand, cartesJouables_);
+        return entameMiserePetite(currentHand, cartesJouables_);
     }
-    private CardTarot entameMiserePetite(byte _numero,
-                                         HandTarot _lastHand,
+    private CardTarot entameMiserePetite(HandTarot _lastHand,
                                          HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand,_numero, currentHand);
+        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot cartesJouees_ = info_.getCartesJouees();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
@@ -113,8 +112,6 @@ public final class GameTarotMisere {
 
 
     CardTarot enCours() {
-        byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        byte numero_ = (byte) ((doneTrickInfo.getProgressingTrick().getEntameur() + doneTrickInfo.getProgressingTrick().total()) % nombreJoueurs_);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot cartesJouables_ = common.playableCards(new HandTarot(),repartition_);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -139,23 +136,22 @@ public final class GameTarotMisere {
         }
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
             if (!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
-                return fournirCouleurOrdinaireMisere(numero_, currentHand, cartesJouables_);
+                return fournirCouleurOrdinaireMisere(currentHand, cartesJouables_);
             }
             if (!repartitionJouables_.getVal(Suit.TRUMP).estVide()) {
-                return coupeMisere(numero_, currentHand, cartesJouables_);
+                return coupeMisere(currentHand, cartesJouables_);
             }
-            return defausseMisere(numero_, currentHand, cartesJouables_);
+            return defausseMisere(currentHand, cartesJouables_);
         }
         if (!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
-            return fournirAtoutMisere(numero_, currentHand, cartesJouables_);
+            return fournirAtoutMisere(currentHand, cartesJouables_);
         }
-        return defausseMisere(numero_, currentHand, cartesJouables_);
+        return defausseMisere(currentHand, cartesJouables_);
     }
 
-    private CardTarot fournirCouleurOrdinaireMisere(byte _numero,
-                                                    HandTarot _lastHand,
+    private CardTarot fournirCouleurOrdinaireMisere(HandTarot _lastHand,
                                                     HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand,_numero, currentHand);
+        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -172,7 +168,7 @@ public final class GameTarotMisere {
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
                 info_,
-                _numero,
+                false,
                 carteForte_);
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return repartitionCouleDem_.premiereCarte();
@@ -186,10 +182,9 @@ public final class GameTarotMisere {
         }
         return suites_.last().derniereCarte();
     }
-    private CardTarot fournirAtoutMisere(byte _numero,
-                                         HandTarot _lastHand,
+    private CardTarot fournirAtoutMisere(HandTarot _lastHand,
                                          HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand,_numero, currentHand);
+        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables);
         EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
@@ -201,7 +196,7 @@ public final class GameTarotMisere {
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
                 info_,
-                _numero,
+                false,
                 carteForte_);
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             if (repartitionJouables_.getVal(Suit.TRUMP).contient(CardTarot.petit())) {
@@ -211,10 +206,9 @@ public final class GameTarotMisere {
         }
         return repartitionJouables_.getVal(Suit.TRUMP).premiereCarte();
     }
-    private CardTarot coupeMisere(byte _numero,
-                                  HandTarot _lastHand,
+    private CardTarot coupeMisere(HandTarot _lastHand,
                                   HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand,_numero, currentHand);
+        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables);
         CustList<TrickTarot> plisFaits_ = info_.getPlisFaits();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
         HandTarot trumps_ = repartitionJouables_.getVal(Suit.TRUMP);
@@ -231,7 +225,7 @@ public final class GameTarotMisere {
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
                 info_,
-                _numero,
+                false,
                 carteForte_);
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             if (repartitionJouables_.getVal(Suit.TRUMP).contient(CardTarot.petit())) {
@@ -283,10 +277,9 @@ public final class GameTarotMisere {
         }
         return trumps_.premiereCarte();
     }
-    private CardTarot defausseMisere(byte _numero,
-            HandTarot _lastHand,
-            HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand,_numero, currentHand);
+    private CardTarot defausseMisere(HandTarot _lastHand,
+                                     HandTarot _cartesJouables) {
+        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();

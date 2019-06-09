@@ -28,8 +28,17 @@ final class TarotInfoPliEnCours {
     private EnumList<Suit> coupesFranches;
     private EnumList<Suit> calledSuits;
     private GameTarotTeamsRelation teamsRelation;
+    private byte currentPlayer;
 
     TarotInfoPliEnCours() {
+    }
+
+    public byte getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(byte _currentPlayer) {
+        currentPlayer = _currentPlayer;
     }
 
     public HandTarot getCartesJouables() {
