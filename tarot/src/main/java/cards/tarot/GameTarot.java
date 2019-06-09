@@ -1171,7 +1171,7 @@ public final class GameTarot {
             GameTarotBeginTrickClassic g_ = new GameTarotBeginTrickClassic(doneTrickInfo_,teamsRelation_,calledCards,mainJoueur_,numero_);
             return g_.entameClassique(derniereMain(), cartesJouables_);
         }
-        GameTarotMisere g_ = new GameTarotMisere(doneTrickInfo_,teamsRelation_,mainJoueur_,starter);
+        GameTarotMisere g_ = new GameTarotMisere(doneTrickInfo_,teamsRelation_,mainJoueur_);
         return g_.entame();
     }
 
@@ -1192,7 +1192,7 @@ public final class GameTarot {
             return g_.enCoursClassic(derniereMain());
         }
         GameTarotMisere g_ = new GameTarotMisere(doneTrickInfo_,teamsRelation_,
-                mainJoueur_,starter);
+                mainJoueur_);
         return g_.enCours();
     }
 

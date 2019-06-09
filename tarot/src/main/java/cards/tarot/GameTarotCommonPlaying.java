@@ -19,9 +19,6 @@ public final class GameTarotCommonPlaying {
         teamsRelation = _teamsRelation;
     }
 
-    HandTarot playableCards(HandTarot _calledCards,EnumMap<Suit,HandTarot> _repartitionMain) {
-        return cartesJouables(_calledCards,_repartitionMain);
-    }
     HandTarot cartesJouables(HandTarot _calledCards, EnumMap<Suit, HandTarot> _repartitionMain) {
         HandTarot atoutsJoues_ = doneTrickInfo.getProgressingTrick().getCartes().couleurs().getVal(Suit.TRUMP);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -139,31 +136,7 @@ public final class GameTarotCommonPlaying {
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         byte ramasseurVirtuel_ = doneTrickInfo.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
-        EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,EqList<HandTarot>>();
-
-        Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
-        if(couleurDemandee_ == Suit.UNDEFINED) {
-            suitesTouteCouleur_.put(CardTarot.EXCUSE.couleur(),repartition_.getVal(CardTarot.excuse().couleur()).eclaterEnCours(
-                    repartitionCartesJouees_, CardTarot.EXCUSE.couleur()));
-            suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
-                    repartitionCartesJouees_, Suit.TRUMP));
-            for (Suit i :Suit.couleursOrdinaires()) {
-                suitesTouteCouleur_.put(i,repartition_.getVal(i).eclaterEnCours(
-                        repartitionCartesJouees_, i));
-                //les couleurs sont classees comme si elles etaient demandees
-            }
-        } else {
-            suitesTouteCouleur_.put(CardTarot.EXCUSE.couleur(),repartition_.getVal(CardTarot.excuse().couleur()).eclaterEnCours(
-                    repartitionCartesJouees_, couleurDemandee_));
-            suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
-                    repartitionCartesJouees_, couleurDemandee_));
-            for (Suit i : Suit.couleursOrdinaires()) {
-                suitesTouteCouleur_.put(i,repartition_.getVal(i).eclaterEnCours(
-                        repartitionCartesJouees_, i));
-                //les couleurs sont classees comme si elles etaient demandees
-            }
-        }
-
+        EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
 
         boolean maitreAtout_ = GameTarotCommonPlaying.strictMaitreAtout(
                 cartesPossibles_,
@@ -570,7 +543,8 @@ public final class GameTarotCommonPlaying {
         EqList<HandTarot> repartitionAtout_ = _cartesPossibles
                 .getVal(Suit.TRUMP);
         byte nombreDefausses_ = 0;
-        for (HandTarot main_ : repartitionAtout_) {
+        for (int i = 0; i < _nombreJoueurs; i++) {
+            HandTarot main_ = repartitionAtout_.get(i);
             if (!main_.estVide()) {
                 continue;
             }

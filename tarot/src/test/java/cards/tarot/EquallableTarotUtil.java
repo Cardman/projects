@@ -1,4 +1,5 @@
 package cards.tarot;
+import code.maths.Rate;
 import org.junit.Assert;
 
 import cards.consts.Suit;
@@ -25,7 +26,11 @@ public final class EquallableTarotUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(_expected.eq(_result));
     }
-    
+    public static void assertEq(Rate _expected, Rate _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(_expected.eq(_result));
+    }
+
     public static void assertEq(Suit _expected, Suit _result) {
         Assert.assertSame(_expected, _result);
     }

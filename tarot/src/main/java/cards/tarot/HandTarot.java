@@ -410,6 +410,20 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         }
         return eclaterEnCours(new HandTarot().couleurs(), premiereCarte().couleur());
     }
+    public EnumMap<Suit,EqList<HandTarot>> eclaterToutEnCours(EnumMap<Suit, HandTarot> _cartesJouees) {
+        EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,EqList<HandTarot>>();
+        EnumMap<Suit,HandTarot> repartition_ = couleurs();
+        suitesTouteCouleur_.put(CardTarot.EXCUSE.couleur(),repartition_.getVal(CardTarot.excuse().couleur()).eclaterEnCours(
+                _cartesJouees, CardTarot.EXCUSE.couleur()));
+        suitesTouteCouleur_.put(Suit.TRUMP,repartition_.getVal(Suit.TRUMP).eclaterEnCours(
+                _cartesJouees, Suit.TRUMP));
+        for (Suit i : Suit.couleursOrdinaires()) {
+            suitesTouteCouleur_.put(i,repartition_.getVal(i).eclaterEnCours(
+                    _cartesJouees, i));
+            //les couleurs sont classees comme si elles etaient demandees
+        }
+        return suitesTouteCouleur_;
+    }
     /**Eclate une couleur en suite en tenant compte des cartes jouees
     Exemple: pour l'atout 21 - 20 - 19 forment une suite de trois cartes*/
     public EqList<HandTarot> eclaterEnCours(EnumMap<Suit,HandTarot> _cartesJouees,Suit _couleurDemandee) {

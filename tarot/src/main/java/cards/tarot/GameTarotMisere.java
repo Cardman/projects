@@ -13,23 +13,18 @@ public final class GameTarotMisere {
 
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
-    private byte starter;
 
     public GameTarotMisere(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
-                                     HandTarot _currentHand,
-                                     byte _starter) {
+                           HandTarot _currentHand) {
         doneTrickInfo = _done;
         teamsRelation = _teamsRelation;
         currentHand = _currentHand;
         common = new GameTarotCommonPlaying(_done,_teamsRelation);
-        starter = _starter;
     }
 
     CardTarot entame() {
-        byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        byte numero_ = (byte) ((starter + doneTrickInfo.getProgressingTrick().total()) % nombreJoueurs_);
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
-        HandTarot cartesJouables_ = common.playableCards(new HandTarot(),repartition_);
+        HandTarot cartesJouables_ = common.cartesJouables(new HandTarot(), repartition_);
         /* Jeu de misere */
         if (cartesJouables_.total() == 1) {
             return cartesJouables_.premiereCarte();
@@ -113,7 +108,7 @@ public final class GameTarotMisere {
 
     CardTarot enCours() {
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
-        HandTarot cartesJouables_ = common.playableCards(new HandTarot(),repartition_);
+        HandTarot cartesJouables_ = common.cartesJouables(new HandTarot(), repartition_);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         EnumMap<Suit,HandTarot> repartitionJouables_ = cartesJouables_.couleurs();
         if (cartesJouables_.total() == 1) {
