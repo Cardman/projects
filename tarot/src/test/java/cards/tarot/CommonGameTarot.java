@@ -1,11 +1,14 @@
 package cards.tarot;
 
 import cards.consts.GameType;
+import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
+import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Miseres;
 import code.util.CustList;
 import code.util.EnumList;
+import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
 
@@ -127,5 +130,18 @@ public abstract class CommonGameTarot {
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
+    }
+    protected static void addCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
+        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+        if (h_.contient(_c)) {
+            return;
+        }
+        h_.ajouter(_c);
+    }
+
+
+    protected static void removeCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
+        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+        h_.removeCardIfPresent(_c);
     }
 }

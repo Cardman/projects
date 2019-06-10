@@ -89,8 +89,9 @@ public final class GameTarotProgTrickClassic {
         HandTarot cartesFictives_ = new HandTarot();
         cartesChien_ = common.cartesVuesAuChien();
         if (currentStatus == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(calledCards);
             cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (currentStatus == Status.TAKER) {
+            cartesFictives_.ajouterCartes(calledCards);
         }
         Numbers<Byte> joueursNonJoue_ = info_.getJoueursNonJoue();
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
@@ -835,8 +836,9 @@ public final class GameTarotProgTrickClassic {
         HandTarot cartesFictives_ = new HandTarot();
         cartesChien_ = common.cartesVuesAuChien();
         if (currentStatus == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(calledCards);
             cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (currentStatus == Status.TAKER) {
+            cartesFictives_.ajouterCartes(calledCards);
         }
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
@@ -1008,8 +1010,9 @@ public final class GameTarotProgTrickClassic {
         HandTarot cartesFictives_ = new HandTarot();
         cartesChien_ = common.cartesVuesAuChien();
         if (currentStatus == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(calledCards);
             cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (currentStatus == Status.TAKER) {
+            cartesFictives_.ajouterCartes(calledCards);
         }
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
@@ -1504,8 +1507,9 @@ public final class GameTarotProgTrickClassic {
         HandTarot cartesFictives_ = new HandTarot();
         cartesChien_ = common.cartesVuesAuChien();
         if (currentStatus == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(calledCards);
             cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (currentStatus == Status.TAKER) {
+            cartesFictives_.ajouterCartes(calledCards);
         }
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
@@ -1604,8 +1608,9 @@ public final class GameTarotProgTrickClassic {
         HandTarot cartesFictives_ = new HandTarot();
         cartesChien_ = common.cartesVuesAuChien();
         if (currentStatus == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(calledCards);
             cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (currentStatus == Status.TAKER) {
+            cartesFictives_.ajouterCartes(calledCards);
         }
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();

@@ -3,7 +3,10 @@ package cards.tarot;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.*;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.Numbers;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
@@ -2485,17 +2488,5 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         assertTrue(suits_.containsObj(Suit.DIAMOND));
         assertTrue(suits_.containsObj(Suit.CLUB));
     }
-    private static void addCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
-        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
-        if (h_.contient(_c)) {
-            return;
-        }
-        h_.ajouter(_c);
-    }
 
-
-    private static void removeCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
-        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
-        h_.removeCardIfPresent(_c);
-    }
 }
