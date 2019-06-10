@@ -75,12 +75,7 @@ public final class GameTarotCommon {
 
     static EnumList<Suit> couleursAvecLePlusPetitNbFigures(
             HandTarot _main, EnumList<Suit> _couleurs) {
-        return couleursTrieesPlusPetitNbFigures(_main,_couleurs).first();
-    }
-
-    static CustList<EnumList<Suit>> couleursTrieesPlusPetitNbFigures(
-            HandTarot _main, EnumList<Suit> _couleurs) {
-        return _couleurs.getGroupsSameCompare(new HandTarotCharShortLengthComparator(_main));
+        return couleursTrieesPlusGrandNbFigures(_main,_couleurs).last();
     }
 
     static EnumList<Suit> couleursLesPlusLongues(HandTarot _main,

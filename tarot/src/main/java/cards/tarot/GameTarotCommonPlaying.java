@@ -2,12 +2,15 @@ package cards.tarot;
 
 import cards.consts.Hypothesis;
 import cards.consts.Suit;
-import cards.tarot.comparators.GameTarotLeastDemandedSuitComparator;
 import cards.tarot.comparators.GameTarotMostDemandedSuitComparator;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.maths.Rate;
-import code.util.*;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
 
 public final class GameTarotCommonPlaying {
     private GameTarotTrickInfo doneTrickInfo;
@@ -429,7 +432,7 @@ public final class GameTarotCommonPlaying {
         boolean contientExcuse_ = _info.isContientExcuse();
         HandTarot cartesJouees_ = _info.getCartesJouees();
         EnumMap<Suit,EqList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
-        return  GameTarotCommonPlaying.maitreAtout(suites_.getVal(Suit.TRUMP),
+        return GameTarotCommonPlaying.maitreAtout(suites_.getVal(Suit.TRUMP),
                 cartesJouees_, contientExcuse_);
     }
     /**
@@ -620,13 +623,9 @@ public final class GameTarotCommonPlaying {
 
     static EnumList<Suit> couleursLesMoinsEntameesParJoueurs(
             CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
-        return couleursTrieesMoinsEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).first();
+        return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).last();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesMoinsEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
-        return _couleurs.getGroupsSameCompare(new GameTarotLeastDemandedSuitComparator(_plisFaits, _joueurs));
-    }
     static EqList<HandTarot> cartesRelativementMaitreEncours(
             EqList<HandTarot> _suites,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
