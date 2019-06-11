@@ -240,7 +240,6 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR);
-        boolean passeBoucle_=false;
         CustList<TrickTarot> plisFaits_=partie_.unionPlis(false);
         int nbTricks_ = plisFaits_.size();
         for(int indicePli_=CustList.SECOND_INDEX;indicePli_<nbTricks_;indicePli_++) {
@@ -297,11 +296,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                 container.tapisTarot().setCarteTarot(lg_,joueur_,carte_);
                 if(joueur_==DealTarot.NUMERO_UTILISATEUR) {
                     if(indicePli_<plisFaits_.size()-1) {
-                        if(!passeBoucle_) {
-                            afficherMainUtilisateurSimuTarot(mainsUtilisateurs_.get(indiceMainDepart_+indicePli_-1));
-                        } else {
-                            afficherMainUtilisateurSimuTarot(mainsUtilisateurs_.get(indiceMainDepart_+indicePli_-2));
-                        }
+                        afficherMainUtilisateurSimuTarot(mainsUtilisateurs_.get(indiceMainDepart_+indicePli_-1));
                     } else {
                         afficherMainUtilisateurSimuTarot(new HandTarot());
                     }
@@ -313,7 +308,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                     return;
                 }
             }
-            byte ramasseur_=GameTarotCommonPlaying.ramasseur(plisFaits_,(byte)indicePli_);
+            byte ramasseur_=pli_.getRamasseur(partie_.getNombreDeJoueurs());
             String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
             event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_)),ContainerGame.RETURN_LINE);
             event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);

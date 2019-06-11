@@ -7,12 +7,9 @@ import cards.tarot.enumerations.ModeTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
 import org.junit.Test;
 
-import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
     @Test
@@ -71,7 +68,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -131,7 +128,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -191,7 +188,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -257,7 +254,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -319,7 +316,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -385,7 +382,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -451,7 +448,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -517,7 +514,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 0));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 0);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -577,7 +574,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 2));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 2);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -637,7 +634,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 2));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 2);
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -697,7 +694,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 2));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 2);
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -757,7 +754,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 3));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 3);
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -818,7 +815,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe((byte) 3));
         GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_, (byte) 3);
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }

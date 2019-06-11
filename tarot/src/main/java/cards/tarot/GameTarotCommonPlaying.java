@@ -1,6 +1,7 @@
 package cards.tarot;
 
 import cards.consts.Hypothesis;
+import cards.consts.Status;
 import cards.consts.Suit;
 import cards.tarot.comparators.GameTarotMostDemandedSuitComparator;
 import cards.tarot.enumerations.CardTarot;
@@ -117,7 +118,7 @@ public final class GameTarotCommonPlaying {
     TarotInfoPliEnCours initInformations(
             HandTarot _lastHand,
             HandTarot _cartes,
-            HandTarot _cartesJouables) {
+            HandTarot _cartesJouables, Status _currentStatus) {
         lastHand = _lastHand;
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
@@ -172,6 +173,7 @@ public final class GameTarotCommonPlaying {
         info_.setCouleursMaitresses(couleursMaitresses_);
         info_.setCartesMaitresses(cartesMaitresses_);
         info_.setMaitreJeu(maitreJeu_);
+        info_.setDefender(_currentStatus == Status.DEFENDER);
         info_.setCoupesFranches(coupesFranches_);
         info_.setCalledSuits(couleursAppelees());
         info_.setProgressingTrick(doneTrickInfo.getProgressingTrick());
@@ -219,6 +221,17 @@ public final class GameTarotCommonPlaying {
             }
         }
         return joueursNAyantPasJoue_;
+    }
+    static HandTarot getVirtualCards(GameTarotCommonPlaying _info, Status _s, HandTarot _called) {
+        HandTarot cartesChien_;
+        HandTarot cartesFictives_ = new HandTarot();
+        cartesChien_ = _info.cartesVuesAuChien();
+        if (_s == Status.CALLED_PLAYER) {
+            cartesFictives_.ajouterCartes(cartesChien_);
+        } else if (_s == Status.TAKER) {
+            cartesFictives_.ajouterCartes(_called);
+        }
+        return cartesFictives_;
     }
     HandTarot cartesVuesAuChien() {
         HandTarot cartes_ = new HandTarot();
@@ -577,25 +590,18 @@ public final class GameTarotCommonPlaying {
         }
         return m;
     }
-    static Numbers<Byte> tours(Suit _couleur, CustList<TrickTarot> _plisFaits) {
-        Numbers<Byte> tricksNumbers_ = new Numbers<Byte>();
-        byte key_ = 0;
+    static CustList<TrickTarot> tours(Suit _couleur, CustList<TrickTarot> _plisFaits) {
+        CustList<TrickTarot> tricksNumbers_ = new CustList<TrickTarot>();
         for (TrickTarot pli_ : _plisFaits) {
             if (!pli_.getVuParToutJoueur()) {
-                key_++;
                 continue;
             }
             if (pli_.couleurDemandee() != _couleur) {
-                key_++;
                 continue;
             }
-            tricksNumbers_.add(key_);
-            key_++;
+            tricksNumbers_.add(pli_);
         }
         return tricksNumbers_;
-    }
-    public static byte ramasseur(CustList<TrickTarot> _plisFaits, byte _numeroPli) {
-        return _plisFaits.get(_numeroPli).getRamasseur();
     }
     static Numbers<Byte> ramasseurs(CustList<TrickTarot> _plisFaits) {
         Numbers<Byte> ramasseurs_ = new Numbers<Byte>();

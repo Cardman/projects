@@ -9,6 +9,7 @@ import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class GameTarotCommonPlayingTest extends CommonGameTarot {
@@ -4497,19 +4498,19 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Numbers<Byte> tours_ = GameTarotCommonPlaying.tours(Suit.HEART, trs_);
+        CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(Suit.HEART, trs_);
         assertEq(3, tours_.size());
-        assertTrue(tours_.contains(1));
-        assertTrue(tours_.contains(2));
-        assertTrue(tours_.contains(3));
+        assertSame(CardTarot.HEART_1,tours_.get(0).premiereCarte());
+        assertSame(CardTarot.HEART_QUEEN,tours_.get(1).premiereCarte());
+        assertSame(CardTarot.HEART_9,tours_.get(2).premiereCarte());
         tours_ = GameTarotCommonPlaying.tours(Suit.DIAMOND, trs_);
         assertEq(3, tours_.size());
-        assertTrue(tours_.contains(5));
-        assertTrue(tours_.contains(6));
-        assertTrue(tours_.contains(7));
+        assertSame(CardTarot.DIAMOND_KING,tours_.get(0).premiereCarte());
+        assertSame(CardTarot.DIAMOND_QUEEN,tours_.get(1).premiereCarte());
+        assertSame(CardTarot.DIAMOND_JACK,tours_.get(2).premiereCarte());
         tours_ = GameTarotCommonPlaying.tours(Suit.SPADE, trs_);
         assertEq(1, tours_.size());
-        assertTrue(tours_.contains(4));
+        assertSame(CardTarot.SPADE_2,tours_.get(0).premiereCarte());
         assertEq(0, GameTarotCommonPlaying.tours(Suit.CLUB,trs_).size());
     }
     @Test

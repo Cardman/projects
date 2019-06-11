@@ -25,6 +25,7 @@ final class TarotInfoPliEnCours {
     private EnumList<Suit> couleursMaitresses;
     private EnumMap<Suit,HandTarot> cartesMaitresses;
     private boolean maitreJeu;
+    private boolean defender;
     private EnumList<Suit> coupesFranches;
     private EnumList<Suit> calledSuits;
     private GameTarotTeamsRelation teamsRelation;
@@ -175,6 +176,14 @@ final class TarotInfoPliEnCours {
 
     public void setMaitreJeu(boolean _maitreJeu) {
         maitreJeu = _maitreJeu;
+    }
+
+    public boolean isDefender() {
+        return defender;
+    }
+
+    public void setDefender(boolean _defender) {
+        defender = _defender;
     }
 
     public EnumList<Suit> getCoupesFranches() {

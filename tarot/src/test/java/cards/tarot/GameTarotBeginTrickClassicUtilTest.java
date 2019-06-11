@@ -748,7 +748,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         assertTrue(!GameTarotBeginTrickClassic.noTrumping(repartition_,infoTr_.getCartesPossibles(),infoTr_.getJoueursNonJoue(), (byte) 5));
     }
     @Test
@@ -874,7 +874,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         assertTrue(GameTarotBeginTrickClassic.noTrumping(repartition_,infoTr_.getCartesPossibles(),infoTr_.getJoueursNonJoue(), (byte) 5));
     }
     @Test
@@ -933,7 +933,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         assertTrue(!GameTarotBeginTrickClassic.allSuitOwnLeadingCard(repartition_,infoTr_.getCartesMaitresses()));
     }
     @Test
@@ -1059,7 +1059,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         assertTrue(GameTarotBeginTrickClassic.allSuitOwnLeadingCard(repartition_,infoTr_.getCartesMaitresses()));
     }
     @Test
@@ -1152,7 +1152,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         HandTarot trumps_ = infoTr_.getCartesJouees().couleur(Suit.TRUMP);
         assertTrue(GameTarotBeginTrickClassic.jouerAtout(curHand_,trumps_,infoTr_.getCartesPossibles(), (byte) 5));
     }
@@ -1212,7 +1212,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         HandTarot trumps_ = infoTr_.getCartesJouees().couleur(Suit.TRUMP);
         assertTrue(!GameTarotBeginTrickClassic.jouerAtout(curHand_,trumps_,infoTr_.getCartesPossibles(), (byte) 5));
     }
@@ -1333,7 +1333,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         HandTarot trumps_ = infoTr_.getCartesJouees().couleur(Suit.TRUMP);
         assertTrue(GameTarotBeginTrickClassic.jouerAtout(curHand_,trumps_,infoTr_.getCartesPossibles(), (byte) 5));
     }
@@ -1559,7 +1559,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         addCard(infoTr_.getCartesCertaines(),2,CardTarot.TRUMP_19);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_KNIGHT);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_JACK);
@@ -1624,7 +1624,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursCoupeePar(curHand_, (byte) 2, infoTr_.getCartesPossibles(), infoTr_.getCartesCertaines(), Suit.couleursOrdinaires());
         assertEq(0, suits_.size());
     }
@@ -1684,7 +1684,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         addCard(infoTr_.getCartesCertaines(),2,CardTarot.TRUMP_19);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_KNIGHT);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_JACK);
@@ -1748,7 +1748,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         addCard(infoTr_.getCartesCertaines(),2,CardTarot.TRUMP_19);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_KNIGHT);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_JACK);
@@ -1813,7 +1813,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         addCard(infoTr_.getCartesCertaines(),2,CardTarot.TRUMP_19);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_KNIGHT);
         removeCard(infoTr_.getCartesPossibles(),2, CardTarot.HEART_JACK);
@@ -1964,7 +1964,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursAvecCartesMaitressesVuesChien(curHand_, infoTr_.getCartesJouees(), last_, Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -2020,7 +2020,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursAvecCartesMaitressesVuesChien(curHand_, infoTr_.getCartesJouees(), last_, Suit.couleursOrdinaires());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
@@ -2069,7 +2069,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = curHand_.couleurs();
         GameTarotCommonPlaying gc_ = new GameTarotCommonPlaying(info_,team_);
         HandTarot playable_ = gc_.cartesJouables(calledCards_, repartition_);
-        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_);
+        TarotInfoPliEnCours infoTr_ = gc_.initInformations(last_, curHand_,playable_, team_.statutDe(pr_.getNextPlayer(team_.getNombreDeJoueurs())));
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursAvecCartesMaitressesVuesChien(curHand_, infoTr_.getCartesJouees(), last_, Suit.couleursOrdinaires());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
