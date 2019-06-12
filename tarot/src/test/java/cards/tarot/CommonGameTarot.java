@@ -131,6 +131,23 @@ public abstract class CommonGameTarot {
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
     }
+    protected static void addSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
+        int nbPl_ = _info.getTeamsRelation().getNombreDeJoueurs();
+        for (int i = 0; i < nbPl_; i++) {
+            if (i == _p) {
+                HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+                if (!h_.contient(_c)) {
+                    h_.ajouter(_c);
+                }
+                h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
+                if (!h_.contient(_c)) {
+                    h_.ajouter(_c);
+                }
+            } else {
+                _info.getCartesPossibles().getVal(_c.couleur()).get(_p).removeCardIfPresent(_c);
+            }
+        }
+    }
     protected static void addCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
         HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
         if (h_.contient(_c)) {
@@ -140,6 +157,13 @@ public abstract class CommonGameTarot {
     }
 
 
+    protected static void removePossibleCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
+        if (_info.getCartesCertaines().getVal(_c.couleur()).get(_p).contient(_c)) {
+            return;
+        }
+        HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        h_.removeCardIfPresent(_c);
+    }
     protected static void removeCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
         HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
         h_.removeCardIfPresent(_c);
