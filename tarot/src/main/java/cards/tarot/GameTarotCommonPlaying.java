@@ -35,7 +35,7 @@ public final class GameTarotCommonPlaying {
         if (doneTrickInfo.getProgressingTrick().couleurDemandee() == Suit.UNDEFINED) {
             if (premierTour() && _calledCards.total() == 1) {
                 Suit couleurAppele_ = _calledCards.premiereCarte().couleur();
-                if (nombreCartes_ > _repartitionMain
+                if (Suit.couleursOrdinaires().containsObj(couleurAppele_) && nombreCartes_ > _repartitionMain
                         .getVal(couleurAppele_).total()) {
                     cartesJouables_.ajouterCartes(_repartitionMain
                             .getVal(CardTarot.excuse().couleur()));
@@ -123,7 +123,7 @@ public final class GameTarotCommonPlaying {
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
-        CustList<TrickTarot> plisFaits_ = unionPlis(false);
+        CustList<TrickTarot> plisFaits_ = unionPlis();
         HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(teamsRelation,nextPlayer_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
@@ -187,21 +187,17 @@ public final class GameTarotCommonPlaying {
         //CustList<Byte> joueursJoue
         return info_;
     }
-    public CustList<TrickTarot> unionPlis(boolean _addAllTricks) {
+    public CustList<TrickTarot> unionPlis() {
         CustList<TrickTarot> unionPlis_ = new CustList<TrickTarot>();
         if(teamsRelation.existePreneur()) {
             unionPlis_.addAllElts(doneTrickInfo.getTricks());
             return unionPlis_;
         }
-        if (_addAllTricks) {
-            unionPlis_.addAllElts(doneTrickInfo.getTricks());
-        } else {
-            for (TrickTarot t: doneTrickInfo.getTricks()) {
-                if (!t.getVuParToutJoueur()) {
-                    continue;
-                }
-                unionPlis_.add(t);
+        for (TrickTarot t: doneTrickInfo.getTricks()) {
+            if (!t.getVuParToutJoueur()) {
+                continue;
             }
+            unionPlis_.add(t);
         }
         return unionPlis_;
     }
@@ -222,17 +218,7 @@ public final class GameTarotCommonPlaying {
         }
         return joueursNAyantPasJoue_;
     }
-    static HandTarot getVirtualCards(GameTarotCommonPlaying _info, Status _s, HandTarot _called) {
-        HandTarot cartesChien_;
-        HandTarot cartesFictives_ = new HandTarot();
-        cartesChien_ = _info.cartesVuesAuChien();
-        if (_s == Status.CALLED_PLAYER) {
-            cartesFictives_.ajouterCartes(cartesChien_);
-        } else if (_s == Status.TAKER) {
-            cartesFictives_.ajouterCartes(_called);
-        }
-        return cartesFictives_;
-    }
+
     HandTarot cartesVuesAuChien() {
         HandTarot cartes_ = new HandTarot();
         if (doneTrickInfo.getBid().getJeuChien() == PlayingDog.WITH) {
@@ -622,7 +608,7 @@ public final class GameTarotCommonPlaying {
         return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusEntameesParJoueurs(
+    private static CustList<EnumList<Suit>> couleursTrieesPlusEntameesParJoueurs(
             CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameTarotMostDemandedSuitComparator(_plisFaits, _joueurs));
     }

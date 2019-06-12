@@ -121,6 +121,17 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         regles_.setContrats(contrats_);
         return regles_;
     }
+    static RulesTarot initializeRulesWithBidsVariant() {
+        RulesTarot regles_=new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
+        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
+        for (BidTarot b: regles_.getContrats().getKeys()) {
+            contrats_.put(b,true);
+        }
+        regles_.setContrats(contrats_);
+        return regles_;
+    }
     @Test
     public void playableCards_beginningTrickFree1Test() {
         RulesTarot regles_=initializeRulesWithBids();
@@ -288,6 +299,40 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
+        assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
+    }
+    @Test
+    public void playableCards_beginningTrickWithConstraintOnExcuse4Test() {
+        RulesTarot regles_=initializeRulesWithBidsVariant();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 3),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.TRUMP_21);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.jouer(game.getPreneur(), CardTarot.EXCUSE);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
+
+        assertEq(4,game.getEntameur());
+
+        HandTarot hand_ = game.getDistribution().main(game.playerAfter(game.getEntameur()));
+        HandTarot playableCards_ = game.playableCards(hand_.couleurs());
+        assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test

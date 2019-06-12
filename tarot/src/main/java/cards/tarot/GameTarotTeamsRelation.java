@@ -82,22 +82,6 @@ public final class GameTarotTeamsRelation {
         return _joueur == (_joueurPrecedent + 1) % _nombreJoueurs;
     }
 
-    static boolean apresJoueur(byte _joueur, byte _joueurPrecedent,
-                                       byte _nombreJoueurs) {
-        byte joueur_ = _joueurPrecedent;
-        byte nombreIterations_ = (byte) (_nombreJoueurs / 2);
-        if (_nombreJoueurs % 2 == 0) {
-            nombreIterations_--;
-        }
-        for (byte j = CustList.FIRST_INDEX; j < nombreIterations_; j++) {
-            joueur_++;
-            joueur_ %= _nombreJoueurs;
-            if (joueur_ == _joueur) {
-                return true;
-            }
-        }
-        return false;
-    }
     Numbers<Byte> tousCoequipiers(byte _joueur) {
         Numbers<Byte> equipe_ = new Numbers<Byte>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
