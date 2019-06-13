@@ -212,7 +212,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 1, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(team_,pr_.getNextPlayer((byte) 5));
+        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
         CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
         assertSame(CardTarot.TRUMP_21,card_);
     }
@@ -336,7 +336,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 1, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(team_,pr_.getNextPlayer((byte) 5));
+        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
         CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
         assertSame(CardTarot.DIAMOND_KING,card_);
     }
@@ -466,7 +466,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 1, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(team_,pr_.getNextPlayer((byte) 5));
+        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
         CardTarot card_ = GameTarotBeginTrickClassic.jeuMainMaitresse(curHand_, cartesJouees_);
         assertSame(CardTarot.TRUMP_1,card_);
     }
@@ -630,7 +630,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 1, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(team_,pr_.getNextPlayer((byte) 5));
+        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
         CardTarot card_ = GameTarotBeginTrickClassic.jeuAvecCarteMaitresseSansAtout(curHand_,cartesJouees_,Suit.couleursOrdinaires());
         assertSame(CardTarot.DIAMOND_KING,card_);
     }
@@ -687,7 +687,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 1, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(team_,pr_.getNextPlayer((byte) 5));
+        HandTarot cartesJouees_ = info_.cartesJoueesEnCours(pr_.getNextPlayer((byte) 5));
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursSansCarteMaitresse(curHand_, cartesJouees_, Suit.couleursOrdinaires());
         assertEq(1,suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));

@@ -31,7 +31,7 @@ public final class GameTarotDeclaring {
             chienInvisible_ = true;
         }
         if (teamsRelation.getTaker() != _numeroJoueur || teamsRelation.existeAppele() || !_calledCards.estVide()
-                && chienInvisible_ || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(teamsRelation,_numeroJoueur).couleurs())) {
+                && chienInvisible_ || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(_numeroJoueur).couleurs())) {
             EnumList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
             EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
             for(Handfuls p: poigneesOrdonnees_) {

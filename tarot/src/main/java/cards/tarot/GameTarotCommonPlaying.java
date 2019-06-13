@@ -87,24 +87,22 @@ public final class GameTarotCommonPlaying {
     TarotInfoPliEnCours initInformations(
             HandTarot _lastHand,
             HandTarot _cartes,
-            HandTarot _cartesJouables, Status _currentStatus) {
+            HandTarot _cartesJouables, Status _currentStatus,
+            Numbers<Byte> _confident, Numbers<Byte> _notConfident) {
         lastHand = _lastHand;
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickTarot> plisFaits_ = unionPlis();
-        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(teamsRelation,nextPlayer_);
+        HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(nextPlayer_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
         boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         Numbers<Byte> joueursJoue_ = GameTarotTeamsRelation.autresJoueurs(joueursNonJoue_, nombreDeJoueurs_);
         joueursJoue_.removeObj(nextPlayer_);
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(
-                teamsRelation,
-                _cartes
-        );
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(teamsRelation,cartesPossibles_);
+        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
+        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
@@ -148,9 +146,8 @@ public final class GameTarotCommonPlaying {
         info_.setProgressingTrick(doneTrickInfo.getProgressingTrick());
         info_.setNbPlayers(nombreDeJoueurs_);
         info_.setTaker(teamsRelation.getTaker());
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_);
-        info_.setJoueursConfiance(teamsRelation.joueursConfiance(nextPlayer_, all_));
-        info_.setJoueursNonConfiance(teamsRelation.joueursNonConfiance(nextPlayer_, all_));
+        info_.setJoueursConfiance(_confident);
+        info_.setJoueursNonConfiance(_notConfident);
         //depend de partie et de cartesJouables
         //carteEntamee
         //joueursNonJoue

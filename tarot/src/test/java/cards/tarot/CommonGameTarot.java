@@ -129,7 +129,7 @@ public abstract class CommonGameTarot {
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain());
+        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
         return gameTarotTrickInfo_;
     }
     protected static void addSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {

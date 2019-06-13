@@ -282,7 +282,7 @@ public final class GameTarotBeginTrickClassic {
     }
 
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(info.getLastHand(), currentHand,playableCards, currentStatus);
+        return common.initInformations(info.getLastHand(), currentHand,playableCards, currentStatus,confidentPlayers,notConfidentPlayers);
     }
     CardTarot playWithAtMostOneSuitCard(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();

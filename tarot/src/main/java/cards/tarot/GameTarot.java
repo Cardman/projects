@@ -94,8 +94,6 @@ public final class GameTarot {
 
     private CardTarot playedCard = CardTarot.WHITE;
 
-    private StringBuilder reason = new StringBuilder();
-
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {
     }
@@ -633,7 +631,6 @@ public final class GameTarot {
     }
     //pour le conseil lorsqu'aucune carte n'est ecartee
     public CallDiscard strategieAppelApresEcart(boolean _removeDog) {
-        reason = new StringBuilder();
         CallDiscard appelEcart_ = new CallDiscard();
         HandTarot mainPreneur_ = getDistribution().main(taker);
         EqList<HandTarot> cartesAppelablesFinales_ = new EqList<HandTarot>();
@@ -723,7 +720,6 @@ public final class GameTarot {
     }
     public HandTarot strategieAppel() {
         HandTarot mainPreneur_ = getDistribution().main(taker);
-        reason = new StringBuilder();
         return strategieAppel(mainPreneur_);
     }
 
@@ -738,10 +734,6 @@ public final class GameTarot {
     public void setCarteAppelee(HandTarot _c) {
         calledCards = new HandTarot();
         calledCards.ajouterCartes(_c);
-    }
-
-    public boolean existeCarteAppelee() {
-        return !calledCards.estVide();
     }
 
     public HandTarot getCarteAppelee() {
@@ -880,7 +872,6 @@ public final class GameTarot {
     }
     public boolean annoncerUnChelem(byte _numeroJoueur) {
         HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
-        reason = new StringBuilder();
         return annoncerUnChelem(mainJoueur_);
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur) {
@@ -955,7 +946,6 @@ public final class GameTarot {
     }
 
     public HandTarot strategiePoignee(byte _numeroJoueur) {
-        reason = new StringBuilder();
         HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1079,16 +1069,15 @@ public final class GameTarot {
         if(mainJoueur_.contientCartes(calledCards)) {
             return;
         }
-        EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
-        CustList<TrickTarot> plisFaits_ = unionPlis();
-        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotTeamsRelation teamRel_ = getTeamsRelation();
-        HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(teamRel_,numero_);
-        boolean carteAppeleeJouee_ = carteAppeleeJouee(cartesJouees_);
+        boolean carteAppeleeJouee_ = carteAppeleeJouee();
         if(carteAppeleeJouee_) {
             teamRel_.determinerConfiance(numero_, nombreDeJoueurs_);
             return;
         }
+        EnumMap<Suit,HandTarot> repartition_ = mainJoueur_.couleurs();
+        GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
+        HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(numero_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         CustList<EqList<HandTarot>> suites_ = new CustList<EqList<HandTarot>>();
         suites_.add(new EqList<HandTarot>());
@@ -1098,14 +1087,12 @@ public final class GameTarot {
             suites_.add(repartition_.getVal(i).eclaterEnCours(
                     repartitionCartesJouees_, i));
         }
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(
-                teamRel_,
-                mainJoueur_
-        );
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(teamRel_,cartesPossibles_);
+        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
+        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
+        CustList<TrickTarot> plisFaits_ = unionPlis();
         plisFaits_.add(progressingTrick);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(teamRel_,calledCards, plisFaits_, numero_, cartesPossibles_,
                 cartesCertaines_);
@@ -1116,7 +1103,6 @@ public final class GameTarot {
     }
 
     public CardTarot strategieJeuCarteUnique() {
-        reason = new StringBuilder();
         CardTarot card_;
         if (progressingTrick.estVide()) {
             card_ = entame();
@@ -1169,11 +1155,16 @@ public final class GameTarot {
     Renvoie vrai si et seulement si la carte appelee n'existe pas pour cette
     partie ou si la carte appelee existe et est jouee
     */
-    public boolean carteAppeleeJouee(HandTarot _cartesJouees) {
-        if (!existeCarteAppelee()) {
-            return true;
+    public boolean carteAppeleeJouee() {
+        HandTarot m = new HandTarot();
+        for (TrickTarot t: tricks) {
+            if (!t.getVuParToutJoueur()) {
+                continue;
+            }
+            m.ajouterCartes(t.getCartes());
         }
-        return _cartesJouees.contientCartes(calledCards);
+        m.ajouterCartes(progressingTrick.getCartes());
+        return m.contientCartes(calledCards);
     }
 
     boolean confiance(byte _joueur, byte _enjoueur) {
@@ -1328,7 +1319,7 @@ public final class GameTarot {
                 declaresMiseres,
                 handfuls, bid, calledCards,
                 handLengths_);
-        gameTarotTrickInfo_.addSeenDeck(deal.derniereMain());
+        gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),getTeamsRelation());
         return gameTarotTrickInfo_;
     }
     public Numbers<Short> getScores() {
@@ -1385,9 +1376,6 @@ public final class GameTarot {
 
     public GameType getType() {
         return type;
-    }
-    public String getRaison() {
-        return reason.toString();
     }
 
     public CustList<TrickTarot> getTricks() {

@@ -15,6 +15,8 @@ public final class GameTarotMisere {
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
     private HandTarot playableCards;
+    private Numbers<Byte> confidentPlayers;
+    private Numbers<Byte> notConfidentPlayers;
 
     public GameTarotMisere(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                            HandTarot _currentHand) {
@@ -22,7 +24,12 @@ public final class GameTarotMisere {
         teamsRelation = _teamsRelation;
         currentHand = _currentHand;
         common = new GameTarotCommonPlaying(_done,_teamsRelation);
+        byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
+        TrickTarot trTarot_ = _done.getProgressingTrick();
+        byte nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
         playableCards = common.cartesJouables(currentHand.couleurs());
+        confidentPlayers = _teamsRelation.joueursConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
+        notConfidentPlayers = _teamsRelation.joueursNonConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
     }
 
     CardTarot entame() {
@@ -315,7 +322,7 @@ public final class GameTarotMisere {
                 repartitionCartesJouees_);
     }
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, Status.TAKER);
+        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, Status.TAKER,confidentPlayers,notConfidentPlayers);
     }
 
     private static CardTarot depouilleFigure(EnumList<Suit> _couleurs,

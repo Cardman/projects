@@ -3,6 +3,7 @@ package cards.tarot;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
+import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
 import code.util.*;
@@ -4888,8 +4889,20 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         ls_.add(15);
         ls_.add(14);
         GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,m_,h_,BidTarot.TAKE,new HandTarot(),ls_);
-        gt_.addSeenDeck(l_);
-        GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(gt_, new GameTarotTeamsRelation((byte) 0,new Numbers<Byte>(),new CustList<BooleanList>(),new RulesTarot()));
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        CustList<BooleanList> confidence_ = new CustList<BooleanList>();
+        for (int i = 0; i < 4; i++) {
+            BooleanList b_ = new BooleanList();
+            for (int j = 0; j < 4; j++) {
+                b_.add(i==j);
+            }
+            confidence_.add(b_);
+        }
+        Numbers<Byte> calledPlayers_ = new Numbers<Byte>();
+        GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation((byte) 0, calledPlayers_, confidence_, r_);
+        gt_.addSeenDeck(l_, rel_);
+        GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(gt_, rel_);
         Numbers<Byte> players_ = g_.joueursNAyantPasJoue((byte) 2);
         assertEq(1, players_.size());
         assertTrue(players_.contains(3));

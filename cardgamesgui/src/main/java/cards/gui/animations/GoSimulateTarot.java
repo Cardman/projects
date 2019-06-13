@@ -159,7 +159,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         container.getMini().setStatus(Status.TAKER, partie_.getPreneur());
         Numbers<Byte> appele_=partie_.getAppele();
         if (partie_.getRegles().getDiscardAfterCall()) {
-            if(partie_.existeCarteAppelee()) {
+            if(!partie_.getCarteAppelee().estVide()) {
                 event_ = StringList.concat(container.getMessages().getVal(MainWindow.TAKER_CALL),ContainerGame.RETURN_LINE);
 //                container.ajouterTexteDansZone(StringList.concat(container.getMessages().getVal(MainWindow.TAKER_CALL),ContainerGame.RETURN_LINE));
                 event_ = StringList.concat(event_,container.getMessages().getVal(MainWindow.TAKER_CALL_WARNING),ContainerGame.RETURN_LINE);
@@ -198,7 +198,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
             appelEcart(preneur_, appele_, mainsUtilisateurs_);
         } else {
             appelEcart(preneur_, appele_, mainsUtilisateurs_);
-            if(partie_.existeCarteAppelee()) {
+            if(!partie_.getCarteAppelee().estVide()) {
                 event_ = StringList.concat(container.getMessages().getVal(MainWindow.TAKER_CALL),ContainerGame.RETURN_LINE);
                 event_ = StringList.concat(event_,container.getMessages().getVal(MainWindow.TAKER_CALL_WARNING),ContainerGame.RETURN_LINE);
                 event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);
@@ -288,7 +288,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                         }
                     }
                 }
-                if(partie_.existeCarteAppelee()&&partie_.getCarteAppelee().contient(carte_)) {
+                if(!partie_.getCarteAppelee().estVide()&&partie_.getCarteAppelee().contient(carte_)) {
                     mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
                     container.getMini().setStatus(Status.CALLED_PLAYER, joueur_);
                     event_ = StringList.concat(StringList.simpleStringsFormat(mess_,pseudos_.get(joueur_),Games.toString(Status.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
